@@ -255,7 +255,10 @@ impl std::fmt::Debug for super::alert_policy::AlertStrategy {
         debug_struct.field("notification_rate_limit", &self.notification_rate_limit);
         debug_struct.field("notification_prompts", &self.notification_prompts);
         debug_struct.field("auto_close", &self.auto_close);
-        debug_struct.field("notification_channel_strategy", &self.notification_channel_strategy);
+        debug_struct.field(
+            "notification_channel_strategy",
+            &self.notification_channel_strategy,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -277,7 +280,10 @@ impl std::fmt::Debug for super::alert_policy::alert_strategy::NotificationRateLi
 impl std::fmt::Debug for super::alert_policy::alert_strategy::NotificationChannelStrategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationChannelStrategy");
-        debug_struct.field("notification_channel_names", &self.notification_channel_names);
+        debug_struct.field(
+            "notification_channel_names",
+            &self.notification_channel_names,
+        );
         debug_struct.field("renotify_interval", &self.renotify_interval);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -285,7 +291,6 @@ impl std::fmt::Debug for super::alert_policy::alert_strategy::NotificationChanne
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CreateAlertPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -925,8 +930,6 @@ impl std::fmt::Debug for super::NotificationChannel {
     }
 }
 
-
-
 impl std::fmt::Debug for super::ListNotificationChannelDescriptorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNotificationChannelDescriptorsRequest");
@@ -1164,7 +1167,10 @@ impl std::fmt::Debug for super::service::IstioCanonicalService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IstioCanonicalService");
         debug_struct.field("mesh_uid", &self.mesh_uid);
-        debug_struct.field("canonical_service_namespace", &self.canonical_service_namespace);
+        debug_struct.field(
+            "canonical_service_namespace",
+            &self.canonical_service_namespace,
+        );
         debug_struct.field("canonical_service", &self.canonical_service);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1253,7 +1259,6 @@ impl std::fmt::Debug for super::service::Telemetry {
     }
 }
 
-
 impl std::fmt::Debug for super::ServiceLevelObjective {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceLevelObjective");
@@ -1269,7 +1274,6 @@ impl std::fmt::Debug for super::ServiceLevelObjective {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ServiceLevelIndicator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1478,7 +1482,10 @@ impl std::fmt::Debug for super::CreateServiceLevelObjectiveRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServiceLevelObjectiveRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("service_level_objective_id", &self.service_level_objective_id);
+        debug_struct.field(
+            "service_level_objective_id",
+            &self.service_level_objective_id,
+        );
         debug_struct.field("service_level_objective", &self.service_level_objective);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1745,7 +1752,10 @@ impl std::fmt::Debug for super::uptime_check_config::HttpCheck {
         debug_struct.field("custom_content_type", &self.custom_content_type);
         debug_struct.field("validate_ssl", &self.validate_ssl);
         debug_struct.field("body", &self.body);
-        debug_struct.field("accepted_response_status_codes", &self.accepted_response_status_codes);
+        debug_struct.field(
+            "accepted_response_status_codes",
+            &self.accepted_response_status_codes,
+        );
         debug_struct.field("ping_config", &self.ping_config);
         debug_struct.field("auth_method", &self.auth_method);
         if !self._unknown_fields.is_empty() {
@@ -1789,7 +1799,6 @@ impl std::fmt::Debug for super::uptime_check_config::http_check::ServiceAgentAut
     }
 }
 
-
 impl std::fmt::Debug for super::uptime_check_config::TcpCheck {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TcpCheck");
@@ -1826,7 +1835,6 @@ impl std::fmt::Debug for super::uptime_check_config::content_matcher::JsonPathMa
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::UptimeCheckIp {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

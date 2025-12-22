@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -33,6 +32,7 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -46,7 +46,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AptArtifact {
-
     /// Output only. The Artifact Registry resource name of the artifact.
     pub name: std::string::String,
 
@@ -106,7 +105,10 @@ impl AptArtifact {
     /// let x0 = AptArtifact::new().set_package_type(PackageType::Binary);
     /// let x1 = AptArtifact::new().set_package_type(PackageType::Source);
     /// ```
-    pub fn set_package_type<T: std::convert::Into<crate::model::apt_artifact::PackageType>>(mut self, v: T) -> Self {
+    pub fn set_package_type<T: std::convert::Into<crate::model::apt_artifact::PackageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.package_type = v.into();
         self
     }
@@ -158,7 +160,6 @@ impl wkt::message::Message for AptArtifact {
 pub mod apt_artifact {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Package type is either binary or source.
     ///
@@ -246,7 +247,9 @@ pub mod apt_artifact {
                 0 => Self::Unspecified,
                 1 => Self::Binary,
                 2 => Self::Source,
-                _ => Self::UnknownValue(package_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -258,7 +261,9 @@ pub mod apt_artifact {
                 "PACKAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "BINARY" => Self::Binary,
                 "SOURCE" => Self::Source,
-                _ => Self::UnknownValue(package_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -283,7 +288,8 @@ pub mod apt_artifact {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PackageType>::new(
-                ".google.devtools.artifactregistry.v1.AptArtifact.PackageType"))
+                ".google.devtools.artifactregistry.v1.AptArtifact.PackageType",
+            ))
         }
     }
 }
@@ -292,7 +298,6 @@ pub mod apt_artifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAptArtifactsGcsSource {
-
     /// Cloud Storage paths URI (e.g., gs://my_bucket//my_object).
     pub uris: std::vec::Vec<std::string::String>,
 
@@ -317,7 +322,7 @@ impl ImportAptArtifactsGcsSource {
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
@@ -347,7 +352,6 @@ impl wkt::message::Message for ImportAptArtifactsGcsSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAptArtifactsRequest {
-
     /// The name of the parent resource where the artifacts will be imported.
     pub parent: std::string::String,
 
@@ -386,8 +390,12 @@ impl ImportAptArtifactsRequest {
     /// let x = ImportAptArtifactsRequest::new().set_source(Some(
     ///     google_cloud_artifactregistry_v1::model::import_apt_artifacts_request::Source::GcsSource(ImportAptArtifactsGcsSource::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_apt_artifacts_request::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::import_apt_artifacts_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -395,10 +403,14 @@ impl ImportAptArtifactsRequest {
     /// The value of [source][crate::model::ImportAptArtifactsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>> {
+    pub fn gcs_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_apt_artifacts_request::Source::GcsSource(v) => std::option::Option::Some(v),
+            crate::model::import_apt_artifacts_request::Source::GcsSource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -416,11 +428,14 @@ impl ImportAptArtifactsRequest {
     /// let x = ImportAptArtifactsRequest::new().set_gcs_source(ImportAptArtifactsGcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_apt_artifacts_request::Source::GcsSource(
-                v.into()
-            )
+            crate::model::import_apt_artifacts_request::Source::GcsSource(v.into()),
         );
         self
     }
@@ -437,7 +452,6 @@ pub mod import_apt_artifacts_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The source location of the package binaries.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -451,7 +465,6 @@ pub mod import_apt_artifacts_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAptArtifactsErrorInfo {
-
     /// The detailed error status.
     pub error: std::option::Option<rpc::model::Status>,
 
@@ -475,7 +488,8 @@ impl ImportAptArtifactsErrorInfo {
     /// let x = ImportAptArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -491,7 +505,8 @@ impl ImportAptArtifactsErrorInfo {
     /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -509,8 +524,14 @@ impl ImportAptArtifactsErrorInfo {
     /// let x = ImportAptArtifactsErrorInfo::new().set_source(Some(
     ///     google_cloud_artifactregistry_v1::model::import_apt_artifacts_error_info::Source::GcsSource(ImportAptArtifactsGcsSource::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_apt_artifacts_error_info::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -518,10 +539,14 @@ impl ImportAptArtifactsErrorInfo {
     /// The value of [source][crate::model::ImportAptArtifactsErrorInfo::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>> {
+    pub fn gcs_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_apt_artifacts_error_info::Source::GcsSource(v) => std::option::Option::Some(v),
+            crate::model::import_apt_artifacts_error_info::Source::GcsSource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -539,11 +564,14 @@ impl ImportAptArtifactsErrorInfo {
     /// let x = ImportAptArtifactsErrorInfo::new().set_gcs_source(ImportAptArtifactsGcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_apt_artifacts_error_info::Source::GcsSource(
-                v.into()
-            )
+            crate::model::import_apt_artifacts_error_info::Source::GcsSource(v.into()),
         );
         self
     }
@@ -560,7 +588,6 @@ pub mod import_apt_artifacts_error_info {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The source that was not imported.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -574,7 +601,6 @@ pub mod import_apt_artifacts_error_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAptArtifactsResponse {
-
     /// The Apt artifacts imported.
     pub apt_artifacts: std::vec::Vec<crate::model::AptArtifact>,
 
@@ -604,7 +630,7 @@ impl ImportAptArtifactsResponse {
     pub fn set_apt_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AptArtifact>
+        V: std::convert::Into<crate::model::AptArtifact>,
     {
         use std::iter::Iterator;
         self.apt_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -626,7 +652,7 @@ impl ImportAptArtifactsResponse {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImportAptArtifactsErrorInfo>
+        V: std::convert::Into<crate::model::ImportAptArtifactsErrorInfo>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -644,7 +670,6 @@ impl wkt::message::Message for ImportAptArtifactsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAptArtifactsMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -670,7 +695,6 @@ impl wkt::message::Message for ImportAptArtifactsMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DockerImage {
-
     /// Required. registry_location, project_id, repository_name and image id forms
     /// a unique image
     /// name:`projects/<project_id>/locations/<location>/repositories/<repository_name>/dockerImages/<docker_image>`.
@@ -767,7 +791,7 @@ impl DockerImage {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -795,7 +819,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_upload_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_upload_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.upload_time = std::option::Option::Some(v.into());
         self
@@ -811,7 +836,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_or_clear_upload_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_upload_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.upload_time = v.map(|x| x.into());
         self
@@ -838,7 +864,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_build_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_build_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.build_time = std::option::Option::Some(v.into());
         self
@@ -854,7 +881,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_or_clear_build_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_build_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.build_time = v.map(|x| x.into());
         self
@@ -869,7 +897,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -885,7 +914,8 @@ impl DockerImage {
     /// let x = DockerImage::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -918,7 +948,7 @@ impl DockerImage {
     pub fn set_image_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImageManifest>
+        V: std::convert::Into<crate::model::ImageManifest>,
     {
         use std::iter::Iterator;
         self.image_manifests = v.into_iter().map(|i| i.into()).collect();
@@ -936,7 +966,6 @@ impl wkt::message::Message for DockerImage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageManifest {
-
     /// Optional. The CPU architecture of the image.
     /// Values are provided by the Docker client and are not validated by Artifact
     /// Registry. Example values include "amd64", "arm64", "ppc64le", "s390x",
@@ -1045,7 +1074,7 @@ impl ImageManifest {
     pub fn set_os_features<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.os_features = v.into_iter().map(|i| i.into()).collect();
@@ -1075,7 +1104,6 @@ impl wkt::message::Message for ImageManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDockerImagesRequest {
-
     /// Required. The name of the parent resource whose docker images will be
     /// listed.
     pub parent: std::string::String,
@@ -1156,7 +1184,6 @@ impl wkt::message::Message for ListDockerImagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDockerImagesResponse {
-
     /// The docker images returned.
     pub docker_images: std::vec::Vec<crate::model::DockerImage>,
 
@@ -1187,7 +1214,7 @@ impl ListDockerImagesResponse {
     pub fn set_docker_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DockerImage>
+        V: std::convert::Into<crate::model::DockerImage>,
     {
         use std::iter::Iterator;
         self.docker_images = v.into_iter().map(|i| i.into()).collect();
@@ -1231,7 +1258,6 @@ impl gax::paginator::internal::PageableResponse for ListDockerImagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDockerImageRequest {
-
     /// Required. The name of the docker images.
     pub name: std::string::String,
 
@@ -1266,7 +1292,6 @@ impl wkt::message::Message for GetDockerImageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MavenArtifact {
-
     /// Required. registry_location, project_id, repository_name and maven_artifact
     /// forms a unique artifact For example,
     /// "projects/test-project/locations/us-west4/repositories/test-repo/mavenArtifacts/
@@ -1376,7 +1401,8 @@ impl MavenArtifact {
     /// let x = MavenArtifact::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1392,7 +1418,8 @@ impl MavenArtifact {
     /// let x = MavenArtifact::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1407,7 +1434,8 @@ impl MavenArtifact {
     /// let x = MavenArtifact::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1423,7 +1451,8 @@ impl MavenArtifact {
     /// let x = MavenArtifact::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1440,7 +1469,6 @@ impl wkt::message::Message for MavenArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMavenArtifactsRequest {
-
     /// Required. The name of the parent resource whose maven artifacts will be
     /// listed.
     pub parent: std::string::String,
@@ -1506,7 +1534,6 @@ impl wkt::message::Message for ListMavenArtifactsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMavenArtifactsResponse {
-
     /// The maven artifacts returned.
     pub maven_artifacts: std::vec::Vec<crate::model::MavenArtifact>,
 
@@ -1537,7 +1564,7 @@ impl ListMavenArtifactsResponse {
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MavenArtifact>
+        V: std::convert::Into<crate::model::MavenArtifact>,
     {
         use std::iter::Iterator;
         self.maven_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -1581,7 +1608,6 @@ impl gax::paginator::internal::PageableResponse for ListMavenArtifactsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMavenArtifactRequest {
-
     /// Required. The name of the maven artifact.
     pub name: std::string::String,
 
@@ -1616,7 +1642,6 @@ impl wkt::message::Message for GetMavenArtifactRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NpmPackage {
-
     /// Required. registry_location, project_id, repository_name and npm_package
     /// forms a unique package For example,
     /// "projects/test-project/locations/us-west4/repositories/test-repo/npmPackages/
@@ -1695,7 +1720,7 @@ impl NpmPackage {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -1711,7 +1736,8 @@ impl NpmPackage {
     /// let x = NpmPackage::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1727,7 +1753,8 @@ impl NpmPackage {
     /// let x = NpmPackage::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1742,7 +1769,8 @@ impl NpmPackage {
     /// let x = NpmPackage::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1758,7 +1786,8 @@ impl NpmPackage {
     /// let x = NpmPackage::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1775,7 +1804,6 @@ impl wkt::message::Message for NpmPackage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNpmPackagesRequest {
-
     /// Required. The name of the parent resource whose npm packages will be
     /// listed.
     pub parent: std::string::String,
@@ -1841,7 +1869,6 @@ impl wkt::message::Message for ListNpmPackagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNpmPackagesResponse {
-
     /// The npm packages returned.
     pub npm_packages: std::vec::Vec<crate::model::NpmPackage>,
 
@@ -1872,7 +1899,7 @@ impl ListNpmPackagesResponse {
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NpmPackage>
+        V: std::convert::Into<crate::model::NpmPackage>,
     {
         use std::iter::Iterator;
         self.npm_packages = v.into_iter().map(|i| i.into()).collect();
@@ -1916,7 +1943,6 @@ impl gax::paginator::internal::PageableResponse for ListNpmPackagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNpmPackageRequest {
-
     /// Required. The name of the npm package.
     pub name: std::string::String,
 
@@ -1951,7 +1977,6 @@ impl wkt::message::Message for GetNpmPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PythonPackage {
-
     /// Required. registry_location, project_id, repository_name and python_package
     /// forms a unique package
     /// name:`projects/<project_id>/locations/<location>/repository/<repository_name>/pythonPackages/<python_package>`.
@@ -2045,7 +2070,8 @@ impl PythonPackage {
     /// let x = PythonPackage::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2061,7 +2087,8 @@ impl PythonPackage {
     /// let x = PythonPackage::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2076,7 +2103,8 @@ impl PythonPackage {
     /// let x = PythonPackage::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2092,7 +2120,8 @@ impl PythonPackage {
     /// let x = PythonPackage::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2109,7 +2138,6 @@ impl wkt::message::Message for PythonPackage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPythonPackagesRequest {
-
     /// Required. The name of the parent resource whose python packages will be
     /// listed.
     pub parent: std::string::String,
@@ -2175,7 +2203,6 @@ impl wkt::message::Message for ListPythonPackagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPythonPackagesResponse {
-
     /// The python packages returned.
     pub python_packages: std::vec::Vec<crate::model::PythonPackage>,
 
@@ -2206,7 +2233,7 @@ impl ListPythonPackagesResponse {
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PythonPackage>
+        V: std::convert::Into<crate::model::PythonPackage>,
     {
         use std::iter::Iterator;
         self.python_packages = v.into_iter().map(|i| i.into()).collect();
@@ -2250,7 +2277,6 @@ impl gax::paginator::internal::PageableResponse for ListPythonPackagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPythonPackageRequest {
-
     /// Required. The name of the python package.
     pub name: std::string::String,
 
@@ -2286,7 +2312,6 @@ impl wkt::message::Message for GetPythonPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attachment {
-
     /// The name of the attachment. E.g.
     /// `projects/p1/locations/us/repositories/repo/attachments/sbom`.
     pub name: std::string::String,
@@ -2309,7 +2334,7 @@ pub struct Attachment {
     /// the user, and not by Artifact Registry. See
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The time when the attachment was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -2378,7 +2403,10 @@ impl Attachment {
     /// # use google_cloud_artifactregistry_v1::model::Attachment;
     /// let x = Attachment::new().set_attachment_namespace("example");
     /// ```
-    pub fn set_attachment_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_attachment_namespace<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.attachment_namespace = v.into();
         self
     }
@@ -2413,7 +2441,8 @@ impl Attachment {
     /// let x = Attachment::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2429,7 +2458,8 @@ impl Attachment {
     /// let x = Attachment::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2444,7 +2474,8 @@ impl Attachment {
     /// let x = Attachment::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2460,7 +2491,8 @@ impl Attachment {
     /// let x = Attachment::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2476,7 +2508,7 @@ impl Attachment {
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
@@ -2490,7 +2522,10 @@ impl Attachment {
     /// # use google_cloud_artifactregistry_v1::model::Attachment;
     /// let x = Attachment::new().set_oci_version_name("example");
     /// ```
-    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.oci_version_name = v.into();
         self
     }
@@ -2506,7 +2541,6 @@ impl wkt::message::Message for Attachment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsRequest {
-
     /// Required. The name of the parent resource whose attachments will be listed.
     pub parent: std::string::String,
 
@@ -2591,7 +2625,6 @@ impl wkt::message::Message for ListAttachmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsResponse {
-
     /// The attachments returned.
     pub attachments: std::vec::Vec<crate::model::Attachment>,
 
@@ -2622,7 +2655,7 @@ impl ListAttachmentsResponse {
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attachment>
+        V: std::convert::Into<crate::model::Attachment>,
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
@@ -2666,7 +2699,6 @@ impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttachmentRequest {
-
     /// Required. The name of the attachment to retrieve.
     pub name: std::string::String,
 
@@ -2701,7 +2733,6 @@ impl wkt::message::Message for GetAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttachmentRequest {
-
     /// Required. The name of the parent resource where the attachment will be
     /// created.
     pub parent: std::string::String,
@@ -2753,7 +2784,8 @@ impl CreateAttachmentRequest {
     /// let x = CreateAttachmentRequest::new().set_attachment(Attachment::default()/* use setters */);
     /// ```
     pub fn set_attachment<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Attachment>
+    where
+        T: std::convert::Into<crate::model::Attachment>,
     {
         self.attachment = std::option::Option::Some(v.into());
         self
@@ -2769,7 +2801,8 @@ impl CreateAttachmentRequest {
     /// let x = CreateAttachmentRequest::new().set_or_clear_attachment(None::<Attachment>);
     /// ```
     pub fn set_or_clear_attachment<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Attachment>
+    where
+        T: std::convert::Into<crate::model::Attachment>,
     {
         self.attachment = v.map(|x| x.into());
         self
@@ -2786,7 +2819,6 @@ impl wkt::message::Message for CreateAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttachmentRequest {
-
     /// Required. The name of the attachment to delete.
     pub name: std::string::String,
 
@@ -2821,7 +2853,6 @@ impl wkt::message::Message for DeleteAttachmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportArtifactRequest {
-
     /// Required. The repository of the artifact to export.
     /// Format: projects/{project}/locations/{location}/repositories/{repository}
     pub repository: std::string::String,
@@ -2863,8 +2894,14 @@ impl ExportArtifactRequest {
     /// use google_cloud_artifactregistry_v1::model::export_artifact_request::SourceArtifact;
     /// let x = ExportArtifactRequest::new().set_source_artifact(Some(SourceArtifact::SourceVersion("example".to_string())));
     /// ```
-    pub fn set_source_artifact<T: std::convert::Into<std::option::Option<crate::model::export_artifact_request::SourceArtifact>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source_artifact<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_artifact_request::SourceArtifact>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_artifact = v.into();
         self
     }
@@ -2875,7 +2912,9 @@ impl ExportArtifactRequest {
     pub fn source_version(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_artifact.as_ref().and_then(|v| match v {
-            crate::model::export_artifact_request::SourceArtifact::SourceVersion(v) => std::option::Option::Some(v),
+            crate::model::export_artifact_request::SourceArtifact::SourceVersion(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2895,9 +2934,7 @@ impl ExportArtifactRequest {
     /// ```
     pub fn set_source_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_artifact = std::option::Option::Some(
-            crate::model::export_artifact_request::SourceArtifact::SourceVersion(
-                v.into()
-            )
+            crate::model::export_artifact_request::SourceArtifact::SourceVersion(v.into()),
         );
         self
     }
@@ -2908,7 +2945,9 @@ impl ExportArtifactRequest {
     pub fn source_tag(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_artifact.as_ref().and_then(|v| match v {
-            crate::model::export_artifact_request::SourceArtifact::SourceTag(v) => std::option::Option::Some(v),
+            crate::model::export_artifact_request::SourceArtifact::SourceTag(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2928,9 +2967,7 @@ impl ExportArtifactRequest {
     /// ```
     pub fn set_source_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_artifact = std::option::Option::Some(
-            crate::model::export_artifact_request::SourceArtifact::SourceTag(
-                v.into()
-            )
+            crate::model::export_artifact_request::SourceArtifact::SourceTag(v.into()),
         );
         self
     }
@@ -2946,8 +2983,12 @@ impl ExportArtifactRequest {
     /// use google_cloud_artifactregistry_v1::model::export_artifact_request::Destination;
     /// let x = ExportArtifactRequest::new().set_destination(Some(Destination::GcsPath("example".to_string())));
     /// ```
-    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::export_artifact_request::Destination>>>(mut self, v: T) -> Self
-    {
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::export_artifact_request::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination = v.into();
         self
     }
@@ -2958,7 +2999,9 @@ impl ExportArtifactRequest {
     pub fn gcs_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::export_artifact_request::Destination::GcsPath(v) => std::option::Option::Some(v),
+            crate::model::export_artifact_request::Destination::GcsPath(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2977,9 +3020,7 @@ impl ExportArtifactRequest {
     /// ```
     pub fn set_gcs_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::export_artifact_request::Destination::GcsPath(
-                v.into()
-            )
+            crate::model::export_artifact_request::Destination::GcsPath(v.into()),
         );
         self
     }
@@ -2995,7 +3036,6 @@ impl wkt::message::Message for ExportArtifactRequest {
 pub mod export_artifact_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The artifact to be exported.
     #[derive(Clone, Debug, PartialEq)]
@@ -3026,7 +3066,6 @@ pub mod export_artifact_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportArtifactResponse {
-
     /// The exported version. Should be the same as the request version with
     /// fingerprint resource name.
     pub exported_version: std::option::Option<crate::model::Version>,
@@ -3048,7 +3087,8 @@ impl ExportArtifactResponse {
     /// let x = ExportArtifactResponse::new().set_exported_version(Version::default()/* use setters */);
     /// ```
     pub fn set_exported_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Version>
+    where
+        T: std::convert::Into<crate::model::Version>,
     {
         self.exported_version = std::option::Option::Some(v.into());
         self
@@ -3064,7 +3104,8 @@ impl ExportArtifactResponse {
     /// let x = ExportArtifactResponse::new().set_or_clear_exported_version(None::<Version>);
     /// ```
     pub fn set_or_clear_exported_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Version>
+    where
+        T: std::convert::Into<crate::model::Version>,
     {
         self.exported_version = v.map(|x| x.into());
         self
@@ -3081,7 +3122,6 @@ impl wkt::message::Message for ExportArtifactResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportArtifactMetadata {
-
     /// The exported artifact files.
     pub exported_files: std::vec::Vec<crate::model::export_artifact_metadata::ExportedFile>,
 
@@ -3108,7 +3148,7 @@ impl ExportArtifactMetadata {
     pub fn set_exported_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::export_artifact_metadata::ExportedFile>
+        V: std::convert::Into<crate::model::export_artifact_metadata::ExportedFile>,
     {
         use std::iter::Iterator;
         self.exported_files = v.into_iter().map(|i| i.into()).collect();
@@ -3127,12 +3167,10 @@ pub mod export_artifact_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The exported artifact file.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExportedFile {
-
         /// Name of the exported artifact file.
         /// Format: `projects/p1/locations/us/repositories/repo1/files/file1`
         pub name: std::string::String,
@@ -3141,7 +3179,8 @@ pub mod export_artifact_metadata {
         pub hashes: std::vec::Vec<crate::model::Hash>,
 
         /// The destination the file was exported to.
-        pub destination: std::option::Option<crate::model::export_artifact_metadata::exported_file::Destination>,
+        pub destination:
+            std::option::Option<crate::model::export_artifact_metadata::exported_file::Destination>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3178,7 +3217,7 @@ pub mod export_artifact_metadata {
         pub fn set_hashes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Hash>
+            V: std::convert::Into<crate::model::Hash>,
         {
             use std::iter::Iterator;
             self.hashes = v.into_iter().map(|i| i.into()).collect();
@@ -3196,8 +3235,16 @@ pub mod export_artifact_metadata {
         /// use google_cloud_artifactregistry_v1::model::export_artifact_metadata::exported_file::Destination;
         /// let x = ExportedFile::new().set_destination(Some(Destination::GcsObjectPath("example".to_string())));
         /// ```
-        pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::export_artifact_metadata::exported_file::Destination>>>(mut self, v: T) -> Self
-        {
+        pub fn set_destination<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::export_artifact_metadata::exported_file::Destination,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.destination = v.into();
             self
         }
@@ -3225,11 +3272,14 @@ pub mod export_artifact_metadata {
         /// let x = ExportedFile::new().set_gcs_object_path("example");
         /// assert!(x.gcs_object_path().is_some());
         /// ```
-        pub fn set_gcs_object_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_gcs_object_path<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.destination = std::option::Option::Some(
                 crate::model::export_artifact_metadata::exported_file::Destination::GcsObjectPath(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -3246,7 +3296,6 @@ pub mod export_artifact_metadata {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The destination the file was exported to.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -3262,7 +3311,6 @@ pub mod export_artifact_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hash {
-
     /// The algorithm used to compute the hash value.
     pub r#type: crate::model::hash::HashType,
 
@@ -3314,7 +3362,6 @@ impl wkt::message::Message for Hash {
 pub mod hash {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The algorithm used to compute the hash.
     ///
@@ -3402,7 +3449,9 @@ pub mod hash {
                 0 => Self::Unspecified,
                 1 => Self::Sha256,
                 2 => Self::Md5,
-                _ => Self::UnknownValue(hash_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(hash_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3414,7 +3463,9 @@ pub mod hash {
                 "HASH_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SHA256" => Self::Sha256,
                 "MD5" => Self::Md5,
-                _ => Self::UnknownValue(hash_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(hash_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3439,7 +3490,8 @@ pub mod hash {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HashType>::new(
-                ".google.devtools.artifactregistry.v1.Hash.HashType"))
+                ".google.devtools.artifactregistry.v1.Hash.HashType",
+            ))
         }
     }
 }
@@ -3448,7 +3500,6 @@ pub mod hash {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct File {
-
     /// The name of the file, for example:
     /// `projects/p1/locations/us-central1/repositories/repo1/files/a%2Fb%2Fc.txt`.
     /// If the file ID part contains slashes, they are escaped.
@@ -3474,7 +3525,7 @@ pub struct File {
     pub fetch_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Client specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3523,7 +3574,7 @@ impl File {
     pub fn set_hashes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Hash>
+        V: std::convert::Into<crate::model::Hash>,
     {
         use std::iter::Iterator;
         self.hashes = v.into_iter().map(|i| i.into()).collect();
@@ -3539,7 +3590,8 @@ impl File {
     /// let x = File::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3555,7 +3607,8 @@ impl File {
     /// let x = File::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3570,7 +3623,8 @@ impl File {
     /// let x = File::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3586,7 +3640,8 @@ impl File {
     /// let x = File::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3613,7 +3668,8 @@ impl File {
     /// let x = File::new().set_fetch_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_fetch_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.fetch_time = std::option::Option::Some(v.into());
         self
@@ -3629,7 +3685,8 @@ impl File {
     /// let x = File::new().set_or_clear_fetch_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_fetch_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.fetch_time = v.map(|x| x.into());
         self
@@ -3667,7 +3724,6 @@ impl wkt::message::Message for File {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFilesRequest {
-
     /// Required. The name of the repository whose files will be listed. For
     /// example: "projects/p1/locations/us-central1/repositories/repo1
     pub parent: std::string::String,
@@ -3812,7 +3868,6 @@ impl wkt::message::Message for ListFilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFilesResponse {
-
     /// The files returned.
     pub files: std::vec::Vec<crate::model::File>,
 
@@ -3843,7 +3898,7 @@ impl ListFilesResponse {
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::File>
+        V: std::convert::Into<crate::model::File>,
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
@@ -3887,7 +3942,6 @@ impl gax::paginator::internal::PageableResponse for ListFilesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFileRequest {
-
     /// Required. The name of the file to retrieve.
     pub name: std::string::String,
 
@@ -3922,7 +3976,6 @@ impl wkt::message::Message for GetFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFileRequest {
-
     /// Required. The name of the file to delete.
     pub name: std::string::String,
 
@@ -3957,7 +4010,6 @@ impl wkt::message::Message for DeleteFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFileRequest {
-
     /// Required. The File that replaces the resource on the server.
     pub file: std::option::Option<crate::model::File>,
 
@@ -3983,7 +4035,8 @@ impl UpdateFileRequest {
     /// let x = UpdateFileRequest::new().set_file(File::default()/* use setters */);
     /// ```
     pub fn set_file<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::File>
+    where
+        T: std::convert::Into<crate::model::File>,
     {
         self.file = std::option::Option::Some(v.into());
         self
@@ -3999,7 +4052,8 @@ impl UpdateFileRequest {
     /// let x = UpdateFileRequest::new().set_or_clear_file(None::<File>);
     /// ```
     pub fn set_or_clear_file<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::File>
+    where
+        T: std::convert::Into<crate::model::File>,
     {
         self.file = v.map(|x| x.into());
         self
@@ -4014,7 +4068,8 @@ impl UpdateFileRequest {
     /// let x = UpdateFileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4030,7 +4085,8 @@ impl UpdateFileRequest {
     /// let x = UpdateFileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4047,7 +4103,6 @@ impl wkt::message::Message for UpdateFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenericArtifact {
-
     /// Resource name of the generic artifact.
     /// project, location, repository, package_id and version_id
     /// create a unique generic artifact.
@@ -4105,7 +4160,8 @@ impl GenericArtifact {
     /// let x = GenericArtifact::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4121,7 +4177,8 @@ impl GenericArtifact {
     /// let x = GenericArtifact::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4136,7 +4193,8 @@ impl GenericArtifact {
     /// let x = GenericArtifact::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4152,7 +4210,8 @@ impl GenericArtifact {
     /// let x = GenericArtifact::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4169,7 +4228,6 @@ impl wkt::message::Message for GenericArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoModule {
-
     /// The resource name of a Go module.
     pub name: std::string::String,
 
@@ -4224,7 +4282,8 @@ impl GoModule {
     /// let x = GoModule::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4240,7 +4299,8 @@ impl GoModule {
     /// let x = GoModule::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4255,7 +4315,8 @@ impl GoModule {
     /// let x = GoModule::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4271,7 +4332,8 @@ impl GoModule {
     /// let x = GoModule::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4288,7 +4350,6 @@ impl wkt::message::Message for GoModule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KfpArtifact {
-
     /// Output only. Resource name of the KFP artifact. Since users don't directly
     /// interact with this resource, the name will be derived from the associated
     /// version. For example, when version = ".../versions/sha256:abcdef...", the
@@ -4342,7 +4403,6 @@ impl wkt::message::Message for KfpArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Package {
-
     /// The name of the package, for example:
     /// `projects/p1/locations/us-central1/repositories/repo1/packages/pkg1`.
     /// If the package ID part contains slashes, the slashes are escaped.
@@ -4359,7 +4419,7 @@ pub struct Package {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Client specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4402,7 +4462,8 @@ impl Package {
     /// let x = Package::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4418,7 +4479,8 @@ impl Package {
     /// let x = Package::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4433,7 +4495,8 @@ impl Package {
     /// let x = Package::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4449,7 +4512,8 @@ impl Package {
     /// let x = Package::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4487,7 +4551,6 @@ impl wkt::message::Message for Package {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPackagesRequest {
-
     /// Required. The name of the parent resource whose packages will be listed.
     pub parent: std::string::String,
 
@@ -4626,7 +4689,6 @@ impl wkt::message::Message for ListPackagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPackagesResponse {
-
     /// The packages returned.
     pub packages: std::vec::Vec<crate::model::Package>,
 
@@ -4657,7 +4719,7 @@ impl ListPackagesResponse {
     pub fn set_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Package>
+        V: std::convert::Into<crate::model::Package>,
     {
         use std::iter::Iterator;
         self.packages = v.into_iter().map(|i| i.into()).collect();
@@ -4701,7 +4763,6 @@ impl gax::paginator::internal::PageableResponse for ListPackagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPackageRequest {
-
     /// Required. The name of the package to retrieve.
     pub name: std::string::String,
 
@@ -4736,7 +4797,6 @@ impl wkt::message::Message for GetPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePackageRequest {
-
     /// Required. The name of the package to delete.
     pub name: std::string::String,
 
@@ -4771,7 +4831,6 @@ impl wkt::message::Message for DeletePackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePackageRequest {
-
     /// The package that replaces the resource on the server.
     pub package: std::option::Option<crate::model::Package>,
 
@@ -4797,7 +4856,8 @@ impl UpdatePackageRequest {
     /// let x = UpdatePackageRequest::new().set_package(Package::default()/* use setters */);
     /// ```
     pub fn set_package<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Package>
+    where
+        T: std::convert::Into<crate::model::Package>,
     {
         self.package = std::option::Option::Some(v.into());
         self
@@ -4813,7 +4873,8 @@ impl UpdatePackageRequest {
     /// let x = UpdatePackageRequest::new().set_or_clear_package(None::<Package>);
     /// ```
     pub fn set_or_clear_package<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Package>
+    where
+        T: std::convert::Into<crate::model::Package>,
     {
         self.package = v.map(|x| x.into());
         self
@@ -4828,7 +4889,8 @@ impl UpdatePackageRequest {
     /// let x = UpdatePackageRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4844,7 +4906,8 @@ impl UpdatePackageRequest {
     /// let x = UpdatePackageRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4861,7 +4924,6 @@ impl wkt::message::Message for UpdatePackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpstreamPolicy {
-
     /// The user-provided ID of the upstream policy.
     pub id: std::string::String,
 
@@ -4929,7 +4991,6 @@ impl wkt::message::Message for UpstreamPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CleanupPolicyCondition {
-
     /// Match versions by tag status.
     pub tag_state: std::option::Option<crate::model::cleanup_policy_condition::TagState>,
 
@@ -4967,7 +5028,8 @@ impl CleanupPolicyCondition {
     /// let x2 = CleanupPolicyCondition::new().set_tag_state(TagState::Any);
     /// ```
     pub fn set_tag_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>
+    where
+        T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>,
     {
         self.tag_state = std::option::Option::Some(v.into());
         self
@@ -4985,7 +5047,8 @@ impl CleanupPolicyCondition {
     /// let x_none = CleanupPolicyCondition::new().set_or_clear_tag_state(None::<TagState>);
     /// ```
     pub fn set_or_clear_tag_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>
+    where
+        T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>,
     {
         self.tag_state = v.map(|x| x.into());
         self
@@ -5001,7 +5064,7 @@ impl CleanupPolicyCondition {
     pub fn set_tag_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.tag_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -5018,7 +5081,7 @@ impl CleanupPolicyCondition {
     pub fn set_version_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.version_name_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -5035,7 +5098,7 @@ impl CleanupPolicyCondition {
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -5051,7 +5114,8 @@ impl CleanupPolicyCondition {
     /// let x = CleanupPolicyCondition::new().set_older_than(Duration::default()/* use setters */);
     /// ```
     pub fn set_older_than<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.older_than = std::option::Option::Some(v.into());
         self
@@ -5067,7 +5131,8 @@ impl CleanupPolicyCondition {
     /// let x = CleanupPolicyCondition::new().set_or_clear_older_than(None::<Duration>);
     /// ```
     pub fn set_or_clear_older_than<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.older_than = v.map(|x| x.into());
         self
@@ -5082,7 +5147,8 @@ impl CleanupPolicyCondition {
     /// let x = CleanupPolicyCondition::new().set_newer_than(Duration::default()/* use setters */);
     /// ```
     pub fn set_newer_than<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.newer_than = std::option::Option::Some(v.into());
         self
@@ -5098,7 +5164,8 @@ impl CleanupPolicyCondition {
     /// let x = CleanupPolicyCondition::new().set_or_clear_newer_than(None::<Duration>);
     /// ```
     pub fn set_or_clear_newer_than<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.newer_than = v.map(|x| x.into());
         self
@@ -5115,7 +5182,6 @@ impl wkt::message::Message for CleanupPolicyCondition {
 pub mod cleanup_policy_condition {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Statuses applying to versions.
     ///
@@ -5208,7 +5274,9 @@ pub mod cleanup_policy_condition {
                 1 => Self::Tagged,
                 2 => Self::Untagged,
                 3 => Self::Any,
-                _ => Self::UnknownValue(tag_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(tag_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5221,7 +5289,9 @@ pub mod cleanup_policy_condition {
                 "TAGGED" => Self::Tagged,
                 "UNTAGGED" => Self::Untagged,
                 "ANY" => Self::Any,
-                _ => Self::UnknownValue(tag_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(tag_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5247,7 +5317,8 @@ pub mod cleanup_policy_condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TagState>::new(
-                ".google.devtools.artifactregistry.v1.CleanupPolicyCondition.TagState"))
+                ".google.devtools.artifactregistry.v1.CleanupPolicyCondition.TagState",
+            ))
         }
     }
 }
@@ -5257,7 +5328,6 @@ pub mod cleanup_policy_condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CleanupPolicyMostRecentVersions {
-
     /// List of package name prefixes that will apply this rule.
     pub package_name_prefixes: std::vec::Vec<std::string::String>,
 
@@ -5282,7 +5352,7 @@ impl CleanupPolicyMostRecentVersions {
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.package_name_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -5297,7 +5367,8 @@ impl CleanupPolicyMostRecentVersions {
     /// let x = CleanupPolicyMostRecentVersions::new().set_keep_count(42);
     /// ```
     pub fn set_keep_count<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.keep_count = std::option::Option::Some(v.into());
         self
@@ -5312,7 +5383,8 @@ impl CleanupPolicyMostRecentVersions {
     /// let x = CleanupPolicyMostRecentVersions::new().set_or_clear_keep_count(None::<i32>);
     /// ```
     pub fn set_or_clear_keep_count<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.keep_count = v.map(|x| x.into());
         self
@@ -5329,7 +5401,6 @@ impl wkt::message::Message for CleanupPolicyMostRecentVersions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CleanupPolicy {
-
     /// The user-provided ID of the cleanup policy.
     pub id: std::string::String,
 
@@ -5367,7 +5438,10 @@ impl CleanupPolicy {
     /// let x0 = CleanupPolicy::new().set_action(Action::Delete);
     /// let x1 = CleanupPolicy::new().set_action(Action::Keep);
     /// ```
-    pub fn set_action<T: std::convert::Into<crate::model::cleanup_policy::Action>>(mut self, v: T) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::cleanup_policy::Action>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.action = v.into();
         self
     }
@@ -5384,8 +5458,12 @@ impl CleanupPolicy {
     /// let x = CleanupPolicy::new().set_condition_type(Some(
     ///     google_cloud_artifactregistry_v1::model::cleanup_policy::ConditionType::Condition(CleanupPolicyCondition::default().into())));
     /// ```
-    pub fn set_condition_type<T: std::convert::Into<std::option::Option<crate::model::cleanup_policy::ConditionType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_condition_type<
+        T: std::convert::Into<std::option::Option<crate::model::cleanup_policy::ConditionType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition_type = v.into();
         self
     }
@@ -5393,10 +5471,14 @@ impl CleanupPolicy {
     /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
     /// if it holds a `Condition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn condition(&self) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyCondition>> {
+    pub fn condition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyCondition>> {
         #[allow(unreachable_patterns)]
         self.condition_type.as_ref().and_then(|v| match v {
-            crate::model::cleanup_policy::ConditionType::Condition(v) => std::option::Option::Some(v),
+            crate::model::cleanup_policy::ConditionType::Condition(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5415,11 +5497,14 @@ impl CleanupPolicy {
     /// assert!(x.condition().is_some());
     /// assert!(x.most_recent_versions().is_none());
     /// ```
-    pub fn set_condition<T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyCondition>>>(mut self, v: T) -> Self {
+    pub fn set_condition<
+        T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyCondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition_type = std::option::Option::Some(
-            crate::model::cleanup_policy::ConditionType::Condition(
-                v.into()
-            )
+            crate::model::cleanup_policy::ConditionType::Condition(v.into()),
         );
         self
     }
@@ -5427,10 +5512,14 @@ impl CleanupPolicy {
     /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
     /// if it holds a `MostRecentVersions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn most_recent_versions(&self) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
+    pub fn most_recent_versions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>> {
         #[allow(unreachable_patterns)]
         self.condition_type.as_ref().and_then(|v| match v {
-            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => std::option::Option::Some(v),
+            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5449,11 +5538,14 @@ impl CleanupPolicy {
     /// assert!(x.most_recent_versions().is_some());
     /// assert!(x.condition().is_none());
     /// ```
-    pub fn set_most_recent_versions<T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>>>(mut self, v: T) -> Self {
+    pub fn set_most_recent_versions<
+        T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition_type = std::option::Option::Some(
-            crate::model::cleanup_policy::ConditionType::MostRecentVersions(
-                v.into()
-            )
+            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v.into()),
         );
         self
     }
@@ -5469,7 +5561,6 @@ impl wkt::message::Message for CleanupPolicy {
 pub mod cleanup_policy {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Action type for a cleanup policy.
     ///
@@ -5557,7 +5648,9 @@ pub mod cleanup_policy {
                 0 => Self::Unspecified,
                 1 => Self::Delete,
                 2 => Self::Keep,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5569,7 +5662,9 @@ pub mod cleanup_policy {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "DELETE" => Self::Delete,
                 "KEEP" => Self::Keep,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5594,7 +5689,8 @@ pub mod cleanup_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.devtools.artifactregistry.v1.CleanupPolicy.Action"))
+                ".google.devtools.artifactregistry.v1.CleanupPolicy.Action",
+            ))
         }
     }
 
@@ -5613,7 +5709,6 @@ pub mod cleanup_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirtualRepositoryConfig {
-
     /// Policies that configure the upstream artifacts distributed by the Virtual
     /// Repository. Upstream policies cannot be set on a standard repository.
     pub upstream_policies: std::vec::Vec<crate::model::UpstreamPolicy>,
@@ -5641,7 +5736,7 @@ impl VirtualRepositoryConfig {
     pub fn set_upstream_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UpstreamPolicy>
+        V: std::convert::Into<crate::model::UpstreamPolicy>,
     {
         use std::iter::Iterator;
         self.upstream_policies = v.into_iter().map(|i| i.into()).collect();
@@ -5659,12 +5754,12 @@ impl wkt::message::Message for VirtualRepositoryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoteRepositoryConfig {
-
     /// The description of the remote source.
     pub description: std::string::String,
 
     /// Optional. The credentials used to access the remote repository.
-    pub upstream_credentials: std::option::Option<crate::model::remote_repository_config::UpstreamCredentials>,
+    pub upstream_credentials:
+        std::option::Option<crate::model::remote_repository_config::UpstreamCredentials>,
 
     /// Input only. A create/update remote repo option to avoid making a HEAD/GET
     /// request to validate a remote repo and any supplied upstream credentials.
@@ -5702,7 +5797,8 @@ impl RemoteRepositoryConfig {
     /// let x = RemoteRepositoryConfig::new().set_upstream_credentials(UpstreamCredentials::default()/* use setters */);
     /// ```
     pub fn set_upstream_credentials<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>
+    where
+        T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>,
     {
         self.upstream_credentials = std::option::Option::Some(v.into());
         self
@@ -5718,7 +5814,8 @@ impl RemoteRepositoryConfig {
     /// let x = RemoteRepositoryConfig::new().set_or_clear_upstream_credentials(None::<UpstreamCredentials>);
     /// ```
     pub fn set_or_clear_upstream_credentials<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>
+    where
+        T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>,
     {
         self.upstream_credentials = v.map(|x| x.into());
         self
@@ -5748,8 +5845,14 @@ impl RemoteRepositoryConfig {
     /// let x = RemoteRepositoryConfig::new().set_remote_source(Some(
     ///     google_cloud_artifactregistry_v1::model::remote_repository_config::RemoteSource::DockerRepository(DockerRepository::default().into())));
     /// ```
-    pub fn set_remote_source<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::RemoteSource>>>(mut self, v: T) -> Self
-    {
+    pub fn set_remote_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::remote_repository_config::RemoteSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = v.into();
         self
     }
@@ -5757,10 +5860,16 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `DockerRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn docker_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::DockerRepository>> {
+    pub fn docker_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
+    > {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::DockerRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::DockerRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5784,11 +5893,16 @@ impl RemoteRepositoryConfig {
     /// assert!(x.yum_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_docker_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::DockerRepository>>>(mut self, v: T) -> Self {
+    pub fn set_docker_repository<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::DockerRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::DockerRepository(v.into()),
         );
         self
     }
@@ -5796,10 +5910,16 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `MavenRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn maven_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::MavenRepository>> {
+    pub fn maven_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
+    > {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::MavenRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5823,11 +5943,16 @@ impl RemoteRepositoryConfig {
     /// assert!(x.yum_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_maven_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::MavenRepository>>>(mut self, v: T) -> Self {
+    pub fn set_maven_repository<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::MavenRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::MavenRepository(v.into()),
         );
         self
     }
@@ -5835,10 +5960,15 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `NpmRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn npm_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>> {
+    pub fn npm_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>
+    {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::NpmRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5862,11 +5992,14 @@ impl RemoteRepositoryConfig {
     /// assert!(x.yum_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_npm_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>>(mut self, v: T) -> Self {
+    pub fn set_npm_repository<
+        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::NpmRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::NpmRepository(v.into()),
         );
         self
     }
@@ -5874,10 +6007,16 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `PythonRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn python_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::PythonRepository>> {
+    pub fn python_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
+    > {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::PythonRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5901,11 +6040,16 @@ impl RemoteRepositoryConfig {
     /// assert!(x.yum_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_python_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::PythonRepository>>>(mut self, v: T) -> Self {
+    pub fn set_python_repository<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::PythonRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::PythonRepository(v.into()),
         );
         self
     }
@@ -5913,10 +6057,15 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `AptRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn apt_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>> {
+    pub fn apt_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::AptRepository>>
+    {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::AptRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5940,11 +6089,14 @@ impl RemoteRepositoryConfig {
     /// assert!(x.yum_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_apt_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::AptRepository>>>(mut self, v: T) -> Self {
+    pub fn set_apt_repository<
+        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::AptRepository>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::AptRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::AptRepository(v.into()),
         );
         self
     }
@@ -5952,10 +6104,15 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `YumRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn yum_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>> {
+    pub fn yum_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::YumRepository>>
+    {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::YumRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5979,11 +6136,14 @@ impl RemoteRepositoryConfig {
     /// assert!(x.apt_repository().is_none());
     /// assert!(x.common_repository().is_none());
     /// ```
-    pub fn set_yum_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::YumRepository>>>(mut self, v: T) -> Self {
+    pub fn set_yum_repository<
+        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::YumRepository>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::YumRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::YumRepository(v.into()),
         );
         self
     }
@@ -5991,10 +6151,16 @@ impl RemoteRepositoryConfig {
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `CommonRepository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn common_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>> {
+    pub fn common_repository(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+    > {
         #[allow(unreachable_patterns)]
         self.remote_source.as_ref().and_then(|v| match v {
-            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => std::option::Option::Some(v),
+            crate::model::remote_repository_config::RemoteSource::CommonRepository(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6018,11 +6184,16 @@ impl RemoteRepositoryConfig {
     /// assert!(x.apt_repository().is_none());
     /// assert!(x.yum_repository().is_none());
     /// ```
-    pub fn set_common_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>>>(mut self, v: T) -> Self {
+    pub fn set_common_repository<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::CommonRepository(
-                v.into()
-            )
+            crate::model::remote_repository_config::RemoteSource::CommonRepository(v.into()),
         );
         self
     }
@@ -6039,13 +6210,13 @@ pub mod remote_repository_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The credentials to access the remote repository.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UpstreamCredentials {
-
-        pub credentials: std::option::Option<crate::model::remote_repository_config::upstream_credentials::Credentials>,
+        pub credentials: std::option::Option<
+            crate::model::remote_repository_config::upstream_credentials::Credentials,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6067,8 +6238,16 @@ pub mod remote_repository_config {
         /// let x = UpstreamCredentials::new().set_credentials(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(UsernamePasswordCredentials::default().into())));
         /// ```
-        pub fn set_credentials<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::upstream_credentials::Credentials>>>(mut self, v: T) -> Self
-        {
+        pub fn set_credentials<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::upstream_credentials::Credentials,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.credentials = v.into();
             self
         }
@@ -6076,7 +6255,7 @@ pub mod remote_repository_config {
         /// The value of [credentials][crate::model::remote_repository_config::UpstreamCredentials::credentials]
         /// if it holds a `UsernamePasswordCredentials`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn username_password_credentials(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>> {
+        pub fn username_password_credentials(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>>{
             #[allow(unreachable_patterns)]
             self.credentials.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(v) => std::option::Option::Some(v),
@@ -6097,7 +6276,7 @@ pub mod remote_repository_config {
         /// let x = UpstreamCredentials::new().set_username_password_credentials(UsernamePasswordCredentials::default()/* use setters */);
         /// assert!(x.username_password_credentials().is_some());
         /// ```
-        pub fn set_username_password_credentials<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>>>(mut self, v: T) -> Self {
+        pub fn set_username_password_credentials<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>>>(mut self, v: T) -> Self{
             self.credentials = std::option::Option::Some(
                 crate::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(
                     v.into()
@@ -6118,12 +6297,10 @@ pub mod remote_repository_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Username and password credentials.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct UsernamePasswordCredentials {
-
             /// The username to access the remote repository.
             pub username: std::string::String,
 
@@ -6147,7 +6324,10 @@ pub mod remote_repository_config {
             /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
             /// let x = UsernamePasswordCredentials::new().set_username("example");
             /// ```
-            pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_username<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.username = v.into();
                 self
             }
@@ -6159,7 +6339,10 @@ pub mod remote_repository_config {
             /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
             /// let x = UsernamePasswordCredentials::new().set_password_secret_version("example");
             /// ```
-            pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.password_secret_version = v.into();
                 self
             }
@@ -6183,9 +6366,10 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DockerRepository {
-
         /// Address of the remote repository.
-        pub upstream: std::option::Option<crate::model::remote_repository_config::docker_repository::Upstream>,
+        pub upstream: std::option::Option<
+            crate::model::remote_repository_config::docker_repository::Upstream,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6207,8 +6391,16 @@ pub mod remote_repository_config {
         /// let x0 = DockerRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository::Upstream::PublicRepository(PublicRepository::DockerHub)));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::docker_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::docker_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -6216,7 +6408,11 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&crate::model::remote_repository_config::docker_repository::PublicRepository> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &crate::model::remote_repository_config::docker_repository::PublicRepository,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::docker_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -6238,7 +6434,14 @@ pub mod remote_repository_config {
         /// assert!(x0.public_repository().is_some());
         /// assert!(x0.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<crate::model::remote_repository_config::docker_repository::PublicRepository>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    crate::model::remote_repository_config::docker_repository::PublicRepository,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::docker_repository::Upstream::PublicRepository(
                     v.into()
@@ -6250,7 +6453,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::docker_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::docker_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -6272,7 +6481,16 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::docker_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::docker_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(
                     v.into()
@@ -6293,12 +6511,10 @@ pub mod remote_repository_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Customer-specified publicly available remote repository.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the custom remote repository, for ex:
             /// `https://registry-1.docker.io`.
             pub uri: std::string::String,
@@ -6402,7 +6618,10 @@ pub mod remote_repository_config {
         }
 
         impl std::fmt::Display for PublicRepository {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6412,7 +6631,9 @@ pub mod remote_repository_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::DockerHub,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -6423,7 +6644,9 @@ pub mod remote_repository_config {
                 match value {
                     "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
                     "DOCKER_HUB" => Self::DockerHub,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -6457,9 +6680,15 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Docker repositories supported by Artifact
             /// Registry.
-            PublicRepository(crate::model::remote_repository_config::docker_repository::PublicRepository),
+            PublicRepository(
+                crate::model::remote_repository_config::docker_repository::PublicRepository,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::docker_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::docker_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -6467,9 +6696,9 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MavenRepository {
-
         /// Address of the remote repository.
-        pub upstream: std::option::Option<crate::model::remote_repository_config::maven_repository::Upstream>,
+        pub upstream:
+            std::option::Option<crate::model::remote_repository_config::maven_repository::Upstream>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6491,8 +6720,16 @@ pub mod remote_repository_config {
         /// let x0 = MavenRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository::Upstream::PublicRepository(PublicRepository::MavenCentral)));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::maven_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::maven_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -6500,7 +6737,11 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&crate::model::remote_repository_config::maven_repository::PublicRepository> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &crate::model::remote_repository_config::maven_repository::PublicRepository,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::maven_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -6522,7 +6763,14 @@ pub mod remote_repository_config {
         /// assert!(x0.public_repository().is_some());
         /// assert!(x0.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<crate::model::remote_repository_config::maven_repository::PublicRepository>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    crate::model::remote_repository_config::maven_repository::PublicRepository,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::maven_repository::Upstream::PublicRepository(
                     v.into()
@@ -6534,7 +6782,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::maven_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::maven_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -6556,7 +6810,16 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::maven_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::maven_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(
                     v.into()
@@ -6577,12 +6840,10 @@ pub mod remote_repository_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Customer-specified publicly available remote repository.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the upstream remote repository, for ex:
             /// `https://my.maven.registry/`.
             pub uri: std::string::String,
@@ -6686,7 +6947,10 @@ pub mod remote_repository_config {
         }
 
         impl std::fmt::Display for PublicRepository {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6696,7 +6960,9 @@ pub mod remote_repository_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::MavenCentral,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -6707,7 +6973,9 @@ pub mod remote_repository_config {
                 match value {
                     "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
                     "MAVEN_CENTRAL" => Self::MavenCentral,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -6741,9 +7009,15 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Maven repositories supported by Artifact
             /// Registry.
-            PublicRepository(crate::model::remote_repository_config::maven_repository::PublicRepository),
+            PublicRepository(
+                crate::model::remote_repository_config::maven_repository::PublicRepository,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::maven_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::maven_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -6751,9 +7025,9 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NpmRepository {
-
         /// Address of the remote repository
-        pub upstream: std::option::Option<crate::model::remote_repository_config::npm_repository::Upstream>,
+        pub upstream:
+            std::option::Option<crate::model::remote_repository_config::npm_repository::Upstream>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6775,8 +7049,16 @@ pub mod remote_repository_config {
         /// let x0 = NpmRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository::Upstream::PublicRepository(PublicRepository::Npmjs)));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::npm_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::npm_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -6784,7 +7066,11 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&crate::model::remote_repository_config::npm_repository::PublicRepository> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &crate::model::remote_repository_config::npm_repository::PublicRepository,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::npm_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -6806,11 +7092,18 @@ pub mod remote_repository_config {
         /// assert!(x0.public_repository().is_some());
         /// assert!(x0.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<crate::model::remote_repository_config::npm_repository::PublicRepository>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    crate::model::remote_repository_config::npm_repository::PublicRepository,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::npm_repository::Upstream::PublicRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -6818,7 +7111,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::npm_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::npm_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -6840,11 +7139,20 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::npm_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::npm_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -6861,12 +7169,10 @@ pub mod remote_repository_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Customer-specified publicly available remote repository.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the upstream remote repository, for ex:
             /// `https://my.npm.registry/`.
             pub uri: std::string::String,
@@ -6969,7 +7275,10 @@ pub mod remote_repository_config {
         }
 
         impl std::fmt::Display for PublicRepository {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6979,7 +7288,9 @@ pub mod remote_repository_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::Npmjs,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -6990,7 +7301,9 @@ pub mod remote_repository_config {
                 match value {
                     "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
                     "NPMJS" => Self::Npmjs,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -7024,9 +7337,15 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Npm repositories supported by Artifact
             /// Registry.
-            PublicRepository(crate::model::remote_repository_config::npm_repository::PublicRepository),
+            PublicRepository(
+                crate::model::remote_repository_config::npm_repository::PublicRepository,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::npm_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::npm_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -7034,9 +7353,10 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PythonRepository {
-
         /// Address of the remote repository.
-        pub upstream: std::option::Option<crate::model::remote_repository_config::python_repository::Upstream>,
+        pub upstream: std::option::Option<
+            crate::model::remote_repository_config::python_repository::Upstream,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7058,8 +7378,16 @@ pub mod remote_repository_config {
         /// let x0 = PythonRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository::Upstream::PublicRepository(PublicRepository::Pypi)));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::python_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::python_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -7067,7 +7395,11 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&crate::model::remote_repository_config::python_repository::PublicRepository> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &crate::model::remote_repository_config::python_repository::PublicRepository,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::python_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -7089,7 +7421,14 @@ pub mod remote_repository_config {
         /// assert!(x0.public_repository().is_some());
         /// assert!(x0.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<crate::model::remote_repository_config::python_repository::PublicRepository>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    crate::model::remote_repository_config::python_repository::PublicRepository,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::python_repository::Upstream::PublicRepository(
                     v.into()
@@ -7101,7 +7440,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::python_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::python_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -7123,7 +7468,16 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::python_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::python_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(
                     v.into()
@@ -7144,12 +7498,10 @@ pub mod remote_repository_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Customer-specified publicly available remote repository.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the upstream remote repository, for ex:
             /// `https://my.python.registry/`.
             pub uri: std::string::String,
@@ -7252,7 +7604,10 @@ pub mod remote_repository_config {
         }
 
         impl std::fmt::Display for PublicRepository {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -7262,7 +7617,9 @@ pub mod remote_repository_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::Pypi,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -7273,7 +7630,9 @@ pub mod remote_repository_config {
                 match value {
                     "PUBLIC_REPOSITORY_UNSPECIFIED" => Self::Unspecified,
                     "PYPI" => Self::Pypi,
-                    _ => Self::UnknownValue(public_repository::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(public_repository::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -7307,9 +7666,15 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Python repositories supported by Artifact
             /// Registry.
-            PublicRepository(crate::model::remote_repository_config::python_repository::PublicRepository),
+            PublicRepository(
+                crate::model::remote_repository_config::python_repository::PublicRepository,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::python_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::python_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -7317,9 +7682,9 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AptRepository {
-
         /// Address of the remote repository.
-        pub upstream: std::option::Option<crate::model::remote_repository_config::apt_repository::Upstream>,
+        pub upstream:
+            std::option::Option<crate::model::remote_repository_config::apt_repository::Upstream>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7341,8 +7706,16 @@ pub mod remote_repository_config {
         /// let x = AptRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::Upstream::PublicRepository(PublicRepository::default().into())));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::apt_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::apt_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -7350,7 +7723,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::apt_repository::PublicRepository>> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::apt_repository::PublicRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::apt_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -7372,11 +7751,20 @@ pub mod remote_repository_config {
         /// assert!(x.public_repository().is_some());
         /// assert!(x.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::apt_repository::PublicRepository>>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::apt_repository::PublicRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::apt_repository::Upstream::PublicRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -7384,7 +7772,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::apt_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::apt_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -7406,11 +7800,20 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::apt_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::apt_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -7426,7 +7829,6 @@ pub mod remote_repository_config {
     pub mod apt_repository {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Publicly available Apt repositories constructed from a common repository
         /// base and a custom repository path.
@@ -7458,7 +7860,7 @@ pub mod remote_repository_config {
             /// let x1 = PublicRepository::new().set_repository_base(RepositoryBase::Ubuntu);
             /// let x2 = PublicRepository::new().set_repository_base(RepositoryBase::DebianSnapshot);
             /// ```
-            pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::apt_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self {
+            pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::apt_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self{
                 self.repository_base = v.into();
                 self
             }
@@ -7470,7 +7872,10 @@ pub mod remote_repository_config {
             /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::PublicRepository;
             /// let x = PublicRepository::new().set_repository_path("example");
             /// ```
-            pub fn set_repository_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_repository_path<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.repository_path = v.into();
                 self
             }
@@ -7486,7 +7891,6 @@ pub mod remote_repository_config {
         pub mod public_repository {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Predefined list of publicly available repository bases for Apt.
             ///
@@ -7550,7 +7954,9 @@ pub mod remote_repository_config {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED")
+                        }
                         Self::Debian => std::option::Option::Some("DEBIAN"),
                         Self::Ubuntu => std::option::Option::Some("UBUNTU"),
                         Self::DebianSnapshot => std::option::Option::Some("DEBIAN_SNAPSHOT"),
@@ -7567,7 +7973,10 @@ pub mod remote_repository_config {
             }
 
             impl std::fmt::Display for RepositoryBase {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -7579,7 +7988,9 @@ pub mod remote_repository_config {
                         1 => Self::Debian,
                         2 => Self::Ubuntu,
                         3 => Self::DebianSnapshot,
-                        _ => Self::UnknownValue(repository_base::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -7592,7 +8003,9 @@ pub mod remote_repository_config {
                         "DEBIAN" => Self::Debian,
                         "UBUNTU" => Self::Ubuntu,
                         "DEBIAN_SNAPSHOT" => Self::DebianSnapshot,
-                        _ => Self::UnknownValue(repository_base::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -7627,7 +8040,6 @@ pub mod remote_repository_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the upstream remote repository, for ex:
             /// `https://my.apt.registry/`.
             pub uri: std::string::String,
@@ -7665,9 +8077,17 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Apt repositories supported by Artifact
             /// Registry.
-            PublicRepository(std::boxed::Box<crate::model::remote_repository_config::apt_repository::PublicRepository>),
+            PublicRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::apt_repository::PublicRepository,
+                >,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::apt_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::apt_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -7675,9 +8095,9 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct YumRepository {
-
         /// Address of the remote repository.
-        pub upstream: std::option::Option<crate::model::remote_repository_config::yum_repository::Upstream>,
+        pub upstream:
+            std::option::Option<crate::model::remote_repository_config::yum_repository::Upstream>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7699,8 +8119,16 @@ pub mod remote_repository_config {
         /// let x = YumRepository::new().set_upstream(Some(
         ///     google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::Upstream::PublicRepository(PublicRepository::default().into())));
         /// ```
-        pub fn set_upstream<T: std::convert::Into<std::option::Option<crate::model::remote_repository_config::yum_repository::Upstream>>>(mut self, v: T) -> Self
-        {
+        pub fn set_upstream<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::remote_repository_config::yum_repository::Upstream,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = v.into();
             self
         }
@@ -7708,7 +8136,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
         /// if it holds a `PublicRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn public_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::yum_repository::PublicRepository>> {
+        pub fn public_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::yum_repository::PublicRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::yum_repository::Upstream::PublicRepository(v) => std::option::Option::Some(v),
@@ -7730,11 +8164,20 @@ pub mod remote_repository_config {
         /// assert!(x.public_repository().is_some());
         /// assert!(x.custom_repository().is_none());
         /// ```
-        pub fn set_public_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::yum_repository::PublicRepository>>>(mut self, v: T) -> Self {
+        pub fn set_public_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::yum_repository::PublicRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::yum_repository::Upstream::PublicRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -7742,7 +8185,13 @@ pub mod remote_repository_config {
         /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::remote_repository_config::yum_repository::CustomRepository>> {
+        pub fn custom_repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::remote_repository_config::yum_repository::CustomRepository,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.upstream.as_ref().and_then(|v| match v {
                 crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
@@ -7764,11 +8213,20 @@ pub mod remote_repository_config {
         /// assert!(x.custom_repository().is_some());
         /// assert!(x.public_repository().is_none());
         /// ```
-        pub fn set_custom_repository<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::yum_repository::CustomRepository>>>(mut self, v: T) -> Self {
+        pub fn set_custom_repository<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::remote_repository_config::yum_repository::CustomRepository,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.upstream = std::option::Option::Some(
                 crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -7784,7 +8242,6 @@ pub mod remote_repository_config {
     pub mod yum_repository {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Publicly available Yum repositories constructed from a common repository
         /// base and a custom repository path.
@@ -7816,7 +8273,7 @@ pub mod remote_repository_config {
             /// let x1 = PublicRepository::new().set_repository_base(RepositoryBase::CentosDebug);
             /// let x2 = PublicRepository::new().set_repository_base(RepositoryBase::CentosVault);
             /// ```
-            pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::yum_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self {
+            pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::yum_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self{
                 self.repository_base = v.into();
                 self
             }
@@ -7828,7 +8285,10 @@ pub mod remote_repository_config {
             /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::PublicRepository;
             /// let x = PublicRepository::new().set_repository_path("example");
             /// ```
-            pub fn set_repository_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_repository_path<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.repository_path = v.into();
                 self
             }
@@ -7844,7 +8304,6 @@ pub mod remote_repository_config {
         pub mod public_repository {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Predefined list of publicly available repository bases for Yum.
             ///
@@ -7917,7 +8376,9 @@ pub mod remote_repository_config {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("REPOSITORY_BASE_UNSPECIFIED")
+                        }
                         Self::Centos => std::option::Option::Some("CENTOS"),
                         Self::CentosDebug => std::option::Option::Some("CENTOS_DEBUG"),
                         Self::CentosVault => std::option::Option::Some("CENTOS_VAULT"),
@@ -7937,7 +8398,10 @@ pub mod remote_repository_config {
             }
 
             impl std::fmt::Display for RepositoryBase {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -7952,7 +8416,9 @@ pub mod remote_repository_config {
                         4 => Self::CentosStream,
                         5 => Self::Rocky,
                         6 => Self::Epel,
-                        _ => Self::UnknownValue(repository_base::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -7968,7 +8434,9 @@ pub mod remote_repository_config {
                         "CENTOS_STREAM" => Self::CentosStream,
                         "ROCKY" => Self::Rocky,
                         "EPEL" => Self::Epel,
-                        _ => Self::UnknownValue(repository_base::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(repository_base::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -8006,7 +8474,6 @@ pub mod remote_repository_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomRepository {
-
             /// An http/https uri reference to the upstream remote repository, for ex:
             /// `https://my.yum.registry/`.
             pub uri: std::string::String,
@@ -8044,9 +8511,17 @@ pub mod remote_repository_config {
         pub enum Upstream {
             /// One of the publicly available Yum repositories supported by Artifact
             /// Registry.
-            PublicRepository(std::boxed::Box<crate::model::remote_repository_config::yum_repository::PublicRepository>),
+            PublicRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::yum_repository::PublicRepository,
+                >,
+            ),
             /// Customer-specified remote repository.
-            CustomRepository(std::boxed::Box<crate::model::remote_repository_config::yum_repository::CustomRepository>),
+            CustomRepository(
+                std::boxed::Box<
+                    crate::model::remote_repository_config::yum_repository::CustomRepository,
+                >,
+            ),
         }
     }
 
@@ -8054,7 +8529,6 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommonRemoteRepository {
-
         /// Required. A common public repository base for remote repository.
         pub uri: std::string::String,
 
@@ -8103,7 +8577,9 @@ pub mod remote_repository_config {
         YumRepository(std::boxed::Box<crate::model::remote_repository_config::YumRepository>),
         /// Common remote repository settings.
         /// Used as the remote repository upstream URL.
-        CommonRepository(std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>),
+        CommonRepository(
+            std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
+        ),
     }
 }
 
@@ -8111,7 +8587,6 @@ pub mod remote_repository_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
-
     /// The name of the repository, for example:
     /// `projects/p1/locations/us-central1/repositories/repo1`. For each location
     /// in a project, repository names must be unique.
@@ -8128,7 +8603,7 @@ pub struct Repository {
     /// longer than 63 characters. Label keys must begin with a lowercase letter
     /// and may only contain lowercase letters, numeric characters, underscores,
     /// and dashes.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The time when the repository was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -8149,7 +8624,8 @@ pub struct Repository {
     /// when certain package versions can be automatically deleted. Map keys are
     /// policy IDs supplied by users during policy creation. They must unique
     /// within a repository and be under 128 characters in length.
-    pub cleanup_policies: std::collections::HashMap<std::string::String,crate::model::CleanupPolicy>,
+    pub cleanup_policies:
+        std::collections::HashMap<std::string::String, crate::model::CleanupPolicy>,
 
     /// Output only. The size, in bytes, of all artifact storage in this
     /// repository. Repositories that are generally available or in public preview
@@ -8165,7 +8641,8 @@ pub struct Repository {
 
     /// Optional. Config and state for vulnerability scanning of resources within
     /// this Repository.
-    pub vulnerability_scanning_config: std::option::Option<crate::model::repository::VulnerabilityScanningConfig>,
+    pub vulnerability_scanning_config:
+        std::option::Option<crate::model::repository::VulnerabilityScanningConfig>,
 
     /// Optional. If this is true, an unspecified repo type will be treated as
     /// error rather than defaulting to standard.
@@ -8215,7 +8692,10 @@ impl Repository {
     /// let x1 = Repository::new().set_format(Format::Maven);
     /// let x2 = Repository::new().set_format(Format::Npm);
     /// ```
-    pub fn set_format<T: std::convert::Into<crate::model::repository::Format>>(mut self, v: T) -> Self {
+    pub fn set_format<T: std::convert::Into<crate::model::repository::Format>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.format = v.into();
         self
     }
@@ -8262,7 +8742,8 @@ impl Repository {
     /// let x = Repository::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8278,7 +8759,8 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8293,7 +8775,8 @@ impl Repository {
     /// let x = Repository::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8309,7 +8792,8 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8409,7 +8893,8 @@ impl Repository {
     /// let x = Repository::new().set_vulnerability_scanning_config(VulnerabilityScanningConfig::default()/* use setters */);
     /// ```
     pub fn set_vulnerability_scanning_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::repository::VulnerabilityScanningConfig>
+    where
+        T: std::convert::Into<crate::model::repository::VulnerabilityScanningConfig>,
     {
         self.vulnerability_scanning_config = std::option::Option::Some(v.into());
         self
@@ -8424,8 +8909,12 @@ impl Repository {
     /// let x = Repository::new().set_or_clear_vulnerability_scanning_config(Some(VulnerabilityScanningConfig::default()/* use setters */));
     /// let x = Repository::new().set_or_clear_vulnerability_scanning_config(None::<VulnerabilityScanningConfig>);
     /// ```
-    pub fn set_or_clear_vulnerability_scanning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::repository::VulnerabilityScanningConfig>
+    pub fn set_or_clear_vulnerability_scanning_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::VulnerabilityScanningConfig>,
     {
         self.vulnerability_scanning_config = v.map(|x| x.into());
         self
@@ -8479,8 +8968,12 @@ impl Repository {
     /// let x = Repository::new().set_format_config(Some(
     ///     google_cloud_artifactregistry_v1::model::repository::FormatConfig::MavenConfig(MavenRepositoryConfig::default().into())));
     /// ```
-    pub fn set_format_config<T: std::convert::Into<std::option::Option<crate::model::repository::FormatConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_format_config<
+        T: std::convert::Into<std::option::Option<crate::model::repository::FormatConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.format_config = v.into();
         self
     }
@@ -8488,7 +8981,10 @@ impl Repository {
     /// The value of [format_config][crate::model::Repository::format_config]
     /// if it holds a `MavenConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn maven_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::repository::MavenRepositoryConfig>> {
+    pub fn maven_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::MavenRepositoryConfig>>
+    {
         #[allow(unreachable_patterns)]
         self.format_config.as_ref().and_then(|v| match v {
             crate::model::repository::FormatConfig::MavenConfig(v) => std::option::Option::Some(v),
@@ -8510,11 +9006,14 @@ impl Repository {
     /// assert!(x.maven_config().is_some());
     /// assert!(x.docker_config().is_none());
     /// ```
-    pub fn set_maven_config<T: std::convert::Into<std::boxed::Box<crate::model::repository::MavenRepositoryConfig>>>(mut self, v: T) -> Self {
+    pub fn set_maven_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::repository::MavenRepositoryConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.format_config = std::option::Option::Some(
-            crate::model::repository::FormatConfig::MavenConfig(
-                v.into()
-            )
+            crate::model::repository::FormatConfig::MavenConfig(v.into()),
         );
         self
     }
@@ -8522,7 +9021,10 @@ impl Repository {
     /// The value of [format_config][crate::model::Repository::format_config]
     /// if it holds a `DockerConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn docker_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>> {
+    pub fn docker_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>
+    {
         #[allow(unreachable_patterns)]
         self.format_config.as_ref().and_then(|v| match v {
             crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
@@ -8544,11 +9046,14 @@ impl Repository {
     /// assert!(x.docker_config().is_some());
     /// assert!(x.maven_config().is_none());
     /// ```
-    pub fn set_docker_config<T: std::convert::Into<std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>>(mut self, v: T) -> Self {
+    pub fn set_docker_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.format_config = std::option::Option::Some(
-            crate::model::repository::FormatConfig::DockerConfig(
-                v.into()
-            )
+            crate::model::repository::FormatConfig::DockerConfig(v.into()),
         );
         self
     }
@@ -8565,8 +9070,12 @@ impl Repository {
     /// let x = Repository::new().set_mode_config(Some(
     ///     google_cloud_artifactregistry_v1::model::repository::ModeConfig::VirtualRepositoryConfig(VirtualRepositoryConfig::default().into())));
     /// ```
-    pub fn set_mode_config<T: std::convert::Into<std::option::Option<crate::model::repository::ModeConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_mode_config<
+        T: std::convert::Into<std::option::Option<crate::model::repository::ModeConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode_config = v.into();
         self
     }
@@ -8574,10 +9083,14 @@ impl Repository {
     /// The value of [mode_config][crate::model::Repository::mode_config]
     /// if it holds a `VirtualRepositoryConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn virtual_repository_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::VirtualRepositoryConfig>> {
+    pub fn virtual_repository_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VirtualRepositoryConfig>> {
         #[allow(unreachable_patterns)]
         self.mode_config.as_ref().and_then(|v| match v {
-            crate::model::repository::ModeConfig::VirtualRepositoryConfig(v) => std::option::Option::Some(v),
+            crate::model::repository::ModeConfig::VirtualRepositoryConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8596,11 +9109,14 @@ impl Repository {
     /// assert!(x.virtual_repository_config().is_some());
     /// assert!(x.remote_repository_config().is_none());
     /// ```
-    pub fn set_virtual_repository_config<T: std::convert::Into<std::boxed::Box<crate::model::VirtualRepositoryConfig>>>(mut self, v: T) -> Self {
+    pub fn set_virtual_repository_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::VirtualRepositoryConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode_config = std::option::Option::Some(
-            crate::model::repository::ModeConfig::VirtualRepositoryConfig(
-                v.into()
-            )
+            crate::model::repository::ModeConfig::VirtualRepositoryConfig(v.into()),
         );
         self
     }
@@ -8608,10 +9124,14 @@ impl Repository {
     /// The value of [mode_config][crate::model::Repository::mode_config]
     /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn remote_repository_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
+    pub fn remote_repository_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteRepositoryConfig>> {
         #[allow(unreachable_patterns)]
         self.mode_config.as_ref().and_then(|v| match v {
-            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => std::option::Option::Some(v),
+            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8630,11 +9150,14 @@ impl Repository {
     /// assert!(x.remote_repository_config().is_some());
     /// assert!(x.virtual_repository_config().is_none());
     /// ```
-    pub fn set_remote_repository_config<T: std::convert::Into<std::boxed::Box<crate::model::RemoteRepositoryConfig>>>(mut self, v: T) -> Self {
+    pub fn set_remote_repository_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::RemoteRepositoryConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode_config = std::option::Option::Some(
-            crate::model::repository::ModeConfig::RemoteRepositoryConfig(
-                v.into()
-            )
+            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v.into()),
         );
         self
     }
@@ -8651,14 +9174,12 @@ pub mod repository {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// MavenRepositoryConfig is maven related repository details.
     /// Provides additional configuration details for repositories of the maven
     /// format type.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MavenRepositoryConfig {
-
         /// The repository with this flag will allow publishing
         /// the same snapshot versions.
         pub allow_snapshot_overwrites: bool,
@@ -8695,7 +9216,12 @@ pub mod repository {
         /// let x0 = MavenRepositoryConfig::new().set_version_policy(VersionPolicy::Release);
         /// let x1 = MavenRepositoryConfig::new().set_version_policy(VersionPolicy::Snapshot);
         /// ```
-        pub fn set_version_policy<T: std::convert::Into<crate::model::repository::maven_repository_config::VersionPolicy>>(mut self, v: T) -> Self {
+        pub fn set_version_policy<
+            T: std::convert::Into<crate::model::repository::maven_repository_config::VersionPolicy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.version_policy = v.into();
             self
         }
@@ -8711,7 +9237,6 @@ pub mod repository {
     pub mod maven_repository_config {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// VersionPolicy is the version policy for the repository.
         ///
@@ -8790,7 +9315,10 @@ pub mod repository {
         }
 
         impl std::fmt::Display for VersionPolicy {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -8801,7 +9329,9 @@ pub mod repository {
                     0 => Self::Unspecified,
                     1 => Self::Release,
                     2 => Self::Snapshot,
-                    _ => Self::UnknownValue(version_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(version_policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -8813,7 +9343,9 @@ pub mod repository {
                     "VERSION_POLICY_UNSPECIFIED" => Self::Unspecified,
                     "RELEASE" => Self::Release,
                     "SNAPSHOT" => Self::Snapshot,
-                    _ => Self::UnknownValue(version_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(version_policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -8849,7 +9381,6 @@ pub mod repository {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DockerRepositoryConfig {
-
         /// The repository which enabled this flag prevents all tags from being
         /// modified, moved or deleted. This does not prevent tags from being
         /// created.
@@ -8887,17 +9418,18 @@ pub mod repository {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VulnerabilityScanningConfig {
-
         /// Optional. Config for whether this repository has vulnerability scanning
         /// disabled.
-        pub enablement_config: crate::model::repository::vulnerability_scanning_config::EnablementConfig,
+        pub enablement_config:
+            crate::model::repository::vulnerability_scanning_config::EnablementConfig,
 
         /// Output only. The last time this repository config was enabled.
         pub last_enable_time: std::option::Option<wkt::Timestamp>,
 
         /// Output only. State of feature enablement, combining repository enablement
         /// config and API enablement state.
-        pub enablement_state: crate::model::repository::vulnerability_scanning_config::EnablementState,
+        pub enablement_state:
+            crate::model::repository::vulnerability_scanning_config::EnablementState,
 
         /// Output only. Reason for the repository state.
         pub enablement_state_reason: std::string::String,
@@ -8919,7 +9451,14 @@ pub mod repository {
         /// let x0 = VulnerabilityScanningConfig::new().set_enablement_config(EnablementConfig::Inherited);
         /// let x1 = VulnerabilityScanningConfig::new().set_enablement_config(EnablementConfig::Disabled);
         /// ```
-        pub fn set_enablement_config<T: std::convert::Into<crate::model::repository::vulnerability_scanning_config::EnablementConfig>>(mut self, v: T) -> Self {
+        pub fn set_enablement_config<
+            T: std::convert::Into<
+                    crate::model::repository::vulnerability_scanning_config::EnablementConfig,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.enablement_config = v.into();
             self
         }
@@ -8933,7 +9472,8 @@ pub mod repository {
         /// let x = VulnerabilityScanningConfig::new().set_last_enable_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_last_enable_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.last_enable_time = std::option::Option::Some(v.into());
             self
@@ -8949,7 +9489,8 @@ pub mod repository {
         /// let x = VulnerabilityScanningConfig::new().set_or_clear_last_enable_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_last_enable_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.last_enable_time = v.map(|x| x.into());
             self
@@ -8965,7 +9506,14 @@ pub mod repository {
         /// let x1 = VulnerabilityScanningConfig::new().set_enablement_state(EnablementState::ScanningDisabled);
         /// let x2 = VulnerabilityScanningConfig::new().set_enablement_state(EnablementState::ScanningActive);
         /// ```
-        pub fn set_enablement_state<T: std::convert::Into<crate::model::repository::vulnerability_scanning_config::EnablementState>>(mut self, v: T) -> Self {
+        pub fn set_enablement_state<
+            T: std::convert::Into<
+                    crate::model::repository::vulnerability_scanning_config::EnablementState,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.enablement_state = v.into();
             self
         }
@@ -8977,7 +9525,10 @@ pub mod repository {
         /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
         /// let x = VulnerabilityScanningConfig::new().set_enablement_state_reason("example");
         /// ```
-        pub fn set_enablement_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_enablement_state_reason<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.enablement_state_reason = v.into();
             self
         }
@@ -8993,7 +9544,6 @@ pub mod repository {
     pub mod vulnerability_scanning_config {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Config for vulnerability scanning of resources in this repository.
         ///
@@ -9072,7 +9622,10 @@ pub mod repository {
         }
 
         impl std::fmt::Display for EnablementConfig {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9083,7 +9636,9 @@ pub mod repository {
                     0 => Self::Unspecified,
                     1 => Self::Inherited,
                     2 => Self::Disabled,
-                    _ => Self::UnknownValue(enablement_config::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(enablement_config::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -9095,7 +9650,9 @@ pub mod repository {
                     "ENABLEMENT_CONFIG_UNSPECIFIED" => Self::Unspecified,
                     "INHERITED" => Self::Inherited,
                     "DISABLED" => Self::Disabled,
-                    _ => Self::UnknownValue(enablement_config::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(enablement_config::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -9204,7 +9761,10 @@ pub mod repository {
         }
 
         impl std::fmt::Display for EnablementState {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9216,7 +9776,9 @@ pub mod repository {
                     1 => Self::ScanningUnsupported,
                     2 => Self::ScanningDisabled,
                     3 => Self::ScanningActive,
-                    _ => Self::UnknownValue(enablement_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(enablement_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -9229,7 +9791,9 @@ pub mod repository {
                     "SCANNING_UNSUPPORTED" => Self::ScanningUnsupported,
                     "SCANNING_DISABLED" => Self::ScanningDisabled,
                     "SCANNING_ACTIVE" => Self::ScanningActive,
-                    _ => Self::UnknownValue(enablement_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(enablement_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -9386,7 +9950,9 @@ pub mod repository {
                 10 => Self::Go,
                 11 => Self::Generic,
                 12 => Self::Ruby,
-                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9406,7 +9972,9 @@ pub mod repository {
                 "GO" => Self::Go,
                 "GENERIC" => Self::Generic,
                 "RUBY" => Self::Ruby,
-                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9439,7 +10007,8 @@ pub mod repository {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
-                ".google.devtools.artifactregistry.v1.Repository.Format"))
+                ".google.devtools.artifactregistry.v1.Repository.Format",
+            ))
         }
     }
 
@@ -9535,7 +10104,9 @@ pub mod repository {
                 1 => Self::StandardRepository,
                 2 => Self::VirtualRepository,
                 3 => Self::RemoteRepository,
-                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9548,7 +10119,9 @@ pub mod repository {
                 "STANDARD_REPOSITORY" => Self::StandardRepository,
                 "VIRTUAL_REPOSITORY" => Self::VirtualRepository,
                 "REMOTE_REPOSITORY" => Self::RemoteRepository,
-                _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9574,7 +10147,8 @@ pub mod repository {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                ".google.devtools.artifactregistry.v1.Repository.Mode"))
+                ".google.devtools.artifactregistry.v1.Repository.Mode",
+            ))
         }
     }
 
@@ -9606,7 +10180,6 @@ pub mod repository {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesRequest {
-
     /// Required. The name of the parent resource whose repositories will be
     /// listed.
     pub parent: std::string::String,
@@ -9720,7 +10293,6 @@ impl wkt::message::Message for ListRepositoriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
-
     /// The repositories returned.
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
@@ -9751,7 +10323,7 @@ impl ListRepositoriesResponse {
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Repository>
+        V: std::convert::Into<crate::model::Repository>,
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
@@ -9795,7 +10367,6 @@ impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRepositoryRequest {
-
     /// Required. The name of the repository to retrieve.
     pub name: std::string::String,
 
@@ -9830,7 +10401,6 @@ impl wkt::message::Message for GetRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRepositoryRequest {
-
     /// Required. The name of the parent resource where the repository will be
     /// created.
     pub parent: std::string::String,
@@ -9882,7 +10452,8 @@ impl CreateRepositoryRequest {
     /// let x = CreateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
     /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Repository>
+    where
+        T: std::convert::Into<crate::model::Repository>,
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -9898,7 +10469,8 @@ impl CreateRepositoryRequest {
     /// let x = CreateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
     /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Repository>
+    where
+        T: std::convert::Into<crate::model::Repository>,
     {
         self.repository = v.map(|x| x.into());
         self
@@ -9915,7 +10487,6 @@ impl wkt::message::Message for CreateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRepositoryRequest {
-
     /// The repository that replaces the resource on the server.
     pub repository: std::option::Option<crate::model::Repository>,
 
@@ -9941,7 +10512,8 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
     /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Repository>
+    where
+        T: std::convert::Into<crate::model::Repository>,
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -9957,7 +10529,8 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
     /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Repository>
+    where
+        T: std::convert::Into<crate::model::Repository>,
     {
         self.repository = v.map(|x| x.into());
         self
@@ -9972,7 +10545,8 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -9988,7 +10562,8 @@ impl UpdateRepositoryRequest {
     /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10005,7 +10580,6 @@ impl wkt::message::Message for UpdateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRepositoryRequest {
-
     /// Required. The name of the repository to delete.
     pub name: std::string::String,
 
@@ -10042,7 +10616,6 @@ impl wkt::message::Message for DeleteRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
-
     /// The name of the rule, for example:
     /// `projects/p1/locations/us-central1/repositories/repo1/rules/rule1`.
     pub name: std::string::String,
@@ -10102,7 +10675,10 @@ impl Rule {
     /// use google_cloud_artifactregistry_v1::model::rule::Operation;
     /// let x0 = Rule::new().set_operation(Operation::Download);
     /// ```
-    pub fn set_operation<T: std::convert::Into<crate::model::rule::Operation>>(mut self, v: T) -> Self {
+    pub fn set_operation<T: std::convert::Into<crate::model::rule::Operation>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.operation = v.into();
         self
     }
@@ -10116,7 +10692,8 @@ impl Rule {
     /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Expr>
+    where
+        T: std::convert::Into<gtype::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -10132,7 +10709,8 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Expr>
+    where
+        T: std::convert::Into<gtype::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -10161,7 +10739,6 @@ impl wkt::message::Message for Rule {
 pub mod rule {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Defines the action of the rule.
     ///
@@ -10249,7 +10826,9 @@ pub mod rule {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10261,7 +10840,9 @@ pub mod rule {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10286,7 +10867,8 @@ pub mod rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.devtools.artifactregistry.v1.Rule.Action"))
+                ".google.devtools.artifactregistry.v1.Rule.Action",
+            ))
         }
     }
 
@@ -10371,7 +10953,9 @@ pub mod rule {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Download,
-                _ => Self::UnknownValue(operation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(operation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10382,7 +10966,9 @@ pub mod rule {
             match value {
                 "OPERATION_UNSPECIFIED" => Self::Unspecified,
                 "DOWNLOAD" => Self::Download,
-                _ => Self::UnknownValue(operation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(operation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10406,7 +10992,8 @@ pub mod rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operation>::new(
-                ".google.devtools.artifactregistry.v1.Rule.Operation"))
+                ".google.devtools.artifactregistry.v1.Rule.Operation",
+            ))
         }
     }
 }
@@ -10415,7 +11002,6 @@ pub mod rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRulesRequest {
-
     /// Required. The name of the parent repository whose rules will be listed.
     /// For example:
     /// `projects/p1/locations/us-central1/repositories/repo1`.
@@ -10482,7 +11068,6 @@ impl wkt::message::Message for ListRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRulesResponse {
-
     /// The rules returned.
     pub rules: std::vec::Vec<crate::model::Rule>,
 
@@ -10513,7 +11098,7 @@ impl ListRulesResponse {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rule>
+        V: std::convert::Into<crate::model::Rule>,
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -10557,7 +11142,6 @@ impl gax::paginator::internal::PageableResponse for ListRulesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuleRequest {
-
     /// Required. The name of the rule to retrieve.
     pub name: std::string::String,
 
@@ -10592,7 +11176,6 @@ impl wkt::message::Message for GetRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRuleRequest {
-
     /// Required. The name of the parent resource where the rule will be created.
     pub parent: std::string::String,
 
@@ -10643,7 +11226,8 @@ impl CreateRuleRequest {
     /// let x = CreateRuleRequest::new().set_rule(Rule::default()/* use setters */);
     /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = std::option::Option::Some(v.into());
         self
@@ -10659,7 +11243,8 @@ impl CreateRuleRequest {
     /// let x = CreateRuleRequest::new().set_or_clear_rule(None::<Rule>);
     /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = v.map(|x| x.into());
         self
@@ -10676,7 +11261,6 @@ impl wkt::message::Message for CreateRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRuleRequest {
-
     /// The rule that replaces the resource on the server.
     pub rule: std::option::Option<crate::model::Rule>,
 
@@ -10702,7 +11286,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_rule(Rule::default()/* use setters */);
     /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = std::option::Option::Some(v.into());
         self
@@ -10718,7 +11303,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_or_clear_rule(None::<Rule>);
     /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = v.map(|x| x.into());
         self
@@ -10733,7 +11319,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10749,7 +11336,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10766,7 +11354,6 @@ impl wkt::message::Message for UpdateRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRuleRequest {
-
     /// Required. The name of the rule to delete.
     pub name: std::string::String,
 
@@ -10801,7 +11388,6 @@ impl wkt::message::Message for DeleteRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10821,7 +11407,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectSettings {
-
     /// The name of the project's settings.
     ///
     /// Always of the form:
@@ -10868,7 +11453,12 @@ impl ProjectSettings {
     /// let x1 = ProjectSettings::new().set_legacy_redirection_state(RedirectionState::RedirectionFromGcrIoEnabled);
     /// let x2 = ProjectSettings::new().set_legacy_redirection_state(RedirectionState::RedirectionFromGcrIoEnabledAndCopying);
     /// ```
-    pub fn set_legacy_redirection_state<T: std::convert::Into<crate::model::project_settings::RedirectionState>>(mut self, v: T) -> Self {
+    pub fn set_legacy_redirection_state<
+        T: std::convert::Into<crate::model::project_settings::RedirectionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.legacy_redirection_state = v.into();
         self
     }
@@ -10896,7 +11486,6 @@ impl wkt::message::Message for ProjectSettings {
 pub mod project_settings {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible redirection states for legacy repositories.
     ///
@@ -10968,11 +11557,21 @@ pub mod project_settings {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("REDIRECTION_STATE_UNSPECIFIED"),
-                Self::RedirectionFromGcrIoDisabled => std::option::Option::Some("REDIRECTION_FROM_GCR_IO_DISABLED"),
-                Self::RedirectionFromGcrIoEnabled => std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED"),
-                Self::RedirectionFromGcrIoFinalized => std::option::Option::Some("REDIRECTION_FROM_GCR_IO_FINALIZED"),
-                Self::RedirectionFromGcrIoEnabledAndCopying => std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING"),
-                Self::RedirectionFromGcrIoPartialAndCopying => std::option::Option::Some("REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING"),
+                Self::RedirectionFromGcrIoDisabled => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_DISABLED")
+                }
+                Self::RedirectionFromGcrIoEnabled => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED")
+                }
+                Self::RedirectionFromGcrIoFinalized => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_FINALIZED")
+                }
+                Self::RedirectionFromGcrIoEnabledAndCopying => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING")
+                }
+                Self::RedirectionFromGcrIoPartialAndCopying => {
+                    std::option::Option::Some("REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11000,7 +11599,9 @@ pub mod project_settings {
                 3 => Self::RedirectionFromGcrIoFinalized,
                 5 => Self::RedirectionFromGcrIoEnabledAndCopying,
                 6 => Self::RedirectionFromGcrIoPartialAndCopying,
-                _ => Self::UnknownValue(redirection_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(redirection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11013,9 +11614,15 @@ pub mod project_settings {
                 "REDIRECTION_FROM_GCR_IO_DISABLED" => Self::RedirectionFromGcrIoDisabled,
                 "REDIRECTION_FROM_GCR_IO_ENABLED" => Self::RedirectionFromGcrIoEnabled,
                 "REDIRECTION_FROM_GCR_IO_FINALIZED" => Self::RedirectionFromGcrIoFinalized,
-                "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING" => Self::RedirectionFromGcrIoEnabledAndCopying,
-                "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING" => Self::RedirectionFromGcrIoPartialAndCopying,
-                _ => Self::UnknownValue(redirection_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                "REDIRECTION_FROM_GCR_IO_ENABLED_AND_COPYING" => {
+                    Self::RedirectionFromGcrIoEnabledAndCopying
+                }
+                "REDIRECTION_FROM_GCR_IO_PARTIAL_AND_COPYING" => {
+                    Self::RedirectionFromGcrIoPartialAndCopying
+                }
+                _ => Self::UnknownValue(redirection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11043,7 +11650,8 @@ pub mod project_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RedirectionState>::new(
-                ".google.devtools.artifactregistry.v1.ProjectSettings.RedirectionState"))
+                ".google.devtools.artifactregistry.v1.ProjectSettings.RedirectionState",
+            ))
         }
     }
 }
@@ -11052,7 +11660,6 @@ pub mod project_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectSettingsRequest {
-
     /// Required. The name of the projectSettings resource.
     pub name: std::string::String,
 
@@ -11087,7 +11694,6 @@ impl wkt::message::Message for GetProjectSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectSettingsRequest {
-
     /// The project settings.
     pub project_settings: std::option::Option<crate::model::ProjectSettings>,
 
@@ -11111,7 +11717,8 @@ impl UpdateProjectSettingsRequest {
     /// let x = UpdateProjectSettingsRequest::new().set_project_settings(ProjectSettings::default()/* use setters */);
     /// ```
     pub fn set_project_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProjectSettings>
+    where
+        T: std::convert::Into<crate::model::ProjectSettings>,
     {
         self.project_settings = std::option::Option::Some(v.into());
         self
@@ -11127,7 +11734,8 @@ impl UpdateProjectSettingsRequest {
     /// let x = UpdateProjectSettingsRequest::new().set_or_clear_project_settings(None::<ProjectSettings>);
     /// ```
     pub fn set_or_clear_project_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProjectSettings>
+    where
+        T: std::convert::Into<crate::model::ProjectSettings>,
     {
         self.project_settings = v.map(|x| x.into());
         self
@@ -11142,7 +11750,8 @@ impl UpdateProjectSettingsRequest {
     /// let x = UpdateProjectSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -11158,7 +11767,8 @@ impl UpdateProjectSettingsRequest {
     /// let x = UpdateProjectSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -11176,7 +11786,6 @@ impl wkt::message::Message for UpdateProjectSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tag {
-
     /// The name of the tag, for example:
     /// "projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/tags/tag1".
     /// If the package part contains slashes, the slashes are escaped.
@@ -11233,7 +11842,6 @@ impl wkt::message::Message for Tag {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagsRequest {
-
     /// The name of the parent package whose tags will be listed.
     /// For example:
     /// `projects/p1/locations/us-central1/repositories/repo1/packages/pkg1`.
@@ -11341,7 +11949,6 @@ impl wkt::message::Message for ListTagsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagsResponse {
-
     /// The tags returned.
     pub tags: std::vec::Vec<crate::model::Tag>,
 
@@ -11372,7 +11979,7 @@ impl ListTagsResponse {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Tag>
+        V: std::convert::Into<crate::model::Tag>,
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -11416,7 +12023,6 @@ impl gax::paginator::internal::PageableResponse for ListTagsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagRequest {
-
     /// The name of the tag to retrieve.
     pub name: std::string::String,
 
@@ -11451,7 +12057,6 @@ impl wkt::message::Message for GetTagRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagRequest {
-
     /// The name of the parent resource where the tag will be created.
     pub parent: std::string::String,
 
@@ -11502,7 +12107,8 @@ impl CreateTagRequest {
     /// let x = CreateTagRequest::new().set_tag(Tag::default()/* use setters */);
     /// ```
     pub fn set_tag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Tag>
+    where
+        T: std::convert::Into<crate::model::Tag>,
     {
         self.tag = std::option::Option::Some(v.into());
         self
@@ -11518,7 +12124,8 @@ impl CreateTagRequest {
     /// let x = CreateTagRequest::new().set_or_clear_tag(None::<Tag>);
     /// ```
     pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Tag>
+    where
+        T: std::convert::Into<crate::model::Tag>,
     {
         self.tag = v.map(|x| x.into());
         self
@@ -11535,7 +12142,6 @@ impl wkt::message::Message for CreateTagRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagRequest {
-
     /// The tag that replaces the resource on the server.
     pub tag: std::option::Option<crate::model::Tag>,
 
@@ -11561,7 +12167,8 @@ impl UpdateTagRequest {
     /// let x = UpdateTagRequest::new().set_tag(Tag::default()/* use setters */);
     /// ```
     pub fn set_tag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Tag>
+    where
+        T: std::convert::Into<crate::model::Tag>,
     {
         self.tag = std::option::Option::Some(v.into());
         self
@@ -11577,7 +12184,8 @@ impl UpdateTagRequest {
     /// let x = UpdateTagRequest::new().set_or_clear_tag(None::<Tag>);
     /// ```
     pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Tag>
+    where
+        T: std::convert::Into<crate::model::Tag>,
     {
         self.tag = v.map(|x| x.into());
         self
@@ -11592,7 +12200,8 @@ impl UpdateTagRequest {
     /// let x = UpdateTagRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -11608,7 +12217,8 @@ impl UpdateTagRequest {
     /// let x = UpdateTagRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -11625,7 +12235,6 @@ impl wkt::message::Message for UpdateTagRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagRequest {
-
     /// The name of the tag to delete.
     pub name: std::string::String,
 
@@ -11662,7 +12271,6 @@ impl wkt::message::Message for DeleteTagRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
-
     /// The name of the version, for example:
     /// `projects/p1/locations/us-central1/repositories/repo1/packages/pkg1/versions/art1`.
     /// If the package or version ID parts contain slashes, the slashes are
@@ -11693,7 +12301,7 @@ pub struct Version {
     pub metadata: std::option::Option<wkt::Struct>,
 
     /// Optional. Client specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11736,7 +12344,8 @@ impl Version {
     /// let x = Version::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11752,7 +12361,8 @@ impl Version {
     /// let x = Version::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11767,7 +12377,8 @@ impl Version {
     /// let x = Version::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -11783,7 +12394,8 @@ impl Version {
     /// let x = Version::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -11804,7 +12416,7 @@ impl Version {
     pub fn set_related_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Tag>
+        V: std::convert::Into<crate::model::Tag>,
     {
         use std::iter::Iterator;
         self.related_tags = v.into_iter().map(|i| i.into()).collect();
@@ -11820,7 +12432,8 @@ impl Version {
     /// let x = Version::new().set_metadata(Struct::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -11836,7 +12449,8 @@ impl Version {
     /// let x = Version::new().set_or_clear_metadata(None::<Struct>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -11874,7 +12488,6 @@ impl wkt::message::Message for Version {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
-
     /// The name of the parent resource whose versions will be listed.
     pub parent: std::string::String,
 
@@ -12030,7 +12643,6 @@ impl wkt::message::Message for ListVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsResponse {
-
     /// The versions returned.
     pub versions: std::vec::Vec<crate::model::Version>,
 
@@ -12061,7 +12673,7 @@ impl ListVersionsResponse {
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Version>
+        V: std::convert::Into<crate::model::Version>,
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
@@ -12105,7 +12717,6 @@ impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
-
     /// The name of the version to retrieve.
     pub name: std::string::String,
 
@@ -12157,7 +12768,6 @@ impl wkt::message::Message for GetVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
-
     /// The name of the version to delete.
     pub name: std::string::String,
 
@@ -12208,7 +12818,6 @@ impl wkt::message::Message for DeleteVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteVersionsRequest {
-
     /// The name of the repository holding all requested versions.
     pub parent: std::string::String,
 
@@ -12250,7 +12859,7 @@ impl BatchDeleteVersionsRequest {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -12280,7 +12889,6 @@ impl wkt::message::Message for BatchDeleteVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteVersionsMetadata {
-
     /// The versions the operation failed to delete.
     pub failed_versions: std::vec::Vec<std::string::String>,
 
@@ -12302,7 +12910,7 @@ impl BatchDeleteVersionsMetadata {
     pub fn set_failed_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.failed_versions = v.into_iter().map(|i| i.into()).collect();
@@ -12320,7 +12928,6 @@ impl wkt::message::Message for BatchDeleteVersionsMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVersionRequest {
-
     /// Required. The Version that replaces the resource on the server.
     pub version: std::option::Option<crate::model::Version>,
 
@@ -12346,7 +12953,8 @@ impl UpdateVersionRequest {
     /// let x = UpdateVersionRequest::new().set_version(Version::default()/* use setters */);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Version>
+    where
+        T: std::convert::Into<crate::model::Version>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -12362,7 +12970,8 @@ impl UpdateVersionRequest {
     /// let x = UpdateVersionRequest::new().set_or_clear_version(None::<Version>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Version>
+    where
+        T: std::convert::Into<crate::model::Version>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -12377,7 +12986,8 @@ impl UpdateVersionRequest {
     /// let x = UpdateVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -12393,7 +13003,8 @@ impl UpdateVersionRequest {
     /// let x = UpdateVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -12410,7 +13021,6 @@ impl wkt::message::Message for UpdateVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VPCSCConfig {
-
     /// The name of the project's VPC SC Config.
     ///
     /// Always of the form:
@@ -12453,7 +13063,10 @@ impl VPCSCConfig {
     /// let x0 = VPCSCConfig::new().set_vpcsc_policy(VPCSCPolicy::Deny);
     /// let x1 = VPCSCConfig::new().set_vpcsc_policy(VPCSCPolicy::Allow);
     /// ```
-    pub fn set_vpcsc_policy<T: std::convert::Into<crate::model::vpcsc_config::VPCSCPolicy>>(mut self, v: T) -> Self {
+    pub fn set_vpcsc_policy<T: std::convert::Into<crate::model::vpcsc_config::VPCSCPolicy>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.vpcsc_policy = v.into();
         self
     }
@@ -12469,7 +13082,6 @@ impl wkt::message::Message for VPCSCConfig {
 pub mod vpcsc_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// VPCSCPolicy is the VPC SC policy for project and location.
     ///
@@ -12561,7 +13173,9 @@ pub mod vpcsc_config {
                 0 => Self::Unspecified,
                 1 => Self::Deny,
                 2 => Self::Allow,
-                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -12573,7 +13187,9 @@ pub mod vpcsc_config {
                 "VPCSC_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "DENY" => Self::Deny,
                 "ALLOW" => Self::Allow,
-                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(vpcsc_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -12598,7 +13214,8 @@ pub mod vpcsc_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VPCSCPolicy>::new(
-                ".google.devtools.artifactregistry.v1.VPCSCConfig.VPCSCPolicy"))
+                ".google.devtools.artifactregistry.v1.VPCSCConfig.VPCSCPolicy",
+            ))
         }
     }
 }
@@ -12607,7 +13224,6 @@ pub mod vpcsc_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVPCSCConfigRequest {
-
     /// Required. The name of the VPCSCConfig resource.
     pub name: std::string::String,
 
@@ -12642,7 +13258,6 @@ impl wkt::message::Message for GetVPCSCConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVPCSCConfigRequest {
-
     /// The project config.
     pub vpcsc_config: std::option::Option<crate::model::VPCSCConfig>,
 
@@ -12666,7 +13281,8 @@ impl UpdateVPCSCConfigRequest {
     /// let x = UpdateVPCSCConfigRequest::new().set_vpcsc_config(VPCSCConfig::default()/* use setters */);
     /// ```
     pub fn set_vpcsc_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::VPCSCConfig>
+    where
+        T: std::convert::Into<crate::model::VPCSCConfig>,
     {
         self.vpcsc_config = std::option::Option::Some(v.into());
         self
@@ -12682,7 +13298,8 @@ impl UpdateVPCSCConfigRequest {
     /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_vpcsc_config(None::<VPCSCConfig>);
     /// ```
     pub fn set_or_clear_vpcsc_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::VPCSCConfig>
+    where
+        T: std::convert::Into<crate::model::VPCSCConfig>,
     {
         self.vpcsc_config = v.map(|x| x.into());
         self
@@ -12697,7 +13314,8 @@ impl UpdateVPCSCConfigRequest {
     /// let x = UpdateVPCSCConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -12713,7 +13331,8 @@ impl UpdateVPCSCConfigRequest {
     /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -12730,7 +13349,6 @@ impl wkt::message::Message for UpdateVPCSCConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct YumArtifact {
-
     /// Output only. The Artifact Registry resource name of the artifact.
     pub name: std::string::String,
 
@@ -12784,7 +13402,10 @@ impl YumArtifact {
     /// let x0 = YumArtifact::new().set_package_type(PackageType::Binary);
     /// let x1 = YumArtifact::new().set_package_type(PackageType::Source);
     /// ```
-    pub fn set_package_type<T: std::convert::Into<crate::model::yum_artifact::PackageType>>(mut self, v: T) -> Self {
+    pub fn set_package_type<T: std::convert::Into<crate::model::yum_artifact::PackageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.package_type = v.into();
         self
     }
@@ -12812,7 +13433,6 @@ impl wkt::message::Message for YumArtifact {
 pub mod yum_artifact {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Package type is either binary or source.
     ///
@@ -12900,7 +13520,9 @@ pub mod yum_artifact {
                 0 => Self::Unspecified,
                 1 => Self::Binary,
                 2 => Self::Source,
-                _ => Self::UnknownValue(package_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -12912,7 +13534,9 @@ pub mod yum_artifact {
                 "PACKAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "BINARY" => Self::Binary,
                 "SOURCE" => Self::Source,
-                _ => Self::UnknownValue(package_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(package_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -12937,7 +13561,8 @@ pub mod yum_artifact {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PackageType>::new(
-                ".google.devtools.artifactregistry.v1.YumArtifact.PackageType"))
+                ".google.devtools.artifactregistry.v1.YumArtifact.PackageType",
+            ))
         }
     }
 }
@@ -12946,7 +13571,6 @@ pub mod yum_artifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportYumArtifactsGcsSource {
-
     /// Cloud Storage paths URI (e.g., gs://my_bucket//my_object).
     pub uris: std::vec::Vec<std::string::String>,
 
@@ -12971,7 +13595,7 @@ impl ImportYumArtifactsGcsSource {
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.uris = v.into_iter().map(|i| i.into()).collect();
@@ -13001,7 +13625,6 @@ impl wkt::message::Message for ImportYumArtifactsGcsSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportYumArtifactsRequest {
-
     /// The name of the parent resource where the artifacts will be imported.
     pub parent: std::string::String,
 
@@ -13040,8 +13663,12 @@ impl ImportYumArtifactsRequest {
     /// let x = ImportYumArtifactsRequest::new().set_source(Some(
     ///     google_cloud_artifactregistry_v1::model::import_yum_artifacts_request::Source::GcsSource(ImportYumArtifactsGcsSource::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_yum_artifacts_request::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::import_yum_artifacts_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -13049,10 +13676,14 @@ impl ImportYumArtifactsRequest {
     /// The value of [source][crate::model::ImportYumArtifactsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>> {
+    pub fn gcs_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_yum_artifacts_request::Source::GcsSource(v) => std::option::Option::Some(v),
+            crate::model::import_yum_artifacts_request::Source::GcsSource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13070,11 +13701,14 @@ impl ImportYumArtifactsRequest {
     /// let x = ImportYumArtifactsRequest::new().set_gcs_source(ImportYumArtifactsGcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_yum_artifacts_request::Source::GcsSource(
-                v.into()
-            )
+            crate::model::import_yum_artifacts_request::Source::GcsSource(v.into()),
         );
         self
     }
@@ -13091,7 +13725,6 @@ pub mod import_yum_artifacts_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The source location of the package binaries.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13105,7 +13738,6 @@ pub mod import_yum_artifacts_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportYumArtifactsErrorInfo {
-
     /// The detailed error status.
     pub error: std::option::Option<rpc::model::Status>,
 
@@ -13129,7 +13761,8 @@ impl ImportYumArtifactsErrorInfo {
     /// let x = ImportYumArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -13145,7 +13778,8 @@ impl ImportYumArtifactsErrorInfo {
     /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -13163,8 +13797,14 @@ impl ImportYumArtifactsErrorInfo {
     /// let x = ImportYumArtifactsErrorInfo::new().set_source(Some(
     ///     google_cloud_artifactregistry_v1::model::import_yum_artifacts_error_info::Source::GcsSource(ImportYumArtifactsGcsSource::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_yum_artifacts_error_info::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -13172,10 +13812,14 @@ impl ImportYumArtifactsErrorInfo {
     /// The value of [source][crate::model::ImportYumArtifactsErrorInfo::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>> {
+    pub fn gcs_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::import_yum_artifacts_error_info::Source::GcsSource(v) => std::option::Option::Some(v),
+            crate::model::import_yum_artifacts_error_info::Source::GcsSource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13193,11 +13837,14 @@ impl ImportYumArtifactsErrorInfo {
     /// let x = ImportYumArtifactsErrorInfo::new().set_gcs_source(ImportYumArtifactsGcsSource::default()/* use setters */);
     /// assert!(x.gcs_source().is_some());
     /// ```
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::import_yum_artifacts_error_info::Source::GcsSource(
-                v.into()
-            )
+            crate::model::import_yum_artifacts_error_info::Source::GcsSource(v.into()),
         );
         self
     }
@@ -13214,7 +13861,6 @@ pub mod import_yum_artifacts_error_info {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The source that was not imported.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13228,7 +13874,6 @@ pub mod import_yum_artifacts_error_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportYumArtifactsResponse {
-
     /// The yum artifacts imported.
     pub yum_artifacts: std::vec::Vec<crate::model::YumArtifact>,
 
@@ -13258,7 +13903,7 @@ impl ImportYumArtifactsResponse {
     pub fn set_yum_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::YumArtifact>
+        V: std::convert::Into<crate::model::YumArtifact>,
     {
         use std::iter::Iterator;
         self.yum_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -13280,7 +13925,7 @@ impl ImportYumArtifactsResponse {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImportYumArtifactsErrorInfo>
+        V: std::convert::Into<crate::model::ImportYumArtifactsErrorInfo>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -13298,7 +13943,6 @@ impl wkt::message::Message for ImportYumArtifactsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportYumArtifactsMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13402,7 +14046,9 @@ impl std::convert::From<i32> for VersionView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(version_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(version_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -13414,7 +14060,9 @@ impl std::convert::From<&str> for VersionView {
             "VERSION_VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(version_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(version_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -13439,6 +14087,7 @@ impl<'de> serde::de::Deserialize<'de> for VersionView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<VersionView>::new(
-            ".google.devtools.artifactregistry.v1.VersionView"))
+            ".google.devtools.artifactregistry.v1.VersionView",
+        ))
     }
 }

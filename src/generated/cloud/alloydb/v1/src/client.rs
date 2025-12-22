@@ -72,7 +72,9 @@ impl AlloyDBCSQLAdmin {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::alloy_dbcsql_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::alloy_dbcsql_admin::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::alloy_dbcsql_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,43 @@ impl AlloyDBCSQLAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AlloyDBCSQLAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AlloyDBCSQLAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
         super::transport::AlloyDBCSQLAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::AlloyDBCSQLAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AlloyDBCSQLAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AlloyDBCSQLAdmin::new)
     }
 
     /// Restores an AlloyDB cluster from a CloudSQL resource.
@@ -115,14 +132,14 @@ impl AlloyDBCSQLAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_from_cloud_sql(&self) -> super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL
-    {
+    pub fn restore_from_cloud_sql(
+        &self,
+    ) -> super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL {
         super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::alloy_dbcsql_admin::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::alloy_dbcsql_admin::ListLocations {
         super::builder::alloy_dbcsql_admin::ListLocations::new(self.inner.clone())
     }
 
@@ -143,16 +160,14 @@ impl AlloyDBCSQLAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::alloy_dbcsql_admin::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::alloy_dbcsql_admin::GetLocation {
         super::builder::alloy_dbcsql_admin::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::alloy_dbcsql_admin::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::alloy_dbcsql_admin::ListOperations {
         super::builder::alloy_dbcsql_admin::ListOperations::new(self.inner.clone())
     }
 
@@ -175,8 +190,7 @@ impl AlloyDBCSQLAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::alloy_dbcsql_admin::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::alloy_dbcsql_admin::GetOperation {
         super::builder::alloy_dbcsql_admin::GetOperation::new(self.inner.clone())
     }
 
@@ -198,8 +212,7 @@ impl AlloyDBCSQLAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::alloy_dbcsql_admin::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::alloy_dbcsql_admin::DeleteOperation {
         super::builder::alloy_dbcsql_admin::DeleteOperation::new(self.inner.clone())
     }
 
@@ -221,8 +234,7 @@ impl AlloyDBCSQLAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::alloy_dbcsql_admin::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::alloy_dbcsql_admin::CancelOperation {
         super::builder::alloy_dbcsql_admin::CancelOperation::new(self.inner.clone())
     }
 }
@@ -291,33 +303,46 @@ impl AlloyDBAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AlloyDBAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AlloyDBAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
         super::transport::AlloyDBAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::AlloyDBAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AlloyDBAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AlloyDBAdmin::new)
     }
 
     /// Lists Clusters in a given project and location.
-    pub fn list_clusters(&self) -> super::builder::alloy_db_admin::ListClusters
-    {
+    pub fn list_clusters(&self) -> super::builder::alloy_db_admin::ListClusters {
         super::builder::alloy_db_admin::ListClusters::new(self.inner.clone())
     }
 
@@ -339,8 +364,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_cluster(&self) -> super::builder::alloy_db_admin::GetCluster
-    {
+    pub fn get_cluster(&self) -> super::builder::alloy_db_admin::GetCluster {
         super::builder::alloy_db_admin::GetCluster::new(self.inner.clone())
     }
 
@@ -355,8 +379,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(&self) -> super::builder::alloy_db_admin::CreateCluster
-    {
+    pub fn create_cluster(&self) -> super::builder::alloy_db_admin::CreateCluster {
         super::builder::alloy_db_admin::CreateCluster::new(self.inner.clone())
     }
 
@@ -371,8 +394,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(&self) -> super::builder::alloy_db_admin::UpdateCluster
-    {
+    pub fn update_cluster(&self) -> super::builder::alloy_db_admin::UpdateCluster {
         super::builder::alloy_db_admin::UpdateCluster::new(self.inner.clone())
     }
 
@@ -388,8 +410,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_cluster(&self) -> super::builder::alloy_db_admin::ExportCluster
-    {
+    pub fn export_cluster(&self) -> super::builder::alloy_db_admin::ExportCluster {
         super::builder::alloy_db_admin::ExportCluster::new(self.inner.clone())
     }
 
@@ -405,8 +426,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_cluster(&self) -> super::builder::alloy_db_admin::ImportCluster
-    {
+    pub fn import_cluster(&self) -> super::builder::alloy_db_admin::ImportCluster {
         super::builder::alloy_db_admin::ImportCluster::new(self.inner.clone())
     }
 
@@ -422,8 +442,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_cluster(&self) -> super::builder::alloy_db_admin::UpgradeCluster
-    {
+    pub fn upgrade_cluster(&self) -> super::builder::alloy_db_admin::UpgradeCluster {
         super::builder::alloy_db_admin::UpgradeCluster::new(self.inner.clone())
     }
 
@@ -438,8 +457,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cluster(&self) -> super::builder::alloy_db_admin::DeleteCluster
-    {
+    pub fn delete_cluster(&self) -> super::builder::alloy_db_admin::DeleteCluster {
         super::builder::alloy_db_admin::DeleteCluster::new(self.inner.clone())
     }
 
@@ -457,8 +475,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn promote_cluster(&self) -> super::builder::alloy_db_admin::PromoteCluster
-    {
+    pub fn promote_cluster(&self) -> super::builder::alloy_db_admin::PromoteCluster {
         super::builder::alloy_db_admin::PromoteCluster::new(self.inner.clone())
     }
 
@@ -475,8 +492,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn switchover_cluster(&self) -> super::builder::alloy_db_admin::SwitchoverCluster
-    {
+    pub fn switchover_cluster(&self) -> super::builder::alloy_db_admin::SwitchoverCluster {
         super::builder::alloy_db_admin::SwitchoverCluster::new(self.inner.clone())
     }
 
@@ -493,8 +509,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_cluster(&self) -> super::builder::alloy_db_admin::RestoreCluster
-    {
+    pub fn restore_cluster(&self) -> super::builder::alloy_db_admin::RestoreCluster {
         super::builder::alloy_db_admin::RestoreCluster::new(self.inner.clone())
     }
 
@@ -510,14 +525,14 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_secondary_cluster(&self) -> super::builder::alloy_db_admin::CreateSecondaryCluster
-    {
+    pub fn create_secondary_cluster(
+        &self,
+    ) -> super::builder::alloy_db_admin::CreateSecondaryCluster {
         super::builder::alloy_db_admin::CreateSecondaryCluster::new(self.inner.clone())
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(&self) -> super::builder::alloy_db_admin::ListInstances
-    {
+    pub fn list_instances(&self) -> super::builder::alloy_db_admin::ListInstances {
         super::builder::alloy_db_admin::ListInstances::new(self.inner.clone())
     }
 
@@ -539,8 +554,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance(&self) -> super::builder::alloy_db_admin::GetInstance
-    {
+    pub fn get_instance(&self) -> super::builder::alloy_db_admin::GetInstance {
         super::builder::alloy_db_admin::GetInstance::new(self.inner.clone())
     }
 
@@ -555,8 +569,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::alloy_db_admin::CreateInstance
-    {
+    pub fn create_instance(&self) -> super::builder::alloy_db_admin::CreateInstance {
         super::builder::alloy_db_admin::CreateInstance::new(self.inner.clone())
     }
 
@@ -571,8 +584,9 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_secondary_instance(&self) -> super::builder::alloy_db_admin::CreateSecondaryInstance
-    {
+    pub fn create_secondary_instance(
+        &self,
+    ) -> super::builder::alloy_db_admin::CreateSecondaryInstance {
         super::builder::alloy_db_admin::CreateSecondaryInstance::new(self.inner.clone())
     }
 
@@ -596,8 +610,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_create_instances(&self) -> super::builder::alloy_db_admin::BatchCreateInstances
-    {
+    pub fn batch_create_instances(&self) -> super::builder::alloy_db_admin::BatchCreateInstances {
         super::builder::alloy_db_admin::BatchCreateInstances::new(self.inner.clone())
     }
 
@@ -612,8 +625,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::alloy_db_admin::UpdateInstance
-    {
+    pub fn update_instance(&self) -> super::builder::alloy_db_admin::UpdateInstance {
         super::builder::alloy_db_admin::UpdateInstance::new(self.inner.clone())
     }
 
@@ -628,8 +640,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::alloy_db_admin::DeleteInstance
-    {
+    pub fn delete_instance(&self) -> super::builder::alloy_db_admin::DeleteInstance {
         super::builder::alloy_db_admin::DeleteInstance::new(self.inner.clone())
     }
 
@@ -646,8 +657,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn failover_instance(&self) -> super::builder::alloy_db_admin::FailoverInstance
-    {
+    pub fn failover_instance(&self) -> super::builder::alloy_db_admin::FailoverInstance {
         super::builder::alloy_db_admin::FailoverInstance::new(self.inner.clone())
     }
 
@@ -663,8 +673,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn inject_fault(&self) -> super::builder::alloy_db_admin::InjectFault
-    {
+    pub fn inject_fault(&self) -> super::builder::alloy_db_admin::InjectFault {
         super::builder::alloy_db_admin::InjectFault::new(self.inner.clone())
     }
 
@@ -680,8 +689,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restart_instance(&self) -> super::builder::alloy_db_admin::RestartInstance
-    {
+    pub fn restart_instance(&self) -> super::builder::alloy_db_admin::RestartInstance {
         super::builder::alloy_db_admin::RestartInstance::new(self.inner.clone())
     }
 
@@ -702,14 +710,12 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn execute_sql(&self) -> super::builder::alloy_db_admin::ExecuteSql
-    {
+    pub fn execute_sql(&self) -> super::builder::alloy_db_admin::ExecuteSql {
         super::builder::alloy_db_admin::ExecuteSql::new(self.inner.clone())
     }
 
     /// Lists Backups in a given project and location.
-    pub fn list_backups(&self) -> super::builder::alloy_db_admin::ListBackups
-    {
+    pub fn list_backups(&self) -> super::builder::alloy_db_admin::ListBackups {
         super::builder::alloy_db_admin::ListBackups::new(self.inner.clone())
     }
 
@@ -731,8 +737,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_backup(&self) -> super::builder::alloy_db_admin::GetBackup
-    {
+    pub fn get_backup(&self) -> super::builder::alloy_db_admin::GetBackup {
         super::builder::alloy_db_admin::GetBackup::new(self.inner.clone())
     }
 
@@ -747,8 +752,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup(&self) -> super::builder::alloy_db_admin::CreateBackup
-    {
+    pub fn create_backup(&self) -> super::builder::alloy_db_admin::CreateBackup {
         super::builder::alloy_db_admin::CreateBackup::new(self.inner.clone())
     }
 
@@ -763,8 +767,7 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup(&self) -> super::builder::alloy_db_admin::UpdateBackup
-    {
+    pub fn update_backup(&self) -> super::builder::alloy_db_admin::UpdateBackup {
         super::builder::alloy_db_admin::UpdateBackup::new(self.inner.clone())
     }
 
@@ -779,14 +782,14 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(&self) -> super::builder::alloy_db_admin::DeleteBackup
-    {
+    pub fn delete_backup(&self) -> super::builder::alloy_db_admin::DeleteBackup {
         super::builder::alloy_db_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Lists SupportedDatabaseFlags for a given project and location.
-    pub fn list_supported_database_flags(&self) -> super::builder::alloy_db_admin::ListSupportedDatabaseFlags
-    {
+    pub fn list_supported_database_flags(
+        &self,
+    ) -> super::builder::alloy_db_admin::ListSupportedDatabaseFlags {
         super::builder::alloy_db_admin::ListSupportedDatabaseFlags::new(self.inner.clone())
     }
 
@@ -811,8 +814,9 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn generate_client_certificate(&self) -> super::builder::alloy_db_admin::GenerateClientCertificate
-    {
+    pub fn generate_client_certificate(
+        &self,
+    ) -> super::builder::alloy_db_admin::GenerateClientCertificate {
         super::builder::alloy_db_admin::GenerateClientCertificate::new(self.inner.clone())
     }
 
@@ -833,14 +837,12 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_connection_info(&self) -> super::builder::alloy_db_admin::GetConnectionInfo
-    {
+    pub fn get_connection_info(&self) -> super::builder::alloy_db_admin::GetConnectionInfo {
         super::builder::alloy_db_admin::GetConnectionInfo::new(self.inner.clone())
     }
 
     /// Lists Users in a given project and location.
-    pub fn list_users(&self) -> super::builder::alloy_db_admin::ListUsers
-    {
+    pub fn list_users(&self) -> super::builder::alloy_db_admin::ListUsers {
         super::builder::alloy_db_admin::ListUsers::new(self.inner.clone())
     }
 
@@ -862,8 +864,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_user(&self) -> super::builder::alloy_db_admin::GetUser
-    {
+    pub fn get_user(&self) -> super::builder::alloy_db_admin::GetUser {
         super::builder::alloy_db_admin::GetUser::new(self.inner.clone())
     }
 
@@ -884,8 +885,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_user(&self) -> super::builder::alloy_db_admin::CreateUser
-    {
+    pub fn create_user(&self) -> super::builder::alloy_db_admin::CreateUser {
         super::builder::alloy_db_admin::CreateUser::new(self.inner.clone())
     }
 
@@ -906,8 +906,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_user(&self) -> super::builder::alloy_db_admin::UpdateUser
-    {
+    pub fn update_user(&self) -> super::builder::alloy_db_admin::UpdateUser {
         super::builder::alloy_db_admin::UpdateUser::new(self.inner.clone())
     }
 
@@ -927,20 +926,17 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_user(&self) -> super::builder::alloy_db_admin::DeleteUser
-    {
+    pub fn delete_user(&self) -> super::builder::alloy_db_admin::DeleteUser {
         super::builder::alloy_db_admin::DeleteUser::new(self.inner.clone())
     }
 
     /// Lists Databases in a given project and location.
-    pub fn list_databases(&self) -> super::builder::alloy_db_admin::ListDatabases
-    {
+    pub fn list_databases(&self) -> super::builder::alloy_db_admin::ListDatabases {
         super::builder::alloy_db_admin::ListDatabases::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::alloy_db_admin::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::alloy_db_admin::ListLocations {
         super::builder::alloy_db_admin::ListLocations::new(self.inner.clone())
     }
 
@@ -961,16 +957,14 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::alloy_db_admin::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::alloy_db_admin::GetLocation {
         super::builder::alloy_db_admin::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::alloy_db_admin::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::alloy_db_admin::ListOperations {
         super::builder::alloy_db_admin::ListOperations::new(self.inner.clone())
     }
 
@@ -993,8 +987,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::alloy_db_admin::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::alloy_db_admin::GetOperation {
         super::builder::alloy_db_admin::GetOperation::new(self.inner.clone())
     }
 
@@ -1016,8 +1009,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::alloy_db_admin::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::alloy_db_admin::DeleteOperation {
         super::builder::alloy_db_admin::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1039,8 +1031,7 @@ impl AlloyDBAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::alloy_db_admin::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::alloy_db_admin::CancelOperation {
         super::builder::alloy_db_admin::CancelOperation::new(self.inner.clone())
     }
 }

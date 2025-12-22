@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::TroubleshootIamPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.access_tuple.is_some() {
             state.serialize_entry("accessTuple", &self.access_tuple)?;
@@ -45,9 +45,9 @@ impl serde::ser::Serialize for super::TroubleshootIamPolicyResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access) {
             state.serialize_entry("access", &self.access)?;
@@ -73,9 +73,9 @@ impl serde::ser::Serialize for super::AccessTuple {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
@@ -101,9 +101,9 @@ impl serde::ser::Serialize for super::ExplainedPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access) {
             state.serialize_entry("access", &self.access)?;
@@ -135,9 +135,9 @@ impl serde::ser::Serialize for super::BindingExplanation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access) {
             state.serialize_entry("access", &self.access)?;
@@ -175,9 +175,9 @@ impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.membership) {
             state.serialize_entry("membership", &self.membership)?;
@@ -193,4 +193,3 @@ impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
         state.end()
     }
 }
-

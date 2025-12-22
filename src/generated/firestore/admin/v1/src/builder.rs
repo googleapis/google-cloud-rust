@@ -39,7 +39,10 @@ pub mod firestore_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = FirestoreAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod firestore_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,10 +93,10 @@ pub mod firestore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -111,16 +118,18 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_index][crate::client::FirestoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_index(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_index`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -160,7 +169,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_index<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Index>
+        where
+            T: std::convert::Into<crate::model::Index>,
         {
             self.0.request.index = std::option::Option::Some(v.into());
             self
@@ -170,7 +180,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Index>
+        where
+            T: std::convert::Into<crate::model::Index>,
         {
             self.0.request.index = v.map(|x| x.into());
             self
@@ -209,10 +220,10 @@ pub mod firestore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -229,11 +240,17 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIndexesResponse> {
-            (*self.0.stub).list_indexes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_indexes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -245,7 +262,10 @@ pub mod firestore_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIndexesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIndexesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -305,10 +325,10 @@ pub mod firestore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -325,7 +345,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Index> {
-            (*self.0.stub).get_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_index(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIndexRequest::name].
@@ -365,10 +388,10 @@ pub mod firestore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -385,7 +408,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_index(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_index(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexRequest::name].
@@ -425,10 +451,10 @@ pub mod firestore_admin {
     pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
 
     impl GetField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -445,7 +471,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Field> {
-            (*self.0.stub).get_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFieldRequest::name].
@@ -486,10 +515,10 @@ pub mod firestore_admin {
     pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
 
     impl UpdateField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -511,16 +540,18 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_field][crate::client::FirestoreAdmin::update_field].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_field`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -552,7 +583,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_field<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Field>
+        where
+            T: std::convert::Into<crate::model::Field>,
         {
             self.0.request.field = std::option::Option::Some(v.into());
             self
@@ -562,7 +594,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Field>
+        where
+            T: std::convert::Into<crate::model::Field>,
         {
             self.0.request.field = v.map(|x| x.into());
             self
@@ -570,7 +603,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -578,7 +612,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -617,10 +652,10 @@ pub mod firestore_admin {
     pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
 
     impl ListFields {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -637,11 +672,17 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFieldsResponse> {
-            (*self.0.stub).list_fields(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_fields(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFieldsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListFieldsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -653,7 +694,10 @@ pub mod firestore_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFieldsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFieldsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -714,10 +758,10 @@ pub mod firestore_admin {
     pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
 
     impl ExportDocuments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -739,16 +783,21 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_documents][crate::client::FirestoreAdmin::export_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).export_documents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export_documents(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_documents`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExportDocumentsResponse,
+                crate::model::ExportDocumentsMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -788,7 +837,7 @@ pub mod firestore_admin {
         pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
@@ -805,7 +854,7 @@ pub mod firestore_admin {
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
@@ -814,7 +863,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
         pub fn set_snapshot_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.snapshot_time = std::option::Option::Some(v.into());
             self
@@ -822,7 +872,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
         pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.snapshot_time = v.map(|x| x.into());
             self
@@ -858,10 +909,10 @@ pub mod firestore_admin {
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -883,16 +934,16 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_documents][crate::client::FirestoreAdmin::import_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).import_documents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_documents(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::ImportDocumentsMetadata>
-        {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDocumentsMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -917,7 +968,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].
@@ -932,7 +988,7 @@ pub mod firestore_admin {
         pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
@@ -949,7 +1005,7 @@ pub mod firestore_admin {
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
@@ -986,14 +1042,17 @@ pub mod firestore_admin {
     pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
 
     impl BulkDeleteDocuments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BulkDeleteDocumentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BulkDeleteDocumentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1011,16 +1070,23 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).bulk_delete_documents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .bulk_delete_documents(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_delete_documents`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BulkDeleteDocumentsResponse, crate::model::BulkDeleteDocumentsMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::BulkDeleteDocumentsResponse, crate::model::BulkDeleteDocumentsMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::BulkDeleteDocumentsResponse,
+            crate::model::BulkDeleteDocumentsMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::BulkDeleteDocumentsResponse,
+                crate::model::BulkDeleteDocumentsMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1060,7 +1126,7 @@ pub mod firestore_admin {
         pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1071,7 +1137,7 @@ pub mod firestore_admin {
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1108,10 +1174,10 @@ pub mod firestore_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1133,16 +1199,21 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_database][crate::client::FirestoreAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_database`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1182,7 +1253,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_database<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Database>
+        where
+            T: std::convert::Into<crate::model::Database>,
         {
             self.0.request.database = std::option::Option::Some(v.into());
             self
@@ -1192,7 +1264,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Database>
+        where
+            T: std::convert::Into<crate::model::Database>,
         {
             self.0.request.database = v.map(|x| x.into());
             self
@@ -1235,10 +1308,10 @@ pub mod firestore_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1255,7 +1328,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            (*self.0.stub).get_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
@@ -1295,10 +1371,10 @@ pub mod firestore_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1315,7 +1391,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabasesResponse> {
-            (*self.0.stub).list_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_databases(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
@@ -1362,10 +1441,10 @@ pub mod firestore_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1387,16 +1466,21 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_database][crate::client::FirestoreAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_database`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1428,7 +1512,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_database<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Database>
+        where
+            T: std::convert::Into<crate::model::Database>,
         {
             self.0.request.database = std::option::Option::Some(v.into());
             self
@@ -1438,7 +1523,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Database>
+        where
+            T: std::convert::Into<crate::model::Database>,
         {
             self.0.request.database = v.map(|x| x.into());
             self
@@ -1446,7 +1532,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1454,7 +1541,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1490,10 +1578,10 @@ pub mod firestore_admin {
     pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
     impl DeleteDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1515,16 +1603,21 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_database][crate::client::FirestoreAdmin::delete_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_database`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Database, crate::model::DeleteDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::DeleteDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1595,10 +1688,10 @@ pub mod firestore_admin {
     pub struct CreateUserCreds(RequestBuilder<crate::model::CreateUserCredsRequest>);
 
     impl CreateUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1615,7 +1708,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserCreds> {
-            (*self.0.stub).create_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserCredsRequest::parent].
@@ -1630,7 +1726,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_user_creds<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UserCreds>
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
         {
             self.0.request.user_creds = std::option::Option::Some(v.into());
             self
@@ -1640,7 +1737,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UserCreds>
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
         {
             self.0.request.user_creds = v.map(|x| x.into());
             self
@@ -1683,10 +1781,10 @@ pub mod firestore_admin {
     pub struct GetUserCreds(RequestBuilder<crate::model::GetUserCredsRequest>);
 
     impl GetUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1703,7 +1801,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserCreds> {
-            (*self.0.stub).get_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserCredsRequest::name].
@@ -1743,10 +1844,10 @@ pub mod firestore_admin {
     pub struct ListUserCreds(RequestBuilder<crate::model::ListUserCredsRequest>);
 
     impl ListUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1763,7 +1864,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUserCredsResponse> {
-            (*self.0.stub).list_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListUserCredsRequest::parent].
@@ -1803,10 +1907,10 @@ pub mod firestore_admin {
     pub struct EnableUserCreds(RequestBuilder<crate::model::EnableUserCredsRequest>);
 
     impl EnableUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1823,7 +1927,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserCreds> {
-            (*self.0.stub).enable_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .enable_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EnableUserCredsRequest::name].
@@ -1863,14 +1970,17 @@ pub mod firestore_admin {
     pub struct DisableUserCreds(RequestBuilder<crate::model::DisableUserCredsRequest>);
 
     impl DisableUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DisableUserCredsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DisableUserCredsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1883,7 +1993,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserCreds> {
-            (*self.0.stub).disable_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .disable_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DisableUserCredsRequest::name].
@@ -1923,14 +2036,17 @@ pub mod firestore_admin {
     pub struct ResetUserPassword(RequestBuilder<crate::model::ResetUserPasswordRequest>);
 
     impl ResetUserPassword {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResetUserPasswordRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ResetUserPasswordRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1943,7 +2059,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserCreds> {
-            (*self.0.stub).reset_user_password(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reset_user_password(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetUserPasswordRequest::name].
@@ -1983,10 +2102,10 @@ pub mod firestore_admin {
     pub struct DeleteUserCreds(RequestBuilder<crate::model::DeleteUserCredsRequest>);
 
     impl DeleteUserCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2003,7 +2122,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_user_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_user_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserCredsRequest::name].
@@ -2043,10 +2165,10 @@ pub mod firestore_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2063,7 +2185,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            (*self.0.stub).get_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -2103,10 +2228,10 @@ pub mod firestore_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2123,7 +2248,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
-            (*self.0.stub).list_backups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_backups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -2169,10 +2297,10 @@ pub mod firestore_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2189,7 +2317,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -2230,10 +2361,10 @@ pub mod firestore_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2255,16 +2386,21 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_database][crate::client::FirestoreAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).restore_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restore_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_database`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2318,7 +2454,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::database::EncryptionConfig>
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -2326,7 +2463,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::database::EncryptionConfig>
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
@@ -2372,14 +2510,17 @@ pub mod firestore_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBackupScheduleRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBackupScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2392,7 +2533,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub).create_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_backup_schedule(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
@@ -2407,7 +2551,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BackupSchedule>
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
         {
             self.0.request.backup_schedule = std::option::Option::Some(v.into());
             self
@@ -2417,7 +2562,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BackupSchedule>
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
         {
             self.0.request.backup_schedule = v.map(|x| x.into());
             self
@@ -2452,14 +2598,17 @@ pub mod firestore_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBackupScheduleRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBackupScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2472,7 +2621,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub).get_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_backup_schedule(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
@@ -2512,14 +2664,17 @@ pub mod firestore_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBackupSchedulesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBackupSchedulesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2532,7 +2687,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupSchedulesResponse> {
-            (*self.0.stub).list_backup_schedules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_backup_schedules(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
@@ -2572,14 +2730,17 @@ pub mod firestore_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBackupScheduleRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBackupScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2592,14 +2753,18 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            (*self.0.stub).update_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_backup_schedule(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
         pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BackupSchedule>
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
         {
             self.0.request.backup_schedule = std::option::Option::Some(v.into());
             self
@@ -2609,7 +2774,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BackupSchedule>
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
         {
             self.0.request.backup_schedule = v.map(|x| x.into());
             self
@@ -2617,7 +2783,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2625,7 +2792,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2660,14 +2828,17 @@ pub mod firestore_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteBackupScheduleRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteBackupScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2680,7 +2851,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_backup_schedule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_backup_schedule(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
@@ -2721,10 +2895,10 @@ pub mod firestore_admin {
     pub struct CloneDatabase(RequestBuilder<crate::model::CloneDatabaseRequest>);
 
     impl CloneDatabase {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2746,16 +2920,20 @@ pub mod firestore_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [clone_database][crate::client::FirestoreAdmin::clone_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).clone_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .clone_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `clone_database`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Database, crate::model::CloneDatabaseMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Database, crate::model::CloneDatabaseMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::CloneDatabaseMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CloneDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2803,7 +2981,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PitrSnapshot>
+        where
+            T: std::convert::Into<crate::model::PitrSnapshot>,
         {
             self.0.request.pitr_snapshot = std::option::Option::Some(v.into());
             self
@@ -2813,7 +2992,8 @@ pub mod firestore_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PitrSnapshot>
+        where
+            T: std::convert::Into<crate::model::PitrSnapshot>,
         {
             self.0.request.pitr_snapshot = v.map(|x| x.into());
             self
@@ -2821,7 +3001,8 @@ pub mod firestore_admin {
 
         /// Sets the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
         pub fn set_encryption_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::database::EncryptionConfig>
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
         {
             self.0.request.encryption_config = std::option::Option::Some(v.into());
             self
@@ -2829,7 +3010,8 @@ pub mod firestore_admin {
 
         /// Sets or clears the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
         pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::database::EncryptionConfig>
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
         {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
@@ -2879,14 +3061,17 @@ pub mod firestore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2899,11 +3084,17 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2915,7 +3106,12 @@ pub mod firestore_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2979,14 +3175,17 @@ pub mod firestore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2999,7 +3198,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3037,14 +3239,17 @@ pub mod firestore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3057,7 +3262,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3095,14 +3303,17 @@ pub mod firestore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3115,7 +3326,10 @@ pub mod firestore_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3131,5 +3345,4 @@ pub mod firestore_admin {
             &mut self.0.options
         }
     }
-
 }

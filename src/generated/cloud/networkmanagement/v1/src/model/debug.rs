@@ -33,7 +33,10 @@ impl std::fmt::Debug for super::ConnectivityTest {
         debug_struct.field("reachability_details", &self.reachability_details);
         debug_struct.field("probing_details", &self.probing_details);
         debug_struct.field("round_trip", &self.round_trip);
-        debug_struct.field("return_reachability_details", &self.return_reachability_details);
+        debug_struct.field(
+            "return_reachability_details",
+            &self.return_reachability_details,
+        );
         debug_struct.field("bypass_firewall_checks", &self.bypass_firewall_checks);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -152,7 +155,10 @@ impl std::fmt::Debug for super::ProbingDetails {
         debug_struct.field("successful_probe_count", &self.successful_probe_count);
         debug_struct.field("endpoint_info", &self.endpoint_info);
         debug_struct.field("probing_latency", &self.probing_latency);
-        debug_struct.field("destination_egress_location", &self.destination_egress_location);
+        debug_struct.field(
+            "destination_egress_location",
+            &self.destination_egress_location,
+        );
         debug_struct.field("edge_responses", &self.edge_responses);
         debug_struct.field("probed_all_devices", &self.probed_all_devices);
         if !self._unknown_fields.is_empty() {
@@ -180,7 +186,10 @@ impl std::fmt::Debug for super::probing_details::SingleEdgeResponse {
         debug_struct.field("sent_probe_count", &self.sent_probe_count);
         debug_struct.field("successful_probe_count", &self.successful_probe_count);
         debug_struct.field("probing_latency", &self.probing_latency);
-        debug_struct.field("destination_egress_location", &self.destination_egress_location);
+        debug_struct.field(
+            "destination_egress_location",
+            &self.destination_egress_location,
+        );
         debug_struct.field("destination_router", &self.destination_router);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -331,7 +340,10 @@ impl std::fmt::Debug for super::InstanceInfo {
         debug_struct.field("external_ip", &self.external_ip);
         debug_struct.field("network_tags", &self.network_tags);
         debug_struct.field("service_account", &self.service_account);
-        debug_struct.field("psc_network_attachment_uri", &self.psc_network_attachment_uri);
+        debug_struct.field(
+            "psc_network_attachment_uri",
+            &self.psc_network_attachment_uri,
+        );
         debug_struct.field("running", &self.running);
         debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
@@ -399,12 +411,21 @@ impl std::fmt::Debug for super::RouteInfo {
         debug_struct.field("protocols", &self.protocols);
         debug_struct.field("ncc_hub_uri", &self.ncc_hub_uri);
         debug_struct.field("ncc_spoke_uri", &self.ncc_spoke_uri);
-        debug_struct.field("advertised_route_source_router_uri", &self.advertised_route_source_router_uri);
-        debug_struct.field("advertised_route_next_hop_uri", &self.advertised_route_next_hop_uri);
+        debug_struct.field(
+            "advertised_route_source_router_uri",
+            &self.advertised_route_source_router_uri,
+        );
+        debug_struct.field(
+            "advertised_route_next_hop_uri",
+            &self.advertised_route_next_hop_uri,
+        );
         debug_struct.field("next_hop_uri", &self.next_hop_uri);
         debug_struct.field("next_hop_network_uri", &self.next_hop_network_uri);
         debug_struct.field("originating_route_uri", &self.originating_route_uri);
-        debug_struct.field("originating_route_display_name", &self.originating_route_display_name);
+        debug_struct.field(
+            "originating_route_display_name",
+            &self.originating_route_display_name,
+        );
         debug_struct.field("ncc_hub_route_uri", &self.ncc_hub_route_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -437,7 +458,10 @@ impl std::fmt::Debug for super::ForwardingRuleInfo {
         debug_struct.field("network_uri", &self.network_uri);
         debug_struct.field("region", &self.region);
         debug_struct.field("load_balancer_name", &self.load_balancer_name);
-        debug_struct.field("psc_service_attachment_uri", &self.psc_service_attachment_uri);
+        debug_struct.field(
+            "psc_service_attachment_uri",
+            &self.psc_service_attachment_uri,
+        );
         debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -466,9 +490,18 @@ impl std::fmt::Debug for super::LoadBalancerBackend {
         let mut debug_struct = f.debug_struct("LoadBalancerBackend");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("uri", &self.uri);
-        debug_struct.field("health_check_firewall_state", &self.health_check_firewall_state);
-        debug_struct.field("health_check_allowing_firewall_rules", &self.health_check_allowing_firewall_rules);
-        debug_struct.field("health_check_blocking_firewall_rules", &self.health_check_blocking_firewall_rules);
+        debug_struct.field(
+            "health_check_firewall_state",
+            &self.health_check_firewall_state,
+        );
+        debug_struct.field(
+            "health_check_allowing_firewall_rules",
+            &self.health_check_allowing_firewall_rules,
+        );
+        debug_struct.field(
+            "health_check_blocking_firewall_rules",
+            &self.health_check_blocking_firewall_rules,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -533,7 +566,10 @@ impl std::fmt::Debug for super::InterconnectAttachmentInfo {
         debug_struct.field("region", &self.region);
         debug_struct.field("cloud_router_uri", &self.cloud_router_uri);
         debug_struct.field("r#type", &self.r#type);
-        debug_struct.field("l2_attachment_matched_ip_address", &self.l2_attachment_matched_ip_address);
+        debug_struct.field(
+            "l2_attachment_matched_ip_address",
+            &self.l2_attachment_matched_ip_address,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -594,7 +630,10 @@ impl std::fmt::Debug for super::AbortInfo {
         debug_struct.field("cause", &self.cause);
         debug_struct.field("resource_uri", &self.resource_uri);
         debug_struct.field("ip_address", &self.ip_address);
-        debug_struct.field("projects_missing_permission", &self.projects_missing_permission);
+        debug_struct.field(
+            "projects_missing_permission",
+            &self.projects_missing_permission,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -611,7 +650,10 @@ impl std::fmt::Debug for super::DropInfo {
         debug_struct.field("destination_ip", &self.destination_ip);
         debug_struct.field("region", &self.region);
         debug_struct.field("source_geolocation_code", &self.source_geolocation_code);
-        debug_struct.field("destination_geolocation_code", &self.destination_geolocation_code);
+        debug_struct.field(
+            "destination_geolocation_code",
+            &self.destination_geolocation_code,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -672,8 +714,14 @@ impl std::fmt::Debug for super::RedisClusterInfo {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("uri", &self.uri);
         debug_struct.field("network_uri", &self.network_uri);
-        debug_struct.field("discovery_endpoint_ip_address", &self.discovery_endpoint_ip_address);
-        debug_struct.field("secondary_endpoint_ip_address", &self.secondary_endpoint_ip_address);
+        debug_struct.field(
+            "discovery_endpoint_ip_address",
+            &self.discovery_endpoint_ip_address,
+        );
+        debug_struct.field(
+            "secondary_endpoint_ip_address",
+            &self.secondary_endpoint_ip_address,
+        );
         debug_struct.field("location", &self.location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -814,12 +862,21 @@ impl std::fmt::Debug for super::LoadBalancerBackendInfo {
         debug_struct.field("instance_uri", &self.instance_uri);
         debug_struct.field("backend_service_uri", &self.backend_service_uri);
         debug_struct.field("instance_group_uri", &self.instance_group_uri);
-        debug_struct.field("network_endpoint_group_uri", &self.network_endpoint_group_uri);
+        debug_struct.field(
+            "network_endpoint_group_uri",
+            &self.network_endpoint_group_uri,
+        );
         debug_struct.field("backend_bucket_uri", &self.backend_bucket_uri);
-        debug_struct.field("psc_service_attachment_uri", &self.psc_service_attachment_uri);
+        debug_struct.field(
+            "psc_service_attachment_uri",
+            &self.psc_service_attachment_uri,
+        );
         debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
         debug_struct.field("health_check_uri", &self.health_check_uri);
-        debug_struct.field("health_check_firewalls_config_state", &self.health_check_firewalls_config_state);
+        debug_struct.field(
+            "health_check_firewalls_config_state",
+            &self.health_check_firewalls_config_state,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -969,7 +1026,10 @@ impl std::fmt::Debug for super::ShowEffectiveFlowLogsConfigsRequest {
 impl std::fmt::Debug for super::ShowEffectiveFlowLogsConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShowEffectiveFlowLogsConfigsResponse");
-        debug_struct.field("effective_flow_logs_configs", &self.effective_flow_logs_configs);
+        debug_struct.field(
+            "effective_flow_logs_configs",
+            &self.effective_flow_logs_configs,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -1002,7 +1062,6 @@ impl std::fmt::Debug for super::VpcFlowLogsConfig {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::EffectiveVpcFlowLogsConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

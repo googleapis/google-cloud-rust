@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Locations: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::Locations::list_locations].
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,8 +54,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Location>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Location>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

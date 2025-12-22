@@ -80,28 +80,42 @@ impl ApiKeys {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ApiKeys + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ApiKeys + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiKeys>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
         super::transport::ApiKeys::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
-        Self::build_transport(conf).await.map(super::tracing::ApiKeys::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ApiKeys::new)
     }
 
     /// Creates a new API key.
@@ -118,8 +132,7 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_key(&self) -> super::builder::api_keys::CreateKey
-    {
+    pub fn create_key(&self) -> super::builder::api_keys::CreateKey {
         super::builder::api_keys::CreateKey::new(self.inner.clone())
     }
 
@@ -128,8 +141,7 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn list_keys(&self) -> super::builder::api_keys::ListKeys
-    {
+    pub fn list_keys(&self) -> super::builder::api_keys::ListKeys {
         super::builder::api_keys::ListKeys::new(self.inner.clone())
     }
 
@@ -155,8 +167,7 @@ impl ApiKeys {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_key(&self) -> super::builder::api_keys::GetKey
-    {
+    pub fn get_key(&self) -> super::builder::api_keys::GetKey {
         super::builder::api_keys::GetKey::new(self.inner.clone())
     }
 
@@ -180,8 +191,7 @@ impl ApiKeys {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString
-    {
+    pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString {
         super::builder::api_keys::GetKeyString::new(self.inner.clone())
     }
 
@@ -200,8 +210,7 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_key(&self) -> super::builder::api_keys::UpdateKey
-    {
+    pub fn update_key(&self) -> super::builder::api_keys::UpdateKey {
         super::builder::api_keys::UpdateKey::new(self.inner.clone())
     }
 
@@ -220,8 +229,7 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_key(&self) -> super::builder::api_keys::DeleteKey
-    {
+    pub fn delete_key(&self) -> super::builder::api_keys::DeleteKey {
         super::builder::api_keys::DeleteKey::new(self.inner.clone())
     }
 
@@ -239,8 +247,7 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_key(&self) -> super::builder::api_keys::UndeleteKey
-    {
+    pub fn undelete_key(&self) -> super::builder::api_keys::UndeleteKey {
         super::builder::api_keys::UndeleteKey::new(self.inner.clone())
     }
 
@@ -265,8 +272,7 @@ impl ApiKeys {
     ///     Ok(())
     /// }
     /// ```
-    pub fn lookup_key(&self) -> super::builder::api_keys::LookupKey
-    {
+    pub fn lookup_key(&self) -> super::builder::api_keys::LookupKey {
         super::builder::api_keys::LookupKey::new(self.inner.clone())
     }
 
@@ -289,8 +295,7 @@ impl ApiKeys {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::api_keys::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
         super::builder::api_keys::GetOperation::new(self.inner.clone())
     }
 }

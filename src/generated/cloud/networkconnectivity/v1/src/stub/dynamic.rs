@@ -198,7 +198,8 @@ impl<T: super::CrossNetworkAutomationService> CrossNetworkAutomationService for 
         &self,
         req: crate::model::ListServiceConnectionMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionMapsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionMapsResponse>>
+    {
         T::list_service_connection_maps(self, req, options).await
     }
 
@@ -243,7 +244,8 @@ impl<T: super::CrossNetworkAutomationService> CrossNetworkAutomationService for 
         &self,
         req: crate::model::ListServiceConnectionPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionPoliciesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionPoliciesResponse>>
+    {
         T::list_service_connection_policies(self, req, options).await
     }
 
@@ -333,7 +335,8 @@ impl<T: super::CrossNetworkAutomationService> CrossNetworkAutomationService for 
         &self,
         req: crate::model::ListServiceConnectionTokensRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionTokensResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConnectionTokensResponse>>
+    {
         T::list_service_connection_tokens(self, req, options).await
     }
 
@@ -458,7 +461,9 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMulticloudDataTransferConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>,
+    >;
 
     async fn get_multicloud_data_transfer_config(
         &self,
@@ -524,7 +529,9 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMulticloudDataTransferSupportedServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>,
+    >;
 
     async fn list_locations(
         &self,
@@ -599,7 +606,9 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListMulticloudDataTransferConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>,
+    > {
         T::list_multicloud_data_transfer_configs(self, req, options).await
     }
 
@@ -689,7 +698,8 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::GetMulticloudDataTransferSupportedServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MulticloudDataTransferSupportedService>> {
+    ) -> crate::Result<gax::response::Response<crate::model::MulticloudDataTransferSupportedService>>
+    {
         T::get_multicloud_data_transfer_supported_service(self, req, options).await
     }
 
@@ -698,7 +708,9 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListMulticloudDataTransferSupportedServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>,
+    > {
         T::list_multicloud_data_transfer_supported_services(self, req, options).await
     }
 

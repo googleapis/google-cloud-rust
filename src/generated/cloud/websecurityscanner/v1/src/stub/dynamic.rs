@@ -94,7 +94,6 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>;
-
 }
 
 /// All implementations of [super::WebSecurityScanner] also implement [WebSecurityScanner].
@@ -216,5 +215,4 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         T::list_finding_type_stats(self, req, options).await
     }
-
 }

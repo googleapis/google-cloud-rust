@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [FunctionService](super::stub::FunctionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct FunctionService<T>
-where T: super::stub::FunctionService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::FunctionService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> FunctionService<T>
-where T: super::stub::FunctionService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::FunctionService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::FunctionService for FunctionService<T>
-where T: super::stub::FunctionService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::FunctionService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_function(
         &self,
@@ -157,7 +163,6 @@ where T: super::stub::FunctionService + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -172,4 +177,3 @@ where T: super::stub::FunctionService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

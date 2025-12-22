@@ -46,7 +46,6 @@ pub trait AlertPolicyService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateAlertPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>>;
-
 }
 
 /// All implementations of [super::AlertPolicyService] also implement [AlertPolicyService].
@@ -96,7 +95,6 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
     ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>> {
         T::update_alert_policy(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::GroupService].
@@ -137,7 +135,6 @@ pub trait GroupService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListGroupMembersRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListGroupMembersResponse>>;
-
 }
 
 /// All implementations of [super::GroupService] also implement [GroupService].
@@ -196,7 +193,6 @@ impl<T: super::GroupService> GroupService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListGroupMembersResponse>> {
         T::list_group_members(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::MetricService].
@@ -206,7 +202,9 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    >;
 
     async fn get_monitored_resource_descriptor(
         &self,
@@ -255,7 +253,6 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::MetricService] also implement [MetricService].
@@ -266,7 +263,9 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    > {
         T::list_monitored_resource_descriptors(self, req, options).await
     }
 
@@ -341,7 +340,6 @@ impl<T: super::MetricService> MetricService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::create_service_time_series(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::NotificationChannelService].
@@ -351,7 +349,9 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>,
+    >;
 
     async fn get_notification_channel_descriptor(
         &self,
@@ -399,14 +399,15 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>,
+    >;
 
     async fn verify_notification_channel(
         &self,
         req: crate::model::VerifyNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>>;
-
 }
 
 /// All implementations of [super::NotificationChannelService] also implement [NotificationChannelService].
@@ -417,7 +418,9 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>,
+    > {
         T::list_notification_channel_descriptors(self, req, options).await
     }
 
@@ -435,7 +438,8 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::ListNotificationChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>>
+    {
         T::list_notification_channels(self, req, options).await
     }
 
@@ -489,7 +493,9 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>,
+    > {
         T::get_notification_channel_verification_code(self, req, options).await
     }
 
@@ -501,7 +507,6 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
     ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>> {
         T::verify_notification_channel(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::QueryService].
@@ -512,7 +517,6 @@ pub trait QueryService: std::fmt::Debug + Send + Sync {
         req: crate::model::QueryTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>>;
-
 }
 
 /// All implementations of [super::QueryService] also implement [QueryService].
@@ -526,7 +530,6 @@ impl<T: super::QueryService> QueryService for T {
     ) -> crate::Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>> {
         T::query_time_series(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ServiceMonitoringService].
@@ -591,7 +594,6 @@ pub trait ServiceMonitoringService: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ServiceMonitoringService] also implement [ServiceMonitoringService].
@@ -665,7 +667,8 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::ListServiceLevelObjectivesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>>
+    {
         T::list_service_level_objectives(self, req, options).await
     }
 
@@ -686,7 +689,6 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_service_level_objective(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SnoozeService].
@@ -715,7 +717,6 @@ pub trait SnoozeService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateSnoozeRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Snooze>>;
-
 }
 
 /// All implementations of [super::SnoozeService] also implement [SnoozeService].
@@ -756,7 +757,6 @@ impl<T: super::SnoozeService> SnoozeService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Snooze>> {
         T::update_snooze(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::UptimeCheckService].
@@ -797,7 +797,6 @@ pub trait UptimeCheckService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListUptimeCheckIpsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>>;
-
 }
 
 /// All implementations of [super::UptimeCheckService] also implement [UptimeCheckService].
@@ -856,5 +855,4 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>> {
         T::list_uptime_check_ips(self, req, options).await
     }
-
 }

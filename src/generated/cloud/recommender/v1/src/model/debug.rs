@@ -31,7 +31,10 @@ impl std::fmt::Debug for super::Insight {
         debug_struct.field("category", &self.category);
         debug_struct.field("severity", &self.severity);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field("associated_recommendations", &self.associated_recommendations);
+        debug_struct.field(
+            "associated_recommendations",
+            &self.associated_recommendations,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -62,12 +65,14 @@ impl std::fmt::Debug for super::InsightStateInfo {
     }
 }
 
-
 impl std::fmt::Debug for super::InsightTypeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightTypeConfig");
         debug_struct.field("name", &self.name);
-        debug_struct.field("insight_type_generation_config", &self.insight_type_generation_config);
+        debug_struct.field(
+            "insight_type_generation_config",
+            &self.insight_type_generation_config,
+        );
         debug_struct.field("etag", &self.etag);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("revision_id", &self.revision_id);
@@ -166,8 +171,6 @@ impl std::fmt::Debug for super::Operation {
     }
 }
 
-
-
 impl std::fmt::Debug for super::ValueMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValueMatcher");
@@ -251,12 +254,14 @@ impl std::fmt::Debug for super::RecommendationStateInfo {
     }
 }
 
-
 impl std::fmt::Debug for super::RecommenderConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommenderConfig");
         debug_struct.field("name", &self.name);
-        debug_struct.field("recommender_generation_config", &self.recommender_generation_config);
+        debug_struct.field(
+            "recommender_generation_config",
+            &self.recommender_generation_config,
+        );
         debug_struct.field("etag", &self.etag);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("revision_id", &self.revision_id);

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Execution {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -81,9 +81,9 @@ impl serde::ser::Serialize for super::execution::StackTraceElement {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.step.is_empty() {
             state.serialize_entry("step", &self.step)?;
@@ -109,9 +109,9 @@ impl serde::ser::Serialize for super::execution::stack_trace_element::Position {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.line) {
             struct __With<'a>(&'a i64);
@@ -164,9 +164,9 @@ impl serde::ser::Serialize for super::execution::StackTrace {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.elements.is_empty() {
             state.serialize_entry("elements", &self.elements)?;
@@ -186,9 +186,9 @@ impl serde::ser::Serialize for super::execution::Error {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.payload.is_empty() {
             state.serialize_entry("payload", &self.payload)?;
@@ -214,9 +214,9 @@ impl serde::ser::Serialize for super::execution::Status {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.current_steps.is_empty() {
             state.serialize_entry("currentSteps", &self.current_steps)?;
@@ -236,9 +236,9 @@ impl serde::ser::Serialize for super::execution::status::Step {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.routine.is_empty() {
             state.serialize_entry("routine", &self.routine)?;
@@ -261,9 +261,9 @@ impl serde::ser::Serialize for super::execution::StateError {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.details.is_empty() {
             state.serialize_entry("details", &self.details)?;
@@ -280,16 +280,15 @@ impl serde::ser::Serialize for super::execution::StateError {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ListExecutionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -333,9 +332,9 @@ impl serde::ser::Serialize for super::ListExecutionsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.executions.is_empty() {
             state.serialize_entry("executions", &self.executions)?;
@@ -358,9 +357,9 @@ impl serde::ser::Serialize for super::CreateExecutionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -383,9 +382,9 @@ impl serde::ser::Serialize for super::GetExecutionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -408,9 +407,9 @@ impl serde::ser::Serialize for super::CancelExecutionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

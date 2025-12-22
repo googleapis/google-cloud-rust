@@ -82,7 +82,6 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         req: crate::model::MoveBillingAccountRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>>;
-
 }
 
 /// All implementations of [super::CloudBilling] also implement [CloudBilling].
@@ -186,7 +185,6 @@ impl<T: super::CloudBilling> CloudBilling for T {
     ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>> {
         T::move_billing_account(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::CloudCatalog].
@@ -203,7 +201,6 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
         req: crate::model::ListSkusRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListSkusResponse>>;
-
 }
 
 /// All implementations of [super::CloudCatalog] also implement [CloudCatalog].
@@ -226,5 +223,4 @@ impl<T: super::CloudCatalog> CloudCatalog for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListSkusResponse>> {
         T::list_skus(self, req, options).await
     }
-
 }

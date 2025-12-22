@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::CreateKeyHandleRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::GetKeyHandleRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -73,9 +73,9 @@ impl serde::ser::Serialize for super::KeyHandle {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -101,9 +101,9 @@ impl serde::ser::Serialize for super::CreateKeyHandleMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -120,9 +120,9 @@ impl serde::ser::Serialize for super::ListKeyHandlesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -160,9 +160,9 @@ impl serde::ser::Serialize for super::ListKeyHandlesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key_handles.is_empty() {
             state.serialize_entry("keyHandles", &self.key_handles)?;
@@ -185,9 +185,9 @@ impl serde::ser::Serialize for super::UpdateAutokeyConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.autokey_config.is_some() {
             state.serialize_entry("autokeyConfig", &self.autokey_config)?;
@@ -210,9 +210,9 @@ impl serde::ser::Serialize for super::GetAutokeyConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -232,9 +232,9 @@ impl serde::ser::Serialize for super::AutokeyConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -263,9 +263,9 @@ impl serde::ser::Serialize for super::ShowEffectiveAutokeyConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -285,9 +285,9 @@ impl serde::ser::Serialize for super::ShowEffectiveAutokeyConfigResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key_project.is_empty() {
             state.serialize_entry("keyProject", &self.key_project)?;
@@ -307,9 +307,9 @@ impl serde::ser::Serialize for super::ListEkmConnectionsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -350,9 +350,9 @@ impl serde::ser::Serialize for super::ListEkmConnectionsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ekm_connections.is_empty() {
             state.serialize_entry("ekmConnections", &self.ekm_connections)?;
@@ -387,9 +387,9 @@ impl serde::ser::Serialize for super::GetEkmConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -409,9 +409,9 @@ impl serde::ser::Serialize for super::CreateEkmConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -437,9 +437,9 @@ impl serde::ser::Serialize for super::UpdateEkmConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.ekm_connection.is_some() {
             state.serialize_entry("ekmConnection", &self.ekm_connection)?;
@@ -462,9 +462,9 @@ impl serde::ser::Serialize for super::GetEkmConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -484,9 +484,9 @@ impl serde::ser::Serialize for super::UpdateEkmConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.ekm_config.is_some() {
             state.serialize_entry("ekmConfig", &self.ekm_config)?;
@@ -509,9 +509,9 @@ impl serde::ser::Serialize for super::Certificate {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.raw_der.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -535,7 +535,10 @@ impl serde::ser::Serialize for super::Certificate {
             state.serialize_entry("subject", &self.subject)?;
         }
         if !self.subject_alternative_dns_names.is_empty() {
-            state.serialize_entry("subjectAlternativeDnsNames", &self.subject_alternative_dns_names)?;
+            state.serialize_entry(
+                "subjectAlternativeDnsNames",
+                &self.subject_alternative_dns_names,
+            )?;
         }
         if self.not_before_time.is_some() {
             state.serialize_entry("notBeforeTime", &self.not_before_time)?;
@@ -564,9 +567,9 @@ impl serde::ser::Serialize for super::EkmConnection {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -601,9 +604,9 @@ impl serde::ser::Serialize for super::ekm_connection::ServiceResolver {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service_directory_service.is_empty() {
             state.serialize_entry("serviceDirectoryService", &self.service_directory_service)?;
@@ -632,9 +635,9 @@ impl serde::ser::Serialize for super::EkmConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -657,9 +660,9 @@ impl serde::ser::Serialize for super::VerifyConnectivityRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -679,9 +682,9 @@ impl serde::ser::Serialize for super::VerifyConnectivityResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -698,9 +701,9 @@ impl serde::ser::Serialize for super::KeyRing {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -723,9 +726,9 @@ impl serde::ser::Serialize for super::CryptoKey {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -761,7 +764,10 @@ impl serde::ser::Serialize for super::CryptoKey {
             state.serialize_entry("cryptoKeyBackend", &self.crypto_key_backend)?;
         }
         if self.key_access_justifications_policy.is_some() {
-            state.serialize_entry("keyAccessJustificationsPolicy", &self.key_access_justifications_policy)?;
+            state.serialize_entry(
+                "keyAccessJustificationsPolicy",
+                &self.key_access_justifications_policy,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -772,16 +778,15 @@ impl serde::ser::Serialize for super::CryptoKey {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CryptoKeyVersionTemplate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.protection_level) {
             state.serialize_entry("protectionLevel", &self.protection_level)?;
@@ -804,9 +809,9 @@ impl serde::ser::Serialize for super::KeyOperationAttestation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.format) {
             state.serialize_entry("format", &self.format)?;
@@ -841,9 +846,9 @@ impl serde::ser::Serialize for super::key_operation_attestation::CertificateChai
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.cavium_certs.is_empty() {
             state.serialize_entry("caviumCerts", &self.cavium_certs)?;
@@ -869,9 +874,9 @@ impl serde::ser::Serialize for super::CryptoKeyVersion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -913,10 +918,16 @@ impl serde::ser::Serialize for super::CryptoKeyVersion {
             state.serialize_entry("generationFailureReason", &self.generation_failure_reason)?;
         }
         if !self.external_destruction_failure_reason.is_empty() {
-            state.serialize_entry("externalDestructionFailureReason", &self.external_destruction_failure_reason)?;
+            state.serialize_entry(
+                "externalDestructionFailureReason",
+                &self.external_destruction_failure_reason,
+            )?;
         }
         if self.external_protection_level_options.is_some() {
-            state.serialize_entry("externalProtectionLevelOptions", &self.external_protection_level_options)?;
+            state.serialize_entry(
+                "externalProtectionLevelOptions",
+                &self.external_protection_level_options,
+            )?;
         }
         if !wkt::internal::is_default(&self.reimport_eligible) {
             state.serialize_entry("reimportEligible", &self.reimport_eligible)?;
@@ -936,9 +947,9 @@ impl serde::ser::Serialize for super::ChecksummedData {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.data.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -959,7 +970,9 @@ impl serde::ser::Serialize for super::ChecksummedData {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("crc32cChecksum", &__With(&self.crc32c_checksum))?;
@@ -979,9 +992,9 @@ impl serde::ser::Serialize for super::PublicKey {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pem.is_empty() {
             state.serialize_entry("pem", &self.pem)?;
@@ -996,7 +1009,9 @@ impl serde::ser::Serialize for super::PublicKey {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("pemCrc32c", &__With(&self.pem_crc32c))?;
@@ -1028,9 +1043,9 @@ impl serde::ser::Serialize for super::ImportJob {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1077,9 +1092,9 @@ impl serde::ser::Serialize for super::import_job::WrappingPublicKey {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pem.is_empty() {
             state.serialize_entry("pem", &self.pem)?;
@@ -1099,9 +1114,9 @@ impl serde::ser::Serialize for super::ExternalProtectionLevelOptions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.external_key_uri.is_empty() {
             state.serialize_entry("externalKeyUri", &self.external_key_uri)?;
@@ -1124,9 +1139,9 @@ impl serde::ser::Serialize for super::KeyAccessJustificationsPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.allowed_access_reasons.is_empty() {
             state.serialize_entry("allowedAccessReasons", &self.allowed_access_reasons)?;
@@ -1146,9 +1161,9 @@ impl serde::ser::Serialize for super::ListKeyRingsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1189,9 +1204,9 @@ impl serde::ser::Serialize for super::ListCryptoKeysRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1235,9 +1250,9 @@ impl serde::ser::Serialize for super::ListCryptoKeyVersionsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1281,9 +1296,9 @@ impl serde::ser::Serialize for super::ListImportJobsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1324,9 +1339,9 @@ impl serde::ser::Serialize for super::ListKeyRingsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key_rings.is_empty() {
             state.serialize_entry("keyRings", &self.key_rings)?;
@@ -1361,9 +1376,9 @@ impl serde::ser::Serialize for super::ListCryptoKeysResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.crypto_keys.is_empty() {
             state.serialize_entry("cryptoKeys", &self.crypto_keys)?;
@@ -1398,9 +1413,9 @@ impl serde::ser::Serialize for super::ListCryptoKeyVersionsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.crypto_key_versions.is_empty() {
             state.serialize_entry("cryptoKeyVersions", &self.crypto_key_versions)?;
@@ -1435,9 +1450,9 @@ impl serde::ser::Serialize for super::ListImportJobsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.import_jobs.is_empty() {
             state.serialize_entry("importJobs", &self.import_jobs)?;
@@ -1472,9 +1487,9 @@ impl serde::ser::Serialize for super::GetKeyRingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1494,9 +1509,9 @@ impl serde::ser::Serialize for super::GetCryptoKeyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1516,9 +1531,9 @@ impl serde::ser::Serialize for super::GetCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1538,9 +1553,9 @@ impl serde::ser::Serialize for super::GetPublicKeyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1563,9 +1578,9 @@ impl serde::ser::Serialize for super::GetImportJobRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1585,9 +1600,9 @@ impl serde::ser::Serialize for super::CreateKeyRingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1613,9 +1628,9 @@ impl serde::ser::Serialize for super::CreateCryptoKeyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1627,7 +1642,10 @@ impl serde::ser::Serialize for super::CreateCryptoKeyRequest {
             state.serialize_entry("cryptoKey", &self.crypto_key)?;
         }
         if !wkt::internal::is_default(&self.skip_initial_version_creation) {
-            state.serialize_entry("skipInitialVersionCreation", &self.skip_initial_version_creation)?;
+            state.serialize_entry(
+                "skipInitialVersionCreation",
+                &self.skip_initial_version_creation,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1644,9 +1662,9 @@ impl serde::ser::Serialize for super::CreateCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1669,9 +1687,9 @@ impl serde::ser::Serialize for super::ImportCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1724,9 +1742,9 @@ impl serde::ser::Serialize for super::CreateImportJobRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1752,9 +1770,9 @@ impl serde::ser::Serialize for super::UpdateCryptoKeyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.crypto_key.is_some() {
             state.serialize_entry("cryptoKey", &self.crypto_key)?;
@@ -1777,9 +1795,9 @@ impl serde::ser::Serialize for super::UpdateCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.crypto_key_version.is_some() {
             state.serialize_entry("cryptoKeyVersion", &self.crypto_key_version)?;
@@ -1802,9 +1820,9 @@ impl serde::ser::Serialize for super::UpdateCryptoKeyPrimaryVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1827,9 +1845,9 @@ impl serde::ser::Serialize for super::DestroyCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1849,9 +1867,9 @@ impl serde::ser::Serialize for super::RestoreCryptoKeyVersionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1871,9 +1889,9 @@ impl serde::ser::Serialize for super::EncryptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1900,7 +1918,10 @@ impl serde::ser::Serialize for super::EncryptRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("additionalAuthenticatedData", &__With(&self.additional_authenticated_data))?;
+            state.serialize_entry(
+                "additionalAuthenticatedData",
+                &__With(&self.additional_authenticated_data),
+            )?;
         }
         if self.plaintext_crc32c.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -1909,7 +1930,9 @@ impl serde::ser::Serialize for super::EncryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("plaintextCrc32c", &__With(&self.plaintext_crc32c))?;
@@ -1921,10 +1944,15 @@ impl serde::ser::Serialize for super::EncryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("additionalAuthenticatedDataCrc32c", &__With(&self.additional_authenticated_data_crc32c))?;
+            state.serialize_entry(
+                "additionalAuthenticatedDataCrc32c",
+                &__With(&self.additional_authenticated_data_crc32c),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1941,9 +1969,9 @@ impl serde::ser::Serialize for super::DecryptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1970,7 +1998,10 @@ impl serde::ser::Serialize for super::DecryptRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("additionalAuthenticatedData", &__With(&self.additional_authenticated_data))?;
+            state.serialize_entry(
+                "additionalAuthenticatedData",
+                &__With(&self.additional_authenticated_data),
+            )?;
         }
         if self.ciphertext_crc32c.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -1979,7 +2010,9 @@ impl serde::ser::Serialize for super::DecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -1991,10 +2024,15 @@ impl serde::ser::Serialize for super::DecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("additionalAuthenticatedDataCrc32c", &__With(&self.additional_authenticated_data_crc32c))?;
+            state.serialize_entry(
+                "additionalAuthenticatedDataCrc32c",
+                &__With(&self.additional_authenticated_data_crc32c),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2011,9 +2049,9 @@ impl serde::ser::Serialize for super::RawEncryptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2040,7 +2078,10 @@ impl serde::ser::Serialize for super::RawEncryptRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("additionalAuthenticatedData", &__With(&self.additional_authenticated_data))?;
+            state.serialize_entry(
+                "additionalAuthenticatedData",
+                &__With(&self.additional_authenticated_data),
+            )?;
         }
         if self.plaintext_crc32c.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -2049,7 +2090,9 @@ impl serde::ser::Serialize for super::RawEncryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("plaintextCrc32c", &__With(&self.plaintext_crc32c))?;
@@ -2061,10 +2104,15 @@ impl serde::ser::Serialize for super::RawEncryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("additionalAuthenticatedDataCrc32c", &__With(&self.additional_authenticated_data_crc32c))?;
+            state.serialize_entry(
+                "additionalAuthenticatedDataCrc32c",
+                &__With(&self.additional_authenticated_data_crc32c),
+            )?;
         }
         if !self.initialization_vector.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2085,10 +2133,15 @@ impl serde::ser::Serialize for super::RawEncryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("initializationVectorCrc32c", &__With(&self.initialization_vector_crc32c))?;
+            state.serialize_entry(
+                "initializationVectorCrc32c",
+                &__With(&self.initialization_vector_crc32c),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2105,9 +2158,9 @@ impl serde::ser::Serialize for super::RawDecryptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2134,7 +2187,10 @@ impl serde::ser::Serialize for super::RawDecryptRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("additionalAuthenticatedData", &__With(&self.additional_authenticated_data))?;
+            state.serialize_entry(
+                "additionalAuthenticatedData",
+                &__With(&self.additional_authenticated_data),
+            )?;
         }
         if !self.initialization_vector.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2167,7 +2223,9 @@ impl serde::ser::Serialize for super::RawDecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -2179,10 +2237,15 @@ impl serde::ser::Serialize for super::RawDecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("additionalAuthenticatedDataCrc32c", &__With(&self.additional_authenticated_data_crc32c))?;
+            state.serialize_entry(
+                "additionalAuthenticatedDataCrc32c",
+                &__With(&self.additional_authenticated_data_crc32c),
+            )?;
         }
         if self.initialization_vector_crc32c.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -2191,10 +2254,15 @@ impl serde::ser::Serialize for super::RawDecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("initializationVectorCrc32c", &__With(&self.initialization_vector_crc32c))?;
+            state.serialize_entry(
+                "initializationVectorCrc32c",
+                &__With(&self.initialization_vector_crc32c),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2211,9 +2279,9 @@ impl serde::ser::Serialize for super::AsymmetricSignRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2228,7 +2296,9 @@ impl serde::ser::Serialize for super::AsymmetricSignRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("digestCrc32c", &__With(&self.digest_crc32c))?;
@@ -2252,7 +2322,9 @@ impl serde::ser::Serialize for super::AsymmetricSignRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("dataCrc32c", &__With(&self.data_crc32c))?;
@@ -2272,9 +2344,9 @@ impl serde::ser::Serialize for super::AsymmetricDecryptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2298,7 +2370,9 @@ impl serde::ser::Serialize for super::AsymmetricDecryptRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -2318,9 +2392,9 @@ impl serde::ser::Serialize for super::MacSignRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2344,7 +2418,9 @@ impl serde::ser::Serialize for super::MacSignRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("dataCrc32c", &__With(&self.data_crc32c))?;
@@ -2364,9 +2440,9 @@ impl serde::ser::Serialize for super::MacVerifyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2390,7 +2466,9 @@ impl serde::ser::Serialize for super::MacVerifyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("dataCrc32c", &__With(&self.data_crc32c))?;
@@ -2414,7 +2492,9 @@ impl serde::ser::Serialize for super::MacVerifyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("macCrc32c", &__With(&self.mac_crc32c))?;
@@ -2434,9 +2514,9 @@ impl serde::ser::Serialize for super::DecapsulateRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2460,7 +2540,9 @@ impl serde::ser::Serialize for super::DecapsulateRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -2480,9 +2562,9 @@ impl serde::ser::Serialize for super::GenerateRandomBytesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.location.is_empty() {
             state.serialize_entry("location", &self.location)?;
@@ -2517,9 +2599,9 @@ impl serde::ser::Serialize for super::EncryptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2543,7 +2625,9 @@ impl serde::ser::Serialize for super::EncryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -2552,7 +2636,10 @@ impl serde::ser::Serialize for super::EncryptResponse {
             state.serialize_entry("verifiedPlaintextCrc32c", &self.verified_plaintext_crc32c)?;
         }
         if !wkt::internal::is_default(&self.verified_additional_authenticated_data_crc32c) {
-            state.serialize_entry("verifiedAdditionalAuthenticatedDataCrc32c", &self.verified_additional_authenticated_data_crc32c)?;
+            state.serialize_entry(
+                "verifiedAdditionalAuthenticatedDataCrc32c",
+                &self.verified_additional_authenticated_data_crc32c,
+            )?;
         }
         if !wkt::internal::is_default(&self.protection_level) {
             state.serialize_entry("protectionLevel", &self.protection_level)?;
@@ -2572,9 +2659,9 @@ impl serde::ser::Serialize for super::DecryptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.plaintext.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2595,7 +2682,9 @@ impl serde::ser::Serialize for super::DecryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("plaintextCrc32c", &__With(&self.plaintext_crc32c))?;
@@ -2621,9 +2710,9 @@ impl serde::ser::Serialize for super::RawEncryptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ciphertext.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2668,7 +2757,9 @@ impl serde::ser::Serialize for super::RawEncryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
@@ -2680,19 +2771,30 @@ impl serde::ser::Serialize for super::RawEncryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("initializationVectorCrc32c", &__With(&self.initialization_vector_crc32c))?;
+            state.serialize_entry(
+                "initializationVectorCrc32c",
+                &__With(&self.initialization_vector_crc32c),
+            )?;
         }
         if !wkt::internal::is_default(&self.verified_plaintext_crc32c) {
             state.serialize_entry("verifiedPlaintextCrc32c", &self.verified_plaintext_crc32c)?;
         }
         if !wkt::internal::is_default(&self.verified_additional_authenticated_data_crc32c) {
-            state.serialize_entry("verifiedAdditionalAuthenticatedDataCrc32c", &self.verified_additional_authenticated_data_crc32c)?;
+            state.serialize_entry(
+                "verifiedAdditionalAuthenticatedDataCrc32c",
+                &self.verified_additional_authenticated_data_crc32c,
+            )?;
         }
         if !wkt::internal::is_default(&self.verified_initialization_vector_crc32c) {
-            state.serialize_entry("verifiedInitializationVectorCrc32c", &self.verified_initialization_vector_crc32c)?;
+            state.serialize_entry(
+                "verifiedInitializationVectorCrc32c",
+                &self.verified_initialization_vector_crc32c,
+            )?;
         }
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2715,9 +2817,9 @@ impl serde::ser::Serialize for super::RawDecryptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.plaintext.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2738,7 +2840,9 @@ impl serde::ser::Serialize for super::RawDecryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("plaintextCrc32c", &__With(&self.plaintext_crc32c))?;
@@ -2750,10 +2854,16 @@ impl serde::ser::Serialize for super::RawDecryptResponse {
             state.serialize_entry("verifiedCiphertextCrc32c", &self.verified_ciphertext_crc32c)?;
         }
         if !wkt::internal::is_default(&self.verified_additional_authenticated_data_crc32c) {
-            state.serialize_entry("verifiedAdditionalAuthenticatedDataCrc32c", &self.verified_additional_authenticated_data_crc32c)?;
+            state.serialize_entry(
+                "verifiedAdditionalAuthenticatedDataCrc32c",
+                &self.verified_additional_authenticated_data_crc32c,
+            )?;
         }
         if !wkt::internal::is_default(&self.verified_initialization_vector_crc32c) {
-            state.serialize_entry("verifiedInitializationVectorCrc32c", &self.verified_initialization_vector_crc32c)?;
+            state.serialize_entry(
+                "verifiedInitializationVectorCrc32c",
+                &self.verified_initialization_vector_crc32c,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2770,9 +2880,9 @@ impl serde::ser::Serialize for super::AsymmetricSignResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.signature.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2793,7 +2903,9 @@ impl serde::ser::Serialize for super::AsymmetricSignResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("signatureCrc32c", &__With(&self.signature_crc32c))?;
@@ -2825,9 +2937,9 @@ impl serde::ser::Serialize for super::AsymmetricDecryptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.plaintext.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -2848,7 +2960,9 @@ impl serde::ser::Serialize for super::AsymmetricDecryptResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("plaintextCrc32c", &__With(&self.plaintext_crc32c))?;
@@ -2874,9 +2988,9 @@ impl serde::ser::Serialize for super::MacSignResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2900,7 +3014,9 @@ impl serde::ser::Serialize for super::MacSignResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("macCrc32c", &__With(&self.mac_crc32c))?;
@@ -2926,9 +3042,9 @@ impl serde::ser::Serialize for super::MacVerifyResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2963,9 +3079,9 @@ impl serde::ser::Serialize for super::DecapsulateResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2989,7 +3105,9 @@ impl serde::ser::Serialize for super::DecapsulateResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("sharedSecretCrc32c", &__With(&self.shared_secret_crc32c))?;
@@ -3015,9 +3133,9 @@ impl serde::ser::Serialize for super::GenerateRandomBytesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.data.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -3038,7 +3156,9 @@ impl serde::ser::Serialize for super::GenerateRandomBytesResponse {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("dataCrc32c", &__With(&self.data_crc32c))?;
@@ -3058,9 +3178,9 @@ impl serde::ser::Serialize for super::Digest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.sha256() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -3113,9 +3233,9 @@ impl serde::ser::Serialize for super::LocationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.hsm_available) {
             state.serialize_entry("hsmAvailable", &self.hsm_available)?;

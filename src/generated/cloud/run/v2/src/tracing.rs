@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Builds](super::stub::Builds) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Builds<T>
-where T: super::stub::Builds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Builds + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Builds<T>
-where T: super::stub::Builds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Builds + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Builds for Builds<T>
-where T: super::stub::Builds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Builds + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn submit_build(
         &self,
@@ -75,25 +81,30 @@ where T: super::stub::Builds + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.wait_operation(req, options).await
     }
-
 }
 
 /// Implements a [Executions](super::stub::Executions) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Executions<T>
-where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Executions<T>
-where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Executions for Executions<T>
-where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Executions + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_execution(
         &self,
@@ -166,7 +177,6 @@ where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
         self.inner.wait_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -185,19 +195,25 @@ where T: super::stub::Executions + std::fmt::Debug + Send + Sync {
 /// Implements a [Jobs](super::stub::Jobs) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Jobs<T>
-where T: super::stub::Jobs + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Jobs + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Jobs<T>
-where T: super::stub::Jobs + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Jobs + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Jobs for Jobs<T>
-where T: super::stub::Jobs + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Jobs + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_job(
         &self,
@@ -315,7 +331,6 @@ where T: super::stub::Jobs + std::fmt::Debug + Send + Sync {
         self.inner.wait_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -334,19 +349,25 @@ where T: super::stub::Jobs + std::fmt::Debug + Send + Sync {
 /// Implements a [Revisions](super::stub::Revisions) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Revisions<T>
-where T: super::stub::Revisions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Revisions + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Revisions<T>
-where T: super::stub::Revisions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Revisions + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Revisions for Revisions<T>
-where T: super::stub::Revisions + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Revisions + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_revision(
         &self,
@@ -410,7 +431,6 @@ where T: super::stub::Revisions + std::fmt::Debug + Send + Sync {
         self.inner.wait_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -429,19 +449,25 @@ where T: super::stub::Revisions + std::fmt::Debug + Send + Sync {
 /// Implements a [Services](super::stub::Services) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Services<T>
-where T: super::stub::Services + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Services + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Services<T>
-where T: super::stub::Services + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Services + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Services for Services<T>
-where T: super::stub::Services + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Services + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_service(
         &self,
@@ -550,7 +576,6 @@ where T: super::stub::Services + std::fmt::Debug + Send + Sync {
         self.inner.wait_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -569,19 +594,25 @@ where T: super::stub::Services + std::fmt::Debug + Send + Sync {
 /// Implements a [Tasks](super::stub::Tasks) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Tasks<T>
-where T: super::stub::Tasks + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Tasks + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Tasks<T>
-where T: super::stub::Tasks + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Tasks + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Tasks for Tasks<T>
-where T: super::stub::Tasks + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Tasks + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_task(
         &self,
@@ -635,25 +666,30 @@ where T: super::stub::Tasks + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.wait_operation(req, options).await
     }
-
 }
 
 /// Implements a [WorkerPools](super::stub::WorkerPools) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct WorkerPools<T>
-where T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> WorkerPools<T>
-where T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::WorkerPools for WorkerPools<T>
-where T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_worker_pool(
         &self,
@@ -762,7 +798,6 @@ where T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync {
         self.inner.wait_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -777,4 +812,3 @@ where T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

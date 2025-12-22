@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,6 +30,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectionsRequest {
-
     /// Required. The resource name of the AppConnection location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     pub parent: std::string::String,
@@ -147,7 +146,6 @@ impl wkt::message::Message for ListAppConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectionsResponse {
-
     /// A list of BeyondCorp AppConnections in the project.
     pub app_connections: std::vec::Vec<crate::model::AppConnection>,
 
@@ -181,7 +179,7 @@ impl ListAppConnectionsResponse {
     pub fn set_app_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AppConnection>
+        V: std::convert::Into<crate::model::AppConnection>,
     {
         use std::iter::Iterator;
         self.app_connections = v.into_iter().map(|i| i.into()).collect();
@@ -210,7 +208,7 @@ impl ListAppConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -242,7 +240,6 @@ impl gax::paginator::internal::PageableResponse for ListAppConnectionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppConnectionRequest {
-
     /// Required. BeyondCorp AppConnection name using the form:
     /// `projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}`
     pub name: std::string::String,
@@ -278,7 +275,6 @@ impl wkt::message::Message for GetAppConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppConnectionRequest {
-
     /// Required. The resource project name of the AppConnection location using the
     /// form: `projects/{project_id}/locations/{location_id}`
     pub parent: std::string::String,
@@ -339,7 +335,10 @@ impl CreateAppConnectionRequest {
     /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
     /// let x = CreateAppConnectionRequest::new().set_app_connection_id("example");
     /// ```
-    pub fn set_app_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_app_connection_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.app_connection_id = v.into();
         self
     }
@@ -353,7 +352,8 @@ impl CreateAppConnectionRequest {
     /// let x = CreateAppConnectionRequest::new().set_app_connection(AppConnection::default()/* use setters */);
     /// ```
     pub fn set_app_connection<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AppConnection>
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
     {
         self.app_connection = std::option::Option::Some(v.into());
         self
@@ -369,7 +369,8 @@ impl CreateAppConnectionRequest {
     /// let x = CreateAppConnectionRequest::new().set_or_clear_app_connection(None::<AppConnection>);
     /// ```
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AppConnection>
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
     {
         self.app_connection = v.map(|x| x.into());
         self
@@ -410,7 +411,6 @@ impl wkt::message::Message for CreateAppConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAppConnectionRequest {
-
     /// Required. Mask of fields to update. At least one path must be supplied in
     /// this field. The elements of the repeated paths field may only include these
     /// fields from [BeyondCorp.AppConnection]:
@@ -464,7 +464,8 @@ impl UpdateAppConnectionRequest {
     /// let x = UpdateAppConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -480,7 +481,8 @@ impl UpdateAppConnectionRequest {
     /// let x = UpdateAppConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -495,7 +497,8 @@ impl UpdateAppConnectionRequest {
     /// let x = UpdateAppConnectionRequest::new().set_app_connection(AppConnection::default()/* use setters */);
     /// ```
     pub fn set_app_connection<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AppConnection>
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
     {
         self.app_connection = std::option::Option::Some(v.into());
         self
@@ -511,7 +514,8 @@ impl UpdateAppConnectionRequest {
     /// let x = UpdateAppConnectionRequest::new().set_or_clear_app_connection(None::<AppConnection>);
     /// ```
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AppConnection>
+    where
+        T: std::convert::Into<crate::model::AppConnection>,
     {
         self.app_connection = v.map(|x| x.into());
         self
@@ -564,7 +568,6 @@ impl wkt::message::Message for UpdateAppConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppConnectionRequest {
-
     /// Required. BeyondCorp Connector name using the form:
     /// `projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}`
     pub name: std::string::String,
@@ -643,7 +646,6 @@ impl wkt::message::Message for DeleteAppConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveAppConnectionsRequest {
-
     /// Required. The resource name of the AppConnection location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     pub parent: std::string::String,
@@ -692,7 +694,10 @@ impl ResolveAppConnectionsRequest {
     /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
     /// let x = ResolveAppConnectionsRequest::new().set_app_connector_id("example");
     /// ```
-    pub fn set_app_connector_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_app_connector_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.app_connector_id = v.into();
         self
     }
@@ -732,9 +737,9 @@ impl wkt::message::Message for ResolveAppConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveAppConnectionsResponse {
-
     /// A list of BeyondCorp AppConnections with details in the project.
-    pub app_connection_details: std::vec::Vec<crate::model::resolve_app_connections_response::AppConnectionDetails>,
+    pub app_connection_details:
+        std::vec::Vec<crate::model::resolve_app_connections_response::AppConnectionDetails>,
 
     /// A token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
@@ -766,7 +771,7 @@ impl ResolveAppConnectionsResponse {
     pub fn set_app_connection_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::resolve_app_connections_response::AppConnectionDetails>
+        V: std::convert::Into<crate::model::resolve_app_connections_response::AppConnectionDetails>,
     {
         use std::iter::Iterator;
         self.app_connection_details = v.into_iter().map(|i| i.into()).collect();
@@ -795,7 +800,7 @@ impl ResolveAppConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -828,12 +833,10 @@ pub mod resolve_app_connections_response {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Details of the AppConnection.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppConnectionDetails {
-
         /// A BeyondCorp AppConnection in the project.
         pub app_connection: std::option::Option<crate::model::AppConnection>,
 
@@ -858,7 +861,8 @@ pub mod resolve_app_connections_response {
         /// let x = AppConnectionDetails::new().set_app_connection(AppConnection::default()/* use setters */);
         /// ```
         pub fn set_app_connection<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AppConnection>
+        where
+            T: std::convert::Into<crate::model::AppConnection>,
         {
             self.app_connection = std::option::Option::Some(v.into());
             self
@@ -874,7 +878,8 @@ pub mod resolve_app_connections_response {
         /// let x = AppConnectionDetails::new().set_or_clear_app_connection(None::<AppConnection>);
         /// ```
         pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AppConnection>
+        where
+            T: std::convert::Into<crate::model::AppConnection>,
         {
             self.app_connection = v.map(|x| x.into());
             self
@@ -890,7 +895,7 @@ pub mod resolve_app_connections_response {
         pub fn set_recent_mig_vms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.recent_mig_vms = v.into_iter().map(|i| i.into()).collect();
@@ -912,7 +917,6 @@ pub mod resolve_app_connections_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnection {
-
     /// Required. Unique resource name of the AppConnection.
     /// The name is ignored when creating a AppConnection.
     pub name: std::string::String,
@@ -924,7 +928,7 @@ pub struct AppConnection {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Resource labels to represent user provided metadata.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. An arbitrary user-provided name for the AppConnection. Cannot
     /// exceed 64 characters.
@@ -939,7 +943,8 @@ pub struct AppConnection {
 
     /// Required. Address of the remote application endpoint for the BeyondCorp
     /// AppConnection.
-    pub application_endpoint: std::option::Option<crate::model::app_connection::ApplicationEndpoint>,
+    pub application_endpoint:
+        std::option::Option<crate::model::app_connection::ApplicationEndpoint>,
 
     /// Optional. List of [google.cloud.beyondcorp.v1main.Connector.name] that are
     /// authorised to be associated with this AppConnection.
@@ -980,7 +985,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -996,7 +1002,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1011,7 +1018,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1027,7 +1035,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1086,7 +1095,10 @@ impl AppConnection {
     /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Type;
     /// let x0 = AppConnection::new().set_type(Type::TcpProxy);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::app_connection::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::app_connection::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -1100,7 +1112,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_application_endpoint(ApplicationEndpoint::default()/* use setters */);
     /// ```
     pub fn set_application_endpoint<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>
+    where
+        T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
     {
         self.application_endpoint = std::option::Option::Some(v.into());
         self
@@ -1116,7 +1129,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_or_clear_application_endpoint(None::<ApplicationEndpoint>);
     /// ```
     pub fn set_or_clear_application_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>
+    where
+        T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
     {
         self.application_endpoint = v.map(|x| x.into());
         self
@@ -1132,7 +1146,7 @@ impl AppConnection {
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.connectors = v.into_iter().map(|i| i.into()).collect();
@@ -1149,7 +1163,10 @@ impl AppConnection {
     /// let x1 = AppConnection::new().set_state(State::Created);
     /// let x2 = AppConnection::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::app_connection::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::app_connection::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -1163,7 +1180,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_gateway(Gateway::default()/* use setters */);
     /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::app_connection::Gateway>
+    where
+        T: std::convert::Into<crate::model::app_connection::Gateway>,
     {
         self.gateway = std::option::Option::Some(v.into());
         self
@@ -1179,7 +1197,8 @@ impl AppConnection {
     /// let x = AppConnection::new().set_or_clear_gateway(None::<Gateway>);
     /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::app_connection::Gateway>
+    where
+        T: std::convert::Into<crate::model::app_connection::Gateway>,
     {
         self.gateway = v.map(|x| x.into());
         self
@@ -1197,12 +1216,10 @@ pub mod app_connection {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// ApplicationEndpoint represents a remote application endpoint.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplicationEndpoint {
-
         /// Required. Hostname or IP address of the remote application endpoint.
         pub host: std::string::String,
 
@@ -1253,7 +1270,6 @@ pub mod app_connection {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Gateway {
-
         /// Required. The type of hosting used by the gateway.
         pub r#type: crate::model::app_connection::gateway::Type,
 
@@ -1284,7 +1300,10 @@ pub mod app_connection {
         /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::gateway::Type;
         /// let x0 = Gateway::new().set_type(Type::GcpRegionalMig);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::app_connection::gateway::Type>>(mut self, v: T) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::app_connection::gateway::Type>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = v.into();
             self
         }
@@ -1336,7 +1355,6 @@ pub mod app_connection {
     pub mod gateway {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Enum listing possible gateway hosting options.
         ///
@@ -1409,7 +1427,10 @@ pub mod app_connection {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1419,7 +1440,9 @@ pub mod app_connection {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::GcpRegionalMig,
-                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -1430,7 +1453,9 @@ pub mod app_connection {
                 match value {
                     "TYPE_UNSPECIFIED" => Self::Unspecified,
                     "GCP_REGIONAL_MIG" => Self::GcpRegionalMig,
-                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -1454,7 +1479,8 @@ pub mod app_connection {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.cloud.beyondcorp.appconnections.v1.AppConnection.Gateway.Type"))
+                    ".google.cloud.beyondcorp.appconnections.v1.AppConnection.Gateway.Type",
+                ))
             }
         }
     }
@@ -1542,7 +1568,9 @@ pub mod app_connection {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::TcpProxy,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1553,7 +1581,9 @@ pub mod app_connection {
             match value {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TCP_PROXY" => Self::TcpProxy,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1577,7 +1607,8 @@ pub mod app_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.beyondcorp.appconnections.v1.AppConnection.Type"))
+                ".google.cloud.beyondcorp.appconnections.v1.AppConnection.Type",
+            ))
         }
     }
 
@@ -1683,7 +1714,9 @@ pub mod app_connection {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::Down,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1698,7 +1731,9 @@ pub mod app_connection {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "DOWN" => Self::Down,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1726,7 +1761,8 @@ pub mod app_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.beyondcorp.appconnections.v1.AppConnection.State"))
+                ".google.cloud.beyondcorp.appconnections.v1.AppConnection.State",
+            ))
         }
     }
 }
@@ -1735,7 +1771,6 @@ pub mod app_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnectionOperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1780,7 +1815,8 @@ impl AppConnectionOperationMetadata {
     /// let x = AppConnectionOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1796,7 +1832,8 @@ impl AppConnectionOperationMetadata {
     /// let x = AppConnectionOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1811,7 +1848,8 @@ impl AppConnectionOperationMetadata {
     /// let x = AppConnectionOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1827,7 +1865,8 @@ impl AppConnectionOperationMetadata {
     /// let x = AppConnectionOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self

@@ -37,7 +37,6 @@ impl std::fmt::Debug for super::AddressGroup {
     }
 }
 
-
 impl std::fmt::Debug for super::ListAddressGroupsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAddressGroupsRequest");
@@ -259,7 +258,6 @@ impl std::fmt::Debug for super::authorization_policy::rule::destination::HttpHea
     }
 }
 
-
 impl std::fmt::Debug for super::ListAuthorizationPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesRequest");
@@ -467,7 +465,6 @@ impl std::fmt::Debug for super::server_tls_policy::MTLSPolicy {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListServerTlsPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

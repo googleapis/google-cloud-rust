@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Dataform](super::stub::Dataform) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Dataform<T>
-where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Dataform<T>
-where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Dataform for Dataform<T>
-where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_repositories(
         &self,
@@ -99,8 +105,11 @@ where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>> {
-        self.inner.query_repository_directory_contents(req, options).await
+    ) -> Result<gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>>
+    {
+        self.inner
+            .query_repository_directory_contents(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -117,8 +126,11 @@ where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>> {
-        self.inner.compute_repository_access_token_status(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>>
+    {
+        self.inner
+            .compute_repository_access_token_status(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -397,7 +409,9 @@ where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
         req: crate::model::QueryCompilationResultActionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>> {
-        self.inner.query_compilation_result_actions(req, options).await
+        self.inner
+            .query_compilation_result_actions(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -496,7 +510,9 @@ where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
         req: crate::model::QueryWorkflowInvocationActionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
-        self.inner.query_workflow_invocation_actions(req, options).await
+        self.inner
+            .query_workflow_invocation_actions(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -561,6 +577,4 @@ where T: super::stub::Dataform + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
-
 }
-

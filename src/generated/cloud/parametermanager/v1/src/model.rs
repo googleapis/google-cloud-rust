@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,7 +40,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
-
     /// Identifier. [Output only] The resource name of the Parameter in the format
     /// `projects/*/locations/*/parameters/*`.
     pub name: std::string::String,
@@ -52,7 +51,7 @@ pub struct Parameter {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Specifies the format of a Parameter.
     pub format: crate::model::ParameterFormat,
@@ -97,7 +96,8 @@ impl Parameter {
     /// let x = Parameter::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -113,7 +113,8 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -128,7 +129,8 @@ impl Parameter {
     /// let x = Parameter::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -144,7 +146,8 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -181,7 +184,10 @@ impl Parameter {
     /// let x1 = Parameter::new().set_format(ParameterFormat::Yaml);
     /// let x2 = Parameter::new().set_format(ParameterFormat::Json);
     /// ```
-    pub fn set_format<T: std::convert::Into<crate::model::ParameterFormat>>(mut self, v: T) -> Self {
+    pub fn set_format<T: std::convert::Into<crate::model::ParameterFormat>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.format = v.into();
         self
     }
@@ -195,7 +201,8 @@ impl Parameter {
     /// let x = Parameter::new().set_policy_member(ResourcePolicyMember::default()/* use setters */);
     /// ```
     pub fn set_policy_member<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<iam_v1::model::ResourcePolicyMember>
+    where
+        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
     {
         self.policy_member = std::option::Option::Some(v.into());
         self
@@ -211,7 +218,8 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_policy_member(None::<ResourcePolicyMember>);
     /// ```
     pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<iam_v1::model::ResourcePolicyMember>
+    where
+        T: std::convert::Into<iam_v1::model::ResourcePolicyMember>,
     {
         self.policy_member = v.map(|x| x.into());
         self
@@ -225,7 +233,8 @@ impl Parameter {
     /// let x = Parameter::new().set_kms_key("example");
     /// ```
     pub fn set_kms_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.kms_key = std::option::Option::Some(v.into());
         self
@@ -240,7 +249,8 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_kms_key(None::<String>);
     /// ```
     pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.kms_key = v.map(|x| x.into());
         self
@@ -257,7 +267,6 @@ impl wkt::message::Message for Parameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParametersRequest {
-
     /// Required. Parent value for ListParametersRequest in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -354,7 +363,6 @@ impl wkt::message::Message for ListParametersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParametersResponse {
-
     /// The list of Parameters
     pub parameters: std::vec::Vec<crate::model::Parameter>,
 
@@ -387,7 +395,7 @@ impl ListParametersResponse {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Parameter>
+        V: std::convert::Into<crate::model::Parameter>,
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -416,7 +424,7 @@ impl ListParametersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -448,7 +456,6 @@ impl gax::paginator::internal::PageableResponse for ListParametersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetParameterRequest {
-
     /// Required. Name of the resource in the format
     /// `projects/*/locations/*/parameters/*`.
     pub name: std::string::String,
@@ -484,7 +491,6 @@ impl wkt::message::Message for GetParameterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateParameterRequest {
-
     /// Required. Value for parent in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -551,7 +557,8 @@ impl CreateParameterRequest {
     /// let x = CreateParameterRequest::new().set_parameter(Parameter::default()/* use setters */);
     /// ```
     pub fn set_parameter<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Parameter>
+    where
+        T: std::convert::Into<crate::model::Parameter>,
     {
         self.parameter = std::option::Option::Some(v.into());
         self
@@ -567,7 +574,8 @@ impl CreateParameterRequest {
     /// let x = CreateParameterRequest::new().set_or_clear_parameter(None::<Parameter>);
     /// ```
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Parameter>
+    where
+        T: std::convert::Into<crate::model::Parameter>,
     {
         self.parameter = v.map(|x| x.into());
         self
@@ -596,7 +604,6 @@ impl wkt::message::Message for CreateParameterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParameterRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Parameter resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -640,7 +647,8 @@ impl UpdateParameterRequest {
     /// let x = UpdateParameterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -656,7 +664,8 @@ impl UpdateParameterRequest {
     /// let x = UpdateParameterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -671,7 +680,8 @@ impl UpdateParameterRequest {
     /// let x = UpdateParameterRequest::new().set_parameter(Parameter::default()/* use setters */);
     /// ```
     pub fn set_parameter<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Parameter>
+    where
+        T: std::convert::Into<crate::model::Parameter>,
     {
         self.parameter = std::option::Option::Some(v.into());
         self
@@ -687,7 +697,8 @@ impl UpdateParameterRequest {
     /// let x = UpdateParameterRequest::new().set_or_clear_parameter(None::<Parameter>);
     /// ```
     pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Parameter>
+    where
+        T: std::convert::Into<crate::model::Parameter>,
     {
         self.parameter = v.map(|x| x.into());
         self
@@ -716,7 +727,6 @@ impl wkt::message::Message for UpdateParameterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteParameterRequest {
-
     /// Required. Name of the resource in the format
     /// `projects/*/locations/*/parameters/*`.
     pub name: std::string::String,
@@ -779,7 +789,6 @@ impl wkt::message::Message for DeleteParameterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterVersion {
-
     /// Identifier. [Output only] The resource name of the ParameterVersion in the
     /// format `projects/*/locations/*/parameters/*/versions/*`.
     pub name: std::string::String,
@@ -837,7 +846,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -853,7 +863,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -868,7 +879,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -884,7 +896,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -911,7 +924,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_payload(ParameterVersionPayload::default()/* use setters */);
     /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersionPayload>
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
     {
         self.payload = std::option::Option::Some(v.into());
         self
@@ -927,7 +941,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_or_clear_payload(None::<ParameterVersionPayload>);
     /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersionPayload>
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
     {
         self.payload = v.map(|x| x.into());
         self
@@ -941,7 +956,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_kms_key_version("example");
     /// ```
     pub fn set_kms_key_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.kms_key_version = std::option::Option::Some(v.into());
         self
@@ -956,7 +972,8 @@ impl ParameterVersion {
     /// let x = ParameterVersion::new().set_or_clear_kms_key_version(None::<String>);
     /// ```
     pub fn set_or_clear_kms_key_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.kms_key_version = v.map(|x| x.into());
         self
@@ -973,7 +990,6 @@ impl wkt::message::Message for ParameterVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterVersionPayload {
-
     /// Required. bytes data for storing payload.
     pub data: ::bytes::Bytes,
 
@@ -1008,7 +1024,6 @@ impl wkt::message::Message for ParameterVersionPayload {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParameterVersionsRequest {
-
     /// Required. Parent value for ListParameterVersionsRequest in the format
     /// `projects/*/locations/*/parameters/*`.
     pub parent: std::string::String,
@@ -1105,7 +1120,6 @@ impl wkt::message::Message for ListParameterVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParameterVersionsResponse {
-
     /// The list of ParameterVersions
     pub parameter_versions: std::vec::Vec<crate::model::ParameterVersion>,
 
@@ -1138,7 +1152,7 @@ impl ListParameterVersionsResponse {
     pub fn set_parameter_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ParameterVersion>
+        V: std::convert::Into<crate::model::ParameterVersion>,
     {
         use std::iter::Iterator;
         self.parameter_versions = v.into_iter().map(|i| i.into()).collect();
@@ -1167,7 +1181,7 @@ impl ListParameterVersionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1199,7 +1213,6 @@ impl gax::paginator::internal::PageableResponse for ListParameterVersionsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetParameterVersionRequest {
-
     /// Required. Name of the resource in the format
     /// `projects/*/locations/*/parameters/*/versions/*`.
     pub name: std::string::String,
@@ -1254,7 +1267,6 @@ impl wkt::message::Message for GetParameterVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenderParameterVersionRequest {
-
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1289,7 +1301,6 @@ impl wkt::message::Message for RenderParameterVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenderParameterVersionResponse {
-
     /// Output only. Resource identifier of a ParameterVersion in the format
     /// `projects/*/locations/*/parameters/*/versions/*`.
     pub parameter_version: std::string::String,
@@ -1318,7 +1329,10 @@ impl RenderParameterVersionResponse {
     /// # use google_cloud_parametermanager_v1::model::RenderParameterVersionResponse;
     /// let x = RenderParameterVersionResponse::new().set_parameter_version("example");
     /// ```
-    pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.parameter_version = v.into();
         self
     }
@@ -1332,7 +1346,8 @@ impl RenderParameterVersionResponse {
     /// let x = RenderParameterVersionResponse::new().set_payload(ParameterVersionPayload::default()/* use setters */);
     /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersionPayload>
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
     {
         self.payload = std::option::Option::Some(v.into());
         self
@@ -1348,7 +1363,8 @@ impl RenderParameterVersionResponse {
     /// let x = RenderParameterVersionResponse::new().set_or_clear_payload(None::<ParameterVersionPayload>);
     /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersionPayload>
+    where
+        T: std::convert::Into<crate::model::ParameterVersionPayload>,
     {
         self.payload = v.map(|x| x.into());
         self
@@ -1377,7 +1393,6 @@ impl wkt::message::Message for RenderParameterVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateParameterVersionRequest {
-
     /// Required. Value for parent in the format
     /// `projects/*/locations/*/parameters/*`.
     pub parent: std::string::String,
@@ -1430,7 +1445,10 @@ impl CreateParameterVersionRequest {
     /// # use google_cloud_parametermanager_v1::model::CreateParameterVersionRequest;
     /// let x = CreateParameterVersionRequest::new().set_parameter_version_id("example");
     /// ```
-    pub fn set_parameter_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_parameter_version_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.parameter_version_id = v.into();
         self
     }
@@ -1444,7 +1462,8 @@ impl CreateParameterVersionRequest {
     /// let x = CreateParameterVersionRequest::new().set_parameter_version(ParameterVersion::default()/* use setters */);
     /// ```
     pub fn set_parameter_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersion>
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
     {
         self.parameter_version = std::option::Option::Some(v.into());
         self
@@ -1460,7 +1479,8 @@ impl CreateParameterVersionRequest {
     /// let x = CreateParameterVersionRequest::new().set_or_clear_parameter_version(None::<ParameterVersion>);
     /// ```
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersion>
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
     {
         self.parameter_version = v.map(|x| x.into());
         self
@@ -1489,7 +1509,6 @@ impl wkt::message::Message for CreateParameterVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParameterVersionRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// ParameterVersion resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1533,7 +1552,8 @@ impl UpdateParameterVersionRequest {
     /// let x = UpdateParameterVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1549,7 +1569,8 @@ impl UpdateParameterVersionRequest {
     /// let x = UpdateParameterVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1564,7 +1585,8 @@ impl UpdateParameterVersionRequest {
     /// let x = UpdateParameterVersionRequest::new().set_parameter_version(ParameterVersion::default()/* use setters */);
     /// ```
     pub fn set_parameter_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersion>
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
     {
         self.parameter_version = std::option::Option::Some(v.into());
         self
@@ -1580,7 +1602,8 @@ impl UpdateParameterVersionRequest {
     /// let x = UpdateParameterVersionRequest::new().set_or_clear_parameter_version(None::<ParameterVersion>);
     /// ```
     pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ParameterVersion>
+    where
+        T: std::convert::Into<crate::model::ParameterVersion>,
     {
         self.parameter_version = v.map(|x| x.into());
         self
@@ -1609,7 +1632,6 @@ impl wkt::message::Message for UpdateParameterVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteParameterVersionRequest {
-
     /// Required. Name of the resource in the format
     /// `projects/*/locations/*/parameters/*/versions/*`.
     pub name: std::string::String,
@@ -1762,7 +1784,9 @@ impl std::convert::From<i32> for ParameterFormat {
             1 => Self::Unformatted,
             2 => Self::Yaml,
             3 => Self::Json,
-            _ => Self::UnknownValue(parameter_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(parameter_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -1775,7 +1799,9 @@ impl std::convert::From<&str> for ParameterFormat {
             "UNFORMATTED" => Self::Unformatted,
             "YAML" => Self::Yaml,
             "JSON" => Self::Json,
-            _ => Self::UnknownValue(parameter_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(parameter_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -1801,7 +1827,8 @@ impl<'de> serde::de::Deserialize<'de> for ParameterFormat {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ParameterFormat>::new(
-            ".google.cloud.parametermanager.v1.ParameterFormat"))
+            ".google.cloud.parametermanager.v1.ParameterFormat",
+        ))
     }
 }
 
@@ -1894,7 +1921,9 @@ impl std::convert::From<i32> for View {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -1906,7 +1935,9 @@ impl std::convert::From<&str> for View {
             "VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::String(
+                value.to_string(),
+            ))),
         }
     }
 }
@@ -1931,6 +1962,7 @@ impl<'de> serde::de::Deserialize<'de> for View {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<View>::new(
-            ".google.cloud.parametermanager.v1.View"))
+            ".google.cloud.parametermanager.v1.View",
+        ))
     }
 }

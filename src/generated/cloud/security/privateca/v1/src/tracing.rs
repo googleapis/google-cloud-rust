@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CertificateAuthorityService](super::stub::CertificateAuthorityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CertificateAuthorityService<T>
-where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CertificateAuthorityService<T>
-where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CertificateAuthorityService for CertificateAuthorityService<T>
-where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_certificate(
         &self,
@@ -82,7 +88,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::ActivateCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.activate_certificate_authority(req, options).await
+        self.inner
+            .activate_certificate_authority(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -118,7 +126,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::FetchCertificateAuthorityCsrRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
-        self.inner.fetch_certificate_authority_csr(req, options).await
+        self.inner
+            .fetch_certificate_authority_csr(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -145,7 +155,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::UndeleteCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.undelete_certificate_authority(req, options).await
+        self.inner
+            .undelete_certificate_authority(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -226,7 +238,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::GetCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CertificateRevocationList>> {
-        self.inner.get_certificate_revocation_list(req, options).await
+        self.inner
+            .get_certificate_revocation_list(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -235,7 +249,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::ListCertificateRevocationListsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>> {
-        self.inner.list_certificate_revocation_lists(req, options).await
+        self.inner
+            .list_certificate_revocation_lists(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -244,7 +260,9 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         req: crate::model::UpdateCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.update_certificate_revocation_list(req, options).await
+        self.inner
+            .update_certificate_revocation_list(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -373,7 +391,6 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -388,4 +405,3 @@ where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Syn
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

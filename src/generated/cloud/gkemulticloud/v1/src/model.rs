@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,6 +29,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedCluster {
-
     /// The name of this resource.
     ///
     /// Cluster names are formatted as
@@ -115,7 +114,7 @@ pub struct AttachedCluster {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Workload Identity settings.
     pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
@@ -155,7 +154,7 @@ pub struct AttachedCluster {
     /// See
     /// [Tags](https://cloud.google.com/resource-manager/docs/tags/tags-overview)
     /// for more details on Google Cloud Platform tags.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Kubernetes configurations for auto-installed components on the
     /// cluster.
@@ -202,7 +201,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_oidc_config(AttachedOidcConfig::default()/* use setters */);
     /// ```
     pub fn set_oidc_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedOidcConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedOidcConfig>,
     {
         self.oidc_config = std::option::Option::Some(v.into());
         self
@@ -218,7 +218,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_oidc_config(None::<AttachedOidcConfig>);
     /// ```
     pub fn set_or_clear_oidc_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedOidcConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedOidcConfig>,
     {
         self.oidc_config = v.map(|x| x.into());
         self
@@ -231,7 +232,10 @@ impl AttachedCluster {
     /// # use google_cloud_gkemulticloud_v1::model::AttachedCluster;
     /// let x = AttachedCluster::new().set_platform_version("example");
     /// ```
-    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.platform_version = v.into();
         self
     }
@@ -269,7 +273,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_fleet(Fleet::default()/* use setters */);
     /// ```
     pub fn set_fleet<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = std::option::Option::Some(v.into());
         self
@@ -285,7 +290,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_fleet(None::<Fleet>);
     /// ```
     pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = v.map(|x| x.into());
         self
@@ -301,7 +307,10 @@ impl AttachedCluster {
     /// let x1 = AttachedCluster::new().set_state(State::Running);
     /// let x2 = AttachedCluster::new().set_state(State::Reconciling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::attached_cluster::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::attached_cluster::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -339,7 +348,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -355,7 +365,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -370,7 +381,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -386,7 +398,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -411,7 +424,10 @@ impl AttachedCluster {
     /// # use google_cloud_gkemulticloud_v1::model::AttachedCluster;
     /// let x = AttachedCluster::new().set_kubernetes_version("example");
     /// ```
-    pub fn set_kubernetes_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_kubernetes_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kubernetes_version = v.into();
         self
     }
@@ -446,7 +462,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
     /// ```
     pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = std::option::Option::Some(v.into());
         self
@@ -462,7 +479,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
     /// ```
     pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = v.map(|x| x.into());
         self
@@ -477,7 +495,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_logging_config(LoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -493,7 +512,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_logging_config(None::<LoggingConfig>);
     /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -514,7 +534,7 @@ impl AttachedCluster {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedClusterError>
+        V: std::convert::Into<crate::model::AttachedClusterError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -530,7 +550,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_authorization(AttachedClustersAuthorization::default()/* use setters */);
     /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedClustersAuthorization>
+    where
+        T: std::convert::Into<crate::model::AttachedClustersAuthorization>,
     {
         self.authorization = std::option::Option::Some(v.into());
         self
@@ -546,7 +567,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_authorization(None::<AttachedClustersAuthorization>);
     /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedClustersAuthorization>
+    where
+        T: std::convert::Into<crate::model::AttachedClustersAuthorization>,
     {
         self.authorization = v.map(|x| x.into());
         self
@@ -561,7 +583,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
     /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = std::option::Option::Some(v.into());
         self
@@ -577,7 +600,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
     /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = v.map(|x| x.into());
         self
@@ -592,7 +616,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_proxy_config(AttachedProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -608,7 +633,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_proxy_config(None::<AttachedProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -623,7 +649,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
     /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BinaryAuthorization>
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
         self.binary_authorization = std::option::Option::Some(v.into());
         self
@@ -639,7 +666,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
     /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BinaryAuthorization>
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
         self.binary_authorization = v.map(|x| x.into());
         self
@@ -654,7 +682,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_security_posture_config(SecurityPostureConfig::default()/* use setters */);
     /// ```
     pub fn set_security_posture_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SecurityPostureConfig>
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
     {
         self.security_posture_config = std::option::Option::Some(v.into());
         self
@@ -670,7 +699,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_security_posture_config(None::<SecurityPostureConfig>);
     /// ```
     pub fn set_or_clear_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SecurityPostureConfig>
+    where
+        T: std::convert::Into<crate::model::SecurityPostureConfig>,
     {
         self.security_posture_config = v.map(|x| x.into());
         self
@@ -706,7 +736,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_system_components_config(SystemComponentsConfig::default()/* use setters */);
     /// ```
     pub fn set_system_components_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SystemComponentsConfig>
+    where
+        T: std::convert::Into<crate::model::SystemComponentsConfig>,
     {
         self.system_components_config = std::option::Option::Some(v.into());
         self
@@ -722,7 +753,8 @@ impl AttachedCluster {
     /// let x = AttachedCluster::new().set_or_clear_system_components_config(None::<SystemComponentsConfig>);
     /// ```
     pub fn set_or_clear_system_components_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SystemComponentsConfig>
+    where
+        T: std::convert::Into<crate::model::SystemComponentsConfig>,
     {
         self.system_components_config = v.map(|x| x.into());
         self
@@ -739,7 +771,6 @@ impl wkt::message::Message for AttachedCluster {
 pub mod attached_cluster {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The lifecycle state of the cluster.
     ///
@@ -851,7 +882,9 @@ pub mod attached_cluster {
                 4 => Self::Stopping,
                 5 => Self::Error,
                 6 => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -867,7 +900,9 @@ pub mod attached_cluster {
                 "STOPPING" => Self::Stopping,
                 "ERROR" => Self::Error,
                 "DEGRADED" => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -896,7 +931,8 @@ pub mod attached_cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkemulticloud.v1.AttachedCluster.State"))
+                ".google.cloud.gkemulticloud.v1.AttachedCluster.State",
+            ))
         }
     }
 }
@@ -905,7 +941,6 @@ pub mod attached_cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClustersAuthorization {
-
     /// Optional. Users that can perform operations as a cluster admin. A managed
     /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
     /// to the users. Up to ten admin users can be provided.
@@ -945,7 +980,7 @@ impl AttachedClustersAuthorization {
     pub fn set_admin_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedClusterUser>
+        V: std::convert::Into<crate::model::AttachedClusterUser>,
     {
         use std::iter::Iterator;
         self.admin_users = v.into_iter().map(|i| i.into()).collect();
@@ -967,7 +1002,7 @@ impl AttachedClustersAuthorization {
     pub fn set_admin_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedClusterGroup>
+        V: std::convert::Into<crate::model::AttachedClusterGroup>,
     {
         use std::iter::Iterator;
         self.admin_groups = v.into_iter().map(|i| i.into()).collect();
@@ -985,7 +1020,6 @@ impl wkt::message::Message for AttachedClustersAuthorization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterUser {
-
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     pub username: std::string::String,
 
@@ -1020,7 +1054,6 @@ impl wkt::message::Message for AttachedClusterUser {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterGroup {
-
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     pub group: std::string::String,
 
@@ -1065,7 +1098,6 @@ impl wkt::message::Message for AttachedClusterGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedOidcConfig {
-
     /// A JSON Web Token (JWT) issuer URI. `issuer` must start with `https://`.
     pub issuer_url: std::string::String,
 
@@ -1122,7 +1154,6 @@ impl wkt::message::Message for AttachedOidcConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedServerConfig {
-
     /// The resource name of the config.
     pub name: std::string::String,
 
@@ -1164,7 +1195,7 @@ impl AttachedServerConfig {
     pub fn set_valid_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedPlatformVersionInfo>
+        V: std::convert::Into<crate::model::AttachedPlatformVersionInfo>,
     {
         use std::iter::Iterator;
         self.valid_versions = v.into_iter().map(|i| i.into()).collect();
@@ -1182,7 +1213,6 @@ impl wkt::message::Message for AttachedServerConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedPlatformVersionInfo {
-
     /// Platform version name.
     pub version: std::string::String,
 
@@ -1257,7 +1287,8 @@ impl AttachedPlatformVersionInfo {
     /// let x = AttachedPlatformVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -1273,7 +1304,8 @@ impl AttachedPlatformVersionInfo {
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -1288,7 +1320,8 @@ impl AttachedPlatformVersionInfo {
     /// let x = AttachedPlatformVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -1304,7 +1337,8 @@ impl AttachedPlatformVersionInfo {
     /// let x = AttachedPlatformVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -1321,7 +1355,6 @@ impl wkt::message::Message for AttachedPlatformVersionInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterError {
-
     /// Human-friendly description of the error.
     pub message: std::string::String,
 
@@ -1356,7 +1389,6 @@ impl wkt::message::Message for AttachedClusterError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedProxyConfig {
-
     /// The Kubernetes Secret resource that contains the HTTP(S) proxy
     /// configuration. The secret must be a JSON encoded proxy configuration
     /// as described in
@@ -1383,7 +1415,8 @@ impl AttachedProxyConfig {
     /// let x = AttachedProxyConfig::new().set_kubernetes_secret(KubernetesSecret::default()/* use setters */);
     /// ```
     pub fn set_kubernetes_secret<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::KubernetesSecret>
+    where
+        T: std::convert::Into<crate::model::KubernetesSecret>,
     {
         self.kubernetes_secret = std::option::Option::Some(v.into());
         self
@@ -1399,7 +1432,8 @@ impl AttachedProxyConfig {
     /// let x = AttachedProxyConfig::new().set_or_clear_kubernetes_secret(None::<KubernetesSecret>);
     /// ```
     pub fn set_or_clear_kubernetes_secret<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::KubernetesSecret>
+    where
+        T: std::convert::Into<crate::model::KubernetesSecret>,
     {
         self.kubernetes_secret = v.map(|x| x.into());
         self
@@ -1416,7 +1450,6 @@ impl wkt::message::Message for AttachedProxyConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesSecret {
-
     /// Name of the kubernetes secret.
     pub name: std::string::String,
 
@@ -1467,7 +1500,6 @@ impl wkt::message::Message for KubernetesSecret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemComponentsConfig {
-
     /// Sets custom tolerations for pods created by auto-installed components.
     pub tolerations: std::vec::Vec<crate::model::Toleration>,
 
@@ -1497,7 +1529,7 @@ impl SystemComponentsConfig {
     pub fn set_tolerations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Toleration>
+        V: std::convert::Into<crate::model::Toleration>,
     {
         use std::iter::Iterator;
         self.tolerations = v.into_iter().map(|i| i.into()).collect();
@@ -1519,7 +1551,7 @@ impl SystemComponentsConfig {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Label>
+        V: std::convert::Into<crate::model::Label>,
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -1538,7 +1570,6 @@ impl wkt::message::Message for SystemComponentsConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Toleration {
-
     /// Key is the taint key that the toleration applies to.
     pub key: std::string::String,
 
@@ -1592,7 +1623,10 @@ impl Toleration {
     /// let x0 = Toleration::new().set_key_operator(KeyOperator::Equal);
     /// let x1 = Toleration::new().set_key_operator(KeyOperator::Exists);
     /// ```
-    pub fn set_key_operator<T: std::convert::Into<crate::model::toleration::KeyOperator>>(mut self, v: T) -> Self {
+    pub fn set_key_operator<T: std::convert::Into<crate::model::toleration::KeyOperator>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.key_operator = v.into();
         self
     }
@@ -1607,7 +1641,10 @@ impl Toleration {
     /// let x1 = Toleration::new().set_effect(Effect::PreferNoSchedule);
     /// let x2 = Toleration::new().set_effect(Effect::NoExecute);
     /// ```
-    pub fn set_effect<T: std::convert::Into<crate::model::toleration::Effect>>(mut self, v: T) -> Self {
+    pub fn set_effect<T: std::convert::Into<crate::model::toleration::Effect>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.effect = v.into();
         self
     }
@@ -1623,7 +1660,6 @@ impl wkt::message::Message for Toleration {
 pub mod toleration {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// KeyOperator represents a key's relationship to the value e.g. 'Equal'.
     ///
@@ -1711,7 +1747,9 @@ pub mod toleration {
                 0 => Self::Unspecified,
                 1 => Self::Equal,
                 2 => Self::Exists,
-                _ => Self::UnknownValue(key_operator::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(key_operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1723,7 +1761,9 @@ pub mod toleration {
                 "KEY_OPERATOR_UNSPECIFIED" => Self::Unspecified,
                 "KEY_OPERATOR_EQUAL" => Self::Equal,
                 "KEY_OPERATOR_EXISTS" => Self::Exists,
-                _ => Self::UnknownValue(key_operator::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(key_operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1748,7 +1788,8 @@ pub mod toleration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyOperator>::new(
-                ".google.cloud.gkemulticloud.v1.Toleration.KeyOperator"))
+                ".google.cloud.gkemulticloud.v1.Toleration.KeyOperator",
+            ))
         }
     }
 
@@ -1843,7 +1884,9 @@ pub mod toleration {
                 1 => Self::NoSchedule,
                 2 => Self::PreferNoSchedule,
                 3 => Self::NoExecute,
-                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1856,7 +1899,9 @@ pub mod toleration {
                 "EFFECT_NO_SCHEDULE" => Self::NoSchedule,
                 "EFFECT_PREFER_NO_SCHEDULE" => Self::PreferNoSchedule,
                 "EFFECT_NO_EXECUTE" => Self::NoExecute,
-                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1882,7 +1927,8 @@ pub mod toleration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
-                ".google.cloud.gkemulticloud.v1.Toleration.Effect"))
+                ".google.cloud.gkemulticloud.v1.Toleration.Effect",
+            ))
         }
     }
 }
@@ -1892,7 +1938,6 @@ pub mod toleration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Label {
-
     /// This is the key of the label.
     pub key: std::string::String,
 
@@ -1943,7 +1988,6 @@ impl wkt::message::Message for Label {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterInstallManifestRequest {
-
     /// Required. The parent location where this
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
     /// will be created.
@@ -2014,7 +2058,10 @@ impl GenerateAttachedClusterInstallManifestRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterInstallManifestRequest;
     /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_attached_cluster_id("example");
     /// ```
-    pub fn set_attached_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_attached_cluster_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.attached_cluster_id = v.into();
         self
     }
@@ -2026,7 +2073,10 @@ impl GenerateAttachedClusterInstallManifestRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterInstallManifestRequest;
     /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_platform_version("example");
     /// ```
-    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.platform_version = v.into();
         self
     }
@@ -2040,7 +2090,8 @@ impl GenerateAttachedClusterInstallManifestRequest {
     /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_proxy_config(AttachedProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -2056,7 +2107,8 @@ impl GenerateAttachedClusterInstallManifestRequest {
     /// let x = GenerateAttachedClusterInstallManifestRequest::new().set_or_clear_proxy_config(None::<AttachedProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -2074,7 +2126,6 @@ impl wkt::message::Message for GenerateAttachedClusterInstallManifestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterInstallManifestResponse {
-
     /// A set of Kubernetes resources (in YAML format) to be applied
     /// to the cluster to be attached.
     pub manifest: std::string::String,
@@ -2110,7 +2161,6 @@ impl wkt::message::Message for GenerateAttachedClusterInstallManifestResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttachedClusterRequest {
-
     /// Required. The parent location where this
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
     /// will be created.
@@ -2174,7 +2224,8 @@ impl CreateAttachedClusterRequest {
     /// let x = CreateAttachedClusterRequest::new().set_attached_cluster(AttachedCluster::default()/* use setters */);
     /// ```
     pub fn set_attached_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedCluster>
+    where
+        T: std::convert::Into<crate::model::AttachedCluster>,
     {
         self.attached_cluster = std::option::Option::Some(v.into());
         self
@@ -2190,7 +2241,8 @@ impl CreateAttachedClusterRequest {
     /// let x = CreateAttachedClusterRequest::new().set_or_clear_attached_cluster(None::<AttachedCluster>);
     /// ```
     pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedCluster>
+    where
+        T: std::convert::Into<crate::model::AttachedCluster>,
     {
         self.attached_cluster = v.map(|x| x.into());
         self
@@ -2203,7 +2255,10 @@ impl CreateAttachedClusterRequest {
     /// # use google_cloud_gkemulticloud_v1::model::CreateAttachedClusterRequest;
     /// let x = CreateAttachedClusterRequest::new().set_attached_cluster_id("example");
     /// ```
-    pub fn set_attached_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_attached_cluster_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.attached_cluster_id = v.into();
         self
     }
@@ -2231,7 +2286,6 @@ impl wkt::message::Message for CreateAttachedClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAttachedClusterRequest {
-
     /// Required. The parent location where this
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
     /// will be created.
@@ -2306,7 +2360,10 @@ impl ImportAttachedClusterRequest {
     /// # use google_cloud_gkemulticloud_v1::model::ImportAttachedClusterRequest;
     /// let x = ImportAttachedClusterRequest::new().set_fleet_membership("example");
     /// ```
-    pub fn set_fleet_membership<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_fleet_membership<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.fleet_membership = v.into();
         self
     }
@@ -2318,7 +2375,10 @@ impl ImportAttachedClusterRequest {
     /// # use google_cloud_gkemulticloud_v1::model::ImportAttachedClusterRequest;
     /// let x = ImportAttachedClusterRequest::new().set_platform_version("example");
     /// ```
-    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_platform_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.platform_version = v.into();
         self
     }
@@ -2344,7 +2404,8 @@ impl ImportAttachedClusterRequest {
     /// let x = ImportAttachedClusterRequest::new().set_proxy_config(AttachedProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -2360,7 +2421,8 @@ impl ImportAttachedClusterRequest {
     /// let x = ImportAttachedClusterRequest::new().set_or_clear_proxy_config(None::<AttachedProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AttachedProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -2377,7 +2439,6 @@ impl wkt::message::Message for ImportAttachedClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttachedClusterRequest {
-
     /// Required. The
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
     /// to update.
@@ -2426,7 +2487,8 @@ impl UpdateAttachedClusterRequest {
     /// let x = UpdateAttachedClusterRequest::new().set_attached_cluster(AttachedCluster::default()/* use setters */);
     /// ```
     pub fn set_attached_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AttachedCluster>
+    where
+        T: std::convert::Into<crate::model::AttachedCluster>,
     {
         self.attached_cluster = std::option::Option::Some(v.into());
         self
@@ -2442,7 +2504,8 @@ impl UpdateAttachedClusterRequest {
     /// let x = UpdateAttachedClusterRequest::new().set_or_clear_attached_cluster(None::<AttachedCluster>);
     /// ```
     pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AttachedCluster>
+    where
+        T: std::convert::Into<crate::model::AttachedCluster>,
     {
         self.attached_cluster = v.map(|x| x.into());
         self
@@ -2469,7 +2532,8 @@ impl UpdateAttachedClusterRequest {
     /// let x = UpdateAttachedClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2485,7 +2549,8 @@ impl UpdateAttachedClusterRequest {
     /// let x = UpdateAttachedClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2502,7 +2567,6 @@ impl wkt::message::Message for UpdateAttachedClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttachedClusterRequest {
-
     /// Required. The name of the
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
     /// to describe.
@@ -2547,7 +2611,6 @@ impl wkt::message::Message for GetAttachedClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachedClustersRequest {
-
     /// Required. The parent location which owns this collection of
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resources.
     ///
@@ -2632,7 +2695,6 @@ impl wkt::message::Message for ListAttachedClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachedClustersResponse {
-
     /// A list of [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster]
     /// resources in the specified Google Cloud Platform project and region region.
     ///
@@ -2666,7 +2728,7 @@ impl ListAttachedClustersResponse {
     pub fn set_attached_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttachedCluster>
+        V: std::convert::Into<crate::model::AttachedCluster>,
     {
         use std::iter::Iterator;
         self.attached_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -2710,7 +2772,6 @@ impl gax::paginator::internal::PageableResponse for ListAttachedClustersResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttachedClusterRequest {
-
     /// Required. The resource name the
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] to delete.
     ///
@@ -2837,7 +2898,6 @@ impl wkt::message::Message for DeleteAttachedClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttachedServerConfigRequest {
-
     /// Required. The name of the
     /// [AttachedServerConfig][google.cloud.gkemulticloud.v1.AttachedServerConfig]
     /// resource to describe.
@@ -2881,7 +2941,6 @@ impl wkt::message::Message for GetAttachedServerConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterAgentTokenRequest {
-
     /// Required.
     pub attached_cluster: std::string::String,
 
@@ -2924,7 +2983,10 @@ impl GenerateAttachedClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterAgentTokenRequest;
     /// let x = GenerateAttachedClusterAgentTokenRequest::new().set_attached_cluster("example");
     /// ```
-    pub fn set_attached_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_attached_cluster<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.attached_cluster = v.into();
         self
     }
@@ -2948,7 +3010,10 @@ impl GenerateAttachedClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterAgentTokenRequest;
     /// let x = GenerateAttachedClusterAgentTokenRequest::new().set_subject_token_type("example");
     /// ```
-    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.subject_token_type = v.into();
         self
     }
@@ -3008,7 +3073,10 @@ impl GenerateAttachedClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAttachedClusterAgentTokenRequest;
     /// let x = GenerateAttachedClusterAgentTokenRequest::new().set_requested_token_type("example");
     /// ```
-    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.requested_token_type = v.into();
         self
     }
@@ -3035,7 +3103,6 @@ impl wkt::message::Message for GenerateAttachedClusterAgentTokenRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterAgentTokenResponse {
-
     pub access_token: std::string::String,
 
     pub expires_in: i32,
@@ -3098,7 +3165,6 @@ impl wkt::message::Message for GenerateAttachedClusterAgentTokenResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsCluster {
-
     /// The name of this resource.
     ///
     /// Cluster names are formatted as
@@ -3165,7 +3231,7 @@ pub struct AwsCluster {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Workload Identity settings.
     pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
@@ -3229,7 +3295,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_networking(AwsClusterNetworking::default()/* use setters */);
     /// ```
     pub fn set_networking<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsClusterNetworking>
+    where
+        T: std::convert::Into<crate::model::AwsClusterNetworking>,
     {
         self.networking = std::option::Option::Some(v.into());
         self
@@ -3245,7 +3312,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_networking(None::<AwsClusterNetworking>);
     /// ```
     pub fn set_or_clear_networking<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsClusterNetworking>
+    where
+        T: std::convert::Into<crate::model::AwsClusterNetworking>,
     {
         self.networking = v.map(|x| x.into());
         self
@@ -3272,7 +3340,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_control_plane(AwsControlPlane::default()/* use setters */);
     /// ```
     pub fn set_control_plane<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsControlPlane>
+    where
+        T: std::convert::Into<crate::model::AwsControlPlane>,
     {
         self.control_plane = std::option::Option::Some(v.into());
         self
@@ -3288,7 +3357,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_control_plane(None::<AwsControlPlane>);
     /// ```
     pub fn set_or_clear_control_plane<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsControlPlane>
+    where
+        T: std::convert::Into<crate::model::AwsControlPlane>,
     {
         self.control_plane = v.map(|x| x.into());
         self
@@ -3303,7 +3373,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_authorization(AwsAuthorization::default()/* use setters */);
     /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsAuthorization>
+    where
+        T: std::convert::Into<crate::model::AwsAuthorization>,
     {
         self.authorization = std::option::Option::Some(v.into());
         self
@@ -3319,7 +3390,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_authorization(None::<AwsAuthorization>);
     /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsAuthorization>
+    where
+        T: std::convert::Into<crate::model::AwsAuthorization>,
     {
         self.authorization = v.map(|x| x.into());
         self
@@ -3335,7 +3407,10 @@ impl AwsCluster {
     /// let x1 = AwsCluster::new().set_state(State::Running);
     /// let x2 = AwsCluster::new().set_state(State::Reconciling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::aws_cluster::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::aws_cluster::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -3385,7 +3460,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3401,7 +3477,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3416,7 +3493,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3432,7 +3510,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3480,7 +3559,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
     /// ```
     pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = std::option::Option::Some(v.into());
         self
@@ -3496,7 +3576,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
     /// ```
     pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = v.map(|x| x.into());
         self
@@ -3509,7 +3590,10 @@ impl AwsCluster {
     /// # use google_cloud_gkemulticloud_v1::model::AwsCluster;
     /// let x = AwsCluster::new().set_cluster_ca_certificate("example");
     /// ```
-    pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cluster_ca_certificate = v.into();
         self
     }
@@ -3523,7 +3607,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_fleet(Fleet::default()/* use setters */);
     /// ```
     pub fn set_fleet<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = std::option::Option::Some(v.into());
         self
@@ -3539,7 +3624,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_fleet(None::<Fleet>);
     /// ```
     pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = v.map(|x| x.into());
         self
@@ -3554,7 +3640,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_logging_config(LoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -3570,7 +3657,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_logging_config(None::<LoggingConfig>);
     /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -3591,7 +3679,7 @@ impl AwsCluster {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsClusterError>
+        V: std::convert::Into<crate::model::AwsClusterError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -3607,7 +3695,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
     /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = std::option::Option::Some(v.into());
         self
@@ -3623,7 +3712,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
     /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = v.map(|x| x.into());
         self
@@ -3638,7 +3728,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
     /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BinaryAuthorization>
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
         self.binary_authorization = std::option::Option::Some(v.into());
         self
@@ -3654,7 +3745,8 @@ impl AwsCluster {
     /// let x = AwsCluster::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
     /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BinaryAuthorization>
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
     {
         self.binary_authorization = v.map(|x| x.into());
         self
@@ -3671,7 +3763,6 @@ impl wkt::message::Message for AwsCluster {
 pub mod aws_cluster {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The lifecycle state of the cluster.
     ///
@@ -3783,7 +3874,9 @@ pub mod aws_cluster {
                 4 => Self::Stopping,
                 5 => Self::Error,
                 6 => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3799,7 +3892,9 @@ pub mod aws_cluster {
                 "STOPPING" => Self::Stopping,
                 "ERROR" => Self::Error,
                 "DEGRADED" => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3828,7 +3923,8 @@ pub mod aws_cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkemulticloud.v1.AwsCluster.State"))
+                ".google.cloud.gkemulticloud.v1.AwsCluster.State",
+            ))
         }
     }
 }
@@ -3838,7 +3934,6 @@ pub mod aws_cluster {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsControlPlane {
-
     /// Required. The Kubernetes version to run on control plane replicas
     /// (e.g. `1.19.10-gke.1000`).
     ///
@@ -3901,7 +3996,7 @@ pub struct AwsControlPlane {
     /// Specify at most 50 pairs containing alphanumerics, spaces, and symbols
     /// (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to
     /// 255 Unicode characters.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Authentication configuration for management of AWS resources.
     pub aws_services_authentication: std::option::Option<crate::model::AwsServicesAuthentication>,
@@ -3957,7 +4052,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_ssh_config(AwsSshConfig::default()/* use setters */);
     /// ```
     pub fn set_ssh_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsSshConfig>
+    where
+        T: std::convert::Into<crate::model::AwsSshConfig>,
     {
         self.ssh_config = std::option::Option::Some(v.into());
         self
@@ -3973,7 +4069,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_ssh_config(None::<AwsSshConfig>);
     /// ```
     pub fn set_or_clear_ssh_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsSshConfig>
+    where
+        T: std::convert::Into<crate::model::AwsSshConfig>,
     {
         self.ssh_config = v.map(|x| x.into());
         self
@@ -3989,7 +4086,7 @@ impl AwsControlPlane {
     pub fn set_subnet_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.subnet_ids = v.into_iter().map(|i| i.into()).collect();
@@ -4006,7 +4103,7 @@ impl AwsControlPlane {
     pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
@@ -4020,7 +4117,10 @@ impl AwsControlPlane {
     /// # use google_cloud_gkemulticloud_v1::model::AwsControlPlane;
     /// let x = AwsControlPlane::new().set_iam_instance_profile("example");
     /// ```
-    pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.iam_instance_profile = v.into();
         self
     }
@@ -4034,7 +4134,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_root_volume(AwsVolumeTemplate::default()/* use setters */);
     /// ```
     pub fn set_root_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.root_volume = std::option::Option::Some(v.into());
         self
@@ -4050,7 +4151,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_root_volume(None::<AwsVolumeTemplate>);
     /// ```
     pub fn set_or_clear_root_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.root_volume = v.map(|x| x.into());
         self
@@ -4065,7 +4167,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_main_volume(AwsVolumeTemplate::default()/* use setters */);
     /// ```
     pub fn set_main_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.main_volume = std::option::Option::Some(v.into());
         self
@@ -4081,7 +4184,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_main_volume(None::<AwsVolumeTemplate>);
     /// ```
     pub fn set_or_clear_main_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.main_volume = v.map(|x| x.into());
         self
@@ -4096,7 +4200,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_database_encryption(AwsDatabaseEncryption::default()/* use setters */);
     /// ```
     pub fn set_database_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsDatabaseEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsDatabaseEncryption>,
     {
         self.database_encryption = std::option::Option::Some(v.into());
         self
@@ -4112,7 +4217,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_database_encryption(None::<AwsDatabaseEncryption>);
     /// ```
     pub fn set_or_clear_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsDatabaseEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsDatabaseEncryption>,
     {
         self.database_encryption = v.map(|x| x.into());
         self
@@ -4148,7 +4254,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_aws_services_authentication(AwsServicesAuthentication::default()/* use setters */);
     /// ```
     pub fn set_aws_services_authentication<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsServicesAuthentication>
+    where
+        T: std::convert::Into<crate::model::AwsServicesAuthentication>,
     {
         self.aws_services_authentication = std::option::Option::Some(v.into());
         self
@@ -4164,7 +4271,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_aws_services_authentication(None::<AwsServicesAuthentication>);
     /// ```
     pub fn set_or_clear_aws_services_authentication<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsServicesAuthentication>
+    where
+        T: std::convert::Into<crate::model::AwsServicesAuthentication>,
     {
         self.aws_services_authentication = v.map(|x| x.into());
         self
@@ -4179,7 +4287,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_proxy_config(AwsProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AwsProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -4195,7 +4304,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_proxy_config(None::<AwsProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AwsProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -4210,7 +4320,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_config_encryption(AwsConfigEncryption::default()/* use setters */);
     /// ```
     pub fn set_config_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsConfigEncryption>,
     {
         self.config_encryption = std::option::Option::Some(v.into());
         self
@@ -4226,7 +4337,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_config_encryption(None::<AwsConfigEncryption>);
     /// ```
     pub fn set_or_clear_config_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsConfigEncryption>,
     {
         self.config_encryption = v.map(|x| x.into());
         self
@@ -4241,7 +4353,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_instance_placement(AwsInstancePlacement::default()/* use setters */);
     /// ```
     pub fn set_instance_placement<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsInstancePlacement>
+    where
+        T: std::convert::Into<crate::model::AwsInstancePlacement>,
     {
         self.instance_placement = std::option::Option::Some(v.into());
         self
@@ -4257,7 +4370,8 @@ impl AwsControlPlane {
     /// let x = AwsControlPlane::new().set_or_clear_instance_placement(None::<AwsInstancePlacement>);
     /// ```
     pub fn set_or_clear_instance_placement<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsInstancePlacement>
+    where
+        T: std::convert::Into<crate::model::AwsInstancePlacement>,
     {
         self.instance_placement = v.map(|x| x.into());
         self
@@ -4275,7 +4389,6 @@ impl wkt::message::Message for AwsControlPlane {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsServicesAuthentication {
-
     /// Required. The Amazon Resource Name (ARN) of the role that the Anthos
     /// Multi-Cloud API will assume when managing AWS resources on your account.
     pub role_arn: std::string::String,
@@ -4312,7 +4425,10 @@ impl AwsServicesAuthentication {
     /// # use google_cloud_gkemulticloud_v1::model::AwsServicesAuthentication;
     /// let x = AwsServicesAuthentication::new().set_role_session_name("example");
     /// ```
-    pub fn set_role_session_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_role_session_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.role_session_name = v.into();
         self
     }
@@ -4329,7 +4445,6 @@ impl wkt::message::Message for AwsServicesAuthentication {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsAuthorization {
-
     /// Optional. Users that can perform operations as a cluster admin. A managed
     /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
     /// to the users. Up to ten admin users can be provided.
@@ -4369,7 +4484,7 @@ impl AwsAuthorization {
     pub fn set_admin_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsClusterUser>
+        V: std::convert::Into<crate::model::AwsClusterUser>,
     {
         use std::iter::Iterator;
         self.admin_users = v.into_iter().map(|i| i.into()).collect();
@@ -4391,7 +4506,7 @@ impl AwsAuthorization {
     pub fn set_admin_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsClusterGroup>
+        V: std::convert::Into<crate::model::AwsClusterGroup>,
     {
         use std::iter::Iterator;
         self.admin_groups = v.into_iter().map(|i| i.into()).collect();
@@ -4410,7 +4525,6 @@ impl wkt::message::Message for AwsAuthorization {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsClusterUser {
-
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     pub username: std::string::String,
 
@@ -4446,7 +4560,6 @@ impl wkt::message::Message for AwsClusterUser {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsClusterGroup {
-
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     pub group: std::string::String,
 
@@ -4482,7 +4595,6 @@ impl wkt::message::Message for AwsClusterGroup {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsDatabaseEncryption {
-
     /// Required. The ARN of the AWS KMS key used to encrypt cluster secrets.
     pub kms_key_arn: std::string::String,
 
@@ -4518,7 +4630,6 @@ impl wkt::message::Message for AwsDatabaseEncryption {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsVolumeTemplate {
-
     /// Optional. The size of the volume, in GiBs.
     ///
     /// When unspecified, a default value is provided. See the specific reference
@@ -4576,7 +4687,10 @@ impl AwsVolumeTemplate {
     /// let x0 = AwsVolumeTemplate::new().set_volume_type(VolumeType::Gp2);
     /// let x1 = AwsVolumeTemplate::new().set_volume_type(VolumeType::Gp3);
     /// ```
-    pub fn set_volume_type<T: std::convert::Into<crate::model::aws_volume_template::VolumeType>>(mut self, v: T) -> Self {
+    pub fn set_volume_type<T: std::convert::Into<crate::model::aws_volume_template::VolumeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.volume_type = v.into();
         self
     }
@@ -4628,7 +4742,6 @@ impl wkt::message::Message for AwsVolumeTemplate {
 pub mod aws_volume_template {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Types of supported EBS volumes. We currently only support GP2 or GP3
     /// volumes.
@@ -4719,7 +4832,9 @@ pub mod aws_volume_template {
                 0 => Self::Unspecified,
                 1 => Self::Gp2,
                 2 => Self::Gp3,
-                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4731,7 +4846,9 @@ pub mod aws_volume_template {
                 "VOLUME_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GP2" => Self::Gp2,
                 "GP3" => Self::Gp3,
-                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(volume_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4756,7 +4873,8 @@ pub mod aws_volume_template {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeType>::new(
-                ".google.cloud.gkemulticloud.v1.AwsVolumeTemplate.VolumeType"))
+                ".google.cloud.gkemulticloud.v1.AwsVolumeTemplate.VolumeType",
+            ))
         }
     }
 }
@@ -4769,7 +4887,6 @@ pub mod aws_volume_template {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsClusterNetworking {
-
     /// Required. The VPC associated with the cluster. All component clusters
     /// (i.e. control plane and node pools) run on a single VPC.
     ///
@@ -4823,7 +4940,7 @@ impl AwsClusterNetworking {
     pub fn set_pod_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.pod_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -4840,7 +4957,7 @@ impl AwsClusterNetworking {
     pub fn set_service_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.service_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -4854,7 +4971,10 @@ impl AwsClusterNetworking {
     /// # use google_cloud_gkemulticloud_v1::model::AwsClusterNetworking;
     /// let x = AwsClusterNetworking::new().set_per_node_pool_sg_rules_disabled(true);
     /// ```
-    pub fn set_per_node_pool_sg_rules_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_per_node_pool_sg_rules_disabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.per_node_pool_sg_rules_disabled = v.into();
         self
     }
@@ -4871,7 +4991,6 @@ impl wkt::message::Message for AwsClusterNetworking {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsNodePool {
-
     /// The name of this resource.
     ///
     /// Node pool names are formatted as
@@ -4932,7 +5051,7 @@ pub struct AwsNodePool {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The constraint on the maximum number of pods that can be run
     /// simultaneously on a node in the node pool.
@@ -4991,7 +5110,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_config(AwsNodeConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsNodeConfig>
+    where
+        T: std::convert::Into<crate::model::AwsNodeConfig>,
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -5007,7 +5127,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_config(None::<AwsNodeConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsNodeConfig>
+    where
+        T: std::convert::Into<crate::model::AwsNodeConfig>,
     {
         self.config = v.map(|x| x.into());
         self
@@ -5022,7 +5143,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_autoscaling(AwsNodePoolAutoscaling::default()/* use setters */);
     /// ```
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePoolAutoscaling>
+    where
+        T: std::convert::Into<crate::model::AwsNodePoolAutoscaling>,
     {
         self.autoscaling = std::option::Option::Some(v.into());
         self
@@ -5038,7 +5160,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_autoscaling(None::<AwsNodePoolAutoscaling>);
     /// ```
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePoolAutoscaling>
+    where
+        T: std::convert::Into<crate::model::AwsNodePoolAutoscaling>,
     {
         self.autoscaling = v.map(|x| x.into());
         self
@@ -5066,7 +5189,10 @@ impl AwsNodePool {
     /// let x1 = AwsNodePool::new().set_state(State::Running);
     /// let x2 = AwsNodePool::new().set_state(State::Reconciling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::aws_node_pool::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::aws_node_pool::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -5104,7 +5230,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5120,7 +5247,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5135,7 +5263,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5151,7 +5280,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5199,7 +5329,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_max_pods_constraint(MaxPodsConstraint::default()/* use setters */);
     /// ```
     pub fn set_max_pods_constraint<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MaxPodsConstraint>
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
         self.max_pods_constraint = std::option::Option::Some(v.into());
         self
@@ -5215,7 +5346,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_max_pods_constraint(None::<MaxPodsConstraint>);
     /// ```
     pub fn set_or_clear_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MaxPodsConstraint>
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
         self.max_pods_constraint = v.map(|x| x.into());
         self
@@ -5236,7 +5368,7 @@ impl AwsNodePool {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsNodePoolError>
+        V: std::convert::Into<crate::model::AwsNodePoolError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -5252,7 +5384,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_management(AwsNodeManagement::default()/* use setters */);
     /// ```
     pub fn set_management<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsNodeManagement>
+    where
+        T: std::convert::Into<crate::model::AwsNodeManagement>,
     {
         self.management = std::option::Option::Some(v.into());
         self
@@ -5268,7 +5401,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_management(None::<AwsNodeManagement>);
     /// ```
     pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsNodeManagement>
+    where
+        T: std::convert::Into<crate::model::AwsNodeManagement>,
     {
         self.management = v.map(|x| x.into());
         self
@@ -5283,7 +5417,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_kubelet_config(NodeKubeletConfig::default()/* use setters */);
     /// ```
     pub fn set_kubelet_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::NodeKubeletConfig>
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
         self.kubelet_config = std::option::Option::Some(v.into());
         self
@@ -5299,7 +5434,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_kubelet_config(None::<NodeKubeletConfig>);
     /// ```
     pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::NodeKubeletConfig>
+    where
+        T: std::convert::Into<crate::model::NodeKubeletConfig>,
     {
         self.kubelet_config = v.map(|x| x.into());
         self
@@ -5314,7 +5450,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_update_settings(UpdateSettings::default()/* use setters */);
     /// ```
     pub fn set_update_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::UpdateSettings>
+    where
+        T: std::convert::Into<crate::model::UpdateSettings>,
     {
         self.update_settings = std::option::Option::Some(v.into());
         self
@@ -5330,7 +5467,8 @@ impl AwsNodePool {
     /// let x = AwsNodePool::new().set_or_clear_update_settings(None::<UpdateSettings>);
     /// ```
     pub fn set_or_clear_update_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::UpdateSettings>
+    where
+        T: std::convert::Into<crate::model::UpdateSettings>,
     {
         self.update_settings = v.map(|x| x.into());
         self
@@ -5347,7 +5485,6 @@ impl wkt::message::Message for AwsNodePool {
 pub mod aws_node_pool {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The lifecycle state of the node pool.
     ///
@@ -5458,7 +5595,9 @@ pub mod aws_node_pool {
                 4 => Self::Stopping,
                 5 => Self::Error,
                 6 => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5474,7 +5613,9 @@ pub mod aws_node_pool {
                 "STOPPING" => Self::Stopping,
                 "ERROR" => Self::Error,
                 "DEGRADED" => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5503,7 +5644,8 @@ pub mod aws_node_pool {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkemulticloud.v1.AwsNodePool.State"))
+                ".google.cloud.gkemulticloud.v1.AwsNodePool.State",
+            ))
         }
     }
 }
@@ -5536,7 +5678,6 @@ pub mod aws_node_pool {
 #[non_exhaustive]
 #[deprecated]
 pub struct UpdateSettings {
-
     /// Optional. Settings for surge update.
     pub surge_settings: std::option::Option<crate::model::SurgeSettings>,
 
@@ -5557,7 +5698,8 @@ impl UpdateSettings {
     /// let x = UpdateSettings::new().set_surge_settings(SurgeSettings::default()/* use setters */);
     /// ```
     pub fn set_surge_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SurgeSettings>
+    where
+        T: std::convert::Into<crate::model::SurgeSettings>,
     {
         self.surge_settings = std::option::Option::Some(v.into());
         self
@@ -5573,7 +5715,8 @@ impl UpdateSettings {
     /// let x = UpdateSettings::new().set_or_clear_surge_settings(None::<SurgeSettings>);
     /// ```
     pub fn set_or_clear_surge_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SurgeSettings>
+    where
+        T: std::convert::Into<crate::model::SurgeSettings>,
     {
         self.surge_settings = v.map(|x| x.into());
         self
@@ -5591,7 +5734,6 @@ impl wkt::message::Message for UpdateSettings {
 #[non_exhaustive]
 #[deprecated]
 pub struct SurgeSettings {
-
     /// Optional. The maximum number of nodes that can be created beyond the
     /// current size of the node pool during the update process.
     pub max_surge: i32,
@@ -5646,7 +5788,6 @@ impl wkt::message::Message for SurgeSettings {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsNodeManagement {
-
     /// Optional. Whether or not the nodes will be automatically repaired. When set
     /// to true, the nodes in this node pool will be monitored and if they fail
     /// health checks consistently over a period of time, an automatic repair
@@ -5685,7 +5826,6 @@ impl wkt::message::Message for AwsNodeManagement {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsNodeConfig {
-
     /// Optional. The EC2 instance type when creating on-Demand instances.
     ///
     /// If unspecified during node pool creation, a default will be chosen based on
@@ -5705,13 +5845,13 @@ pub struct AwsNodeConfig {
     /// Optional. The initial labels assigned to nodes of this node pool. An object
     /// containing a list of "key": value pairs. Example: { "name": "wrench",
     /// "mass": "1.3kg", "count": "3" }.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Key/value metadata to assign to each underlying AWS resource.
     /// Specify at most 50 pairs containing alphanumerics, spaces, and symbols
     /// (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to
     /// 255 Unicode characters.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The name or ARN of the AWS IAM instance profile to assign to
     /// nodes in the pool.
@@ -5745,7 +5885,8 @@ pub struct AwsNodeConfig {
     /// Auto Scaling group of the node pool.
     ///
     /// When unspecified, metrics collection is disabled.
-    pub autoscaling_metrics_collection: std::option::Option<crate::model::AwsAutoscalingGroupMetricsCollection>,
+    pub autoscaling_metrics_collection:
+        std::option::Option<crate::model::AwsAutoscalingGroupMetricsCollection>,
 
     /// Optional. Configuration for provisioning EC2 Spot instances
     ///
@@ -5783,7 +5924,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_root_volume(AwsVolumeTemplate::default()/* use setters */);
     /// ```
     pub fn set_root_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.root_volume = std::option::Option::Some(v.into());
         self
@@ -5799,7 +5941,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_root_volume(None::<AwsVolumeTemplate>);
     /// ```
     pub fn set_or_clear_root_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsVolumeTemplate>
+    where
+        T: std::convert::Into<crate::model::AwsVolumeTemplate>,
     {
         self.root_volume = v.map(|x| x.into());
         self
@@ -5820,7 +5963,7 @@ impl AwsNodeConfig {
     pub fn set_taints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeTaint>
+        V: std::convert::Into<crate::model::NodeTaint>,
     {
         use std::iter::Iterator;
         self.taints = v.into_iter().map(|i| i.into()).collect();
@@ -5876,7 +6019,10 @@ impl AwsNodeConfig {
     /// # use google_cloud_gkemulticloud_v1::model::AwsNodeConfig;
     /// let x = AwsNodeConfig::new().set_iam_instance_profile("example");
     /// ```
-    pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_iam_instance_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.iam_instance_profile = v.into();
         self
     }
@@ -5902,7 +6048,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_ssh_config(AwsSshConfig::default()/* use setters */);
     /// ```
     pub fn set_ssh_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsSshConfig>
+    where
+        T: std::convert::Into<crate::model::AwsSshConfig>,
     {
         self.ssh_config = std::option::Option::Some(v.into());
         self
@@ -5918,7 +6065,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_ssh_config(None::<AwsSshConfig>);
     /// ```
     pub fn set_or_clear_ssh_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsSshConfig>
+    where
+        T: std::convert::Into<crate::model::AwsSshConfig>,
     {
         self.ssh_config = v.map(|x| x.into());
         self
@@ -5934,7 +6082,7 @@ impl AwsNodeConfig {
     pub fn set_security_group_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.security_group_ids = v.into_iter().map(|i| i.into()).collect();
@@ -5950,7 +6098,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_proxy_config(AwsProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AwsProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -5966,7 +6115,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_proxy_config(None::<AwsProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AwsProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -5981,7 +6131,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_config_encryption(AwsConfigEncryption::default()/* use setters */);
     /// ```
     pub fn set_config_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsConfigEncryption>,
     {
         self.config_encryption = std::option::Option::Some(v.into());
         self
@@ -5997,7 +6148,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_config_encryption(None::<AwsConfigEncryption>);
     /// ```
     pub fn set_or_clear_config_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AwsConfigEncryption>,
     {
         self.config_encryption = v.map(|x| x.into());
         self
@@ -6012,7 +6164,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_instance_placement(AwsInstancePlacement::default()/* use setters */);
     /// ```
     pub fn set_instance_placement<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsInstancePlacement>
+    where
+        T: std::convert::Into<crate::model::AwsInstancePlacement>,
     {
         self.instance_placement = std::option::Option::Some(v.into());
         self
@@ -6028,7 +6181,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_instance_placement(None::<AwsInstancePlacement>);
     /// ```
     pub fn set_or_clear_instance_placement<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsInstancePlacement>
+    where
+        T: std::convert::Into<crate::model::AwsInstancePlacement>,
     {
         self.instance_placement = v.map(|x| x.into());
         self
@@ -6043,7 +6197,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_autoscaling_metrics_collection(AwsAutoscalingGroupMetricsCollection::default()/* use setters */);
     /// ```
     pub fn set_autoscaling_metrics_collection<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsAutoscalingGroupMetricsCollection>
+    where
+        T: std::convert::Into<crate::model::AwsAutoscalingGroupMetricsCollection>,
     {
         self.autoscaling_metrics_collection = std::option::Option::Some(v.into());
         self
@@ -6058,8 +6213,12 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_autoscaling_metrics_collection(Some(AwsAutoscalingGroupMetricsCollection::default()/* use setters */));
     /// let x = AwsNodeConfig::new().set_or_clear_autoscaling_metrics_collection(None::<AwsAutoscalingGroupMetricsCollection>);
     /// ```
-    pub fn set_or_clear_autoscaling_metrics_collection<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsAutoscalingGroupMetricsCollection>
+    pub fn set_or_clear_autoscaling_metrics_collection<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AwsAutoscalingGroupMetricsCollection>,
     {
         self.autoscaling_metrics_collection = v.map(|x| x.into());
         self
@@ -6074,7 +6233,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_spot_config(SpotConfig::default()/* use setters */);
     /// ```
     pub fn set_spot_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SpotConfig>
+    where
+        T: std::convert::Into<crate::model::SpotConfig>,
     {
         self.spot_config = std::option::Option::Some(v.into());
         self
@@ -6090,7 +6250,8 @@ impl AwsNodeConfig {
     /// let x = AwsNodeConfig::new().set_or_clear_spot_config(None::<SpotConfig>);
     /// ```
     pub fn set_or_clear_spot_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SpotConfig>
+    where
+        T: std::convert::Into<crate::model::SpotConfig>,
     {
         self.spot_config = v.map(|x| x.into());
         self
@@ -6109,7 +6270,6 @@ impl wkt::message::Message for AwsNodeConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsNodePoolAutoscaling {
-
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
     pub min_node_count: i32,
@@ -6163,7 +6323,6 @@ impl wkt::message::Message for AwsNodePoolAutoscaling {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsOpenIdConfig {
-
     /// OIDC Issuer.
     pub issuer: std::string::String,
 
@@ -6227,7 +6386,7 @@ impl AwsOpenIdConfig {
     pub fn set_response_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.response_types_supported = v.into_iter().map(|i| i.into()).collect();
@@ -6244,7 +6403,7 @@ impl AwsOpenIdConfig {
     pub fn set_subject_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.subject_types_supported = v.into_iter().map(|i| i.into()).collect();
@@ -6261,7 +6420,7 @@ impl AwsOpenIdConfig {
     pub fn set_id_token_signing_alg_values_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.id_token_signing_alg_values_supported = v.into_iter().map(|i| i.into()).collect();
@@ -6278,7 +6437,7 @@ impl AwsOpenIdConfig {
     pub fn set_claims_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.claims_supported = v.into_iter().map(|i| i.into()).collect();
@@ -6295,7 +6454,7 @@ impl AwsOpenIdConfig {
     pub fn set_grant_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.grant_types = v.into_iter().map(|i| i.into()).collect();
@@ -6314,7 +6473,6 @@ impl wkt::message::Message for AwsOpenIdConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsJsonWebKeys {
-
     /// The public component of the keys used by the cluster to sign token
     /// requests.
     pub keys: std::vec::Vec<crate::model::Jwk>,
@@ -6342,7 +6500,7 @@ impl AwsJsonWebKeys {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Jwk>
+        V: std::convert::Into<crate::model::Jwk>,
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -6361,7 +6519,6 @@ impl wkt::message::Message for AwsJsonWebKeys {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsServerConfig {
-
     /// The resource name of the config.
     pub name: std::string::String,
 
@@ -6409,7 +6566,7 @@ impl AwsServerConfig {
     pub fn set_valid_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsK8sVersionInfo>
+        V: std::convert::Into<crate::model::AwsK8sVersionInfo>,
     {
         use std::iter::Iterator;
         self.valid_versions = v.into_iter().map(|i| i.into()).collect();
@@ -6426,7 +6583,7 @@ impl AwsServerConfig {
     pub fn set_supported_aws_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.supported_aws_regions = v.into_iter().map(|i| i.into()).collect();
@@ -6445,7 +6602,6 @@ impl wkt::message::Message for AwsServerConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsK8sVersionInfo {
-
     /// Kubernetes version name.
     pub version: std::string::String,
 
@@ -6522,7 +6678,8 @@ impl AwsK8sVersionInfo {
     /// let x = AwsK8sVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -6538,7 +6695,8 @@ impl AwsK8sVersionInfo {
     /// let x = AwsK8sVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -6553,7 +6711,8 @@ impl AwsK8sVersionInfo {
     /// let x = AwsK8sVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -6569,7 +6728,8 @@ impl AwsK8sVersionInfo {
     /// let x = AwsK8sVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -6587,7 +6747,6 @@ impl wkt::message::Message for AwsK8sVersionInfo {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsSshConfig {
-
     /// Required. The name of the EC2 key pair used to login into cluster machines.
     pub ec2_key_pair: std::string::String,
 
@@ -6623,7 +6782,6 @@ impl wkt::message::Message for AwsSshConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsProxyConfig {
-
     /// The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy
     /// configuration.
     ///
@@ -6680,7 +6838,6 @@ impl wkt::message::Message for AwsProxyConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsConfigEncryption {
-
     /// Required. The ARN of the AWS KMS key used to encrypt user data.
     pub kms_key_arn: std::string::String,
 
@@ -6720,7 +6877,6 @@ impl wkt::message::Message for AwsConfigEncryption {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsInstancePlacement {
-
     /// Required. The tenancy for instance.
     pub tenancy: crate::model::aws_instance_placement::Tenancy,
 
@@ -6742,7 +6898,10 @@ impl AwsInstancePlacement {
     /// let x1 = AwsInstancePlacement::new().set_tenancy(Tenancy::Dedicated);
     /// let x2 = AwsInstancePlacement::new().set_tenancy(Tenancy::Host);
     /// ```
-    pub fn set_tenancy<T: std::convert::Into<crate::model::aws_instance_placement::Tenancy>>(mut self, v: T) -> Self {
+    pub fn set_tenancy<T: std::convert::Into<crate::model::aws_instance_placement::Tenancy>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.tenancy = v.into();
         self
     }
@@ -6758,7 +6917,6 @@ impl wkt::message::Message for AwsInstancePlacement {
 pub mod aws_instance_placement {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Tenancy defines how EC2 instances are distributed across physical hardware.
     ///
@@ -6851,7 +7009,9 @@ pub mod aws_instance_placement {
                 1 => Self::Default,
                 2 => Self::Dedicated,
                 3 => Self::Host,
-                _ => Self::UnknownValue(tenancy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(tenancy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6864,7 +7024,9 @@ pub mod aws_instance_placement {
                 "DEFAULT" => Self::Default,
                 "DEDICATED" => Self::Dedicated,
                 "HOST" => Self::Host,
-                _ => Self::UnknownValue(tenancy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(tenancy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6890,7 +7052,8 @@ pub mod aws_instance_placement {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Tenancy>::new(
-                ".google.cloud.gkemulticloud.v1.AwsInstancePlacement.Tenancy"))
+                ".google.cloud.gkemulticloud.v1.AwsInstancePlacement.Tenancy",
+            ))
         }
     }
 }
@@ -6901,7 +7064,6 @@ pub mod aws_instance_placement {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsAutoscalingGroupMetricsCollection {
-
     /// Required. The frequency at which EC2 Auto Scaling sends aggregated data to
     /// AWS CloudWatch. The only valid value is "1Minute".
     pub granularity: std::string::String,
@@ -6942,7 +7104,7 @@ impl AwsAutoscalingGroupMetricsCollection {
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6961,7 +7123,6 @@ impl wkt::message::Message for AwsAutoscalingGroupMetricsCollection {
 #[non_exhaustive]
 #[deprecated]
 pub struct SpotConfig {
-
     /// Required. A list of instance types for creating spot node pool.
     pub instance_types: std::vec::Vec<std::string::String>,
 
@@ -6983,7 +7144,7 @@ impl SpotConfig {
     pub fn set_instance_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.instance_types = v.into_iter().map(|i| i.into()).collect();
@@ -7002,7 +7163,6 @@ impl wkt::message::Message for SpotConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsClusterError {
-
     /// Human-friendly description of the error.
     pub message: std::string::String,
 
@@ -7038,7 +7198,6 @@ impl wkt::message::Message for AwsClusterError {
 #[non_exhaustive]
 #[deprecated]
 pub struct AwsNodePoolError {
-
     /// Human-friendly description of the error.
     pub message: std::string::String,
 
@@ -7074,7 +7233,6 @@ impl wkt::message::Message for AwsNodePoolError {
 #[non_exhaustive]
 #[deprecated]
 pub struct CreateAwsClusterRequest {
-
     /// Required. The parent location where this
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will be
     /// created.
@@ -7138,7 +7296,8 @@ impl CreateAwsClusterRequest {
     /// let x = CreateAwsClusterRequest::new().set_aws_cluster(AwsCluster::default()/* use setters */);
     /// ```
     pub fn set_aws_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsCluster>
+    where
+        T: std::convert::Into<crate::model::AwsCluster>,
     {
         self.aws_cluster = std::option::Option::Some(v.into());
         self
@@ -7154,7 +7313,8 @@ impl CreateAwsClusterRequest {
     /// let x = CreateAwsClusterRequest::new().set_or_clear_aws_cluster(None::<AwsCluster>);
     /// ```
     pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsCluster>
+    where
+        T: std::convert::Into<crate::model::AwsCluster>,
     {
         self.aws_cluster = v.map(|x| x.into());
         self
@@ -7196,7 +7356,6 @@ impl wkt::message::Message for CreateAwsClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct UpdateAwsClusterRequest {
-
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
     /// resource to update.
     ///
@@ -7258,7 +7417,8 @@ impl UpdateAwsClusterRequest {
     /// let x = UpdateAwsClusterRequest::new().set_aws_cluster(AwsCluster::default()/* use setters */);
     /// ```
     pub fn set_aws_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsCluster>
+    where
+        T: std::convert::Into<crate::model::AwsCluster>,
     {
         self.aws_cluster = std::option::Option::Some(v.into());
         self
@@ -7274,7 +7434,8 @@ impl UpdateAwsClusterRequest {
     /// let x = UpdateAwsClusterRequest::new().set_or_clear_aws_cluster(None::<AwsCluster>);
     /// ```
     pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsCluster>
+    where
+        T: std::convert::Into<crate::model::AwsCluster>,
     {
         self.aws_cluster = v.map(|x| x.into());
         self
@@ -7301,7 +7462,8 @@ impl UpdateAwsClusterRequest {
     /// let x = UpdateAwsClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7317,7 +7479,8 @@ impl UpdateAwsClusterRequest {
     /// let x = UpdateAwsClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7335,7 +7498,6 @@ impl wkt::message::Message for UpdateAwsClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAwsClusterRequest {
-
     /// Required. The name of the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
     /// describe.
@@ -7381,7 +7543,6 @@ impl wkt::message::Message for GetAwsClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAwsClustersRequest {
-
     /// Required. The parent location which owns this collection of
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources.
     ///
@@ -7467,7 +7628,6 @@ impl wkt::message::Message for ListAwsClustersRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAwsClustersResponse {
-
     /// A list of [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
     /// in the specified Google Cloud Platform project and region region.
     ///
@@ -7501,7 +7661,7 @@ impl ListAwsClustersResponse {
     pub fn set_aws_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsCluster>
+        V: std::convert::Into<crate::model::AwsCluster>,
     {
         use std::iter::Iterator;
         self.aws_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -7546,7 +7706,6 @@ impl gax::paginator::internal::PageableResponse for ListAwsClustersResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct DeleteAwsClusterRequest {
-
     /// Required. The resource name the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to delete.
     ///
@@ -7672,7 +7831,6 @@ impl wkt::message::Message for DeleteAwsClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct CreateAwsNodePoolRequest {
-
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
     /// resource where this node pool will be created.
     ///
@@ -7737,7 +7895,8 @@ impl CreateAwsNodePoolRequest {
     /// let x = CreateAwsNodePoolRequest::new().set_aws_node_pool(AwsNodePool::default()/* use setters */);
     /// ```
     pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePool>
+    where
+        T: std::convert::Into<crate::model::AwsNodePool>,
     {
         self.aws_node_pool = std::option::Option::Some(v.into());
         self
@@ -7753,7 +7912,8 @@ impl CreateAwsNodePoolRequest {
     /// let x = CreateAwsNodePoolRequest::new().set_or_clear_aws_node_pool(None::<AwsNodePool>);
     /// ```
     pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePool>
+    where
+        T: std::convert::Into<crate::model::AwsNodePool>,
     {
         self.aws_node_pool = v.map(|x| x.into());
         self
@@ -7766,7 +7926,10 @@ impl CreateAwsNodePoolRequest {
     /// # use google_cloud_gkemulticloud_v1::model::CreateAwsNodePoolRequest;
     /// let x = CreateAwsNodePoolRequest::new().set_aws_node_pool_id("example");
     /// ```
-    pub fn set_aws_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_aws_node_pool_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.aws_node_pool_id = v.into();
         self
     }
@@ -7795,7 +7958,6 @@ impl wkt::message::Message for CreateAwsNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct UpdateAwsNodePoolRequest {
-
     /// Required. The [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
     /// resource to update.
     ///
@@ -7860,7 +8022,8 @@ impl UpdateAwsNodePoolRequest {
     /// let x = UpdateAwsNodePoolRequest::new().set_aws_node_pool(AwsNodePool::default()/* use setters */);
     /// ```
     pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePool>
+    where
+        T: std::convert::Into<crate::model::AwsNodePool>,
     {
         self.aws_node_pool = std::option::Option::Some(v.into());
         self
@@ -7876,7 +8039,8 @@ impl UpdateAwsNodePoolRequest {
     /// let x = UpdateAwsNodePoolRequest::new().set_or_clear_aws_node_pool(None::<AwsNodePool>);
     /// ```
     pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AwsNodePool>
+    where
+        T: std::convert::Into<crate::model::AwsNodePool>,
     {
         self.aws_node_pool = v.map(|x| x.into());
         self
@@ -7903,7 +8067,8 @@ impl UpdateAwsNodePoolRequest {
     /// let x = UpdateAwsNodePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7919,7 +8084,8 @@ impl UpdateAwsNodePoolRequest {
     /// let x = UpdateAwsNodePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7937,7 +8103,6 @@ impl wkt::message::Message for UpdateAwsNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct RollbackAwsNodePoolUpdateRequest {
-
     /// Required. The name of the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
     /// rollback.
@@ -7999,7 +8164,6 @@ impl wkt::message::Message for RollbackAwsNodePoolUpdateRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAwsNodePoolRequest {
-
     /// Required. The name of the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
     /// describe.
@@ -8045,7 +8209,6 @@ impl wkt::message::Message for GetAwsNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAwsNodePoolsRequest {
-
     /// Required. The parent `AwsCluster` which owns this collection of
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
     ///
@@ -8132,7 +8295,6 @@ impl wkt::message::Message for ListAwsNodePoolsRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAwsNodePoolsResponse {
-
     /// A list of [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
     /// resources in the specified `AwsCluster`.
     ///
@@ -8166,7 +8328,7 @@ impl ListAwsNodePoolsResponse {
     pub fn set_aws_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AwsNodePool>
+        V: std::convert::Into<crate::model::AwsNodePool>,
     {
         use std::iter::Iterator;
         self.aws_node_pools = v.into_iter().map(|i| i.into()).collect();
@@ -8211,7 +8373,6 @@ impl gax::paginator::internal::PageableResponse for ListAwsNodePoolsResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct DeleteAwsNodePoolRequest {
-
     /// Required. The resource name the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to delete.
     ///
@@ -8339,7 +8500,6 @@ impl wkt::message::Message for DeleteAwsNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAwsOpenIdConfigRequest {
-
     /// Required. The AwsCluster, which owns the OIDC discovery document.
     /// Format:
     /// projects/{project}/locations/{location}/awsClusters/{cluster}
@@ -8380,7 +8540,6 @@ impl wkt::message::Message for GetAwsOpenIdConfigRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAwsJsonWebKeysRequest {
-
     /// Required. The AwsCluster, which owns the JsonWebKeys.
     /// Format:
     /// projects/{project}/locations/{location}/awsClusters/{cluster}
@@ -8418,7 +8577,6 @@ impl wkt::message::Message for GetAwsJsonWebKeysRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAwsServerConfigRequest {
-
     /// Required. The name of the
     /// [AwsServerConfig][google.cloud.gkemulticloud.v1.AwsServerConfig] resource
     /// to describe.
@@ -8464,7 +8622,6 @@ impl wkt::message::Message for GetAwsServerConfigRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAwsAccessTokenRequest {
-
     /// Required. The name of the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
     /// authenticate to.
@@ -8510,7 +8667,6 @@ impl wkt::message::Message for GenerateAwsAccessTokenRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAwsAccessTokenResponse {
-
     /// Output only. Access token to authenticate to k8s api-server.
     pub access_token: std::string::String,
 
@@ -8546,7 +8702,8 @@ impl GenerateAwsAccessTokenResponse {
     /// let x = GenerateAwsAccessTokenResponse::new().set_expiration_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expiration_time = std::option::Option::Some(v.into());
         self
@@ -8562,7 +8719,8 @@ impl GenerateAwsAccessTokenResponse {
     /// let x = GenerateAwsAccessTokenResponse::new().set_or_clear_expiration_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expiration_time = v.map(|x| x.into());
         self
@@ -8579,7 +8737,6 @@ impl wkt::message::Message for GenerateAwsAccessTokenResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAwsClusterAgentTokenRequest {
-
     /// Required.
     pub aws_cluster: std::string::String,
 
@@ -8649,7 +8806,10 @@ impl GenerateAwsClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAwsClusterAgentTokenRequest;
     /// let x = GenerateAwsClusterAgentTokenRequest::new().set_subject_token_type("example");
     /// ```
-    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.subject_token_type = v.into();
         self
     }
@@ -8721,7 +8881,10 @@ impl GenerateAwsClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAwsClusterAgentTokenRequest;
     /// let x = GenerateAwsClusterAgentTokenRequest::new().set_requested_token_type("example");
     /// ```
-    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.requested_token_type = v.into();
         self
     }
@@ -8749,7 +8912,6 @@ impl wkt::message::Message for GenerateAwsClusterAgentTokenRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAwsClusterAgentTokenResponse {
-
     pub access_token: std::string::String,
 
     pub expires_in: i32,
@@ -8812,7 +8974,6 @@ impl wkt::message::Message for GenerateAwsClusterAgentTokenResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureCluster {
-
     /// The name of this resource.
     ///
     /// Cluster names are formatted as
@@ -8872,7 +9033,8 @@ pub struct AzureCluster {
     /// Optional. Authentication configuration for management of Azure resources.
     ///
     /// Either azure_client or azure_services_authentication should be provided.
-    pub azure_services_authentication: std::option::Option<crate::model::AzureServicesAuthentication>,
+    pub azure_services_authentication:
+        std::option::Option<crate::model::AzureServicesAuthentication>,
 
     /// Output only. The current state of the cluster.
     pub state: crate::model::azure_cluster::State,
@@ -8908,7 +9070,7 @@ pub struct AzureCluster {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Workload Identity settings.
     pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
@@ -8982,7 +9144,10 @@ impl AzureCluster {
     /// # use google_cloud_gkemulticloud_v1::model::AzureCluster;
     /// let x = AzureCluster::new().set_resource_group_id("example");
     /// ```
-    pub fn set_resource_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_resource_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource_group_id = v.into();
         self
     }
@@ -9008,7 +9173,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_networking(AzureClusterNetworking::default()/* use setters */);
     /// ```
     pub fn set_networking<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureClusterNetworking>
+    where
+        T: std::convert::Into<crate::model::AzureClusterNetworking>,
     {
         self.networking = std::option::Option::Some(v.into());
         self
@@ -9024,7 +9190,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_networking(None::<AzureClusterNetworking>);
     /// ```
     pub fn set_or_clear_networking<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureClusterNetworking>
+    where
+        T: std::convert::Into<crate::model::AzureClusterNetworking>,
     {
         self.networking = v.map(|x| x.into());
         self
@@ -9039,7 +9206,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_control_plane(AzureControlPlane::default()/* use setters */);
     /// ```
     pub fn set_control_plane<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureControlPlane>
+    where
+        T: std::convert::Into<crate::model::AzureControlPlane>,
     {
         self.control_plane = std::option::Option::Some(v.into());
         self
@@ -9055,7 +9223,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_control_plane(None::<AzureControlPlane>);
     /// ```
     pub fn set_or_clear_control_plane<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureControlPlane>
+    where
+        T: std::convert::Into<crate::model::AzureControlPlane>,
     {
         self.control_plane = v.map(|x| x.into());
         self
@@ -9070,7 +9239,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_authorization(AzureAuthorization::default()/* use setters */);
     /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureAuthorization>
+    where
+        T: std::convert::Into<crate::model::AzureAuthorization>,
     {
         self.authorization = std::option::Option::Some(v.into());
         self
@@ -9086,7 +9256,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_authorization(None::<AzureAuthorization>);
     /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureAuthorization>
+    where
+        T: std::convert::Into<crate::model::AzureAuthorization>,
     {
         self.authorization = v.map(|x| x.into());
         self
@@ -9101,7 +9272,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_azure_services_authentication(AzureServicesAuthentication::default()/* use setters */);
     /// ```
     pub fn set_azure_services_authentication<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureServicesAuthentication>
+    where
+        T: std::convert::Into<crate::model::AzureServicesAuthentication>,
     {
         self.azure_services_authentication = std::option::Option::Some(v.into());
         self
@@ -9116,8 +9288,12 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_azure_services_authentication(Some(AzureServicesAuthentication::default()/* use setters */));
     /// let x = AzureCluster::new().set_or_clear_azure_services_authentication(None::<AzureServicesAuthentication>);
     /// ```
-    pub fn set_or_clear_azure_services_authentication<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureServicesAuthentication>
+    pub fn set_or_clear_azure_services_authentication<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AzureServicesAuthentication>,
     {
         self.azure_services_authentication = v.map(|x| x.into());
         self
@@ -9133,7 +9309,10 @@ impl AzureCluster {
     /// let x1 = AzureCluster::new().set_state(State::Running);
     /// let x2 = AzureCluster::new().set_state(State::Reconciling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::azure_cluster::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::azure_cluster::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -9183,7 +9362,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9199,7 +9379,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9214,7 +9395,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9230,7 +9412,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9278,7 +9461,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
     /// ```
     pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = std::option::Option::Some(v.into());
         self
@@ -9294,7 +9478,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
     /// ```
     pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::WorkloadIdentityConfig>
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
     {
         self.workload_identity_config = v.map(|x| x.into());
         self
@@ -9307,7 +9492,10 @@ impl AzureCluster {
     /// # use google_cloud_gkemulticloud_v1::model::AzureCluster;
     /// let x = AzureCluster::new().set_cluster_ca_certificate("example");
     /// ```
-    pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cluster_ca_certificate = v.into();
         self
     }
@@ -9321,7 +9509,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_fleet(Fleet::default()/* use setters */);
     /// ```
     pub fn set_fleet<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = std::option::Option::Some(v.into());
         self
@@ -9337,7 +9526,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_fleet(None::<Fleet>);
     /// ```
     pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Fleet>
+    where
+        T: std::convert::Into<crate::model::Fleet>,
     {
         self.fleet = v.map(|x| x.into());
         self
@@ -9352,7 +9542,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_managed_resources(AzureClusterResources::default()/* use setters */);
     /// ```
     pub fn set_managed_resources<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureClusterResources>
+    where
+        T: std::convert::Into<crate::model::AzureClusterResources>,
     {
         self.managed_resources = std::option::Option::Some(v.into());
         self
@@ -9368,7 +9559,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_managed_resources(None::<AzureClusterResources>);
     /// ```
     pub fn set_or_clear_managed_resources<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureClusterResources>
+    where
+        T: std::convert::Into<crate::model::AzureClusterResources>,
     {
         self.managed_resources = v.map(|x| x.into());
         self
@@ -9383,7 +9575,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_logging_config(LoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -9399,7 +9592,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_logging_config(None::<LoggingConfig>);
     /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LoggingConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingConfig>,
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -9420,7 +9614,7 @@ impl AzureCluster {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureClusterError>
+        V: std::convert::Into<crate::model::AzureClusterError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -9436,7 +9630,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
     /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = std::option::Option::Some(v.into());
         self
@@ -9452,7 +9647,8 @@ impl AzureCluster {
     /// let x = AzureCluster::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
     /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::MonitoringConfig>,
     {
         self.monitoring_config = v.map(|x| x.into());
         self
@@ -9469,7 +9665,6 @@ impl wkt::message::Message for AzureCluster {
 pub mod azure_cluster {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The lifecycle state of the cluster.
     ///
@@ -9581,7 +9776,9 @@ pub mod azure_cluster {
                 4 => Self::Stopping,
                 5 => Self::Error,
                 6 => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9597,7 +9794,9 @@ pub mod azure_cluster {
                 "STOPPING" => Self::Stopping,
                 "ERROR" => Self::Error,
                 "DEGRADED" => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9626,7 +9825,8 @@ pub mod azure_cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkemulticloud.v1.AzureCluster.State"))
+                ".google.cloud.gkemulticloud.v1.AzureCluster.State",
+            ))
         }
     }
 }
@@ -9636,7 +9836,6 @@ pub mod azure_cluster {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClusterNetworking {
-
     /// Required. The Azure Resource Manager (ARM) ID of the VNet associated with
     /// your cluster.
     ///
@@ -9690,7 +9889,10 @@ impl AzureClusterNetworking {
     /// # use google_cloud_gkemulticloud_v1::model::AzureClusterNetworking;
     /// let x = AzureClusterNetworking::new().set_virtual_network_id("example");
     /// ```
-    pub fn set_virtual_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_virtual_network_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.virtual_network_id = v.into();
         self
     }
@@ -9705,7 +9907,7 @@ impl AzureClusterNetworking {
     pub fn set_pod_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.pod_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -9722,7 +9924,7 @@ impl AzureClusterNetworking {
     pub fn set_service_address_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.service_address_cidr_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -9736,7 +9938,10 @@ impl AzureClusterNetworking {
     /// # use google_cloud_gkemulticloud_v1::model::AzureClusterNetworking;
     /// let x = AzureClusterNetworking::new().set_service_load_balancer_subnet_id("example");
     /// ```
-    pub fn set_service_load_balancer_subnet_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_load_balancer_subnet_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_load_balancer_subnet_id = v.into();
         self
     }
@@ -9753,7 +9958,6 @@ impl wkt::message::Message for AzureClusterNetworking {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureControlPlane {
-
     /// Required. The Kubernetes version to run on control plane replicas
     /// (e.g. `1.19.10-gke.1000`).
     ///
@@ -9812,7 +10016,7 @@ pub struct AzureControlPlane {
 
     /// Optional. A set of tags to apply to all underlying control plane Azure
     /// resources.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Configuration for where to place the control plane replicas.
     ///
@@ -9881,7 +10085,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_ssh_config(AzureSshConfig::default()/* use setters */);
     /// ```
     pub fn set_ssh_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureSshConfig>
+    where
+        T: std::convert::Into<crate::model::AzureSshConfig>,
     {
         self.ssh_config = std::option::Option::Some(v.into());
         self
@@ -9897,7 +10102,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_ssh_config(None::<AzureSshConfig>);
     /// ```
     pub fn set_or_clear_ssh_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureSshConfig>
+    where
+        T: std::convert::Into<crate::model::AzureSshConfig>,
     {
         self.ssh_config = v.map(|x| x.into());
         self
@@ -9912,7 +10118,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_root_volume(AzureDiskTemplate::default()/* use setters */);
     /// ```
     pub fn set_root_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.root_volume = std::option::Option::Some(v.into());
         self
@@ -9928,7 +10135,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_root_volume(None::<AzureDiskTemplate>);
     /// ```
     pub fn set_or_clear_root_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.root_volume = v.map(|x| x.into());
         self
@@ -9943,7 +10151,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_main_volume(AzureDiskTemplate::default()/* use setters */);
     /// ```
     pub fn set_main_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.main_volume = std::option::Option::Some(v.into());
         self
@@ -9959,7 +10168,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_main_volume(None::<AzureDiskTemplate>);
     /// ```
     pub fn set_or_clear_main_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.main_volume = v.map(|x| x.into());
         self
@@ -9974,7 +10184,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_database_encryption(AzureDatabaseEncryption::default()/* use setters */);
     /// ```
     pub fn set_database_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureDatabaseEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureDatabaseEncryption>,
     {
         self.database_encryption = std::option::Option::Some(v.into());
         self
@@ -9990,7 +10201,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_database_encryption(None::<AzureDatabaseEncryption>);
     /// ```
     pub fn set_or_clear_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureDatabaseEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureDatabaseEncryption>,
     {
         self.database_encryption = v.map(|x| x.into());
         self
@@ -10005,7 +10217,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_proxy_config(AzureProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AzureProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -10021,7 +10234,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_proxy_config(None::<AzureProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AzureProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -10036,7 +10250,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_config_encryption(AzureConfigEncryption::default()/* use setters */);
     /// ```
     pub fn set_config_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureConfigEncryption>,
     {
         self.config_encryption = std::option::Option::Some(v.into());
         self
@@ -10052,7 +10267,8 @@ impl AzureControlPlane {
     /// let x = AzureControlPlane::new().set_or_clear_config_encryption(None::<AzureConfigEncryption>);
     /// ```
     pub fn set_or_clear_config_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureConfigEncryption>,
     {
         self.config_encryption = v.map(|x| x.into());
         self
@@ -10094,7 +10310,7 @@ impl AzureControlPlane {
     pub fn set_replica_placements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaPlacement>
+        V: std::convert::Into<crate::model::ReplicaPlacement>,
     {
         use std::iter::Iterator;
         self.replica_placements = v.into_iter().map(|i| i.into()).collect();
@@ -10108,7 +10324,10 @@ impl AzureControlPlane {
     /// # use google_cloud_gkemulticloud_v1::model::AzureControlPlane;
     /// let x = AzureControlPlane::new().set_endpoint_subnet_id("example");
     /// ```
-    pub fn set_endpoint_subnet_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_endpoint_subnet_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.endpoint_subnet_id = v.into();
         self
     }
@@ -10125,7 +10344,6 @@ impl wkt::message::Message for AzureControlPlane {
 #[non_exhaustive]
 #[deprecated]
 pub struct ReplicaPlacement {
-
     /// Required. For a given replica, the ARM ID of the subnet where the control
     /// plane VM is deployed. Make sure it's a subnet under the virtual network in
     /// the cluster configuration.
@@ -10162,7 +10380,10 @@ impl ReplicaPlacement {
     /// # use google_cloud_gkemulticloud_v1::model::ReplicaPlacement;
     /// let x = ReplicaPlacement::new().set_azure_availability_zone("example");
     /// ```
-    pub fn set_azure_availability_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_azure_availability_zone<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.azure_availability_zone = v.into();
         self
     }
@@ -10179,7 +10400,6 @@ impl wkt::message::Message for ReplicaPlacement {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureProxyConfig {
-
     /// The ARM ID the of the resource group containing proxy keyvault.
     ///
     /// Resource group ids are formatted as
@@ -10211,7 +10431,10 @@ impl AzureProxyConfig {
     /// # use google_cloud_gkemulticloud_v1::model::AzureProxyConfig;
     /// let x = AzureProxyConfig::new().set_resource_group_id("example");
     /// ```
-    pub fn set_resource_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_resource_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource_group_id = v.into();
         self
     }
@@ -10243,7 +10466,6 @@ impl wkt::message::Message for AzureProxyConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureDatabaseEncryption {
-
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt data.
     ///
     /// For example:
@@ -10287,7 +10509,6 @@ impl wkt::message::Message for AzureDatabaseEncryption {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureConfigEncryption {
-
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt config
     /// data.
     ///
@@ -10347,7 +10568,6 @@ impl wkt::message::Message for AzureConfigEncryption {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureDiskTemplate {
-
     /// Optional. The size of the disk, in GiBs.
     ///
     /// When unspecified, a default value is provided. See the specific reference
@@ -10399,7 +10619,6 @@ impl wkt::message::Message for AzureDiskTemplate {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClient {
-
     /// The name of this resource.
     ///
     /// `AzureClient` resource names are formatted as
@@ -10427,7 +10646,7 @@ pub struct AzureClient {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The PEM encoded x509 certificate.
     pub pem_certificate: std::string::String,
@@ -10551,7 +10770,8 @@ impl AzureClient {
     /// let x = AzureClient::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10567,7 +10787,8 @@ impl AzureClient {
     /// let x = AzureClient::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10582,7 +10803,8 @@ impl AzureClient {
     /// let x = AzureClient::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10598,7 +10820,8 @@ impl AzureClient {
     /// let x = AzureClient::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10616,7 +10839,6 @@ impl wkt::message::Message for AzureClient {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureAuthorization {
-
     /// Optional. Users that can perform operations as a cluster admin. A managed
     /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
     /// to the users. Up to ten admin users can be provided.
@@ -10656,7 +10878,7 @@ impl AzureAuthorization {
     pub fn set_admin_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureClusterUser>
+        V: std::convert::Into<crate::model::AzureClusterUser>,
     {
         use std::iter::Iterator;
         self.admin_users = v.into_iter().map(|i| i.into()).collect();
@@ -10678,7 +10900,7 @@ impl AzureAuthorization {
     pub fn set_admin_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureClusterGroup>
+        V: std::convert::Into<crate::model::AzureClusterGroup>,
     {
         use std::iter::Iterator;
         self.admin_groups = v.into_iter().map(|i| i.into()).collect();
@@ -10697,7 +10919,6 @@ impl wkt::message::Message for AzureAuthorization {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureServicesAuthentication {
-
     /// Required. The Azure Active Directory Tenant ID.
     pub tenant_id: std::string::String,
 
@@ -10748,7 +10969,6 @@ impl wkt::message::Message for AzureServicesAuthentication {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClusterUser {
-
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     pub username: std::string::String,
 
@@ -10784,7 +11004,6 @@ impl wkt::message::Message for AzureClusterUser {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClusterGroup {
-
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     pub group: std::string::String,
 
@@ -10820,7 +11039,6 @@ impl wkt::message::Message for AzureClusterGroup {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureNodePool {
-
     /// The name of this resource.
     ///
     /// Node pool names are formatted as
@@ -10876,7 +11094,7 @@ pub struct AzureNodePool {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The constraint on the maximum number of pods that can be run
     /// simultaneously on a node in the node pool.
@@ -10934,7 +11152,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_config(AzureNodeConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureNodeConfig>
+    where
+        T: std::convert::Into<crate::model::AzureNodeConfig>,
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -10950,7 +11169,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_config(None::<AzureNodeConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureNodeConfig>
+    where
+        T: std::convert::Into<crate::model::AzureNodeConfig>,
     {
         self.config = v.map(|x| x.into());
         self
@@ -10977,7 +11197,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_autoscaling(AzureNodePoolAutoscaling::default()/* use setters */);
     /// ```
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePoolAutoscaling>
+    where
+        T: std::convert::Into<crate::model::AzureNodePoolAutoscaling>,
     {
         self.autoscaling = std::option::Option::Some(v.into());
         self
@@ -10993,7 +11214,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_autoscaling(None::<AzureNodePoolAutoscaling>);
     /// ```
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePoolAutoscaling>
+    where
+        T: std::convert::Into<crate::model::AzureNodePoolAutoscaling>,
     {
         self.autoscaling = v.map(|x| x.into());
         self
@@ -11009,7 +11231,10 @@ impl AzureNodePool {
     /// let x1 = AzureNodePool::new().set_state(State::Running);
     /// let x2 = AzureNodePool::new().set_state(State::Reconciling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::azure_node_pool::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::azure_node_pool::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -11047,7 +11272,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11063,7 +11289,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11078,7 +11305,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -11094,7 +11322,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -11142,7 +11371,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_max_pods_constraint(MaxPodsConstraint::default()/* use setters */);
     /// ```
     pub fn set_max_pods_constraint<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MaxPodsConstraint>
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
         self.max_pods_constraint = std::option::Option::Some(v.into());
         self
@@ -11158,7 +11388,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_max_pods_constraint(None::<MaxPodsConstraint>);
     /// ```
     pub fn set_or_clear_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MaxPodsConstraint>
+    where
+        T: std::convert::Into<crate::model::MaxPodsConstraint>,
     {
         self.max_pods_constraint = v.map(|x| x.into());
         self
@@ -11171,7 +11402,10 @@ impl AzureNodePool {
     /// # use google_cloud_gkemulticloud_v1::model::AzureNodePool;
     /// let x = AzureNodePool::new().set_azure_availability_zone("example");
     /// ```
-    pub fn set_azure_availability_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_azure_availability_zone<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.azure_availability_zone = v.into();
         self
     }
@@ -11191,7 +11425,7 @@ impl AzureNodePool {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureNodePoolError>
+        V: std::convert::Into<crate::model::AzureNodePoolError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -11207,7 +11441,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_management(AzureNodeManagement::default()/* use setters */);
     /// ```
     pub fn set_management<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureNodeManagement>
+    where
+        T: std::convert::Into<crate::model::AzureNodeManagement>,
     {
         self.management = std::option::Option::Some(v.into());
         self
@@ -11223,7 +11458,8 @@ impl AzureNodePool {
     /// let x = AzureNodePool::new().set_or_clear_management(None::<AzureNodeManagement>);
     /// ```
     pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureNodeManagement>
+    where
+        T: std::convert::Into<crate::model::AzureNodeManagement>,
     {
         self.management = v.map(|x| x.into());
         self
@@ -11240,7 +11476,6 @@ impl wkt::message::Message for AzureNodePool {
 pub mod azure_node_pool {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The lifecycle state of the node pool.
     ///
@@ -11351,7 +11586,9 @@ pub mod azure_node_pool {
                 4 => Self::Stopping,
                 5 => Self::Error,
                 6 => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11367,7 +11604,9 @@ pub mod azure_node_pool {
                 "STOPPING" => Self::Stopping,
                 "ERROR" => Self::Error,
                 "DEGRADED" => Self::Degraded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11396,7 +11635,8 @@ pub mod azure_node_pool {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkemulticloud.v1.AzureNodePool.State"))
+                ".google.cloud.gkemulticloud.v1.AzureNodePool.State",
+            ))
         }
     }
 }
@@ -11407,7 +11647,6 @@ pub mod azure_node_pool {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureNodeManagement {
-
     /// Optional. Whether or not the nodes will be automatically repaired. When set
     /// to true, the nodes in this node pool will be monitored and if they fail
     /// health checks consistently over a period of time, an automatic repair
@@ -11447,7 +11686,6 @@ impl wkt::message::Message for AzureNodeManagement {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureNodeConfig {
-
     /// Optional. The Azure VM size name. Example: `Standard_DS2_v2`.
     ///
     /// See [Supported VM
@@ -11468,7 +11706,7 @@ pub struct AzureNodeConfig {
     /// Specify at most 50 pairs containing alphanumerics, spaces, and symbols
     /// (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to
     /// 255 Unicode characters.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The OS image type to use on node pool instances.
     /// Can be unspecified, or have a value of `ubuntu`.
@@ -11491,7 +11729,7 @@ pub struct AzureNodeConfig {
     /// Optional. The initial labels assigned to nodes of this node pool. An object
     /// containing a list of "key": value pairs. Example: { "name": "wrench",
     /// "mass": "1.3kg", "count": "3" }.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11522,7 +11760,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_root_volume(AzureDiskTemplate::default()/* use setters */);
     /// ```
     pub fn set_root_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.root_volume = std::option::Option::Some(v.into());
         self
@@ -11538,7 +11777,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_or_clear_root_volume(None::<AzureDiskTemplate>);
     /// ```
     pub fn set_or_clear_root_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureDiskTemplate>
+    where
+        T: std::convert::Into<crate::model::AzureDiskTemplate>,
     {
         self.root_volume = v.map(|x| x.into());
         self
@@ -11586,7 +11826,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_ssh_config(AzureSshConfig::default()/* use setters */);
     /// ```
     pub fn set_ssh_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureSshConfig>
+    where
+        T: std::convert::Into<crate::model::AzureSshConfig>,
     {
         self.ssh_config = std::option::Option::Some(v.into());
         self
@@ -11602,7 +11843,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_or_clear_ssh_config(None::<AzureSshConfig>);
     /// ```
     pub fn set_or_clear_ssh_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureSshConfig>
+    where
+        T: std::convert::Into<crate::model::AzureSshConfig>,
     {
         self.ssh_config = v.map(|x| x.into());
         self
@@ -11617,7 +11859,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_proxy_config(AzureProxyConfig::default()/* use setters */);
     /// ```
     pub fn set_proxy_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AzureProxyConfig>,
     {
         self.proxy_config = std::option::Option::Some(v.into());
         self
@@ -11633,7 +11876,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_or_clear_proxy_config(None::<AzureProxyConfig>);
     /// ```
     pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureProxyConfig>
+    where
+        T: std::convert::Into<crate::model::AzureProxyConfig>,
     {
         self.proxy_config = v.map(|x| x.into());
         self
@@ -11648,7 +11892,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_config_encryption(AzureConfigEncryption::default()/* use setters */);
     /// ```
     pub fn set_config_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureConfigEncryption>,
     {
         self.config_encryption = std::option::Option::Some(v.into());
         self
@@ -11664,7 +11909,8 @@ impl AzureNodeConfig {
     /// let x = AzureNodeConfig::new().set_or_clear_config_encryption(None::<AzureConfigEncryption>);
     /// ```
     pub fn set_or_clear_config_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureConfigEncryption>
+    where
+        T: std::convert::Into<crate::model::AzureConfigEncryption>,
     {
         self.config_encryption = v.map(|x| x.into());
         self
@@ -11685,7 +11931,7 @@ impl AzureNodeConfig {
     pub fn set_taints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeTaint>
+        V: std::convert::Into<crate::model::NodeTaint>,
     {
         use std::iter::Iterator;
         self.taints = v.into_iter().map(|i| i.into()).collect();
@@ -11728,7 +11974,6 @@ impl wkt::message::Message for AzureNodeConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureNodePoolAutoscaling {
-
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
     pub min_node_count: i32,
@@ -11782,7 +12027,6 @@ impl wkt::message::Message for AzureNodePoolAutoscaling {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureOpenIdConfig {
-
     /// OIDC Issuer.
     pub issuer: std::string::String,
 
@@ -11846,7 +12090,7 @@ impl AzureOpenIdConfig {
     pub fn set_response_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.response_types_supported = v.into_iter().map(|i| i.into()).collect();
@@ -11863,7 +12107,7 @@ impl AzureOpenIdConfig {
     pub fn set_subject_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.subject_types_supported = v.into_iter().map(|i| i.into()).collect();
@@ -11880,7 +12124,7 @@ impl AzureOpenIdConfig {
     pub fn set_id_token_signing_alg_values_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.id_token_signing_alg_values_supported = v.into_iter().map(|i| i.into()).collect();
@@ -11897,7 +12141,7 @@ impl AzureOpenIdConfig {
     pub fn set_claims_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.claims_supported = v.into_iter().map(|i| i.into()).collect();
@@ -11914,7 +12158,7 @@ impl AzureOpenIdConfig {
     pub fn set_grant_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.grant_types = v.into_iter().map(|i| i.into()).collect();
@@ -11933,7 +12177,6 @@ impl wkt::message::Message for AzureOpenIdConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureJsonWebKeys {
-
     /// The public component of the keys used by the cluster to sign token
     /// requests.
     pub keys: std::vec::Vec<crate::model::Jwk>,
@@ -11961,7 +12204,7 @@ impl AzureJsonWebKeys {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Jwk>
+        V: std::convert::Into<crate::model::Jwk>,
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -11981,7 +12224,6 @@ impl wkt::message::Message for AzureJsonWebKeys {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureServerConfig {
-
     /// The `AzureServerConfig` resource name.
     ///
     /// `AzureServerConfig` names are formatted as
@@ -12035,7 +12277,7 @@ impl AzureServerConfig {
     pub fn set_valid_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureK8sVersionInfo>
+        V: std::convert::Into<crate::model::AzureK8sVersionInfo>,
     {
         use std::iter::Iterator;
         self.valid_versions = v.into_iter().map(|i| i.into()).collect();
@@ -12052,7 +12294,7 @@ impl AzureServerConfig {
     pub fn set_supported_azure_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.supported_azure_regions = v.into_iter().map(|i| i.into()).collect();
@@ -12071,7 +12313,6 @@ impl wkt::message::Message for AzureServerConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureK8sVersionInfo {
-
     /// Kubernetes version name (for example, `1.19.10-gke.1000`)
     pub version: std::string::String,
 
@@ -12148,7 +12389,8 @@ impl AzureK8sVersionInfo {
     /// let x = AzureK8sVersionInfo::new().set_end_of_life_date(Date::default()/* use setters */);
     /// ```
     pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = std::option::Option::Some(v.into());
         self
@@ -12164,7 +12406,8 @@ impl AzureK8sVersionInfo {
     /// let x = AzureK8sVersionInfo::new().set_or_clear_end_of_life_date(None::<Date>);
     /// ```
     pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.end_of_life_date = v.map(|x| x.into());
         self
@@ -12179,7 +12422,8 @@ impl AzureK8sVersionInfo {
     /// let x = AzureK8sVersionInfo::new().set_release_date(Date::default()/* use setters */);
     /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -12195,7 +12439,8 @@ impl AzureK8sVersionInfo {
     /// let x = AzureK8sVersionInfo::new().set_or_clear_release_date(None::<Date>);
     /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Date>
+    where
+        T: std::convert::Into<gtype::model::Date>,
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -12213,7 +12458,6 @@ impl wkt::message::Message for AzureK8sVersionInfo {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureSshConfig {
-
     /// Required. The SSH public key data for VMs managed by Anthos. This accepts
     /// the authorized_keys file format used in OpenSSH according to the sshd(8)
     /// manual page.
@@ -12253,7 +12497,6 @@ impl wkt::message::Message for AzureSshConfig {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClusterResources {
-
     /// Output only. The ARM ID of the cluster network security group.
     pub network_security_group_id: std::string::String,
 
@@ -12275,7 +12518,10 @@ impl AzureClusterResources {
     /// # use google_cloud_gkemulticloud_v1::model::AzureClusterResources;
     /// let x = AzureClusterResources::new().set_network_security_group_id("example");
     /// ```
-    pub fn set_network_security_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_network_security_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.network_security_group_id = v.into();
         self
     }
@@ -12287,7 +12533,12 @@ impl AzureClusterResources {
     /// # use google_cloud_gkemulticloud_v1::model::AzureClusterResources;
     /// let x = AzureClusterResources::new().set_control_plane_application_security_group_id("example");
     /// ```
-    pub fn set_control_plane_application_security_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_control_plane_application_security_group_id<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.control_plane_application_security_group_id = v.into();
         self
     }
@@ -12304,7 +12555,6 @@ impl wkt::message::Message for AzureClusterResources {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureClusterError {
-
     /// Human-friendly description of the error.
     pub message: std::string::String,
 
@@ -12340,7 +12590,6 @@ impl wkt::message::Message for AzureClusterError {
 #[non_exhaustive]
 #[deprecated]
 pub struct AzureNodePoolError {
-
     /// Human-friendly description of the error.
     pub message: std::string::String,
 
@@ -12376,7 +12625,6 @@ impl wkt::message::Message for AzureNodePoolError {
 #[non_exhaustive]
 #[deprecated]
 pub struct CreateAzureClusterRequest {
-
     /// Required. The parent location where this
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource will be
     /// created.
@@ -12440,7 +12688,8 @@ impl CreateAzureClusterRequest {
     /// let x = CreateAzureClusterRequest::new().set_azure_cluster(AzureCluster::default()/* use setters */);
     /// ```
     pub fn set_azure_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureCluster>
+    where
+        T: std::convert::Into<crate::model::AzureCluster>,
     {
         self.azure_cluster = std::option::Option::Some(v.into());
         self
@@ -12456,7 +12705,8 @@ impl CreateAzureClusterRequest {
     /// let x = CreateAzureClusterRequest::new().set_or_clear_azure_cluster(None::<AzureCluster>);
     /// ```
     pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureCluster>
+    where
+        T: std::convert::Into<crate::model::AzureCluster>,
     {
         self.azure_cluster = v.map(|x| x.into());
         self
@@ -12469,7 +12719,10 @@ impl CreateAzureClusterRequest {
     /// # use google_cloud_gkemulticloud_v1::model::CreateAzureClusterRequest;
     /// let x = CreateAzureClusterRequest::new().set_azure_cluster_id("example");
     /// ```
-    pub fn set_azure_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_azure_cluster_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.azure_cluster_id = v.into();
         self
     }
@@ -12498,7 +12751,6 @@ impl wkt::message::Message for CreateAzureClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct UpdateAzureClusterRequest {
-
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resource to update.
     ///
@@ -12550,7 +12802,8 @@ impl UpdateAzureClusterRequest {
     /// let x = UpdateAzureClusterRequest::new().set_azure_cluster(AzureCluster::default()/* use setters */);
     /// ```
     pub fn set_azure_cluster<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureCluster>
+    where
+        T: std::convert::Into<crate::model::AzureCluster>,
     {
         self.azure_cluster = std::option::Option::Some(v.into());
         self
@@ -12566,7 +12819,8 @@ impl UpdateAzureClusterRequest {
     /// let x = UpdateAzureClusterRequest::new().set_or_clear_azure_cluster(None::<AzureCluster>);
     /// ```
     pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureCluster>
+    where
+        T: std::convert::Into<crate::model::AzureCluster>,
     {
         self.azure_cluster = v.map(|x| x.into());
         self
@@ -12593,7 +12847,8 @@ impl UpdateAzureClusterRequest {
     /// let x = UpdateAzureClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -12609,7 +12864,8 @@ impl UpdateAzureClusterRequest {
     /// let x = UpdateAzureClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -12627,7 +12883,6 @@ impl wkt::message::Message for UpdateAzureClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureClusterRequest {
-
     /// Required. The name of the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource to
     /// describe.
@@ -12673,7 +12928,6 @@ impl wkt::message::Message for GetAzureClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureClustersRequest {
-
     /// Required. The parent location which owns this collection of
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resources.
     ///
@@ -12759,7 +13013,6 @@ impl wkt::message::Message for ListAzureClustersRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureClustersResponse {
-
     /// A list of [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resources in the specified Google Cloud Platform project and region region.
     ///
@@ -12793,7 +13046,7 @@ impl ListAzureClustersResponse {
     pub fn set_azure_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureCluster>
+        V: std::convert::Into<crate::model::AzureCluster>,
     {
         use std::iter::Iterator;
         self.azure_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -12838,7 +13091,6 @@ impl gax::paginator::internal::PageableResponse for ListAzureClustersResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct DeleteAzureClusterRequest {
-
     /// Required. The resource name the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] to delete.
     ///
@@ -12964,7 +13216,6 @@ impl wkt::message::Message for DeleteAzureClusterRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct CreateAzureNodePoolRequest {
-
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resource where this node pool will be created.
     ///
@@ -13029,7 +13280,8 @@ impl CreateAzureNodePoolRequest {
     /// let x = CreateAzureNodePoolRequest::new().set_azure_node_pool(AzureNodePool::default()/* use setters */);
     /// ```
     pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePool>
+    where
+        T: std::convert::Into<crate::model::AzureNodePool>,
     {
         self.azure_node_pool = std::option::Option::Some(v.into());
         self
@@ -13045,7 +13297,8 @@ impl CreateAzureNodePoolRequest {
     /// let x = CreateAzureNodePoolRequest::new().set_or_clear_azure_node_pool(None::<AzureNodePool>);
     /// ```
     pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePool>
+    where
+        T: std::convert::Into<crate::model::AzureNodePool>,
     {
         self.azure_node_pool = v.map(|x| x.into());
         self
@@ -13058,7 +13311,10 @@ impl CreateAzureNodePoolRequest {
     /// # use google_cloud_gkemulticloud_v1::model::CreateAzureNodePoolRequest;
     /// let x = CreateAzureNodePoolRequest::new().set_azure_node_pool_id("example");
     /// ```
-    pub fn set_azure_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_azure_node_pool_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.azure_node_pool_id = v.into();
         self
     }
@@ -13087,7 +13343,6 @@ impl wkt::message::Message for CreateAzureNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct UpdateAzureNodePoolRequest {
-
     /// Required. The [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
     /// resource to update.
     ///
@@ -13130,7 +13385,8 @@ impl UpdateAzureNodePoolRequest {
     /// let x = UpdateAzureNodePoolRequest::new().set_azure_node_pool(AzureNodePool::default()/* use setters */);
     /// ```
     pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePool>
+    where
+        T: std::convert::Into<crate::model::AzureNodePool>,
     {
         self.azure_node_pool = std::option::Option::Some(v.into());
         self
@@ -13146,7 +13402,8 @@ impl UpdateAzureNodePoolRequest {
     /// let x = UpdateAzureNodePoolRequest::new().set_or_clear_azure_node_pool(None::<AzureNodePool>);
     /// ```
     pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureNodePool>
+    where
+        T: std::convert::Into<crate::model::AzureNodePool>,
     {
         self.azure_node_pool = v.map(|x| x.into());
         self
@@ -13173,7 +13430,8 @@ impl UpdateAzureNodePoolRequest {
     /// let x = UpdateAzureNodePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -13189,7 +13447,8 @@ impl UpdateAzureNodePoolRequest {
     /// let x = UpdateAzureNodePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -13207,7 +13466,6 @@ impl wkt::message::Message for UpdateAzureNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureNodePoolRequest {
-
     /// Required. The name of the
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource to
     /// describe.
@@ -13253,7 +13511,6 @@ impl wkt::message::Message for GetAzureNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureNodePoolsRequest {
-
     /// Required. The parent `AzureCluster` which owns this collection of
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resources.
     ///
@@ -13340,7 +13597,6 @@ impl wkt::message::Message for ListAzureNodePoolsRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureNodePoolsResponse {
-
     /// A list of [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
     /// resources in the specified `AzureCluster`.
     ///
@@ -13374,7 +13630,7 @@ impl ListAzureNodePoolsResponse {
     pub fn set_azure_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureNodePool>
+        V: std::convert::Into<crate::model::AzureNodePool>,
     {
         use std::iter::Iterator;
         self.azure_node_pools = v.into_iter().map(|i| i.into()).collect();
@@ -13419,7 +13675,6 @@ impl gax::paginator::internal::PageableResponse for ListAzureNodePoolsResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct DeleteAzureNodePoolRequest {
-
     /// Required. The resource name the
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] to delete.
     ///
@@ -13548,7 +13803,6 @@ impl wkt::message::Message for DeleteAzureNodePoolRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureOpenIdConfigRequest {
-
     /// Required. The AzureCluster, which owns the OIDC discovery document.
     /// Format:
     /// projects/\<project-id\>/locations/\<region\>/azureClusters/\<cluster-id\>
@@ -13589,7 +13843,6 @@ impl wkt::message::Message for GetAzureOpenIdConfigRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureJsonWebKeysRequest {
-
     /// Required. The AzureCluster, which owns the JsonWebKeys.
     /// Format:
     /// `projects/<project-id>/locations/<region>/azureClusters/<cluster-id>`
@@ -13627,7 +13880,6 @@ impl wkt::message::Message for GetAzureJsonWebKeysRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureServerConfigRequest {
-
     /// Required. The name of the
     /// [AzureServerConfig][google.cloud.gkemulticloud.v1.AzureServerConfig]
     /// resource to describe.
@@ -13673,7 +13925,6 @@ impl wkt::message::Message for GetAzureServerConfigRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct CreateAzureClientRequest {
-
     /// Required. The parent location where this
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource will be
     /// created.
@@ -13737,7 +13988,8 @@ impl CreateAzureClientRequest {
     /// let x = CreateAzureClientRequest::new().set_azure_client(AzureClient::default()/* use setters */);
     /// ```
     pub fn set_azure_client<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AzureClient>
+    where
+        T: std::convert::Into<crate::model::AzureClient>,
     {
         self.azure_client = std::option::Option::Some(v.into());
         self
@@ -13753,7 +14005,8 @@ impl CreateAzureClientRequest {
     /// let x = CreateAzureClientRequest::new().set_or_clear_azure_client(None::<AzureClient>);
     /// ```
     pub fn set_or_clear_azure_client<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AzureClient>
+    where
+        T: std::convert::Into<crate::model::AzureClient>,
     {
         self.azure_client = v.map(|x| x.into());
         self
@@ -13795,7 +14048,6 @@ impl wkt::message::Message for CreateAzureClientRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GetAzureClientRequest {
-
     /// Required. The name of the
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource to
     /// describe.
@@ -13842,7 +14094,6 @@ impl wkt::message::Message for GetAzureClientRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureClientsRequest {
-
     /// Required. The parent location which owns this collection of
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resources.
     ///
@@ -13928,7 +14179,6 @@ impl wkt::message::Message for ListAzureClientsRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct ListAzureClientsResponse {
-
     /// A list of [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
     /// resources in the specified Google Cloud project and region region.
     ///
@@ -13962,7 +14212,7 @@ impl ListAzureClientsResponse {
     pub fn set_azure_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AzureClient>
+        V: std::convert::Into<crate::model::AzureClient>,
     {
         use std::iter::Iterator;
         self.azure_clients = v.into_iter().map(|i| i.into()).collect();
@@ -14007,7 +14257,6 @@ impl gax::paginator::internal::PageableResponse for ListAzureClientsResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct DeleteAzureClientRequest {
-
     /// Required. The resource name the
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] to delete.
     ///
@@ -14091,7 +14340,6 @@ impl wkt::message::Message for DeleteAzureClientRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAzureAccessTokenRequest {
-
     /// Required. The name of the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource to
     /// authenticate to.
@@ -14137,7 +14385,6 @@ impl wkt::message::Message for GenerateAzureAccessTokenRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAzureAccessTokenResponse {
-
     /// Output only. Access token to authenticate to k8s api-server.
     pub access_token: std::string::String,
 
@@ -14173,7 +14420,8 @@ impl GenerateAzureAccessTokenResponse {
     /// let x = GenerateAzureAccessTokenResponse::new().set_expiration_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expiration_time = std::option::Option::Some(v.into());
         self
@@ -14189,7 +14437,8 @@ impl GenerateAzureAccessTokenResponse {
     /// let x = GenerateAzureAccessTokenResponse::new().set_or_clear_expiration_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expiration_time = v.map(|x| x.into());
         self
@@ -14206,7 +14455,6 @@ impl wkt::message::Message for GenerateAzureAccessTokenResponse {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAzureClusterAgentTokenRequest {
-
     /// Required.
     pub azure_cluster: std::string::String,
 
@@ -14276,7 +14524,10 @@ impl GenerateAzureClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAzureClusterAgentTokenRequest;
     /// let x = GenerateAzureClusterAgentTokenRequest::new().set_subject_token_type("example");
     /// ```
-    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_subject_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.subject_token_type = v.into();
         self
     }
@@ -14348,7 +14599,10 @@ impl GenerateAzureClusterAgentTokenRequest {
     /// # use google_cloud_gkemulticloud_v1::model::GenerateAzureClusterAgentTokenRequest;
     /// let x = GenerateAzureClusterAgentTokenRequest::new().set_requested_token_type("example");
     /// ```
-    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_requested_token_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.requested_token_type = v.into();
         self
     }
@@ -14376,7 +14630,6 @@ impl wkt::message::Message for GenerateAzureClusterAgentTokenRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct GenerateAzureClusterAgentTokenResponse {
-
     pub access_token: std::string::String,
 
     pub expires_in: i32,
@@ -14438,7 +14691,6 @@ impl wkt::message::Message for GenerateAzureClusterAgentTokenResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Jwk {
-
     /// Key Type.
     pub kty: std::string::String,
 
@@ -14593,7 +14845,6 @@ impl wkt::message::Message for Jwk {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadIdentityConfig {
-
     /// The OIDC issuer URL for this cluster.
     pub issuer_uri: std::string::String,
 
@@ -14643,7 +14894,10 @@ impl WorkloadIdentityConfig {
     /// # use google_cloud_gkemulticloud_v1::model::WorkloadIdentityConfig;
     /// let x = WorkloadIdentityConfig::new().set_identity_provider("example");
     /// ```
-    pub fn set_identity_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_identity_provider<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.identity_provider = v.into();
         self
     }
@@ -14659,7 +14913,6 @@ impl wkt::message::Message for WorkloadIdentityConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaxPodsConstraint {
-
     /// Required. The maximum number of pods to schedule on a single node.
     pub max_pods_per_node: i64,
 
@@ -14694,7 +14947,6 @@ impl wkt::message::Message for MaxPodsConstraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time at which this operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -14742,7 +14994,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -14758,7 +15011,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -14773,7 +15027,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -14789,7 +15044,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -14866,7 +15122,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeTaint {
-
     /// Required. Key for the taint.
     pub key: std::string::String,
 
@@ -14918,7 +15173,10 @@ impl NodeTaint {
     /// let x1 = NodeTaint::new().set_effect(Effect::PreferNoSchedule);
     /// let x2 = NodeTaint::new().set_effect(Effect::NoExecute);
     /// ```
-    pub fn set_effect<T: std::convert::Into<crate::model::node_taint::Effect>>(mut self, v: T) -> Self {
+    pub fn set_effect<T: std::convert::Into<crate::model::node_taint::Effect>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.effect = v.into();
         self
     }
@@ -14934,7 +15192,6 @@ impl wkt::message::Message for NodeTaint {
 pub mod node_taint {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The taint effect.
     ///
@@ -15033,7 +15290,9 @@ pub mod node_taint {
                 1 => Self::NoSchedule,
                 2 => Self::PreferNoSchedule,
                 3 => Self::NoExecute,
-                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15046,7 +15305,9 @@ pub mod node_taint {
                 "NO_SCHEDULE" => Self::NoSchedule,
                 "PREFER_NO_SCHEDULE" => Self::PreferNoSchedule,
                 "NO_EXECUTE" => Self::NoExecute,
-                _ => Self::UnknownValue(effect::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15072,7 +15333,8 @@ pub mod node_taint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
-                ".google.cloud.gkemulticloud.v1.NodeTaint.Effect"))
+                ".google.cloud.gkemulticloud.v1.NodeTaint.Effect",
+            ))
         }
     }
 }
@@ -15081,7 +15343,6 @@ pub mod node_taint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeKubeletConfig {
-
     /// Optional. Enable the insecure kubelet read only port.
     pub insecure_kubelet_readonly_port_enabled: bool,
 
@@ -15143,7 +15404,10 @@ impl NodeKubeletConfig {
     /// # use google_cloud_gkemulticloud_v1::model::NodeKubeletConfig;
     /// let x = NodeKubeletConfig::new().set_insecure_kubelet_readonly_port_enabled(true);
     /// ```
-    pub fn set_insecure_kubelet_readonly_port_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_insecure_kubelet_readonly_port_enabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.insecure_kubelet_readonly_port_enabled = v.into();
         self
     }
@@ -15156,7 +15420,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_cpu_manager_policy("example");
     /// ```
     pub fn set_cpu_manager_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.cpu_manager_policy = std::option::Option::Some(v.into());
         self
@@ -15171,7 +15436,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_or_clear_cpu_manager_policy(None::<String>);
     /// ```
     pub fn set_or_clear_cpu_manager_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.cpu_manager_policy = v.map(|x| x.into());
         self
@@ -15185,7 +15451,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_cpu_cfs_quota(true);
     /// ```
     pub fn set_cpu_cfs_quota<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.cpu_cfs_quota = std::option::Option::Some(v.into());
         self
@@ -15200,7 +15467,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_or_clear_cpu_cfs_quota(None::<bool>);
     /// ```
     pub fn set_or_clear_cpu_cfs_quota<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.cpu_cfs_quota = v.map(|x| x.into());
         self
@@ -15214,7 +15482,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_cpu_cfs_quota_period("example");
     /// ```
     pub fn set_cpu_cfs_quota_period<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.cpu_cfs_quota_period = std::option::Option::Some(v.into());
         self
@@ -15229,7 +15498,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_or_clear_cpu_cfs_quota_period(None::<String>);
     /// ```
     pub fn set_or_clear_cpu_cfs_quota_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.cpu_cfs_quota_period = v.map(|x| x.into());
         self
@@ -15243,7 +15513,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_pod_pids_limit(42);
     /// ```
     pub fn set_pod_pids_limit<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.pod_pids_limit = std::option::Option::Some(v.into());
         self
@@ -15258,7 +15529,8 @@ impl NodeKubeletConfig {
     /// let x = NodeKubeletConfig::new().set_or_clear_pod_pids_limit(None::<i32>);
     /// ```
     pub fn set_or_clear_pod_pids_limit<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.pod_pids_limit = v.map(|x| x.into());
         self
@@ -15283,7 +15555,6 @@ impl wkt::message::Message for NodeKubeletConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fleet {
-
     /// Required. The name of the Fleet host project where this cluster will be
     /// registered.
     ///
@@ -15341,7 +15612,6 @@ impl wkt::message::Message for Fleet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
-
     /// The configuration of the logging components;
     pub component_config: std::option::Option<crate::model::LoggingComponentConfig>,
 
@@ -15362,7 +15632,8 @@ impl LoggingConfig {
     /// let x = LoggingConfig::new().set_component_config(LoggingComponentConfig::default()/* use setters */);
     /// ```
     pub fn set_component_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LoggingComponentConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingComponentConfig>,
     {
         self.component_config = std::option::Option::Some(v.into());
         self
@@ -15378,7 +15649,8 @@ impl LoggingConfig {
     /// let x = LoggingConfig::new().set_or_clear_component_config(None::<LoggingComponentConfig>);
     /// ```
     pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LoggingComponentConfig>
+    where
+        T: std::convert::Into<crate::model::LoggingComponentConfig>,
     {
         self.component_config = v.map(|x| x.into());
         self
@@ -15395,7 +15667,6 @@ impl wkt::message::Message for LoggingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingComponentConfig {
-
     /// The components to be enabled.
     pub enable_components: std::vec::Vec<crate::model::logging_component_config::Component>,
 
@@ -15421,7 +15692,7 @@ impl LoggingComponentConfig {
     pub fn set_enable_components<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logging_component_config::Component>
+        V: std::convert::Into<crate::model::logging_component_config::Component>,
     {
         use std::iter::Iterator;
         self.enable_components = v.into_iter().map(|i| i.into()).collect();
@@ -15439,7 +15710,6 @@ impl wkt::message::Message for LoggingComponentConfig {
 pub mod logging_component_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The components of the logging configuration;
     ///
@@ -15527,7 +15797,9 @@ pub mod logging_component_config {
                 0 => Self::Unspecified,
                 1 => Self::SystemComponents,
                 2 => Self::Workloads,
-                _ => Self::UnknownValue(component::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(component::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15539,7 +15811,9 @@ pub mod logging_component_config {
                 "COMPONENT_UNSPECIFIED" => Self::Unspecified,
                 "SYSTEM_COMPONENTS" => Self::SystemComponents,
                 "WORKLOADS" => Self::Workloads,
-                _ => Self::UnknownValue(component::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(component::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15564,7 +15838,8 @@ pub mod logging_component_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Component>::new(
-                ".google.cloud.gkemulticloud.v1.LoggingComponentConfig.Component"))
+                ".google.cloud.gkemulticloud.v1.LoggingComponentConfig.Component",
+            ))
         }
     }
 }
@@ -15573,7 +15848,6 @@ pub mod logging_component_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoringConfig {
-
     /// Enable Google Cloud Managed Service for Prometheus in the cluster.
     pub managed_prometheus_config: std::option::Option<crate::model::ManagedPrometheusConfig>,
 
@@ -15598,7 +15872,8 @@ impl MonitoringConfig {
     /// let x = MonitoringConfig::new().set_managed_prometheus_config(ManagedPrometheusConfig::default()/* use setters */);
     /// ```
     pub fn set_managed_prometheus_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ManagedPrometheusConfig>
+    where
+        T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
     {
         self.managed_prometheus_config = std::option::Option::Some(v.into());
         self
@@ -15614,7 +15889,8 @@ impl MonitoringConfig {
     /// let x = MonitoringConfig::new().set_or_clear_managed_prometheus_config(None::<ManagedPrometheusConfig>);
     /// ```
     pub fn set_or_clear_managed_prometheus_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ManagedPrometheusConfig>
+    where
+        T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
     {
         self.managed_prometheus_config = v.map(|x| x.into());
         self
@@ -15629,7 +15905,8 @@ impl MonitoringConfig {
     /// let x = MonitoringConfig::new().set_cloud_monitoring_config(CloudMonitoringConfig::default()/* use setters */);
     /// ```
     pub fn set_cloud_monitoring_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CloudMonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::CloudMonitoringConfig>,
     {
         self.cloud_monitoring_config = std::option::Option::Some(v.into());
         self
@@ -15645,7 +15922,8 @@ impl MonitoringConfig {
     /// let x = MonitoringConfig::new().set_or_clear_cloud_monitoring_config(None::<CloudMonitoringConfig>);
     /// ```
     pub fn set_or_clear_cloud_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CloudMonitoringConfig>
+    where
+        T: std::convert::Into<crate::model::CloudMonitoringConfig>,
     {
         self.cloud_monitoring_config = v.map(|x| x.into());
         self
@@ -15663,7 +15941,6 @@ impl wkt::message::Message for MonitoringConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedPrometheusConfig {
-
     /// Enable Managed Collection.
     pub enabled: bool,
 
@@ -15700,7 +15977,6 @@ impl wkt::message::Message for ManagedPrometheusConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudMonitoringConfig {
-
     /// Enable GKE-native logging and metrics.
     /// Only for Attached Clusters.
     pub enabled: std::option::Option<bool>,
@@ -15721,7 +15997,8 @@ impl CloudMonitoringConfig {
     /// let x = CloudMonitoringConfig::new().set_enabled(true);
     /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -15736,7 +16013,8 @@ impl CloudMonitoringConfig {
     /// let x = CloudMonitoringConfig::new().set_or_clear_enabled(None::<bool>);
     /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -15753,7 +16031,6 @@ impl wkt::message::Message for CloudMonitoringConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BinaryAuthorization {
-
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
     /// to DISABLED.
     pub evaluation_mode: crate::model::binary_authorization::EvaluationMode,
@@ -15775,7 +16052,12 @@ impl BinaryAuthorization {
     /// let x0 = BinaryAuthorization::new().set_evaluation_mode(EvaluationMode::Disabled);
     /// let x1 = BinaryAuthorization::new().set_evaluation_mode(EvaluationMode::ProjectSingletonPolicyEnforce);
     /// ```
-    pub fn set_evaluation_mode<T: std::convert::Into<crate::model::binary_authorization::EvaluationMode>>(mut self, v: T) -> Self {
+    pub fn set_evaluation_mode<
+        T: std::convert::Into<crate::model::binary_authorization::EvaluationMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.evaluation_mode = v.into();
         self
     }
@@ -15791,7 +16073,6 @@ impl wkt::message::Message for BinaryAuthorization {
 pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Binary Authorization mode of operation.
     ///
@@ -15855,7 +16136,9 @@ pub mod binary_authorization {
             match self {
                 Self::Unspecified => std::option::Option::Some("EVALUATION_MODE_UNSPECIFIED"),
                 Self::Disabled => std::option::Option::Some("DISABLED"),
-                Self::ProjectSingletonPolicyEnforce => std::option::Option::Some("PROJECT_SINGLETON_POLICY_ENFORCE"),
+                Self::ProjectSingletonPolicyEnforce => {
+                    std::option::Option::Some("PROJECT_SINGLETON_POLICY_ENFORCE")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -15880,7 +16163,9 @@ pub mod binary_authorization {
                 0 => Self::Unspecified,
                 1 => Self::Disabled,
                 2 => Self::ProjectSingletonPolicyEnforce,
-                _ => Self::UnknownValue(evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15892,7 +16177,9 @@ pub mod binary_authorization {
                 "EVALUATION_MODE_UNSPECIFIED" => Self::Unspecified,
                 "DISABLED" => Self::Disabled,
                 "PROJECT_SINGLETON_POLICY_ENFORCE" => Self::ProjectSingletonPolicyEnforce,
-                _ => Self::UnknownValue(evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15917,7 +16204,8 @@ pub mod binary_authorization {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationMode>::new(
-                ".google.cloud.gkemulticloud.v1.BinaryAuthorization.EvaluationMode"))
+                ".google.cloud.gkemulticloud.v1.BinaryAuthorization.EvaluationMode",
+            ))
         }
     }
 }
@@ -15927,7 +16215,6 @@ pub mod binary_authorization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityPostureConfig {
-
     /// Sets which mode to use for vulnerability scanning.
     pub vulnerability_mode: crate::model::security_posture_config::VulnerabilityMode,
 
@@ -15948,7 +16235,12 @@ impl SecurityPostureConfig {
     /// let x0 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityDisabled);
     /// let x1 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityEnterprise);
     /// ```
-    pub fn set_vulnerability_mode<T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>>(mut self, v: T) -> Self {
+    pub fn set_vulnerability_mode<
+        T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.vulnerability_mode = v.into();
         self
     }
@@ -15964,7 +16256,6 @@ impl wkt::message::Message for SecurityPostureConfig {
 pub mod security_posture_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// VulnerabilityMode defines enablement mode for vulnerability scanning.
     ///
@@ -16028,7 +16319,9 @@ pub mod security_posture_config {
             match self {
                 Self::Unspecified => std::option::Option::Some("VULNERABILITY_MODE_UNSPECIFIED"),
                 Self::VulnerabilityDisabled => std::option::Option::Some("VULNERABILITY_DISABLED"),
-                Self::VulnerabilityEnterprise => std::option::Option::Some("VULNERABILITY_ENTERPRISE"),
+                Self::VulnerabilityEnterprise => {
+                    std::option::Option::Some("VULNERABILITY_ENTERPRISE")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16053,7 +16346,9 @@ pub mod security_posture_config {
                 0 => Self::Unspecified,
                 1 => Self::VulnerabilityDisabled,
                 2 => Self::VulnerabilityEnterprise,
-                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -16065,7 +16360,9 @@ pub mod security_posture_config {
                 "VULNERABILITY_MODE_UNSPECIFIED" => Self::Unspecified,
                 "VULNERABILITY_DISABLED" => Self::VulnerabilityDisabled,
                 "VULNERABILITY_ENTERPRISE" => Self::VulnerabilityEnterprise,
-                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(vulnerability_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -16090,7 +16387,8 @@ pub mod security_posture_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VulnerabilityMode>::new(
-                ".google.cloud.gkemulticloud.v1.SecurityPostureConfig.VulnerabilityMode"))
+                ".google.cloud.gkemulticloud.v1.SecurityPostureConfig.VulnerabilityMode",
+            ))
         }
     }
 }

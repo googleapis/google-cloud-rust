@@ -201,7 +201,9 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
+    >;
 
     async fn delete_backup_plan_association(
         &self,
@@ -231,7 +233,9 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+    >;
 
     async fn initialize_service(
         &self,
@@ -438,7 +442,8 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::FetchBackupsForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupsForResourceTypeResponse>>
+    {
         T::fetch_backups_for_resource_type(self, req, options).await
     }
 
@@ -573,7 +578,8 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListBackupPlanAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>>
+    {
         T::list_backup_plan_associations(self, req, options).await
     }
 
@@ -582,7 +588,9 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
+    > {
         T::fetch_backup_plan_associations_for_resource_type(self, req, options).await
     }
 
@@ -618,7 +626,8 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListDataSourceReferencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourceReferencesResponse>>
+    {
         T::list_data_source_references(self, req, options).await
     }
 
@@ -627,7 +636,9 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+    > {
         T::fetch_data_source_references_for_resource_type(self, req, options).await
     }
 

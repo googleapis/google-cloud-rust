@@ -84,28 +84,42 @@ impl DlpService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DlpService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DlpService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DlpService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DlpService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DlpService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DlpService> {
         super::transport::DlpService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DlpService> {
-        Self::build_transport(conf).await.map(super::tracing::DlpService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DlpService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DlpService::new)
     }
 
     /// Finds potentially sensitive info in content.
@@ -135,8 +149,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn inspect_content(&self) -> super::builder::dlp_service::InspectContent
-    {
+    pub fn inspect_content(&self) -> super::builder::dlp_service::InspectContent {
         super::builder::dlp_service::InspectContent::new(self.inner.clone())
     }
 
@@ -168,8 +181,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn redact_image(&self) -> super::builder::dlp_service::RedactImage
-    {
+    pub fn redact_image(&self) -> super::builder::dlp_service::RedactImage {
         super::builder::dlp_service::RedactImage::new(self.inner.clone())
     }
 
@@ -198,8 +210,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn deidentify_content(&self) -> super::builder::dlp_service::DeidentifyContent
-    {
+    pub fn deidentify_content(&self) -> super::builder::dlp_service::DeidentifyContent {
         super::builder::dlp_service::DeidentifyContent::new(self.inner.clone())
     }
 
@@ -223,8 +234,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn reidentify_content(&self) -> super::builder::dlp_service::ReidentifyContent
-    {
+    pub fn reidentify_content(&self) -> super::builder::dlp_service::ReidentifyContent {
         super::builder::dlp_service::ReidentifyContent::new(self.inner.clone())
     }
 
@@ -248,8 +258,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_info_types(&self) -> super::builder::dlp_service::ListInfoTypes
-    {
+    pub fn list_info_types(&self) -> super::builder::dlp_service::ListInfoTypes {
         super::builder::dlp_service::ListInfoTypes::new(self.inner.clone())
     }
 
@@ -274,8 +283,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_inspect_template(&self) -> super::builder::dlp_service::CreateInspectTemplate
-    {
+    pub fn create_inspect_template(&self) -> super::builder::dlp_service::CreateInspectTemplate {
         super::builder::dlp_service::CreateInspectTemplate::new(self.inner.clone())
     }
 
@@ -299,8 +307,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_inspect_template(&self) -> super::builder::dlp_service::UpdateInspectTemplate
-    {
+    pub fn update_inspect_template(&self) -> super::builder::dlp_service::UpdateInspectTemplate {
         super::builder::dlp_service::UpdateInspectTemplate::new(self.inner.clone())
     }
 
@@ -324,8 +331,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_inspect_template(&self) -> super::builder::dlp_service::GetInspectTemplate
-    {
+    pub fn get_inspect_template(&self) -> super::builder::dlp_service::GetInspectTemplate {
         super::builder::dlp_service::GetInspectTemplate::new(self.inner.clone())
     }
 
@@ -333,8 +339,7 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
-    pub fn list_inspect_templates(&self) -> super::builder::dlp_service::ListInspectTemplates
-    {
+    pub fn list_inspect_templates(&self) -> super::builder::dlp_service::ListInspectTemplates {
         super::builder::dlp_service::ListInspectTemplates::new(self.inner.clone())
     }
 
@@ -357,8 +362,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_inspect_template(&self) -> super::builder::dlp_service::DeleteInspectTemplate
-    {
+    pub fn delete_inspect_template(&self) -> super::builder::dlp_service::DeleteInspectTemplate {
         super::builder::dlp_service::DeleteInspectTemplate::new(self.inner.clone())
     }
 
@@ -383,8 +387,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_deidentify_template(&self) -> super::builder::dlp_service::CreateDeidentifyTemplate
-    {
+    pub fn create_deidentify_template(
+        &self,
+    ) -> super::builder::dlp_service::CreateDeidentifyTemplate {
         super::builder::dlp_service::CreateDeidentifyTemplate::new(self.inner.clone())
     }
 
@@ -408,8 +413,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_deidentify_template(&self) -> super::builder::dlp_service::UpdateDeidentifyTemplate
-    {
+    pub fn update_deidentify_template(
+        &self,
+    ) -> super::builder::dlp_service::UpdateDeidentifyTemplate {
         super::builder::dlp_service::UpdateDeidentifyTemplate::new(self.inner.clone())
     }
 
@@ -433,8 +439,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_deidentify_template(&self) -> super::builder::dlp_service::GetDeidentifyTemplate
-    {
+    pub fn get_deidentify_template(&self) -> super::builder::dlp_service::GetDeidentifyTemplate {
         super::builder::dlp_service::GetDeidentifyTemplate::new(self.inner.clone())
     }
 
@@ -442,8 +447,9 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
-    pub fn list_deidentify_templates(&self) -> super::builder::dlp_service::ListDeidentifyTemplates
-    {
+    pub fn list_deidentify_templates(
+        &self,
+    ) -> super::builder::dlp_service::ListDeidentifyTemplates {
         super::builder::dlp_service::ListDeidentifyTemplates::new(self.inner.clone())
     }
 
@@ -466,8 +472,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_deidentify_template(&self) -> super::builder::dlp_service::DeleteDeidentifyTemplate
-    {
+    pub fn delete_deidentify_template(
+        &self,
+    ) -> super::builder::dlp_service::DeleteDeidentifyTemplate {
         super::builder::dlp_service::DeleteDeidentifyTemplate::new(self.inner.clone())
     }
 
@@ -492,8 +499,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_job_trigger(&self) -> super::builder::dlp_service::CreateJobTrigger
-    {
+    pub fn create_job_trigger(&self) -> super::builder::dlp_service::CreateJobTrigger {
         super::builder::dlp_service::CreateJobTrigger::new(self.inner.clone())
     }
 
@@ -517,8 +523,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_job_trigger(&self) -> super::builder::dlp_service::UpdateJobTrigger
-    {
+    pub fn update_job_trigger(&self) -> super::builder::dlp_service::UpdateJobTrigger {
         super::builder::dlp_service::UpdateJobTrigger::new(self.inner.clone())
     }
 
@@ -541,8 +546,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn hybrid_inspect_job_trigger(&self) -> super::builder::dlp_service::HybridInspectJobTrigger
-    {
+    pub fn hybrid_inspect_job_trigger(
+        &self,
+    ) -> super::builder::dlp_service::HybridInspectJobTrigger {
         super::builder::dlp_service::HybridInspectJobTrigger::new(self.inner.clone())
     }
 
@@ -566,8 +572,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_job_trigger(&self) -> super::builder::dlp_service::GetJobTrigger
-    {
+    pub fn get_job_trigger(&self) -> super::builder::dlp_service::GetJobTrigger {
         super::builder::dlp_service::GetJobTrigger::new(self.inner.clone())
     }
 
@@ -575,8 +580,7 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
-    pub fn list_job_triggers(&self) -> super::builder::dlp_service::ListJobTriggers
-    {
+    pub fn list_job_triggers(&self) -> super::builder::dlp_service::ListJobTriggers {
         super::builder::dlp_service::ListJobTriggers::new(self.inner.clone())
     }
 
@@ -599,8 +603,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_job_trigger(&self) -> super::builder::dlp_service::DeleteJobTrigger
-    {
+    pub fn delete_job_trigger(&self) -> super::builder::dlp_service::DeleteJobTrigger {
         super::builder::dlp_service::DeleteJobTrigger::new(self.inner.clone())
     }
 
@@ -622,8 +625,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn activate_job_trigger(&self) -> super::builder::dlp_service::ActivateJobTrigger
-    {
+    pub fn activate_job_trigger(&self) -> super::builder::dlp_service::ActivateJobTrigger {
         super::builder::dlp_service::ActivateJobTrigger::new(self.inner.clone())
     }
 
@@ -644,8 +646,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_discovery_config(&self) -> super::builder::dlp_service::CreateDiscoveryConfig
-    {
+    pub fn create_discovery_config(&self) -> super::builder::dlp_service::CreateDiscoveryConfig {
         super::builder::dlp_service::CreateDiscoveryConfig::new(self.inner.clone())
     }
 
@@ -666,8 +667,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_discovery_config(&self) -> super::builder::dlp_service::UpdateDiscoveryConfig
-    {
+    pub fn update_discovery_config(&self) -> super::builder::dlp_service::UpdateDiscoveryConfig {
         super::builder::dlp_service::UpdateDiscoveryConfig::new(self.inner.clone())
     }
 
@@ -688,14 +688,12 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_discovery_config(&self) -> super::builder::dlp_service::GetDiscoveryConfig
-    {
+    pub fn get_discovery_config(&self) -> super::builder::dlp_service::GetDiscoveryConfig {
         super::builder::dlp_service::GetDiscoveryConfig::new(self.inner.clone())
     }
 
     /// Lists discovery configurations.
-    pub fn list_discovery_configs(&self) -> super::builder::dlp_service::ListDiscoveryConfigs
-    {
+    pub fn list_discovery_configs(&self) -> super::builder::dlp_service::ListDiscoveryConfigs {
         super::builder::dlp_service::ListDiscoveryConfigs::new(self.inner.clone())
     }
 
@@ -715,8 +713,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_discovery_config(&self) -> super::builder::dlp_service::DeleteDiscoveryConfig
-    {
+    pub fn delete_discovery_config(&self) -> super::builder::dlp_service::DeleteDiscoveryConfig {
         super::builder::dlp_service::DeleteDiscoveryConfig::new(self.inner.clone())
     }
 
@@ -746,8 +743,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_dlp_job(&self) -> super::builder::dlp_service::CreateDlpJob
-    {
+    pub fn create_dlp_job(&self) -> super::builder::dlp_service::CreateDlpJob {
         super::builder::dlp_service::CreateDlpJob::new(self.inner.clone())
     }
 
@@ -757,8 +753,7 @@ impl DlpService {
     /// and
     /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
-    pub fn list_dlp_jobs(&self) -> super::builder::dlp_service::ListDlpJobs
-    {
+    pub fn list_dlp_jobs(&self) -> super::builder::dlp_service::ListDlpJobs {
         super::builder::dlp_service::ListDlpJobs::new(self.inner.clone())
     }
 
@@ -784,8 +779,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_dlp_job(&self) -> super::builder::dlp_service::GetDlpJob
-    {
+    pub fn get_dlp_job(&self) -> super::builder::dlp_service::GetDlpJob {
         super::builder::dlp_service::GetDlpJob::new(self.inner.clone())
     }
 
@@ -812,8 +806,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_dlp_job(&self) -> super::builder::dlp_service::DeleteDlpJob
-    {
+    pub fn delete_dlp_job(&self) -> super::builder::dlp_service::DeleteDlpJob {
         super::builder::dlp_service::DeleteDlpJob::new(self.inner.clone())
     }
 
@@ -840,8 +833,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_dlp_job(&self) -> super::builder::dlp_service::CancelDlpJob
-    {
+    pub fn cancel_dlp_job(&self) -> super::builder::dlp_service::CancelDlpJob {
         super::builder::dlp_service::CancelDlpJob::new(self.inner.clone())
     }
 
@@ -865,8 +857,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_stored_info_type(&self) -> super::builder::dlp_service::CreateStoredInfoType
-    {
+    pub fn create_stored_info_type(&self) -> super::builder::dlp_service::CreateStoredInfoType {
         super::builder::dlp_service::CreateStoredInfoType::new(self.inner.clone())
     }
 
@@ -891,8 +882,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_stored_info_type(&self) -> super::builder::dlp_service::UpdateStoredInfoType
-    {
+    pub fn update_stored_info_type(&self) -> super::builder::dlp_service::UpdateStoredInfoType {
         super::builder::dlp_service::UpdateStoredInfoType::new(self.inner.clone())
     }
 
@@ -916,8 +906,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_stored_info_type(&self) -> super::builder::dlp_service::GetStoredInfoType
-    {
+    pub fn get_stored_info_type(&self) -> super::builder::dlp_service::GetStoredInfoType {
         super::builder::dlp_service::GetStoredInfoType::new(self.inner.clone())
     }
 
@@ -925,8 +914,7 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
-    pub fn list_stored_info_types(&self) -> super::builder::dlp_service::ListStoredInfoTypes
-    {
+    pub fn list_stored_info_types(&self) -> super::builder::dlp_service::ListStoredInfoTypes {
         super::builder::dlp_service::ListStoredInfoTypes::new(self.inner.clone())
     }
 
@@ -949,26 +937,24 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_stored_info_type(&self) -> super::builder::dlp_service::DeleteStoredInfoType
-    {
+    pub fn delete_stored_info_type(&self) -> super::builder::dlp_service::DeleteStoredInfoType {
         super::builder::dlp_service::DeleteStoredInfoType::new(self.inner.clone())
     }
 
     /// Lists project data profiles for an organization.
-    pub fn list_project_data_profiles(&self) -> super::builder::dlp_service::ListProjectDataProfiles
-    {
+    pub fn list_project_data_profiles(
+        &self,
+    ) -> super::builder::dlp_service::ListProjectDataProfiles {
         super::builder::dlp_service::ListProjectDataProfiles::new(self.inner.clone())
     }
 
     /// Lists table data profiles for an organization.
-    pub fn list_table_data_profiles(&self) -> super::builder::dlp_service::ListTableDataProfiles
-    {
+    pub fn list_table_data_profiles(&self) -> super::builder::dlp_service::ListTableDataProfiles {
         super::builder::dlp_service::ListTableDataProfiles::new(self.inner.clone())
     }
 
     /// Lists column data profiles for an organization.
-    pub fn list_column_data_profiles(&self) -> super::builder::dlp_service::ListColumnDataProfiles
-    {
+    pub fn list_column_data_profiles(&self) -> super::builder::dlp_service::ListColumnDataProfiles {
         super::builder::dlp_service::ListColumnDataProfiles::new(self.inner.clone())
     }
 
@@ -989,14 +975,14 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_project_data_profile(&self) -> super::builder::dlp_service::GetProjectDataProfile
-    {
+    pub fn get_project_data_profile(&self) -> super::builder::dlp_service::GetProjectDataProfile {
         super::builder::dlp_service::GetProjectDataProfile::new(self.inner.clone())
     }
 
     /// Lists file store data profiles for an organization.
-    pub fn list_file_store_data_profiles(&self) -> super::builder::dlp_service::ListFileStoreDataProfiles
-    {
+    pub fn list_file_store_data_profiles(
+        &self,
+    ) -> super::builder::dlp_service::ListFileStoreDataProfiles {
         super::builder::dlp_service::ListFileStoreDataProfiles::new(self.inner.clone())
     }
 
@@ -1017,8 +1003,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_file_store_data_profile(&self) -> super::builder::dlp_service::GetFileStoreDataProfile
-    {
+    pub fn get_file_store_data_profile(
+        &self,
+    ) -> super::builder::dlp_service::GetFileStoreDataProfile {
         super::builder::dlp_service::GetFileStoreDataProfile::new(self.inner.clone())
     }
 
@@ -1039,8 +1026,9 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_file_store_data_profile(&self) -> super::builder::dlp_service::DeleteFileStoreDataProfile
-    {
+    pub fn delete_file_store_data_profile(
+        &self,
+    ) -> super::builder::dlp_service::DeleteFileStoreDataProfile {
         super::builder::dlp_service::DeleteFileStoreDataProfile::new(self.inner.clone())
     }
 
@@ -1061,8 +1049,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_table_data_profile(&self) -> super::builder::dlp_service::GetTableDataProfile
-    {
+    pub fn get_table_data_profile(&self) -> super::builder::dlp_service::GetTableDataProfile {
         super::builder::dlp_service::GetTableDataProfile::new(self.inner.clone())
     }
 
@@ -1083,8 +1070,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_column_data_profile(&self) -> super::builder::dlp_service::GetColumnDataProfile
-    {
+    pub fn get_column_data_profile(&self) -> super::builder::dlp_service::GetColumnDataProfile {
         super::builder::dlp_service::GetColumnDataProfile::new(self.inner.clone())
     }
 
@@ -1105,8 +1091,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_table_data_profile(&self) -> super::builder::dlp_service::DeleteTableDataProfile
-    {
+    pub fn delete_table_data_profile(&self) -> super::builder::dlp_service::DeleteTableDataProfile {
         super::builder::dlp_service::DeleteTableDataProfile::new(self.inner.clone())
     }
 
@@ -1129,8 +1114,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn hybrid_inspect_dlp_job(&self) -> super::builder::dlp_service::HybridInspectDlpJob
-    {
+    pub fn hybrid_inspect_dlp_job(&self) -> super::builder::dlp_service::HybridInspectDlpJob {
         super::builder::dlp_service::HybridInspectDlpJob::new(self.inner.clone())
     }
 
@@ -1151,8 +1135,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn finish_dlp_job(&self) -> super::builder::dlp_service::FinishDlpJob
-    {
+    pub fn finish_dlp_job(&self) -> super::builder::dlp_service::FinishDlpJob {
         super::builder::dlp_service::FinishDlpJob::new(self.inner.clone())
     }
 
@@ -1173,8 +1156,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_connection(&self) -> super::builder::dlp_service::CreateConnection
-    {
+    pub fn create_connection(&self) -> super::builder::dlp_service::CreateConnection {
         super::builder::dlp_service::CreateConnection::new(self.inner.clone())
     }
 
@@ -1195,21 +1177,18 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_connection(&self) -> super::builder::dlp_service::GetConnection
-    {
+    pub fn get_connection(&self) -> super::builder::dlp_service::GetConnection {
         super::builder::dlp_service::GetConnection::new(self.inner.clone())
     }
 
     /// Lists Connections in a parent. Use SearchConnections to see all connections
     /// within an organization.
-    pub fn list_connections(&self) -> super::builder::dlp_service::ListConnections
-    {
+    pub fn list_connections(&self) -> super::builder::dlp_service::ListConnections {
         super::builder::dlp_service::ListConnections::new(self.inner.clone())
     }
 
     /// Searches for Connections in a parent.
-    pub fn search_connections(&self) -> super::builder::dlp_service::SearchConnections
-    {
+    pub fn search_connections(&self) -> super::builder::dlp_service::SearchConnections {
         super::builder::dlp_service::SearchConnections::new(self.inner.clone())
     }
 
@@ -1229,8 +1208,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_connection(&self) -> super::builder::dlp_service::DeleteConnection
-    {
+    pub fn delete_connection(&self) -> super::builder::dlp_service::DeleteConnection {
         super::builder::dlp_service::DeleteConnection::new(self.inner.clone())
     }
 
@@ -1251,8 +1229,7 @@ impl DlpService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_connection(&self) -> super::builder::dlp_service::UpdateConnection
-    {
+    pub fn update_connection(&self) -> super::builder::dlp_service::UpdateConnection {
         super::builder::dlp_service::UpdateConnection::new(self.inner.clone())
     }
 }

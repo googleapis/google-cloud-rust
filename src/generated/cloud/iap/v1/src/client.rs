@@ -72,7 +72,9 @@ impl IdentityAwareProxyAdminService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_admin_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::identity_aware_proxy_admin_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_admin_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,44 @@ impl IdentityAwareProxyAdminService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::IdentityAwareProxyAdminService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::IdentityAwareProxyAdminService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyAdminService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
         super::transport::IdentityAwareProxyAdminService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
-        Self::build_transport(conf).await.map(super::tracing::IdentityAwareProxyAdminService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyAdminService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::IdentityAwareProxyAdminService::new)
     }
 
     /// Sets the access control policy for an Identity-Aware Proxy protected
@@ -124,8 +142,9 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy {
         super::builder::identity_aware_proxy_admin_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -149,8 +168,9 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::identity_aware_proxy_admin_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::GetIamPolicy {
         super::builder::identity_aware_proxy_admin_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -174,9 +194,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions
-    {
-        super::builder::identity_aware_proxy_admin_service::TestIamPermissions::new(self.inner.clone())
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions {
+        super::builder::identity_aware_proxy_admin_service::TestIamPermissions::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets the IAP settings on a particular IAP protected resource.
@@ -196,8 +219,9 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iap_settings(&self) -> super::builder::identity_aware_proxy_admin_service::GetIapSettings
-    {
+    pub fn get_iap_settings(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::GetIapSettings {
         super::builder::identity_aware_proxy_admin_service::GetIapSettings::new(self.inner.clone())
     }
 
@@ -219,9 +243,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_iap_settings(&self) -> super::builder::identity_aware_proxy_admin_service::UpdateIapSettings
-    {
-        super::builder::identity_aware_proxy_admin_service::UpdateIapSettings::new(self.inner.clone())
+    pub fn update_iap_settings(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::UpdateIapSettings {
+        super::builder::identity_aware_proxy_admin_service::UpdateIapSettings::new(
+            self.inner.clone(),
+        )
     }
 
     /// Validates that a given CEL expression conforms to IAP restrictions.
@@ -241,17 +268,23 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn validate_iap_attribute_expression(&self) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression
-    {
-        super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression::new(self.inner.clone())
+    pub fn validate_iap_attribute_expression(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression {
+        super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists the existing TunnelDestGroups. To group across all locations, use a
     /// `-` as the location ID. For example:
     /// `/v1/projects/123/iap_tunnel/locations/-/destGroups`
-    pub fn list_tunnel_dest_groups(&self) -> super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups
-    {
-        super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups::new(self.inner.clone())
+    pub fn list_tunnel_dest_groups(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups {
+        super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups::new(
+            self.inner.clone(),
+        )
     }
 
     /// Creates a new TunnelDestGroup.
@@ -271,9 +304,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_tunnel_dest_group(&self) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup
-    {
-        super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(self.inner.clone())
+    pub fn create_tunnel_dest_group(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(
+            self.inner.clone(),
+        )
     }
 
     /// Retrieves an existing TunnelDestGroup.
@@ -293,9 +329,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_tunnel_dest_group(&self) -> super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup
-    {
-        super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup::new(self.inner.clone())
+    pub fn get_tunnel_dest_group(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup::new(
+            self.inner.clone(),
+        )
     }
 
     /// Deletes a TunnelDestGroup.
@@ -314,9 +353,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_tunnel_dest_group(&self) -> super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup
-    {
-        super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup::new(self.inner.clone())
+    pub fn delete_tunnel_dest_group(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup::new(
+            self.inner.clone(),
+        )
     }
 
     /// Updates a TunnelDestGroup.
@@ -336,9 +378,12 @@ impl IdentityAwareProxyAdminService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_tunnel_dest_group(&self) -> super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup
-    {
-        super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup::new(self.inner.clone())
+    pub fn update_tunnel_dest_group(
+        &self,
+    ) -> super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup {
+        super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup::new(
+            self.inner.clone(),
+        )
     }
 }
 
@@ -400,7 +445,9 @@ impl IdentityAwareProxyOAuthService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_o_auth_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::identity_aware_proxy_o_auth_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_aware_proxy_o_auth_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -408,28 +455,44 @@ impl IdentityAwareProxyOAuthService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::IdentityAwareProxyOAuthService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::IdentityAwareProxyOAuthService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::IdentityAwareProxyOAuthService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
         super::transport::IdentityAwareProxyOAuthService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
-        Self::build_transport(conf).await.map(super::tracing::IdentityAwareProxyOAuthService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityAwareProxyOAuthService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::IdentityAwareProxyOAuthService::new)
     }
 
     /// Lists the existing brands for the project.
@@ -449,8 +512,7 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_brands(&self) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands
-    {
+    pub fn list_brands(&self) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands {
         super::builder::identity_aware_proxy_o_auth_service::ListBrands::new(self.inner.clone())
     }
 
@@ -478,8 +540,7 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand
-    {
+    pub fn create_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
         super::builder::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
     }
 
@@ -500,8 +561,7 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand
-    {
+    pub fn get_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand {
         super::builder::identity_aware_proxy_o_auth_service::GetBrand::new(self.inner.clone())
     }
 
@@ -524,15 +584,21 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_identity_aware_proxy_client(&self) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient
-    {
-        super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(self.inner.clone())
+    pub fn create_identity_aware_proxy_client(
+        &self,
+    ) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists the existing clients for the brand.
-    pub fn list_identity_aware_proxy_clients(&self) -> super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients
-    {
-        super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients::new(self.inner.clone())
+    pub fn list_identity_aware_proxy_clients(
+        &self,
+    ) -> super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients {
+        super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients::new(
+            self.inner.clone(),
+        )
     }
 
     /// Retrieves an Identity Aware Proxy (IAP) OAuth client.
@@ -553,9 +619,12 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_identity_aware_proxy_client(&self) -> super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient
-    {
-        super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient::new(self.inner.clone())
+    pub fn get_identity_aware_proxy_client(
+        &self,
+    ) -> super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient::new(
+            self.inner.clone(),
+        )
     }
 
     /// Resets an Identity Aware Proxy (IAP) OAuth client secret. Useful if the
@@ -576,7 +645,9 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn reset_identity_aware_proxy_client_secret(&self) -> super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
+    pub fn reset_identity_aware_proxy_client_secret(
+        &self,
+    ) -> super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
     {
         super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret::new(self.inner.clone())
     }
@@ -599,8 +670,11 @@ impl IdentityAwareProxyOAuthService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_identity_aware_proxy_client(&self) -> super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient
-    {
-        super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient::new(self.inner.clone())
+    pub fn delete_identity_aware_proxy_client(
+        &self,
+    ) -> super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient {
+        super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient::new(
+            self.inner.clone(),
+        )
     }
 }

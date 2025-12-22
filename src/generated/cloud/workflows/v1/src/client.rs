@@ -84,34 +84,47 @@ impl Workflows {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Workflows + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Workflows + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workflows>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workflows>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Workflows> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Workflows> {
         super::transport::Workflows::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Workflows> {
-        Self::build_transport(conf).await.map(super::tracing::Workflows::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Workflows> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Workflows::new)
     }
 
     /// Lists workflows in a given project and location.
     /// The default order is not specified.
-    pub fn list_workflows(&self) -> super::builder::workflows::ListWorkflows
-    {
+    pub fn list_workflows(&self) -> super::builder::workflows::ListWorkflows {
         super::builder::workflows::ListWorkflows::new(self.inner.clone())
     }
 
@@ -132,8 +145,7 @@ impl Workflows {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workflow(&self) -> super::builder::workflows::GetWorkflow
-    {
+    pub fn get_workflow(&self) -> super::builder::workflows::GetWorkflow {
         super::builder::workflows::GetWorkflow::new(self.inner.clone())
     }
 
@@ -150,8 +162,7 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workflow(&self) -> super::builder::workflows::CreateWorkflow
-    {
+    pub fn create_workflow(&self) -> super::builder::workflows::CreateWorkflow {
         super::builder::workflows::CreateWorkflow::new(self.inner.clone())
     }
 
@@ -168,8 +179,7 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workflow(&self) -> super::builder::workflows::DeleteWorkflow
-    {
+    pub fn delete_workflow(&self) -> super::builder::workflows::DeleteWorkflow {
         super::builder::workflows::DeleteWorkflow::new(self.inner.clone())
     }
 
@@ -188,20 +198,17 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workflow(&self) -> super::builder::workflows::UpdateWorkflow
-    {
+    pub fn update_workflow(&self) -> super::builder::workflows::UpdateWorkflow {
         super::builder::workflows::UpdateWorkflow::new(self.inner.clone())
     }
 
     /// Lists revisions for a given workflow.
-    pub fn list_workflow_revisions(&self) -> super::builder::workflows::ListWorkflowRevisions
-    {
+    pub fn list_workflow_revisions(&self) -> super::builder::workflows::ListWorkflowRevisions {
         super::builder::workflows::ListWorkflowRevisions::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::workflows::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::workflows::ListLocations {
         super::builder::workflows::ListLocations::new(self.inner.clone())
     }
 
@@ -222,16 +229,14 @@ impl Workflows {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::workflows::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::workflows::GetLocation {
         super::builder::workflows::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::workflows::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::workflows::ListOperations {
         super::builder::workflows::ListOperations::new(self.inner.clone())
     }
 
@@ -254,8 +259,7 @@ impl Workflows {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::workflows::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::workflows::GetOperation {
         super::builder::workflows::GetOperation::new(self.inner.clone())
     }
 
@@ -277,8 +281,7 @@ impl Workflows {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::workflows::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::workflows::DeleteOperation {
         super::builder::workflows::DeleteOperation::new(self.inner.clone())
     }
 }

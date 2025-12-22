@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [SecureSourceManager](super::stub::SecureSourceManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SecureSourceManager<T>
-where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SecureSourceManager<T>
-where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SecureSourceManager for SecureSourceManager<T>
-where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_instances(
         &self,
@@ -433,7 +439,9 @@ where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
         req: crate::model::BatchCreatePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.batch_create_pull_request_comments(req, options).await
+        self.inner
+            .batch_create_pull_request_comments(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -451,7 +459,9 @@ where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
         req: crate::model::UnresolvePullRequestCommentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.unresolve_pull_request_comments(req, options).await
+        self.inner
+            .unresolve_pull_request_comments(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -580,7 +590,6 @@ where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -595,4 +604,3 @@ where T: super::stub::SecureSourceManager + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

@@ -39,7 +39,10 @@ pub mod cloud_shell_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudShellService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod cloud_shell_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod cloud_shell_service {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod cloud_shell_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Environment> {
-            (*self.0.stub).get_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -146,14 +156,17 @@ pub mod cloud_shell_service {
     pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
 
     impl StartEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StartEnvironmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::StartEnvironmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -171,16 +184,23 @@ pub mod cloud_shell_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_environment][crate::client::CloudShellService::start_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).start_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_environment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::StartEnvironmentResponse, crate::model::StartEnvironmentMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::StartEnvironmentResponse, crate::model::StartEnvironmentMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::StartEnvironmentResponse,
+            crate::model::StartEnvironmentMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::StartEnvironmentResponse,
+                crate::model::StartEnvironmentMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -224,7 +244,7 @@ pub mod cloud_shell_service {
         pub fn set_public_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.public_keys = v.into_iter().map(|i| i.into()).collect();
@@ -261,14 +281,17 @@ pub mod cloud_shell_service {
     pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
 
     impl AuthorizeEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AuthorizeEnvironmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AuthorizeEnvironmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -286,16 +309,23 @@ pub mod cloud_shell_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [authorize_environment][crate::client::CloudShellService::authorize_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).authorize_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .authorize_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `authorize_environment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::AuthorizeEnvironmentResponse, crate::model::AuthorizeEnvironmentMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::AuthorizeEnvironmentResponse, crate::model::AuthorizeEnvironmentMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::AuthorizeEnvironmentResponse,
+            crate::model::AuthorizeEnvironmentMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::AuthorizeEnvironmentResponse,
+                crate::model::AuthorizeEnvironmentMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -343,7 +373,8 @@ pub mod cloud_shell_service {
 
         /// Sets the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.expire_time = std::option::Option::Some(v.into());
             self
@@ -351,7 +382,8 @@ pub mod cloud_shell_service {
 
         /// Sets or clears the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.expire_time = v.map(|x| x.into());
             self
@@ -387,10 +419,10 @@ pub mod cloud_shell_service {
     pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
 
     impl AddPublicKey {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -412,16 +444,21 @@ pub mod cloud_shell_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [add_public_key][crate::client::CloudShellService::add_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).add_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .add_public_key(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_public_key`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AddPublicKeyResponse,
+                crate::model::AddPublicKeyMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -491,10 +528,10 @@ pub mod cloud_shell_service {
     pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
     impl RemovePublicKey {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -516,16 +553,21 @@ pub mod cloud_shell_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_public_key][crate::client::CloudShellService::remove_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).remove_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_public_key(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_public_key`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::RemovePublicKeyResponse,
+                crate::model::RemovePublicKeyMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -594,14 +636,17 @@ pub mod cloud_shell_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -614,7 +659,10 @@ pub mod cloud_shell_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -630,5 +678,4 @@ pub mod cloud_shell_service {
             &mut self.0.options
         }
     }
-
 }

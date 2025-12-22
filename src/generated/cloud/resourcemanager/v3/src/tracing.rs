@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Folders](super::stub::Folders) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Folders<T>
-where T: super::stub::Folders + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Folders + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Folders<T>
-where T: super::stub::Folders + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Folders + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Folders for Folders<T>
-where T: super::stub::Folders + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Folders + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_folder(
         &self,
@@ -139,7 +145,6 @@ where T: super::stub::Folders + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -158,19 +163,25 @@ where T: super::stub::Folders + std::fmt::Debug + Send + Sync {
 /// Implements a [Organizations](super::stub::Organizations) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Organizations<T>
-where T: super::stub::Organizations + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Organizations + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Organizations<T>
-where T: super::stub::Organizations + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Organizations + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Organizations for Organizations<T>
-where T: super::stub::Organizations + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Organizations + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_organization(
         &self,
@@ -224,25 +235,30 @@ where T: super::stub::Organizations + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
-
 }
 
 /// Implements a [Projects](super::stub::Projects) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Projects<T>
-where T: super::stub::Projects + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Projects<T>
-where T: super::stub::Projects + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Projects for Projects<T>
-where T: super::stub::Projects + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_project(
         &self,
@@ -351,7 +367,6 @@ where T: super::stub::Projects + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -370,19 +385,25 @@ where T: super::stub::Projects + std::fmt::Debug + Send + Sync {
 /// Implements a [TagBindings](super::stub::TagBindings) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TagBindings<T>
-where T: super::stub::TagBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagBindings + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TagBindings<T>
-where T: super::stub::TagBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagBindings + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TagBindings for TagBindings<T>
-where T: super::stub::TagBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagBindings + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_tag_bindings(
         &self,
@@ -428,7 +449,6 @@ where T: super::stub::TagBindings + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -447,19 +467,25 @@ where T: super::stub::TagBindings + std::fmt::Debug + Send + Sync {
 /// Implements a [TagHolds](super::stub::TagHolds) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TagHolds<T>
-where T: super::stub::TagHolds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagHolds + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TagHolds<T>
-where T: super::stub::TagHolds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagHolds + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TagHolds for TagHolds<T>
-where T: super::stub::TagHolds + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagHolds + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_tag_hold(
         &self,
@@ -496,7 +522,6 @@ where T: super::stub::TagHolds + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -515,19 +540,25 @@ where T: super::stub::TagHolds + std::fmt::Debug + Send + Sync {
 /// Implements a [TagKeys](super::stub::TagKeys) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TagKeys<T>
-where T: super::stub::TagKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagKeys + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TagKeys<T>
-where T: super::stub::TagKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagKeys + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TagKeys for TagKeys<T>
-where T: super::stub::TagKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagKeys + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_tag_keys(
         &self,
@@ -618,7 +649,6 @@ where T: super::stub::TagKeys + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -637,19 +667,25 @@ where T: super::stub::TagKeys + std::fmt::Debug + Send + Sync {
 /// Implements a [TagValues](super::stub::TagValues) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TagValues<T>
-where T: super::stub::TagValues + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagValues + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TagValues<T>
-where T: super::stub::TagValues + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagValues + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TagValues for TagValues<T>
-where T: super::stub::TagValues + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TagValues + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_tag_values(
         &self,
@@ -740,7 +776,6 @@ where T: super::stub::TagValues + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -755,4 +790,3 @@ where T: super::stub::TagValues + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

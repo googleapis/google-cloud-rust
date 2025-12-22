@@ -39,7 +39,10 @@ pub mod transcoder_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TranscoderService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod transcoder_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod transcoder_service {
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).create_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -120,7 +130,8 @@ pub mod transcoder_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_job<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Job>
+        where
+            T: std::convert::Into<crate::model::Job>,
         {
             self.0.request.job = std::option::Option::Some(v.into());
             self
@@ -130,7 +141,8 @@ pub mod transcoder_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Job>
+        where
+            T: std::convert::Into<crate::model::Job>,
         {
             self.0.request.job = v.map(|x| x.into());
             self
@@ -169,10 +181,10 @@ pub mod transcoder_service {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -189,11 +201,17 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListJobsResponse> {
-            (*self.0.stub).list_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -205,7 +223,10 @@ pub mod transcoder_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -271,10 +292,10 @@ pub mod transcoder_service {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -291,7 +312,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
@@ -331,10 +355,10 @@ pub mod transcoder_service {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -351,7 +375,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
@@ -397,14 +424,17 @@ pub mod transcoder_service {
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
     impl CreateJobTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateJobTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateJobTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -417,7 +447,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::JobTemplate> {
-            (*self.0.stub).create_job_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_job_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTemplateRequest::parent].
@@ -432,7 +465,8 @@ pub mod transcoder_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_job_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::JobTemplate>
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
         {
             self.0.request.job_template = std::option::Option::Some(v.into());
             self
@@ -442,7 +476,8 @@ pub mod transcoder_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::JobTemplate>
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
         {
             self.0.request.job_template = v.map(|x| x.into());
             self
@@ -489,14 +524,17 @@ pub mod transcoder_service {
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
     impl ListJobTemplates {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListJobTemplatesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListJobTemplatesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -509,11 +547,17 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListJobTemplatesResponse> {
-            (*self.0.stub).list_job_templates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_job_templates(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListJobTemplatesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListJobTemplatesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -525,7 +569,10 @@ pub mod transcoder_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTemplatesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTemplatesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -591,10 +638,10 @@ pub mod transcoder_service {
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
     impl GetJobTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -611,7 +658,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::JobTemplate> {
-            (*self.0.stub).get_job_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_job_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobTemplateRequest::name].
@@ -651,14 +701,17 @@ pub mod transcoder_service {
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 
     impl DeleteJobTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteJobTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteJobTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -671,7 +724,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_job_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_job_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTemplateRequest::name].
@@ -695,5 +751,4 @@ pub mod transcoder_service {
             &mut self.0.options
         }
     }
-
 }

@@ -17,12 +17,12 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -33,7 +33,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SlidesAddOnManifest {
-
     /// If present, this overrides the configuration from
     /// `addOns.common.homepageTrigger`.
     pub homepage_trigger: std::option::Option<apps_script_type::model::HomepageExtensionPoint>,
@@ -59,7 +58,8 @@ impl SlidesAddOnManifest {
     /// let x = SlidesAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = std::option::Option::Some(v.into());
         self
@@ -75,7 +75,8 @@ impl SlidesAddOnManifest {
     /// let x = SlidesAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
     /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>
+    where
+        T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
     {
         self.homepage_trigger = v.map(|x| x.into());
         self
@@ -90,7 +91,8 @@ impl SlidesAddOnManifest {
     /// let x = SlidesAddOnManifest::new().set_on_file_scope_granted_trigger(SlidesExtensionPoint::default()/* use setters */);
     /// ```
     pub fn set_on_file_scope_granted_trigger<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SlidesExtensionPoint>
+    where
+        T: std::convert::Into<crate::model::SlidesExtensionPoint>,
     {
         self.on_file_scope_granted_trigger = std::option::Option::Some(v.into());
         self
@@ -105,8 +107,12 @@ impl SlidesAddOnManifest {
     /// let x = SlidesAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(Some(SlidesExtensionPoint::default()/* use setters */));
     /// let x = SlidesAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(None::<SlidesExtensionPoint>);
     /// ```
-    pub fn set_or_clear_on_file_scope_granted_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SlidesExtensionPoint>
+    pub fn set_or_clear_on_file_scope_granted_trigger<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SlidesExtensionPoint>,
     {
         self.on_file_scope_granted_trigger = v.map(|x| x.into());
         self
@@ -123,7 +129,6 @@ impl wkt::message::Message for SlidesAddOnManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SlidesExtensionPoint {
-
     /// Required. The endpoint to execute when this extension point is activated.
     pub run_function: std::string::String,
 

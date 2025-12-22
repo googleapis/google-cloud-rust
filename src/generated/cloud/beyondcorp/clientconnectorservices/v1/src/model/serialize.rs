@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ClientConnectorService {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -63,9 +63,9 @@ impl serde::ser::Serialize for super::client_connector_service::Ingress {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.config() {
             state.serialize_entry("config", value)?;
@@ -85,9 +85,9 @@ impl serde::ser::Serialize for super::client_connector_service::ingress::Config 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.transport_protocol) {
             state.serialize_entry("transportProtocol", &self.transport_protocol)?;
@@ -110,9 +110,9 @@ impl serde::ser::Serialize for super::client_connector_service::ingress::config:
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.address.is_empty() {
             state.serialize_entry("address", &self.address)?;
@@ -135,9 +135,9 @@ impl serde::ser::Serialize for super::client_connector_service::Egress {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.peered_vpc() {
             state.serialize_entry("peeredVpc", value)?;
@@ -157,9 +157,9 @@ impl serde::ser::Serialize for super::client_connector_service::egress::PeeredVp
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.network_vpc.is_empty() {
             state.serialize_entry("networkVpc", &self.network_vpc)?;
@@ -179,9 +179,9 @@ impl serde::ser::Serialize for super::ListClientConnectorServicesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -222,9 +222,9 @@ impl serde::ser::Serialize for super::ListClientConnectorServicesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.client_connector_services.is_empty() {
             state.serialize_entry("clientConnectorServices", &self.client_connector_services)?;
@@ -250,9 +250,9 @@ impl serde::ser::Serialize for super::GetClientConnectorServiceRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -272,15 +272,18 @@ impl serde::ser::Serialize for super::CreateClientConnectorServiceRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
         }
         if !self.client_connector_service_id.is_empty() {
-            state.serialize_entry("clientConnectorServiceId", &self.client_connector_service_id)?;
+            state.serialize_entry(
+                "clientConnectorServiceId",
+                &self.client_connector_service_id,
+            )?;
         }
         if self.client_connector_service.is_some() {
             state.serialize_entry("clientConnectorService", &self.client_connector_service)?;
@@ -306,9 +309,9 @@ impl serde::ser::Serialize for super::UpdateClientConnectorServiceRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -340,9 +343,9 @@ impl serde::ser::Serialize for super::DeleteClientConnectorServiceRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -368,9 +371,9 @@ impl serde::ser::Serialize for super::ClientConnectorServiceOperationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;

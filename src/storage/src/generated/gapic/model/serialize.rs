@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::DeleteBucketRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -37,10 +37,15 @@ impl serde::ser::Serialize for super::DeleteBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -49,10 +54,15 @@ impl serde::ser::Serialize for super::DeleteBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -69,9 +79,9 @@ impl serde::ser::Serialize for super::GetBucketRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -83,10 +93,15 @@ impl serde::ser::Serialize for super::GetBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -95,10 +110,15 @@ impl serde::ser::Serialize for super::GetBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.read_mask.is_some() {
             state.serialize_entry("readMask", &self.read_mask)?;
@@ -118,9 +138,9 @@ impl serde::ser::Serialize for super::CreateBucketRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -135,7 +155,10 @@ impl serde::ser::Serialize for super::CreateBucketRequest {
             state.serialize_entry("predefinedAcl", &self.predefined_acl)?;
         }
         if !self.predefined_default_object_acl.is_empty() {
-            state.serialize_entry("predefinedDefaultObjectAcl", &self.predefined_default_object_acl)?;
+            state.serialize_entry(
+                "predefinedDefaultObjectAcl",
+                &self.predefined_default_object_acl,
+            )?;
         }
         if !wkt::internal::is_default(&self.enable_object_retention) {
             state.serialize_entry("enableObjectRetention", &self.enable_object_retention)?;
@@ -155,9 +178,9 @@ impl serde::ser::Serialize for super::ListBucketsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -201,9 +224,9 @@ impl serde::ser::Serialize for super::ListBucketsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.buckets.is_empty() {
             state.serialize_entry("buckets", &self.buckets)?;
@@ -229,9 +252,9 @@ impl serde::ser::Serialize for super::LockBucketRetentionPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -246,7 +269,10 @@ impl serde::ser::Serialize for super::LockBucketRetentionPolicyRequest {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -263,9 +289,9 @@ impl serde::ser::Serialize for super::UpdateBucketRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.bucket.is_some() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -277,10 +303,15 @@ impl serde::ser::Serialize for super::UpdateBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -289,16 +320,24 @@ impl serde::ser::Serialize for super::UpdateBucketRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if !self.predefined_acl.is_empty() {
             state.serialize_entry("predefinedAcl", &self.predefined_acl)?;
         }
         if !self.predefined_default_object_acl.is_empty() {
-            state.serialize_entry("predefinedDefaultObjectAcl", &self.predefined_default_object_acl)?;
+            state.serialize_entry(
+                "predefinedDefaultObjectAcl",
+                &self.predefined_default_object_acl,
+            )?;
         }
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -318,9 +357,9 @@ impl serde::ser::Serialize for super::ComposeObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.destination.is_some() {
             state.serialize_entry("destination", &self.destination)?;
@@ -338,7 +377,9 @@ impl serde::ser::Serialize for super::ComposeObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -350,16 +391,24 @@ impl serde::ser::Serialize for super::ComposeObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if !self.kms_key.is_empty() {
             state.serialize_entry("kmsKey", &self.kms_key)?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if self.object_checksums.is_some() {
             state.serialize_entry("objectChecksums", &self.object_checksums)?;
@@ -379,9 +428,9 @@ impl serde::ser::Serialize for super::compose_object_request::SourceObject {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -416,9 +465,9 @@ impl serde::ser::Serialize for super::compose_object_request::source_object::Obj
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.if_generation_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -427,7 +476,9 @@ impl serde::ser::Serialize for super::compose_object_request::source_object::Obj
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -447,9 +498,9 @@ impl serde::ser::Serialize for super::DeleteObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -476,7 +527,9 @@ impl serde::ser::Serialize for super::DeleteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -488,10 +541,15 @@ impl serde::ser::Serialize for super::DeleteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -500,10 +558,15 @@ impl serde::ser::Serialize for super::DeleteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -512,13 +575,21 @@ impl serde::ser::Serialize for super::DeleteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -535,9 +606,9 @@ impl serde::ser::Serialize for super::RestoreObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -567,7 +638,9 @@ impl serde::ser::Serialize for super::RestoreObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -579,10 +652,15 @@ impl serde::ser::Serialize for super::RestoreObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -591,10 +669,15 @@ impl serde::ser::Serialize for super::RestoreObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -603,16 +686,24 @@ impl serde::ser::Serialize for super::RestoreObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.copy_source_acl.is_some() {
             state.serialize_entry("copySourceAcl", &self.copy_source_acl)?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -629,9 +720,9 @@ impl serde::ser::Serialize for super::ReadObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -682,7 +773,9 @@ impl serde::ser::Serialize for super::ReadObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -694,10 +787,15 @@ impl serde::ser::Serialize for super::ReadObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -706,10 +804,15 @@ impl serde::ser::Serialize for super::ReadObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -718,13 +821,21 @@ impl serde::ser::Serialize for super::ReadObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if self.read_mask.is_some() {
             state.serialize_entry("readMask", &self.read_mask)?;
@@ -744,9 +855,9 @@ impl serde::ser::Serialize for super::GetObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -776,7 +887,9 @@ impl serde::ser::Serialize for super::GetObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -788,10 +901,15 @@ impl serde::ser::Serialize for super::GetObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -800,10 +918,15 @@ impl serde::ser::Serialize for super::GetObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -812,13 +935,21 @@ impl serde::ser::Serialize for super::GetObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if self.read_mask.is_some() {
             state.serialize_entry("readMask", &self.read_mask)?;
@@ -841,9 +972,9 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.resource.is_some() {
             state.serialize_entry("resource", &self.resource)?;
@@ -858,7 +989,9 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -870,10 +1003,15 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -882,10 +1020,15 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -894,10 +1037,15 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.object_size.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -906,7 +1054,9 @@ impl serde::ser::Serialize for super::WriteObjectSpec {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("objectSize", &__With(&self.object_size))?;
@@ -929,9 +1079,9 @@ impl serde::ser::Serialize for super::ListObjectsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -976,7 +1126,10 @@ impl serde::ser::Serialize for super::ListObjectsRequest {
             state.serialize_entry("softDeleted", &self.soft_deleted)?;
         }
         if !wkt::internal::is_default(&self.include_folders_as_prefixes) {
-            state.serialize_entry("includeFoldersAsPrefixes", &self.include_folders_as_prefixes)?;
+            state.serialize_entry(
+                "includeFoldersAsPrefixes",
+                &self.include_folders_as_prefixes,
+            )?;
         }
         if !self.match_glob.is_empty() {
             state.serialize_entry("matchGlob", &self.match_glob)?;
@@ -999,9 +1152,9 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.destination_name.is_empty() {
             state.serialize_entry("destinationName", &self.destination_name)?;
@@ -1046,7 +1199,9 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -1058,10 +1213,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1070,10 +1230,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1082,10 +1247,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if self.if_source_generation_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1094,10 +1264,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceGenerationMatch", &__With(&self.if_source_generation_match))?;
+            state.serialize_entry(
+                "ifSourceGenerationMatch",
+                &__With(&self.if_source_generation_match),
+            )?;
         }
         if self.if_source_generation_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1106,10 +1281,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceGenerationNotMatch", &__With(&self.if_source_generation_not_match))?;
+            state.serialize_entry(
+                "ifSourceGenerationNotMatch",
+                &__With(&self.if_source_generation_not_match),
+            )?;
         }
         if self.if_source_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1118,10 +1298,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceMetagenerationMatch", &__With(&self.if_source_metageneration_match))?;
+            state.serialize_entry(
+                "ifSourceMetagenerationMatch",
+                &__With(&self.if_source_metageneration_match),
+            )?;
         }
         if self.if_source_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1130,10 +1315,15 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceMetagenerationNotMatch", &__With(&self.if_source_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifSourceMetagenerationNotMatch",
+                &__With(&self.if_source_metageneration_not_match),
+            )?;
         }
         if !wkt::internal::is_default(&self.max_bytes_rewritten_per_call) {
             struct __With<'a>(&'a i64);
@@ -1145,10 +1335,16 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("maxBytesRewrittenPerCall", &__With(&self.max_bytes_rewritten_per_call))?;
+            state.serialize_entry(
+                "maxBytesRewrittenPerCall",
+                &__With(&self.max_bytes_rewritten_per_call),
+            )?;
         }
         if !self.copy_source_encryption_algorithm.is_empty() {
-            state.serialize_entry("copySourceEncryptionAlgorithm", &self.copy_source_encryption_algorithm)?;
+            state.serialize_entry(
+                "copySourceEncryptionAlgorithm",
+                &self.copy_source_encryption_algorithm,
+            )?;
         }
         if !self.copy_source_encryption_key_bytes.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -1160,7 +1356,10 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("copySourceEncryptionKeyBytes", &__With(&self.copy_source_encryption_key_bytes))?;
+            state.serialize_entry(
+                "copySourceEncryptionKeyBytes",
+                &__With(&self.copy_source_encryption_key_bytes),
+            )?;
         }
         if !self.copy_source_encryption_key_sha256_bytes.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -1172,10 +1371,16 @@ impl serde::ser::Serialize for super::RewriteObjectRequest {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("copySourceEncryptionKeySha256Bytes", &__With(&self.copy_source_encryption_key_sha256_bytes))?;
+            state.serialize_entry(
+                "copySourceEncryptionKeySha256Bytes",
+                &__With(&self.copy_source_encryption_key_sha256_bytes),
+            )?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if self.object_checksums.is_some() {
             state.serialize_entry("objectChecksums", &self.object_checksums)?;
@@ -1195,9 +1400,9 @@ impl serde::ser::Serialize for super::RewriteResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.total_bytes_rewritten) {
             struct __With<'a>(&'a i64);
@@ -1247,9 +1452,9 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bucket.is_empty() {
             state.serialize_entry("bucket", &self.bucket)?;
@@ -1267,10 +1472,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceGenerationMatch", &__With(&self.if_source_generation_match))?;
+            state.serialize_entry(
+                "ifSourceGenerationMatch",
+                &__With(&self.if_source_generation_match),
+            )?;
         }
         if self.if_source_generation_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1279,10 +1489,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceGenerationNotMatch", &__With(&self.if_source_generation_not_match))?;
+            state.serialize_entry(
+                "ifSourceGenerationNotMatch",
+                &__With(&self.if_source_generation_not_match),
+            )?;
         }
         if self.if_source_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1291,10 +1506,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceMetagenerationMatch", &__With(&self.if_source_metageneration_match))?;
+            state.serialize_entry(
+                "ifSourceMetagenerationMatch",
+                &__With(&self.if_source_metageneration_match),
+            )?;
         }
         if self.if_source_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1303,10 +1523,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifSourceMetagenerationNotMatch", &__With(&self.if_source_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifSourceMetagenerationNotMatch",
+                &__With(&self.if_source_metageneration_not_match),
+            )?;
         }
         if self.if_generation_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1315,7 +1540,9 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -1327,10 +1554,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1339,10 +1571,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1351,10 +1588,15 @@ impl serde::ser::Serialize for super::MoveObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1371,9 +1613,9 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.object.is_some() {
             state.serialize_entry("object", &self.object)?;
@@ -1385,7 +1627,9 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ifGenerationMatch", &__With(&self.if_generation_match))?;
@@ -1397,10 +1641,15 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifGenerationNotMatch", &__With(&self.if_generation_not_match))?;
+            state.serialize_entry(
+                "ifGenerationNotMatch",
+                &__With(&self.if_generation_not_match),
+            )?;
         }
         if self.if_metageneration_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1409,10 +1658,15 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationMatch", &__With(&self.if_metageneration_match))?;
+            state.serialize_entry(
+                "ifMetagenerationMatch",
+                &__With(&self.if_metageneration_match),
+            )?;
         }
         if self.if_metageneration_not_match.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1421,10 +1675,15 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("ifMetagenerationNotMatch", &__With(&self.if_metageneration_not_match))?;
+            state.serialize_entry(
+                "ifMetagenerationNotMatch",
+                &__With(&self.if_metageneration_not_match),
+            )?;
         }
         if !self.predefined_acl.is_empty() {
             state.serialize_entry("predefinedAcl", &self.predefined_acl)?;
@@ -1433,10 +1692,16 @@ impl serde::ser::Serialize for super::UpdateObjectRequest {
             state.serialize_entry("updateMask", &self.update_mask)?;
         }
         if self.common_object_request_params.is_some() {
-            state.serialize_entry("commonObjectRequestParams", &self.common_object_request_params)?;
+            state.serialize_entry(
+                "commonObjectRequestParams",
+                &self.common_object_request_params,
+            )?;
         }
         if !wkt::internal::is_default(&self.override_unlocked_retention) {
-            state.serialize_entry("overrideUnlockedRetention", &self.override_unlocked_retention)?;
+            state.serialize_entry(
+                "overrideUnlockedRetention",
+                &self.override_unlocked_retention,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1453,9 +1718,9 @@ impl serde::ser::Serialize for super::CommonObjectRequestParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.encryption_algorithm.is_empty() {
             state.serialize_entry("encryptionAlgorithm", &self.encryption_algorithm)?;
@@ -1482,7 +1747,10 @@ impl serde::ser::Serialize for super::CommonObjectRequestParams {
                     serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("encryptionKeySha256Bytes", &__With(&self.encryption_key_sha256_bytes))?;
+            state.serialize_entry(
+                "encryptionKeySha256Bytes",
+                &__With(&self.encryption_key_sha256_bytes),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1499,9 +1767,9 @@ impl serde::ser::Serialize for super::Bucket {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1623,9 +1891,9 @@ impl serde::ser::Serialize for super::bucket::Billing {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.requester_pays) {
             state.serialize_entry("requesterPays", &self.requester_pays)?;
@@ -1645,9 +1913,9 @@ impl serde::ser::Serialize for super::bucket::Cors {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.origin.is_empty() {
             state.serialize_entry("origin", &self.origin)?;
@@ -1685,21 +1953,36 @@ impl serde::ser::Serialize for super::bucket::Encryption {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.default_kms_key.is_empty() {
             state.serialize_entry("defaultKmsKey", &self.default_kms_key)?;
         }
         if self.google_managed_encryption_enforcement_config.is_some() {
-            state.serialize_entry("googleManagedEncryptionEnforcementConfig", &self.google_managed_encryption_enforcement_config)?;
+            state.serialize_entry(
+                "googleManagedEncryptionEnforcementConfig",
+                &self.google_managed_encryption_enforcement_config,
+            )?;
         }
-        if self.customer_managed_encryption_enforcement_config.is_some() {
-            state.serialize_entry("customerManagedEncryptionEnforcementConfig", &self.customer_managed_encryption_enforcement_config)?;
+        if self
+            .customer_managed_encryption_enforcement_config
+            .is_some()
+        {
+            state.serialize_entry(
+                "customerManagedEncryptionEnforcementConfig",
+                &self.customer_managed_encryption_enforcement_config,
+            )?;
         }
-        if self.customer_supplied_encryption_enforcement_config.is_some() {
-            state.serialize_entry("customerSuppliedEncryptionEnforcementConfig", &self.customer_supplied_encryption_enforcement_config)?;
+        if self
+            .customer_supplied_encryption_enforcement_config
+            .is_some()
+        {
+            state.serialize_entry(
+                "customerSuppliedEncryptionEnforcementConfig",
+                &self.customer_supplied_encryption_enforcement_config,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1716,9 +1999,9 @@ impl serde::ser::Serialize for super::bucket::encryption::GoogleManagedEncryptio
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.restriction_mode.is_some() {
             state.serialize_entry("restrictionMode", &self.restriction_mode)?;
@@ -1736,14 +2019,16 @@ impl serde::ser::Serialize for super::bucket::encryption::GoogleManagedEncryptio
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::bucket::encryption::CustomerManagedEncryptionEnforcementConfig {
+impl serde::ser::Serialize
+    for super::bucket::encryption::CustomerManagedEncryptionEnforcementConfig
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.restriction_mode.is_some() {
             state.serialize_entry("restrictionMode", &self.restriction_mode)?;
@@ -1761,14 +2046,16 @@ impl serde::ser::Serialize for super::bucket::encryption::CustomerManagedEncrypt
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig {
+impl serde::ser::Serialize
+    for super::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.restriction_mode.is_some() {
             state.serialize_entry("restrictionMode", &self.restriction_mode)?;
@@ -1791,12 +2078,15 @@ impl serde::ser::Serialize for super::bucket::IamConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.uniform_bucket_level_access.is_some() {
-            state.serialize_entry("uniformBucketLevelAccess", &self.uniform_bucket_level_access)?;
+            state.serialize_entry(
+                "uniformBucketLevelAccess",
+                &self.uniform_bucket_level_access,
+            )?;
         }
         if !self.public_access_prevention.is_empty() {
             state.serialize_entry("publicAccessPrevention", &self.public_access_prevention)?;
@@ -1816,9 +2106,9 @@ impl serde::ser::Serialize for super::bucket::iam_config::UniformBucketLevelAcce
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -1841,9 +2131,9 @@ impl serde::ser::Serialize for super::bucket::Lifecycle {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.rule.is_empty() {
             state.serialize_entry("rule", &self.rule)?;
@@ -1863,9 +2153,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::Rule {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.action.is_some() {
             state.serialize_entry("action", &self.action)?;
@@ -1888,9 +2178,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Action {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
@@ -1913,9 +2203,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Condition {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.age_days.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -1924,7 +2214,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Condition {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ageDays", &__With(&self.age_days))?;
@@ -1942,7 +2234,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Condition {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("numNewerVersions", &__With(&self.num_newer_versions))?;
@@ -1957,7 +2251,9 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Condition {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("daysSinceCustomTime", &__With(&self.days_since_custom_time))?;
@@ -1972,10 +2268,15 @@ impl serde::ser::Serialize for super::bucket::lifecycle::rule::Condition {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("daysSinceNoncurrentTime", &__With(&self.days_since_noncurrent_time))?;
+            state.serialize_entry(
+                "daysSinceNoncurrentTime",
+                &__With(&self.days_since_noncurrent_time),
+            )?;
         }
         if self.noncurrent_time_before.is_some() {
             state.serialize_entry("noncurrentTimeBefore", &self.noncurrent_time_before)?;
@@ -2001,9 +2302,9 @@ impl serde::ser::Serialize for super::bucket::Logging {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.log_bucket.is_empty() {
             state.serialize_entry("logBucket", &self.log_bucket)?;
@@ -2026,9 +2327,9 @@ impl serde::ser::Serialize for super::bucket::ObjectRetention {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -2048,9 +2349,9 @@ impl serde::ser::Serialize for super::bucket::RetentionPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.effective_time.is_some() {
             state.serialize_entry("effectiveTime", &self.effective_time)?;
@@ -2076,9 +2377,9 @@ impl serde::ser::Serialize for super::bucket::SoftDeletePolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.retention_duration.is_some() {
             state.serialize_entry("retentionDuration", &self.retention_duration)?;
@@ -2101,9 +2402,9 @@ impl serde::ser::Serialize for super::bucket::Versioning {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -2123,9 +2424,9 @@ impl serde::ser::Serialize for super::bucket::Website {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.main_page_suffix.is_empty() {
             state.serialize_entry("mainPageSuffix", &self.main_page_suffix)?;
@@ -2148,9 +2449,9 @@ impl serde::ser::Serialize for super::bucket::CustomPlacementConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.data_locations.is_empty() {
             state.serialize_entry("dataLocations", &self.data_locations)?;
@@ -2170,9 +2471,9 @@ impl serde::ser::Serialize for super::bucket::Autoclass {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -2184,7 +2485,10 @@ impl serde::ser::Serialize for super::bucket::Autoclass {
             state.serialize_entry("terminalStorageClass", &self.terminal_storage_class)?;
         }
         if self.terminal_storage_class_update_time.is_some() {
-            state.serialize_entry("terminalStorageClassUpdateTime", &self.terminal_storage_class_update_time)?;
+            state.serialize_entry(
+                "terminalStorageClassUpdateTime",
+                &self.terminal_storage_class_update_time,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2201,9 +2505,9 @@ impl serde::ser::Serialize for super::bucket::IpFilter {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.mode.is_some() {
             state.serialize_entry("mode", &self.mode)?;
@@ -2218,7 +2522,10 @@ impl serde::ser::Serialize for super::bucket::IpFilter {
             state.serialize_entry("allowCrossOrgVpcs", &self.allow_cross_org_vpcs)?;
         }
         if self.allow_all_service_agent_access.is_some() {
-            state.serialize_entry("allowAllServiceAgentAccess", &self.allow_all_service_agent_access)?;
+            state.serialize_entry(
+                "allowAllServiceAgentAccess",
+                &self.allow_all_service_agent_access,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2235,9 +2542,9 @@ impl serde::ser::Serialize for super::bucket::ip_filter::PublicNetworkSource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.allowed_ip_cidr_ranges.is_empty() {
             state.serialize_entry("allowedIpCidrRanges", &self.allowed_ip_cidr_ranges)?;
@@ -2257,9 +2564,9 @@ impl serde::ser::Serialize for super::bucket::ip_filter::VpcNetworkSource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
@@ -2282,9 +2589,9 @@ impl serde::ser::Serialize for super::bucket::HierarchicalNamespace {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -2298,16 +2605,15 @@ impl serde::ser::Serialize for super::bucket::HierarchicalNamespace {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::BucketAccessControl {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.role.is_empty() {
             state.serialize_entry("role", &self.role)?;
@@ -2351,9 +2657,9 @@ impl serde::ser::Serialize for super::ObjectChecksums {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.crc32c.is_some() {
             struct __With<'a>(&'a std::option::Option<u32>);
@@ -2362,7 +2668,9 @@ impl serde::ser::Serialize for super::ObjectChecksums {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("crc32c", &__With(&self.crc32c))?;
@@ -2394,9 +2702,9 @@ impl serde::ser::Serialize for super::ObjectCustomContextPayload {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
@@ -2422,9 +2730,9 @@ impl serde::ser::Serialize for super::ObjectContexts {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.custom.is_empty() {
             state.serialize_entry("custom", &self.custom)?;
@@ -2444,9 +2752,9 @@ impl serde::ser::Serialize for super::CustomerEncryption {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.encryption_algorithm.is_empty() {
             state.serialize_entry("encryptionAlgorithm", &self.encryption_algorithm)?;
@@ -2478,9 +2786,9 @@ impl serde::ser::Serialize for super::Object {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -2632,9 +2940,9 @@ impl serde::ser::Serialize for super::object::Retention {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
@@ -2651,16 +2959,15 @@ impl serde::ser::Serialize for super::object::Retention {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ObjectAccessControl {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.role.is_empty() {
             state.serialize_entry("role", &self.role)?;
@@ -2704,9 +3011,9 @@ impl serde::ser::Serialize for super::ListObjectsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.objects.is_empty() {
             state.serialize_entry("objects", &self.objects)?;
@@ -2732,9 +3039,9 @@ impl serde::ser::Serialize for super::ProjectTeam {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.project_number.is_empty() {
             state.serialize_entry("projectNumber", &self.project_number)?;
@@ -2757,9 +3064,9 @@ impl serde::ser::Serialize for super::Owner {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.entity.is_empty() {
             state.serialize_entry("entity", &self.entity)?;

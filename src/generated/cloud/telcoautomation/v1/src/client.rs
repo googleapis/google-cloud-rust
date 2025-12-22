@@ -76,7 +76,9 @@ impl TelcoAutomation {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::telco_automation::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::telco_automation::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::telco_automation::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -84,33 +86,49 @@ impl TelcoAutomation {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::TelcoAutomation + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::TelcoAutomation + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TelcoAutomation>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TelcoAutomation>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
         super::transport::TelcoAutomation::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
-        Self::build_transport(conf).await.map(super::tracing::TelcoAutomation::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TelcoAutomation> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::TelcoAutomation::new)
     }
 
     /// Lists OrchestrationClusters in a given project and location.
-    pub fn list_orchestration_clusters(&self) -> super::builder::telco_automation::ListOrchestrationClusters
-    {
+    pub fn list_orchestration_clusters(
+        &self,
+    ) -> super::builder::telco_automation::ListOrchestrationClusters {
         super::builder::telco_automation::ListOrchestrationClusters::new(self.inner.clone())
     }
 
@@ -131,8 +149,9 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_orchestration_cluster(&self) -> super::builder::telco_automation::GetOrchestrationCluster
-    {
+    pub fn get_orchestration_cluster(
+        &self,
+    ) -> super::builder::telco_automation::GetOrchestrationCluster {
         super::builder::telco_automation::GetOrchestrationCluster::new(self.inner.clone())
     }
 
@@ -147,8 +166,9 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_orchestration_cluster(&self) -> super::builder::telco_automation::CreateOrchestrationCluster
-    {
+    pub fn create_orchestration_cluster(
+        &self,
+    ) -> super::builder::telco_automation::CreateOrchestrationCluster {
         super::builder::telco_automation::CreateOrchestrationCluster::new(self.inner.clone())
     }
 
@@ -163,14 +183,14 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_orchestration_cluster(&self) -> super::builder::telco_automation::DeleteOrchestrationCluster
-    {
+    pub fn delete_orchestration_cluster(
+        &self,
+    ) -> super::builder::telco_automation::DeleteOrchestrationCluster {
         super::builder::telco_automation::DeleteOrchestrationCluster::new(self.inner.clone())
     }
 
     /// Lists EdgeSlms in a given project and location.
-    pub fn list_edge_slms(&self) -> super::builder::telco_automation::ListEdgeSlms
-    {
+    pub fn list_edge_slms(&self) -> super::builder::telco_automation::ListEdgeSlms {
         super::builder::telco_automation::ListEdgeSlms::new(self.inner.clone())
     }
 
@@ -192,8 +212,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_edge_slm(&self) -> super::builder::telco_automation::GetEdgeSlm
-    {
+    pub fn get_edge_slm(&self) -> super::builder::telco_automation::GetEdgeSlm {
         super::builder::telco_automation::GetEdgeSlm::new(self.inner.clone())
     }
 
@@ -208,8 +227,7 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_edge_slm(&self) -> super::builder::telco_automation::CreateEdgeSlm
-    {
+    pub fn create_edge_slm(&self) -> super::builder::telco_automation::CreateEdgeSlm {
         super::builder::telco_automation::CreateEdgeSlm::new(self.inner.clone())
     }
 
@@ -224,8 +242,7 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_edge_slm(&self) -> super::builder::telco_automation::DeleteEdgeSlm
-    {
+    pub fn delete_edge_slm(&self) -> super::builder::telco_automation::DeleteEdgeSlm {
         super::builder::telco_automation::DeleteEdgeSlm::new(self.inner.clone())
     }
 
@@ -246,8 +263,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_blueprint(&self) -> super::builder::telco_automation::CreateBlueprint
-    {
+    pub fn create_blueprint(&self) -> super::builder::telco_automation::CreateBlueprint {
         super::builder::telco_automation::CreateBlueprint::new(self.inner.clone())
     }
 
@@ -268,8 +284,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_blueprint(&self) -> super::builder::telco_automation::UpdateBlueprint
-    {
+    pub fn update_blueprint(&self) -> super::builder::telco_automation::UpdateBlueprint {
         super::builder::telco_automation::UpdateBlueprint::new(self.inner.clone())
     }
 
@@ -291,8 +306,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_blueprint(&self) -> super::builder::telco_automation::GetBlueprint
-    {
+    pub fn get_blueprint(&self) -> super::builder::telco_automation::GetBlueprint {
         super::builder::telco_automation::GetBlueprint::new(self.inner.clone())
     }
 
@@ -312,14 +326,12 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_blueprint(&self) -> super::builder::telco_automation::DeleteBlueprint
-    {
+    pub fn delete_blueprint(&self) -> super::builder::telco_automation::DeleteBlueprint {
         super::builder::telco_automation::DeleteBlueprint::new(self.inner.clone())
     }
 
     /// List all blueprints.
-    pub fn list_blueprints(&self) -> super::builder::telco_automation::ListBlueprints
-    {
+    pub fn list_blueprints(&self) -> super::builder::telco_automation::ListBlueprints {
         super::builder::telco_automation::ListBlueprints::new(self.inner.clone())
     }
 
@@ -340,8 +352,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn approve_blueprint(&self) -> super::builder::telco_automation::ApproveBlueprint
-    {
+    pub fn approve_blueprint(&self) -> super::builder::telco_automation::ApproveBlueprint {
         super::builder::telco_automation::ApproveBlueprint::new(self.inner.clone())
     }
 
@@ -362,8 +373,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn propose_blueprint(&self) -> super::builder::telco_automation::ProposeBlueprint
-    {
+    pub fn propose_blueprint(&self) -> super::builder::telco_automation::ProposeBlueprint {
         super::builder::telco_automation::ProposeBlueprint::new(self.inner.clone())
     }
 
@@ -384,26 +394,28 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn reject_blueprint(&self) -> super::builder::telco_automation::RejectBlueprint
-    {
+    pub fn reject_blueprint(&self) -> super::builder::telco_automation::RejectBlueprint {
         super::builder::telco_automation::RejectBlueprint::new(self.inner.clone())
     }
 
     /// List blueprint revisions of a given blueprint.
-    pub fn list_blueprint_revisions(&self) -> super::builder::telco_automation::ListBlueprintRevisions
-    {
+    pub fn list_blueprint_revisions(
+        &self,
+    ) -> super::builder::telco_automation::ListBlueprintRevisions {
         super::builder::telco_automation::ListBlueprintRevisions::new(self.inner.clone())
     }
 
     /// Searches across blueprint revisions.
-    pub fn search_blueprint_revisions(&self) -> super::builder::telco_automation::SearchBlueprintRevisions
-    {
+    pub fn search_blueprint_revisions(
+        &self,
+    ) -> super::builder::telco_automation::SearchBlueprintRevisions {
         super::builder::telco_automation::SearchBlueprintRevisions::new(self.inner.clone())
     }
 
     /// Searches across deployment revisions.
-    pub fn search_deployment_revisions(&self) -> super::builder::telco_automation::SearchDeploymentRevisions
-    {
+    pub fn search_deployment_revisions(
+        &self,
+    ) -> super::builder::telco_automation::SearchDeploymentRevisions {
         super::builder::telco_automation::SearchDeploymentRevisions::new(self.inner.clone())
     }
 
@@ -426,15 +438,15 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn discard_blueprint_changes(&self) -> super::builder::telco_automation::DiscardBlueprintChanges
-    {
+    pub fn discard_blueprint_changes(
+        &self,
+    ) -> super::builder::telco_automation::DiscardBlueprintChanges {
         super::builder::telco_automation::DiscardBlueprintChanges::new(self.inner.clone())
     }
 
     /// Lists the blueprints in TNA's public catalog. Default page size = 20,
     /// Max Page Size = 100.
-    pub fn list_public_blueprints(&self) -> super::builder::telco_automation::ListPublicBlueprints
-    {
+    pub fn list_public_blueprints(&self) -> super::builder::telco_automation::ListPublicBlueprints {
         super::builder::telco_automation::ListPublicBlueprints::new(self.inner.clone())
     }
 
@@ -456,8 +468,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_public_blueprint(&self) -> super::builder::telco_automation::GetPublicBlueprint
-    {
+    pub fn get_public_blueprint(&self) -> super::builder::telco_automation::GetPublicBlueprint {
         super::builder::telco_automation::GetPublicBlueprint::new(self.inner.clone())
     }
 
@@ -478,8 +489,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_deployment(&self) -> super::builder::telco_automation::CreateDeployment
-    {
+    pub fn create_deployment(&self) -> super::builder::telco_automation::CreateDeployment {
         super::builder::telco_automation::CreateDeployment::new(self.inner.clone())
     }
 
@@ -500,8 +510,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_deployment(&self) -> super::builder::telco_automation::UpdateDeployment
-    {
+    pub fn update_deployment(&self) -> super::builder::telco_automation::UpdateDeployment {
         super::builder::telco_automation::UpdateDeployment::new(self.inner.clone())
     }
 
@@ -523,8 +532,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_deployment(&self) -> super::builder::telco_automation::GetDeployment
-    {
+    pub fn get_deployment(&self) -> super::builder::telco_automation::GetDeployment {
         super::builder::telco_automation::GetDeployment::new(self.inner.clone())
     }
 
@@ -545,20 +553,19 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn remove_deployment(&self) -> super::builder::telco_automation::RemoveDeployment
-    {
+    pub fn remove_deployment(&self) -> super::builder::telco_automation::RemoveDeployment {
         super::builder::telco_automation::RemoveDeployment::new(self.inner.clone())
     }
 
     /// List all deployments.
-    pub fn list_deployments(&self) -> super::builder::telco_automation::ListDeployments
-    {
+    pub fn list_deployments(&self) -> super::builder::telco_automation::ListDeployments {
         super::builder::telco_automation::ListDeployments::new(self.inner.clone())
     }
 
     /// List deployment revisions of a given deployment.
-    pub fn list_deployment_revisions(&self) -> super::builder::telco_automation::ListDeploymentRevisions
-    {
+    pub fn list_deployment_revisions(
+        &self,
+    ) -> super::builder::telco_automation::ListDeploymentRevisions {
         super::builder::telco_automation::ListDeploymentRevisions::new(self.inner.clone())
     }
 
@@ -581,8 +588,9 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn discard_deployment_changes(&self) -> super::builder::telco_automation::DiscardDeploymentChanges
-    {
+    pub fn discard_deployment_changes(
+        &self,
+    ) -> super::builder::telco_automation::DiscardDeploymentChanges {
         super::builder::telco_automation::DiscardDeploymentChanges::new(self.inner.clone())
     }
 
@@ -603,8 +611,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn apply_deployment(&self) -> super::builder::telco_automation::ApplyDeployment
-    {
+    pub fn apply_deployment(&self) -> super::builder::telco_automation::ApplyDeployment {
         super::builder::telco_automation::ApplyDeployment::new(self.inner.clone())
     }
 
@@ -625,8 +632,9 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn compute_deployment_status(&self) -> super::builder::telco_automation::ComputeDeploymentStatus
-    {
+    pub fn compute_deployment_status(
+        &self,
+    ) -> super::builder::telco_automation::ComputeDeploymentStatus {
         super::builder::telco_automation::ComputeDeploymentStatus::new(self.inner.clone())
     }
 
@@ -648,8 +656,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn rollback_deployment(&self) -> super::builder::telco_automation::RollbackDeployment
-    {
+    pub fn rollback_deployment(&self) -> super::builder::telco_automation::RollbackDeployment {
         super::builder::telco_automation::RollbackDeployment::new(self.inner.clone())
     }
 
@@ -671,14 +678,16 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_hydrated_deployment(&self) -> super::builder::telco_automation::GetHydratedDeployment
-    {
+    pub fn get_hydrated_deployment(
+        &self,
+    ) -> super::builder::telco_automation::GetHydratedDeployment {
         super::builder::telco_automation::GetHydratedDeployment::new(self.inner.clone())
     }
 
     /// List all hydrated deployments present under a deployment.
-    pub fn list_hydrated_deployments(&self) -> super::builder::telco_automation::ListHydratedDeployments
-    {
+    pub fn list_hydrated_deployments(
+        &self,
+    ) -> super::builder::telco_automation::ListHydratedDeployments {
         super::builder::telco_automation::ListHydratedDeployments::new(self.inner.clone())
     }
 
@@ -699,8 +708,9 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_hydrated_deployment(&self) -> super::builder::telco_automation::UpdateHydratedDeployment
-    {
+    pub fn update_hydrated_deployment(
+        &self,
+    ) -> super::builder::telco_automation::UpdateHydratedDeployment {
         super::builder::telco_automation::UpdateHydratedDeployment::new(self.inner.clone())
     }
 
@@ -721,14 +731,14 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn apply_hydrated_deployment(&self) -> super::builder::telco_automation::ApplyHydratedDeployment
-    {
+    pub fn apply_hydrated_deployment(
+        &self,
+    ) -> super::builder::telco_automation::ApplyHydratedDeployment {
         super::builder::telco_automation::ApplyHydratedDeployment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::telco_automation::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::telco_automation::ListLocations {
         super::builder::telco_automation::ListLocations::new(self.inner.clone())
     }
 
@@ -749,16 +759,14 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::telco_automation::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::telco_automation::GetLocation {
         super::builder::telco_automation::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::telco_automation::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::telco_automation::ListOperations {
         super::builder::telco_automation::ListOperations::new(self.inner.clone())
     }
 
@@ -781,8 +789,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::telco_automation::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::telco_automation::GetOperation {
         super::builder::telco_automation::GetOperation::new(self.inner.clone())
     }
 
@@ -804,8 +811,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::telco_automation::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::telco_automation::DeleteOperation {
         super::builder::telco_automation::DeleteOperation::new(self.inner.clone())
     }
 
@@ -827,8 +833,7 @@ impl TelcoAutomation {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::telco_automation::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::telco_automation::CancelOperation {
         super::builder::telco_automation::CancelOperation::new(self.inner.clone())
     }
 }

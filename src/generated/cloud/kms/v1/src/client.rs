@@ -102,28 +102,42 @@ impl Autokey {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Autokey + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Autokey + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Autokey>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autokey> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
         super::transport::Autokey::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Autokey> {
-        Self::build_transport(conf).await.map(super::tracing::Autokey::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Autokey> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Autokey::new)
     }
 
     /// Creates a new [KeyHandle][google.cloud.kms.v1.KeyHandle], triggering the
@@ -146,8 +160,7 @@ impl Autokey {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_key_handle(&self) -> super::builder::autokey::CreateKeyHandle
-    {
+    pub fn create_key_handle(&self) -> super::builder::autokey::CreateKeyHandle {
         super::builder::autokey::CreateKeyHandle::new(self.inner.clone())
     }
 
@@ -171,22 +184,19 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_key_handle(&self) -> super::builder::autokey::GetKeyHandle
-    {
+    pub fn get_key_handle(&self) -> super::builder::autokey::GetKeyHandle {
         super::builder::autokey::GetKeyHandle::new(self.inner.clone())
     }
 
     /// Lists [KeyHandles][google.cloud.kms.v1.KeyHandle].
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
-    pub fn list_key_handles(&self) -> super::builder::autokey::ListKeyHandles
-    {
+    pub fn list_key_handles(&self) -> super::builder::autokey::ListKeyHandles {
         super::builder::autokey::ListKeyHandles::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::autokey::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::autokey::ListLocations {
         super::builder::autokey::ListLocations::new(self.inner.clone())
     }
 
@@ -207,8 +217,7 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::autokey::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::autokey::GetLocation {
         super::builder::autokey::GetLocation::new(self.inner.clone())
     }
 
@@ -233,8 +242,7 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::autokey::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::autokey::SetIamPolicy {
         super::builder::autokey::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -256,8 +264,7 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::autokey::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::autokey::GetIamPolicy {
         super::builder::autokey::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -284,8 +291,7 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::autokey::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::autokey::TestIamPermissions {
         super::builder::autokey::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -308,8 +314,7 @@ impl Autokey {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::autokey::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::autokey::GetOperation {
         super::builder::autokey::GetOperation::new(self.inner.clone())
     }
 }
@@ -387,28 +392,42 @@ impl AutokeyAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AutokeyAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AutokeyAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
         super::transport::AutokeyAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::AutokeyAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AutokeyAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AutokeyAdmin::new)
     }
 
     /// Updates the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
@@ -438,8 +457,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_autokey_config(&self) -> super::builder::autokey_admin::UpdateAutokeyConfig
-    {
+    pub fn update_autokey_config(&self) -> super::builder::autokey_admin::UpdateAutokeyConfig {
         super::builder::autokey_admin::UpdateAutokeyConfig::new(self.inner.clone())
     }
 
@@ -464,8 +482,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_autokey_config(&self) -> super::builder::autokey_admin::GetAutokeyConfig
-    {
+    pub fn get_autokey_config(&self) -> super::builder::autokey_admin::GetAutokeyConfig {
         super::builder::autokey_admin::GetAutokeyConfig::new(self.inner.clone())
     }
 
@@ -486,14 +503,14 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn show_effective_autokey_config(&self) -> super::builder::autokey_admin::ShowEffectiveAutokeyConfig
-    {
+    pub fn show_effective_autokey_config(
+        &self,
+    ) -> super::builder::autokey_admin::ShowEffectiveAutokeyConfig {
         super::builder::autokey_admin::ShowEffectiveAutokeyConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::autokey_admin::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::autokey_admin::ListLocations {
         super::builder::autokey_admin::ListLocations::new(self.inner.clone())
     }
 
@@ -514,8 +531,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::autokey_admin::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::autokey_admin::GetLocation {
         super::builder::autokey_admin::GetLocation::new(self.inner.clone())
     }
 
@@ -540,8 +556,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::autokey_admin::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::autokey_admin::SetIamPolicy {
         super::builder::autokey_admin::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -563,8 +578,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::autokey_admin::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::autokey_admin::GetIamPolicy {
         super::builder::autokey_admin::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -591,8 +605,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::autokey_admin::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::autokey_admin::TestIamPermissions {
         super::builder::autokey_admin::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -615,8 +628,7 @@ impl AutokeyAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::autokey_admin::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::autokey_admin::GetOperation {
         super::builder::autokey_admin::GetOperation::new(self.inner.clone())
     }
 }
@@ -692,35 +704,48 @@ impl EkmService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::EkmService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::EkmService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EkmService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EkmService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
         super::transport::EkmService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EkmService> {
-        Self::build_transport(conf).await.map(super::tracing::EkmService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EkmService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::EkmService::new)
     }
 
     /// Lists [EkmConnections][google.cloud.kms.v1.EkmConnection].
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-    pub fn list_ekm_connections(&self) -> super::builder::ekm_service::ListEkmConnections
-    {
+    pub fn list_ekm_connections(&self) -> super::builder::ekm_service::ListEkmConnections {
         super::builder::ekm_service::ListEkmConnections::new(self.inner.clone())
     }
 
@@ -744,8 +769,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_ekm_connection(&self) -> super::builder::ekm_service::GetEkmConnection
-    {
+    pub fn get_ekm_connection(&self) -> super::builder::ekm_service::GetEkmConnection {
         super::builder::ekm_service::GetEkmConnection::new(self.inner.clone())
     }
 
@@ -769,8 +793,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_ekm_connection(&self) -> super::builder::ekm_service::CreateEkmConnection
-    {
+    pub fn create_ekm_connection(&self) -> super::builder::ekm_service::CreateEkmConnection {
         super::builder::ekm_service::CreateEkmConnection::new(self.inner.clone())
     }
 
@@ -793,8 +816,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_ekm_connection(&self) -> super::builder::ekm_service::UpdateEkmConnection
-    {
+    pub fn update_ekm_connection(&self) -> super::builder::ekm_service::UpdateEkmConnection {
         super::builder::ekm_service::UpdateEkmConnection::new(self.inner.clone())
     }
 
@@ -818,8 +840,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_ekm_config(&self) -> super::builder::ekm_service::GetEkmConfig
-    {
+    pub fn get_ekm_config(&self) -> super::builder::ekm_service::GetEkmConfig {
         super::builder::ekm_service::GetEkmConfig::new(self.inner.clone())
     }
 
@@ -843,8 +864,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_ekm_config(&self) -> super::builder::ekm_service::UpdateEkmConfig
-    {
+    pub fn update_ekm_config(&self) -> super::builder::ekm_service::UpdateEkmConfig {
         super::builder::ekm_service::UpdateEkmConfig::new(self.inner.clone())
     }
 
@@ -871,14 +891,12 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn verify_connectivity(&self) -> super::builder::ekm_service::VerifyConnectivity
-    {
+    pub fn verify_connectivity(&self) -> super::builder::ekm_service::VerifyConnectivity {
         super::builder::ekm_service::VerifyConnectivity::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::ekm_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::ekm_service::ListLocations {
         super::builder::ekm_service::ListLocations::new(self.inner.clone())
     }
 
@@ -899,8 +917,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::ekm_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::ekm_service::GetLocation {
         super::builder::ekm_service::GetLocation::new(self.inner.clone())
     }
 
@@ -925,8 +942,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::ekm_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::ekm_service::SetIamPolicy {
         super::builder::ekm_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -948,8 +964,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::ekm_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::ekm_service::GetIamPolicy {
         super::builder::ekm_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -976,8 +991,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::ekm_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::ekm_service::TestIamPermissions {
         super::builder::ekm_service::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -1000,8 +1014,7 @@ impl EkmService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::ekm_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::ekm_service::GetOperation {
         super::builder::ekm_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -1078,7 +1091,9 @@ impl KeyManagementService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_management_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::key_management_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::key_management_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -1086,59 +1101,72 @@ impl KeyManagementService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::KeyManagementService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::KeyManagementService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
         super::transport::KeyManagementService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
-        Self::build_transport(conf).await.map(super::tracing::KeyManagementService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::KeyManagementService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::KeyManagementService::new)
     }
 
     /// Lists [KeyRings][google.cloud.kms.v1.KeyRing].
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-    pub fn list_key_rings(&self) -> super::builder::key_management_service::ListKeyRings
-    {
+    pub fn list_key_rings(&self) -> super::builder::key_management_service::ListKeyRings {
         super::builder::key_management_service::ListKeyRings::new(self.inner.clone())
     }
 
     /// Lists [CryptoKeys][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    pub fn list_crypto_keys(&self) -> super::builder::key_management_service::ListCryptoKeys
-    {
+    pub fn list_crypto_keys(&self) -> super::builder::key_management_service::ListCryptoKeys {
         super::builder::key_management_service::ListCryptoKeys::new(self.inner.clone())
     }
 
     /// Lists [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    pub fn list_crypto_key_versions(&self) -> super::builder::key_management_service::ListCryptoKeyVersions
-    {
+    pub fn list_crypto_key_versions(
+        &self,
+    ) -> super::builder::key_management_service::ListCryptoKeyVersions {
         super::builder::key_management_service::ListCryptoKeyVersions::new(self.inner.clone())
     }
 
     /// Lists [ImportJobs][google.cloud.kms.v1.ImportJob].
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    pub fn list_import_jobs(&self) -> super::builder::key_management_service::ListImportJobs
-    {
+    pub fn list_import_jobs(&self) -> super::builder::key_management_service::ListImportJobs {
         super::builder::key_management_service::ListImportJobs::new(self.inner.clone())
     }
 
@@ -1161,8 +1189,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_key_ring(&self) -> super::builder::key_management_service::GetKeyRing
-    {
+    pub fn get_key_ring(&self) -> super::builder::key_management_service::GetKeyRing {
         super::builder::key_management_service::GetKeyRing::new(self.inner.clone())
     }
 
@@ -1189,8 +1216,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_crypto_key(&self) -> super::builder::key_management_service::GetCryptoKey
-    {
+    pub fn get_crypto_key(&self) -> super::builder::key_management_service::GetCryptoKey {
         super::builder::key_management_service::GetCryptoKey::new(self.inner.clone())
     }
 
@@ -1214,8 +1240,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_crypto_key_version(&self) -> super::builder::key_management_service::GetCryptoKeyVersion
-    {
+    pub fn get_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::GetCryptoKeyVersion {
         super::builder::key_management_service::GetCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1246,8 +1273,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_public_key(&self) -> super::builder::key_management_service::GetPublicKey
-    {
+    pub fn get_public_key(&self) -> super::builder::key_management_service::GetPublicKey {
         super::builder::key_management_service::GetPublicKey::new(self.inner.clone())
     }
 
@@ -1270,8 +1296,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_import_job(&self) -> super::builder::key_management_service::GetImportJob
-    {
+    pub fn get_import_job(&self) -> super::builder::key_management_service::GetImportJob {
         super::builder::key_management_service::GetImportJob::new(self.inner.clone())
     }
 
@@ -1295,8 +1320,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_key_ring(&self) -> super::builder::key_management_service::CreateKeyRing
-    {
+    pub fn create_key_ring(&self) -> super::builder::key_management_service::CreateKeyRing {
         super::builder::key_management_service::CreateKeyRing::new(self.inner.clone())
     }
 
@@ -1327,8 +1351,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_crypto_key(&self) -> super::builder::key_management_service::CreateCryptoKey
-    {
+    pub fn create_crypto_key(&self) -> super::builder::key_management_service::CreateCryptoKey {
         super::builder::key_management_service::CreateCryptoKey::new(self.inner.clone())
     }
 
@@ -1359,8 +1382,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_crypto_key_version(&self) -> super::builder::key_management_service::CreateCryptoKeyVersion
-    {
+    pub fn create_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::CreateCryptoKeyVersion {
         super::builder::key_management_service::CreateCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1391,8 +1415,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn import_crypto_key_version(&self) -> super::builder::key_management_service::ImportCryptoKeyVersion
-    {
+    pub fn import_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::ImportCryptoKeyVersion {
         super::builder::key_management_service::ImportCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1421,8 +1446,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_import_job(&self) -> super::builder::key_management_service::CreateImportJob
-    {
+    pub fn create_import_job(&self) -> super::builder::key_management_service::CreateImportJob {
         super::builder::key_management_service::CreateImportJob::new(self.inner.clone())
     }
 
@@ -1445,8 +1469,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_crypto_key(&self) -> super::builder::key_management_service::UpdateCryptoKey
-    {
+    pub fn update_crypto_key(&self) -> super::builder::key_management_service::UpdateCryptoKey {
         super::builder::key_management_service::UpdateCryptoKey::new(self.inner.clone())
     }
 
@@ -1485,8 +1508,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_crypto_key_version(&self) -> super::builder::key_management_service::UpdateCryptoKeyVersion
-    {
+    pub fn update_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::UpdateCryptoKeyVersion {
         super::builder::key_management_service::UpdateCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1516,9 +1540,12 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_crypto_key_primary_version(&self) -> super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion
-    {
-        super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion::new(self.inner.clone())
+    pub fn update_crypto_key_primary_version(
+        &self,
+    ) -> super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion {
+        super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion::new(
+            self.inner.clone(),
+        )
     }
 
     /// Schedule a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] for
@@ -1566,8 +1593,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn destroy_crypto_key_version(&self) -> super::builder::key_management_service::DestroyCryptoKeyVersion
-    {
+    pub fn destroy_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::DestroyCryptoKeyVersion {
         super::builder::key_management_service::DestroyCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1602,8 +1630,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn restore_crypto_key_version(&self) -> super::builder::key_management_service::RestoreCryptoKeyVersion
-    {
+    pub fn restore_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::RestoreCryptoKeyVersion {
         super::builder::key_management_service::RestoreCryptoKeyVersion::new(self.inner.clone())
     }
 
@@ -1631,8 +1660,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn encrypt(&self) -> super::builder::key_management_service::Encrypt
-    {
+    pub fn encrypt(&self) -> super::builder::key_management_service::Encrypt {
         super::builder::key_management_service::Encrypt::new(self.inner.clone())
     }
 
@@ -1660,8 +1688,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn decrypt(&self) -> super::builder::key_management_service::Decrypt
-    {
+    pub fn decrypt(&self) -> super::builder::key_management_service::Decrypt {
         super::builder::key_management_service::Decrypt::new(self.inner.clone())
     }
 
@@ -1692,8 +1719,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn raw_encrypt(&self) -> super::builder::key_management_service::RawEncrypt
-    {
+    pub fn raw_encrypt(&self) -> super::builder::key_management_service::RawEncrypt {
         super::builder::key_management_service::RawEncrypt::new(self.inner.clone())
     }
 
@@ -1720,8 +1746,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn raw_decrypt(&self) -> super::builder::key_management_service::RawDecrypt
-    {
+    pub fn raw_decrypt(&self) -> super::builder::key_management_service::RawDecrypt {
         super::builder::key_management_service::RawDecrypt::new(self.inner.clone())
     }
 
@@ -1750,8 +1775,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn asymmetric_sign(&self) -> super::builder::key_management_service::AsymmetricSign
-    {
+    pub fn asymmetric_sign(&self) -> super::builder::key_management_service::AsymmetricSign {
         super::builder::key_management_service::AsymmetricSign::new(self.inner.clone())
     }
 
@@ -1780,8 +1804,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn asymmetric_decrypt(&self) -> super::builder::key_management_service::AsymmetricDecrypt
-    {
+    pub fn asymmetric_decrypt(&self) -> super::builder::key_management_service::AsymmetricDecrypt {
         super::builder::key_management_service::AsymmetricDecrypt::new(self.inner.clone())
     }
 
@@ -1807,8 +1830,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn mac_sign(&self) -> super::builder::key_management_service::MacSign
-    {
+    pub fn mac_sign(&self) -> super::builder::key_management_service::MacSign {
         super::builder::key_management_service::MacSign::new(self.inner.clone())
     }
 
@@ -1835,8 +1857,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn mac_verify(&self) -> super::builder::key_management_service::MacVerify
-    {
+    pub fn mac_verify(&self) -> super::builder::key_management_service::MacVerify {
         super::builder::key_management_service::MacVerify::new(self.inner.clone())
     }
 
@@ -1865,8 +1886,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn decapsulate(&self) -> super::builder::key_management_service::Decapsulate
-    {
+    pub fn decapsulate(&self) -> super::builder::key_management_service::Decapsulate {
         super::builder::key_management_service::Decapsulate::new(self.inner.clone())
     }
 
@@ -1888,14 +1908,14 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn generate_random_bytes(&self) -> super::builder::key_management_service::GenerateRandomBytes
-    {
+    pub fn generate_random_bytes(
+        &self,
+    ) -> super::builder::key_management_service::GenerateRandomBytes {
         super::builder::key_management_service::GenerateRandomBytes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::key_management_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::key_management_service::ListLocations {
         super::builder::key_management_service::ListLocations::new(self.inner.clone())
     }
 
@@ -1916,8 +1936,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::key_management_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::key_management_service::GetLocation {
         super::builder::key_management_service::GetLocation::new(self.inner.clone())
     }
 
@@ -1942,8 +1961,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::key_management_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::key_management_service::SetIamPolicy {
         super::builder::key_management_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1965,8 +1983,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::key_management_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::key_management_service::GetIamPolicy {
         super::builder::key_management_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1993,8 +2010,9 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::key_management_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::key_management_service::TestIamPermissions {
         super::builder::key_management_service::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -2017,8 +2035,7 @@ impl KeyManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::key_management_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::key_management_service::GetOperation {
         super::builder::key_management_service::GetOperation::new(self.inner.clone())
     }
 }

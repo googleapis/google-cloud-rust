@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Config](super::stub::Config) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Config for Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_deployments(
         &self,
@@ -355,7 +361,6 @@ where T: super::stub::Config + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -370,4 +375,3 @@ where T: super::stub::Config + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

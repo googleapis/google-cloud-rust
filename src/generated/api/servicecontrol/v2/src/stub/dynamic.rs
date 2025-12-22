@@ -28,7 +28,6 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>>;
-
 }
 
 /// All implementations of [super::ServiceController] also implement [ServiceController].
@@ -51,5 +50,4 @@ impl<T: super::ServiceController> ServiceController for T {
     ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>> {
         T::report(self, req, options).await
     }
-
 }

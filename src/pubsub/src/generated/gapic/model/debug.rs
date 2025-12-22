@@ -20,7 +20,10 @@ use super::*;
 impl std::fmt::Debug for super::MessageStoragePolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageStoragePolicy");
-        debug_struct.field("allowed_persistence_regions", &self.allowed_persistence_regions);
+        debug_struct.field(
+            "allowed_persistence_regions",
+            &self.allowed_persistence_regions,
+        );
         debug_struct.field("enforce_in_transit", &self.enforce_in_transit);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -75,7 +78,10 @@ impl std::fmt::Debug for super::ingestion_data_source_settings::CloudStorage {
         let mut debug_struct = f.debug_struct("CloudStorage");
         debug_struct.field("state", &self.state);
         debug_struct.field("bucket", &self.bucket);
-        debug_struct.field("minimum_object_create_time", &self.minimum_object_create_time);
+        debug_struct.field(
+            "minimum_object_create_time",
+            &self.minimum_object_create_time,
+        );
         debug_struct.field("match_glob", &self.match_glob);
         debug_struct.field("input_format", &self.input_format);
         if !self._unknown_fields.is_empty() {
@@ -210,9 +216,15 @@ impl std::fmt::Debug for super::Topic {
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("schema_settings", &self.schema_settings);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
-        debug_struct.field("message_retention_duration", &self.message_retention_duration);
+        debug_struct.field(
+            "message_retention_duration",
+            &self.message_retention_duration,
+        );
         debug_struct.field("state", &self.state);
-        debug_struct.field("ingestion_data_source_settings", &self.ingestion_data_source_settings);
+        debug_struct.field(
+            "ingestion_data_source_settings",
+            &self.ingestion_data_source_settings,
+        );
         debug_struct.field("message_transforms", &self.message_transforms);
         debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
@@ -221,8 +233,6 @@ impl std::fmt::Debug for super::Topic {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::GetTopicRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -364,7 +374,10 @@ impl std::fmt::Debug for super::Subscription {
         debug_struct.field("cloud_storage_config", &self.cloud_storage_config);
         debug_struct.field("ack_deadline_seconds", &self.ack_deadline_seconds);
         debug_struct.field("retain_acked_messages", &self.retain_acked_messages);
-        debug_struct.field("message_retention_duration", &self.message_retention_duration);
+        debug_struct.field(
+            "message_retention_duration",
+            &self.message_retention_duration,
+        );
         debug_struct.field("labels", &self.labels);
         debug_struct.field("enable_message_ordering", &self.enable_message_ordering);
         debug_struct.field("expiration_policy", &self.expiration_policy);
@@ -372,10 +385,19 @@ impl std::fmt::Debug for super::Subscription {
         debug_struct.field("dead_letter_policy", &self.dead_letter_policy);
         debug_struct.field("retry_policy", &self.retry_policy);
         debug_struct.field("detached", &self.detached);
-        debug_struct.field("enable_exactly_once_delivery", &self.enable_exactly_once_delivery);
-        debug_struct.field("topic_message_retention_duration", &self.topic_message_retention_duration);
+        debug_struct.field(
+            "enable_exactly_once_delivery",
+            &self.enable_exactly_once_delivery,
+        );
+        debug_struct.field(
+            "topic_message_retention_duration",
+            &self.topic_message_retention_duration,
+        );
         debug_struct.field("state", &self.state);
-        debug_struct.field("analytics_hub_subscription_info", &self.analytics_hub_subscription_info);
+        debug_struct.field(
+            "analytics_hub_subscription_info",
+            &self.analytics_hub_subscription_info,
+        );
         debug_struct.field("message_transforms", &self.message_transforms);
         debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
@@ -396,8 +418,6 @@ impl std::fmt::Debug for super::subscription::AnalyticsHubSubscriptionInfo {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::RetryPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -480,7 +500,6 @@ impl std::fmt::Debug for super::push_config::NoWrapper {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::BigQueryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

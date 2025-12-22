@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Contact {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -34,7 +34,10 @@ impl serde::ser::Serialize for super::Contact {
             state.serialize_entry("email", &self.email)?;
         }
         if !self.notification_category_subscriptions.is_empty() {
-            state.serialize_entry("notificationCategorySubscriptions", &self.notification_category_subscriptions)?;
+            state.serialize_entry(
+                "notificationCategorySubscriptions",
+                &self.notification_category_subscriptions,
+            )?;
         }
         if !self.language_tag.is_empty() {
             state.serialize_entry("languageTag", &self.language_tag)?;
@@ -60,9 +63,9 @@ impl serde::ser::Serialize for super::ListContactsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -97,9 +100,9 @@ impl serde::ser::Serialize for super::ListContactsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.contacts.is_empty() {
             state.serialize_entry("contacts", &self.contacts)?;
@@ -122,9 +125,9 @@ impl serde::ser::Serialize for super::GetContactRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -144,9 +147,9 @@ impl serde::ser::Serialize for super::DeleteContactRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -166,9 +169,9 @@ impl serde::ser::Serialize for super::CreateContactRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -191,9 +194,9 @@ impl serde::ser::Serialize for super::UpdateContactRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.contact.is_some() {
             state.serialize_entry("contact", &self.contact)?;
@@ -216,9 +219,9 @@ impl serde::ser::Serialize for super::ComputeContactsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -256,9 +259,9 @@ impl serde::ser::Serialize for super::ComputeContactsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.contacts.is_empty() {
             state.serialize_entry("contacts", &self.contacts)?;
@@ -281,9 +284,9 @@ impl serde::ser::Serialize for super::SendTestMessageRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.contacts.is_empty() {
             state.serialize_entry("contacts", &self.contacts)?;

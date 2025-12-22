@@ -182,7 +182,6 @@ impl std::fmt::Debug for super::allow_binding_explanation::AnnotatedAllowMembers
     }
 }
 
-
 impl std::fmt::Debug for super::DenyPolicyExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyPolicyExplanation");
@@ -229,13 +228,22 @@ impl std::fmt::Debug for super::DenyRuleExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyRuleExplanation");
         debug_struct.field("deny_access_state", &self.deny_access_state);
-        debug_struct.field("combined_denied_permission", &self.combined_denied_permission);
+        debug_struct.field(
+            "combined_denied_permission",
+            &self.combined_denied_permission,
+        );
         debug_struct.field("denied_permissions", &self.denied_permissions);
-        debug_struct.field("combined_exception_permission", &self.combined_exception_permission);
+        debug_struct.field(
+            "combined_exception_permission",
+            &self.combined_exception_permission,
+        );
         debug_struct.field("exception_permissions", &self.exception_permissions);
         debug_struct.field("combined_denied_principal", &self.combined_denied_principal);
         debug_struct.field("denied_principals", &self.denied_principals);
-        debug_struct.field("combined_exception_principal", &self.combined_exception_principal);
+        debug_struct.field(
+            "combined_exception_principal",
+            &self.combined_exception_principal,
+        );
         debug_struct.field("exception_principals", &self.exception_principals);
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("condition", &self.condition);
@@ -270,10 +278,6 @@ impl std::fmt::Debug for super::deny_rule_explanation::AnnotatedDenyPrincipalMat
         debug_struct.finish()
     }
 }
-
-
-
-
 
 impl std::fmt::Debug for super::ConditionExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

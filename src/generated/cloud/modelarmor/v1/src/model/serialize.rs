@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Template {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -60,12 +60,15 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.ignore_partial_invocation_failures) {
-            state.serialize_entry("ignorePartialInvocationFailures", &self.ignore_partial_invocation_failures)?;
+            state.serialize_entry(
+                "ignorePartialInvocationFailures",
+                &self.ignore_partial_invocation_failures,
+            )?;
         }
         if !wkt::internal::is_default(&self.custom_prompt_safety_error_code) {
             struct __With<'a>(&'a i32);
@@ -77,10 +80,16 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("customPromptSafetyErrorCode", &__With(&self.custom_prompt_safety_error_code))?;
+            state.serialize_entry(
+                "customPromptSafetyErrorCode",
+                &__With(&self.custom_prompt_safety_error_code),
+            )?;
         }
         if !self.custom_prompt_safety_error_message.is_empty() {
-            state.serialize_entry("customPromptSafetyErrorMessage", &self.custom_prompt_safety_error_message)?;
+            state.serialize_entry(
+                "customPromptSafetyErrorMessage",
+                &self.custom_prompt_safety_error_message,
+            )?;
         }
         if !wkt::internal::is_default(&self.custom_llm_response_safety_error_code) {
             struct __With<'a>(&'a i32);
@@ -92,10 +101,16 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("customLlmResponseSafetyErrorCode", &__With(&self.custom_llm_response_safety_error_code))?;
+            state.serialize_entry(
+                "customLlmResponseSafetyErrorCode",
+                &__With(&self.custom_llm_response_safety_error_code),
+            )?;
         }
         if !self.custom_llm_response_safety_error_message.is_empty() {
-            state.serialize_entry("customLlmResponseSafetyErrorMessage", &self.custom_llm_response_safety_error_message)?;
+            state.serialize_entry(
+                "customLlmResponseSafetyErrorMessage",
+                &self.custom_llm_response_safety_error_message,
+            )?;
         }
         if !wkt::internal::is_default(&self.log_template_operations) {
             state.serialize_entry("logTemplateOperations", &self.log_template_operations)?;
@@ -124,12 +139,15 @@ impl serde::ser::Serialize for super::template::template_metadata::MultiLanguage
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_multi_language_detection) {
-            state.serialize_entry("enableMultiLanguageDetection", &self.enable_multi_language_detection)?;
+            state.serialize_entry(
+                "enableMultiLanguageDetection",
+                &self.enable_multi_language_detection,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -140,16 +158,15 @@ impl serde::ser::Serialize for super::template::template_metadata::MultiLanguage
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FloorSetting {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -164,7 +181,10 @@ impl serde::ser::Serialize for super::FloorSetting {
             state.serialize_entry("filterConfig", &self.filter_config)?;
         }
         if self.enable_floor_setting_enforcement.is_some() {
-            state.serialize_entry("enableFloorSettingEnforcement", &self.enable_floor_setting_enforcement)?;
+            state.serialize_entry(
+                "enableFloorSettingEnforcement",
+                &self.enable_floor_setting_enforcement,
+            )?;
         }
         if !self.integrated_services.is_empty() {
             state.serialize_entry("integratedServices", &self.integrated_services)?;
@@ -190,9 +210,9 @@ impl serde::ser::Serialize for super::floor_setting::FloorSettingMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.multi_language_detection.is_some() {
             state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
@@ -207,17 +227,22 @@ impl serde::ser::Serialize for super::floor_setting::FloorSettingMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::floor_setting::floor_setting_metadata::MultiLanguageDetection {
+impl serde::ser::Serialize
+    for super::floor_setting::floor_setting_metadata::MultiLanguageDetection
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_multi_language_detection) {
-            state.serialize_entry("enableMultiLanguageDetection", &self.enable_multi_language_detection)?;
+            state.serialize_entry(
+                "enableMultiLanguageDetection",
+                &self.enable_multi_language_detection,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -234,9 +259,9 @@ impl serde::ser::Serialize for super::AiPlatformFloorSetting {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.inspect_only() {
             state.serialize_entry("inspectOnly", value)?;
@@ -262,9 +287,9 @@ impl serde::ser::Serialize for super::ListTemplatesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -305,9 +330,9 @@ impl serde::ser::Serialize for super::ListTemplatesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.templates.is_empty() {
             state.serialize_entry("templates", &self.templates)?;
@@ -333,9 +358,9 @@ impl serde::ser::Serialize for super::GetTemplateRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -355,9 +380,9 @@ impl serde::ser::Serialize for super::CreateTemplateRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -386,9 +411,9 @@ impl serde::ser::Serialize for super::UpdateTemplateRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -414,9 +439,9 @@ impl serde::ser::Serialize for super::DeleteTemplateRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -439,9 +464,9 @@ impl serde::ser::Serialize for super::GetFloorSettingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -461,9 +486,9 @@ impl serde::ser::Serialize for super::UpdateFloorSettingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.floor_setting.is_some() {
             state.serialize_entry("floorSetting", &self.floor_setting)?;
@@ -486,9 +511,9 @@ impl serde::ser::Serialize for super::FilterConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.rai_settings.is_some() {
             state.serialize_entry("raiSettings", &self.rai_settings)?;
@@ -497,10 +522,16 @@ impl serde::ser::Serialize for super::FilterConfig {
             state.serialize_entry("sdpSettings", &self.sdp_settings)?;
         }
         if self.pi_and_jailbreak_filter_settings.is_some() {
-            state.serialize_entry("piAndJailbreakFilterSettings", &self.pi_and_jailbreak_filter_settings)?;
+            state.serialize_entry(
+                "piAndJailbreakFilterSettings",
+                &self.pi_and_jailbreak_filter_settings,
+            )?;
         }
         if self.malicious_uri_filter_settings.is_some() {
-            state.serialize_entry("maliciousUriFilterSettings", &self.malicious_uri_filter_settings)?;
+            state.serialize_entry(
+                "maliciousUriFilterSettings",
+                &self.malicious_uri_filter_settings,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -517,9 +548,9 @@ impl serde::ser::Serialize for super::PiAndJailbreakFilterSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_enforcement) {
             state.serialize_entry("filterEnforcement", &self.filter_enforcement)?;
@@ -542,9 +573,9 @@ impl serde::ser::Serialize for super::MaliciousUriFilterSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_enforcement) {
             state.serialize_entry("filterEnforcement", &self.filter_enforcement)?;
@@ -564,9 +595,9 @@ impl serde::ser::Serialize for super::RaiFilterSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.rai_filters.is_empty() {
             state.serialize_entry("raiFilters", &self.rai_filters)?;
@@ -586,9 +617,9 @@ impl serde::ser::Serialize for super::rai_filter_settings::RaiFilter {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_type) {
             state.serialize_entry("filterType", &self.filter_type)?;
@@ -611,9 +642,9 @@ impl serde::ser::Serialize for super::SdpFilterSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.basic_config() {
             state.serialize_entry("basicConfig", value)?;
@@ -636,9 +667,9 @@ impl serde::ser::Serialize for super::SdpBasicConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_enforcement) {
             state.serialize_entry("filterEnforcement", &self.filter_enforcement)?;
@@ -658,9 +689,9 @@ impl serde::ser::Serialize for super::SdpAdvancedConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.inspect_template.is_empty() {
             state.serialize_entry("inspectTemplate", &self.inspect_template)?;
@@ -683,9 +714,9 @@ impl serde::ser::Serialize for super::SanitizeUserPromptRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -694,7 +725,10 @@ impl serde::ser::Serialize for super::SanitizeUserPromptRequest {
             state.serialize_entry("userPromptData", &self.user_prompt_data)?;
         }
         if self.multi_language_detection_metadata.is_some() {
-            state.serialize_entry("multiLanguageDetectionMetadata", &self.multi_language_detection_metadata)?;
+            state.serialize_entry(
+                "multiLanguageDetectionMetadata",
+                &self.multi_language_detection_metadata,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -711,9 +745,9 @@ impl serde::ser::Serialize for super::SanitizeModelResponseRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -725,7 +759,10 @@ impl serde::ser::Serialize for super::SanitizeModelResponseRequest {
             state.serialize_entry("userPrompt", &self.user_prompt)?;
         }
         if self.multi_language_detection_metadata.is_some() {
-            state.serialize_entry("multiLanguageDetectionMetadata", &self.multi_language_detection_metadata)?;
+            state.serialize_entry(
+                "multiLanguageDetectionMetadata",
+                &self.multi_language_detection_metadata,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -742,9 +779,9 @@ impl serde::ser::Serialize for super::SanitizeUserPromptResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.sanitization_result.is_some() {
             state.serialize_entry("sanitizationResult", &self.sanitization_result)?;
@@ -764,9 +801,9 @@ impl serde::ser::Serialize for super::SanitizeModelResponseResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.sanitization_result.is_some() {
             state.serialize_entry("sanitizationResult", &self.sanitization_result)?;
@@ -786,9 +823,9 @@ impl serde::ser::Serialize for super::SanitizationResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_match_state) {
             state.serialize_entry("filterMatchState", &self.filter_match_state)?;
@@ -817,9 +854,9 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.error_code) {
             struct __With<'a>(&'a i64);
@@ -837,7 +874,10 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
             state.serialize_entry("errorMessage", &self.error_message)?;
         }
         if !wkt::internal::is_default(&self.ignore_partial_invocation_failures) {
-            state.serialize_entry("ignorePartialInvocationFailures", &self.ignore_partial_invocation_failures)?;
+            state.serialize_entry(
+                "ignorePartialInvocationFailures",
+                &self.ignore_partial_invocation_failures,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -848,22 +888,24 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MultiLanguageDetectionMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.source_language.is_empty() {
             state.serialize_entry("sourceLanguage", &self.source_language)?;
         }
         if !wkt::internal::is_default(&self.enable_multi_language_detection) {
-            state.serialize_entry("enableMultiLanguageDetection", &self.enable_multi_language_detection)?;
+            state.serialize_entry(
+                "enableMultiLanguageDetection",
+                &self.enable_multi_language_detection,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -880,9 +922,9 @@ impl serde::ser::Serialize for super::FilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.rai_filter_result() {
             state.serialize_entry("raiFilterResult", value)?;
@@ -917,9 +959,9 @@ impl serde::ser::Serialize for super::RaiFilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -948,9 +990,9 @@ impl serde::ser::Serialize for super::rai_filter_result::RaiFilterTypeResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.filter_type) {
             state.serialize_entry("filterType", &self.filter_type)?;
@@ -970,16 +1012,15 @@ impl serde::ser::Serialize for super::rai_filter_result::RaiFilterTypeResult {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SdpFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.inspect_result() {
             state.serialize_entry("inspectResult", value)?;
@@ -1002,9 +1043,9 @@ impl serde::ser::Serialize for super::SdpInspectResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1036,9 +1077,9 @@ impl serde::ser::Serialize for super::DataItem {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.text() {
             state.serialize_entry("text", value)?;
@@ -1061,9 +1102,9 @@ impl serde::ser::Serialize for super::ByteDataItem {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.byte_data_type) {
             state.serialize_entry("byteDataType", &self.byte_data_type)?;
@@ -1095,9 +1136,9 @@ impl serde::ser::Serialize for super::SdpDeidentifyResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1141,9 +1182,9 @@ impl serde::ser::Serialize for super::SdpFinding {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.info_type.is_empty() {
             state.serialize_entry("infoType", &self.info_type)?;
@@ -1169,9 +1210,9 @@ impl serde::ser::Serialize for super::sdp_finding::SdpFindingLocation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.byte_range.is_some() {
             state.serialize_entry("byteRange", &self.byte_range)?;
@@ -1194,9 +1235,9 @@ impl serde::ser::Serialize for super::PiAndJailbreakFilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1225,9 +1266,9 @@ impl serde::ser::Serialize for super::MaliciousUriFilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1239,7 +1280,10 @@ impl serde::ser::Serialize for super::MaliciousUriFilterResult {
             state.serialize_entry("matchState", &self.match_state)?;
         }
         if !self.malicious_uri_matched_items.is_empty() {
-            state.serialize_entry("maliciousUriMatchedItems", &self.malicious_uri_matched_items)?;
+            state.serialize_entry(
+                "maliciousUriMatchedItems",
+                &self.malicious_uri_matched_items,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1256,9 +1300,9 @@ impl serde::ser::Serialize for super::malicious_uri_filter_result::MaliciousUriM
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.uri.is_empty() {
             state.serialize_entry("uri", &self.uri)?;
@@ -1281,9 +1325,9 @@ impl serde::ser::Serialize for super::VirusScanFilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1304,7 +1348,9 @@ impl serde::ser::Serialize for super::VirusScanFilterResult {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("scannedSize", &__With(&self.scanned_size))?;
@@ -1327,9 +1373,9 @@ impl serde::ser::Serialize for super::VirusDetail {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.vendor.is_empty() {
             state.serialize_entry("vendor", &self.vendor)?;
@@ -1355,9 +1401,9 @@ impl serde::ser::Serialize for super::CsamFilterResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.execution_state) {
             state.serialize_entry("executionState", &self.execution_state)?;
@@ -1383,9 +1429,9 @@ impl serde::ser::Serialize for super::MessageItem {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.message_type) {
             state.serialize_entry("messageType", &self.message_type)?;
@@ -1408,9 +1454,9 @@ impl serde::ser::Serialize for super::RangeInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -1419,7 +1465,9 @@ impl serde::ser::Serialize for super::RangeInfo {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("start", &__With(&self.start))?;
@@ -1431,7 +1479,9 @@ impl serde::ser::Serialize for super::RangeInfo {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("end", &__With(&self.end))?;

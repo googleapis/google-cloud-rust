@@ -74,7 +74,9 @@ impl PolicyTroubleshooter {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_troubleshooter::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policy_troubleshooter::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::policy_troubleshooter::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -82,28 +84,43 @@ impl PolicyTroubleshooter {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::PolicyTroubleshooter + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::PolicyTroubleshooter + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTroubleshooter>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTroubleshooter>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTroubleshooter> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTroubleshooter> {
         super::transport::PolicyTroubleshooter::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTroubleshooter> {
-        Self::build_transport(conf).await.map(super::tracing::PolicyTroubleshooter::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTroubleshooter> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::PolicyTroubleshooter::new)
     }
 
     /// Checks whether a principal has a specific permission for a specific
@@ -125,8 +142,9 @@ impl PolicyTroubleshooter {
     ///     Ok(())
     /// }
     /// ```
-    pub fn troubleshoot_iam_policy(&self) -> super::builder::policy_troubleshooter::TroubleshootIamPolicy
-    {
+    pub fn troubleshoot_iam_policy(
+        &self,
+    ) -> super::builder::policy_troubleshooter::TroubleshootIamPolicy {
         super::builder::policy_troubleshooter::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

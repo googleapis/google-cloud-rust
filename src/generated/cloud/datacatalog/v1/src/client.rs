@@ -84,28 +84,42 @@ impl DataCatalog {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DataCatalog + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DataCatalog + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
         super::transport::DataCatalog::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
-        Self::build_transport(conf).await.map(super::tracing::DataCatalog::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataCatalog::new)
     }
 
     /// Searches Data Catalog for multiple resources like entries and tags that
@@ -124,8 +138,7 @@ impl DataCatalog {
     /// For more information, see [Data Catalog search syntax]
     /// (<https://cloud.google.com/data-catalog/docs/how-to/search-reference>).
     #[deprecated]
-    pub fn search_catalog(&self) -> super::builder::data_catalog::SearchCatalog
-    {
+    pub fn search_catalog(&self) -> super::builder::data_catalog::SearchCatalog {
         super::builder::data_catalog::SearchCatalog::new(self.inner.clone())
     }
 
@@ -173,8 +186,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn create_entry_group(&self) -> super::builder::data_catalog::CreateEntryGroup
-    {
+    pub fn create_entry_group(&self) -> super::builder::data_catalog::CreateEntryGroup {
         super::builder::data_catalog::CreateEntryGroup::new(self.inner.clone())
     }
 
@@ -196,8 +208,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn get_entry_group(&self) -> super::builder::data_catalog::GetEntryGroup
-    {
+    pub fn get_entry_group(&self) -> super::builder::data_catalog::GetEntryGroup {
         super::builder::data_catalog::GetEntryGroup::new(self.inner.clone())
     }
 
@@ -224,8 +235,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn update_entry_group(&self) -> super::builder::data_catalog::UpdateEntryGroup
-    {
+    pub fn update_entry_group(&self) -> super::builder::data_catalog::UpdateEntryGroup {
         super::builder::data_catalog::UpdateEntryGroup::new(self.inner.clone())
     }
 
@@ -251,15 +261,13 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn delete_entry_group(&self) -> super::builder::data_catalog::DeleteEntryGroup
-    {
+    pub fn delete_entry_group(&self) -> super::builder::data_catalog::DeleteEntryGroup {
         super::builder::data_catalog::DeleteEntryGroup::new(self.inner.clone())
     }
 
     /// Lists entry groups.
     #[deprecated]
-    pub fn list_entry_groups(&self) -> super::builder::data_catalog::ListEntryGroups
-    {
+    pub fn list_entry_groups(&self) -> super::builder::data_catalog::ListEntryGroups {
         super::builder::data_catalog::ListEntryGroups::new(self.inner.clone())
     }
 
@@ -291,8 +299,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn create_entry(&self) -> super::builder::data_catalog::CreateEntry
-    {
+    pub fn create_entry(&self) -> super::builder::data_catalog::CreateEntry {
         super::builder::data_catalog::CreateEntry::new(self.inner.clone())
     }
 
@@ -319,8 +326,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn update_entry(&self) -> super::builder::data_catalog::UpdateEntry
-    {
+    pub fn update_entry(&self) -> super::builder::data_catalog::UpdateEntry {
         super::builder::data_catalog::UpdateEntry::new(self.inner.clone())
     }
 
@@ -352,8 +358,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn delete_entry(&self) -> super::builder::data_catalog::DeleteEntry
-    {
+    pub fn delete_entry(&self) -> super::builder::data_catalog::DeleteEntry {
         super::builder::data_catalog::DeleteEntry::new(self.inner.clone())
     }
 
@@ -375,8 +380,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn get_entry(&self) -> super::builder::data_catalog::GetEntry
-    {
+    pub fn get_entry(&self) -> super::builder::data_catalog::GetEntry {
         super::builder::data_catalog::GetEntry::new(self.inner.clone())
     }
 
@@ -400,8 +404,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn lookup_entry(&self) -> super::builder::data_catalog::LookupEntry
-    {
+    pub fn lookup_entry(&self) -> super::builder::data_catalog::LookupEntry {
         super::builder::data_catalog::LookupEntry::new(self.inner.clone())
     }
 
@@ -413,8 +416,7 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.SearchCatalog]: crate::client::DataCatalog::search_catalog
     #[deprecated]
-    pub fn list_entries(&self) -> super::builder::data_catalog::ListEntries
-    {
+    pub fn list_entries(&self) -> super::builder::data_catalog::ListEntries {
         super::builder::data_catalog::ListEntries::new(self.inner.clone())
     }
 
@@ -442,8 +444,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn modify_entry_overview(&self) -> super::builder::data_catalog::ModifyEntryOverview
-    {
+    pub fn modify_entry_overview(&self) -> super::builder::data_catalog::ModifyEntryOverview {
         super::builder::data_catalog::ModifyEntryOverview::new(self.inner.clone())
     }
 
@@ -471,8 +472,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn modify_entry_contacts(&self) -> super::builder::data_catalog::ModifyEntryContacts
-    {
+    pub fn modify_entry_contacts(&self) -> super::builder::data_catalog::ModifyEntryContacts {
         super::builder::data_catalog::ModifyEntryContacts::new(self.inner.clone())
     }
 
@@ -499,8 +499,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn create_tag_template(&self) -> super::builder::data_catalog::CreateTagTemplate
-    {
+    pub fn create_tag_template(&self) -> super::builder::data_catalog::CreateTagTemplate {
         super::builder::data_catalog::CreateTagTemplate::new(self.inner.clone())
     }
 
@@ -522,8 +521,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn get_tag_template(&self) -> super::builder::data_catalog::GetTagTemplate
-    {
+    pub fn get_tag_template(&self) -> super::builder::data_catalog::GetTagTemplate {
         super::builder::data_catalog::GetTagTemplate::new(self.inner.clone())
     }
 
@@ -553,8 +551,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn update_tag_template(&self) -> super::builder::data_catalog::UpdateTagTemplate
-    {
+    pub fn update_tag_template(&self) -> super::builder::data_catalog::UpdateTagTemplate {
         super::builder::data_catalog::UpdateTagTemplate::new(self.inner.clone())
     }
 
@@ -579,8 +576,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn delete_tag_template(&self) -> super::builder::data_catalog::DeleteTagTemplate
-    {
+    pub fn delete_tag_template(&self) -> super::builder::data_catalog::DeleteTagTemplate {
         super::builder::data_catalog::DeleteTagTemplate::new(self.inner.clone())
     }
 
@@ -606,8 +602,9 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn create_tag_template_field(&self) -> super::builder::data_catalog::CreateTagTemplateField
-    {
+    pub fn create_tag_template_field(
+        &self,
+    ) -> super::builder::data_catalog::CreateTagTemplateField {
         super::builder::data_catalog::CreateTagTemplateField::new(self.inner.clone())
     }
 
@@ -636,8 +633,9 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn update_tag_template_field(&self) -> super::builder::data_catalog::UpdateTagTemplateField
-    {
+    pub fn update_tag_template_field(
+        &self,
+    ) -> super::builder::data_catalog::UpdateTagTemplateField {
         super::builder::data_catalog::UpdateTagTemplateField::new(self.inner.clone())
     }
 
@@ -663,8 +661,9 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn rename_tag_template_field(&self) -> super::builder::data_catalog::RenameTagTemplateField
-    {
+    pub fn rename_tag_template_field(
+        &self,
+    ) -> super::builder::data_catalog::RenameTagTemplateField {
         super::builder::data_catalog::RenameTagTemplateField::new(self.inner.clone())
     }
 
@@ -688,8 +687,9 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn rename_tag_template_field_enum_value(&self) -> super::builder::data_catalog::RenameTagTemplateFieldEnumValue
-    {
+    pub fn rename_tag_template_field_enum_value(
+        &self,
+    ) -> super::builder::data_catalog::RenameTagTemplateFieldEnumValue {
         super::builder::data_catalog::RenameTagTemplateFieldEnumValue::new(self.inner.clone())
     }
 
@@ -715,8 +715,9 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn delete_tag_template_field(&self) -> super::builder::data_catalog::DeleteTagTemplateField
-    {
+    pub fn delete_tag_template_field(
+        &self,
+    ) -> super::builder::data_catalog::DeleteTagTemplateField {
         super::builder::data_catalog::DeleteTagTemplateField::new(self.inner.clone())
     }
 
@@ -752,8 +753,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn create_tag(&self) -> super::builder::data_catalog::CreateTag
-    {
+    pub fn create_tag(&self) -> super::builder::data_catalog::CreateTag {
         super::builder::data_catalog::CreateTag::new(self.inner.clone())
     }
 
@@ -775,8 +775,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn update_tag(&self) -> super::builder::data_catalog::UpdateTag
-    {
+    pub fn update_tag(&self) -> super::builder::data_catalog::UpdateTag {
         super::builder::data_catalog::UpdateTag::new(self.inner.clone())
     }
 
@@ -797,8 +796,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn delete_tag(&self) -> super::builder::data_catalog::DeleteTag
-    {
+    pub fn delete_tag(&self) -> super::builder::data_catalog::DeleteTag {
         super::builder::data_catalog::DeleteTag::new(self.inner.clone())
     }
 
@@ -809,8 +807,7 @@ impl DataCatalog {
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.Tag.column]: crate::model::Tag::scope
     #[deprecated]
-    pub fn list_tags(&self) -> super::builder::data_catalog::ListTags
-    {
+    pub fn list_tags(&self) -> super::builder::data_catalog::ListTags {
         super::builder::data_catalog::ListTags::new(self.inner.clone())
     }
 
@@ -840,8 +837,7 @@ impl DataCatalog {
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     #[deprecated]
-    pub fn reconcile_tags(&self) -> super::builder::data_catalog::ReconcileTags
-    {
+    pub fn reconcile_tags(&self) -> super::builder::data_catalog::ReconcileTags {
         super::builder::data_catalog::ReconcileTags::new(self.inner.clone())
     }
 
@@ -866,8 +862,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn star_entry(&self) -> super::builder::data_catalog::StarEntry
-    {
+    pub fn star_entry(&self) -> super::builder::data_catalog::StarEntry {
         super::builder::data_catalog::StarEntry::new(self.inner.clone())
     }
 
@@ -892,8 +887,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn unstar_entry(&self) -> super::builder::data_catalog::UnstarEntry
-    {
+    pub fn unstar_entry(&self) -> super::builder::data_catalog::UnstarEntry {
         super::builder::data_catalog::UnstarEntry::new(self.inner.clone())
     }
 
@@ -931,8 +925,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn set_iam_policy(&self) -> super::builder::data_catalog::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::data_catalog::SetIamPolicy {
         super::builder::data_catalog::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -974,8 +967,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn get_iam_policy(&self) -> super::builder::data_catalog::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::data_catalog::GetIamPolicy {
         super::builder::data_catalog::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1010,8 +1002,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn test_iam_permissions(&self) -> super::builder::data_catalog::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::data_catalog::TestIamPermissions {
         super::builder::data_catalog::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -1048,8 +1039,7 @@ impl DataCatalog {
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     #[deprecated]
-    pub fn import_entries(&self) -> super::builder::data_catalog::ImportEntries
-    {
+    pub fn import_entries(&self) -> super::builder::data_catalog::ImportEntries {
         super::builder::data_catalog::ImportEntries::new(self.inner.clone())
     }
 
@@ -1072,8 +1062,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn set_config(&self) -> super::builder::data_catalog::SetConfig
-    {
+    pub fn set_config(&self) -> super::builder::data_catalog::SetConfig {
         super::builder::data_catalog::SetConfig::new(self.inner.clone())
     }
 
@@ -1097,8 +1086,7 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn retrieve_config(&self) -> super::builder::data_catalog::RetrieveConfig
-    {
+    pub fn retrieve_config(&self) -> super::builder::data_catalog::RetrieveConfig {
         super::builder::data_catalog::RetrieveConfig::new(self.inner.clone())
     }
 
@@ -1124,16 +1112,16 @@ impl DataCatalog {
     /// }
     /// ```
     #[deprecated]
-    pub fn retrieve_effective_config(&self) -> super::builder::data_catalog::RetrieveEffectiveConfig
-    {
+    pub fn retrieve_effective_config(
+        &self,
+    ) -> super::builder::data_catalog::RetrieveEffectiveConfig {
         super::builder::data_catalog::RetrieveEffectiveConfig::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::data_catalog::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::data_catalog::ListOperations {
         super::builder::data_catalog::ListOperations::new(self.inner.clone())
     }
 
@@ -1156,8 +1144,7 @@ impl DataCatalog {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::data_catalog::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::data_catalog::GetOperation {
         super::builder::data_catalog::GetOperation::new(self.inner.clone())
     }
 
@@ -1179,8 +1166,7 @@ impl DataCatalog {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::data_catalog::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::data_catalog::DeleteOperation {
         super::builder::data_catalog::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1202,8 +1188,7 @@ impl DataCatalog {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::data_catalog::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::data_catalog::CancelOperation {
         super::builder::data_catalog::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1269,7 +1254,9 @@ impl PolicyTagManager {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policy_tag_manager::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::policy_tag_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -1277,28 +1264,43 @@ impl PolicyTagManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::PolicyTagManager + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::PolicyTagManager + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
         super::transport::PolicyTagManager::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
-        Self::build_transport(conf).await.map(super::tracing::PolicyTagManager::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::PolicyTagManager::new)
     }
 
     /// Creates a taxonomy in a specified project.
@@ -1320,8 +1322,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_taxonomy(&self) -> super::builder::policy_tag_manager::CreateTaxonomy
-    {
+    pub fn create_taxonomy(&self) -> super::builder::policy_tag_manager::CreateTaxonomy {
         super::builder::policy_tag_manager::CreateTaxonomy::new(self.inner.clone())
     }
 
@@ -1343,8 +1344,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_taxonomy(&self) -> super::builder::policy_tag_manager::DeleteTaxonomy
-    {
+    pub fn delete_taxonomy(&self) -> super::builder::policy_tag_manager::DeleteTaxonomy {
         super::builder::policy_tag_manager::DeleteTaxonomy::new(self.inner.clone())
     }
 
@@ -1366,15 +1366,13 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_taxonomy(&self) -> super::builder::policy_tag_manager::UpdateTaxonomy
-    {
+    pub fn update_taxonomy(&self) -> super::builder::policy_tag_manager::UpdateTaxonomy {
         super::builder::policy_tag_manager::UpdateTaxonomy::new(self.inner.clone())
     }
 
     /// Lists all taxonomies in a project in a particular location that you
     /// have a permission to view.
-    pub fn list_taxonomies(&self) -> super::builder::policy_tag_manager::ListTaxonomies
-    {
+    pub fn list_taxonomies(&self) -> super::builder::policy_tag_manager::ListTaxonomies {
         super::builder::policy_tag_manager::ListTaxonomies::new(self.inner.clone())
     }
 
@@ -1395,8 +1393,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_taxonomy(&self) -> super::builder::policy_tag_manager::GetTaxonomy
-    {
+    pub fn get_taxonomy(&self) -> super::builder::policy_tag_manager::GetTaxonomy {
         super::builder::policy_tag_manager::GetTaxonomy::new(self.inner.clone())
     }
 
@@ -1417,8 +1414,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_policy_tag(&self) -> super::builder::policy_tag_manager::CreatePolicyTag
-    {
+    pub fn create_policy_tag(&self) -> super::builder::policy_tag_manager::CreatePolicyTag {
         super::builder::policy_tag_manager::CreatePolicyTag::new(self.inner.clone())
     }
 
@@ -1443,8 +1439,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_policy_tag(&self) -> super::builder::policy_tag_manager::DeletePolicyTag
-    {
+    pub fn delete_policy_tag(&self) -> super::builder::policy_tag_manager::DeletePolicyTag {
         super::builder::policy_tag_manager::DeletePolicyTag::new(self.inner.clone())
     }
 
@@ -1466,14 +1461,12 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_policy_tag(&self) -> super::builder::policy_tag_manager::UpdatePolicyTag
-    {
+    pub fn update_policy_tag(&self) -> super::builder::policy_tag_manager::UpdatePolicyTag {
         super::builder::policy_tag_manager::UpdatePolicyTag::new(self.inner.clone())
     }
 
     /// Lists all policy tags in a taxonomy.
-    pub fn list_policy_tags(&self) -> super::builder::policy_tag_manager::ListPolicyTags
-    {
+    pub fn list_policy_tags(&self) -> super::builder::policy_tag_manager::ListPolicyTags {
         super::builder::policy_tag_manager::ListPolicyTags::new(self.inner.clone())
     }
 
@@ -1494,8 +1487,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_policy_tag(&self) -> super::builder::policy_tag_manager::GetPolicyTag
-    {
+    pub fn get_policy_tag(&self) -> super::builder::policy_tag_manager::GetPolicyTag {
         super::builder::policy_tag_manager::GetPolicyTag::new(self.inner.clone())
     }
 
@@ -1516,8 +1508,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::policy_tag_manager::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::policy_tag_manager::GetIamPolicy {
         super::builder::policy_tag_manager::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1538,8 +1529,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::policy_tag_manager::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::policy_tag_manager::SetIamPolicy {
         super::builder::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1561,16 +1551,14 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::policy_tag_manager::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::policy_tag_manager::TestIamPermissions {
         super::builder::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::policy_tag_manager::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::policy_tag_manager::ListOperations {
         super::builder::policy_tag_manager::ListOperations::new(self.inner.clone())
     }
 
@@ -1593,8 +1581,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::policy_tag_manager::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::policy_tag_manager::GetOperation {
         super::builder::policy_tag_manager::GetOperation::new(self.inner.clone())
     }
 
@@ -1616,8 +1603,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::policy_tag_manager::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::policy_tag_manager::DeleteOperation {
         super::builder::policy_tag_manager::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1639,8 +1625,7 @@ impl PolicyTagManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::policy_tag_manager::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::policy_tag_manager::CancelOperation {
         super::builder::policy_tag_manager::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1704,7 +1689,9 @@ impl PolicyTagManagerSerialization {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager_serialization::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policy_tag_manager_serialization::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::policy_tag_manager_serialization::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -1712,28 +1699,44 @@ impl PolicyTagManagerSerialization {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::PolicyTagManagerSerialization + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::PolicyTagManagerSerialization + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
         super::transport::PolicyTagManagerSerialization::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
-        Self::build_transport(conf).await.map(super::tracing::PolicyTagManagerSerialization::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::PolicyTagManagerSerialization::new)
     }
 
     /// Replaces (updates) a taxonomy and all its policy tags.
@@ -1765,8 +1768,9 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn replace_taxonomy(&self) -> super::builder::policy_tag_manager_serialization::ReplaceTaxonomy
-    {
+    pub fn replace_taxonomy(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::ReplaceTaxonomy {
         super::builder::policy_tag_manager_serialization::ReplaceTaxonomy::new(self.inner.clone())
     }
 
@@ -1794,8 +1798,9 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn import_taxonomies(&self) -> super::builder::policy_tag_manager_serialization::ImportTaxonomies
-    {
+    pub fn import_taxonomies(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::ImportTaxonomies {
         super::builder::policy_tag_manager_serialization::ImportTaxonomies::new(self.inner.clone())
     }
 
@@ -1821,16 +1826,18 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn export_taxonomies(&self) -> super::builder::policy_tag_manager_serialization::ExportTaxonomies
-    {
+    pub fn export_taxonomies(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::ExportTaxonomies {
         super::builder::policy_tag_manager_serialization::ExportTaxonomies::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::policy_tag_manager_serialization::ListOperations
-    {
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::ListOperations {
         super::builder::policy_tag_manager_serialization::ListOperations::new(self.inner.clone())
     }
 
@@ -1853,8 +1860,7 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::policy_tag_manager_serialization::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::policy_tag_manager_serialization::GetOperation {
         super::builder::policy_tag_manager_serialization::GetOperation::new(self.inner.clone())
     }
 
@@ -1876,8 +1882,9 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::policy_tag_manager_serialization::DeleteOperation
-    {
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::DeleteOperation {
         super::builder::policy_tag_manager_serialization::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1899,8 +1906,9 @@ impl PolicyTagManagerSerialization {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::policy_tag_manager_serialization::CancelOperation
-    {
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::policy_tag_manager_serialization::CancelOperation {
         super::builder::policy_tag_manager_serialization::CancelOperation::new(self.inner.clone())
     }
 }

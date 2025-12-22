@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::AddOnWidgetSet {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.used_widgets.is_empty() {
             state.serialize_entry("usedWidgets", &self.used_widgets)?;
@@ -45,9 +45,9 @@ impl serde::ser::Serialize for super::MenuItemExtensionPoint {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.run_function.is_empty() {
             state.serialize_entry("runFunction", &self.run_function)?;
@@ -73,9 +73,9 @@ impl serde::ser::Serialize for super::HomepageExtensionPoint {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.run_function.is_empty() {
             state.serialize_entry("runFunction", &self.run_function)?;
@@ -98,9 +98,9 @@ impl serde::ser::Serialize for super::UniversalActionExtensionPoint {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.label.is_empty() {
             state.serialize_entry("label", &self.label)?;
@@ -126,9 +126,9 @@ impl serde::ser::Serialize for super::CommonAddOnManifest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -169,9 +169,9 @@ impl serde::ser::Serialize for super::LayoutProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.primary_color.is_empty() {
             state.serialize_entry("primaryColor", &self.primary_color)?;
@@ -194,9 +194,9 @@ impl serde::ser::Serialize for super::HttpOptions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.authorization_header) {
             state.serialize_entry("authorizationHeader", &self.authorization_header)?;

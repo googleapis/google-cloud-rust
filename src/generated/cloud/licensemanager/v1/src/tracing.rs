@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [LicenseManager](super::stub::LicenseManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LicenseManager<T>
-where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> LicenseManager<T>
-where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LicenseManager for LicenseManager<T>
-where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_configurations(
         &self,
@@ -118,7 +124,9 @@ where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>> {
-        self.inner.query_configuration_license_usage(req, options).await
+        self.inner
+            .query_configuration_license_usage(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -202,7 +210,6 @@ where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -217,4 +224,3 @@ where T: super::stub::LicenseManager + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

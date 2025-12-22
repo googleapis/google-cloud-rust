@@ -162,7 +162,8 @@ impl<T: super::Lineage> Lineage for T {
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>>
+    {
         T::process_open_lineage_run_event(self, req, options).await
     }
 
@@ -306,7 +307,8 @@ impl<T: super::Lineage> Lineage for T {
         &self,
         req: crate::model::BatchSearchLinkProcessesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>>
+    {
         T::batch_search_link_processes(self, req, options).await
     }
 

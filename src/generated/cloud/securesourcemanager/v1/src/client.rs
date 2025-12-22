@@ -74,7 +74,9 @@ impl SecureSourceManager {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::secure_source_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::secure_source_manager::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::secure_source_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -82,33 +84,47 @@ impl SecureSourceManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SecureSourceManager + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SecureSourceManager + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecureSourceManager>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecureSourceManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
         super::transport::SecureSourceManager::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
-        Self::build_transport(conf).await.map(super::tracing::SecureSourceManager::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SecureSourceManager> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SecureSourceManager::new)
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(&self) -> super::builder::secure_source_manager::ListInstances
-    {
+    pub fn list_instances(&self) -> super::builder::secure_source_manager::ListInstances {
         super::builder::secure_source_manager::ListInstances::new(self.inner.clone())
     }
 
@@ -129,8 +145,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance(&self) -> super::builder::secure_source_manager::GetInstance
-    {
+    pub fn get_instance(&self) -> super::builder::secure_source_manager::GetInstance {
         super::builder::secure_source_manager::GetInstance::new(self.inner.clone())
     }
 
@@ -145,8 +160,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::secure_source_manager::CreateInstance
-    {
+    pub fn create_instance(&self) -> super::builder::secure_source_manager::CreateInstance {
         super::builder::secure_source_manager::CreateInstance::new(self.inner.clone())
     }
 
@@ -161,8 +175,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::secure_source_manager::DeleteInstance
-    {
+    pub fn delete_instance(&self) -> super::builder::secure_source_manager::DeleteInstance {
         super::builder::secure_source_manager::DeleteInstance::new(self.inner.clone())
     }
 
@@ -170,8 +183,7 @@ impl SecureSourceManager {
     ///
     /// The instance field is required in the query parameter for requests using
     /// the securesourcemanager.googleapis.com endpoint.
-    pub fn list_repositories(&self) -> super::builder::secure_source_manager::ListRepositories
-    {
+    pub fn list_repositories(&self) -> super::builder::secure_source_manager::ListRepositories {
         super::builder::secure_source_manager::ListRepositories::new(self.inner.clone())
     }
 
@@ -192,8 +204,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository
-    {
+    pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository {
         super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
     }
 
@@ -211,8 +222,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_repository(&self) -> super::builder::secure_source_manager::CreateRepository
-    {
+    pub fn create_repository(&self) -> super::builder::secure_source_manager::CreateRepository {
         super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
     }
 
@@ -227,8 +237,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_repository(&self) -> super::builder::secure_source_manager::UpdateRepository
-    {
+    pub fn update_repository(&self) -> super::builder::secure_source_manager::UpdateRepository {
         super::builder::secure_source_manager::UpdateRepository::new(self.inner.clone())
     }
 
@@ -243,14 +252,12 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_repository(&self) -> super::builder::secure_source_manager::DeleteRepository
-    {
+    pub fn delete_repository(&self) -> super::builder::secure_source_manager::DeleteRepository {
         super::builder::secure_source_manager::DeleteRepository::new(self.inner.clone())
     }
 
     /// Lists hooks in a given repository.
-    pub fn list_hooks(&self) -> super::builder::secure_source_manager::ListHooks
-    {
+    pub fn list_hooks(&self) -> super::builder::secure_source_manager::ListHooks {
         super::builder::secure_source_manager::ListHooks::new(self.inner.clone())
     }
 
@@ -271,8 +278,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_hook(&self) -> super::builder::secure_source_manager::GetHook
-    {
+    pub fn get_hook(&self) -> super::builder::secure_source_manager::GetHook {
         super::builder::secure_source_manager::GetHook::new(self.inner.clone())
     }
 
@@ -287,8 +293,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_hook(&self) -> super::builder::secure_source_manager::CreateHook
-    {
+    pub fn create_hook(&self) -> super::builder::secure_source_manager::CreateHook {
         super::builder::secure_source_manager::CreateHook::new(self.inner.clone())
     }
 
@@ -303,8 +308,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_hook(&self) -> super::builder::secure_source_manager::UpdateHook
-    {
+    pub fn update_hook(&self) -> super::builder::secure_source_manager::UpdateHook {
         super::builder::secure_source_manager::UpdateHook::new(self.inner.clone())
     }
 
@@ -319,8 +323,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_hook(&self) -> super::builder::secure_source_manager::DeleteHook
-    {
+    pub fn delete_hook(&self) -> super::builder::secure_source_manager::DeleteHook {
         super::builder::secure_source_manager::DeleteHook::new(self.inner.clone())
     }
 
@@ -341,8 +344,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy_repo(&self) -> super::builder::secure_source_manager::GetIamPolicyRepo
-    {
+    pub fn get_iam_policy_repo(&self) -> super::builder::secure_source_manager::GetIamPolicyRepo {
         super::builder::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
     }
 
@@ -363,8 +365,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy_repo(&self) -> super::builder::secure_source_manager::SetIamPolicyRepo
-    {
+    pub fn set_iam_policy_repo(&self) -> super::builder::secure_source_manager::SetIamPolicyRepo {
         super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
     }
 
@@ -386,8 +387,9 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions_repo(&self) -> super::builder::secure_source_manager::TestIamPermissionsRepo
-    {
+    pub fn test_iam_permissions_repo(
+        &self,
+    ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
         super::builder::secure_source_manager::TestIamPermissionsRepo::new(self.inner.clone())
     }
 
@@ -402,14 +404,12 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_branch_rule(&self) -> super::builder::secure_source_manager::CreateBranchRule
-    {
+    pub fn create_branch_rule(&self) -> super::builder::secure_source_manager::CreateBranchRule {
         super::builder::secure_source_manager::CreateBranchRule::new(self.inner.clone())
     }
 
     /// ListBranchRules lists branch rules in a given repository.
-    pub fn list_branch_rules(&self) -> super::builder::secure_source_manager::ListBranchRules
-    {
+    pub fn list_branch_rules(&self) -> super::builder::secure_source_manager::ListBranchRules {
         super::builder::secure_source_manager::ListBranchRules::new(self.inner.clone())
     }
 
@@ -430,8 +430,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_branch_rule(&self) -> super::builder::secure_source_manager::GetBranchRule
-    {
+    pub fn get_branch_rule(&self) -> super::builder::secure_source_manager::GetBranchRule {
         super::builder::secure_source_manager::GetBranchRule::new(self.inner.clone())
     }
 
@@ -446,8 +445,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_branch_rule(&self) -> super::builder::secure_source_manager::UpdateBranchRule
-    {
+    pub fn update_branch_rule(&self) -> super::builder::secure_source_manager::UpdateBranchRule {
         super::builder::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
     }
 
@@ -462,8 +460,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_branch_rule(&self) -> super::builder::secure_source_manager::DeleteBranchRule
-    {
+    pub fn delete_branch_rule(&self) -> super::builder::secure_source_manager::DeleteBranchRule {
         super::builder::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
     }
 
@@ -478,8 +475,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_pull_request(&self) -> super::builder::secure_source_manager::CreatePullRequest
-    {
+    pub fn create_pull_request(&self) -> super::builder::secure_source_manager::CreatePullRequest {
         super::builder::secure_source_manager::CreatePullRequest::new(self.inner.clone())
     }
 
@@ -500,14 +496,12 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_pull_request(&self) -> super::builder::secure_source_manager::GetPullRequest
-    {
+    pub fn get_pull_request(&self) -> super::builder::secure_source_manager::GetPullRequest {
         super::builder::secure_source_manager::GetPullRequest::new(self.inner.clone())
     }
 
     /// Lists pull requests in a repository.
-    pub fn list_pull_requests(&self) -> super::builder::secure_source_manager::ListPullRequests
-    {
+    pub fn list_pull_requests(&self) -> super::builder::secure_source_manager::ListPullRequests {
         super::builder::secure_source_manager::ListPullRequests::new(self.inner.clone())
     }
 
@@ -522,8 +516,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_pull_request(&self) -> super::builder::secure_source_manager::UpdatePullRequest
-    {
+    pub fn update_pull_request(&self) -> super::builder::secure_source_manager::UpdatePullRequest {
         super::builder::secure_source_manager::UpdatePullRequest::new(self.inner.clone())
     }
 
@@ -538,8 +531,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn merge_pull_request(&self) -> super::builder::secure_source_manager::MergePullRequest
-    {
+    pub fn merge_pull_request(&self) -> super::builder::secure_source_manager::MergePullRequest {
         super::builder::secure_source_manager::MergePullRequest::new(self.inner.clone())
     }
 
@@ -554,8 +546,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn open_pull_request(&self) -> super::builder::secure_source_manager::OpenPullRequest
-    {
+    pub fn open_pull_request(&self) -> super::builder::secure_source_manager::OpenPullRequest {
         super::builder::secure_source_manager::OpenPullRequest::new(self.inner.clone())
     }
 
@@ -570,20 +561,19 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn close_pull_request(&self) -> super::builder::secure_source_manager::ClosePullRequest
-    {
+    pub fn close_pull_request(&self) -> super::builder::secure_source_manager::ClosePullRequest {
         super::builder::secure_source_manager::ClosePullRequest::new(self.inner.clone())
     }
 
     /// Lists a pull request's file diffs.
-    pub fn list_pull_request_file_diffs(&self) -> super::builder::secure_source_manager::ListPullRequestFileDiffs
-    {
+    pub fn list_pull_request_file_diffs(
+        &self,
+    ) -> super::builder::secure_source_manager::ListPullRequestFileDiffs {
         super::builder::secure_source_manager::ListPullRequestFileDiffs::new(self.inner.clone())
     }
 
     /// Fetches a tree from a repository.
-    pub fn fetch_tree(&self) -> super::builder::secure_source_manager::FetchTree
-    {
+    pub fn fetch_tree(&self) -> super::builder::secure_source_manager::FetchTree {
         super::builder::secure_source_manager::FetchTree::new(self.inner.clone())
     }
 
@@ -604,8 +594,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn fetch_blob(&self) -> super::builder::secure_source_manager::FetchBlob
-    {
+    pub fn fetch_blob(&self) -> super::builder::secure_source_manager::FetchBlob {
         super::builder::secure_source_manager::FetchBlob::new(self.inner.clone())
     }
 
@@ -620,8 +609,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_issue(&self) -> super::builder::secure_source_manager::CreateIssue
-    {
+    pub fn create_issue(&self) -> super::builder::secure_source_manager::CreateIssue {
         super::builder::secure_source_manager::CreateIssue::new(self.inner.clone())
     }
 
@@ -642,14 +630,12 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_issue(&self) -> super::builder::secure_source_manager::GetIssue
-    {
+    pub fn get_issue(&self) -> super::builder::secure_source_manager::GetIssue {
         super::builder::secure_source_manager::GetIssue::new(self.inner.clone())
     }
 
     /// Lists issues in a repository.
-    pub fn list_issues(&self) -> super::builder::secure_source_manager::ListIssues
-    {
+    pub fn list_issues(&self) -> super::builder::secure_source_manager::ListIssues {
         super::builder::secure_source_manager::ListIssues::new(self.inner.clone())
     }
 
@@ -664,8 +650,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_issue(&self) -> super::builder::secure_source_manager::UpdateIssue
-    {
+    pub fn update_issue(&self) -> super::builder::secure_source_manager::UpdateIssue {
         super::builder::secure_source_manager::UpdateIssue::new(self.inner.clone())
     }
 
@@ -680,8 +665,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_issue(&self) -> super::builder::secure_source_manager::DeleteIssue
-    {
+    pub fn delete_issue(&self) -> super::builder::secure_source_manager::DeleteIssue {
         super::builder::secure_source_manager::DeleteIssue::new(self.inner.clone())
     }
 
@@ -696,8 +680,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn open_issue(&self) -> super::builder::secure_source_manager::OpenIssue
-    {
+    pub fn open_issue(&self) -> super::builder::secure_source_manager::OpenIssue {
         super::builder::secure_source_manager::OpenIssue::new(self.inner.clone())
     }
 
@@ -712,8 +695,7 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn close_issue(&self) -> super::builder::secure_source_manager::CloseIssue
-    {
+    pub fn close_issue(&self) -> super::builder::secure_source_manager::CloseIssue {
         super::builder::secure_source_manager::CloseIssue::new(self.inner.clone())
     }
 
@@ -734,14 +716,16 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_pull_request_comment(&self) -> super::builder::secure_source_manager::GetPullRequestComment
-    {
+    pub fn get_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::GetPullRequestComment {
         super::builder::secure_source_manager::GetPullRequestComment::new(self.inner.clone())
     }
 
     /// Lists pull request comments.
-    pub fn list_pull_request_comments(&self) -> super::builder::secure_source_manager::ListPullRequestComments
-    {
+    pub fn list_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::ListPullRequestComments {
         super::builder::secure_source_manager::ListPullRequestComments::new(self.inner.clone())
     }
 
@@ -760,8 +744,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_pull_request_comment(&self) -> super::builder::secure_source_manager::CreatePullRequestComment
-    {
+    pub fn create_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::CreatePullRequestComment {
         super::builder::secure_source_manager::CreatePullRequestComment::new(self.inner.clone())
     }
 
@@ -776,8 +761,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_pull_request_comment(&self) -> super::builder::secure_source_manager::UpdatePullRequestComment
-    {
+    pub fn update_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::UpdatePullRequestComment {
         super::builder::secure_source_manager::UpdatePullRequestComment::new(self.inner.clone())
     }
 
@@ -792,8 +778,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_pull_request_comment(&self) -> super::builder::secure_source_manager::DeletePullRequestComment
-    {
+    pub fn delete_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::DeletePullRequestComment {
         super::builder::secure_source_manager::DeletePullRequestComment::new(self.inner.clone())
     }
 
@@ -812,9 +799,12 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_create_pull_request_comments(&self) -> super::builder::secure_source_manager::BatchCreatePullRequestComments
-    {
-        super::builder::secure_source_manager::BatchCreatePullRequestComments::new(self.inner.clone())
+    pub fn batch_create_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::BatchCreatePullRequestComments {
+        super::builder::secure_source_manager::BatchCreatePullRequestComments::new(
+            self.inner.clone(),
+        )
     }
 
     /// Resolves pull request comments. A list of PullRequestComment names must be
@@ -831,8 +821,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resolve_pull_request_comments(&self) -> super::builder::secure_source_manager::ResolvePullRequestComments
-    {
+    pub fn resolve_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::ResolvePullRequestComments {
         super::builder::secure_source_manager::ResolvePullRequestComments::new(self.inner.clone())
     }
 
@@ -850,8 +841,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn unresolve_pull_request_comments(&self) -> super::builder::secure_source_manager::UnresolvePullRequestComments
-    {
+    pub fn unresolve_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::UnresolvePullRequestComments {
         super::builder::secure_source_manager::UnresolvePullRequestComments::new(self.inner.clone())
     }
 
@@ -866,8 +858,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_issue_comment(&self) -> super::builder::secure_source_manager::CreateIssueComment
-    {
+    pub fn create_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::CreateIssueComment {
         super::builder::secure_source_manager::CreateIssueComment::new(self.inner.clone())
     }
 
@@ -888,14 +881,12 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_issue_comment(&self) -> super::builder::secure_source_manager::GetIssueComment
-    {
+    pub fn get_issue_comment(&self) -> super::builder::secure_source_manager::GetIssueComment {
         super::builder::secure_source_manager::GetIssueComment::new(self.inner.clone())
     }
 
     /// Lists comments in an issue.
-    pub fn list_issue_comments(&self) -> super::builder::secure_source_manager::ListIssueComments
-    {
+    pub fn list_issue_comments(&self) -> super::builder::secure_source_manager::ListIssueComments {
         super::builder::secure_source_manager::ListIssueComments::new(self.inner.clone())
     }
 
@@ -910,8 +901,9 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_issue_comment(&self) -> super::builder::secure_source_manager::UpdateIssueComment
-    {
+    pub fn update_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::UpdateIssueComment {
         super::builder::secure_source_manager::UpdateIssueComment::new(self.inner.clone())
     }
 
@@ -926,14 +918,14 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_issue_comment(&self) -> super::builder::secure_source_manager::DeleteIssueComment
-    {
+    pub fn delete_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::DeleteIssueComment {
         super::builder::secure_source_manager::DeleteIssueComment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::secure_source_manager::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::secure_source_manager::ListLocations {
         super::builder::secure_source_manager::ListLocations::new(self.inner.clone())
     }
 
@@ -954,8 +946,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::secure_source_manager::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::secure_source_manager::GetLocation {
         super::builder::secure_source_manager::GetLocation::new(self.inner.clone())
     }
 
@@ -980,8 +971,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::secure_source_manager::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::secure_source_manager::SetIamPolicy {
         super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1003,8 +993,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::secure_source_manager::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::secure_source_manager::GetIamPolicy {
         super::builder::secure_source_manager::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1031,16 +1020,16 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::secure_source_manager::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::secure_source_manager::TestIamPermissions {
         super::builder::secure_source_manager::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::secure_source_manager::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::secure_source_manager::ListOperations {
         super::builder::secure_source_manager::ListOperations::new(self.inner.clone())
     }
 
@@ -1063,8 +1052,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation {
         super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
     }
 
@@ -1086,8 +1074,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation {
         super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1109,8 +1096,7 @@ impl SecureSourceManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation {
         super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
     }
 }

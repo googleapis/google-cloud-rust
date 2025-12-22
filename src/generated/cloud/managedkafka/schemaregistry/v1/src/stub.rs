@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::ManagedSchemaRegistry::get_schema_registry].
     fn get_schema_registry(
         &self,
         _req: crate::model::GetSchemaRegistryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaRegistry>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaRegistry>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +54,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemaRegistriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSchemaRegistriesResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSchemaRegistriesResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +65,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSchemaRegistryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaRegistry>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaRegistry>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +85,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetContextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Context>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Context>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +96,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListContextsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,7 +107,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,7 +118,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -116,7 +129,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemaVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -125,7 +140,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemaTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -134,7 +151,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSubjectsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,7 +162,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSubjectsBySchemaIdRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -152,7 +173,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSubjectRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -161,7 +184,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::LookupVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaVersion>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaVersion>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -170,7 +195,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaVersion>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaVersion>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -179,7 +206,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -188,7 +217,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -197,7 +228,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CreateVersionResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CreateVersionResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -206,7 +239,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -215,7 +250,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListReferencedSchemasRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<api::model::HttpBody>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<api::model::HttpBody>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -224,7 +261,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CheckCompatibilityRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CheckCompatibilityResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CheckCompatibilityResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -233,7 +272,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -242,7 +283,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSchemaConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -251,7 +294,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSchemaConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaConfig>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -260,7 +305,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaModeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -269,7 +316,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSchemaModeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -278,7 +327,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSchemaModeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaMode>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -287,7 +338,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -296,7 +349,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<location::model::Location>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -305,7 +360,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -314,7 +371,9 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -336,4 +395,3 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

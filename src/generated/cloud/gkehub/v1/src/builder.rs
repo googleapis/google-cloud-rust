@@ -39,7 +39,10 @@ pub mod gke_hub {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GkeHub;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,7 +57,9 @@ pub mod gke_hub {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
+    where
+        R: std::default::Default,
+    {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
             Self {
                 stub,
@@ -90,9 +95,7 @@ pub mod gke_hub {
 
     impl ListMemberships {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +112,17 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMembershipsResponse> {
-            (*self.0.stub).list_memberships(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_memberships(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMembershipsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListMembershipsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +134,10 @@ pub mod gke_hub {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMembershipsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMembershipsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -196,9 +208,7 @@ pub mod gke_hub {
 
     impl ListFeatures {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -215,11 +225,17 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFeaturesResponse> {
-            (*self.0.stub).list_features(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_features(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFeaturesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListFeaturesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -231,7 +247,10 @@ pub mod gke_hub {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFeaturesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFeaturesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -296,9 +315,7 @@ pub mod gke_hub {
 
     impl GetMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -315,7 +332,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Membership> {
-            (*self.0.stub).get_membership(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_membership(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMembershipRequest::name].
@@ -356,9 +376,7 @@ pub mod gke_hub {
 
     impl GetFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -375,7 +393,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Feature> {
-            (*self.0.stub).get_feature(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_feature(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeatureRequest::name].
@@ -415,13 +436,14 @@ pub mod gke_hub {
 
     impl CreateMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateMembershipRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateMembershipRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -439,16 +461,18 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_membership][crate::client::GkeHub::create_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_membership(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_membership(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_membership`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -496,7 +520,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Membership>
+        where
+            T: std::convert::Into<crate::model::Membership>,
         {
             self.0.request.resource = std::option::Option::Some(v.into());
             self
@@ -506,7 +531,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Membership>
+        where
+            T: std::convert::Into<crate::model::Membership>,
         {
             self.0.request.resource = v.map(|x| x.into());
             self
@@ -549,9 +575,7 @@ pub mod gke_hub {
 
     impl CreateFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -573,16 +597,18 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_feature][crate::client::GkeHub::create_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_feature(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_feature(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_feature`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -624,7 +650,8 @@ pub mod gke_hub {
 
         /// Sets the value of [resource][crate::model::CreateFeatureRequest::resource].
         pub fn set_resource<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Feature>
+        where
+            T: std::convert::Into<crate::model::Feature>,
         {
             self.0.request.resource = std::option::Option::Some(v.into());
             self
@@ -632,7 +659,8 @@ pub mod gke_hub {
 
         /// Sets or clears the value of [resource][crate::model::CreateFeatureRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Feature>
+        where
+            T: std::convert::Into<crate::model::Feature>,
         {
             self.0.request.resource = v.map(|x| x.into());
             self
@@ -675,13 +703,14 @@ pub mod gke_hub {
 
     impl DeleteMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteMembershipRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteMembershipRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -699,15 +728,14 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_membership][crate::client::GkeHub::delete_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_membership(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_membership(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_membership`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -733,7 +761,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMembershipRequest::name].
@@ -787,9 +820,7 @@ pub mod gke_hub {
 
     impl DeleteFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -811,15 +842,14 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_feature][crate::client::GkeHub::delete_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_feature(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_feature(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -845,7 +875,12 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -897,13 +932,14 @@ pub mod gke_hub {
 
     impl UpdateMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateMembershipRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateMembershipRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -921,16 +957,18 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_membership][crate::client::GkeHub::update_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_membership(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_membership(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_membership`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -970,7 +1008,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -980,7 +1019,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -990,7 +1030,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_resource<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Membership>
+        where
+            T: std::convert::Into<crate::model::Membership>,
         {
             self.0.request.resource = std::option::Option::Some(v.into());
             self
@@ -1000,7 +1041,8 @@ pub mod gke_hub {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Membership>
+        where
+            T: std::convert::Into<crate::model::Membership>,
         {
             self.0.request.resource = v.map(|x| x.into());
             self
@@ -1043,9 +1085,7 @@ pub mod gke_hub {
 
     impl UpdateFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1067,16 +1107,18 @@ pub mod gke_hub {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_feature][crate::client::GkeHub::update_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_feature(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_feature(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_feature`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1112,7 +1154,8 @@ pub mod gke_hub {
 
         /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1120,7 +1163,8 @@ pub mod gke_hub {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1128,7 +1172,8 @@ pub mod gke_hub {
 
         /// Sets the value of [resource][crate::model::UpdateFeatureRequest::resource].
         pub fn set_resource<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Feature>
+        where
+            T: std::convert::Into<crate::model::Feature>,
         {
             self.0.request.resource = std::option::Option::Some(v.into());
             self
@@ -1136,7 +1181,8 @@ pub mod gke_hub {
 
         /// Sets or clears the value of [resource][crate::model::UpdateFeatureRequest::resource].
         pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Feature>
+        where
+            T: std::convert::Into<crate::model::Feature>,
         {
             self.0.request.resource = v.map(|x| x.into());
             self
@@ -1174,17 +1220,20 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateConnectManifest(RequestBuilder<crate::model::GenerateConnectManifestRequest>);
+    pub struct GenerateConnectManifest(
+        RequestBuilder<crate::model::GenerateConnectManifestRequest>,
+    );
 
     impl GenerateConnectManifest {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateConnectManifestRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateConnectManifestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1197,7 +1246,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateConnectManifestResponse> {
-            (*self.0.stub).generate_connect_manifest(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .generate_connect_manifest(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateConnectManifestRequest::name].
@@ -1278,13 +1330,14 @@ pub mod gke_hub {
 
     impl ListOperations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1297,11 +1350,17 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1313,7 +1372,12 @@ pub mod gke_hub {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1378,13 +1442,14 @@ pub mod gke_hub {
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1397,7 +1462,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1436,13 +1504,14 @@ pub mod gke_hub {
 
     impl DeleteOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1455,7 +1524,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1494,13 +1566,14 @@ pub mod gke_hub {
 
     impl CancelOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1513,7 +1586,10 @@ pub mod gke_hub {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1529,5 +1605,4 @@ pub mod gke_hub {
             &mut self.0.options
         }
     }
-
 }

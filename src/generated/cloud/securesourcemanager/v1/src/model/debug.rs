@@ -29,7 +29,10 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("state_note", &self.state_note);
         debug_struct.field("kms_key", &self.kms_key);
         debug_struct.field("host_config", &self.host_config);
-        debug_struct.field("workforce_identity_federation_config", &self.workforce_identity_federation_config);
+        debug_struct.field(
+            "workforce_identity_federation_config",
+            &self.workforce_identity_federation_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -76,7 +79,6 @@ impl std::fmt::Debug for super::instance::WorkforceIdentityFederationConfig {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::Repository {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -189,7 +191,6 @@ impl std::fmt::Debug for super::branch_rule::Check {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::PullRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

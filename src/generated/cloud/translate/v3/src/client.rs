@@ -72,7 +72,9 @@ impl TranslationService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::translation_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::translation_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::translation_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,43 @@ impl TranslationService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::TranslationService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::TranslationService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TranslationService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TranslationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TranslationService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TranslationService> {
         super::transport::TranslationService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TranslationService> {
-        Self::build_transport(conf).await.map(super::tracing::TranslationService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TranslationService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::TranslationService::new)
     }
 
     /// Translates input text and returns translated text.
@@ -121,8 +138,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn translate_text(&self) -> super::builder::translation_service::TranslateText
-    {
+    pub fn translate_text(&self) -> super::builder::translation_service::TranslateText {
         super::builder::translation_service::TranslateText::new(self.inner.clone())
     }
 
@@ -143,8 +159,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn romanize_text(&self) -> super::builder::translation_service::RomanizeText
-    {
+    pub fn romanize_text(&self) -> super::builder::translation_service::RomanizeText {
         super::builder::translation_service::RomanizeText::new(self.inner.clone())
     }
 
@@ -165,8 +180,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn detect_language(&self) -> super::builder::translation_service::DetectLanguage
-    {
+    pub fn detect_language(&self) -> super::builder::translation_service::DetectLanguage {
         super::builder::translation_service::DetectLanguage::new(self.inner.clone())
     }
 
@@ -187,8 +201,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_supported_languages(&self) -> super::builder::translation_service::GetSupportedLanguages
-    {
+    pub fn get_supported_languages(
+        &self,
+    ) -> super::builder::translation_service::GetSupportedLanguages {
         super::builder::translation_service::GetSupportedLanguages::new(self.inner.clone())
     }
 
@@ -209,8 +224,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn translate_document(&self) -> super::builder::translation_service::TranslateDocument
-    {
+    pub fn translate_document(&self) -> super::builder::translation_service::TranslateDocument {
         super::builder::translation_service::TranslateDocument::new(self.inner.clone())
     }
 
@@ -231,8 +245,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_translate_text(&self) -> super::builder::translation_service::BatchTranslateText
-    {
+    pub fn batch_translate_text(&self) -> super::builder::translation_service::BatchTranslateText {
         super::builder::translation_service::BatchTranslateText::new(self.inner.clone())
     }
 
@@ -253,8 +266,9 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_translate_document(&self) -> super::builder::translation_service::BatchTranslateDocument
-    {
+    pub fn batch_translate_document(
+        &self,
+    ) -> super::builder::translation_service::BatchTranslateDocument {
         super::builder::translation_service::BatchTranslateDocument::new(self.inner.clone())
     }
 
@@ -270,8 +284,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_glossary(&self) -> super::builder::translation_service::CreateGlossary
-    {
+    pub fn create_glossary(&self) -> super::builder::translation_service::CreateGlossary {
         super::builder::translation_service::CreateGlossary::new(self.inner.clone())
     }
 
@@ -287,15 +300,13 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_glossary(&self) -> super::builder::translation_service::UpdateGlossary
-    {
+    pub fn update_glossary(&self) -> super::builder::translation_service::UpdateGlossary {
         super::builder::translation_service::UpdateGlossary::new(self.inner.clone())
     }
 
     /// Lists glossaries in a project. Returns NOT_FOUND, if the project doesn't
     /// exist.
-    pub fn list_glossaries(&self) -> super::builder::translation_service::ListGlossaries
-    {
+    pub fn list_glossaries(&self) -> super::builder::translation_service::ListGlossaries {
         super::builder::translation_service::ListGlossaries::new(self.inner.clone())
     }
 
@@ -317,8 +328,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_glossary(&self) -> super::builder::translation_service::GetGlossary
-    {
+    pub fn get_glossary(&self) -> super::builder::translation_service::GetGlossary {
         super::builder::translation_service::GetGlossary::new(self.inner.clone())
     }
 
@@ -335,8 +345,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_glossary(&self) -> super::builder::translation_service::DeleteGlossary
-    {
+    pub fn delete_glossary(&self) -> super::builder::translation_service::DeleteGlossary {
         super::builder::translation_service::DeleteGlossary::new(self.inner.clone())
     }
 
@@ -358,14 +367,14 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_glossary_entry(&self) -> super::builder::translation_service::GetGlossaryEntry
-    {
+    pub fn get_glossary_entry(&self) -> super::builder::translation_service::GetGlossaryEntry {
         super::builder::translation_service::GetGlossaryEntry::new(self.inner.clone())
     }
 
     /// List the entries for the glossary.
-    pub fn list_glossary_entries(&self) -> super::builder::translation_service::ListGlossaryEntries
-    {
+    pub fn list_glossary_entries(
+        &self,
+    ) -> super::builder::translation_service::ListGlossaryEntries {
         super::builder::translation_service::ListGlossaryEntries::new(self.inner.clone())
     }
 
@@ -386,8 +395,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_glossary_entry(&self) -> super::builder::translation_service::CreateGlossaryEntry
-    {
+    pub fn create_glossary_entry(
+        &self,
+    ) -> super::builder::translation_service::CreateGlossaryEntry {
         super::builder::translation_service::CreateGlossaryEntry::new(self.inner.clone())
     }
 
@@ -408,8 +418,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_glossary_entry(&self) -> super::builder::translation_service::UpdateGlossaryEntry
-    {
+    pub fn update_glossary_entry(
+        &self,
+    ) -> super::builder::translation_service::UpdateGlossaryEntry {
         super::builder::translation_service::UpdateGlossaryEntry::new(self.inner.clone())
     }
 
@@ -429,8 +440,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_glossary_entry(&self) -> super::builder::translation_service::DeleteGlossaryEntry
-    {
+    pub fn delete_glossary_entry(
+        &self,
+    ) -> super::builder::translation_service::DeleteGlossaryEntry {
         super::builder::translation_service::DeleteGlossaryEntry::new(self.inner.clone())
     }
 
@@ -445,8 +457,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_dataset(&self) -> super::builder::translation_service::CreateDataset
-    {
+    pub fn create_dataset(&self) -> super::builder::translation_service::CreateDataset {
         super::builder::translation_service::CreateDataset::new(self.inner.clone())
     }
 
@@ -467,14 +478,12 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_dataset(&self) -> super::builder::translation_service::GetDataset
-    {
+    pub fn get_dataset(&self) -> super::builder::translation_service::GetDataset {
         super::builder::translation_service::GetDataset::new(self.inner.clone())
     }
 
     /// Lists datasets.
-    pub fn list_datasets(&self) -> super::builder::translation_service::ListDatasets
-    {
+    pub fn list_datasets(&self) -> super::builder::translation_service::ListDatasets {
         super::builder::translation_service::ListDatasets::new(self.inner.clone())
     }
 
@@ -489,8 +498,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_dataset(&self) -> super::builder::translation_service::DeleteDataset
-    {
+    pub fn delete_dataset(&self) -> super::builder::translation_service::DeleteDataset {
         super::builder::translation_service::DeleteDataset::new(self.inner.clone())
     }
 
@@ -511,8 +519,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_adaptive_mt_dataset(&self) -> super::builder::translation_service::CreateAdaptiveMtDataset
-    {
+    pub fn create_adaptive_mt_dataset(
+        &self,
+    ) -> super::builder::translation_service::CreateAdaptiveMtDataset {
         super::builder::translation_service::CreateAdaptiveMtDataset::new(self.inner.clone())
     }
 
@@ -533,8 +542,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_adaptive_mt_dataset(&self) -> super::builder::translation_service::DeleteAdaptiveMtDataset
-    {
+    pub fn delete_adaptive_mt_dataset(
+        &self,
+    ) -> super::builder::translation_service::DeleteAdaptiveMtDataset {
         super::builder::translation_service::DeleteAdaptiveMtDataset::new(self.inner.clone())
     }
 
@@ -555,14 +565,16 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_adaptive_mt_dataset(&self) -> super::builder::translation_service::GetAdaptiveMtDataset
-    {
+    pub fn get_adaptive_mt_dataset(
+        &self,
+    ) -> super::builder::translation_service::GetAdaptiveMtDataset {
         super::builder::translation_service::GetAdaptiveMtDataset::new(self.inner.clone())
     }
 
     /// Lists all Adaptive MT datasets for which the caller has read permission.
-    pub fn list_adaptive_mt_datasets(&self) -> super::builder::translation_service::ListAdaptiveMtDatasets
-    {
+    pub fn list_adaptive_mt_datasets(
+        &self,
+    ) -> super::builder::translation_service::ListAdaptiveMtDatasets {
         super::builder::translation_service::ListAdaptiveMtDatasets::new(self.inner.clone())
     }
 
@@ -583,8 +595,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn adaptive_mt_translate(&self) -> super::builder::translation_service::AdaptiveMtTranslate
-    {
+    pub fn adaptive_mt_translate(
+        &self,
+    ) -> super::builder::translation_service::AdaptiveMtTranslate {
         super::builder::translation_service::AdaptiveMtTranslate::new(self.inner.clone())
     }
 
@@ -606,8 +619,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_adaptive_mt_file(&self) -> super::builder::translation_service::GetAdaptiveMtFile
-    {
+    pub fn get_adaptive_mt_file(&self) -> super::builder::translation_service::GetAdaptiveMtFile {
         super::builder::translation_service::GetAdaptiveMtFile::new(self.inner.clone())
     }
 
@@ -627,8 +639,9 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_adaptive_mt_file(&self) -> super::builder::translation_service::DeleteAdaptiveMtFile
-    {
+    pub fn delete_adaptive_mt_file(
+        &self,
+    ) -> super::builder::translation_service::DeleteAdaptiveMtFile {
         super::builder::translation_service::DeleteAdaptiveMtFile::new(self.inner.clone())
     }
 
@@ -650,20 +663,23 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn import_adaptive_mt_file(&self) -> super::builder::translation_service::ImportAdaptiveMtFile
-    {
+    pub fn import_adaptive_mt_file(
+        &self,
+    ) -> super::builder::translation_service::ImportAdaptiveMtFile {
         super::builder::translation_service::ImportAdaptiveMtFile::new(self.inner.clone())
     }
 
     /// Lists all AdaptiveMtFiles associated to an AdaptiveMtDataset.
-    pub fn list_adaptive_mt_files(&self) -> super::builder::translation_service::ListAdaptiveMtFiles
-    {
+    pub fn list_adaptive_mt_files(
+        &self,
+    ) -> super::builder::translation_service::ListAdaptiveMtFiles {
         super::builder::translation_service::ListAdaptiveMtFiles::new(self.inner.clone())
     }
 
     /// Lists all AdaptiveMtSentences under a given file/dataset.
-    pub fn list_adaptive_mt_sentences(&self) -> super::builder::translation_service::ListAdaptiveMtSentences
-    {
+    pub fn list_adaptive_mt_sentences(
+        &self,
+    ) -> super::builder::translation_service::ListAdaptiveMtSentences {
         super::builder::translation_service::ListAdaptiveMtSentences::new(self.inner.clone())
     }
 
@@ -678,8 +694,7 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_data(&self) -> super::builder::translation_service::ImportData
-    {
+    pub fn import_data(&self) -> super::builder::translation_service::ImportData {
         super::builder::translation_service::ImportData::new(self.inner.clone())
     }
 
@@ -694,14 +709,12 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_data(&self) -> super::builder::translation_service::ExportData
-    {
+    pub fn export_data(&self) -> super::builder::translation_service::ExportData {
         super::builder::translation_service::ExportData::new(self.inner.clone())
     }
 
     /// Lists sentence pairs in the dataset.
-    pub fn list_examples(&self) -> super::builder::translation_service::ListExamples
-    {
+    pub fn list_examples(&self) -> super::builder::translation_service::ListExamples {
         super::builder::translation_service::ListExamples::new(self.inner.clone())
     }
 
@@ -716,14 +729,12 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_model(&self) -> super::builder::translation_service::CreateModel
-    {
+    pub fn create_model(&self) -> super::builder::translation_service::CreateModel {
         super::builder::translation_service::CreateModel::new(self.inner.clone())
     }
 
     /// Lists models.
-    pub fn list_models(&self) -> super::builder::translation_service::ListModels
-    {
+    pub fn list_models(&self) -> super::builder::translation_service::ListModels {
         super::builder::translation_service::ListModels::new(self.inner.clone())
     }
 
@@ -744,8 +755,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_model(&self) -> super::builder::translation_service::GetModel
-    {
+    pub fn get_model(&self) -> super::builder::translation_service::GetModel {
         super::builder::translation_service::GetModel::new(self.inner.clone())
     }
 
@@ -760,14 +770,12 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_model(&self) -> super::builder::translation_service::DeleteModel
-    {
+    pub fn delete_model(&self) -> super::builder::translation_service::DeleteModel {
         super::builder::translation_service::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::translation_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::translation_service::ListLocations {
         super::builder::translation_service::ListLocations::new(self.inner.clone())
     }
 
@@ -788,16 +796,14 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::translation_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::translation_service::GetLocation {
         super::builder::translation_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::translation_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::translation_service::ListOperations {
         super::builder::translation_service::ListOperations::new(self.inner.clone())
     }
 
@@ -820,8 +826,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::translation_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::translation_service::GetOperation {
         super::builder::translation_service::GetOperation::new(self.inner.clone())
     }
 
@@ -843,8 +848,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::translation_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::translation_service::DeleteOperation {
         super::builder::translation_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -866,8 +870,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::translation_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::translation_service::CancelOperation {
         super::builder::translation_service::CancelOperation::new(self.inner.clone())
     }
 
@@ -890,8 +893,7 @@ impl TranslationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn wait_operation(&self) -> super::builder::translation_service::WaitOperation
-    {
+    pub fn wait_operation(&self) -> super::builder::translation_service::WaitOperation {
         super::builder::translation_service::WaitOperation::new(self.inner.clone())
     }
 }

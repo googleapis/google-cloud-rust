@@ -39,7 +39,10 @@ pub mod data_transfer_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataTransferService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod data_transfer_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod data_transfer_service {
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DataSource> {
-            (*self.0.stub).get_data_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_data_source(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
@@ -149,10 +159,10 @@ pub mod data_transfer_service {
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -169,11 +179,17 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDataSourcesResponse> {
-            (*self.0.stub).list_data_sources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_data_sources(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDataSourcesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDataSourcesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -185,7 +201,10 @@ pub mod data_transfer_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSourcesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSourcesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -239,14 +258,17 @@ pub mod data_transfer_service {
     pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
 
     impl CreateTransferConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateTransferConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateTransferConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -259,7 +281,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TransferConfig> {
-            (*self.0.stub).create_transfer_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_transfer_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTransferConfigRequest::parent].
@@ -274,7 +299,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_transfer_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TransferConfig>
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
         {
             self.0.request.transfer_config = std::option::Option::Some(v.into());
             self
@@ -284,7 +310,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TransferConfig>
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
         {
             self.0.request.transfer_config = v.map(|x| x.into());
             self
@@ -338,14 +365,17 @@ pub mod data_transfer_service {
     pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
 
     impl UpdateTransferConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateTransferConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateTransferConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -358,14 +388,18 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TransferConfig> {
-            (*self.0.stub).update_transfer_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_transfer_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_transfer_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TransferConfig>
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
         {
             self.0.request.transfer_config = std::option::Option::Some(v.into());
             self
@@ -375,7 +409,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TransferConfig>
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
         {
             self.0.request.transfer_config = v.map(|x| x.into());
             self
@@ -392,7 +427,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -402,7 +438,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -449,14 +486,17 @@ pub mod data_transfer_service {
     pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
 
     impl DeleteTransferConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTransferConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTransferConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -469,7 +509,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_transfer_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_transfer_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTransferConfigRequest::name].
@@ -509,14 +552,17 @@ pub mod data_transfer_service {
     pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
 
     impl GetTransferConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetTransferConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetTransferConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -529,7 +575,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TransferConfig> {
-            (*self.0.stub).get_transfer_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_transfer_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTransferConfigRequest::name].
@@ -573,14 +622,17 @@ pub mod data_transfer_service {
     pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
 
     impl ListTransferConfigs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTransferConfigsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTransferConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -593,11 +645,17 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTransferConfigsResponse> {
-            (*self.0.stub).list_transfer_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_transfer_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTransferConfigsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTransferConfigsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -609,7 +667,12 @@ pub mod data_transfer_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferConfigsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTransferConfigsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -626,7 +689,7 @@ pub mod data_transfer_service {
         pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -674,14 +737,17 @@ pub mod data_transfer_service {
     pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
 
     impl ScheduleTransferRuns {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ScheduleTransferRunsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ScheduleTransferRunsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -694,7 +760,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ScheduleTransferRunsResponse> {
-            (*self.0.stub).schedule_transfer_runs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .schedule_transfer_runs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ScheduleTransferRunsRequest::parent].
@@ -709,7 +778,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -719,7 +789,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -729,7 +800,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -739,7 +811,8 @@ pub mod data_transfer_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -771,17 +844,22 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartManualTransferRuns(RequestBuilder<crate::model::StartManualTransferRunsRequest>);
+    pub struct StartManualTransferRuns(
+        RequestBuilder<crate::model::StartManualTransferRunsRequest>,
+    );
 
     impl StartManualTransferRuns {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StartManualTransferRunsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::StartManualTransferRunsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -794,7 +872,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StartManualTransferRunsResponse> {
-            (*self.0.stub).start_manual_transfer_runs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_manual_transfer_runs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::StartManualTransferRunsRequest::parent].
@@ -809,7 +890,10 @@ pub mod data_transfer_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_time<T: Into<Option<crate::model::start_manual_transfer_runs_request::Time>>>(mut self, v: T) ->Self {
+        pub fn set_time<T: Into<Option<crate::model::start_manual_transfer_runs_request::Time>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.time = v.into();
             self
         }
@@ -819,7 +903,14 @@ pub mod data_transfer_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_requested_time_range<T: std::convert::Into<std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>>>(mut self, v: T) -> Self {
+        pub fn set_requested_time_range<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_requested_time_range(v);
             self
         }
@@ -829,7 +920,10 @@ pub mod data_transfer_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_requested_run_time(v);
             self
         }
@@ -863,10 +957,10 @@ pub mod data_transfer_service {
     pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
 
     impl GetTransferRun {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -883,7 +977,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TransferRun> {
-            (*self.0.stub).get_transfer_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_transfer_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTransferRunRequest::name].
@@ -923,14 +1020,17 @@ pub mod data_transfer_service {
     pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
     impl DeleteTransferRun {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTransferRunRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTransferRunRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -943,7 +1043,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_transfer_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_transfer_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTransferRunRequest::name].
@@ -987,14 +1090,17 @@ pub mod data_transfer_service {
     pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
 
     impl ListTransferRuns {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTransferRunsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTransferRunsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1007,11 +1113,17 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTransferRunsResponse> {
-            (*self.0.stub).list_transfer_runs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_transfer_runs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTransferRunsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTransferRunsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1023,7 +1135,10 @@ pub mod data_transfer_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferRunsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferRunsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1040,7 +1155,7 @@ pub mod data_transfer_service {
         pub fn set_states<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::TransferState>
+            V: std::convert::Into<crate::model::TransferState>,
         {
             use std::iter::Iterator;
             self.0.request.states = v.into_iter().map(|i| i.into()).collect();
@@ -1060,7 +1175,10 @@ pub mod data_transfer_service {
         }
 
         /// Sets the value of [run_attempt][crate::model::ListTransferRunsRequest::run_attempt].
-        pub fn set_run_attempt<T: Into<crate::model::list_transfer_runs_request::RunAttempt>>(mut self, v: T) -> Self {
+        pub fn set_run_attempt<T: Into<crate::model::list_transfer_runs_request::RunAttempt>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.run_attempt = v.into();
             self
         }
@@ -1098,14 +1216,17 @@ pub mod data_transfer_service {
     pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
 
     impl ListTransferLogs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTransferLogsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTransferLogsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1118,11 +1239,17 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTransferLogsResponse> {
-            (*self.0.stub).list_transfer_logs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_transfer_logs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTransferLogsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTransferLogsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1134,7 +1261,10 @@ pub mod data_transfer_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferLogsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferLogsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1163,7 +1293,7 @@ pub mod data_transfer_service {
         pub fn set_message_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::transfer_message::MessageSeverity>
+            V: std::convert::Into<crate::model::transfer_message::MessageSeverity>,
         {
             use std::iter::Iterator;
             self.0.request.message_types = v.into_iter().map(|i| i.into()).collect();
@@ -1199,10 +1329,10 @@ pub mod data_transfer_service {
     pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
 
     impl CheckValidCreds {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1219,7 +1349,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckValidCredsResponse> {
-            (*self.0.stub).check_valid_creds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .check_valid_creds(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckValidCredsRequest::name].
@@ -1259,14 +1392,17 @@ pub mod data_transfer_service {
     pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
     impl EnrollDataSources {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EnrollDataSourcesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::EnrollDataSourcesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1279,7 +1415,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).enroll_data_sources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .enroll_data_sources(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EnrollDataSourcesRequest::name].
@@ -1294,7 +1433,7 @@ pub mod data_transfer_service {
         pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1330,14 +1469,17 @@ pub mod data_transfer_service {
     pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
 
     impl UnenrollDataSources {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UnenrollDataSourcesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UnenrollDataSourcesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1350,7 +1492,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).unenroll_data_sources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .unenroll_data_sources(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UnenrollDataSourcesRequest::name].
@@ -1365,7 +1510,7 @@ pub mod data_transfer_service {
         pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1405,14 +1550,17 @@ pub mod data_transfer_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1425,11 +1573,17 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1441,7 +1595,10 @@ pub mod data_transfer_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1499,10 +1656,10 @@ pub mod data_transfer_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1519,7 +1676,10 @@ pub mod data_transfer_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1535,5 +1695,4 @@ pub mod data_transfer_service {
             &mut self.0.options
         }
     }
-
 }

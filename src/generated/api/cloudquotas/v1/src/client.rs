@@ -86,33 +86,46 @@ impl CloudQuotas {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudQuotas + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudQuotas + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudQuotas>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudQuotas>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudQuotas> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudQuotas> {
         super::transport::CloudQuotas::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudQuotas> {
-        Self::build_transport(conf).await.map(super::tracing::CloudQuotas::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudQuotas> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudQuotas::new)
     }
 
     /// Lists QuotaInfos of all quotas for a given project, folder or organization.
-    pub fn list_quota_infos(&self) -> super::builder::cloud_quotas::ListQuotaInfos
-    {
+    pub fn list_quota_infos(&self) -> super::builder::cloud_quotas::ListQuotaInfos {
         super::builder::cloud_quotas::ListQuotaInfos::new(self.inner.clone())
     }
 
@@ -133,14 +146,12 @@ impl CloudQuotas {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_quota_info(&self) -> super::builder::cloud_quotas::GetQuotaInfo
-    {
+    pub fn get_quota_info(&self) -> super::builder::cloud_quotas::GetQuotaInfo {
         super::builder::cloud_quotas::GetQuotaInfo::new(self.inner.clone())
     }
 
     /// Lists QuotaPreferences in a given project, folder or organization.
-    pub fn list_quota_preferences(&self) -> super::builder::cloud_quotas::ListQuotaPreferences
-    {
+    pub fn list_quota_preferences(&self) -> super::builder::cloud_quotas::ListQuotaPreferences {
         super::builder::cloud_quotas::ListQuotaPreferences::new(self.inner.clone())
     }
 
@@ -161,8 +172,7 @@ impl CloudQuotas {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_quota_preference(&self) -> super::builder::cloud_quotas::GetQuotaPreference
-    {
+    pub fn get_quota_preference(&self) -> super::builder::cloud_quotas::GetQuotaPreference {
         super::builder::cloud_quotas::GetQuotaPreference::new(self.inner.clone())
     }
 
@@ -183,8 +193,7 @@ impl CloudQuotas {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_quota_preference(&self) -> super::builder::cloud_quotas::CreateQuotaPreference
-    {
+    pub fn create_quota_preference(&self) -> super::builder::cloud_quotas::CreateQuotaPreference {
         super::builder::cloud_quotas::CreateQuotaPreference::new(self.inner.clone())
     }
 
@@ -206,8 +215,7 @@ impl CloudQuotas {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_quota_preference(&self) -> super::builder::cloud_quotas::UpdateQuotaPreference
-    {
+    pub fn update_quota_preference(&self) -> super::builder::cloud_quotas::UpdateQuotaPreference {
         super::builder::cloud_quotas::UpdateQuotaPreference::new(self.inner.clone())
     }
 }

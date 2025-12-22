@@ -37,7 +37,6 @@ impl std::fmt::Debug for super::Configuration {
     }
 }
 
-
 impl std::fmt::Debug for super::BillingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BillingInfo");
@@ -108,8 +107,6 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::Usage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

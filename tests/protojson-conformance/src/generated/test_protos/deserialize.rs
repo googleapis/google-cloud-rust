@@ -231,7 +231,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                             "optionalNestedMessage" => Ok(__FieldTag::__optional_nested_message),
                             "optional_nested_message" => Ok(__FieldTag::__optional_nested_message),
                             "optionalForeignMessage" => Ok(__FieldTag::__optional_foreign_message),
-                            "optional_foreign_message" => Ok(__FieldTag::__optional_foreign_message),
+                            "optional_foreign_message" => {
+                                Ok(__FieldTag::__optional_foreign_message)
+                            }
                             "optionalNestedEnum" => Ok(__FieldTag::__optional_nested_enum),
                             "optional_nested_enum" => Ok(__FieldTag::__optional_nested_enum),
                             "optionalForeignEnum" => Ok(__FieldTag::__optional_foreign_enum),
@@ -277,7 +279,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                             "repeatedNestedMessage" => Ok(__FieldTag::__repeated_nested_message),
                             "repeated_nested_message" => Ok(__FieldTag::__repeated_nested_message),
                             "repeatedForeignMessage" => Ok(__FieldTag::__repeated_foreign_message),
-                            "repeated_foreign_message" => Ok(__FieldTag::__repeated_foreign_message),
+                            "repeated_foreign_message" => {
+                                Ok(__FieldTag::__repeated_foreign_message)
+                            }
                             "repeatedNestedEnum" => Ok(__FieldTag::__repeated_nested_enum),
                             "repeated_nested_enum" => Ok(__FieldTag::__repeated_nested_enum),
                             "repeatedForeignEnum" => Ok(__FieldTag::__repeated_foreign_enum),
@@ -373,9 +377,15 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                             "mapStringBytes" => Ok(__FieldTag::__map_string_bytes),
                             "map_string_bytes" => Ok(__FieldTag::__map_string_bytes),
                             "mapStringNestedMessage" => Ok(__FieldTag::__map_string_nested_message),
-                            "map_string_nested_message" => Ok(__FieldTag::__map_string_nested_message),
-                            "mapStringForeignMessage" => Ok(__FieldTag::__map_string_foreign_message),
-                            "map_string_foreign_message" => Ok(__FieldTag::__map_string_foreign_message),
+                            "map_string_nested_message" => {
+                                Ok(__FieldTag::__map_string_nested_message)
+                            }
+                            "mapStringForeignMessage" => {
+                                Ok(__FieldTag::__map_string_foreign_message)
+                            }
+                            "map_string_foreign_message" => {
+                                Ok(__FieldTag::__map_string_foreign_message)
+                            }
                             "mapStringNestedEnum" => Ok(__FieldTag::__map_string_nested_enum),
                             "map_string_nested_enum" => Ok(__FieldTag::__map_string_nested_enum),
                             "mapStringForeignEnum" => Ok(__FieldTag::__map_string_foreign_enum),
@@ -513,9 +523,9 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -523,1136 +533,1788 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                     match tag {
                         __FieldTag::__optional_int32 => {
                             if !fields.insert(__FieldTag::__optional_int32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_int32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_int32",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_int32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_int64 => {
                             if !fields.insert(__FieldTag::__optional_int64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_int64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_int64",
+                                ));
                             }
-                            struct __With( std::option::Option<i64> );
+                            struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_int64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_uint32 => {
                             if !fields.insert(__FieldTag::__optional_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<u32> );
+                            struct __With(std::option::Option<u32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_uint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_uint64 => {
                             if !fields.insert(__FieldTag::__optional_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<u64> );
+                            struct __With(std::option::Option<u64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_uint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_sint32 => {
                             if !fields.insert(__FieldTag::__optional_sint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_sint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_sint32",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_sint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_sint64 => {
                             if !fields.insert(__FieldTag::__optional_sint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_sint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_sint64",
+                                ));
                             }
-                            struct __With( std::option::Option<i64> );
+                            struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_sint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_fixed32 => {
                             if !fields.insert(__FieldTag::__optional_fixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_fixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_fixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<u32> );
+                            struct __With(std::option::Option<u32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_fixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_fixed64 => {
                             if !fields.insert(__FieldTag::__optional_fixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_fixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_fixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<u64> );
+                            struct __With(std::option::Option<u64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_fixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_sfixed32 => {
                             if !fields.insert(__FieldTag::__optional_sfixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_sfixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_sfixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_sfixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_sfixed64 => {
                             if !fields.insert(__FieldTag::__optional_sfixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_sfixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_sfixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<i64> );
+                            struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_sfixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_float => {
                             if !fields.insert(__FieldTag::__optional_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_float",
+                                ));
                             }
-                            struct __With( std::option::Option<f32> );
+                            struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_float = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_float =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_double => {
                             if !fields.insert(__FieldTag::__optional_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_double",
+                                ));
                             }
-                            struct __With( std::option::Option<f64> );
+                            struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_double = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_double =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_bool => {
                             if !fields.insert(__FieldTag::__optional_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_bool",
+                                ));
                             }
-                            result.optional_bool = map.next_value::<std::option::Option<bool>>()?.unwrap_or_default();
-                        },
+                            result.optional_bool = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__optional_string => {
                             if !fields.insert(__FieldTag::__optional_string) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_string"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_string",
+                                ));
                             }
-                            result.optional_string = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.optional_string = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__optional_bytes => {
                             if !fields.insert(__FieldTag::__optional_bytes) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_bytes"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_bytes",
+                                ));
                             }
-                            struct __With( std::option::Option<::bytes::Bytes> );
+                            struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.optional_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_nested_message => {
                             if !fields.insert(__FieldTag::__optional_nested_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_nested_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_nested_message",
+                                ));
                             }
                             result.optional_nested_message = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::__optional_foreign_message => {
                             if !fields.insert(__FieldTag::__optional_foreign_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_foreign_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_foreign_message",
+                                ));
                             }
-                            result.optional_foreign_message = map.next_value::<std::option::Option<crate::generated::test_protos::ForeignMessage>>()?
-                                ;
-                        },
+                            result.optional_foreign_message = map
+                                .next_value::<std::option::Option<
+                                    crate::generated::test_protos::ForeignMessage,
+                                >>()?;
+                        }
                         __FieldTag::__optional_nested_enum => {
                             if !fields.insert(__FieldTag::__optional_nested_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_nested_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_nested_enum",
+                                ));
                             }
                             result.optional_nested_enum = map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__optional_foreign_enum => {
                             if !fields.insert(__FieldTag::__optional_foreign_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_foreign_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_foreign_enum",
+                                ));
                             }
                             result.optional_foreign_enum = map.next_value::<std::option::Option<crate::generated::test_protos::ForeignEnum>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__optional_aliased_enum => {
                             if !fields.insert(__FieldTag::__optional_aliased_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_aliased_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_aliased_enum",
+                                ));
                             }
                             result.optional_aliased_enum = map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::AliasedEnum>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__optional_string_piece => {
                             if !fields.insert(__FieldTag::__optional_string_piece) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_string_piece"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_string_piece",
+                                ));
                             }
-                            result.optional_string_piece = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.optional_string_piece = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__optional_cord => {
                             if !fields.insert(__FieldTag::__optional_cord) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_cord"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_cord",
+                                ));
                             }
-                            result.optional_cord = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.optional_cord = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__recursive_message => {
                             if !fields.insert(__FieldTag::__recursive_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for recursive_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for recursive_message",
+                                ));
                             }
-                            result.recursive_message = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>>()?
-                                ;
-                        },
+                            result.recursive_message = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>,
+                            >>()?;
+                        }
                         __FieldTag::__repeated_int32 => {
                             if !fields.insert(__FieldTag::__repeated_int32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_int32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_int32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_int32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_int64 => {
                             if !fields.insert(__FieldTag::__repeated_int64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_int64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_int64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_int64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_uint32 => {
                             if !fields.insert(__FieldTag::__repeated_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_uint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_uint64 => {
                             if !fields.insert(__FieldTag::__repeated_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_uint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_sint32 => {
                             if !fields.insert(__FieldTag::__repeated_sint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_sint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_sint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_sint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_sint64 => {
                             if !fields.insert(__FieldTag::__repeated_sint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_sint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_sint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_sint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_fixed32 => {
                             if !fields.insert(__FieldTag::__repeated_fixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_fixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_fixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_fixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_fixed64 => {
                             if !fields.insert(__FieldTag::__repeated_fixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_fixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_fixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_fixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_sfixed32 => {
                             if !fields.insert(__FieldTag::__repeated_sfixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_sfixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_sfixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_sfixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_sfixed64 => {
                             if !fields.insert(__FieldTag::__repeated_sfixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_sfixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_sfixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_sfixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_float => {
                             if !fields.insert(__FieldTag::__repeated_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_float",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f32>> );
+                            struct __With(std::option::Option<std::vec::Vec<f32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_float = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_float =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_double => {
                             if !fields.insert(__FieldTag::__repeated_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_double",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f64>> );
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_double = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_double =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_bool => {
                             if !fields.insert(__FieldTag::__repeated_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_bool",
+                                ));
                             }
-                            result.repeated_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_bool = map
+                                .next_value::<std::option::Option<std::vec::Vec<bool>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_string => {
                             if !fields.insert(__FieldTag::__repeated_string) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_string"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_string",
+                                ));
                             }
                             result.repeated_string = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__repeated_bytes => {
                             if !fields.insert(__FieldTag::__repeated_bytes) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_bytes"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_bytes",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<::bytes::Bytes>> );
+                            struct __With(std::option::Option<std::vec::Vec<::bytes::Bytes>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<serde_with::base64::Base64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::vec::Vec<serde_with::base64::Base64>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_nested_message => {
                             if !fields.insert(__FieldTag::__repeated_nested_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_nested_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_nested_message",
+                                ));
                             }
                             result.repeated_nested_message = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__repeated_foreign_message => {
                             if !fields.insert(__FieldTag::__repeated_foreign_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_foreign_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_foreign_message",
+                                ));
                             }
-                            result.repeated_foreign_message = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::ForeignMessage>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_foreign_message = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::test_protos::ForeignMessage>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_nested_enum => {
                             if !fields.insert(__FieldTag::__repeated_nested_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_nested_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_nested_enum",
+                                ));
                             }
                             result.repeated_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__repeated_foreign_enum => {
                             if !fields.insert(__FieldTag::__repeated_foreign_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_foreign_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_foreign_enum",
+                                ));
                             }
-                            result.repeated_foreign_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::ForeignEnum>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_foreign_enum = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::test_protos::ForeignEnum>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_string_piece => {
                             if !fields.insert(__FieldTag::__repeated_string_piece) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_string_piece"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_string_piece",
+                                ));
                             }
                             result.repeated_string_piece = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__repeated_cord => {
                             if !fields.insert(__FieldTag::__repeated_cord) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_cord"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_cord",
+                                ));
                             }
                             result.repeated_cord = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__packed_int32 => {
                             if !fields.insert(__FieldTag::__packed_int32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_int32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_int32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_int32 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_int64 => {
                             if !fields.insert(__FieldTag::__packed_int64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_int64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_int64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_int64 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_uint32 => {
                             if !fields.insert(__FieldTag::__packed_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_uint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_uint64 => {
                             if !fields.insert(__FieldTag::__packed_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_uint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_sint32 => {
                             if !fields.insert(__FieldTag::__packed_sint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_sint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_sint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_sint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_sint64 => {
                             if !fields.insert(__FieldTag::__packed_sint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_sint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_sint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_sint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_fixed32 => {
                             if !fields.insert(__FieldTag::__packed_fixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_fixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_fixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_fixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_fixed64 => {
                             if !fields.insert(__FieldTag::__packed_fixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_fixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_fixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_fixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_sfixed32 => {
                             if !fields.insert(__FieldTag::__packed_sfixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_sfixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_sfixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_sfixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_sfixed64 => {
                             if !fields.insert(__FieldTag::__packed_sfixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_sfixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_sfixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_sfixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_float => {
                             if !fields.insert(__FieldTag::__packed_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_float",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f32>> );
+                            struct __With(std::option::Option<std::vec::Vec<f32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_float = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_float = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_double => {
                             if !fields.insert(__FieldTag::__packed_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_double",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f64>> );
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.packed_double = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.packed_double =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__packed_bool => {
                             if !fields.insert(__FieldTag::__packed_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_bool",
+                                ));
                             }
-                            result.packed_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
-                        },
+                            result.packed_bool = map
+                                .next_value::<std::option::Option<std::vec::Vec<bool>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__packed_nested_enum => {
                             if !fields.insert(__FieldTag::__packed_nested_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for packed_nested_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed_nested_enum",
+                                ));
                             }
                             result.packed_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__unpacked_int32 => {
                             if !fields.insert(__FieldTag::__unpacked_int32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_int32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_int32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_int32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_int64 => {
                             if !fields.insert(__FieldTag::__unpacked_int64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_int64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_int64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_int64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_uint32 => {
                             if !fields.insert(__FieldTag::__unpacked_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_uint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_uint64 => {
                             if !fields.insert(__FieldTag::__unpacked_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_uint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_sint32 => {
                             if !fields.insert(__FieldTag::__unpacked_sint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_sint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_sint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_sint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_sint64 => {
                             if !fields.insert(__FieldTag::__unpacked_sint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_sint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_sint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_sint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_fixed32 => {
                             if !fields.insert(__FieldTag::__unpacked_fixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_fixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_fixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u32>> );
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_fixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_fixed64 => {
                             if !fields.insert(__FieldTag::__unpacked_fixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_fixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_fixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<u64>> );
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_fixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_sfixed32 => {
                             if !fields.insert(__FieldTag::__unpacked_sfixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_sfixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_sfixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i32>> );
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_sfixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_sfixed64 => {
                             if !fields.insert(__FieldTag::__unpacked_sfixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_sfixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_sfixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<i64>> );
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_sfixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_float => {
                             if !fields.insert(__FieldTag::__unpacked_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_float",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f32>> );
+                            struct __With(std::option::Option<std::vec::Vec<f32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_float = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_float =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_double => {
                             if !fields.insert(__FieldTag::__unpacked_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_double",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<f64>> );
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.unpacked_double = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.unpacked_double =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_bool => {
                             if !fields.insert(__FieldTag::__unpacked_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_bool",
+                                ));
                             }
-                            result.unpacked_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
-                        },
+                            result.unpacked_bool = map
+                                .next_value::<std::option::Option<std::vec::Vec<bool>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__unpacked_nested_enum => {
                             if !fields.insert(__FieldTag::__unpacked_nested_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for unpacked_nested_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unpacked_nested_enum",
+                                ));
                             }
                             result.unpacked_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__map_int32_int32 => {
                             if !fields.insert(__FieldTag::__map_int32_int32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_int32_int32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_int32_int32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i32, i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_int32_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_int32_int32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_int64_int64 => {
                             if !fields.insert(__FieldTag::__map_int64_int64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_int64_int64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_int64_int64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i64, i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I64,
+                                                wkt::internal::I64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_int64_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_int64_int64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_uint32_uint32 => {
                             if !fields.insert(__FieldTag::__map_uint32_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_uint32_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_uint32_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<u32,u32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<u32, u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U32,
+                                                wkt::internal::U32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_uint32_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_uint32_uint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_uint64_uint64 => {
                             if !fields.insert(__FieldTag::__map_uint64_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_uint64_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_uint64_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<u64,u64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<u64, u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U64,
+                                                wkt::internal::U64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_uint64_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_uint64_uint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_sint32_sint32 => {
                             if !fields.insert(__FieldTag::__map_sint32_sint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_sint32_sint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_sint32_sint32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i32, i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_sint32_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_sint32_sint32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_sint64_sint64 => {
                             if !fields.insert(__FieldTag::__map_sint64_sint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_sint64_sint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_sint64_sint64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i64, i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I64,
+                                                wkt::internal::I64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_sint64_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_sint64_sint64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_fixed32_fixed32 => {
                             if !fields.insert(__FieldTag::__map_fixed32_fixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_fixed32_fixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_fixed32_fixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<u32,u32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<u32, u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U32,
+                                                wkt::internal::U32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_fixed32_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_fixed32_fixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_fixed64_fixed64 => {
                             if !fields.insert(__FieldTag::__map_fixed64_fixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_fixed64_fixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_fixed64_fixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<u64,u64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<u64, u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U64,
+                                                wkt::internal::U64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_fixed64_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_fixed64_fixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_sfixed32_sfixed32 => {
                             if !fields.insert(__FieldTag::__map_sfixed32_sfixed32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_sfixed32_sfixed32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_sfixed32_sfixed32",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i32, i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_sfixed32_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_sfixed32_sfixed32 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_sfixed64_sfixed64 => {
                             if !fields.insert(__FieldTag::__map_sfixed64_sfixed64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_sfixed64_sfixed64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_sfixed64_sfixed64",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i64, i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I64,
+                                                wkt::internal::I64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_sfixed64_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_sfixed64_sfixed64 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_int32_float => {
                             if !fields.insert(__FieldTag::__map_int32_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_int32_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_int32_float",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i32,f32>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i32, f32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::F32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_int32_float = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_int32_float =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_int32_double => {
                             if !fields.insert(__FieldTag::__map_int32_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_int32_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_int32_double",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<i32,f64>> );
+                            struct __With(std::option::Option<std::collections::HashMap<i32, f64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<wkt::internal::I32, wkt::internal::F64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::F64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_int32_double = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_int32_double =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_bool_bool => {
                             if !fields.insert(__FieldTag::__map_bool_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_bool_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_bool_bool",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<bool,bool>> );
+                            struct __With(
+                                std::option::Option<std::collections::HashMap<bool, bool>>,
+                            );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::DisplayFromStr,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_bool_bool = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_bool_bool =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_string_string => {
                             if !fields.insert(__FieldTag::__map_string_string) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_string"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_string",
+                                ));
                             }
-                            result.map_string_string = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,std::string::String>>>()?.unwrap_or_default();
-                        },
+                            result.map_string_string = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__map_string_bytes => {
                             if !fields.insert(__FieldTag::__map_string_bytes) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_bytes"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_bytes",
+                                ));
                             }
-                            struct __With( std::option::Option<std::collections::HashMap<std::string::String,::bytes::Bytes>> );
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+                                >,
+                            );
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::collections::HashMap<serde_with::Same, serde_with::base64::Base64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                serde_with::base64::Base64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.map_string_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.map_string_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__map_string_nested_message => {
                             if !fields.insert(__FieldTag::__map_string_nested_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_nested_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_nested_message",
+                                ));
                             }
                             result.map_string_nested_message = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__map_string_foreign_message => {
                             if !fields.insert(__FieldTag::__map_string_foreign_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_foreign_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_foreign_message",
+                                ));
                             }
-                            result.map_string_foreign_message = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignMessage>>>()?.unwrap_or_default();
-                        },
+                            result.map_string_foreign_message = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::test_protos::ForeignMessage,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__map_string_nested_enum => {
                             if !fields.insert(__FieldTag::__map_string_nested_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_nested_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_nested_enum",
+                                ));
                             }
                             result.map_string_nested_enum = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::__map_string_foreign_enum => {
                             if !fields.insert(__FieldTag::__map_string_foreign_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for map_string_foreign_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_string_foreign_enum",
+                                ));
                             }
-                            result.map_string_foreign_enum = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignEnum>>>()?.unwrap_or_default();
-                        },
+                            result.map_string_foreign_enum = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::test_protos::ForeignEnum,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__oneof_uint32 => {
                             if !fields.insert(__FieldTag::__oneof_uint32) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_uint32"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_uint32",
+                                ));
                             }
-                            struct __With( std::option::Option<u32> );
+                            struct __With(std::option::Option<u32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
@@ -1669,10 +2331,12 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_nested_message => {
                             if !fields.insert(__FieldTag::__oneof_nested_message) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_nested_message"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_nested_message",
+                                ));
                             }
                             if result.oneof_field.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1684,10 +2348,12 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_string => {
                             if !fields.insert(__FieldTag::__oneof_string) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_string"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_string",
+                                ));
                             }
                             if result.oneof_field.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1699,14 +2365,18 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_bytes => {
                             if !fields.insert(__FieldTag::__oneof_bytes) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_bytes"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_bytes",
+                                ));
                             }
-                            struct __With( std::option::Option<::bytes::Bytes> );
+                            struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
@@ -1723,10 +2393,12 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_bool => {
                             if !fields.insert(__FieldTag::__oneof_bool) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_bool"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_bool",
+                                ));
                             }
                             if result.oneof_field.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1738,14 +2410,18 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<std::option::Option<bool>>()?.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_uint64 => {
                             if !fields.insert(__FieldTag::__oneof_uint64) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_uint64"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_uint64",
+                                ));
                             }
-                            struct __With( std::option::Option<u64> );
+                            struct __With(std::option::Option<u64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
@@ -1762,14 +2438,18 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_float => {
                             if !fields.insert(__FieldTag::__oneof_float) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_float"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_float",
+                                ));
                             }
-                            struct __With( std::option::Option<f32> );
+                            struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
@@ -1786,14 +2466,18 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_double => {
                             if !fields.insert(__FieldTag::__oneof_double) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_double"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_double",
+                                ));
                             }
-                            struct __With( std::option::Option<f64> );
+                            struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
@@ -1810,10 +2494,12 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_enum => {
                             if !fields.insert(__FieldTag::__oneof_enum) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_enum"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_enum",
+                                ));
                             }
                             if result.oneof_field.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1825,10 +2511,12 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>()?.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__oneof_null_value => {
                             if !fields.insert(__FieldTag::__oneof_null_value) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for oneof_null_value"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_null_value",
+                                ));
                             }
                             if result.oneof_field.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1840,608 +2528,834 @@ impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
                                     map.next_value::<std::option::Option<wkt::NullValue>>()?.unwrap_or_default()
                                 ),
                             );
-                        },
+                        }
                         __FieldTag::__optional_bool_wrapper => {
                             if !fields.insert(__FieldTag::__optional_bool_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_bool_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_bool_wrapper",
+                                ));
                             }
-                            result.optional_bool_wrapper = map.next_value::<std::option::Option<wkt::BoolValue>>()?
-                                ;
-                        },
+                            result.optional_bool_wrapper =
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
                         __FieldTag::__optional_int32_wrapper => {
                             if !fields.insert(__FieldTag::__optional_int32_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_int32_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_int32_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::Int32Value> );
+                            struct __With(std::option::Option<wkt::Int32Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_int32_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_int32_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_int64_wrapper => {
                             if !fields.insert(__FieldTag::__optional_int64_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_int64_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_int64_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::Int64Value> );
+                            struct __With(std::option::Option<wkt::Int64Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_int64_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_int64_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_uint32_wrapper => {
                             if !fields.insert(__FieldTag::__optional_uint32_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_uint32_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_uint32_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::UInt32Value> );
+                            struct __With(std::option::Option<wkt::UInt32Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_uint32_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_uint32_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_uint64_wrapper => {
                             if !fields.insert(__FieldTag::__optional_uint64_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_uint64_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_uint64_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::UInt64Value> );
+                            struct __With(std::option::Option<wkt::UInt64Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_uint64_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_uint64_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_float_wrapper => {
                             if !fields.insert(__FieldTag::__optional_float_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_float_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_float_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::FloatValue> );
+                            struct __With(std::option::Option<wkt::FloatValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_float_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_float_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_double_wrapper => {
                             if !fields.insert(__FieldTag::__optional_double_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_double_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_double_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::DoubleValue> );
+                            struct __With(std::option::Option<wkt::DoubleValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_double_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_double_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__optional_string_wrapper => {
                             if !fields.insert(__FieldTag::__optional_string_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_string_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_string_wrapper",
+                                ));
                             }
-                            result.optional_string_wrapper = map.next_value::<std::option::Option<wkt::StringValue>>()?
-                                ;
-                        },
+                            result.optional_string_wrapper =
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                        }
                         __FieldTag::__optional_bytes_wrapper => {
                             if !fields.insert(__FieldTag::__optional_bytes_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_bytes_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_bytes_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<wkt::BytesValue> );
+                            struct __With(std::option::Option<wkt::BytesValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.optional_bytes_wrapper = map.next_value::< __With >()?.0;
-                        },
+                            result.optional_bytes_wrapper = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__repeated_bool_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_bool_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_bool_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_bool_wrapper",
+                                ));
                             }
-                            result.repeated_bool_wrapper = map.next_value::<std::option::Option<std::vec::Vec<wkt::BoolValue>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_bool_wrapper = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::BoolValue>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_int32_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_int32_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_int32_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_int32_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::Int32Value>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::Int32Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_int32_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_int32_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_int64_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_int64_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_int64_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_int64_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::Int64Value>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::Int64Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::I64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_int64_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_int64_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_uint32_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_uint32_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_uint32_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_uint32_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::UInt32Value>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::UInt32Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_uint32_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_uint32_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_uint64_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_uint64_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_uint64_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_uint64_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::UInt64Value>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::UInt64Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::U64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_uint64_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_uint64_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_float_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_float_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_float_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_float_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::FloatValue>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::FloatValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F32>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_float_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_float_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_double_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_double_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_double_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_double_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::DoubleValue>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::DoubleValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<wkt::internal::F64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_double_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_double_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__repeated_string_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_string_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_string_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_string_wrapper",
+                                ));
                             }
-                            result.repeated_string_wrapper = map.next_value::<std::option::Option<std::vec::Vec<wkt::StringValue>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_string_wrapper = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::StringValue>>>(
+                                )?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_bytes_wrapper => {
                             if !fields.insert(__FieldTag::__repeated_bytes_wrapper) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_bytes_wrapper"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_bytes_wrapper",
+                                ));
                             }
-                            struct __With( std::option::Option<std::vec::Vec<wkt::BytesValue>> );
+                            struct __With(std::option::Option<std::vec::Vec<wkt::BytesValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<std::vec::Vec<serde_with::base64::Base64>> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::vec::Vec<serde_with::base64::Base64>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.repeated_bytes_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.repeated_bytes_wrapper =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__optional_duration => {
                             if !fields.insert(__FieldTag::__optional_duration) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_duration"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_duration",
+                                ));
                             }
-                            result.optional_duration = map.next_value::<std::option::Option<wkt::Duration>>()?
-                                ;
-                        },
+                            result.optional_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
                         __FieldTag::__optional_timestamp => {
                             if !fields.insert(__FieldTag::__optional_timestamp) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_timestamp"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_timestamp",
+                                ));
                             }
-                            result.optional_timestamp = map.next_value::<std::option::Option<wkt::Timestamp>>()?
-                                ;
-                        },
+                            result.optional_timestamp =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
                         __FieldTag::__optional_field_mask => {
                             if !fields.insert(__FieldTag::__optional_field_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_field_mask"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_field_mask",
+                                ));
                             }
-                            result.optional_field_mask = map.next_value::<std::option::Option<wkt::FieldMask>>()?
-                                ;
-                        },
+                            result.optional_field_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
                         __FieldTag::__optional_struct => {
                             if !fields.insert(__FieldTag::__optional_struct) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_struct"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_struct",
+                                ));
                             }
-                            result.optional_struct = map.next_value::<std::option::Option<wkt::Struct>>()?
-                                ;
-                        },
+                            result.optional_struct =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
                         __FieldTag::__optional_any => {
                             if !fields.insert(__FieldTag::__optional_any) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_any"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_any",
+                                ));
                             }
-                            result.optional_any = map.next_value::<std::option::Option<wkt::Any>>()?
-                                ;
-                        },
+                            result.optional_any =
+                                map.next_value::<std::option::Option<wkt::Any>>()?;
+                        }
                         __FieldTag::__optional_value => {
                             if !fields.insert(__FieldTag::__optional_value) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_value"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_value",
+                                ));
                             }
-                            result.optional_value = map.next_value::<std::option::Option<wkt::Value>>()?
-                                .or(Some(wkt::Value::Null))
-                                ;
-                        },
+                            result.optional_value = map
+                                .next_value::<std::option::Option<wkt::Value>>()?
+                                .or(Some(wkt::Value::Null));
+                        }
                         __FieldTag::__optional_null_value => {
                             if !fields.insert(__FieldTag::__optional_null_value) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for optional_null_value"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_null_value",
+                                ));
                             }
-                            result.optional_null_value = map.next_value::<std::option::Option<wkt::NullValue>>()?.unwrap_or_default();
-                        },
+                            result.optional_null_value = map
+                                .next_value::<std::option::Option<wkt::NullValue>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_duration => {
                             if !fields.insert(__FieldTag::__repeated_duration) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_duration"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_duration",
+                                ));
                             }
-                            result.repeated_duration = map.next_value::<std::option::Option<std::vec::Vec<wkt::Duration>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_duration = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Duration>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_timestamp => {
                             if !fields.insert(__FieldTag::__repeated_timestamp) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_timestamp"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_timestamp",
+                                ));
                             }
-                            result.repeated_timestamp = map.next_value::<std::option::Option<std::vec::Vec<wkt::Timestamp>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_timestamp = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Timestamp>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_fieldmask => {
                             if !fields.insert(__FieldTag::__repeated_fieldmask) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_fieldmask"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_fieldmask",
+                                ));
                             }
-                            result.repeated_fieldmask = map.next_value::<std::option::Option<std::vec::Vec<wkt::FieldMask>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_fieldmask = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::FieldMask>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_struct => {
                             if !fields.insert(__FieldTag::__repeated_struct) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_struct"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_struct",
+                                ));
                             }
-                            result.repeated_struct = map.next_value::<std::option::Option<std::vec::Vec<wkt::Struct>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_struct = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Struct>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_any => {
                             if !fields.insert(__FieldTag::__repeated_any) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_any"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_any",
+                                ));
                             }
-                            result.repeated_any = map.next_value::<std::option::Option<std::vec::Vec<wkt::Any>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_any = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Any>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_value => {
                             if !fields.insert(__FieldTag::__repeated_value) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_value"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_value",
+                                ));
                             }
-                            result.repeated_value = map.next_value::<std::option::Option<std::vec::Vec<wkt::Value>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_value = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Value>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__repeated_list_value => {
                             if !fields.insert(__FieldTag::__repeated_list_value) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for repeated_list_value"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_list_value",
+                                ));
                             }
-                            result.repeated_list_value = map.next_value::<std::option::Option<std::vec::Vec<wkt::ListValue>>>()?.unwrap_or_default();
-                        },
+                            result.repeated_list_value = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::ListValue>>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__fieldname1 => {
                             if !fields.insert(__FieldTag::__fieldname1) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for fieldname1"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fieldname1",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.fieldname1 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.fieldname1 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name2 => {
                             if !fields.insert(__FieldTag::__field_name2) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name2"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name2",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name2 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name2 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::___field_name3 => {
                             if !fields.insert(__FieldTag::___field_name3) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for _field_name3"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for _field_name3",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result._field_name3 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result._field_name3 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field__name4_ => {
                             if !fields.insert(__FieldTag::__field__name4_) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field__name4_"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field__name4_",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field__name4_ = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field__name4_ =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field0name5 => {
                             if !fields.insert(__FieldTag::__field0name5) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field0name5"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field0name5",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field0name5 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field0name5 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_0_name6 => {
                             if !fields.insert(__FieldTag::__field_0_name6) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_0_name6"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_0_name6",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_0_name6 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_0_name6 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_7 => {
                             if !fields.insert(__FieldTag::__field_name_7) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_7"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_7",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_7 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_7 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_8 => {
                             if !fields.insert(__FieldTag::__field_name_8) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_8"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_8",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_8 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_8 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_9 => {
                             if !fields.insert(__FieldTag::__field_name_9) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_9"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_9",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_9 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_9 = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_10 => {
                             if !fields.insert(__FieldTag::__field_name_10) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_10"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_10",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_10 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_10 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_11 => {
                             if !fields.insert(__FieldTag::__field_name_11) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_11"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_11",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_11 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_11 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_12 => {
                             if !fields.insert(__FieldTag::__field_name_12) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_12"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_12",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_12 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_12 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::____field_name13 => {
                             if !fields.insert(__FieldTag::____field_name13) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for __field_name13"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for __field_name13",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.__field_name13 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.__field_name13 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::____field_name_14 => {
                             if !fields.insert(__FieldTag::____field_name_14) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for __field_name_14"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for __field_name_14",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.__field_name_14 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.__field_name_14 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field__name15 => {
                             if !fields.insert(__FieldTag::__field__name15) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field__name15"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field__name15",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field__name15 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field__name15 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field__name_16 => {
                             if !fields.insert(__FieldTag::__field__name_16) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field__name_16"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field__name_16",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field__name_16 = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field__name_16 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name17__ => {
                             if !fields.insert(__FieldTag::__field_name17__) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name17__"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name17__",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name17__ = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name17__ =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__field_name_18__ => {
                             if !fields.insert(__FieldTag::__field_name_18__) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name_18__"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_name_18__",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.field_name_18__ = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.field_name_18__ =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2502,9 +3416,9 @@ impl<'de> serde::de::Deserialize<'de> for super::test_all_types_proto_3::NestedM
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2512,30 +3426,37 @@ impl<'de> serde::de::Deserialize<'de> for super::test_all_types_proto_3::NestedM
                     match tag {
                         __FieldTag::__a => {
                             if !fields.insert(__FieldTag::__a) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for a"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for a",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.a = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.a = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::__corecursive => {
                             if !fields.insert(__FieldTag::__corecursive) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for corecursive"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for corecursive",
+                                ));
                             }
-                            result.corecursive = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>>()?
-                                ;
-                        },
+                            result.corecursive = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>,
+                            >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2544,25 +3465,6 @@ impl<'de> serde::de::Deserialize<'de> for super::test_all_types_proto_3::NestedM
         deserializer.deserialize_any(Visitor)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ForeignMessage {
@@ -2613,9 +3515,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ForeignMessage {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2623,23 +3525,27 @@ impl<'de> serde::de::Deserialize<'de> for super::ForeignMessage {
                     match tag {
                         __FieldTag::__c => {
                             if !fields.insert(__FieldTag::__c) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for c"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for c",
+                                ));
                             }
-                            struct __With( std::option::Option<i32> );
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.c = map.next_value::< __With >()?.0.unwrap_or_default();
-                        },
+                            result.c = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2694,9 +3600,9 @@ impl<'de> serde::de::Deserialize<'de> for super::NullHypothesisProto3 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2704,7 +3610,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NullHypothesisProto3 {
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -2759,9 +3665,9 @@ impl<'de> serde::de::Deserialize<'de> for super::EnumOnlyProto3 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2769,7 +3675,7 @@ impl<'de> serde::de::Deserialize<'de> for super::EnumOnlyProto3 {
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::GmailAddOnManifest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.homepage_trigger.is_some() {
             state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
@@ -40,7 +40,10 @@ impl serde::ser::Serialize for super::GmailAddOnManifest {
             state.serialize_entry("composeTrigger", &self.compose_trigger)?;
         }
         if !self.authorization_check_function.is_empty() {
-            state.serialize_entry("authorizationCheckFunction", &self.authorization_check_function)?;
+            state.serialize_entry(
+                "authorizationCheckFunction",
+                &self.authorization_check_function,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -57,9 +60,9 @@ impl serde::ser::Serialize for super::UniversalAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.text.is_empty() {
             state.serialize_entry("text", &self.text)?;
@@ -85,9 +88,9 @@ impl serde::ser::Serialize for super::ComposeTrigger {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.actions.is_empty() {
             state.serialize_entry("actions", &self.actions)?;
@@ -110,9 +113,9 @@ impl serde::ser::Serialize for super::ContextualTrigger {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.unconditional() {
             state.serialize_entry("unconditional", value)?;
@@ -135,9 +138,9 @@ impl serde::ser::Serialize for super::UnconditionalTrigger {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

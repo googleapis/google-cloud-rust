@@ -97,4 +97,3 @@ impl std::fmt::Debug for super::binding_explanation::AnnotatedMembership {
         debug_struct.finish()
     }
 }
-

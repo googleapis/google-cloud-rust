@@ -100,7 +100,9 @@ impl IcebergCatalogService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::iceberg_catalog_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::iceberg_catalog_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::iceberg_catalog_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -108,28 +110,43 @@ impl IcebergCatalogService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::IcebergCatalogService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::IcebergCatalogService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IcebergCatalogService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IcebergCatalogService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
         super::transport::IcebergCatalogService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
-        Self::build_transport(conf).await.map(super::tracing::IcebergCatalogService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IcebergCatalogService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::IcebergCatalogService::new)
     }
 
     /// GetIcebergCatalogConfig lists all catalog configuration settings. Most
@@ -156,8 +173,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iceberg_catalog_config(&self) -> super::builder::iceberg_catalog_service::GetIcebergCatalogConfig
-    {
+    pub fn get_iceberg_catalog_config(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::GetIcebergCatalogConfig {
         super::builder::iceberg_catalog_service::GetIcebergCatalogConfig::new(self.inner.clone())
     }
 
@@ -179,8 +197,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_iceberg_namespaces(&self) -> super::builder::iceberg_catalog_service::ListIcebergNamespaces
-    {
+    pub fn list_iceberg_namespaces(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::ListIcebergNamespaces {
         super::builder::iceberg_catalog_service::ListIcebergNamespaces::new(self.inner.clone())
     }
 
@@ -202,8 +221,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iceberg_namespace(&self) -> super::builder::iceberg_catalog_service::GetIcebergNamespace
-    {
+    pub fn get_iceberg_namespace(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::GetIcebergNamespace {
         super::builder::iceberg_catalog_service::GetIcebergNamespace::new(self.inner.clone())
     }
 
@@ -224,8 +244,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_iceberg_namespace(&self) -> super::builder::iceberg_catalog_service::CreateIcebergNamespace
-    {
+    pub fn create_iceberg_namespace(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::CreateIcebergNamespace {
         super::builder::iceberg_catalog_service::CreateIcebergNamespace::new(self.inner.clone())
     }
 
@@ -245,8 +266,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_iceberg_namespace(&self) -> super::builder::iceberg_catalog_service::DeleteIcebergNamespace
-    {
+    pub fn delete_iceberg_namespace(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::DeleteIcebergNamespace {
         super::builder::iceberg_catalog_service::DeleteIcebergNamespace::new(self.inner.clone())
     }
 
@@ -267,8 +289,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_iceberg_namespace(&self) -> super::builder::iceberg_catalog_service::UpdateIcebergNamespace
-    {
+    pub fn update_iceberg_namespace(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::UpdateIcebergNamespace {
         super::builder::iceberg_catalog_service::UpdateIcebergNamespace::new(self.inner.clone())
     }
 
@@ -289,9 +312,12 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_iceberg_table_identifiers(&self) -> super::builder::iceberg_catalog_service::ListIcebergTableIdentifiers
-    {
-        super::builder::iceberg_catalog_service::ListIcebergTableIdentifiers::new(self.inner.clone())
+    pub fn list_iceberg_table_identifiers(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::ListIcebergTableIdentifiers {
+        super::builder::iceberg_catalog_service::ListIcebergTableIdentifiers::new(
+            self.inner.clone(),
+        )
     }
 
     /// Creates a table in the namespace.
@@ -311,8 +337,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_iceberg_table(&self) -> super::builder::iceberg_catalog_service::CreateIcebergTable
-    {
+    pub fn create_iceberg_table(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::CreateIcebergTable {
         super::builder::iceberg_catalog_service::CreateIcebergTable::new(self.inner.clone())
     }
 
@@ -332,8 +359,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_iceberg_table(&self) -> super::builder::iceberg_catalog_service::DeleteIcebergTable
-    {
+    pub fn delete_iceberg_table(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::DeleteIcebergTable {
         super::builder::iceberg_catalog_service::DeleteIcebergTable::new(self.inner.clone())
     }
 
@@ -354,8 +382,7 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iceberg_table(&self) -> super::builder::iceberg_catalog_service::GetIcebergTable
-    {
+    pub fn get_iceberg_table(&self) -> super::builder::iceberg_catalog_service::GetIcebergTable {
         super::builder::iceberg_catalog_service::GetIcebergTable::new(self.inner.clone())
     }
 
@@ -376,9 +403,12 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn load_iceberg_table_credentials(&self) -> super::builder::iceberg_catalog_service::LoadIcebergTableCredentials
-    {
-        super::builder::iceberg_catalog_service::LoadIcebergTableCredentials::new(self.inner.clone())
+    pub fn load_iceberg_table_credentials(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::LoadIcebergTableCredentials {
+        super::builder::iceberg_catalog_service::LoadIcebergTableCredentials::new(
+            self.inner.clone(),
+        )
     }
 
     /// This is CommitTable Iceberg API, which maps to `UpdateIcebergTable` in the
@@ -399,8 +429,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_iceberg_table(&self) -> super::builder::iceberg_catalog_service::UpdateIcebergTable
-    {
+    pub fn update_iceberg_table(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::UpdateIcebergTable {
         super::builder::iceberg_catalog_service::UpdateIcebergTable::new(self.inner.clone())
     }
 
@@ -421,8 +452,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn register_iceberg_table(&self) -> super::builder::iceberg_catalog_service::RegisterIcebergTable
-    {
+    pub fn register_iceberg_table(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::RegisterIcebergTable {
         super::builder::iceberg_catalog_service::RegisterIcebergTable::new(self.inner.clone())
     }
 
@@ -443,8 +475,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iceberg_catalog(&self) -> super::builder::iceberg_catalog_service::GetIcebergCatalog
-    {
+    pub fn get_iceberg_catalog(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::GetIcebergCatalog {
         super::builder::iceberg_catalog_service::GetIcebergCatalog::new(self.inner.clone())
     }
 
@@ -465,8 +498,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_iceberg_catalogs(&self) -> super::builder::iceberg_catalog_service::ListIcebergCatalogs
-    {
+    pub fn list_iceberg_catalogs(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::ListIcebergCatalogs {
         super::builder::iceberg_catalog_service::ListIcebergCatalogs::new(self.inner.clone())
     }
 
@@ -490,8 +524,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_iceberg_catalog(&self) -> super::builder::iceberg_catalog_service::DeleteIcebergCatalog
-    {
+    pub fn delete_iceberg_catalog(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::DeleteIcebergCatalog {
         super::builder::iceberg_catalog_service::DeleteIcebergCatalog::new(self.inner.clone())
     }
 
@@ -512,8 +547,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_iceberg_catalog(&self) -> super::builder::iceberg_catalog_service::UpdateIcebergCatalog
-    {
+    pub fn update_iceberg_catalog(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::UpdateIcebergCatalog {
         super::builder::iceberg_catalog_service::UpdateIcebergCatalog::new(self.inner.clone())
     }
 
@@ -540,8 +576,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_iceberg_catalog(&self) -> super::builder::iceberg_catalog_service::CreateIcebergCatalog
-    {
+    pub fn create_iceberg_catalog(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::CreateIcebergCatalog {
         super::builder::iceberg_catalog_service::CreateIcebergCatalog::new(self.inner.clone())
     }
 
@@ -562,8 +599,9 @@ impl IcebergCatalogService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn failover_iceberg_catalog(&self) -> super::builder::iceberg_catalog_service::FailoverIcebergCatalog
-    {
+    pub fn failover_iceberg_catalog(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::FailoverIcebergCatalog {
         super::builder::iceberg_catalog_service::FailoverIcebergCatalog::new(self.inner.clone())
     }
 }

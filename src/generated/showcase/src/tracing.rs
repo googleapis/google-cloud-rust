@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Compliance](super::stub::Compliance) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Compliance<T>
-where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Compliance + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Compliance<T>
-where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Compliance + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Compliance for Compliance<T>
-where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Compliance + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_body(
         &self,
@@ -50,8 +56,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_body(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_body(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -85,8 +94,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_body_info(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_body_info(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -120,8 +132,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_query(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_query(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -155,8 +170,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_simple_path(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_simple_path(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -190,8 +208,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_path_resource(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_path_resource(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -225,8 +246,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_path_trailing_resource(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_path_trailing_resource(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -239,7 +263,9 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
         req: crate::model::RepeatRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
-        self.inner.repeat_data_path_trailing_resource(req, options).await
+        self.inner
+            .repeat_data_path_trailing_resource(req, options)
+            .await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_body_put(
@@ -260,8 +286,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_body_put(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_body_put(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -295,8 +324,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.repeat_data_body_patch(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .repeat_data_body_patch(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -330,8 +362,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_enum(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_enum(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -365,8 +400,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.verify_enum(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .verify_enum(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -400,8 +438,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -435,8 +476,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -470,8 +514,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -505,8 +552,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -540,8 +590,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -575,8 +628,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -610,8 +666,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -645,8 +704,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -680,8 +742,11 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -701,19 +766,25 @@ where T: super::stub::Compliance + std::fmt::Debug + Send + Sync {
 /// Implements a [Echo](super::stub::Echo) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Echo<T>
-where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Echo + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Echo<T>
-where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Echo + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Echo for Echo<T>
-where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Echo + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn echo(
         &self,
@@ -721,20 +792,18 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            "Echo",
-            "::echo"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::echo");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "echo",
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.echo(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .echo(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -768,8 +837,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.echo_error_details(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .echo_error_details(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -803,8 +875,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.fail_echo_with_details(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .fail_echo_with_details(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -838,8 +913,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.paged_expand(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .paged_expand(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -873,8 +951,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.paged_expand_legacy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .paged_expand_legacy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -908,8 +989,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.paged_expand_legacy_mapped(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .paged_expand_legacy_mapped(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -931,20 +1015,18 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            "Echo",
-            "::wait"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::wait");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "wait",
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.wait(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .wait(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -966,20 +1048,18 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
         use tracing::Instrument;
-        let span_name = concat!(
-            env!("CARGO_PKG_NAME"),
-            "::client::",
-            "Echo",
-            "::block"
-        );
+        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::block");
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "block",
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.block(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .block(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1013,8 +1093,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1048,8 +1131,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1083,8 +1169,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1118,8 +1207,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1153,8 +1245,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1188,8 +1283,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1223,8 +1321,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1258,8 +1359,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1293,8 +1397,11 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1328,19 +1435,25 @@ where T: super::stub::Echo + std::fmt::Debug + Send + Sync {
 /// Implements a [Identity](super::stub::Identity) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Identity<T>
-where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Identity + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Identity<T>
-where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Identity + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Identity for Identity<T>
-where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Identity + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_user(
         &self,
@@ -1360,8 +1473,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_user(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_user(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1395,8 +1511,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_user(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_user(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1430,8 +1549,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.update_user(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .update_user(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1465,8 +1587,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_user(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_user(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1500,8 +1625,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_users(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_users(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1535,8 +1663,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1570,8 +1701,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1605,8 +1739,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1640,8 +1777,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1675,8 +1815,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1710,8 +1853,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1745,8 +1891,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1780,8 +1929,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1815,8 +1967,11 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1836,19 +1991,25 @@ where T: super::stub::Identity + std::fmt::Debug + Send + Sync {
 /// Implements a [Messaging](super::stub::Messaging) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Messaging<T>
-where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Messaging<T>
-where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Messaging for Messaging<T>
-where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_room(
         &self,
@@ -1868,8 +2029,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_room(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_room(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1903,8 +2067,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_room(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_room(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1938,8 +2105,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.update_room(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .update_room(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1973,8 +2143,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_room(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_room(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2008,8 +2181,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_rooms(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_rooms(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2043,8 +2219,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_blurb(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_blurb(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2078,8 +2257,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_blurb(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_blurb(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2113,8 +2295,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.update_blurb(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .update_blurb(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2148,8 +2333,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_blurb(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_blurb(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2183,8 +2371,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_blurbs(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_blurbs(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2218,8 +2409,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.search_blurbs(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .search_blurbs(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2253,8 +2447,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2288,8 +2485,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2323,8 +2523,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2358,8 +2561,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2393,8 +2599,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2428,8 +2637,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2463,8 +2675,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2498,8 +2713,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2533,8 +2751,11 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2568,19 +2789,25 @@ where T: super::stub::Messaging + std::fmt::Debug + Send + Sync {
 /// Implements a [SequenceService](super::stub::SequenceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SequenceService<T>
-where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SequenceService<T>
-where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SequenceService for SequenceService<T>
-where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_sequence(
         &self,
@@ -2600,8 +2827,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_sequence(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_sequence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2635,8 +2865,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_streaming_sequence(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_streaming_sequence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2670,8 +2903,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_sequence_report(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_sequence_report(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2705,8 +2941,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_streaming_sequence_report(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_streaming_sequence_report(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2740,8 +2979,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.attempt_sequence(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .attempt_sequence(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2775,8 +3017,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2810,8 +3055,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2845,8 +3093,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2880,8 +3131,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2915,8 +3169,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2950,8 +3207,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2985,8 +3245,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3020,8 +3283,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3055,8 +3321,11 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3076,19 +3345,25 @@ where T: super::stub::SequenceService + std::fmt::Debug + Send + Sync {
 /// Implements a [Testing](super::stub::Testing) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Testing<T>
-where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Testing + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Testing<T>
-where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Testing + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Testing for Testing<T>
-where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Testing + std::fmt::Debug + Send + Sync,
+{
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_session(
         &self,
@@ -3108,8 +3383,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.create_session(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .create_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3143,8 +3421,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_session(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3178,8 +3459,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_sessions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_sessions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3213,8 +3497,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_session(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3248,8 +3535,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.report_session(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .report_session(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3283,8 +3573,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_tests(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_tests(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3318,8 +3611,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_test(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_test(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3353,8 +3649,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.verify_test(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .verify_test(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3388,8 +3687,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_locations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_locations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3423,8 +3725,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_location(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_location(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3458,8 +3763,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.set_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3493,8 +3801,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_iam_policy(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3528,8 +3839,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.test_iam_permissions(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3563,8 +3877,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.list_operations(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .list_operations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3598,8 +3915,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.get_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .get_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3633,8 +3953,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.delete_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .delete_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3668,8 +3991,11 @@ where T: super::stub::Testing + std::fmt::Debug + Send + Sync {
             &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self.inner.cancel_operation(req, options)
-            .instrument(client_request_span.clone()).await;
+        let result = self
+            .inner
+            .cancel_operation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result

@@ -76,7 +76,6 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
-
 }
 
 /// All implementations of [super::DataPolicyService] also implement [DataPolicyService].
@@ -171,5 +170,4 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
-
 }

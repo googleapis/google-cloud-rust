@@ -25,7 +25,10 @@ impl std::fmt::Debug for super::MembershipState {
         debug_struct.field("operator_state", &self.operator_state);
         debug_struct.field("config_sync_state", &self.config_sync_state);
         debug_struct.field("policy_controller_state", &self.policy_controller_state);
-        debug_struct.field("hierarchy_controller_state", &self.hierarchy_controller_state);
+        debug_struct.field(
+            "hierarchy_controller_state",
+            &self.hierarchy_controller_state,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -57,7 +60,10 @@ impl std::fmt::Debug for super::ConfigSync {
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("prevent_drift", &self.prevent_drift);
         debug_struct.field("oci", &self.oci);
-        debug_struct.field("metrics_gcp_service_account_email", &self.metrics_gcp_service_account_email);
+        debug_struct.field(
+            "metrics_gcp_service_account_email",
+            &self.metrics_gcp_service_account_email,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -102,7 +108,10 @@ impl std::fmt::Debug for super::PolicyController {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyController");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("template_library_installed", &self.template_library_installed);
+        debug_struct.field(
+            "template_library_installed",
+            &self.template_library_installed,
+        );
         debug_struct.field("audit_interval_seconds", &self.audit_interval_seconds);
         debug_struct.field("exemptable_namespaces", &self.exemptable_namespaces);
         debug_struct.field("referential_rules_enabled", &self.referential_rules_enabled);
@@ -119,7 +128,10 @@ impl std::fmt::Debug for super::HierarchyControllerConfig {
         let mut debug_struct = f.debug_struct("HierarchyControllerConfig");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("enable_pod_tree_labels", &self.enable_pod_tree_labels);
-        debug_struct.field("enable_hierarchical_resource_quota", &self.enable_hierarchical_resource_quota);
+        debug_struct.field(
+            "enable_hierarchical_resource_quota",
+            &self.enable_hierarchical_resource_quota,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -332,7 +344,10 @@ impl std::fmt::Debug for super::PolicyControllerVersion {
 impl std::fmt::Debug for super::GatekeeperDeploymentState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GatekeeperDeploymentState");
-        debug_struct.field("gatekeeper_controller_manager_state", &self.gatekeeper_controller_manager_state);
+        debug_struct.field(
+            "gatekeeper_controller_manager_state",
+            &self.gatekeeper_controller_manager_state,
+        );
         debug_struct.field("gatekeeper_audit", &self.gatekeeper_audit);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

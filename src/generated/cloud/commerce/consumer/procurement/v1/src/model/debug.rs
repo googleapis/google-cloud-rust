@@ -53,7 +53,10 @@ impl std::fmt::Debug for super::LicensePool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LicensePool");
         debug_struct.field("name", &self.name);
-        debug_struct.field("license_assignment_protocol", &self.license_assignment_protocol);
+        debug_struct.field(
+            "license_assignment_protocol",
+            &self.license_assignment_protocol,
+        );
         debug_struct.field("available_license_count", &self.available_license_count);
         debug_struct.field("total_license_count", &self.total_license_count);
         if !self._unknown_fields.is_empty() {

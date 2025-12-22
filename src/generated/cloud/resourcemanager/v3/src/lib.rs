@@ -35,7 +35,6 @@
 //! * [TagKeys](client/struct.TagKeys.html)
 //! * [TagValues](client/struct.TagValues.html)
 
-
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
@@ -76,4 +75,3 @@ pub(crate) mod info {
         };
     }
 }
-

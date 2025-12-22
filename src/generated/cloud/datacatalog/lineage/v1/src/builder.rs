@@ -39,7 +39,10 @@ pub mod lineage {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Lineage;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,7 +57,9 @@ pub mod lineage {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
+    where
+        R: std::default::Default,
+    {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self {
                 stub,
@@ -82,17 +87,20 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ProcessOpenLineageRunEvent(RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>);
+    pub struct ProcessOpenLineageRunEvent(
+        RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>,
+    );
 
     impl ProcessOpenLineageRunEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ProcessOpenLineageRunEventRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ProcessOpenLineageRunEventRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +113,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProcessOpenLineageRunEventResponse> {
-            (*self.0.stub).process_open_lineage_run_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .process_open_lineage_run_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ProcessOpenLineageRunEventRequest::parent].
@@ -120,7 +131,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_open_lineage<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.0.request.open_lineage = std::option::Option::Some(v.into());
             self
@@ -130,7 +142,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.0.request.open_lineage = v.map(|x| x.into());
             self
@@ -172,9 +185,7 @@ pub mod lineage {
 
     impl CreateProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -191,7 +202,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Process> {
-            (*self.0.stub).create_process(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_process(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessRequest::parent].
@@ -206,7 +220,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_process<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Process>
+        where
+            T: std::convert::Into<crate::model::Process>,
         {
             self.0.request.process = std::option::Option::Some(v.into());
             self
@@ -216,7 +231,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Process>
+        where
+            T: std::convert::Into<crate::model::Process>,
         {
             self.0.request.process = v.map(|x| x.into());
             self
@@ -258,9 +274,7 @@ pub mod lineage {
 
     impl UpdateProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -277,14 +291,18 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Process> {
-            (*self.0.stub).update_process(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_process(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
         pub fn set_process<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Process>
+        where
+            T: std::convert::Into<crate::model::Process>,
         {
             self.0.request.process = std::option::Option::Some(v.into());
             self
@@ -294,7 +312,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Process>
+        where
+            T: std::convert::Into<crate::model::Process>,
         {
             self.0.request.process = v.map(|x| x.into());
             self
@@ -302,7 +321,8 @@ pub mod lineage {
 
         /// Sets the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -310,7 +330,8 @@ pub mod lineage {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -352,9 +373,7 @@ pub mod lineage {
 
     impl GetProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -371,7 +390,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Process> {
-            (*self.0.stub).get_process(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_process(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessRequest::name].
@@ -416,9 +438,7 @@ pub mod lineage {
 
     impl ListProcesses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -435,11 +455,17 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProcessesResponse> {
-            (*self.0.stub).list_processes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_processes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProcessesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListProcessesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -451,7 +477,10 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -507,9 +536,7 @@ pub mod lineage {
 
     impl DeleteProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -531,15 +558,14 @@ pub mod lineage {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_process][crate::client::Lineage::delete_process].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_process(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_process(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_process`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -565,7 +591,12 @@ pub mod lineage {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessRequest::name].
@@ -612,9 +643,7 @@ pub mod lineage {
 
     impl CreateRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -631,7 +660,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Run> {
-            (*self.0.stub).create_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRunRequest::parent].
@@ -646,7 +678,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_run<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Run>
+        where
+            T: std::convert::Into<crate::model::Run>,
         {
             self.0.request.run = std::option::Option::Some(v.into());
             self
@@ -656,7 +689,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Run>
+        where
+            T: std::convert::Into<crate::model::Run>,
         {
             self.0.request.run = v.map(|x| x.into());
             self
@@ -698,9 +732,7 @@ pub mod lineage {
 
     impl UpdateRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -717,14 +749,18 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Run> {
-            (*self.0.stub).update_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [run][crate::model::UpdateRunRequest::run].
         ///
         /// This is a **required** field for requests.
         pub fn set_run<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Run>
+        where
+            T: std::convert::Into<crate::model::Run>,
         {
             self.0.request.run = std::option::Option::Some(v.into());
             self
@@ -734,7 +770,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Run>
+        where
+            T: std::convert::Into<crate::model::Run>,
         {
             self.0.request.run = v.map(|x| x.into());
             self
@@ -742,7 +779,8 @@ pub mod lineage {
 
         /// Sets the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -750,7 +788,8 @@ pub mod lineage {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -792,9 +831,7 @@ pub mod lineage {
 
     impl GetRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -811,7 +848,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Run> {
-            (*self.0.stub).get_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRunRequest::name].
@@ -856,9 +896,7 @@ pub mod lineage {
 
     impl ListRuns {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -875,11 +913,17 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRunsResponse> {
-            (*self.0.stub).list_runs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_runs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRunsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListRunsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -891,7 +935,10 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRunsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRunsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -947,9 +994,7 @@ pub mod lineage {
 
     impl DeleteRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -971,15 +1016,14 @@ pub mod lineage {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_run][crate::client::Lineage::delete_run].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_run(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_run`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1005,7 +1049,12 @@ pub mod lineage {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRunRequest::name].
@@ -1052,13 +1101,14 @@ pub mod lineage {
 
     impl CreateLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateLineageEventRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateLineageEventRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1071,7 +1121,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LineageEvent> {
-            (*self.0.stub).create_lineage_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_lineage_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateLineageEventRequest::parent].
@@ -1086,7 +1139,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_lineage_event<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::LineageEvent>
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
         {
             self.0.request.lineage_event = std::option::Option::Some(v.into());
             self
@@ -1096,7 +1150,8 @@ pub mod lineage {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::LineageEvent>
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
         {
             self.0.request.lineage_event = v.map(|x| x.into());
             self
@@ -1138,9 +1193,7 @@ pub mod lineage {
 
     impl GetLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1157,7 +1210,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LineageEvent> {
-            (*self.0.stub).get_lineage_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_lineage_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLineageEventRequest::name].
@@ -1202,13 +1258,14 @@ pub mod lineage {
 
     impl ListLineageEvents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListLineageEventsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListLineageEventsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1221,11 +1278,17 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListLineageEventsResponse> {
-            (*self.0.stub).list_lineage_events(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_lineage_events(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListLineageEventsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListLineageEventsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1237,7 +1300,10 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListLineageEventsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLineageEventsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1292,13 +1358,14 @@ pub mod lineage {
 
     impl DeleteLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteLineageEventRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteLineageEventRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1311,7 +1378,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_lineage_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_lineage_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteLineageEventRequest::name].
@@ -1362,9 +1432,7 @@ pub mod lineage {
 
     impl SearchLinks {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1381,11 +1449,17 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchLinksResponse> {
-            (*self.0.stub).search_links(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_links(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchLinksResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchLinksResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1397,7 +1471,10 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchLinksResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchLinksResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1426,7 +1503,10 @@ pub mod lineage {
         ///
         /// Note that all the setters affecting `criteria` are
         /// mutually exclusive.
-        pub fn set_criteria<T: Into<Option<crate::model::search_links_request::Criteria>>>(mut self, v: T) ->Self {
+        pub fn set_criteria<T: Into<Option<crate::model::search_links_request::Criteria>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.criteria = v.into();
             self
         }
@@ -1436,7 +1516,10 @@ pub mod lineage {
         ///
         /// Note that all the setters affecting `criteria` are
         /// mutually exclusive.
-        pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(mut self, v: T) -> Self {
+        pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_source(v);
             self
         }
@@ -1446,7 +1529,10 @@ pub mod lineage {
         ///
         /// Note that all the setters affecting `criteria` are
         /// mutually exclusive.
-        pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(mut self, v: T) -> Self {
+        pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_target(v);
             self
         }
@@ -1481,17 +1567,20 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchSearchLinkProcesses(RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>);
+    pub struct BatchSearchLinkProcesses(
+        RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>,
+    );
 
     impl BatchSearchLinkProcesses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchSearchLinkProcessesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchSearchLinkProcessesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1504,11 +1593,19 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchSearchLinkProcessesResponse> {
-            (*self.0.stub).batch_search_link_processes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_search_link_processes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::BatchSearchLinkProcessesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::BatchSearchLinkProcessesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1520,7 +1617,12 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::BatchSearchLinkProcessesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::BatchSearchLinkProcessesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1539,7 +1641,7 @@ pub mod lineage {
         pub fn set_links<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.links = v.into_iter().map(|i| i.into()).collect();
@@ -1592,13 +1694,14 @@ pub mod lineage {
 
     impl ListOperations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1611,11 +1714,17 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1627,7 +1736,12 @@ pub mod lineage {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1692,13 +1806,14 @@ pub mod lineage {
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1711,7 +1826,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1750,13 +1868,14 @@ pub mod lineage {
 
     impl DeleteOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1769,7 +1888,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1808,13 +1930,14 @@ pub mod lineage {
 
     impl CancelOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1827,7 +1950,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1843,5 +1969,4 @@ pub mod lineage {
             &mut self.0.options
         }
     }
-
 }

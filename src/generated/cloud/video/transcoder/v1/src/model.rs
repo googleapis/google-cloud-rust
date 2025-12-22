@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,6 +27,7 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,7 +39,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
-
     /// The resource name of the job.
     /// Format: `projects/{project_number}/locations/{location}/jobs/{job}`
     pub name: std::string::String,
@@ -78,7 +77,7 @@ pub struct Job {
 
     /// The labels associated with this job. You can use these to organize and
     /// group your jobs.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. An error object that describes the reason for the failure.
     /// This property is always present when
@@ -166,7 +165,10 @@ impl Job {
     /// let x1 = Job::new().set_state(ProcessingState::Running);
     /// let x2 = Job::new().set_state(ProcessingState::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::job::ProcessingState>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::job::ProcessingState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -180,7 +182,8 @@ impl Job {
     /// let x = Job::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -196,7 +199,8 @@ impl Job {
     /// let x = Job::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -211,7 +215,8 @@ impl Job {
     /// let x = Job::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -227,7 +232,8 @@ impl Job {
     /// let x = Job::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -242,7 +248,8 @@ impl Job {
     /// let x = Job::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -258,7 +265,8 @@ impl Job {
     /// let x = Job::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -306,7 +314,8 @@ impl Job {
     /// let x = Job::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -322,7 +331,8 @@ impl Job {
     /// let x = Job::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -337,7 +347,10 @@ impl Job {
     /// let x0 = Job::new().set_mode(ProcessingMode::Interactive);
     /// let x1 = Job::new().set_mode(ProcessingMode::Batch);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::job::ProcessingMode>>(mut self, v: T) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::job::ProcessingMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode = v.into();
         self
     }
@@ -363,7 +376,10 @@ impl Job {
     /// let x0 = Job::new().set_optimization(OptimizationStrategy::Autodetect);
     /// let x1 = Job::new().set_optimization(OptimizationStrategy::Disabled);
     /// ```
-    pub fn set_optimization<T: std::convert::Into<crate::model::job::OptimizationStrategy>>(mut self, v: T) -> Self {
+    pub fn set_optimization<T: std::convert::Into<crate::model::job::OptimizationStrategy>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.optimization = v.into();
         self
     }
@@ -391,8 +407,12 @@ impl Job {
     /// use google_cloud_video_transcoder_v1::model::job::JobConfig;
     /// let x = Job::new().set_job_config(Some(JobConfig::TemplateId("example".to_string())));
     /// ```
-    pub fn set_job_config<T: std::convert::Into<std::option::Option<crate::model::job::JobConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_job_config<
+        T: std::convert::Into<std::option::Option<crate::model::job::JobConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.job_config = v.into();
         self
     }
@@ -422,11 +442,8 @@ impl Job {
     /// assert!(x.config().is_none());
     /// ```
     pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.job_config = std::option::Option::Some(
-            crate::model::job::JobConfig::TemplateId(
-                v.into()
-            )
-        );
+        self.job_config =
+            std::option::Option::Some(crate::model::job::JobConfig::TemplateId(v.into()));
         self
     }
 
@@ -455,12 +472,11 @@ impl Job {
     /// assert!(x.config().is_some());
     /// assert!(x.template_id().is_none());
     /// ```
-    pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::JobConfig>>>(mut self, v: T) -> Self {
-        self.job_config = std::option::Option::Some(
-            crate::model::job::JobConfig::Config(
-                v.into()
-            )
-        );
+    pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::JobConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.job_config = std::option::Option::Some(crate::model::job::JobConfig::Config(v.into()));
         self
     }
 }
@@ -475,7 +491,6 @@ impl wkt::message::Message for Job {
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The current state of the job.
     ///
@@ -574,7 +589,9 @@ pub mod job {
                 2 => Self::Running,
                 3 => Self::Succeeded,
                 4 => Self::Failed,
-                _ => Self::UnknownValue(processing_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(processing_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -588,7 +605,9 @@ pub mod job {
                 "RUNNING" => Self::Running,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(processing_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(processing_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -615,7 +634,8 @@ pub mod job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingState>::new(
-                ".google.cloud.video.transcoder.v1.Job.ProcessingState"))
+                ".google.cloud.video.transcoder.v1.Job.ProcessingState",
+            ))
         }
     }
 
@@ -708,7 +728,9 @@ pub mod job {
                 0 => Self::Unspecified,
                 1 => Self::Interactive,
                 2 => Self::Batch,
-                _ => Self::UnknownValue(processing_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(processing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -720,7 +742,9 @@ pub mod job {
                 "PROCESSING_MODE_UNSPECIFIED" => Self::Unspecified,
                 "PROCESSING_MODE_INTERACTIVE" => Self::Interactive,
                 "PROCESSING_MODE_BATCH" => Self::Batch,
-                _ => Self::UnknownValue(processing_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(processing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -745,7 +769,8 @@ pub mod job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingMode>::new(
-                ".google.cloud.video.transcoder.v1.Job.ProcessingMode"))
+                ".google.cloud.video.transcoder.v1.Job.ProcessingMode",
+            ))
         }
     }
 
@@ -835,7 +860,9 @@ pub mod job {
                 0 => Self::Unspecified,
                 1 => Self::Autodetect,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(optimization_strategy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(optimization_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -847,7 +874,9 @@ pub mod job {
                 "OPTIMIZATION_STRATEGY_UNSPECIFIED" => Self::Unspecified,
                 "AUTODETECT" => Self::Autodetect,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(optimization_strategy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(optimization_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -872,7 +901,8 @@ pub mod job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OptimizationStrategy>::new(
-                ".google.cloud.video.transcoder.v1.Job.OptimizationStrategy"))
+                ".google.cloud.video.transcoder.v1.Job.OptimizationStrategy",
+            ))
         }
     }
 
@@ -897,7 +927,6 @@ pub mod job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobTemplate {
-
     /// The resource name of the job template.
     /// Format:
     /// `projects/{project_number}/locations/{location}/jobTemplates/{job_template}`
@@ -908,7 +937,7 @@ pub struct JobTemplate {
 
     /// The labels associated with this job template. You can use these to organize
     /// and group your job templates.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -939,7 +968,8 @@ impl JobTemplate {
     /// let x = JobTemplate::new().set_config(JobConfig::default()/* use setters */);
     /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobConfig>
+    where
+        T: std::convert::Into<crate::model::JobConfig>,
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -955,7 +985,8 @@ impl JobTemplate {
     /// let x = JobTemplate::new().set_or_clear_config(None::<JobConfig>);
     /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobConfig>
+    where
+        T: std::convert::Into<crate::model::JobConfig>,
     {
         self.config = v.map(|x| x.into());
         self
@@ -993,7 +1024,6 @@ impl wkt::message::Message for JobTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobConfig {
-
     /// List of input assets stored in Cloud Storage.
     pub inputs: std::vec::Vec<crate::model::Input>,
 
@@ -1058,7 +1088,7 @@ impl JobConfig {
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Input>
+        V: std::convert::Into<crate::model::Input>,
     {
         use std::iter::Iterator;
         self.inputs = v.into_iter().map(|i| i.into()).collect();
@@ -1080,7 +1110,7 @@ impl JobConfig {
     pub fn set_edit_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EditAtom>
+        V: std::convert::Into<crate::model::EditAtom>,
     {
         use std::iter::Iterator;
         self.edit_list = v.into_iter().map(|i| i.into()).collect();
@@ -1102,7 +1132,7 @@ impl JobConfig {
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ElementaryStream>
+        V: std::convert::Into<crate::model::ElementaryStream>,
     {
         use std::iter::Iterator;
         self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
@@ -1124,7 +1154,7 @@ impl JobConfig {
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MuxStream>
+        V: std::convert::Into<crate::model::MuxStream>,
     {
         use std::iter::Iterator;
         self.mux_streams = v.into_iter().map(|i| i.into()).collect();
@@ -1146,7 +1176,7 @@ impl JobConfig {
     pub fn set_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Manifest>
+        V: std::convert::Into<crate::model::Manifest>,
     {
         use std::iter::Iterator;
         self.manifests = v.into_iter().map(|i| i.into()).collect();
@@ -1162,7 +1192,8 @@ impl JobConfig {
     /// let x = JobConfig::new().set_output(Output::default()/* use setters */);
     /// ```
     pub fn set_output<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Output>
+    where
+        T: std::convert::Into<crate::model::Output>,
     {
         self.output = std::option::Option::Some(v.into());
         self
@@ -1178,7 +1209,8 @@ impl JobConfig {
     /// let x = JobConfig::new().set_or_clear_output(None::<Output>);
     /// ```
     pub fn set_or_clear_output<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Output>
+    where
+        T: std::convert::Into<crate::model::Output>,
     {
         self.output = v.map(|x| x.into());
         self
@@ -1199,7 +1231,7 @@ impl JobConfig {
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdBreak>
+        V: std::convert::Into<crate::model::AdBreak>,
     {
         use std::iter::Iterator;
         self.ad_breaks = v.into_iter().map(|i| i.into()).collect();
@@ -1215,7 +1247,8 @@ impl JobConfig {
     /// let x = JobConfig::new().set_pubsub_destination(PubsubDestination::default()/* use setters */);
     /// ```
     pub fn set_pubsub_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PubsubDestination>
+    where
+        T: std::convert::Into<crate::model::PubsubDestination>,
     {
         self.pubsub_destination = std::option::Option::Some(v.into());
         self
@@ -1231,7 +1264,8 @@ impl JobConfig {
     /// let x = JobConfig::new().set_or_clear_pubsub_destination(None::<PubsubDestination>);
     /// ```
     pub fn set_or_clear_pubsub_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PubsubDestination>
+    where
+        T: std::convert::Into<crate::model::PubsubDestination>,
     {
         self.pubsub_destination = v.map(|x| x.into());
         self
@@ -1252,7 +1286,7 @@ impl JobConfig {
     pub fn set_sprite_sheets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SpriteSheet>
+        V: std::convert::Into<crate::model::SpriteSheet>,
     {
         use std::iter::Iterator;
         self.sprite_sheets = v.into_iter().map(|i| i.into()).collect();
@@ -1274,7 +1308,7 @@ impl JobConfig {
     pub fn set_overlays<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Overlay>
+        V: std::convert::Into<crate::model::Overlay>,
     {
         use std::iter::Iterator;
         self.overlays = v.into_iter().map(|i| i.into()).collect();
@@ -1296,7 +1330,7 @@ impl JobConfig {
     pub fn set_encryptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Encryption>
+        V: std::convert::Into<crate::model::Encryption>,
     {
         use std::iter::Iterator;
         self.encryptions = v.into_iter().map(|i| i.into()).collect();
@@ -1314,7 +1348,6 @@ impl wkt::message::Message for JobConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Input {
-
     /// A unique key for this input. Must be specified when using advanced
     /// mapping and edit lists.
     pub key: std::string::String,
@@ -1376,7 +1409,8 @@ impl Input {
     /// let x = Input::new().set_preprocessing_config(PreprocessingConfig::default()/* use setters */);
     /// ```
     pub fn set_preprocessing_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PreprocessingConfig>
+    where
+        T: std::convert::Into<crate::model::PreprocessingConfig>,
     {
         self.preprocessing_config = std::option::Option::Some(v.into());
         self
@@ -1392,7 +1426,8 @@ impl Input {
     /// let x = Input::new().set_or_clear_preprocessing_config(None::<PreprocessingConfig>);
     /// ```
     pub fn set_or_clear_preprocessing_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PreprocessingConfig>
+    where
+        T: std::convert::Into<crate::model::PreprocessingConfig>,
     {
         self.preprocessing_config = v.map(|x| x.into());
         self
@@ -1407,7 +1442,8 @@ impl Input {
     /// let x = Input::new().set_attributes(InputAttributes::default()/* use setters */);
     /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::InputAttributes>
+    where
+        T: std::convert::Into<crate::model::InputAttributes>,
     {
         self.attributes = std::option::Option::Some(v.into());
         self
@@ -1423,7 +1459,8 @@ impl Input {
     /// let x = Input::new().set_or_clear_attributes(None::<InputAttributes>);
     /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::InputAttributes>
+    where
+        T: std::convert::Into<crate::model::InputAttributes>,
     {
         self.attributes = v.map(|x| x.into());
         self
@@ -1440,7 +1477,6 @@ impl wkt::message::Message for Input {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Output {
-
     /// URI for the output file(s). For example, `gs://my-bucket/outputs/`. Must be
     /// a directory and not a top-level bucket. If empty, the value is populated
     /// from [Job.output_uri][google.cloud.video.transcoder.v1.Job.output_uri]. See
@@ -1481,7 +1517,6 @@ impl wkt::message::Message for Output {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EditAtom {
-
     /// A unique key for this atom. Must be specified when using advanced
     /// mapping.
     pub key: std::string::String,
@@ -1532,7 +1567,7 @@ impl EditAtom {
     pub fn set_inputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.inputs = v.into_iter().map(|i| i.into()).collect();
@@ -1548,7 +1583,8 @@ impl EditAtom {
     /// let x = EditAtom::new().set_end_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.end_time_offset = std::option::Option::Some(v.into());
         self
@@ -1564,7 +1600,8 @@ impl EditAtom {
     /// let x = EditAtom::new().set_or_clear_end_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.end_time_offset = v.map(|x| x.into());
         self
@@ -1579,7 +1616,8 @@ impl EditAtom {
     /// let x = EditAtom::new().set_start_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = std::option::Option::Some(v.into());
         self
@@ -1595,7 +1633,8 @@ impl EditAtom {
     /// let x = EditAtom::new().set_or_clear_start_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = v.map(|x| x.into());
         self
@@ -1612,7 +1651,6 @@ impl wkt::message::Message for EditAtom {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdBreak {
-
     /// Start time in seconds for the ad break, relative to the output file
     /// timeline. The default is `0s`.
     pub start_time_offset: std::option::Option<wkt::Duration>,
@@ -1634,7 +1672,8 @@ impl AdBreak {
     /// let x = AdBreak::new().set_start_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = std::option::Option::Some(v.into());
         self
@@ -1650,7 +1689,8 @@ impl AdBreak {
     /// let x = AdBreak::new().set_or_clear_start_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = v.map(|x| x.into());
         self
@@ -1669,7 +1709,6 @@ impl wkt::message::Message for AdBreak {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ElementaryStream {
-
     /// A unique key for this elementary stream.
     pub key: std::string::String,
 
@@ -1708,8 +1747,12 @@ impl ElementaryStream {
     /// let x = ElementaryStream::new().set_elementary_stream(Some(
     ///     google_cloud_video_transcoder_v1::model::elementary_stream::ElementaryStream::VideoStream(VideoStream::default().into())));
     /// ```
-    pub fn set_elementary_stream<T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>>(mut self, v: T) -> Self
-    {
+    pub fn set_elementary_stream<
+        T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.elementary_stream = v.into();
         self
     }
@@ -1720,7 +1763,9 @@ impl ElementaryStream {
     pub fn video_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::VideoStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::VideoStream(v) => std::option::Option::Some(v),
+            crate::model::elementary_stream::ElementaryStream::VideoStream(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1740,11 +1785,12 @@ impl ElementaryStream {
     /// assert!(x.audio_stream().is_none());
     /// assert!(x.text_stream().is_none());
     /// ```
-    pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(mut self, v: T) -> Self {
+    pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::VideoStream(
-                v.into()
-            )
+            crate::model::elementary_stream::ElementaryStream::VideoStream(v.into()),
         );
         self
     }
@@ -1755,7 +1801,9 @@ impl ElementaryStream {
     pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => std::option::Option::Some(v),
+            crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1775,11 +1823,12 @@ impl ElementaryStream {
     /// assert!(x.video_stream().is_none());
     /// assert!(x.text_stream().is_none());
     /// ```
-    pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(mut self, v: T) -> Self {
+    pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::AudioStream(
-                v.into()
-            )
+            crate::model::elementary_stream::ElementaryStream::AudioStream(v.into()),
         );
         self
     }
@@ -1790,7 +1839,9 @@ impl ElementaryStream {
     pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
-            crate::model::elementary_stream::ElementaryStream::TextStream(v) => std::option::Option::Some(v),
+            crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1810,11 +1861,12 @@ impl ElementaryStream {
     /// assert!(x.video_stream().is_none());
     /// assert!(x.audio_stream().is_none());
     /// ```
-    pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(mut self, v: T) -> Self {
+    pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::TextStream(
-                v.into()
-            )
+            crate::model::elementary_stream::ElementaryStream::TextStream(v.into()),
         );
         self
     }
@@ -1830,7 +1882,6 @@ impl wkt::message::Message for ElementaryStream {
 pub mod elementary_stream {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Encoding of an audio, video, or text track.
     #[derive(Clone, Debug, PartialEq)]
@@ -1849,7 +1900,6 @@ pub mod elementary_stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MuxStream {
-
     /// A unique key for this multiplexed stream.
     pub key: std::string::String,
 
@@ -1955,7 +2005,7 @@ impl MuxStream {
     pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
@@ -1971,7 +2021,8 @@ impl MuxStream {
     /// let x = MuxStream::new().set_segment_settings(SegmentSettings::default()/* use setters */);
     /// ```
     pub fn set_segment_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SegmentSettings>
+    where
+        T: std::convert::Into<crate::model::SegmentSettings>,
     {
         self.segment_settings = std::option::Option::Some(v.into());
         self
@@ -1987,7 +2038,8 @@ impl MuxStream {
     /// let x = MuxStream::new().set_or_clear_segment_settings(None::<SegmentSettings>);
     /// ```
     pub fn set_or_clear_segment_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SegmentSettings>
+    where
+        T: std::convert::Into<crate::model::SegmentSettings>,
     {
         self.segment_settings = v.map(|x| x.into());
         self
@@ -2017,8 +2069,12 @@ impl MuxStream {
     /// let x = MuxStream::new().set_container_config(Some(
     ///     google_cloud_video_transcoder_v1::model::mux_stream::ContainerConfig::Fmp4(Fmp4Config::default().into())));
     /// ```
-    pub fn set_container_config<T: std::convert::Into<std::option::Option<crate::model::mux_stream::ContainerConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_container_config<
+        T: std::convert::Into<std::option::Option<crate::model::mux_stream::ContainerConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.container_config = v.into();
         self
     }
@@ -2026,7 +2082,9 @@ impl MuxStream {
     /// The value of [container_config][crate::model::MuxStream::container_config]
     /// if it holds a `Fmp4`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn fmp4(&self) -> std::option::Option<&std::boxed::Box<crate::model::mux_stream::Fmp4Config>> {
+    pub fn fmp4(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mux_stream::Fmp4Config>> {
         #[allow(unreachable_patterns)]
         self.container_config.as_ref().and_then(|v| match v {
             crate::model::mux_stream::ContainerConfig::Fmp4(v) => std::option::Option::Some(v),
@@ -2047,12 +2105,14 @@ impl MuxStream {
     /// let x = MuxStream::new().set_fmp4(Fmp4Config::default()/* use setters */);
     /// assert!(x.fmp4().is_some());
     /// ```
-    pub fn set_fmp4<T: std::convert::Into<std::boxed::Box<crate::model::mux_stream::Fmp4Config>>>(mut self, v: T) -> Self {
-        self.container_config = std::option::Option::Some(
-            crate::model::mux_stream::ContainerConfig::Fmp4(
-                v.into()
-            )
-        );
+    pub fn set_fmp4<
+        T: std::convert::Into<std::boxed::Box<crate::model::mux_stream::Fmp4Config>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_config =
+            std::option::Option::Some(crate::model::mux_stream::ContainerConfig::Fmp4(v.into()));
         self
     }
 }
@@ -2068,12 +2128,10 @@ pub mod mux_stream {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// `fmp4` container configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fmp4Config {
-
         /// Optional. Specify the codec tag string that will be used in the media
         /// bitstream. When not specified, the codec appropriate value is used.
         ///
@@ -2123,7 +2181,6 @@ pub mod mux_stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manifest {
-
     /// The name of the generated file. The default is `manifest` with the
     /// extension suffix corresponding to the
     /// [Manifest.type][google.cloud.video.transcoder.v1.Manifest.type].
@@ -2179,7 +2236,10 @@ impl Manifest {
     /// let x0 = Manifest::new().set_type(ManifestType::Hls);
     /// let x1 = Manifest::new().set_type(ManifestType::Dash);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::manifest::ManifestType>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::manifest::ManifestType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2194,7 +2254,7 @@ impl Manifest {
     pub fn set_mux_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.mux_streams = v.into_iter().map(|i| i.into()).collect();
@@ -2213,8 +2273,12 @@ impl Manifest {
     /// let x = Manifest::new().set_manifest_config(Some(
     ///     google_cloud_video_transcoder_v1::model::manifest::ManifestConfig::Dash(DashConfig::default().into())));
     /// ```
-    pub fn set_manifest_config<T: std::convert::Into<std::option::Option<crate::model::manifest::ManifestConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_manifest_config<
+        T: std::convert::Into<std::option::Option<crate::model::manifest::ManifestConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.manifest_config = v.into();
         self
     }
@@ -2222,7 +2286,9 @@ impl Manifest {
     /// The value of [manifest_config][crate::model::Manifest::manifest_config]
     /// if it holds a `Dash`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn dash(&self) -> std::option::Option<&std::boxed::Box<crate::model::manifest::DashConfig>> {
+    pub fn dash(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::manifest::DashConfig>> {
         #[allow(unreachable_patterns)]
         self.manifest_config.as_ref().and_then(|v| match v {
             crate::model::manifest::ManifestConfig::Dash(v) => std::option::Option::Some(v),
@@ -2243,12 +2309,12 @@ impl Manifest {
     /// let x = Manifest::new().set_dash(DashConfig::default()/* use setters */);
     /// assert!(x.dash().is_some());
     /// ```
-    pub fn set_dash<T: std::convert::Into<std::boxed::Box<crate::model::manifest::DashConfig>>>(mut self, v: T) -> Self {
-        self.manifest_config = std::option::Option::Some(
-            crate::model::manifest::ManifestConfig::Dash(
-                v.into()
-            )
-        );
+    pub fn set_dash<T: std::convert::Into<std::boxed::Box<crate::model::manifest::DashConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.manifest_config =
+            std::option::Option::Some(crate::model::manifest::ManifestConfig::Dash(v.into()));
         self
     }
 }
@@ -2264,12 +2330,10 @@ pub mod manifest {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// `DASH` manifest configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DashConfig {
-
         /// The segment reference scheme for a `DASH` manifest. The default is
         /// `SEGMENT_LIST`.
         pub segment_reference_scheme: crate::model::manifest::dash_config::SegmentReferenceScheme,
@@ -2291,7 +2355,12 @@ pub mod manifest {
         /// let x0 = DashConfig::new().set_segment_reference_scheme(SegmentReferenceScheme::SegmentList);
         /// let x1 = DashConfig::new().set_segment_reference_scheme(SegmentReferenceScheme::SegmentTemplateNumber);
         /// ```
-        pub fn set_segment_reference_scheme<T: std::convert::Into<crate::model::manifest::dash_config::SegmentReferenceScheme>>(mut self, v: T) -> Self {
+        pub fn set_segment_reference_scheme<
+            T: std::convert::Into<crate::model::manifest::dash_config::SegmentReferenceScheme>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.segment_reference_scheme = v.into();
             self
         }
@@ -2307,7 +2376,6 @@ pub mod manifest {
     pub mod dash_config {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The segment reference scheme for a `DASH` manifest.
         ///
@@ -2395,9 +2463,13 @@ pub mod manifest {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => std::option::Option::Some("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED"),
+                    Self::Unspecified => {
+                        std::option::Option::Some("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED")
+                    }
                     Self::SegmentList => std::option::Option::Some("SEGMENT_LIST"),
-                    Self::SegmentTemplateNumber => std::option::Option::Some("SEGMENT_TEMPLATE_NUMBER"),
+                    Self::SegmentTemplateNumber => {
+                        std::option::Option::Some("SEGMENT_TEMPLATE_NUMBER")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -2411,7 +2483,10 @@ pub mod manifest {
         }
 
         impl std::fmt::Display for SegmentReferenceScheme {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2422,7 +2497,9 @@ pub mod manifest {
                     0 => Self::Unspecified,
                     1 => Self::SegmentList,
                     2 => Self::SegmentTemplateNumber,
-                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -2434,7 +2511,9 @@ pub mod manifest {
                     "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED" => Self::Unspecified,
                     "SEGMENT_LIST" => Self::SegmentList,
                     "SEGMENT_TEMPLATE_NUMBER" => Self::SegmentTemplateNumber,
-                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(segment_reference_scheme::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -2550,7 +2629,9 @@ pub mod manifest {
                 0 => Self::Unspecified,
                 1 => Self::Hls,
                 2 => Self::Dash,
-                _ => Self::UnknownValue(manifest_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(manifest_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2562,7 +2643,9 @@ pub mod manifest {
                 "MANIFEST_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "HLS" => Self::Hls,
                 "DASH" => Self::Dash,
-                _ => Self::UnknownValue(manifest_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(manifest_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2587,7 +2670,8 @@ pub mod manifest {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ManifestType>::new(
-                ".google.cloud.video.transcoder.v1.Manifest.ManifestType"))
+                ".google.cloud.video.transcoder.v1.Manifest.ManifestType",
+            ))
         }
     }
 
@@ -2604,7 +2688,6 @@ pub mod manifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubDestination {
-
     /// The name of the Pub/Sub topic to publish job completion notification
     /// to. For example: `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -2640,7 +2723,6 @@ impl wkt::message::Message for PubsubDestination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpriteSheet {
-
     /// Format type. The default is `jpeg`.
     ///
     /// Supported formats:
@@ -2804,7 +2886,8 @@ impl SpriteSheet {
     /// let x = SpriteSheet::new().set_start_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = std::option::Option::Some(v.into());
         self
@@ -2820,7 +2903,8 @@ impl SpriteSheet {
     /// let x = SpriteSheet::new().set_or_clear_start_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.start_time_offset = v.map(|x| x.into());
         self
@@ -2835,7 +2919,8 @@ impl SpriteSheet {
     /// let x = SpriteSheet::new().set_end_time_offset(Duration::default()/* use setters */);
     /// ```
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.end_time_offset = std::option::Option::Some(v.into());
         self
@@ -2851,7 +2936,8 @@ impl SpriteSheet {
     /// let x = SpriteSheet::new().set_or_clear_end_time_offset(None::<Duration>);
     /// ```
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.end_time_offset = v.map(|x| x.into());
         self
@@ -2880,8 +2966,12 @@ impl SpriteSheet {
     /// use google_cloud_video_transcoder_v1::model::sprite_sheet::ExtractionStrategy;
     /// let x = SpriteSheet::new().set_extraction_strategy(Some(ExtractionStrategy::TotalCount(42)));
     /// ```
-    pub fn set_extraction_strategy<T: std::convert::Into<std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>>>(mut self, v: T) -> Self
-    {
+    pub fn set_extraction_strategy<
+        T: std::convert::Into<std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.extraction_strategy = v.into();
         self
     }
@@ -2892,7 +2982,9 @@ impl SpriteSheet {
     pub fn total_count(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.extraction_strategy.as_ref().and_then(|v| match v {
-            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v) => std::option::Option::Some(v),
+            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2912,9 +3004,7 @@ impl SpriteSheet {
     /// ```
     pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.extraction_strategy = std::option::Option::Some(
-            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(
-                v.into()
-            )
+            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v.into()),
         );
         self
     }
@@ -2925,7 +3015,9 @@ impl SpriteSheet {
     pub fn interval(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.extraction_strategy.as_ref().and_then(|v| match v {
-            crate::model::sprite_sheet::ExtractionStrategy::Interval(v) => std::option::Option::Some(v),
+            crate::model::sprite_sheet::ExtractionStrategy::Interval(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2944,11 +3036,12 @@ impl SpriteSheet {
     /// assert!(x.interval().is_some());
     /// assert!(x.total_count().is_none());
     /// ```
-    pub fn set_interval<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_interval<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.extraction_strategy = std::option::Option::Some(
-            crate::model::sprite_sheet::ExtractionStrategy::Interval(
-                v.into()
-            )
+            crate::model::sprite_sheet::ExtractionStrategy::Interval(v.into()),
         );
         self
     }
@@ -2964,7 +3057,6 @@ impl wkt::message::Message for SpriteSheet {
 pub mod sprite_sheet {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Specify either total number of sprites or interval to create sprites.
     #[derive(Clone, Debug, PartialEq)]
@@ -2984,7 +3076,6 @@ pub mod sprite_sheet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Overlay {
-
     /// Image overlay.
     pub image: std::option::Option<crate::model::overlay::Image>,
 
@@ -3009,7 +3100,8 @@ impl Overlay {
     /// let x = Overlay::new().set_image(Image::default()/* use setters */);
     /// ```
     pub fn set_image<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::overlay::Image>
+    where
+        T: std::convert::Into<crate::model::overlay::Image>,
     {
         self.image = std::option::Option::Some(v.into());
         self
@@ -3025,7 +3117,8 @@ impl Overlay {
     /// let x = Overlay::new().set_or_clear_image(None::<Image>);
     /// ```
     pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::overlay::Image>
+    where
+        T: std::convert::Into<crate::model::overlay::Image>,
     {
         self.image = v.map(|x| x.into());
         self
@@ -3046,7 +3139,7 @@ impl Overlay {
     pub fn set_animations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::overlay::Animation>
+        V: std::convert::Into<crate::model::overlay::Animation>,
     {
         use std::iter::Iterator;
         self.animations = v.into_iter().map(|i| i.into()).collect();
@@ -3065,12 +3158,10 @@ pub mod overlay {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// 2D normalized coordinates. Default: `{0.0, 0.0}`
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NormalizedCoordinate {
-
         /// Normalized x coordinate.
         pub x: f64,
 
@@ -3120,7 +3211,6 @@ pub mod overlay {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Image {
-
         /// Required. URI of the image in Cloud Storage. For example,
         /// `gs://bucket/inputs/image.png`. Only PNG and JPEG images are supported.
         pub uri: std::string::String,
@@ -3164,7 +3254,8 @@ pub mod overlay {
         /// let x = Image::new().set_resolution(NormalizedCoordinate::default()/* use setters */);
         /// ```
         pub fn set_resolution<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.resolution = std::option::Option::Some(v.into());
             self
@@ -3180,7 +3271,8 @@ pub mod overlay {
         /// let x = Image::new().set_or_clear_resolution(None::<NormalizedCoordinate>);
         /// ```
         pub fn set_or_clear_resolution<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.resolution = v.map(|x| x.into());
             self
@@ -3209,7 +3301,6 @@ pub mod overlay {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationStatic {
-
         /// Normalized coordinates based on output video resolution. Valid
         /// values: `0.0`–`1.0`. `xy` is the upper-left coordinate of the overlay
         /// object. For example, use the x and y coordinates {0,0} to position the
@@ -3237,7 +3328,8 @@ pub mod overlay {
         /// let x = AnimationStatic::new().set_xy(NormalizedCoordinate::default()/* use setters */);
         /// ```
         pub fn set_xy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.xy = std::option::Option::Some(v.into());
             self
@@ -3253,7 +3345,8 @@ pub mod overlay {
         /// let x = AnimationStatic::new().set_or_clear_xy(None::<NormalizedCoordinate>);
         /// ```
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.xy = v.map(|x| x.into());
             self
@@ -3268,7 +3361,8 @@ pub mod overlay {
         /// let x = AnimationStatic::new().set_start_time_offset(Duration::default()/* use setters */);
         /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = std::option::Option::Some(v.into());
             self
@@ -3284,7 +3378,8 @@ pub mod overlay {
         /// let x = AnimationStatic::new().set_or_clear_start_time_offset(None::<Duration>);
         /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = v.map(|x| x.into());
             self
@@ -3301,7 +3396,6 @@ pub mod overlay {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationFade {
-
         /// Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.
         pub fade_type: crate::model::overlay::FadeType,
 
@@ -3336,7 +3430,10 @@ pub mod overlay {
         /// let x0 = AnimationFade::new().set_fade_type(FadeType::FadeIn);
         /// let x1 = AnimationFade::new().set_fade_type(FadeType::FadeOut);
         /// ```
-        pub fn set_fade_type<T: std::convert::Into<crate::model::overlay::FadeType>>(mut self, v: T) -> Self {
+        pub fn set_fade_type<T: std::convert::Into<crate::model::overlay::FadeType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.fade_type = v.into();
             self
         }
@@ -3350,7 +3447,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_xy(NormalizedCoordinate::default()/* use setters */);
         /// ```
         pub fn set_xy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.xy = std::option::Option::Some(v.into());
             self
@@ -3366,7 +3464,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_or_clear_xy(None::<NormalizedCoordinate>);
         /// ```
         pub fn set_or_clear_xy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>
+        where
+            T: std::convert::Into<crate::model::overlay::NormalizedCoordinate>,
         {
             self.xy = v.map(|x| x.into());
             self
@@ -3381,7 +3480,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_start_time_offset(Duration::default()/* use setters */);
         /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = std::option::Option::Some(v.into());
             self
@@ -3397,7 +3497,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_or_clear_start_time_offset(None::<Duration>);
         /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = v.map(|x| x.into());
             self
@@ -3412,7 +3513,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_end_time_offset(Duration::default()/* use setters */);
         /// ```
         pub fn set_end_time_offset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.end_time_offset = std::option::Option::Some(v.into());
             self
@@ -3428,7 +3530,8 @@ pub mod overlay {
         /// let x = AnimationFade::new().set_or_clear_end_time_offset(None::<Duration>);
         /// ```
         pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.end_time_offset = v.map(|x| x.into());
             self
@@ -3447,7 +3550,6 @@ pub mod overlay {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationEnd {
-
         /// The time to end overlay object, in seconds. Default: 0
         pub start_time_offset: std::option::Option<wkt::Duration>,
 
@@ -3468,7 +3570,8 @@ pub mod overlay {
         /// let x = AnimationEnd::new().set_start_time_offset(Duration::default()/* use setters */);
         /// ```
         pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = std::option::Option::Some(v.into());
             self
@@ -3484,7 +3587,8 @@ pub mod overlay {
         /// let x = AnimationEnd::new().set_or_clear_start_time_offset(None::<Duration>);
         /// ```
         pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.start_time_offset = v.map(|x| x.into());
             self
@@ -3501,7 +3605,6 @@ pub mod overlay {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Animation {
-
         /// Animations can be static or fade, or they can end the previous animation.
         pub animation_type: std::option::Option<crate::model::overlay::animation::AnimationType>,
 
@@ -3525,8 +3628,14 @@ pub mod overlay {
         /// let x = Animation::new().set_animation_type(Some(
         ///     google_cloud_video_transcoder_v1::model::overlay::animation::AnimationType::AnimationStatic(AnimationStatic::default().into())));
         /// ```
-        pub fn set_animation_type<T: std::convert::Into<std::option::Option<crate::model::overlay::animation::AnimationType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_animation_type<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::overlay::animation::AnimationType>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.animation_type = v.into();
             self
         }
@@ -3534,10 +3643,14 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationStatic`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn animation_static(&self) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationStatic>> {
+        pub fn animation_static(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationStatic>> {
             #[allow(unreachable_patterns)]
             self.animation_type.as_ref().and_then(|v| match v {
-                crate::model::overlay::animation::AnimationType::AnimationStatic(v) => std::option::Option::Some(v),
+                crate::model::overlay::animation::AnimationType::AnimationStatic(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -3557,11 +3670,14 @@ pub mod overlay {
         /// assert!(x.animation_fade().is_none());
         /// assert!(x.animation_end().is_none());
         /// ```
-        pub fn set_animation_static<T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationStatic>>>(mut self, v: T) -> Self {
+        pub fn set_animation_static<
+            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationStatic>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationStatic(
-                    v.into()
-                )
+                crate::model::overlay::animation::AnimationType::AnimationStatic(v.into()),
             );
             self
         }
@@ -3569,10 +3685,14 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationFade`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn animation_fade(&self) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationFade>> {
+        pub fn animation_fade(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationFade>> {
             #[allow(unreachable_patterns)]
             self.animation_type.as_ref().and_then(|v| match v {
-                crate::model::overlay::animation::AnimationType::AnimationFade(v) => std::option::Option::Some(v),
+                crate::model::overlay::animation::AnimationType::AnimationFade(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -3592,11 +3712,14 @@ pub mod overlay {
         /// assert!(x.animation_static().is_none());
         /// assert!(x.animation_end().is_none());
         /// ```
-        pub fn set_animation_fade<T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationFade>>>(mut self, v: T) -> Self {
+        pub fn set_animation_fade<
+            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationFade>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationFade(
-                    v.into()
-                )
+                crate::model::overlay::animation::AnimationType::AnimationFade(v.into()),
             );
             self
         }
@@ -3604,10 +3727,14 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationEnd`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn animation_end(&self) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationEnd>> {
+        pub fn animation_end(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationEnd>> {
             #[allow(unreachable_patterns)]
             self.animation_type.as_ref().and_then(|v| match v {
-                crate::model::overlay::animation::AnimationType::AnimationEnd(v) => std::option::Option::Some(v),
+                crate::model::overlay::animation::AnimationType::AnimationEnd(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -3627,11 +3754,14 @@ pub mod overlay {
         /// assert!(x.animation_static().is_none());
         /// assert!(x.animation_fade().is_none());
         /// ```
-        pub fn set_animation_end<T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationEnd>>>(mut self, v: T) -> Self {
+        pub fn set_animation_end<
+            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationEnd>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationEnd(
-                    v.into()
-                )
+                crate::model::overlay::animation::AnimationType::AnimationEnd(v.into()),
             );
             self
         }
@@ -3647,7 +3777,6 @@ pub mod overlay {
     pub mod animation {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Animations can be static or fade, or they can end the previous animation.
         #[derive(Clone, Debug, PartialEq)]
@@ -3748,7 +3877,9 @@ pub mod overlay {
                 0 => Self::Unspecified,
                 1 => Self::FadeIn,
                 2 => Self::FadeOut,
-                _ => Self::UnknownValue(fade_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(fade_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3760,7 +3891,9 @@ pub mod overlay {
                 "FADE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "FADE_IN" => Self::FadeIn,
                 "FADE_OUT" => Self::FadeOut,
-                _ => Self::UnknownValue(fade_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(fade_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3785,7 +3918,8 @@ pub mod overlay {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FadeType>::new(
-                ".google.cloud.video.transcoder.v1.Overlay.FadeType"))
+                ".google.cloud.video.transcoder.v1.Overlay.FadeType",
+            ))
         }
     }
 }
@@ -3794,7 +3928,6 @@ pub mod overlay {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreprocessingConfig {
-
     /// Color preprocessing configuration.
     pub color: std::option::Option<crate::model::preprocessing_config::Color>,
 
@@ -3833,7 +3966,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_color(Color::default()/* use setters */);
     /// ```
     pub fn set_color<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Color>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Color>,
     {
         self.color = std::option::Option::Some(v.into());
         self
@@ -3849,7 +3983,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_color(None::<Color>);
     /// ```
     pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Color>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Color>,
     {
         self.color = v.map(|x| x.into());
         self
@@ -3864,7 +3999,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_denoise(Denoise::default()/* use setters */);
     /// ```
     pub fn set_denoise<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Denoise>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Denoise>,
     {
         self.denoise = std::option::Option::Some(v.into());
         self
@@ -3880,7 +4016,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_denoise(None::<Denoise>);
     /// ```
     pub fn set_or_clear_denoise<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Denoise>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Denoise>,
     {
         self.denoise = v.map(|x| x.into());
         self
@@ -3895,7 +4032,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_deblock(Deblock::default()/* use setters */);
     /// ```
     pub fn set_deblock<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Deblock>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Deblock>,
     {
         self.deblock = std::option::Option::Some(v.into());
         self
@@ -3911,7 +4049,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_deblock(None::<Deblock>);
     /// ```
     pub fn set_or_clear_deblock<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Deblock>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Deblock>,
     {
         self.deblock = v.map(|x| x.into());
         self
@@ -3926,7 +4065,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_audio(Audio::default()/* use setters */);
     /// ```
     pub fn set_audio<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Audio>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Audio>,
     {
         self.audio = std::option::Option::Some(v.into());
         self
@@ -3942,7 +4082,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_audio(None::<Audio>);
     /// ```
     pub fn set_or_clear_audio<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Audio>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Audio>,
     {
         self.audio = v.map(|x| x.into());
         self
@@ -3957,7 +4098,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_crop(Crop::default()/* use setters */);
     /// ```
     pub fn set_crop<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Crop>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Crop>,
     {
         self.crop = std::option::Option::Some(v.into());
         self
@@ -3973,7 +4115,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_crop(None::<Crop>);
     /// ```
     pub fn set_or_clear_crop<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Crop>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Crop>,
     {
         self.crop = v.map(|x| x.into());
         self
@@ -3988,7 +4131,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_pad(Pad::default()/* use setters */);
     /// ```
     pub fn set_pad<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Pad>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Pad>,
     {
         self.pad = std::option::Option::Some(v.into());
         self
@@ -4004,7 +4148,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_pad(None::<Pad>);
     /// ```
     pub fn set_or_clear_pad<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Pad>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Pad>,
     {
         self.pad = v.map(|x| x.into());
         self
@@ -4019,7 +4164,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_deinterlace(Deinterlace::default()/* use setters */);
     /// ```
     pub fn set_deinterlace<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>,
     {
         self.deinterlace = std::option::Option::Some(v.into());
         self
@@ -4035,7 +4181,8 @@ impl PreprocessingConfig {
     /// let x = PreprocessingConfig::new().set_or_clear_deinterlace(None::<Deinterlace>);
     /// ```
     pub fn set_or_clear_deinterlace<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>
+    where
+        T: std::convert::Into<crate::model::preprocessing_config::Deinterlace>,
     {
         self.deinterlace = v.map(|x| x.into());
         self
@@ -4053,14 +4200,12 @@ pub mod preprocessing_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Color preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Color {
-
         /// Control color saturation of the video. Enter a value between -1 and 1,
         /// where -1 is fully desaturated and 1 is maximum saturation. 0 is no
         /// change. The default is 0.
@@ -4133,7 +4278,6 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Denoise {
-
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
         /// the value, the smoother the image. 0 is no denoising. The default is 0.
         pub strength: f64,
@@ -4191,7 +4335,6 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deblock {
-
         /// Set strength of the deblocker. Enter a value between 0 and 1. The higher
         /// the value, the stronger the block removal. 0 is no deblocking. The
         /// default is 0.
@@ -4243,7 +4386,6 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Audio {
-
         /// Specify audio loudness normalization in loudness units relative to full
         /// scale (LUFS). Enter a value between -24 and 0 (the default), where:
         ///
@@ -4323,7 +4465,6 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Crop {
-
         /// The number of pixels to crop from the top. The default is 0.
         pub top_pixels: i32,
 
@@ -4404,7 +4545,6 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Pad {
-
         /// The number of pixels to add to the top. The default is 0.
         pub top_pixels: i32,
 
@@ -4484,9 +4624,10 @@ pub mod preprocessing_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deinterlace {
-
         /// Specify the video deinterlacing filter. The default is `yadif`.
-        pub deinterlacing_filter: std::option::Option<crate::model::preprocessing_config::deinterlace::DeinterlacingFilter>,
+        pub deinterlacing_filter: std::option::Option<
+            crate::model::preprocessing_config::deinterlace::DeinterlacingFilter,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4508,8 +4649,16 @@ pub mod preprocessing_config {
         /// let x = Deinterlace::new().set_deinterlacing_filter(Some(
         ///     google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(YadifConfig::default().into())));
         /// ```
-        pub fn set_deinterlacing_filter<T: std::convert::Into<std::option::Option<crate::model::preprocessing_config::deinterlace::DeinterlacingFilter>>>(mut self, v: T) -> Self
-        {
+        pub fn set_deinterlacing_filter<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::preprocessing_config::deinterlace::DeinterlacingFilter,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.deinterlacing_filter = v.into();
             self
         }
@@ -4517,10 +4666,16 @@ pub mod preprocessing_config {
         /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// if it holds a `Yadif`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn yadif(&self) -> std::option::Option<&std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>> {
+        pub fn yadif(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
+        > {
             #[allow(unreachable_patterns)]
             self.deinterlacing_filter.as_ref().and_then(|v| match v {
-                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(v) => std::option::Option::Some(v),
+                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -4539,11 +4694,18 @@ pub mod preprocessing_config {
         /// assert!(x.yadif().is_some());
         /// assert!(x.bwdif().is_none());
         /// ```
-        pub fn set_yadif<T: std::convert::Into<std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>>>(mut self, v: T) -> Self {
+        pub fn set_yadif<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.deinterlacing_filter = std::option::Option::Some(
                 crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -4551,10 +4713,16 @@ pub mod preprocessing_config {
         /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// if it holds a `Bwdif`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn bwdif(&self) -> std::option::Option<&std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>> {
+        pub fn bwdif(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
+        > {
             #[allow(unreachable_patterns)]
             self.deinterlacing_filter.as_ref().and_then(|v| match v {
-                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(v) => std::option::Option::Some(v),
+                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -4573,11 +4741,18 @@ pub mod preprocessing_config {
         /// assert!(x.bwdif().is_some());
         /// assert!(x.yadif().is_none());
         /// ```
-        pub fn set_bwdif<T: std::convert::Into<std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>>>(mut self, v: T) -> Self {
+        pub fn set_bwdif<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.deinterlacing_filter = std::option::Option::Some(
                 crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -4594,12 +4769,10 @@ pub mod preprocessing_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Yet Another Deinterlacing Filter Configuration.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct YadifConfig {
-
             /// Specifies the deinterlacing mode to adopt.
             /// The default is `send_frame`.
             /// Supported values:
@@ -4652,7 +4825,10 @@ pub mod preprocessing_config {
             /// # use google_cloud_video_transcoder_v1::model::preprocessing_config::deinterlace::YadifConfig;
             /// let x = YadifConfig::new().set_disable_spatial_interlacing(true);
             /// ```
-            pub fn set_disable_spatial_interlacing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            pub fn set_disable_spatial_interlacing<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.disable_spatial_interlacing = v.into();
                 self
             }
@@ -4692,7 +4868,6 @@ pub mod preprocessing_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BwdifConfig {
-
             /// Specifies the deinterlacing mode to adopt.
             /// The default is `send_frame`.
             /// Supported values:
@@ -4781,7 +4956,6 @@ pub mod preprocessing_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrackDefinition {
-
     /// The input track.
     pub input_track: std::option::Option<i32>,
 
@@ -4818,7 +4992,8 @@ impl TrackDefinition {
     /// let x = TrackDefinition::new().set_input_track(42);
     /// ```
     pub fn set_input_track<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.input_track = std::option::Option::Some(v.into());
         self
@@ -4833,7 +5008,8 @@ impl TrackDefinition {
     /// let x = TrackDefinition::new().set_or_clear_input_track(None::<i32>);
     /// ```
     pub fn set_or_clear_input_track<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.input_track = v.map(|x| x.into());
         self
@@ -4849,7 +5025,7 @@ impl TrackDefinition {
     pub fn set_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.languages = v.into_iter().map(|i| i.into()).collect();
@@ -4878,7 +5054,7 @@ impl TrackDefinition {
     pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -4896,7 +5072,6 @@ impl wkt::message::Message for TrackDefinition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputAttributes {
-
     /// Optional. A list of track definitions for the input asset.
     pub track_definitions: std::vec::Vec<crate::model::TrackDefinition>,
 
@@ -4923,7 +5098,7 @@ impl InputAttributes {
     pub fn set_track_definitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TrackDefinition>
+        V: std::convert::Into<crate::model::TrackDefinition>,
     {
         use std::iter::Iterator;
         self.track_definitions = v.into_iter().map(|i| i.into()).collect();
@@ -4941,7 +5116,6 @@ impl wkt::message::Message for InputAttributes {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoStream {
-
     /// Codec settings can be h264, h265, or vp9.
     pub codec_settings: std::option::Option<crate::model::video_stream::CodecSettings>,
 
@@ -4965,8 +5139,12 @@ impl VideoStream {
     /// let x = VideoStream::new().set_codec_settings(Some(
     ///     google_cloud_video_transcoder_v1::model::video_stream::CodecSettings::H264(H264CodecSettings::default().into())));
     /// ```
-    pub fn set_codec_settings<T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>>(mut self, v: T) -> Self
-    {
+    pub fn set_codec_settings<
+        T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.codec_settings = v.into();
         self
     }
@@ -4974,7 +5152,9 @@ impl VideoStream {
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `H264`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn h264(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264CodecSettings>> {
+    pub fn h264(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264CodecSettings>> {
         #[allow(unreachable_patterns)]
         self.codec_settings.as_ref().and_then(|v| match v {
             crate::model::video_stream::CodecSettings::H264(v) => std::option::Option::Some(v),
@@ -4997,19 +5177,23 @@ impl VideoStream {
     /// assert!(x.h265().is_none());
     /// assert!(x.vp9().is_none());
     /// ```
-    pub fn set_h264<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>>(mut self, v: T) -> Self {
-        self.codec_settings = std::option::Option::Some(
-            crate::model::video_stream::CodecSettings::H264(
-                v.into()
-            )
-        );
+    pub fn set_h264<
+        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.codec_settings =
+            std::option::Option::Some(crate::model::video_stream::CodecSettings::H264(v.into()));
         self
     }
 
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `H265`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn h265(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
+    pub fn h265(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
         #[allow(unreachable_patterns)]
         self.codec_settings.as_ref().and_then(|v| match v {
             crate::model::video_stream::CodecSettings::H265(v) => std::option::Option::Some(v),
@@ -5032,19 +5216,23 @@ impl VideoStream {
     /// assert!(x.h264().is_none());
     /// assert!(x.vp9().is_none());
     /// ```
-    pub fn set_h265<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>>(mut self, v: T) -> Self {
-        self.codec_settings = std::option::Option::Some(
-            crate::model::video_stream::CodecSettings::H265(
-                v.into()
-            )
-        );
+    pub fn set_h265<
+        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.codec_settings =
+            std::option::Option::Some(crate::model::video_stream::CodecSettings::H265(v.into()));
         self
     }
 
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `Vp9`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn vp9(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>> {
+    pub fn vp9(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>> {
         #[allow(unreachable_patterns)]
         self.codec_settings.as_ref().and_then(|v| match v {
             crate::model::video_stream::CodecSettings::Vp9(v) => std::option::Option::Some(v),
@@ -5067,12 +5255,14 @@ impl VideoStream {
     /// assert!(x.h264().is_none());
     /// assert!(x.h265().is_none());
     /// ```
-    pub fn set_vp9<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>>>(mut self, v: T) -> Self {
-        self.codec_settings = std::option::Option::Some(
-            crate::model::video_stream::CodecSettings::Vp9(
-                v.into()
-            )
-        );
+    pub fn set_vp9<
+        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.codec_settings =
+            std::option::Option::Some(crate::model::video_stream::CodecSettings::Vp9(v.into()));
         self
     }
 }
@@ -5088,12 +5278,10 @@ pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Convert the input video to a Standard Dynamic Range (SDR) video.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264ColorFormatSDR {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5113,7 +5301,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264ColorFormatHLG {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5133,7 +5320,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264CodecSettings {
-
         /// The width of the video in pixels. Must be an even integer.
         /// When not specified, the width is adjusted to match the specified height
         /// and input aspect ratio. If both are omitted, the input width is used.
@@ -5273,10 +5459,12 @@ pub mod video_stream {
         pub preset: std::string::String,
 
         /// GOP mode can be either by frame count or duration.
-        pub gop_mode: std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+        pub gop_mode:
+            std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
 
         /// Color format can be sdr or hlg.
-        pub color_format: std::option::Option<crate::model::video_stream::h_264_codec_settings::ColorFormat>,
+        pub color_format:
+            std::option::Option<crate::model::video_stream::h_264_codec_settings::ColorFormat>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5331,7 +5519,12 @@ pub mod video_stream {
         /// let x0 = H264CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
         /// let x1 = H264CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
         /// ```
-        pub fn set_frame_rate_conversion_strategy<T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>>(mut self, v: T) -> Self {
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.frame_rate_conversion_strategy = v.into();
             self
         }
@@ -5355,7 +5548,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
         /// let x = H264CodecSettings::new().set_pixel_format("example");
         /// ```
-        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.pixel_format = v.into();
             self
         }
@@ -5367,7 +5563,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
         /// let x = H264CodecSettings::new().set_rate_control_mode("example");
         /// ```
-        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.rate_control_mode = v.into();
             self
         }
@@ -5439,7 +5638,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::H264CodecSettings;
         /// let x = H264CodecSettings::new().set_entropy_coder("example");
         /// ```
-        pub fn set_entropy_coder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_entropy_coder<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.entropy_coder = v.into();
             self
         }
@@ -5527,8 +5729,14 @@ pub mod video_stream {
         /// use google_cloud_video_transcoder_v1::model::video_stream::h_264_codec_settings::GopMode;
         /// let x = H264CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
         /// ```
-        pub fn set_gop_mode<T: std::convert::Into<std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>>>(mut self, v: T) -> Self
-        {
+        pub fn set_gop_mode<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = v.into();
             self
         }
@@ -5539,7 +5747,9 @@ pub mod video_stream {
         pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5559,9 +5769,7 @@ pub mod video_stream {
         /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(
-                    v.into()
-                )
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
             );
             self
         }
@@ -5572,7 +5780,9 @@ pub mod video_stream {
         pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5591,11 +5801,12 @@ pub mod video_stream {
         /// assert!(x.gop_duration().is_some());
         /// assert!(x.gop_frame_count().is_none());
         /// ```
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(
-                    v.into()
-                )
+                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v.into()),
             );
             self
         }
@@ -5612,8 +5823,16 @@ pub mod video_stream {
         /// let x = H264CodecSettings::new().set_color_format(Some(
         ///     google_cloud_video_transcoder_v1::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(H264ColorFormatSDR::default().into())));
         /// ```
-        pub fn set_color_format<T: std::convert::Into<std::option::Option<crate::model::video_stream::h_264_codec_settings::ColorFormat>>>(mut self, v: T) -> Self
-        {
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::h_264_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = v.into();
             self
         }
@@ -5621,10 +5840,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
         /// if it holds a `Sdr`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn sdr(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>> {
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5643,11 +5867,14 @@ pub mod video_stream {
         /// assert!(x.sdr().is_some());
         /// assert!(x.hlg().is_none());
         /// ```
-        pub fn set_sdr<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>>(mut self, v: T) -> Self {
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(
-                    v.into()
-                )
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(v.into()),
             );
             self
         }
@@ -5655,10 +5882,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
         /// if it holds a `Hlg`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn hlg(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>> {
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5677,11 +5909,14 @@ pub mod video_stream {
         /// assert!(x.hlg().is_some());
         /// assert!(x.sdr().is_none());
         /// ```
-        pub fn set_hlg<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>>(mut self, v: T) -> Self {
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(
-                    v.into()
-                )
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(v.into()),
             );
             self
         }
@@ -5697,7 +5932,6 @@ pub mod video_stream {
     pub mod h_264_codec_settings {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// GOP mode can be either by frame count or duration.
         #[derive(Clone, Debug, PartialEq)]
@@ -5729,7 +5963,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatSDR {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5749,7 +5982,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatHLG {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5769,7 +6001,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatHDR10 {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5789,7 +6020,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265CodecSettings {
-
         /// The width of the video in pixels. Must be an even integer.
         /// When not specified, the width is adjusted to match the specified height
         /// and input aspect ratio. If both are omitted, the input width is used.
@@ -5933,10 +6163,12 @@ pub mod video_stream {
         pub preset: std::string::String,
 
         /// GOP mode can be either by frame count or duration.
-        pub gop_mode: std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+        pub gop_mode:
+            std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
 
         /// Color format can be sdr, hlg, hdr10.
-        pub color_format: std::option::Option<crate::model::video_stream::h_265_codec_settings::ColorFormat>,
+        pub color_format:
+            std::option::Option<crate::model::video_stream::h_265_codec_settings::ColorFormat>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5991,7 +6223,12 @@ pub mod video_stream {
         /// let x0 = H265CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
         /// let x1 = H265CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
         /// ```
-        pub fn set_frame_rate_conversion_strategy<T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>>(mut self, v: T) -> Self {
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.frame_rate_conversion_strategy = v.into();
             self
         }
@@ -6015,7 +6252,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
         /// let x = H265CodecSettings::new().set_pixel_format("example");
         /// ```
-        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.pixel_format = v.into();
             self
         }
@@ -6027,7 +6267,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::H265CodecSettings;
         /// let x = H265CodecSettings::new().set_rate_control_mode("example");
         /// ```
-        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.rate_control_mode = v.into();
             self
         }
@@ -6175,8 +6418,14 @@ pub mod video_stream {
         /// use google_cloud_video_transcoder_v1::model::video_stream::h_265_codec_settings::GopMode;
         /// let x = H265CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
         /// ```
-        pub fn set_gop_mode<T: std::convert::Into<std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>>>(mut self, v: T) -> Self
-        {
+        pub fn set_gop_mode<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = v.into();
             self
         }
@@ -6187,7 +6436,9 @@ pub mod video_stream {
         pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6207,9 +6458,7 @@ pub mod video_stream {
         /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(
-                    v.into()
-                )
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
             );
             self
         }
@@ -6220,7 +6469,9 @@ pub mod video_stream {
         pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6239,11 +6490,12 @@ pub mod video_stream {
         /// assert!(x.gop_duration().is_some());
         /// assert!(x.gop_frame_count().is_none());
         /// ```
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(
-                    v.into()
-                )
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v.into()),
             );
             self
         }
@@ -6260,8 +6512,16 @@ pub mod video_stream {
         /// let x = H265CodecSettings::new().set_color_format(Some(
         ///     google_cloud_video_transcoder_v1::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(H265ColorFormatSDR::default().into())));
         /// ```
-        pub fn set_color_format<T: std::convert::Into<std::option::Option<crate::model::video_stream::h_265_codec_settings::ColorFormat>>>(mut self, v: T) -> Self
-        {
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::h_265_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = v.into();
             self
         }
@@ -6269,10 +6529,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
         /// if it holds a `Sdr`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn sdr(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>> {
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6292,11 +6557,14 @@ pub mod video_stream {
         /// assert!(x.hlg().is_none());
         /// assert!(x.hdr10().is_none());
         /// ```
-        pub fn set_sdr<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>>(mut self, v: T) -> Self {
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(
-                    v.into()
-                )
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(v.into()),
             );
             self
         }
@@ -6304,10 +6572,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
         /// if it holds a `Hlg`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn hlg(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>> {
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6327,11 +6600,14 @@ pub mod video_stream {
         /// assert!(x.sdr().is_none());
         /// assert!(x.hdr10().is_none());
         /// ```
-        pub fn set_hlg<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>>(mut self, v: T) -> Self {
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(
-                    v.into()
-                )
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(v.into()),
             );
             self
         }
@@ -6339,10 +6615,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
         /// if it holds a `Hdr10`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn hdr10(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>> {
+        pub fn hdr10(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(v) => std::option::Option::Some(v),
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6362,11 +6643,14 @@ pub mod video_stream {
         /// assert!(x.sdr().is_none());
         /// assert!(x.hlg().is_none());
         /// ```
-        pub fn set_hdr10<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>>(mut self, v: T) -> Self {
+        pub fn set_hdr10<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(
-                    v.into()
-                )
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(v.into()),
             );
             self
         }
@@ -6382,7 +6666,6 @@ pub mod video_stream {
     pub mod h_265_codec_settings {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// GOP mode can be either by frame count or duration.
         #[derive(Clone, Debug, PartialEq)]
@@ -6416,7 +6699,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9ColorFormatSDR {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6436,7 +6718,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9ColorFormatHLG {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6456,7 +6737,6 @@ pub mod video_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9CodecSettings {
-
         /// The width of the video in pixels. Must be an even integer.
         /// When not specified, the width is adjusted to match the specified height
         /// and input aspect ratio. If both are omitted, the input width is used.
@@ -6536,7 +6816,8 @@ pub mod video_stream {
         pub gop_mode: std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
 
         /// Color format can be sdr or hlg.
-        pub color_format: std::option::Option<crate::model::video_stream::vp_9_codec_settings::ColorFormat>,
+        pub color_format:
+            std::option::Option<crate::model::video_stream::vp_9_codec_settings::ColorFormat>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6591,7 +6872,12 @@ pub mod video_stream {
         /// let x0 = Vp9CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::Downsample);
         /// let x1 = Vp9CodecSettings::new().set_frame_rate_conversion_strategy(FrameRateConversionStrategy::DropDuplicate);
         /// ```
-        pub fn set_frame_rate_conversion_strategy<T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>>(mut self, v: T) -> Self {
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.frame_rate_conversion_strategy = v.into();
             self
         }
@@ -6615,7 +6901,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
         /// let x = Vp9CodecSettings::new().set_pixel_format("example");
         /// ```
-        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_pixel_format<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.pixel_format = v.into();
             self
         }
@@ -6627,7 +6916,10 @@ pub mod video_stream {
         /// # use google_cloud_video_transcoder_v1::model::video_stream::Vp9CodecSettings;
         /// let x = Vp9CodecSettings::new().set_rate_control_mode("example");
         /// ```
-        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_rate_control_mode<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.rate_control_mode = v.into();
             self
         }
@@ -6667,8 +6959,14 @@ pub mod video_stream {
         /// use google_cloud_video_transcoder_v1::model::video_stream::vp_9_codec_settings::GopMode;
         /// let x = Vp9CodecSettings::new().set_gop_mode(Some(GopMode::GopFrameCount(42)));
         /// ```
-        pub fn set_gop_mode<T: std::convert::Into<std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>>>(mut self, v: T) -> Self
-        {
+        pub fn set_gop_mode<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = v.into();
             self
         }
@@ -6679,7 +6977,9 @@ pub mod video_stream {
         pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v) => std::option::Option::Some(v),
+                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6699,9 +6999,7 @@ pub mod video_stream {
         /// ```
         pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(
-                    v.into()
-                )
+                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v.into()),
             );
             self
         }
@@ -6712,7 +7010,9 @@ pub mod video_stream {
         pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(v) => std::option::Option::Some(v),
+                crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6731,11 +7031,12 @@ pub mod video_stream {
         /// assert!(x.gop_duration().is_some());
         /// assert!(x.gop_frame_count().is_none());
         /// ```
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(
-                    v.into()
-                )
+                crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(v.into()),
             );
             self
         }
@@ -6752,8 +7053,16 @@ pub mod video_stream {
         /// let x = Vp9CodecSettings::new().set_color_format(Some(
         ///     google_cloud_video_transcoder_v1::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(Vp9ColorFormatSDR::default().into())));
         /// ```
-        pub fn set_color_format<T: std::convert::Into<std::option::Option<crate::model::video_stream::vp_9_codec_settings::ColorFormat>>>(mut self, v: T) -> Self
-        {
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::vp_9_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = v.into();
             self
         }
@@ -6761,10 +7070,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
         /// if it holds a `Sdr`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn sdr(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>> {
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(v) => std::option::Option::Some(v),
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6783,11 +7097,14 @@ pub mod video_stream {
         /// assert!(x.sdr().is_some());
         /// assert!(x.hlg().is_none());
         /// ```
-        pub fn set_sdr<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>>(mut self, v: T) -> Self {
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(
-                    v.into()
-                )
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(v.into()),
             );
             self
         }
@@ -6795,10 +7112,15 @@ pub mod video_stream {
         /// The value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
         /// if it holds a `Hlg`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn hlg(&self) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>> {
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>
+        {
             #[allow(unreachable_patterns)]
             self.color_format.as_ref().and_then(|v| match v {
-                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(v) => std::option::Option::Some(v),
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6817,11 +7139,14 @@ pub mod video_stream {
         /// assert!(x.hlg().is_some());
         /// assert!(x.sdr().is_none());
         /// ```
-        pub fn set_hlg<T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>>(mut self, v: T) -> Self {
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.color_format = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(
-                    v.into()
-                )
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(v.into()),
             );
             self
         }
@@ -6837,7 +7162,6 @@ pub mod video_stream {
     pub mod vp_9_codec_settings {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// GOP mode can be either by frame count or duration.
         #[derive(Clone, Debug, PartialEq)]
@@ -6931,7 +7255,9 @@ pub mod video_stream {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED")
+                }
                 Self::Downsample => std::option::Option::Some("DOWNSAMPLE"),
                 Self::DropDuplicate => std::option::Option::Some("DROP_DUPLICATE"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -6958,7 +7284,9 @@ pub mod video_stream {
                 0 => Self::Unspecified,
                 1 => Self::Downsample,
                 2 => Self::DropDuplicate,
-                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6970,7 +7298,9 @@ pub mod video_stream {
                 "FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED" => Self::Unspecified,
                 "DOWNSAMPLE" => Self::Downsample,
                 "DROP_DUPLICATE" => Self::DropDuplicate,
-                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6994,8 +7324,11 @@ pub mod video_stream {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FrameRateConversionStrategy>::new(
-                ".google.cloud.video.transcoder.v1.VideoStream.FrameRateConversionStrategy"))
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<FrameRateConversionStrategy>::new(
+                    ".google.cloud.video.transcoder.v1.VideoStream.FrameRateConversionStrategy",
+                ),
+            )
         }
     }
 
@@ -7016,7 +7349,6 @@ pub mod video_stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioStream {
-
     /// The codec for this audio stream. The default is `aac`.
     ///
     /// Supported audio codecs:
@@ -7127,7 +7459,7 @@ impl AudioStream {
     pub fn set_channel_layout<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.channel_layout = v.into_iter().map(|i| i.into()).collect();
@@ -7149,7 +7481,7 @@ impl AudioStream {
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::audio_stream::AudioMapping>
+        V: std::convert::Into<crate::model::audio_stream::AudioMapping>,
     {
         use std::iter::Iterator;
         self.mapping = v.into_iter().map(|i| i.into()).collect();
@@ -7204,7 +7536,6 @@ pub mod audio_stream {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The mapping for the
     /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
     /// atoms with audio
@@ -7215,7 +7546,6 @@ pub mod audio_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AudioMapping {
-
         /// Required. The
         /// [EditAtom.key][google.cloud.video.transcoder.v1.EditAtom.key] that
         /// references the atom with audio inputs in the
@@ -7336,7 +7666,6 @@ pub mod audio_stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextStream {
-
     /// The codec for this text stream. The default is `webvtt`.
     ///
     /// Supported text codecs:
@@ -7414,7 +7743,7 @@ impl TextStream {
     pub fn set_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::text_stream::TextMapping>
+        V: std::convert::Into<crate::model::text_stream::TextMapping>,
     {
         use std::iter::Iterator;
         self.mapping = v.into_iter().map(|i| i.into()).collect();
@@ -7445,7 +7774,6 @@ pub mod text_stream {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The mapping for the
     /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
     /// atoms with text
@@ -7456,7 +7784,6 @@ pub mod text_stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextMapping {
-
         /// Required. The
         /// [EditAtom.key][google.cloud.video.transcoder.v1.EditAtom.key] that
         /// references atom with text inputs in the
@@ -7531,7 +7858,6 @@ pub mod text_stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SegmentSettings {
-
     /// Duration of the segments in seconds. The default is `6.0s`. Note that
     /// `segmentDuration` must be greater than or equal to
     /// [`gopDuration`](#videostream), and `segmentDuration` must be divisible by
@@ -7558,7 +7884,8 @@ impl SegmentSettings {
     /// let x = SegmentSettings::new().set_segment_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_segment_duration<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.segment_duration = std::option::Option::Some(v.into());
         self
@@ -7574,7 +7901,8 @@ impl SegmentSettings {
     /// let x = SegmentSettings::new().set_or_clear_segment_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_segment_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.segment_duration = v.map(|x| x.into());
         self
@@ -7603,7 +7931,6 @@ impl wkt::message::Message for SegmentSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Encryption {
-
     /// Required. Identifier for this set of encryption options.
     pub id: std::string::String,
 
@@ -7646,7 +7973,8 @@ impl Encryption {
     /// let x = Encryption::new().set_drm_systems(DrmSystems::default()/* use setters */);
     /// ```
     pub fn set_drm_systems<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::encryption::DrmSystems>
+    where
+        T: std::convert::Into<crate::model::encryption::DrmSystems>,
     {
         self.drm_systems = std::option::Option::Some(v.into());
         self
@@ -7662,7 +7990,8 @@ impl Encryption {
     /// let x = Encryption::new().set_or_clear_drm_systems(None::<DrmSystems>);
     /// ```
     pub fn set_or_clear_drm_systems<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::encryption::DrmSystems>
+    where
+        T: std::convert::Into<crate::model::encryption::DrmSystems>,
     {
         self.drm_systems = v.map(|x| x.into());
         self
@@ -7680,8 +8009,12 @@ impl Encryption {
     /// let x = Encryption::new().set_encryption_mode(Some(
     ///     google_cloud_video_transcoder_v1::model::encryption::EncryptionMode::Aes128(Aes128Encryption::default().into())));
     /// ```
-    pub fn set_encryption_mode<T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>>(mut self, v: T) -> Self
-    {
+    pub fn set_encryption_mode<
+        T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.encryption_mode = v.into();
         self
     }
@@ -7689,7 +8022,9 @@ impl Encryption {
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `Aes128`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn aes_128(&self) -> std::option::Option<&std::boxed::Box<crate::model::encryption::Aes128Encryption>> {
+    pub fn aes_128(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::Aes128Encryption>> {
         #[allow(unreachable_patterns)]
         self.encryption_mode.as_ref().and_then(|v| match v {
             crate::model::encryption::EncryptionMode::Aes128(v) => std::option::Option::Some(v),
@@ -7712,19 +8047,23 @@ impl Encryption {
     /// assert!(x.sample_aes().is_none());
     /// assert!(x.mpeg_cenc().is_none());
     /// ```
-    pub fn set_aes_128<T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>>(mut self, v: T) -> Self {
-        self.encryption_mode = std::option::Option::Some(
-            crate::model::encryption::EncryptionMode::Aes128(
-                v.into()
-            )
-        );
+    pub fn set_aes_128<
+        T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_mode =
+            std::option::Option::Some(crate::model::encryption::EncryptionMode::Aes128(v.into()));
         self
     }
 
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `SampleAes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sample_aes(&self) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
+    pub fn sample_aes(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
         #[allow(unreachable_patterns)]
         self.encryption_mode.as_ref().and_then(|v| match v {
             crate::model::encryption::EncryptionMode::SampleAes(v) => std::option::Option::Some(v),
@@ -7747,11 +8086,14 @@ impl Encryption {
     /// assert!(x.aes_128().is_none());
     /// assert!(x.mpeg_cenc().is_none());
     /// ```
-    pub fn set_sample_aes<T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>>(mut self, v: T) -> Self {
+    pub fn set_sample_aes<
+        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.encryption_mode = std::option::Option::Some(
-            crate::model::encryption::EncryptionMode::SampleAes(
-                v.into()
-            )
+            crate::model::encryption::EncryptionMode::SampleAes(v.into()),
         );
         self
     }
@@ -7759,7 +8101,9 @@ impl Encryption {
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `MpegCenc`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mpeg_cenc(&self) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
+    pub fn mpeg_cenc(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
         #[allow(unreachable_patterns)]
         self.encryption_mode.as_ref().and_then(|v| match v {
             crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
@@ -7782,12 +8126,14 @@ impl Encryption {
     /// assert!(x.aes_128().is_none());
     /// assert!(x.sample_aes().is_none());
     /// ```
-    pub fn set_mpeg_cenc<T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>>(mut self, v: T) -> Self {
-        self.encryption_mode = std::option::Option::Some(
-            crate::model::encryption::EncryptionMode::MpegCenc(
-                v.into()
-            )
-        );
+    pub fn set_mpeg_cenc<
+        T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_mode =
+            std::option::Option::Some(crate::model::encryption::EncryptionMode::MpegCenc(v.into()));
         self
     }
 
@@ -7803,8 +8149,12 @@ impl Encryption {
     /// let x = Encryption::new().set_secret_source(Some(
     ///     google_cloud_video_transcoder_v1::model::encryption::SecretSource::SecretManagerKeySource(SecretManagerSource::default().into())));
     /// ```
-    pub fn set_secret_source<T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>>(mut self, v: T) -> Self
-    {
+    pub fn set_secret_source<
+        T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_source = v.into();
         self
     }
@@ -7812,10 +8162,14 @@ impl Encryption {
     /// The value of [secret_source][crate::model::Encryption::secret_source]
     /// if it holds a `SecretManagerKeySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn secret_manager_key_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SecretManagerSource>> {
+    pub fn secret_manager_key_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SecretManagerSource>> {
         #[allow(unreachable_patterns)]
         self.secret_source.as_ref().and_then(|v| match v {
-            crate::model::encryption::SecretSource::SecretManagerKeySource(v) => std::option::Option::Some(v),
+            crate::model::encryption::SecretSource::SecretManagerKeySource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7833,11 +8187,14 @@ impl Encryption {
     /// let x = Encryption::new().set_secret_manager_key_source(SecretManagerSource::default()/* use setters */);
     /// assert!(x.secret_manager_key_source().is_some());
     /// ```
-    pub fn set_secret_manager_key_source<T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_key_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_source = std::option::Option::Some(
-            crate::model::encryption::SecretSource::SecretManagerKeySource(
-                v.into()
-            )
+            crate::model::encryption::SecretSource::SecretManagerKeySource(v.into()),
         );
         self
     }
@@ -7854,12 +8211,10 @@ pub mod encryption {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Configuration for AES-128 encryption.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aes128Encryption {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7879,7 +8234,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SampleAesEncryption {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7899,7 +8253,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MpegCommonEncryption {
-
         /// Required. Specify the encryption scheme.
         ///
         /// Supported encryption schemes:
@@ -7939,7 +8292,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecretManagerSource {
-
         /// Required. The name of the Secret Version containing the encryption key in
         /// the following format:
         /// `projects/{project}/secrets/{secret_id}/versions/{version_number}`
@@ -7963,7 +8315,10 @@ pub mod encryption {
         /// # use google_cloud_video_transcoder_v1::model::encryption::SecretManagerSource;
         /// let x = SecretManagerSource::new().set_secret_version("example");
         /// ```
-        pub fn set_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_secret_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.secret_version = v.into();
             self
         }
@@ -7979,7 +8334,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Widevine {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7999,7 +8353,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fairplay {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8019,7 +8372,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Playready {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8039,7 +8391,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Clearkey {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8059,7 +8410,6 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DrmSystems {
-
         /// Widevine configuration.
         pub widevine: std::option::Option<crate::model::encryption::Widevine>,
 
@@ -8089,7 +8439,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_widevine(Widevine::default()/* use setters */);
         /// ```
         pub fn set_widevine<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::encryption::Widevine>
+        where
+            T: std::convert::Into<crate::model::encryption::Widevine>,
         {
             self.widevine = std::option::Option::Some(v.into());
             self
@@ -8105,7 +8456,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_or_clear_widevine(None::<Widevine>);
         /// ```
         pub fn set_or_clear_widevine<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::encryption::Widevine>
+        where
+            T: std::convert::Into<crate::model::encryption::Widevine>,
         {
             self.widevine = v.map(|x| x.into());
             self
@@ -8120,7 +8472,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_fairplay(Fairplay::default()/* use setters */);
         /// ```
         pub fn set_fairplay<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::encryption::Fairplay>
+        where
+            T: std::convert::Into<crate::model::encryption::Fairplay>,
         {
             self.fairplay = std::option::Option::Some(v.into());
             self
@@ -8136,7 +8489,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_or_clear_fairplay(None::<Fairplay>);
         /// ```
         pub fn set_or_clear_fairplay<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::encryption::Fairplay>
+        where
+            T: std::convert::Into<crate::model::encryption::Fairplay>,
         {
             self.fairplay = v.map(|x| x.into());
             self
@@ -8151,7 +8505,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_playready(Playready::default()/* use setters */);
         /// ```
         pub fn set_playready<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::encryption::Playready>
+        where
+            T: std::convert::Into<crate::model::encryption::Playready>,
         {
             self.playready = std::option::Option::Some(v.into());
             self
@@ -8167,7 +8522,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_or_clear_playready(None::<Playready>);
         /// ```
         pub fn set_or_clear_playready<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::encryption::Playready>
+        where
+            T: std::convert::Into<crate::model::encryption::Playready>,
         {
             self.playready = v.map(|x| x.into());
             self
@@ -8182,7 +8538,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_clearkey(Clearkey::default()/* use setters */);
         /// ```
         pub fn set_clearkey<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::encryption::Clearkey>
+        where
+            T: std::convert::Into<crate::model::encryption::Clearkey>,
         {
             self.clearkey = std::option::Option::Some(v.into());
             self
@@ -8198,7 +8555,8 @@ pub mod encryption {
         /// let x = DrmSystems::new().set_or_clear_clearkey(None::<Clearkey>);
         /// ```
         pub fn set_or_clear_clearkey<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::encryption::Clearkey>
+        where
+            T: std::convert::Into<crate::model::encryption::Clearkey>,
         {
             self.clearkey = v.map(|x| x.into());
             self
@@ -8236,7 +8594,6 @@ pub mod encryption {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
-
     /// Required. The parent location to create and process this job.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -8273,7 +8630,8 @@ impl CreateJobRequest {
     /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
     /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Job>
+    where
+        T: std::convert::Into<crate::model::Job>,
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -8289,7 +8647,8 @@ impl CreateJobRequest {
     /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
     /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Job>
+    where
+        T: std::convert::Into<crate::model::Job>,
     {
         self.job = v.map(|x| x.into());
         self
@@ -8307,7 +8666,6 @@ impl wkt::message::Message for CreateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
-
     /// Required. Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
 
@@ -8405,7 +8763,6 @@ impl wkt::message::Message for ListJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
-
     /// Required. The name of the job to retrieve.
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`
     pub name: std::string::String,
@@ -8441,7 +8798,6 @@ impl wkt::message::Message for GetJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
-
     /// Required. The name of the job to delete.
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`
     pub name: std::string::String,
@@ -8493,7 +8849,6 @@ impl wkt::message::Message for DeleteJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
-
     /// List of jobs in the specified region.
     pub jobs: std::vec::Vec<crate::model::Job>,
 
@@ -8526,7 +8881,7 @@ impl ListJobsResponse {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>
+        V: std::convert::Into<crate::model::Job>,
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -8555,7 +8910,7 @@ impl ListJobsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -8587,7 +8942,6 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobTemplateRequest {
-
     /// Required. The parent location to create this job template.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -8631,7 +8985,8 @@ impl CreateJobTemplateRequest {
     /// let x = CreateJobTemplateRequest::new().set_job_template(JobTemplate::default()/* use setters */);
     /// ```
     pub fn set_job_template<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobTemplate>
+    where
+        T: std::convert::Into<crate::model::JobTemplate>,
     {
         self.job_template = std::option::Option::Some(v.into());
         self
@@ -8647,7 +9002,8 @@ impl CreateJobTemplateRequest {
     /// let x = CreateJobTemplateRequest::new().set_or_clear_job_template(None::<JobTemplate>);
     /// ```
     pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobTemplate>
+    where
+        T: std::convert::Into<crate::model::JobTemplate>,
     {
         self.job_template = v.map(|x| x.into());
         self
@@ -8676,7 +9032,6 @@ impl wkt::message::Message for CreateJobTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesRequest {
-
     /// Required. The parent location from which to retrieve the collection of job
     /// templates. Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -8775,7 +9130,6 @@ impl wkt::message::Message for ListJobTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobTemplateRequest {
-
     /// Required. The name of the job template to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/jobTemplates/{job_template}`
@@ -8812,7 +9166,6 @@ impl wkt::message::Message for GetJobTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobTemplateRequest {
-
     /// Required. The name of the job template to delete.
     /// `projects/{project}/locations/{location}/jobTemplates/{job_template}`
     pub name: std::string::String,
@@ -8864,7 +9217,6 @@ impl wkt::message::Message for DeleteJobTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesResponse {
-
     /// List of job templates in the specified region.
     pub job_templates: std::vec::Vec<crate::model::JobTemplate>,
 
@@ -8897,7 +9249,7 @@ impl ListJobTemplatesResponse {
     pub fn set_job_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobTemplate>
+        V: std::convert::Into<crate::model::JobTemplate>,
     {
         use std::iter::Iterator;
         self.job_templates = v.into_iter().map(|i| i.into()).collect();
@@ -8926,7 +9278,7 @@ impl ListJobTemplatesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();

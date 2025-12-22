@@ -567,7 +567,6 @@ pub trait Firewall: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::Firewall] also implement [Firewall].
@@ -644,7 +643,6 @@ impl<T: super::Firewall> Firewall for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::AuthorizedDomains].
@@ -667,7 +665,6 @@ pub trait AuthorizedDomains: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::AuthorizedDomains] also implement [AuthorizedDomains].
@@ -699,7 +696,6 @@ impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::AuthorizedCertificates].
@@ -746,7 +742,6 @@ pub trait AuthorizedCertificates: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::AuthorizedCertificates] also implement [AuthorizedCertificates].
@@ -757,7 +752,8 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>>
+    {
         T::list_authorized_certificates(self, req, options).await
     }
 
@@ -814,7 +810,6 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::DomainMappings].

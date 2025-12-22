@@ -39,7 +39,10 @@ pub mod managed_kafka {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ManagedKafka;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod managed_kafka {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod managed_kafka {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_clusters(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -191,10 +207,10 @@ pub mod managed_kafka {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -211,7 +227,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -252,10 +271,10 @@ pub mod managed_kafka {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -277,16 +296,18 @@ pub mod managed_kafka {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::ManagedKafka::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -334,7 +355,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -344,7 +366,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -386,10 +409,10 @@ pub mod managed_kafka {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -411,16 +434,18 @@ pub mod managed_kafka {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::ManagedKafka::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +477,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -462,7 +488,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -472,7 +499,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -482,7 +510,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -524,10 +553,10 @@ pub mod managed_kafka {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -549,15 +578,14 @@ pub mod managed_kafka {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::ManagedKafka::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -583,7 +611,12 @@ pub mod managed_kafka {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -633,10 +666,10 @@ pub mod managed_kafka {
     pub struct ListTopics(RequestBuilder<crate::model::ListTopicsRequest>);
 
     impl ListTopics {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -653,11 +686,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTopicsResponse> {
-            (*self.0.stub).list_topics(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_topics(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTopicsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTopicsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -669,7 +708,10 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTopicsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTopicsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -723,10 +765,10 @@ pub mod managed_kafka {
     pub struct GetTopic(RequestBuilder<crate::model::GetTopicRequest>);
 
     impl GetTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -743,7 +785,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).get_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTopicRequest::name].
@@ -783,10 +828,10 @@ pub mod managed_kafka {
     pub struct CreateTopic(RequestBuilder<crate::model::CreateTopicRequest>);
 
     impl CreateTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -803,7 +848,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).create_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTopicRequest::parent].
@@ -826,7 +874,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_topic<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = std::option::Option::Some(v.into());
             self
@@ -836,7 +885,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = v.map(|x| x.into());
             self
@@ -871,10 +921,10 @@ pub mod managed_kafka {
     pub struct UpdateTopic(RequestBuilder<crate::model::UpdateTopicRequest>);
 
     impl UpdateTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -891,14 +941,18 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).update_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTopicRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -908,7 +962,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -918,7 +973,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_topic<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = std::option::Option::Some(v.into());
             self
@@ -928,7 +984,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = v.map(|x| x.into());
             self
@@ -963,10 +1020,10 @@ pub mod managed_kafka {
     pub struct DeleteTopic(RequestBuilder<crate::model::DeleteTopicRequest>);
 
     impl DeleteTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -983,7 +1040,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTopicRequest::name].
@@ -1027,14 +1087,17 @@ pub mod managed_kafka {
     pub struct ListConsumerGroups(RequestBuilder<crate::model::ListConsumerGroupsRequest>);
 
     impl ListConsumerGroups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListConsumerGroupsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListConsumerGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1047,11 +1110,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConsumerGroupsResponse> {
-            (*self.0.stub).list_consumer_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_consumer_groups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConsumerGroupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConsumerGroupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1063,7 +1132,12 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConsumerGroupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConsumerGroupsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1117,14 +1191,17 @@ pub mod managed_kafka {
     pub struct GetConsumerGroup(RequestBuilder<crate::model::GetConsumerGroupRequest>);
 
     impl GetConsumerGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetConsumerGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetConsumerGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1137,7 +1214,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConsumerGroup> {
-            (*self.0.stub).get_consumer_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_consumer_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConsumerGroupRequest::name].
@@ -1177,14 +1257,17 @@ pub mod managed_kafka {
     pub struct UpdateConsumerGroup(RequestBuilder<crate::model::UpdateConsumerGroupRequest>);
 
     impl UpdateConsumerGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateConsumerGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateConsumerGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1197,14 +1280,18 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConsumerGroup> {
-            (*self.0.stub).update_consumer_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_consumer_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConsumerGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1214,7 +1301,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1224,7 +1312,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_consumer_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ConsumerGroup>
+        where
+            T: std::convert::Into<crate::model::ConsumerGroup>,
         {
             self.0.request.consumer_group = std::option::Option::Some(v.into());
             self
@@ -1234,7 +1323,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_consumer_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ConsumerGroup>
+        where
+            T: std::convert::Into<crate::model::ConsumerGroup>,
         {
             self.0.request.consumer_group = v.map(|x| x.into());
             self
@@ -1269,14 +1359,17 @@ pub mod managed_kafka {
     pub struct DeleteConsumerGroup(RequestBuilder<crate::model::DeleteConsumerGroupRequest>);
 
     impl DeleteConsumerGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteConsumerGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteConsumerGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1289,7 +1382,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_consumer_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_consumer_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConsumerGroupRequest::name].
@@ -1333,10 +1429,10 @@ pub mod managed_kafka {
     pub struct ListAcls(RequestBuilder<crate::model::ListAclsRequest>);
 
     impl ListAcls {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1353,11 +1449,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAclsResponse> {
-            (*self.0.stub).list_acls(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_acls(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAclsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAclsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1369,7 +1471,10 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAclsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAclsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1423,10 +1528,10 @@ pub mod managed_kafka {
     pub struct GetAcl(RequestBuilder<crate::model::GetAclRequest>);
 
     impl GetAcl {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1443,7 +1548,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Acl> {
-            (*self.0.stub).get_acl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_acl(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAclRequest::name].
@@ -1483,10 +1591,10 @@ pub mod managed_kafka {
     pub struct CreateAcl(RequestBuilder<crate::model::CreateAclRequest>);
 
     impl CreateAcl {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1503,7 +1611,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Acl> {
-            (*self.0.stub).create_acl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_acl(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAclRequest::parent].
@@ -1526,7 +1637,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_acl<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Acl>
+        where
+            T: std::convert::Into<crate::model::Acl>,
         {
             self.0.request.acl = std::option::Option::Some(v.into());
             self
@@ -1536,7 +1648,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Acl>
+        where
+            T: std::convert::Into<crate::model::Acl>,
         {
             self.0.request.acl = v.map(|x| x.into());
             self
@@ -1571,10 +1684,10 @@ pub mod managed_kafka {
     pub struct UpdateAcl(RequestBuilder<crate::model::UpdateAclRequest>);
 
     impl UpdateAcl {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1591,14 +1704,18 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Acl> {
-            (*self.0.stub).update_acl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_acl(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [acl][crate::model::UpdateAclRequest::acl].
         ///
         /// This is a **required** field for requests.
         pub fn set_acl<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Acl>
+        where
+            T: std::convert::Into<crate::model::Acl>,
         {
             self.0.request.acl = std::option::Option::Some(v.into());
             self
@@ -1608,7 +1725,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Acl>
+        where
+            T: std::convert::Into<crate::model::Acl>,
         {
             self.0.request.acl = v.map(|x| x.into());
             self
@@ -1616,7 +1734,8 @@ pub mod managed_kafka {
 
         /// Sets the value of [update_mask][crate::model::UpdateAclRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1624,7 +1743,8 @@ pub mod managed_kafka {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateAclRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1659,10 +1779,10 @@ pub mod managed_kafka {
     pub struct DeleteAcl(RequestBuilder<crate::model::DeleteAclRequest>);
 
     impl DeleteAcl {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1679,7 +1799,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_acl(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_acl(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAclRequest::name].
@@ -1719,10 +1842,10 @@ pub mod managed_kafka {
     pub struct AddAclEntry(RequestBuilder<crate::model::AddAclEntryRequest>);
 
     impl AddAclEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1739,7 +1862,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AddAclEntryResponse> {
-            (*self.0.stub).add_acl_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .add_acl_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [acl][crate::model::AddAclEntryRequest::acl].
@@ -1754,7 +1880,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_acl_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AclEntry>
+        where
+            T: std::convert::Into<crate::model::AclEntry>,
         {
             self.0.request.acl_entry = std::option::Option::Some(v.into());
             self
@@ -1764,7 +1891,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AclEntry>
+        where
+            T: std::convert::Into<crate::model::AclEntry>,
         {
             self.0.request.acl_entry = v.map(|x| x.into());
             self
@@ -1799,10 +1927,10 @@ pub mod managed_kafka {
     pub struct RemoveAclEntry(RequestBuilder<crate::model::RemoveAclEntryRequest>);
 
     impl RemoveAclEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1819,7 +1947,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RemoveAclEntryResponse> {
-            (*self.0.stub).remove_acl_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_acl_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [acl][crate::model::RemoveAclEntryRequest::acl].
@@ -1834,7 +1965,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_acl_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AclEntry>
+        where
+            T: std::convert::Into<crate::model::AclEntry>,
         {
             self.0.request.acl_entry = std::option::Option::Some(v.into());
             self
@@ -1844,7 +1976,8 @@ pub mod managed_kafka {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AclEntry>
+        where
+            T: std::convert::Into<crate::model::AclEntry>,
         {
             self.0.request.acl_entry = v.map(|x| x.into());
             self
@@ -1883,14 +2016,17 @@ pub mod managed_kafka {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1903,11 +2039,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1919,7 +2061,10 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1977,10 +2122,10 @@ pub mod managed_kafka {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1997,7 +2142,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2039,14 +2187,17 @@ pub mod managed_kafka {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2059,11 +2210,17 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2075,7 +2232,12 @@ pub mod managed_kafka {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2139,14 +2301,17 @@ pub mod managed_kafka {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2159,7 +2324,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2197,14 +2365,17 @@ pub mod managed_kafka {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2217,7 +2388,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2255,14 +2429,17 @@ pub mod managed_kafka {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2275,7 +2452,10 @@ pub mod managed_kafka {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2291,7 +2471,6 @@ pub mod managed_kafka {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod managed_kafka_connect {
@@ -2319,7 +2498,10 @@ pub mod managed_kafka_connect {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ManagedKafkaConnect;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2334,8 +2516,12 @@ pub mod managed_kafka_connect {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2369,14 +2555,17 @@ pub mod managed_kafka_connect {
     pub struct ListConnectClusters(RequestBuilder<crate::model::ListConnectClustersRequest>);
 
     impl ListConnectClusters {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListConnectClustersRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListConnectClustersRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2389,11 +2578,17 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConnectClustersResponse> {
-            (*self.0.stub).list_connect_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_connect_clusters(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConnectClustersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConnectClustersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2405,7 +2600,12 @@ pub mod managed_kafka_connect {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectClustersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConnectClustersResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2471,14 +2671,17 @@ pub mod managed_kafka_connect {
     pub struct GetConnectCluster(RequestBuilder<crate::model::GetConnectClusterRequest>);
 
     impl GetConnectCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetConnectClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetConnectClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2491,7 +2694,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConnectCluster> {
-            (*self.0.stub).get_connect_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_connect_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectClusterRequest::name].
@@ -2532,14 +2738,17 @@ pub mod managed_kafka_connect {
     pub struct CreateConnectCluster(RequestBuilder<crate::model::CreateConnectClusterRequest>);
 
     impl CreateConnectCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateConnectClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateConnectClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2557,16 +2766,21 @@ pub mod managed_kafka_connect {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_connect_cluster][crate::client::ManagedKafkaConnect::create_connect_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_connect_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_connect_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connect_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ConnectCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2614,7 +2828,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_connect_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ConnectCluster>
+        where
+            T: std::convert::Into<crate::model::ConnectCluster>,
         {
             self.0.request.connect_cluster = std::option::Option::Some(v.into());
             self
@@ -2624,7 +2839,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ConnectCluster>
+        where
+            T: std::convert::Into<crate::model::ConnectCluster>,
         {
             self.0.request.connect_cluster = v.map(|x| x.into());
             self
@@ -2666,14 +2882,17 @@ pub mod managed_kafka_connect {
     pub struct UpdateConnectCluster(RequestBuilder<crate::model::UpdateConnectClusterRequest>);
 
     impl UpdateConnectCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateConnectClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateConnectClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2691,16 +2910,21 @@ pub mod managed_kafka_connect {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_connect_cluster][crate::client::ManagedKafkaConnect::update_connect_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_connect_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_connect_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connect_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ConnectCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ConnectCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2732,7 +2956,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2742,7 +2967,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2752,7 +2978,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_connect_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ConnectCluster>
+        where
+            T: std::convert::Into<crate::model::ConnectCluster>,
         {
             self.0.request.connect_cluster = std::option::Option::Some(v.into());
             self
@@ -2762,7 +2989,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ConnectCluster>
+        where
+            T: std::convert::Into<crate::model::ConnectCluster>,
         {
             self.0.request.connect_cluster = v.map(|x| x.into());
             self
@@ -2804,14 +3032,17 @@ pub mod managed_kafka_connect {
     pub struct DeleteConnectCluster(RequestBuilder<crate::model::DeleteConnectClusterRequest>);
 
     impl DeleteConnectCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteConnectClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteConnectClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2829,15 +3060,14 @@ pub mod managed_kafka_connect {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_connect_cluster][crate::client::ManagedKafkaConnect::delete_connect_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_connect_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_connect_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connect_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2863,7 +3093,12 @@ pub mod managed_kafka_connect {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectClusterRequest::name].
@@ -2913,10 +3148,10 @@ pub mod managed_kafka_connect {
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2933,11 +3168,17 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConnectorsResponse> {
-            (*self.0.stub).list_connectors(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_connectors(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConnectorsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConnectorsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2949,7 +3190,10 @@ pub mod managed_kafka_connect {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectorsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectorsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3003,10 +3247,10 @@ pub mod managed_kafka_connect {
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3023,7 +3267,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connector> {
-            (*self.0.stub).get_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
@@ -3063,10 +3310,10 @@ pub mod managed_kafka_connect {
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3083,7 +3330,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connector> {
-            (*self.0.stub).create_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
@@ -3106,7 +3356,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_connector<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Connector>
+        where
+            T: std::convert::Into<crate::model::Connector>,
         {
             self.0.request.connector = std::option::Option::Some(v.into());
             self
@@ -3116,7 +3367,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Connector>
+        where
+            T: std::convert::Into<crate::model::Connector>,
         {
             self.0.request.connector = v.map(|x| x.into());
             self
@@ -3151,10 +3403,10 @@ pub mod managed_kafka_connect {
     pub struct UpdateConnector(RequestBuilder<crate::model::UpdateConnectorRequest>);
 
     impl UpdateConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3171,14 +3423,18 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connector> {
-            (*self.0.stub).update_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectorRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3188,7 +3444,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3198,7 +3455,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_connector<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Connector>
+        where
+            T: std::convert::Into<crate::model::Connector>,
         {
             self.0.request.connector = std::option::Option::Some(v.into());
             self
@@ -3208,7 +3466,8 @@ pub mod managed_kafka_connect {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Connector>
+        where
+            T: std::convert::Into<crate::model::Connector>,
         {
             self.0.request.connector = v.map(|x| x.into());
             self
@@ -3243,10 +3502,10 @@ pub mod managed_kafka_connect {
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3263,7 +3522,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
@@ -3303,10 +3565,10 @@ pub mod managed_kafka_connect {
     pub struct PauseConnector(RequestBuilder<crate::model::PauseConnectorRequest>);
 
     impl PauseConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3323,7 +3585,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PauseConnectorResponse> {
-            (*self.0.stub).pause_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .pause_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseConnectorRequest::name].
@@ -3363,10 +3628,10 @@ pub mod managed_kafka_connect {
     pub struct ResumeConnector(RequestBuilder<crate::model::ResumeConnectorRequest>);
 
     impl ResumeConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3383,7 +3648,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ResumeConnectorResponse> {
-            (*self.0.stub).resume_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .resume_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeConnectorRequest::name].
@@ -3423,14 +3691,17 @@ pub mod managed_kafka_connect {
     pub struct RestartConnector(RequestBuilder<crate::model::RestartConnectorRequest>);
 
     impl RestartConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestartConnectorRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RestartConnectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3443,7 +3714,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RestartConnectorResponse> {
-            (*self.0.stub).restart_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restart_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RestartConnectorRequest::name].
@@ -3483,10 +3757,10 @@ pub mod managed_kafka_connect {
     pub struct StopConnector(RequestBuilder<crate::model::StopConnectorRequest>);
 
     impl StopConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3503,7 +3777,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StopConnectorResponse> {
-            (*self.0.stub).stop_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .stop_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StopConnectorRequest::name].
@@ -3547,14 +3824,17 @@ pub mod managed_kafka_connect {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3567,11 +3847,17 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3583,7 +3869,10 @@ pub mod managed_kafka_connect {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3641,10 +3930,10 @@ pub mod managed_kafka_connect {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3661,7 +3950,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3703,14 +3995,17 @@ pub mod managed_kafka_connect {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3723,11 +4018,17 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3739,7 +4040,12 @@ pub mod managed_kafka_connect {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3803,14 +4109,17 @@ pub mod managed_kafka_connect {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3823,7 +4132,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3861,14 +4173,17 @@ pub mod managed_kafka_connect {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3881,7 +4196,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3919,14 +4237,17 @@ pub mod managed_kafka_connect {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3939,7 +4260,10 @@ pub mod managed_kafka_connect {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3955,5 +4279,4 @@ pub mod managed_kafka_connect {
             &mut self.0.options
         }
     }
-
 }

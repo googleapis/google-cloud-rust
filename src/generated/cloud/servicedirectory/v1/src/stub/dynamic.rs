@@ -34,7 +34,6 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<location::model::Location>>;
-
 }
 
 /// All implementations of [super::LookupService] also implement [LookupService].
@@ -66,7 +65,6 @@ impl<T: super::LookupService> LookupService for T {
     ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::RegistrationService].
@@ -191,7 +189,6 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<location::model::Location>>;
-
 }
 
 /// All implementations of [super::RegistrationService] also implement [RegistrationService].
@@ -376,5 +373,4 @@ impl<T: super::RegistrationService> RegistrationService for T {
     ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
-
 }

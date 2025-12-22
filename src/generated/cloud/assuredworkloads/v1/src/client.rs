@@ -72,7 +72,9 @@ impl AssuredWorkloadsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::assured_workloads_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::assured_workloads_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::assured_workloads_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,44 @@ impl AssuredWorkloadsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AssuredWorkloadsService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AssuredWorkloadsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
         super::transport::AssuredWorkloadsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
-        Self::build_transport(conf).await.map(super::tracing::AssuredWorkloadsService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AssuredWorkloadsService::new)
     }
 
     /// Creates Assured Workload.
@@ -115,8 +133,7 @@ impl AssuredWorkloadsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workload(&self) -> super::builder::assured_workloads_service::CreateWorkload
-    {
+    pub fn create_workload(&self) -> super::builder::assured_workloads_service::CreateWorkload {
         super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
     }
 
@@ -140,8 +157,7 @@ impl AssuredWorkloadsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload
-    {
+    pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
     }
 
@@ -167,8 +183,9 @@ impl AssuredWorkloadsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn restrict_allowed_resources(&self) -> super::builder::assured_workloads_service::RestrictAllowedResources
-    {
+    pub fn restrict_allowed_resources(
+        &self,
+    ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
         super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
     }
 
@@ -190,8 +207,7 @@ impl AssuredWorkloadsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload
-    {
+    pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload {
         super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
     }
 
@@ -212,22 +228,19 @@ impl AssuredWorkloadsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload
-    {
+    pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload {
         super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
     }
 
     /// Lists Assured Workloads under a CRM Node.
-    pub fn list_workloads(&self) -> super::builder::assured_workloads_service::ListWorkloads
-    {
+    pub fn list_workloads(&self) -> super::builder::assured_workloads_service::ListWorkloads {
         super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::assured_workloads_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::assured_workloads_service::ListOperations {
         super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
     }
 
@@ -250,8 +263,7 @@ impl AssuredWorkloadsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation {
         super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
     }
 }

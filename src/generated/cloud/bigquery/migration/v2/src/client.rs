@@ -72,7 +72,9 @@ impl MigrationService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::migration_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::migration_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::migration_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,43 @@ impl MigrationService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::MigrationService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::MigrationService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MigrationService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MigrationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MigrationService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::MigrationService> {
         super::transport::MigrationService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MigrationService> {
-        Self::build_transport(conf).await.map(super::tracing::MigrationService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::MigrationService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::MigrationService::new)
     }
 
     /// Creates a migration workflow.
@@ -121,8 +138,9 @@ impl MigrationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_migration_workflow(&self) -> super::builder::migration_service::CreateMigrationWorkflow
-    {
+    pub fn create_migration_workflow(
+        &self,
+    ) -> super::builder::migration_service::CreateMigrationWorkflow {
         super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
     }
 
@@ -143,14 +161,16 @@ impl MigrationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_migration_workflow(&self) -> super::builder::migration_service::GetMigrationWorkflow
-    {
+    pub fn get_migration_workflow(
+        &self,
+    ) -> super::builder::migration_service::GetMigrationWorkflow {
         super::builder::migration_service::GetMigrationWorkflow::new(self.inner.clone())
     }
 
     /// Lists previously created migration workflow.
-    pub fn list_migration_workflows(&self) -> super::builder::migration_service::ListMigrationWorkflows
-    {
+    pub fn list_migration_workflows(
+        &self,
+    ) -> super::builder::migration_service::ListMigrationWorkflows {
         super::builder::migration_service::ListMigrationWorkflows::new(self.inner.clone())
     }
 
@@ -170,8 +190,9 @@ impl MigrationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_migration_workflow(&self) -> super::builder::migration_service::DeleteMigrationWorkflow
-    {
+    pub fn delete_migration_workflow(
+        &self,
+    ) -> super::builder::migration_service::DeleteMigrationWorkflow {
         super::builder::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
     }
 
@@ -194,8 +215,9 @@ impl MigrationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn start_migration_workflow(&self) -> super::builder::migration_service::StartMigrationWorkflow
-    {
+    pub fn start_migration_workflow(
+        &self,
+    ) -> super::builder::migration_service::StartMigrationWorkflow {
         super::builder::migration_service::StartMigrationWorkflow::new(self.inner.clone())
     }
 
@@ -216,14 +238,14 @@ impl MigrationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_migration_subtask(&self) -> super::builder::migration_service::GetMigrationSubtask
-    {
+    pub fn get_migration_subtask(&self) -> super::builder::migration_service::GetMigrationSubtask {
         super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
     }
 
     /// Lists previously created migration subtasks.
-    pub fn list_migration_subtasks(&self) -> super::builder::migration_service::ListMigrationSubtasks
-    {
+    pub fn list_migration_subtasks(
+        &self,
+    ) -> super::builder::migration_service::ListMigrationSubtasks {
         super::builder::migration_service::ListMigrationSubtasks::new(self.inner.clone())
     }
 }

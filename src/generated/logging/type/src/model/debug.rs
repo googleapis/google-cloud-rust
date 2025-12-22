@@ -32,7 +32,10 @@ impl std::fmt::Debug for super::HttpRequest {
         debug_struct.field("latency", &self.latency);
         debug_struct.field("cache_lookup", &self.cache_lookup);
         debug_struct.field("cache_hit", &self.cache_hit);
-        debug_struct.field("cache_validated_with_origin_server", &self.cache_validated_with_origin_server);
+        debug_struct.field(
+            "cache_validated_with_origin_server",
+            &self.cache_validated_with_origin_server,
+        );
         debug_struct.field("cache_fill_bytes", &self.cache_fill_bytes);
         debug_struct.field("protocol", &self.protocol);
         if !self._unknown_fields.is_empty() {

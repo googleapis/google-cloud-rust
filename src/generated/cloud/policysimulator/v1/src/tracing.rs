@@ -18,26 +18,35 @@ use crate::Result;
 /// Implements a [OrgPolicyViolationsPreviewService](super::stub::OrgPolicyViolationsPreviewService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OrgPolicyViolationsPreviewService<T>
-where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> OrgPolicyViolationsPreviewService<T>
-where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OrgPolicyViolationsPreviewService for OrgPolicyViolationsPreviewService<T>
-where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_org_policy_violations_previews(
         &self,
         req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>> {
-        self.inner.list_org_policy_violations_previews(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>
+    {
+        self.inner
+            .list_org_policy_violations_previews(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -46,7 +55,9 @@ where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send
         req: crate::model::GetOrgPolicyViolationsPreviewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OrgPolicyViolationsPreview>> {
-        self.inner.get_org_policy_violations_preview(req, options).await
+        self.inner
+            .get_org_policy_violations_preview(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -55,7 +66,9 @@ where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send
         req: crate::model::CreateOrgPolicyViolationsPreviewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_org_policy_violations_preview(req, options).await
+        self.inner
+            .create_org_policy_violations_preview(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -85,7 +98,6 @@ where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -104,19 +116,25 @@ where T: super::stub::OrgPolicyViolationsPreviewService + std::fmt::Debug + Send
 /// Implements a [Simulator](super::stub::Simulator) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Simulator<T>
-where T: super::stub::Simulator + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Simulator + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Simulator<T>
-where T: super::stub::Simulator + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Simulator + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Simulator for Simulator<T>
-where T: super::stub::Simulator + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Simulator + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_replay(
         &self,
@@ -162,7 +180,6 @@ where T: super::stub::Simulator + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -177,4 +194,3 @@ where T: super::stub::Simulator + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

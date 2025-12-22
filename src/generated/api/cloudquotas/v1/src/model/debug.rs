@@ -135,7 +135,10 @@ impl std::fmt::Debug for super::QuotaInfo {
         debug_struct.field("metric_display_name", &self.metric_display_name);
         debug_struct.field("quota_display_name", &self.quota_display_name);
         debug_struct.field("metric_unit", &self.metric_unit);
-        debug_struct.field("quota_increase_eligibility", &self.quota_increase_eligibility);
+        debug_struct.field(
+            "quota_increase_eligibility",
+            &self.quota_increase_eligibility,
+        );
         debug_struct.field("is_fixed", &self.is_fixed);
         debug_struct.field("dimensions_infos", &self.dimensions_infos);
         debug_struct.field("is_concurrent", &self.is_concurrent);
@@ -195,7 +198,6 @@ impl std::fmt::Debug for super::QuotaConfig {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::DimensionsInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

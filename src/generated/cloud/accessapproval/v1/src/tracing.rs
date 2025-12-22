@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [AccessApproval](super::stub::AccessApproval) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AccessApproval<T>
-where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> AccessApproval<T>
-where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AccessApproval for AccessApproval<T>
-where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_approval_requests(
         &self,
@@ -91,7 +97,9 @@ where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
-        self.inner.update_access_approval_settings(req, options).await
+        self.inner
+            .update_access_approval_settings(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -100,7 +108,9 @@ where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner.delete_access_approval_settings(req, options).await
+        self.inner
+            .delete_access_approval_settings(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -109,8 +119,8 @@ where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
-        self.inner.get_access_approval_service_account(req, options).await
+        self.inner
+            .get_access_approval_service_account(req, options)
+            .await
     }
-
 }
-

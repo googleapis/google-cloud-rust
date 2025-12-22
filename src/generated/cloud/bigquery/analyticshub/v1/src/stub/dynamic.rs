@@ -360,7 +360,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>
+    {
         T::list_shared_resource_subscriptions(self, req, options).await
     }
 

@@ -73,7 +73,9 @@ impl AutoscalingPolicyService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::autoscaling_policy_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::autoscaling_policy_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::autoscaling_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -81,28 +83,44 @@ impl AutoscalingPolicyService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AutoscalingPolicyService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AutoscalingPolicyService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AutoscalingPolicyService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::AutoscalingPolicyService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
         super::transport::AutoscalingPolicyService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
-        Self::build_transport(conf).await.map(super::tracing::AutoscalingPolicyService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AutoscalingPolicyService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AutoscalingPolicyService::new)
     }
 
     /// Creates new autoscaling policy.
@@ -122,8 +140,9 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_autoscaling_policy(&self) -> super::builder::autoscaling_policy_service::CreateAutoscalingPolicy
-    {
+    pub fn create_autoscaling_policy(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::CreateAutoscalingPolicy {
         super::builder::autoscaling_policy_service::CreateAutoscalingPolicy::new(self.inner.clone())
     }
 
@@ -147,8 +166,9 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_autoscaling_policy(&self) -> super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy
-    {
+    pub fn update_autoscaling_policy(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy {
         super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy::new(self.inner.clone())
     }
 
@@ -169,14 +189,16 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_autoscaling_policy(&self) -> super::builder::autoscaling_policy_service::GetAutoscalingPolicy
-    {
+    pub fn get_autoscaling_policy(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::GetAutoscalingPolicy {
         super::builder::autoscaling_policy_service::GetAutoscalingPolicy::new(self.inner.clone())
     }
 
     /// Lists autoscaling policies in the project.
-    pub fn list_autoscaling_policies(&self) -> super::builder::autoscaling_policy_service::ListAutoscalingPolicies
-    {
+    pub fn list_autoscaling_policies(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::ListAutoscalingPolicies {
         super::builder::autoscaling_policy_service::ListAutoscalingPolicies::new(self.inner.clone())
     }
 
@@ -197,8 +219,9 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_autoscaling_policy(&self) -> super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy
-    {
+    pub fn delete_autoscaling_policy(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy {
         super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy::new(self.inner.clone())
     }
 
@@ -223,8 +246,7 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::autoscaling_policy_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::autoscaling_policy_service::SetIamPolicy {
         super::builder::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -246,8 +268,7 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::autoscaling_policy_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::autoscaling_policy_service::GetIamPolicy {
         super::builder::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -274,16 +295,16 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::autoscaling_policy_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::autoscaling_policy_service::TestIamPermissions {
         super::builder::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::autoscaling_policy_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::autoscaling_policy_service::ListOperations {
         super::builder::autoscaling_policy_service::ListOperations::new(self.inner.clone())
     }
 
@@ -306,8 +327,7 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::autoscaling_policy_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::autoscaling_policy_service::GetOperation {
         super::builder::autoscaling_policy_service::GetOperation::new(self.inner.clone())
     }
 
@@ -329,8 +349,7 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::autoscaling_policy_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::autoscaling_policy_service::DeleteOperation {
         super::builder::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -352,8 +371,7 @@ impl AutoscalingPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::autoscaling_policy_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::autoscaling_policy_service::CancelOperation {
         super::builder::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -414,7 +432,9 @@ impl BatchController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::batch_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::batch_controller::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::batch_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -422,28 +442,43 @@ impl BatchController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::BatchController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::BatchController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BatchController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BatchController>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BatchController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BatchController> {
         super::transport::BatchController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BatchController> {
-        Self::build_transport(conf).await.map(super::tracing::BatchController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BatchController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BatchController::new)
     }
 
     /// Creates a batch workload that executes asynchronously.
@@ -457,8 +492,7 @@ impl BatchController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_batch(&self) -> super::builder::batch_controller::CreateBatch
-    {
+    pub fn create_batch(&self) -> super::builder::batch_controller::CreateBatch {
         super::builder::batch_controller::CreateBatch::new(self.inner.clone())
     }
 
@@ -479,14 +513,12 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_batch(&self) -> super::builder::batch_controller::GetBatch
-    {
+    pub fn get_batch(&self) -> super::builder::batch_controller::GetBatch {
         super::builder::batch_controller::GetBatch::new(self.inner.clone())
     }
 
     /// Lists batch workloads.
-    pub fn list_batches(&self) -> super::builder::batch_controller::ListBatches
-    {
+    pub fn list_batches(&self) -> super::builder::batch_controller::ListBatches {
         super::builder::batch_controller::ListBatches::new(self.inner.clone())
     }
 
@@ -507,8 +539,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_batch(&self) -> super::builder::batch_controller::DeleteBatch
-    {
+    pub fn delete_batch(&self) -> super::builder::batch_controller::DeleteBatch {
         super::builder::batch_controller::DeleteBatch::new(self.inner.clone())
     }
 
@@ -533,8 +564,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::batch_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::batch_controller::SetIamPolicy {
         super::builder::batch_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -556,8 +586,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::batch_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::batch_controller::GetIamPolicy {
         super::builder::batch_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -584,16 +613,14 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::batch_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::batch_controller::TestIamPermissions {
         super::builder::batch_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::batch_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::batch_controller::ListOperations {
         super::builder::batch_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -616,8 +643,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::batch_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::batch_controller::GetOperation {
         super::builder::batch_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -639,8 +665,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::batch_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::batch_controller::DeleteOperation {
         super::builder::batch_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -662,8 +687,7 @@ impl BatchController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::batch_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::batch_controller::CancelOperation {
         super::builder::batch_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -725,7 +749,9 @@ impl ClusterController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cluster_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::cluster_controller::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::cluster_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -733,28 +759,43 @@ impl ClusterController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ClusterController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ClusterController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClusterController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClusterController>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClusterController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ClusterController> {
         super::transport::ClusterController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClusterController> {
-        Self::build_transport(conf).await.map(super::tracing::ClusterController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ClusterController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ClusterController::new)
     }
 
     /// Creates a cluster in a project. The returned
@@ -772,8 +813,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(&self) -> super::builder::cluster_controller::CreateCluster
-    {
+    pub fn create_cluster(&self) -> super::builder::cluster_controller::CreateCluster {
         super::builder::cluster_controller::CreateCluster::new(self.inner.clone())
     }
 
@@ -796,8 +836,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(&self) -> super::builder::cluster_controller::UpdateCluster
-    {
+    pub fn update_cluster(&self) -> super::builder::cluster_controller::UpdateCluster {
         super::builder::cluster_controller::UpdateCluster::new(self.inner.clone())
     }
 
@@ -812,8 +851,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_cluster(&self) -> super::builder::cluster_controller::StopCluster
-    {
+    pub fn stop_cluster(&self) -> super::builder::cluster_controller::StopCluster {
         super::builder::cluster_controller::StopCluster::new(self.inner.clone())
     }
 
@@ -828,8 +866,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_cluster(&self) -> super::builder::cluster_controller::StartCluster
-    {
+    pub fn start_cluster(&self) -> super::builder::cluster_controller::StartCluster {
         super::builder::cluster_controller::StartCluster::new(self.inner.clone())
     }
 
@@ -848,8 +885,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cluster(&self) -> super::builder::cluster_controller::DeleteCluster
-    {
+    pub fn delete_cluster(&self) -> super::builder::cluster_controller::DeleteCluster {
         super::builder::cluster_controller::DeleteCluster::new(self.inner.clone())
     }
 
@@ -870,14 +906,12 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_cluster(&self) -> super::builder::cluster_controller::GetCluster
-    {
+    pub fn get_cluster(&self) -> super::builder::cluster_controller::GetCluster {
         super::builder::cluster_controller::GetCluster::new(self.inner.clone())
     }
 
     /// Lists all regions/{region}/clusters in a project alphabetically.
-    pub fn list_clusters(&self) -> super::builder::cluster_controller::ListClusters
-    {
+    pub fn list_clusters(&self) -> super::builder::cluster_controller::ListClusters {
         super::builder::cluster_controller::ListClusters::new(self.inner.clone())
     }
 
@@ -901,8 +935,7 @@ impl ClusterController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn diagnose_cluster(&self) -> super::builder::cluster_controller::DiagnoseCluster
-    {
+    pub fn diagnose_cluster(&self) -> super::builder::cluster_controller::DiagnoseCluster {
         super::builder::cluster_controller::DiagnoseCluster::new(self.inner.clone())
     }
 
@@ -927,8 +960,7 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::cluster_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::cluster_controller::SetIamPolicy {
         super::builder::cluster_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -950,8 +982,7 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::cluster_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::cluster_controller::GetIamPolicy {
         super::builder::cluster_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -978,16 +1009,14 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::cluster_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::cluster_controller::TestIamPermissions {
         super::builder::cluster_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::cluster_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::cluster_controller::ListOperations {
         super::builder::cluster_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -1010,8 +1039,7 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::cluster_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::cluster_controller::GetOperation {
         super::builder::cluster_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -1033,8 +1061,7 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::cluster_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::cluster_controller::DeleteOperation {
         super::builder::cluster_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1056,8 +1083,7 @@ impl ClusterController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::cluster_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::cluster_controller::CancelOperation {
         super::builder::cluster_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1126,28 +1152,42 @@ impl JobController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::JobController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::JobController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::JobController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobController> {
         super::transport::JobController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::JobController> {
-        Self::build_transport(conf).await.map(super::tracing::JobController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::JobController::new)
     }
 
     /// Submits a job to a cluster.
@@ -1167,8 +1207,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn submit_job(&self) -> super::builder::job_controller::SubmitJob
-    {
+    pub fn submit_job(&self) -> super::builder::job_controller::SubmitJob {
         super::builder::job_controller::SubmitJob::new(self.inner.clone())
     }
 
@@ -1183,8 +1222,7 @@ impl JobController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn submit_job_as_operation(&self) -> super::builder::job_controller::SubmitJobAsOperation
-    {
+    pub fn submit_job_as_operation(&self) -> super::builder::job_controller::SubmitJobAsOperation {
         super::builder::job_controller::SubmitJobAsOperation::new(self.inner.clone())
     }
 
@@ -1205,14 +1243,12 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_job(&self) -> super::builder::job_controller::GetJob
-    {
+    pub fn get_job(&self) -> super::builder::job_controller::GetJob {
         super::builder::job_controller::GetJob::new(self.inner.clone())
     }
 
     /// Lists regions/{region}/jobs in a project.
-    pub fn list_jobs(&self) -> super::builder::job_controller::ListJobs
-    {
+    pub fn list_jobs(&self) -> super::builder::job_controller::ListJobs {
         super::builder::job_controller::ListJobs::new(self.inner.clone())
     }
 
@@ -1233,8 +1269,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_job(&self) -> super::builder::job_controller::UpdateJob
-    {
+    pub fn update_job(&self) -> super::builder::job_controller::UpdateJob {
         super::builder::job_controller::UpdateJob::new(self.inner.clone())
     }
 
@@ -1259,8 +1294,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_job(&self) -> super::builder::job_controller::CancelJob
-    {
+    pub fn cancel_job(&self) -> super::builder::job_controller::CancelJob {
         super::builder::job_controller::CancelJob::new(self.inner.clone())
     }
 
@@ -1281,8 +1315,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_job(&self) -> super::builder::job_controller::DeleteJob
-    {
+    pub fn delete_job(&self) -> super::builder::job_controller::DeleteJob {
         super::builder::job_controller::DeleteJob::new(self.inner.clone())
     }
 
@@ -1307,8 +1340,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::job_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::job_controller::SetIamPolicy {
         super::builder::job_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1330,8 +1362,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::job_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::job_controller::GetIamPolicy {
         super::builder::job_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1358,16 +1389,14 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::job_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::job_controller::TestIamPermissions {
         super::builder::job_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::job_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::job_controller::ListOperations {
         super::builder::job_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -1390,8 +1419,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::job_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::job_controller::GetOperation {
         super::builder::job_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -1413,8 +1441,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::job_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::job_controller::DeleteOperation {
         super::builder::job_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1436,8 +1463,7 @@ impl JobController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::job_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::job_controller::CancelOperation {
         super::builder::job_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1499,7 +1525,9 @@ impl NodeGroupController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::node_group_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::node_group_controller::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::node_group_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -1507,28 +1535,43 @@ impl NodeGroupController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::NodeGroupController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::NodeGroupController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeGroupController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NodeGroupController>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
         super::transport::NodeGroupController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
-        Self::build_transport(conf).await.map(super::tracing::NodeGroupController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::NodeGroupController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::NodeGroupController::new)
     }
 
     /// Creates a node group in a cluster. The returned
@@ -1546,8 +1589,7 @@ impl NodeGroupController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_node_group(&self) -> super::builder::node_group_controller::CreateNodeGroup
-    {
+    pub fn create_node_group(&self) -> super::builder::node_group_controller::CreateNodeGroup {
         super::builder::node_group_controller::CreateNodeGroup::new(self.inner.clone())
     }
 
@@ -1566,8 +1608,7 @@ impl NodeGroupController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resize_node_group(&self) -> super::builder::node_group_controller::ResizeNodeGroup
-    {
+    pub fn resize_node_group(&self) -> super::builder::node_group_controller::ResizeNodeGroup {
         super::builder::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
     }
 
@@ -1589,8 +1630,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_node_group(&self) -> super::builder::node_group_controller::GetNodeGroup
-    {
+    pub fn get_node_group(&self) -> super::builder::node_group_controller::GetNodeGroup {
         super::builder::node_group_controller::GetNodeGroup::new(self.inner.clone())
     }
 
@@ -1615,8 +1655,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::node_group_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::node_group_controller::SetIamPolicy {
         super::builder::node_group_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1638,8 +1677,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::node_group_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::node_group_controller::GetIamPolicy {
         super::builder::node_group_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1666,16 +1704,16 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::node_group_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::node_group_controller::TestIamPermissions {
         super::builder::node_group_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::node_group_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::node_group_controller::ListOperations {
         super::builder::node_group_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -1698,8 +1736,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::node_group_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::node_group_controller::GetOperation {
         super::builder::node_group_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -1721,8 +1758,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::node_group_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::node_group_controller::DeleteOperation {
         super::builder::node_group_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1744,8 +1780,7 @@ impl NodeGroupController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::node_group_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::node_group_controller::CancelOperation {
         super::builder::node_group_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1806,7 +1841,9 @@ impl SessionTemplateController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::session_template_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::session_template_controller::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::session_template_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -1814,28 +1851,44 @@ impl SessionTemplateController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SessionTemplateController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SessionTemplateController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionTemplateController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::SessionTemplateController>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
         super::transport::SessionTemplateController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
-        Self::build_transport(conf).await.map(super::tracing::SessionTemplateController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionTemplateController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SessionTemplateController::new)
     }
 
     /// Create a session template synchronously.
@@ -1855,8 +1908,9 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_session_template(&self) -> super::builder::session_template_controller::CreateSessionTemplate
-    {
+    pub fn create_session_template(
+        &self,
+    ) -> super::builder::session_template_controller::CreateSessionTemplate {
         super::builder::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
     }
 
@@ -1877,8 +1931,9 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_session_template(&self) -> super::builder::session_template_controller::UpdateSessionTemplate
-    {
+    pub fn update_session_template(
+        &self,
+    ) -> super::builder::session_template_controller::UpdateSessionTemplate {
         super::builder::session_template_controller::UpdateSessionTemplate::new(self.inner.clone())
     }
 
@@ -1899,14 +1954,16 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_session_template(&self) -> super::builder::session_template_controller::GetSessionTemplate
-    {
+    pub fn get_session_template(
+        &self,
+    ) -> super::builder::session_template_controller::GetSessionTemplate {
         super::builder::session_template_controller::GetSessionTemplate::new(self.inner.clone())
     }
 
     /// Lists session templates.
-    pub fn list_session_templates(&self) -> super::builder::session_template_controller::ListSessionTemplates
-    {
+    pub fn list_session_templates(
+        &self,
+    ) -> super::builder::session_template_controller::ListSessionTemplates {
         super::builder::session_template_controller::ListSessionTemplates::new(self.inner.clone())
     }
 
@@ -1926,8 +1983,9 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_session_template(&self) -> super::builder::session_template_controller::DeleteSessionTemplate
-    {
+    pub fn delete_session_template(
+        &self,
+    ) -> super::builder::session_template_controller::DeleteSessionTemplate {
         super::builder::session_template_controller::DeleteSessionTemplate::new(self.inner.clone())
     }
 
@@ -1952,8 +2010,7 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::session_template_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::session_template_controller::SetIamPolicy {
         super::builder::session_template_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1975,8 +2032,7 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::session_template_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::session_template_controller::GetIamPolicy {
         super::builder::session_template_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -2003,16 +2059,16 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::session_template_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::session_template_controller::TestIamPermissions {
         super::builder::session_template_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::session_template_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::session_template_controller::ListOperations {
         super::builder::session_template_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -2035,8 +2091,7 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::session_template_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::session_template_controller::GetOperation {
         super::builder::session_template_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -2058,8 +2113,7 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::session_template_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::session_template_controller::DeleteOperation {
         super::builder::session_template_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -2081,8 +2135,7 @@ impl SessionTemplateController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::session_template_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::session_template_controller::CancelOperation {
         super::builder::session_template_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -2143,7 +2196,9 @@ impl SessionController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::session_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::session_controller::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::session_controller::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -2151,28 +2206,43 @@ impl SessionController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SessionController + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SessionController + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionController>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionController>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SessionController> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionController> {
         super::transport::SessionController::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SessionController> {
-        Self::build_transport(conf).await.map(super::tracing::SessionController::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionController> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SessionController::new)
     }
 
     /// Create an interactive session asynchronously.
@@ -2186,8 +2256,7 @@ impl SessionController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_session(&self) -> super::builder::session_controller::CreateSession
-    {
+    pub fn create_session(&self) -> super::builder::session_controller::CreateSession {
         super::builder::session_controller::CreateSession::new(self.inner.clone())
     }
 
@@ -2208,14 +2277,12 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_session(&self) -> super::builder::session_controller::GetSession
-    {
+    pub fn get_session(&self) -> super::builder::session_controller::GetSession {
         super::builder::session_controller::GetSession::new(self.inner.clone())
     }
 
     /// Lists interactive sessions.
-    pub fn list_sessions(&self) -> super::builder::session_controller::ListSessions
-    {
+    pub fn list_sessions(&self) -> super::builder::session_controller::ListSessions {
         super::builder::session_controller::ListSessions::new(self.inner.clone())
     }
 
@@ -2230,8 +2297,7 @@ impl SessionController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn terminate_session(&self) -> super::builder::session_controller::TerminateSession
-    {
+    pub fn terminate_session(&self) -> super::builder::session_controller::TerminateSession {
         super::builder::session_controller::TerminateSession::new(self.inner.clone())
     }
 
@@ -2247,8 +2313,7 @@ impl SessionController {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_session(&self) -> super::builder::session_controller::DeleteSession
-    {
+    pub fn delete_session(&self) -> super::builder::session_controller::DeleteSession {
         super::builder::session_controller::DeleteSession::new(self.inner.clone())
     }
 
@@ -2273,8 +2338,7 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::session_controller::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::session_controller::SetIamPolicy {
         super::builder::session_controller::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -2296,8 +2360,7 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::session_controller::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::session_controller::GetIamPolicy {
         super::builder::session_controller::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -2324,16 +2387,14 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::session_controller::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::session_controller::TestIamPermissions {
         super::builder::session_controller::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::session_controller::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::session_controller::ListOperations {
         super::builder::session_controller::ListOperations::new(self.inner.clone())
     }
 
@@ -2356,8 +2417,7 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::session_controller::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::session_controller::GetOperation {
         super::builder::session_controller::GetOperation::new(self.inner.clone())
     }
 
@@ -2379,8 +2439,7 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::session_controller::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::session_controller::DeleteOperation {
         super::builder::session_controller::DeleteOperation::new(self.inner.clone())
     }
 
@@ -2402,8 +2461,7 @@ impl SessionController {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::session_controller::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::session_controller::CancelOperation {
         super::builder::session_controller::CancelOperation::new(self.inner.clone())
     }
 }
@@ -2465,7 +2523,9 @@ impl WorkflowTemplateService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::workflow_template_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::workflow_template_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::workflow_template_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -2473,28 +2533,44 @@ impl WorkflowTemplateService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::WorkflowTemplateService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::WorkflowTemplateService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WorkflowTemplateService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::WorkflowTemplateService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
         super::transport::WorkflowTemplateService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
-        Self::build_transport(conf).await.map(super::tracing::WorkflowTemplateService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::WorkflowTemplateService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::WorkflowTemplateService::new)
     }
 
     /// Creates new workflow template.
@@ -2514,8 +2590,9 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_workflow_template(&self) -> super::builder::workflow_template_service::CreateWorkflowTemplate
-    {
+    pub fn create_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::CreateWorkflowTemplate {
         super::builder::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
     }
 
@@ -2539,8 +2616,9 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workflow_template(&self) -> super::builder::workflow_template_service::GetWorkflowTemplate
-    {
+    pub fn get_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::GetWorkflowTemplate {
         super::builder::workflow_template_service::GetWorkflowTemplate::new(self.inner.clone())
     }
 
@@ -2578,9 +2656,12 @@ impl WorkflowTemplateService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn instantiate_workflow_template(&self) -> super::builder::workflow_template_service::InstantiateWorkflowTemplate
-    {
-        super::builder::workflow_template_service::InstantiateWorkflowTemplate::new(self.inner.clone())
+    pub fn instantiate_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::InstantiateWorkflowTemplate {
+        super::builder::workflow_template_service::InstantiateWorkflowTemplate::new(
+            self.inner.clone(),
+        )
     }
 
     /// Instantiates a template and begins execution.
@@ -2625,9 +2706,12 @@ impl WorkflowTemplateService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn instantiate_inline_workflow_template(&self) -> super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate
-    {
-        super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate::new(self.inner.clone())
+    pub fn instantiate_inline_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate {
+        super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
+            self.inner.clone(),
+        )
     }
 
     /// Updates (replaces) workflow template. The updated template
@@ -2648,14 +2732,16 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_workflow_template(&self) -> super::builder::workflow_template_service::UpdateWorkflowTemplate
-    {
+    pub fn update_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::UpdateWorkflowTemplate {
         super::builder::workflow_template_service::UpdateWorkflowTemplate::new(self.inner.clone())
     }
 
     /// Lists workflows that match the specified filter in the request.
-    pub fn list_workflow_templates(&self) -> super::builder::workflow_template_service::ListWorkflowTemplates
-    {
+    pub fn list_workflow_templates(
+        &self,
+    ) -> super::builder::workflow_template_service::ListWorkflowTemplates {
         super::builder::workflow_template_service::ListWorkflowTemplates::new(self.inner.clone())
     }
 
@@ -2675,8 +2761,9 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_workflow_template(&self) -> super::builder::workflow_template_service::DeleteWorkflowTemplate
-    {
+    pub fn delete_workflow_template(
+        &self,
+    ) -> super::builder::workflow_template_service::DeleteWorkflowTemplate {
         super::builder::workflow_template_service::DeleteWorkflowTemplate::new(self.inner.clone())
     }
 
@@ -2701,8 +2788,7 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::workflow_template_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::workflow_template_service::SetIamPolicy {
         super::builder::workflow_template_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -2724,8 +2810,7 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::workflow_template_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::workflow_template_service::GetIamPolicy {
         super::builder::workflow_template_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -2752,16 +2837,16 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::workflow_template_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::workflow_template_service::TestIamPermissions {
         super::builder::workflow_template_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::workflow_template_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::workflow_template_service::ListOperations {
         super::builder::workflow_template_service::ListOperations::new(self.inner.clone())
     }
 
@@ -2784,8 +2869,7 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::workflow_template_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::workflow_template_service::GetOperation {
         super::builder::workflow_template_service::GetOperation::new(self.inner.clone())
     }
 
@@ -2807,8 +2891,7 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::workflow_template_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::workflow_template_service::DeleteOperation {
         super::builder::workflow_template_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -2830,8 +2913,7 @@ impl WorkflowTemplateService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::workflow_template_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::workflow_template_service::CancelOperation {
         super::builder::workflow_template_service::CancelOperation::new(self.inner.clone())
     }
 }

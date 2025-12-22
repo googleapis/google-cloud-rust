@@ -39,7 +39,10 @@ pub mod livestream_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LivestreamService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod livestream_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,10 +93,10 @@ pub mod livestream_service {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -111,16 +118,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_channel][crate::client::LivestreamService::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_channel`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -160,7 +169,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_channel<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Channel>
+        where
+            T: std::convert::Into<crate::model::Channel>,
         {
             self.0.request.channel = std::option::Option::Some(v.into());
             self
@@ -170,7 +180,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Channel>
+        where
+            T: std::convert::Into<crate::model::Channel>,
         {
             self.0.request.channel = v.map(|x| x.into());
             self
@@ -223,10 +234,10 @@ pub mod livestream_service {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -243,11 +254,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListChannelsResponse> {
-            (*self.0.stub).list_channels(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_channels(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListChannelsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListChannelsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -259,7 +276,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListChannelsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListChannelsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -325,10 +345,10 @@ pub mod livestream_service {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -345,7 +365,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Channel> {
-            (*self.0.stub).get_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
@@ -386,10 +409,10 @@ pub mod livestream_service {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -411,15 +434,14 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_channel][crate::client::LivestreamService::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -445,7 +467,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -498,10 +525,10 @@ pub mod livestream_service {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -523,16 +550,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_channel][crate::client::LivestreamService::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_channel`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -562,7 +591,8 @@ pub mod livestream_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -570,7 +600,8 @@ pub mod livestream_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -580,7 +611,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_channel<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Channel>
+        where
+            T: std::convert::Into<crate::model::Channel>,
         {
             self.0.request.channel = std::option::Option::Some(v.into());
             self
@@ -590,7 +622,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Channel>
+        where
+            T: std::convert::Into<crate::model::Channel>,
         {
             self.0.request.channel = v.map(|x| x.into());
             self
@@ -632,10 +665,10 @@ pub mod livestream_service {
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -657,16 +690,21 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_channel][crate::client::LivestreamService::start_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).start_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_channel`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelOperationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -738,10 +776,10 @@ pub mod livestream_service {
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -763,16 +801,21 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_channel][crate::client::LivestreamService::stop_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).stop_channel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .stop_channel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_channel`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelOperationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -844,14 +887,17 @@ pub mod livestream_service {
     pub struct StartDistribution(RequestBuilder<crate::model::StartDistributionRequest>);
 
     impl StartDistribution {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StartDistributionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::StartDistributionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -869,16 +915,21 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_distribution][crate::client::LivestreamService::start_distribution].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).start_distribution(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_distribution(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_distribution`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelOperationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -918,7 +969,7 @@ pub mod livestream_service {
         pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.distribution_keys = v.into_iter().map(|i| i.into()).collect();
@@ -961,14 +1012,17 @@ pub mod livestream_service {
     pub struct StopDistribution(RequestBuilder<crate::model::StopDistributionRequest>);
 
     impl StopDistribution {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StopDistributionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::StopDistributionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -986,16 +1040,21 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_distribution][crate::client::LivestreamService::stop_distribution].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).stop_distribution(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .stop_distribution(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_distribution`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelOperationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1035,7 +1094,7 @@ pub mod livestream_service {
         pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.distribution_keys = v.into_iter().map(|i| i.into()).collect();
@@ -1078,10 +1137,10 @@ pub mod livestream_service {
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1103,16 +1162,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_input][crate::client::LivestreamService::create_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_input(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_input(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_input`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Input, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1152,7 +1213,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_input<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Input>
+        where
+            T: std::convert::Into<crate::model::Input>,
         {
             self.0.request.input = std::option::Option::Some(v.into());
             self
@@ -1162,7 +1224,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Input>
+        where
+            T: std::convert::Into<crate::model::Input>,
         {
             self.0.request.input = v.map(|x| x.into());
             self
@@ -1215,10 +1278,10 @@ pub mod livestream_service {
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1235,11 +1298,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInputsResponse> {
-            (*self.0.stub).list_inputs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_inputs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInputsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInputsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1251,7 +1320,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInputsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInputsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1317,10 +1389,10 @@ pub mod livestream_service {
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1337,7 +1409,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Input> {
-            (*self.0.stub).get_input(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_input(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInputRequest::name].
@@ -1378,10 +1453,10 @@ pub mod livestream_service {
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1403,15 +1478,14 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_input][crate::client::LivestreamService::delete_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_input(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_input(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_input`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1437,7 +1511,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
@@ -1484,10 +1563,10 @@ pub mod livestream_service {
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1509,16 +1588,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_input][crate::client::LivestreamService::update_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_input(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_input(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_input`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Input, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1548,7 +1629,8 @@ pub mod livestream_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1556,7 +1638,8 @@ pub mod livestream_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1566,7 +1649,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_input<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Input>
+        where
+            T: std::convert::Into<crate::model::Input>,
         {
             self.0.request.input = std::option::Option::Some(v.into());
             self
@@ -1576,7 +1660,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Input>
+        where
+            T: std::convert::Into<crate::model::Input>,
         {
             self.0.request.input = v.map(|x| x.into());
             self
@@ -1617,10 +1702,10 @@ pub mod livestream_service {
     pub struct PreviewInput(RequestBuilder<crate::model::PreviewInputRequest>);
 
     impl PreviewInput {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1637,7 +1722,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PreviewInputResponse> {
-            (*self.0.stub).preview_input(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .preview_input(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PreviewInputRequest::name].
@@ -1677,10 +1765,10 @@ pub mod livestream_service {
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1697,7 +1785,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Event> {
-            (*self.0.stub).create_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEventRequest::parent].
@@ -1712,7 +1803,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_event<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Event>
+        where
+            T: std::convert::Into<crate::model::Event>,
         {
             self.0.request.event = std::option::Option::Some(v.into());
             self
@@ -1722,7 +1814,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Event>
+        where
+            T: std::convert::Into<crate::model::Event>,
         {
             self.0.request.event = v.map(|x| x.into());
             self
@@ -1775,10 +1868,10 @@ pub mod livestream_service {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1795,11 +1888,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEventsResponse> {
-            (*self.0.stub).list_events(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_events(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1811,7 +1910,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1877,10 +1979,10 @@ pub mod livestream_service {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1897,7 +1999,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Event> {
-            (*self.0.stub).get_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
@@ -1937,10 +2042,10 @@ pub mod livestream_service {
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1957,7 +2062,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEventRequest::name].
@@ -2007,10 +2115,10 @@ pub mod livestream_service {
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2027,11 +2135,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClipsResponse> {
-            (*self.0.stub).list_clips(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_clips(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClipsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListClipsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2043,7 +2157,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClipsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClipsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2109,10 +2226,10 @@ pub mod livestream_service {
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2129,7 +2246,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Clip> {
-            (*self.0.stub).get_clip(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_clip(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClipRequest::name].
@@ -2170,10 +2290,10 @@ pub mod livestream_service {
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2195,16 +2315,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_clip][crate::client::LivestreamService::create_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_clip(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_clip(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_clip`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Clip, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Clip, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2252,7 +2374,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_clip<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Clip>
+        where
+            T: std::convert::Into<crate::model::Clip>,
         {
             self.0.request.clip = std::option::Option::Some(v.into());
             self
@@ -2262,7 +2385,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_clip<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Clip>
+        where
+            T: std::convert::Into<crate::model::Clip>,
         {
             self.0.request.clip = v.map(|x| x.into());
             self
@@ -2304,10 +2428,10 @@ pub mod livestream_service {
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2329,15 +2453,14 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_clip][crate::client::LivestreamService::delete_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_clip(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_clip(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2363,7 +2486,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
@@ -2410,14 +2538,17 @@ pub mod livestream_service {
     pub struct CreateDvrSession(RequestBuilder<crate::model::CreateDvrSessionRequest>);
 
     impl CreateDvrSession {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDvrSessionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2435,16 +2566,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_dvr_session][crate::client::LivestreamService::create_dvr_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_dvr_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_dvr_session`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2492,7 +2625,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_dvr_session<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DvrSession>
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
         {
             self.0.request.dvr_session = std::option::Option::Some(v.into());
             self
@@ -2502,7 +2636,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DvrSession>
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
         {
             self.0.request.dvr_session = v.map(|x| x.into());
             self
@@ -2547,10 +2682,10 @@ pub mod livestream_service {
     pub struct ListDvrSessions(RequestBuilder<crate::model::ListDvrSessionsRequest>);
 
     impl ListDvrSessions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2567,11 +2702,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDvrSessionsResponse> {
-            (*self.0.stub).list_dvr_sessions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_dvr_sessions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDvrSessionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDvrSessionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2583,7 +2724,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDvrSessionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDvrSessionsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2649,10 +2793,10 @@ pub mod livestream_service {
     pub struct GetDvrSession(RequestBuilder<crate::model::GetDvrSessionRequest>);
 
     impl GetDvrSession {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2669,7 +2813,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DvrSession> {
-            (*self.0.stub).get_dvr_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDvrSessionRequest::name].
@@ -2710,14 +2857,17 @@ pub mod livestream_service {
     pub struct DeleteDvrSession(RequestBuilder<crate::model::DeleteDvrSessionRequest>);
 
     impl DeleteDvrSession {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDvrSessionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2735,15 +2885,14 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_dvr_session][crate::client::LivestreamService::delete_dvr_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_dvr_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dvr_session`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2769,7 +2918,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDvrSessionRequest::name].
@@ -2816,14 +2970,17 @@ pub mod livestream_service {
     pub struct UpdateDvrSession(RequestBuilder<crate::model::UpdateDvrSessionRequest>);
 
     impl UpdateDvrSession {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDvrSessionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2841,16 +2998,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_dvr_session][crate::client::LivestreamService::update_dvr_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_dvr_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_dvr_session`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2882,7 +3041,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2892,7 +3052,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2902,7 +3063,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_dvr_session<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DvrSession>
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
         {
             self.0.request.dvr_session = std::option::Option::Some(v.into());
             self
@@ -2912,7 +3074,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DvrSession>
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
         {
             self.0.request.dvr_session = v.map(|x| x.into());
             self
@@ -2954,10 +3117,10 @@ pub mod livestream_service {
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2979,16 +3142,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_asset][crate::client::LivestreamService::create_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_asset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_asset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_asset`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3028,7 +3193,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_asset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Asset>
+        where
+            T: std::convert::Into<crate::model::Asset>,
         {
             self.0.request.asset = std::option::Option::Some(v.into());
             self
@@ -3038,7 +3204,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Asset>
+        where
+            T: std::convert::Into<crate::model::Asset>,
         {
             self.0.request.asset = v.map(|x| x.into());
             self
@@ -3088,10 +3255,10 @@ pub mod livestream_service {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3113,15 +3280,14 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_asset][crate::client::LivestreamService::delete_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_asset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_asset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3147,7 +3313,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -3193,10 +3364,10 @@ pub mod livestream_service {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3213,7 +3384,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Asset> {
-            (*self.0.stub).get_asset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_asset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
@@ -3257,10 +3431,10 @@ pub mod livestream_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3277,11 +3451,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAssetsResponse> {
-            (*self.0.stub).list_assets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_assets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3293,7 +3473,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3359,10 +3542,10 @@ pub mod livestream_service {
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3379,7 +3562,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Pool> {
-            (*self.0.stub).get_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_pool(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPoolRequest::name].
@@ -3420,10 +3606,10 @@ pub mod livestream_service {
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3445,16 +3631,18 @@ pub mod livestream_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_pool][crate::client::LivestreamService::update_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_pool(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_pool`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Pool, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Pool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3484,7 +3672,8 @@ pub mod livestream_service {
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3492,7 +3681,8 @@ pub mod livestream_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3502,7 +3692,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_pool<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Pool>
+        where
+            T: std::convert::Into<crate::model::Pool>,
         {
             self.0.request.pool = std::option::Option::Some(v.into());
             self
@@ -3512,7 +3703,8 @@ pub mod livestream_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Pool>
+        where
+            T: std::convert::Into<crate::model::Pool>,
         {
             self.0.request.pool = v.map(|x| x.into());
             self
@@ -3557,14 +3749,17 @@ pub mod livestream_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3577,11 +3772,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3593,7 +3794,10 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3651,10 +3855,10 @@ pub mod livestream_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3671,7 +3875,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3713,14 +3920,17 @@ pub mod livestream_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3733,11 +3943,17 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3749,7 +3965,12 @@ pub mod livestream_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3813,14 +4034,17 @@ pub mod livestream_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3833,7 +4057,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3871,14 +4098,17 @@ pub mod livestream_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3891,7 +4121,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3929,14 +4162,17 @@ pub mod livestream_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3949,7 +4185,10 @@ pub mod livestream_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3965,5 +4204,4 @@ pub mod livestream_service {
             &mut self.0.options
         }
     }
-
 }

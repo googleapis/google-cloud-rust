@@ -88,7 +88,6 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::OrgPolicy] also implement [OrgPolicy].
@@ -201,5 +200,4 @@ impl<T: super::OrgPolicy> OrgPolicy for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_custom_constraint(self, req, options).await
     }
-
 }

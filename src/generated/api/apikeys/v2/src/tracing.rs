@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ApiKeys](super::stub::ApiKeys) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiKeys<T>
-where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiKeys<T>
-where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiKeys for ApiKeys<T>
-where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_key(
         &self,
@@ -112,7 +118,6 @@ where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -127,4 +132,3 @@ where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

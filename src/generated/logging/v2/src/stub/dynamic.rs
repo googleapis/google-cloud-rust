@@ -39,7 +39,9 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    >;
 
     async fn list_logs(
         &self,
@@ -64,7 +66,6 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::LoggingServiceV2] also implement [LoggingServiceV2].
@@ -102,7 +103,9 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    > {
         T::list_monitored_resource_descriptors(self, req, options).await
     }
 
@@ -141,7 +144,6 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ConfigServiceV2].
@@ -751,7 +753,6 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::MetricsServiceV2] also implement [MetricsServiceV2].
@@ -828,5 +829,4 @@ impl<T: super::MetricsServiceV2> MetricsServiceV2 for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }

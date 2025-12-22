@@ -41,14 +41,16 @@ impl std::fmt::Debug for super::BacktestResult {
 impl std::fmt::Debug for super::backtest_result::PerformanceTarget {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PerformanceTarget");
-        debug_struct.field("party_investigations_per_period_hint", &self.party_investigations_per_period_hint);
+        debug_struct.field(
+            "party_investigations_per_period_hint",
+            &self.party_investigations_per_period_hint,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListBacktestResultsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -132,7 +134,10 @@ impl std::fmt::Debug for super::ExportBacktestResultMetadataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportBacktestResultMetadataRequest");
         debug_struct.field("backtest_result", &self.backtest_result);
-        debug_struct.field("structured_metadata_destination", &self.structured_metadata_destination);
+        debug_struct.field(
+            "structured_metadata_destination",
+            &self.structured_metadata_destination,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -179,8 +184,6 @@ impl std::fmt::Debug for super::Dataset {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::ListDatasetsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -272,7 +275,10 @@ impl std::fmt::Debug for super::EngineConfig {
         debug_struct.field("tuning", &self.tuning);
         debug_struct.field("performance_target", &self.performance_target);
         debug_struct.field("line_of_business", &self.line_of_business);
-        debug_struct.field("hyperparameter_source_type", &self.hyperparameter_source_type);
+        debug_struct.field(
+            "hyperparameter_source_type",
+            &self.hyperparameter_source_type,
+        );
         debug_struct.field("hyperparameter_source", &self.hyperparameter_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -296,7 +302,10 @@ impl std::fmt::Debug for super::engine_config::Tuning {
 impl std::fmt::Debug for super::engine_config::PerformanceTarget {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PerformanceTarget");
-        debug_struct.field("party_investigations_per_period_hint", &self.party_investigations_per_period_hint);
+        debug_struct.field(
+            "party_investigations_per_period_hint",
+            &self.party_investigations_per_period_hint,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -315,7 +324,6 @@ impl std::fmt::Debug for super::engine_config::HyperparameterSource {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListEngineConfigsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -399,7 +407,10 @@ impl std::fmt::Debug for super::ExportEngineConfigMetadataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportEngineConfigMetadataRequest");
         debug_struct.field("engine_config", &self.engine_config);
-        debug_struct.field("structured_metadata_destination", &self.structured_metadata_destination);
+        debug_struct.field(
+            "structured_metadata_destination",
+            &self.structured_metadata_destination,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -422,8 +433,14 @@ impl std::fmt::Debug for super::EngineVersion {
         let mut debug_struct = f.debug_struct("EngineVersion");
         debug_struct.field("name", &self.name);
         debug_struct.field("state", &self.state);
-        debug_struct.field("expected_limitation_start_time", &self.expected_limitation_start_time);
-        debug_struct.field("expected_decommission_time", &self.expected_decommission_time);
+        debug_struct.field(
+            "expected_limitation_start_time",
+            &self.expected_limitation_start_time,
+        );
+        debug_struct.field(
+            "expected_decommission_time",
+            &self.expected_decommission_time,
+        );
         debug_struct.field("line_of_business", &self.line_of_business);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -486,7 +503,6 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -590,7 +606,10 @@ impl std::fmt::Debug for super::ImportRegisteredPartiesResponse {
         debug_struct.field("parties_failed_to_remove", &self.parties_failed_to_remove);
         debug_struct.field("parties_uptiered", &self.parties_uptiered);
         debug_struct.field("parties_downtiered", &self.parties_downtiered);
-        debug_struct.field("parties_failed_to_downtier", &self.parties_failed_to_downtier);
+        debug_struct.field(
+            "parties_failed_to_downtier",
+            &self.parties_failed_to_downtier,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -640,7 +659,6 @@ impl std::fmt::Debug for super::Model {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListModelsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -724,7 +742,10 @@ impl std::fmt::Debug for super::ExportModelMetadataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportModelMetadataRequest");
         debug_struct.field("model", &self.model);
-        debug_struct.field("structured_metadata_destination", &self.structured_metadata_destination);
+        debug_struct.field(
+            "structured_metadata_destination",
+            &self.structured_metadata_destination,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -767,14 +788,16 @@ impl std::fmt::Debug for super::prediction_result::Outputs {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Outputs");
         debug_struct.field("prediction_destination", &self.prediction_destination);
-        debug_struct.field("explainability_destination", &self.explainability_destination);
+        debug_struct.field(
+            "explainability_destination",
+            &self.explainability_destination,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListPredictionResultsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -858,7 +881,10 @@ impl std::fmt::Debug for super::ExportPredictionResultMetadataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportPredictionResultMetadataRequest");
         debug_struct.field("prediction_result", &self.prediction_result);
-        debug_struct.field("structured_metadata_destination", &self.structured_metadata_destination);
+        debug_struct.field(
+            "structured_metadata_destination",
+            &self.structured_metadata_destination,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

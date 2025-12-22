@@ -121,7 +121,6 @@ impl std::fmt::Debug for super::Posture {
     }
 }
 
-
 impl std::fmt::Debug for super::PolicySet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicySet");
@@ -301,7 +300,10 @@ impl std::fmt::Debug for super::PostureDeployment {
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("desired_posture_id", &self.desired_posture_id);
-        debug_struct.field("desired_posture_revision_id", &self.desired_posture_revision_id);
+        debug_struct.field(
+            "desired_posture_revision_id",
+            &self.desired_posture_revision_id,
+        );
         debug_struct.field("failure_message", &self.failure_message);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -309,7 +311,6 @@ impl std::fmt::Debug for super::PostureDeployment {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListPostureDeploymentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

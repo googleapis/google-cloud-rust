@@ -74,9 +74,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ActionLog {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -84,32 +84,55 @@ impl<'de> serde::de::Deserialize<'de> for super::ActionLog {
                     match tag {
                         __FieldTag::__actor => {
                             if !fields.insert(__FieldTag::__actor) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for actor"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for actor",
+                                ));
                             }
-                            result.actor = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.actor = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for state"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
                             }
-                            result.state = map.next_value::<std::option::Option<recommender::model::recommendation_state_info::State>>()?.unwrap_or_default();
-                        },
+                            result.state = map
+                                .next_value::<std::option::Option<
+                                    recommender::model::recommendation_state_info::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__state_metadata => {
                             if !fields.insert(__FieldTag::__state_metadata) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for state_metadata"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state_metadata",
+                                ));
                             }
-                            result.state_metadata = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,std::string::String>>>()?.unwrap_or_default();
-                        },
+                            result.state_metadata = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__recommendation_name => {
                             if !fields.insert(__FieldTag::__recommendation_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for recommendation_name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for recommendation_name",
+                                ));
                             }
-                            result.recommendation_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.recommendation_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -175,9 +198,9 @@ impl<'de> serde::de::Deserialize<'de> for super::InsightActionLog {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -185,32 +208,55 @@ impl<'de> serde::de::Deserialize<'de> for super::InsightActionLog {
                     match tag {
                         __FieldTag::__actor => {
                             if !fields.insert(__FieldTag::__actor) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for actor"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for actor",
+                                ));
                             }
-                            result.actor = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.actor = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for state"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
                             }
-                            result.state = map.next_value::<std::option::Option<recommender::model::insight_state_info::State>>()?.unwrap_or_default();
-                        },
+                            result.state =
+                                map.next_value::<std::option::Option<
+                                    recommender::model::insight_state_info::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__state_metadata => {
                             if !fields.insert(__FieldTag::__state_metadata) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for state_metadata"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state_metadata",
+                                ));
                             }
-                            result.state_metadata = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,std::string::String>>>()?.unwrap_or_default();
-                        },
+                            result.state_metadata = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__insight => {
                             if !fields.insert(__FieldTag::__insight) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for insight"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for insight",
+                                ));
                             }
-                            result.insight = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.insight = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)

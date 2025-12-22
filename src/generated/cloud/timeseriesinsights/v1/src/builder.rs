@@ -39,7 +39,10 @@ pub mod timeseries_insights_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TimeseriesInsightsController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod timeseries_insights_controller {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod timeseries_insights_controller {
     pub struct ListDataSets(RequestBuilder<crate::model::ListDataSetsRequest>);
 
     impl ListDataSets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDataSetsResponse> {
-            (*self.0.stub).list_data_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_data_sets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDataSetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDataSetsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod timeseries_insights_controller {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSetsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -179,10 +195,10 @@ pub mod timeseries_insights_controller {
     pub struct CreateDataSet(RequestBuilder<crate::model::CreateDataSetRequest>);
 
     impl CreateDataSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -199,7 +215,10 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DataSet> {
-            (*self.0.stub).create_data_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_data_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataSetRequest::parent].
@@ -214,7 +233,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_dataset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DataSet>
+        where
+            T: std::convert::Into<crate::model::DataSet>,
         {
             self.0.request.dataset = std::option::Option::Some(v.into());
             self
@@ -224,7 +244,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DataSet>
+        where
+            T: std::convert::Into<crate::model::DataSet>,
         {
             self.0.request.dataset = v.map(|x| x.into());
             self
@@ -259,10 +280,10 @@ pub mod timeseries_insights_controller {
     pub struct DeleteDataSet(RequestBuilder<crate::model::DeleteDataSetRequest>);
 
     impl DeleteDataSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -279,7 +300,10 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_data_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_data_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataSetRequest::name].
@@ -319,10 +343,10 @@ pub mod timeseries_insights_controller {
     pub struct AppendEvents(RequestBuilder<crate::model::AppendEventsRequest>);
 
     impl AppendEvents {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -339,14 +363,17 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AppendEventsResponse> {
-            (*self.0.stub).append_events(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .append_events(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [events][crate::model::AppendEventsRequest::events].
         pub fn set_events<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Event>
+            V: std::convert::Into<crate::model::Event>,
         {
             use std::iter::Iterator;
             self.0.request.events = v.into_iter().map(|i| i.into()).collect();
@@ -390,10 +417,10 @@ pub mod timeseries_insights_controller {
     pub struct QueryDataSet(RequestBuilder<crate::model::QueryDataSetRequest>);
 
     impl QueryDataSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -410,7 +437,10 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryDataSetResponse> {
-            (*self.0.stub).query_data_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_data_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::QueryDataSetRequest::name].
@@ -425,7 +455,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_detection_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.detection_time = std::option::Option::Some(v.into());
             self
@@ -435,7 +466,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.detection_time = v.map(|x| x.into());
             self
@@ -443,7 +475,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
         pub fn set_num_returned_slices<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.num_returned_slices = std::option::Option::Some(v.into());
             self
@@ -451,7 +484,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
         pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.num_returned_slices = v.map(|x| x.into());
             self
@@ -459,7 +493,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
         pub fn set_slicing_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SlicingParams>
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
         {
             self.0.request.slicing_params = std::option::Option::Some(v.into());
             self
@@ -467,7 +502,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
         pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SlicingParams>
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
         {
             self.0.request.slicing_params = v.map(|x| x.into());
             self
@@ -475,7 +511,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
         pub fn set_timeseries_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TimeseriesParams>
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
         {
             self.0.request.timeseries_params = std::option::Option::Some(v.into());
             self
@@ -483,7 +520,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
         pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TimeseriesParams>
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
         {
             self.0.request.timeseries_params = v.map(|x| x.into());
             self
@@ -491,7 +529,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
         pub fn set_forecast_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = std::option::Option::Some(v.into());
             self
@@ -499,7 +538,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
         pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = v.map(|x| x.into());
             self
@@ -540,10 +580,10 @@ pub mod timeseries_insights_controller {
     pub struct EvaluateSlice(RequestBuilder<crate::model::EvaluateSliceRequest>);
 
     impl EvaluateSlice {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -560,7 +600,10 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EvaluatedSlice> {
-            (*self.0.stub).evaluate_slice(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .evaluate_slice(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [dataset][crate::model::EvaluateSliceRequest::dataset].
@@ -577,7 +620,7 @@ pub mod timeseries_insights_controller {
         pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::PinnedDimension>
+            V: std::convert::Into<crate::model::PinnedDimension>,
         {
             use std::iter::Iterator;
             self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
@@ -588,7 +631,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_detection_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.detection_time = std::option::Option::Some(v.into());
             self
@@ -598,7 +642,8 @@ pub mod timeseries_insights_controller {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.detection_time = v.map(|x| x.into());
             self
@@ -606,7 +651,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
         pub fn set_timeseries_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TimeseriesParams>
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
         {
             self.0.request.timeseries_params = std::option::Option::Some(v.into());
             self
@@ -614,7 +660,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
         pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TimeseriesParams>
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
         {
             self.0.request.timeseries_params = v.map(|x| x.into());
             self
@@ -622,7 +669,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
         pub fn set_forecast_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = std::option::Option::Some(v.into());
             self
@@ -630,7 +678,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
         pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = v.map(|x| x.into());
             self
@@ -665,14 +714,17 @@ pub mod timeseries_insights_controller {
     pub struct EvaluateTimeseries(RequestBuilder<crate::model::EvaluateTimeseriesRequest>);
 
     impl EvaluateTimeseries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EvaluateTimeseriesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::EvaluateTimeseriesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -685,7 +737,10 @@ pub mod timeseries_insights_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EvaluatedSlice> {
-            (*self.0.stub).evaluate_timeseries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .evaluate_timeseries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::EvaluateTimeseriesRequest::parent].
@@ -698,7 +753,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
         pub fn set_timeseries<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Timeseries>
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
         {
             self.0.request.timeseries = std::option::Option::Some(v.into());
             self
@@ -706,7 +762,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
         pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Timeseries>
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
         {
             self.0.request.timeseries = v.map(|x| x.into());
             self
@@ -714,7 +771,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
         pub fn set_granularity<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.granularity = std::option::Option::Some(v.into());
             self
@@ -722,7 +780,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
         pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.granularity = v.map(|x| x.into());
             self
@@ -730,7 +789,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
         pub fn set_forecast_params<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = std::option::Option::Some(v.into());
             self
@@ -738,7 +798,8 @@ pub mod timeseries_insights_controller {
 
         /// Sets or clears the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
         pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ForecastParams>
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
         {
             self.0.request.forecast_params = v.map(|x| x.into());
             self
@@ -751,5 +812,4 @@ pub mod timeseries_insights_controller {
             &mut self.0.options
         }
     }
-
 }

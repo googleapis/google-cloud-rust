@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [PublicCertificateAuthorityService](super::stub::PublicCertificateAuthorityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PublicCertificateAuthorityService<T>
-where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PublicCertificateAuthorityService<T>
-where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PublicCertificateAuthorityService for PublicCertificateAuthorityService<T>
-where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_external_account_key(
         &self,
@@ -39,6 +45,4 @@ where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send
     ) -> Result<gax::response::Response<crate::model::ExternalAccountKey>> {
         self.inner.create_external_account_key(req, options).await
     }
-
 }
-

@@ -663,7 +663,8 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ListPullRequestFileDiffsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>>
+    {
         T::list_pull_request_file_diffs(self, req, options).await
     }
 

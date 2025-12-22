@@ -21,7 +21,10 @@ impl std::fmt::Debug for super::ProductLevelConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProductLevelConfig");
         debug_struct.field("ingestion_product_type", &self.ingestion_product_type);
-        debug_struct.field("merchant_center_product_id_field", &self.merchant_center_product_id_field);
+        debug_struct.field(
+            "merchant_center_product_id_field",
+            &self.merchant_center_product_id_field,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -133,11 +136,20 @@ impl std::fmt::Debug for super::CompletionConfig {
         debug_struct.field("min_prefix_length", &self.min_prefix_length);
         debug_struct.field("auto_learning", &self.auto_learning);
         debug_struct.field("suggestions_input_config", &self.suggestions_input_config);
-        debug_struct.field("last_suggestions_import_operation", &self.last_suggestions_import_operation);
+        debug_struct.field(
+            "last_suggestions_import_operation",
+            &self.last_suggestions_import_operation,
+        );
         debug_struct.field("denylist_input_config", &self.denylist_input_config);
-        debug_struct.field("last_denylist_import_operation", &self.last_denylist_import_operation);
+        debug_struct.field(
+            "last_denylist_import_operation",
+            &self.last_denylist_import_operation,
+        );
         debug_struct.field("allowlist_input_config", &self.allowlist_input_config);
-        debug_struct.field("last_allowlist_import_operation", &self.last_allowlist_import_operation);
+        debug_struct.field(
+            "last_allowlist_import_operation",
+            &self.last_allowlist_import_operation,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -463,7 +475,10 @@ impl std::fmt::Debug for super::rule::IgnoreAction {
 impl std::fmt::Debug for super::rule::ForceReturnFacetAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ForceReturnFacetAction");
-        debug_struct.field("facet_position_adjustments", &self.facet_position_adjustments);
+        debug_struct.field(
+            "facet_position_adjustments",
+            &self.facet_position_adjustments,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -673,8 +688,6 @@ impl std::fmt::Debug for super::pin_control_metadata::ProductPins {
     }
 }
 
-
-
 impl std::fmt::Debug for super::StringList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StringList");
@@ -707,7 +720,10 @@ impl std::fmt::Debug for super::CompleteQueryRequest {
         debug_struct.field("device_type", &self.device_type);
         debug_struct.field("dataset", &self.dataset);
         debug_struct.field("max_suggestions", &self.max_suggestions);
-        debug_struct.field("enable_attribute_suggestions", &self.enable_attribute_suggestions);
+        debug_struct.field(
+            "enable_attribute_suggestions",
+            &self.enable_attribute_suggestions,
+        );
         debug_struct.field("entity", &self.entity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -764,13 +780,15 @@ impl std::fmt::Debug for super::complete_query_response::AttributeResult {
     }
 }
 
-
 impl std::fmt::Debug for super::Control {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Control");
         debug_struct.field("name", &self.name);
         debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("associated_serving_config_ids", &self.associated_serving_config_ids);
+        debug_struct.field(
+            "associated_serving_config_ids",
+            &self.associated_serving_config_ids,
+        );
         debug_struct.field("solution_types", &self.solution_types);
         debug_struct.field("search_solution_use_case", &self.search_solution_use_case);
         debug_struct.field("control", &self.control);
@@ -865,7 +883,10 @@ impl std::fmt::Debug for super::ConversationalSearchRequest {
         debug_struct.field("search_params", &self.search_params);
         debug_struct.field("visitor_id", &self.visitor_id);
         debug_struct.field("user_info", &self.user_info);
-        debug_struct.field("conversational_filtering_spec", &self.conversational_filtering_spec);
+        debug_struct.field(
+            "conversational_filtering_spec",
+            &self.conversational_filtering_spec,
+        );
         debug_struct.field("user_labels", &self.user_labels);
         debug_struct.field("safety_settings", &self.safety_settings);
         if !self._unknown_fields.is_empty() {
@@ -914,9 +935,15 @@ impl std::fmt::Debug for super::conversational_search_request::user_answer::Sele
 impl std::fmt::Debug for super::conversational_search_request::ConversationalFilteringSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationalFilteringSpec");
-        debug_struct.field("enable_conversational_filtering", &self.enable_conversational_filtering);
+        debug_struct.field(
+            "enable_conversational_filtering",
+            &self.enable_conversational_filtering,
+        );
         debug_struct.field("user_answer", &self.user_answer);
-        debug_struct.field("conversational_filtering_mode", &self.conversational_filtering_mode);
+        debug_struct.field(
+            "conversational_filtering_mode",
+            &self.conversational_filtering_mode,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -924,16 +951,21 @@ impl std::fmt::Debug for super::conversational_search_request::ConversationalFil
     }
 }
 
-
 impl std::fmt::Debug for super::ConversationalSearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationalSearchResponse");
         debug_struct.field("user_query_types", &self.user_query_types);
-        debug_struct.field("conversational_text_response", &self.conversational_text_response);
+        debug_struct.field(
+            "conversational_text_response",
+            &self.conversational_text_response,
+        );
         debug_struct.field("followup_question", &self.followup_question);
         debug_struct.field("conversation_id", &self.conversation_id);
         debug_struct.field("refined_search", &self.refined_search);
-        debug_struct.field("conversational_filtering_result", &self.conversational_filtering_result);
+        debug_struct.field(
+            "conversational_filtering_result",
+            &self.conversational_filtering_result,
+        );
         debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -988,7 +1020,9 @@ impl std::fmt::Debug for super::conversational_search_response::ConversationalFi
     }
 }
 
-impl std::fmt::Debug for super::conversational_search_response::conversational_filtering_result::AdditionalFilter {
+impl std::fmt::Debug
+    for super::conversational_search_response::conversational_filtering_result::AdditionalFilter
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdditionalFilter");
         debug_struct.field("product_attribute_value", &self.product_attribute_value);
@@ -1151,7 +1185,10 @@ impl std::fmt::Debug for super::GenerativeQuestionConfig {
 impl std::fmt::Debug for super::UpdateGenerativeQuestionsFeatureConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateGenerativeQuestionsFeatureConfigRequest");
-        debug_struct.field("generative_questions_feature_config", &self.generative_questions_feature_config);
+        debug_struct.field(
+            "generative_questions_feature_config",
+            &self.generative_questions_feature_config,
+        );
         debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1185,7 +1222,10 @@ impl std::fmt::Debug for super::ListGenerativeQuestionConfigsRequest {
 impl std::fmt::Debug for super::ListGenerativeQuestionConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGenerativeQuestionConfigsResponse");
-        debug_struct.field("generative_question_configs", &self.generative_question_configs);
+        debug_struct.field(
+            "generative_question_configs",
+            &self.generative_question_configs,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1196,7 +1236,10 @@ impl std::fmt::Debug for super::ListGenerativeQuestionConfigsResponse {
 impl std::fmt::Debug for super::UpdateGenerativeQuestionConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateGenerativeQuestionConfigRequest");
-        debug_struct.field("generative_question_config", &self.generative_question_config);
+        debug_struct.field(
+            "generative_question_config",
+            &self.generative_question_config,
+        );
         debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1220,7 +1263,10 @@ impl std::fmt::Debug for super::BatchUpdateGenerativeQuestionConfigsRequest {
 impl std::fmt::Debug for super::BatchUpdateGenerativeQuestionConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateGenerativeQuestionConfigsResponse");
-        debug_struct.field("generative_question_configs", &self.generative_question_configs);
+        debug_struct.field(
+            "generative_question_configs",
+            &self.generative_question_configs,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1711,7 +1757,6 @@ impl std::fmt::Debug for super::Product {
     }
 }
 
-
 impl std::fmt::Debug for super::CreateProductRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateProductRequest");
@@ -2118,7 +2163,10 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("spell_correction_spec", &self.spell_correction_spec);
         debug_struct.field("entity", &self.entity);
-        debug_struct.field("conversational_search_spec", &self.conversational_search_spec);
+        debug_struct.field(
+            "conversational_search_spec",
+            &self.conversational_search_spec,
+        );
         debug_struct.field("tile_navigation_spec", &self.tile_navigation_spec);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("region_code", &self.region_code);
@@ -2179,7 +2227,10 @@ impl std::fmt::Debug for super::search_request::BoostSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostSpec");
         debug_struct.field("condition_boost_specs", &self.condition_boost_specs);
-        debug_struct.field("skip_boost_spec_validation", &self.skip_boost_spec_validation);
+        debug_struct.field(
+            "skip_boost_spec_validation",
+            &self.skip_boost_spec_validation,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2236,7 +2287,10 @@ impl std::fmt::Debug for super::search_request::SpellCorrectionSpec {
 impl std::fmt::Debug for super::search_request::ConversationalSearchSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationalSearchSpec");
-        debug_struct.field("followup_conversation_requested", &self.followup_conversation_requested);
+        debug_struct.field(
+            "followup_conversation_requested",
+            &self.followup_conversation_requested,
+        );
         debug_struct.field("conversation_id", &self.conversation_id);
         debug_struct.field("user_answer", &self.user_answer);
         if !self._unknown_fields.is_empty() {
@@ -2257,7 +2311,9 @@ impl std::fmt::Debug for super::search_request::conversational_search_spec::User
     }
 }
 
-impl std::fmt::Debug for super::search_request::conversational_search_spec::user_answer::SelectedAnswer {
+impl std::fmt::Debug
+    for super::search_request::conversational_search_spec::user_answer::SelectedAnswer
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SelectedAnswer");
         debug_struct.field("product_attribute_values", &self.product_attribute_values);
@@ -2281,8 +2337,6 @@ impl std::fmt::Debug for super::search_request::TileNavigationSpec {
     }
 }
 
-
-
 impl std::fmt::Debug for super::SearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResponse");
@@ -2296,9 +2350,15 @@ impl std::fmt::Debug for super::SearchResponse {
         debug_struct.field("redirect_uri", &self.redirect_uri);
         debug_struct.field("applied_controls", &self.applied_controls);
         debug_struct.field("pin_control_metadata", &self.pin_control_metadata);
-        debug_struct.field("invalid_condition_boost_specs", &self.invalid_condition_boost_specs);
+        debug_struct.field(
+            "invalid_condition_boost_specs",
+            &self.invalid_condition_boost_specs,
+        );
         debug_struct.field("experiment_info", &self.experiment_info);
-        debug_struct.field("conversational_search_result", &self.conversational_search_result);
+        debug_struct.field(
+            "conversational_search_result",
+            &self.conversational_search_result,
+        );
         debug_struct.field("tile_navigation_result", &self.tile_navigation_result);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2448,14 +2508,26 @@ impl std::fmt::Debug for super::ServingConfig {
         debug_struct.field("boost_control_ids", &self.boost_control_ids);
         debug_struct.field("filter_control_ids", &self.filter_control_ids);
         debug_struct.field("redirect_control_ids", &self.redirect_control_ids);
-        debug_struct.field("twoway_synonyms_control_ids", &self.twoway_synonyms_control_ids);
-        debug_struct.field("oneway_synonyms_control_ids", &self.oneway_synonyms_control_ids);
-        debug_struct.field("do_not_associate_control_ids", &self.do_not_associate_control_ids);
+        debug_struct.field(
+            "twoway_synonyms_control_ids",
+            &self.twoway_synonyms_control_ids,
+        );
+        debug_struct.field(
+            "oneway_synonyms_control_ids",
+            &self.oneway_synonyms_control_ids,
+        );
+        debug_struct.field(
+            "do_not_associate_control_ids",
+            &self.do_not_associate_control_ids,
+        );
         debug_struct.field("replacement_control_ids", &self.replacement_control_ids);
         debug_struct.field("ignore_control_ids", &self.ignore_control_ids);
         debug_struct.field("diversity_level", &self.diversity_level);
         debug_struct.field("diversity_type", &self.diversity_type);
-        debug_struct.field("enable_category_filter_level", &self.enable_category_filter_level);
+        debug_struct.field(
+            "enable_category_filter_level",
+            &self.enable_category_filter_level,
+        );
         debug_struct.field("ignore_recs_denylist", &self.ignore_recs_denylist);
         debug_struct.field("personalization_spec", &self.personalization_spec);
         debug_struct.field("solution_types", &self.solution_types);
@@ -2608,7 +2680,10 @@ impl std::fmt::Debug for super::ProductDetail {
 impl std::fmt::Debug for super::CompletionDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompletionDetail");
-        debug_struct.field("completion_attribution_token", &self.completion_attribution_token);
+        debug_struct.field(
+            "completion_attribution_token",
+            &self.completion_attribution_token,
+        );
         debug_struct.field("selected_suggestion", &self.selected_suggestion);
         debug_struct.field("selected_position", &self.selected_position);
         if !self._unknown_fields.is_empty() {
@@ -2677,7 +2752,10 @@ impl std::fmt::Debug for super::RejoinUserEventsRequest {
 impl std::fmt::Debug for super::RejoinUserEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RejoinUserEventsResponse");
-        debug_struct.field("rejoined_user_events_count", &self.rejoined_user_events_count);
+        debug_struct.field(
+            "rejoined_user_events_count",
+            &self.rejoined_user_events_count,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

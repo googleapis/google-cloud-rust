@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [IAMPolicy](super::stub::IAMPolicy) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IAMPolicy<T>
-where T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> IAMPolicy<T>
-where T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IAMPolicy for IAMPolicy<T>
-where T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
@@ -57,6 +63,4 @@ where T: super::stub::IAMPolicy + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
-
 }
-

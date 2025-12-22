@@ -57,8 +57,6 @@ impl std::fmt::Debug for super::workstation_cluster::PrivateClusterConfig {
     }
 }
 
-
-
 impl std::fmt::Debug for super::WorkstationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkstationConfig");
@@ -109,10 +107,19 @@ impl std::fmt::Debug for super::workstation_config::host::GceInstance {
         debug_struct.field("tags", &self.tags);
         debug_struct.field("pool_size", &self.pool_size);
         debug_struct.field("pooled_instances", &self.pooled_instances);
-        debug_struct.field("disable_public_ip_addresses", &self.disable_public_ip_addresses);
-        debug_struct.field("enable_nested_virtualization", &self.enable_nested_virtualization);
+        debug_struct.field(
+            "disable_public_ip_addresses",
+            &self.disable_public_ip_addresses,
+        );
+        debug_struct.field(
+            "enable_nested_virtualization",
+            &self.enable_nested_virtualization,
+        );
         debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
-        debug_struct.field("confidential_instance_config", &self.confidential_instance_config);
+        debug_struct.field(
+            "confidential_instance_config",
+            &self.confidential_instance_config,
+        );
         debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -126,7 +133,10 @@ impl std::fmt::Debug for super::workstation_config::host::gce_instance::GceShiel
         let mut debug_struct = f.debug_struct("GceShieldedInstanceConfig");
         debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -134,10 +144,15 @@ impl std::fmt::Debug for super::workstation_config::host::gce_instance::GceShiel
     }
 }
 
-impl std::fmt::Debug for super::workstation_config::host::gce_instance::GceConfidentialInstanceConfig {
+impl std::fmt::Debug
+    for super::workstation_config::host::gce_instance::GceConfidentialInstanceConfig
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GceConfidentialInstanceConfig");
-        debug_struct.field("enable_confidential_compute", &self.enable_confidential_compute);
+        debug_struct.field(
+            "enable_confidential_compute",
+            &self.enable_confidential_compute,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -157,7 +172,9 @@ impl std::fmt::Debug for super::workstation_config::PersistentDirectory {
     }
 }
 
-impl std::fmt::Debug for super::workstation_config::persistent_directory::GceRegionalPersistentDisk {
+impl std::fmt::Debug
+    for super::workstation_config::persistent_directory::GceRegionalPersistentDisk
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GceRegionalPersistentDisk");
         debug_struct.field("size_gb", &self.size_gb);
@@ -212,8 +229,6 @@ impl std::fmt::Debug for super::workstation_config::ReadinessCheck {
     }
 }
 
-
-
 impl std::fmt::Debug for super::Workstation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Workstation");
@@ -236,8 +251,6 @@ impl std::fmt::Debug for super::Workstation {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::GetWorkstationClusterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

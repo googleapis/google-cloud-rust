@@ -72,9 +72,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LoginProfile {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -82,26 +82,45 @@ impl<'de> serde::de::Deserialize<'de> for super::LoginProfile {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__posix_accounts => {
                             if !fields.insert(__FieldTag::__posix_accounts) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for posix_accounts"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for posix_accounts",
+                                ));
                             }
-                            result.posix_accounts = map.next_value::<std::option::Option<std::vec::Vec<oslogin_common::model::PosixAccount>>>()?.unwrap_or_default();
-                        },
+                            result.posix_accounts = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<oslogin_common::model::PosixAccount>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__ssh_public_keys => {
                             if !fields.insert(__FieldTag::__ssh_public_keys) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for ssh_public_keys"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssh_public_keys",
+                                ));
                             }
-                            result.ssh_public_keys = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,oslogin_common::model::SshPublicKey>>>()?.unwrap_or_default();
-                        },
+                            result.ssh_public_keys = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        oslogin_common::model::SshPublicKey,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -163,9 +182,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSshPublicKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -173,21 +192,27 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSshPublicKeyRequest {
                     match tag {
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for parent"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
                             }
-                            result.parent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__ssh_public_key => {
                             if !fields.insert(__FieldTag::__ssh_public_key) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for ssh_public_key"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssh_public_key",
+                                ));
                             }
                             result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -246,9 +271,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeletePosixAccountRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -256,14 +281,18 @@ impl<'de> serde::de::Deserialize<'de> for super::DeletePosixAccountRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -322,9 +351,9 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteSshPublicKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -332,14 +361,18 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteSshPublicKeyRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -404,9 +437,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetLoginProfileRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -414,26 +447,38 @@ impl<'de> serde::de::Deserialize<'de> for super::GetLoginProfileRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for project_id"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project_id",
+                                ));
                             }
-                            result.project_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.project_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__system_id => {
                             if !fields.insert(__FieldTag::__system_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for system_id"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for system_id",
+                                ));
                             }
-                            result.system_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.system_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -492,9 +537,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetSshPublicKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -502,14 +547,18 @@ impl<'de> serde::de::Deserialize<'de> for super::GetSshPublicKeyRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -576,9 +625,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSshPublicKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -586,33 +635,45 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSshPublicKeyRequest {
                     match tag {
                         __FieldTag::__parent => {
                             if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for parent"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
                             }
-                            result.parent = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__ssh_public_key => {
                             if !fields.insert(__FieldTag::__ssh_public_key) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for ssh_public_key"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssh_public_key",
+                                ));
                             }
                             result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::__project_id => {
                             if !fields.insert(__FieldTag::__project_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for project_id"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project_id",
+                                ));
                             }
-                            result.project_id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.project_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__regions => {
                             if !fields.insert(__FieldTag::__regions) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for regions"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for regions",
+                                ));
                             }
                             result.regions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        },
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -674,9 +735,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSshPublicKeyResponse {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -684,21 +745,27 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportSshPublicKeyResponse {
                     match tag {
                         __FieldTag::__login_profile => {
                             if !fields.insert(__FieldTag::__login_profile) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for login_profile"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for login_profile",
+                                ));
                             }
-                            result.login_profile = map.next_value::<std::option::Option<crate::model::LoginProfile>>()?
-                                ;
-                        },
+                            result.login_profile = map
+                                .next_value::<std::option::Option<crate::model::LoginProfile>>()?;
+                        }
                         __FieldTag::__details => {
                             if !fields.insert(__FieldTag::__details) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for details"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for details",
+                                ));
                             }
-                            result.details = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.details = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -763,9 +830,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateSshPublicKeyRequest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -773,28 +840,36 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateSshPublicKeyRequest {
                     match tag {
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__ssh_public_key => {
                             if !fields.insert(__FieldTag::__ssh_public_key) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for ssh_public_key"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssh_public_key",
+                                ));
                             }
                             result.ssh_public_key = map.next_value::<std::option::Option<oslogin_common::model::SshPublicKey>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::__update_mask => {
                             if !fields.insert(__FieldTag::__update_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for update_mask"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
                             }
-                            result.update_mask = map.next_value::<std::option::Option<wkt::FieldMask>>()?
-                                ;
-                        },
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)

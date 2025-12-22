@@ -74,7 +74,9 @@ impl StorageTransferService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_transfer_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::storage_transfer_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::storage_transfer_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -82,28 +84,43 @@ impl StorageTransferService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::StorageTransferService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::StorageTransferService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageTransferService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageTransferService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
         super::transport::StorageTransferService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
-        Self::build_transport(conf).await.map(super::tracing::StorageTransferService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::StorageTransferService::new)
     }
 
     /// Returns the Google service account that is used by Storage Transfer
@@ -130,8 +147,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_google_service_account(&self) -> super::builder::storage_transfer_service::GetGoogleServiceAccount
-    {
+    pub fn get_google_service_account(
+        &self,
+    ) -> super::builder::storage_transfer_service::GetGoogleServiceAccount {
         super::builder::storage_transfer_service::GetGoogleServiceAccount::new(self.inner.clone())
     }
 
@@ -152,8 +170,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_transfer_job(&self) -> super::builder::storage_transfer_service::CreateTransferJob
-    {
+    pub fn create_transfer_job(
+        &self,
+    ) -> super::builder::storage_transfer_service::CreateTransferJob {
         super::builder::storage_transfer_service::CreateTransferJob::new(self.inner.clone())
     }
 
@@ -186,8 +205,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_transfer_job(&self) -> super::builder::storage_transfer_service::UpdateTransferJob
-    {
+    pub fn update_transfer_job(
+        &self,
+    ) -> super::builder::storage_transfer_service::UpdateTransferJob {
         super::builder::storage_transfer_service::UpdateTransferJob::new(self.inner.clone())
     }
 
@@ -208,14 +228,12 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_transfer_job(&self) -> super::builder::storage_transfer_service::GetTransferJob
-    {
+    pub fn get_transfer_job(&self) -> super::builder::storage_transfer_service::GetTransferJob {
         super::builder::storage_transfer_service::GetTransferJob::new(self.inner.clone())
     }
 
     /// Lists transfer jobs.
-    pub fn list_transfer_jobs(&self) -> super::builder::storage_transfer_service::ListTransferJobs
-    {
+    pub fn list_transfer_jobs(&self) -> super::builder::storage_transfer_service::ListTransferJobs {
         super::builder::storage_transfer_service::ListTransferJobs::new(self.inner.clone())
     }
 
@@ -235,8 +253,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn pause_transfer_operation(&self) -> super::builder::storage_transfer_service::PauseTransferOperation
-    {
+    pub fn pause_transfer_operation(
+        &self,
+    ) -> super::builder::storage_transfer_service::PauseTransferOperation {
         super::builder::storage_transfer_service::PauseTransferOperation::new(self.inner.clone())
     }
 
@@ -256,8 +275,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn resume_transfer_operation(&self) -> super::builder::storage_transfer_service::ResumeTransferOperation
-    {
+    pub fn resume_transfer_operation(
+        &self,
+    ) -> super::builder::storage_transfer_service::ResumeTransferOperation {
         super::builder::storage_transfer_service::ResumeTransferOperation::new(self.inner.clone())
     }
 
@@ -275,8 +295,7 @@ impl StorageTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_transfer_job(&self) -> super::builder::storage_transfer_service::RunTransferJob
-    {
+    pub fn run_transfer_job(&self) -> super::builder::storage_transfer_service::RunTransferJob {
         super::builder::storage_transfer_service::RunTransferJob::new(self.inner.clone())
     }
 
@@ -299,8 +318,9 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_transfer_job(&self) -> super::builder::storage_transfer_service::DeleteTransferJob
-    {
+    pub fn delete_transfer_job(
+        &self,
+    ) -> super::builder::storage_transfer_service::DeleteTransferJob {
         super::builder::storage_transfer_service::DeleteTransferJob::new(self.inner.clone())
     }
 
@@ -321,8 +341,7 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_agent_pool(&self) -> super::builder::storage_transfer_service::CreateAgentPool
-    {
+    pub fn create_agent_pool(&self) -> super::builder::storage_transfer_service::CreateAgentPool {
         super::builder::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
     }
 
@@ -343,8 +362,7 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_agent_pool(&self) -> super::builder::storage_transfer_service::UpdateAgentPool
-    {
+    pub fn update_agent_pool(&self) -> super::builder::storage_transfer_service::UpdateAgentPool {
         super::builder::storage_transfer_service::UpdateAgentPool::new(self.inner.clone())
     }
 
@@ -365,14 +383,12 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_agent_pool(&self) -> super::builder::storage_transfer_service::GetAgentPool
-    {
+    pub fn get_agent_pool(&self) -> super::builder::storage_transfer_service::GetAgentPool {
         super::builder::storage_transfer_service::GetAgentPool::new(self.inner.clone())
     }
 
     /// Lists agent pools.
-    pub fn list_agent_pools(&self) -> super::builder::storage_transfer_service::ListAgentPools
-    {
+    pub fn list_agent_pools(&self) -> super::builder::storage_transfer_service::ListAgentPools {
         super::builder::storage_transfer_service::ListAgentPools::new(self.inner.clone())
     }
 
@@ -392,15 +408,13 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_agent_pool(&self) -> super::builder::storage_transfer_service::DeleteAgentPool
-    {
+    pub fn delete_agent_pool(&self) -> super::builder::storage_transfer_service::DeleteAgentPool {
         super::builder::storage_transfer_service::DeleteAgentPool::new(self.inner.clone())
     }
 
     /// Lists transfer operations. Operations are ordered by their creation
     /// time in reverse chronological order.
-    pub fn list_operations(&self) -> super::builder::storage_transfer_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::storage_transfer_service::ListOperations {
         super::builder::storage_transfer_service::ListOperations::new(self.inner.clone())
     }
 
@@ -423,8 +437,7 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::storage_transfer_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::storage_transfer_service::GetOperation {
         super::builder::storage_transfer_service::GetOperation::new(self.inner.clone())
     }
 
@@ -464,8 +477,7 @@ impl StorageTransferService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::storage_transfer_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::storage_transfer_service::CancelOperation {
         super::builder::storage_transfer_service::CancelOperation::new(self.inner.clone())
     }
 }

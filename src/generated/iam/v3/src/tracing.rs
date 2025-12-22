@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [PolicyBindings](super::stub::PolicyBindings) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings<T>
-where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PolicyBindings<T>
-where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyBindings for PolicyBindings<T>
-where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_policy_binding(
         &self,
@@ -94,7 +100,6 @@ where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -113,26 +118,34 @@ where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
 /// Implements a [PrincipalAccessBoundaryPolicies](super::stub::PrincipalAccessBoundaryPolicies) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies<T>
-where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PrincipalAccessBoundaryPolicies<T>
-where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPolicies<T>
-where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_principal_access_boundary_policy(
         &self,
         req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_principal_access_boundary_policy(req, options).await
+        self.inner
+            .create_principal_access_boundary_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -141,7 +154,9 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PrincipalAccessBoundaryPolicy>> {
-        self.inner.get_principal_access_boundary_policy(req, options).await
+        self.inner
+            .get_principal_access_boundary_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -150,7 +165,9 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         req: crate::model::UpdatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.update_principal_access_boundary_policy(req, options).await
+        self.inner
+            .update_principal_access_boundary_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -159,7 +176,9 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         req: crate::model::DeletePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.delete_principal_access_boundary_policy(req, options).await
+        self.inner
+            .delete_principal_access_boundary_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -167,8 +186,11 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>> {
-        self.inner.list_principal_access_boundary_policies(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
+    {
+        self.inner
+            .list_principal_access_boundary_policies(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -176,8 +198,12 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>> {
-        self.inner.search_principal_access_boundary_policy_bindings(req, options).await
+    ) -> Result<
+        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
+    > {
+        self.inner
+            .search_principal_access_boundary_policy_bindings(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -188,7 +214,6 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
-
 
     fn get_polling_error_policy(
         &self,
@@ -204,4 +229,3 @@ where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send +
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

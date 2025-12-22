@@ -39,7 +39,10 @@ pub mod metrics_scopes {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = MetricsScopes;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod metrics_scopes {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod metrics_scopes {
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod metrics_scopes {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MetricsScope> {
-            (*self.0.stub).get_metrics_scope(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_metrics_scope(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
@@ -142,17 +152,22 @@ pub mod metrics_scopes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMetricsScopesByMonitoredProject(RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>);
+    pub struct ListMetricsScopesByMonitoredProject(
+        RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
+    );
 
     impl ListMetricsScopesByMonitoredProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListMetricsScopesByMonitoredProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListMetricsScopesByMonitoredProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -164,14 +179,22 @@ pub mod metrics_scopes {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ListMetricsScopesByMonitoredProjectResponse> {
-            (*self.0.stub).list_metrics_scopes_by_monitored_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ListMetricsScopesByMonitoredProjectResponse> {
+            (*self.0.stub)
+                .list_metrics_scopes_by_monitored_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
         ///
         /// This is a **required** field for requests.
-        pub fn set_monitored_resource_container<T: Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_monitored_resource_container<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.monitored_resource_container = v.into();
             self
         }
@@ -206,14 +229,17 @@ pub mod metrics_scopes {
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
     impl CreateMonitoredProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateMonitoredProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateMonitoredProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -231,16 +257,21 @@ pub mod metrics_scopes {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_monitored_project][crate::client::MetricsScopes::create_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_monitored_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_monitored_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_monitored_project`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::MonitoredProject, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::MonitoredProject, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::MonitoredProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MonitoredProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -280,7 +311,8 @@ pub mod metrics_scopes {
         ///
         /// This is a **required** field for requests.
         pub fn set_monitored_project<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::MonitoredProject>
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
         {
             self.0.request.monitored_project = std::option::Option::Some(v.into());
             self
@@ -290,7 +322,8 @@ pub mod metrics_scopes {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::MonitoredProject>
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
         {
             self.0.request.monitored_project = v.map(|x| x.into());
             self
@@ -326,14 +359,17 @@ pub mod metrics_scopes {
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
     impl DeleteMonitoredProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteMonitoredProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteMonitoredProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -351,15 +387,14 @@ pub mod metrics_scopes {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_monitored_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_monitored_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_monitored_project`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -385,7 +420,12 @@ pub mod metrics_scopes {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
@@ -425,14 +465,17 @@ pub mod metrics_scopes {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -445,7 +488,10 @@ pub mod metrics_scopes {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -461,5 +507,4 @@ pub mod metrics_scopes {
             &mut self.0.options
         }
     }
-
 }

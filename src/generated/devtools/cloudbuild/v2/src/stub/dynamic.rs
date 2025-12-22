@@ -258,7 +258,8 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::FetchLinkableRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>>
+    {
         T::fetch_linkable_repositories(self, req, options).await
     }
 

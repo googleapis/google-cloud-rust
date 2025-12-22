@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,6 +29,7 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,7 +44,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuesRequest {
-
     /// Required. The location name.
     /// For example: `projects/PROJECT_ID/locations/LOCATION_ID`
     pub parent: std::string::String,
@@ -160,7 +159,6 @@ impl wkt::message::Message for ListQueuesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuesResponse {
-
     /// The list of queues.
     pub queues: std::vec::Vec<crate::model::Queue>,
 
@@ -201,7 +199,7 @@ impl ListQueuesResponse {
     pub fn set_queues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Queue>
+        V: std::convert::Into<crate::model::Queue>,
     {
         use std::iter::Iterator;
         self.queues = v.into_iter().map(|i| i.into()).collect();
@@ -247,7 +245,6 @@ impl gax::paginator::internal::PageableResponse for ListQueuesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQueueRequest {
-
     /// Required. The resource name of the queue. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     pub name: std::string::String,
@@ -286,7 +283,6 @@ impl wkt::message::Message for GetQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQueueRequest {
-
     /// Required. The location name in which the queue will be created.
     /// For example: `projects/PROJECT_ID/locations/LOCATION_ID`
     ///
@@ -332,7 +328,8 @@ impl CreateQueueRequest {
     /// let x = CreateQueueRequest::new().set_queue(Queue::default()/* use setters */);
     /// ```
     pub fn set_queue<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Queue>
+    where
+        T: std::convert::Into<crate::model::Queue>,
     {
         self.queue = std::option::Option::Some(v.into());
         self
@@ -348,7 +345,8 @@ impl CreateQueueRequest {
     /// let x = CreateQueueRequest::new().set_or_clear_queue(None::<Queue>);
     /// ```
     pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Queue>
+    where
+        T: std::convert::Into<crate::model::Queue>,
     {
         self.queue = v.map(|x| x.into());
         self
@@ -368,7 +366,6 @@ impl wkt::message::Message for CreateQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateQueueRequest {
-
     /// Required. The queue to create or update.
     ///
     /// The queue's [name][google.cloud.tasks.v2.Queue.name] must be specified.
@@ -402,7 +399,8 @@ impl UpdateQueueRequest {
     /// let x = UpdateQueueRequest::new().set_queue(Queue::default()/* use setters */);
     /// ```
     pub fn set_queue<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Queue>
+    where
+        T: std::convert::Into<crate::model::Queue>,
     {
         self.queue = std::option::Option::Some(v.into());
         self
@@ -418,7 +416,8 @@ impl UpdateQueueRequest {
     /// let x = UpdateQueueRequest::new().set_or_clear_queue(None::<Queue>);
     /// ```
     pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Queue>
+    where
+        T: std::convert::Into<crate::model::Queue>,
     {
         self.queue = v.map(|x| x.into());
         self
@@ -433,7 +432,8 @@ impl UpdateQueueRequest {
     /// let x = UpdateQueueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -449,7 +449,8 @@ impl UpdateQueueRequest {
     /// let x = UpdateQueueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -469,7 +470,6 @@ impl wkt::message::Message for UpdateQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteQueueRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     pub name: std::string::String,
@@ -508,7 +508,6 @@ impl wkt::message::Message for DeleteQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeQueueRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     pub name: std::string::String,
@@ -547,7 +546,6 @@ impl wkt::message::Message for PurgeQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseQueueRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     pub name: std::string::String,
@@ -586,7 +584,6 @@ impl wkt::message::Message for PauseQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeQueueRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     pub name: std::string::String,
@@ -625,7 +622,6 @@ impl wkt::message::Message for ResumeQueueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     pub parent: std::string::String,
@@ -703,7 +699,10 @@ impl ListTasksRequest {
     /// let x0 = ListTasksRequest::new().set_response_view(View::Basic);
     /// let x1 = ListTasksRequest::new().set_response_view(View::Full);
     /// ```
-    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
+    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_view = v.into();
         self
     }
@@ -746,7 +745,6 @@ impl wkt::message::Message for ListTasksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksResponse {
-
     /// The list of tasks.
     pub tasks: std::vec::Vec<crate::model::Task>,
 
@@ -785,7 +783,7 @@ impl ListTasksResponse {
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Task>
+        V: std::convert::Into<crate::model::Task>,
     {
         use std::iter::Iterator;
         self.tasks = v.into_iter().map(|i| i.into()).collect();
@@ -832,7 +830,6 @@ impl gax::paginator::internal::PageableResponse for ListTasksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTaskRequest {
-
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     pub name: std::string::String,
@@ -884,7 +881,10 @@ impl GetTaskRequest {
     /// let x0 = GetTaskRequest::new().set_response_view(View::Basic);
     /// let x1 = GetTaskRequest::new().set_response_view(View::Full);
     /// ```
-    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
+    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_view = v.into();
         self
     }
@@ -903,7 +903,6 @@ impl wkt::message::Message for GetTaskRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTaskRequest {
-
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     ///
@@ -996,7 +995,8 @@ impl CreateTaskRequest {
     /// let x = CreateTaskRequest::new().set_task(Task::default()/* use setters */);
     /// ```
     pub fn set_task<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Task>
+    where
+        T: std::convert::Into<crate::model::Task>,
     {
         self.task = std::option::Option::Some(v.into());
         self
@@ -1012,7 +1012,8 @@ impl CreateTaskRequest {
     /// let x = CreateTaskRequest::new().set_or_clear_task(None::<Task>);
     /// ```
     pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Task>
+    where
+        T: std::convert::Into<crate::model::Task>,
     {
         self.task = v.map(|x| x.into());
         self
@@ -1027,7 +1028,10 @@ impl CreateTaskRequest {
     /// let x0 = CreateTaskRequest::new().set_response_view(View::Basic);
     /// let x1 = CreateTaskRequest::new().set_response_view(View::Full);
     /// ```
-    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
+    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_view = v.into();
         self
     }
@@ -1046,7 +1050,6 @@ impl wkt::message::Message for CreateTaskRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTaskRequest {
-
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     pub name: std::string::String,
@@ -1085,7 +1088,6 @@ impl wkt::message::Message for DeleteTaskRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTaskRequest {
-
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     pub name: std::string::String,
@@ -1137,7 +1139,10 @@ impl RunTaskRequest {
     /// let x0 = RunTaskRequest::new().set_response_view(View::Basic);
     /// let x1 = RunTaskRequest::new().set_response_view(View::Full);
     /// ```
-    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
+    pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_view = v.into();
         self
     }
@@ -1155,7 +1160,6 @@ impl wkt::message::Message for RunTaskRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Queue {
-
     /// Caller-specified and required in
     /// [CreateQueue][google.cloud.tasks.v2.CloudTasks.CreateQueue], after which it
     /// becomes output only.
@@ -1308,7 +1312,8 @@ impl Queue {
     /// let x = Queue::new().set_app_engine_routing_override(AppEngineRouting::default()/* use setters */);
     /// ```
     pub fn set_app_engine_routing_override<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AppEngineRouting>
+    where
+        T: std::convert::Into<crate::model::AppEngineRouting>,
     {
         self.app_engine_routing_override = std::option::Option::Some(v.into());
         self
@@ -1324,7 +1329,8 @@ impl Queue {
     /// let x = Queue::new().set_or_clear_app_engine_routing_override(None::<AppEngineRouting>);
     /// ```
     pub fn set_or_clear_app_engine_routing_override<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AppEngineRouting>
+    where
+        T: std::convert::Into<crate::model::AppEngineRouting>,
     {
         self.app_engine_routing_override = v.map(|x| x.into());
         self
@@ -1339,7 +1345,8 @@ impl Queue {
     /// let x = Queue::new().set_rate_limits(RateLimits::default()/* use setters */);
     /// ```
     pub fn set_rate_limits<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::RateLimits>
+    where
+        T: std::convert::Into<crate::model::RateLimits>,
     {
         self.rate_limits = std::option::Option::Some(v.into());
         self
@@ -1355,7 +1362,8 @@ impl Queue {
     /// let x = Queue::new().set_or_clear_rate_limits(None::<RateLimits>);
     /// ```
     pub fn set_or_clear_rate_limits<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::RateLimits>
+    where
+        T: std::convert::Into<crate::model::RateLimits>,
     {
         self.rate_limits = v.map(|x| x.into());
         self
@@ -1370,7 +1378,8 @@ impl Queue {
     /// let x = Queue::new().set_retry_config(RetryConfig::default()/* use setters */);
     /// ```
     pub fn set_retry_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::RetryConfig>
+    where
+        T: std::convert::Into<crate::model::RetryConfig>,
     {
         self.retry_config = std::option::Option::Some(v.into());
         self
@@ -1386,7 +1395,8 @@ impl Queue {
     /// let x = Queue::new().set_or_clear_retry_config(None::<RetryConfig>);
     /// ```
     pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::RetryConfig>
+    where
+        T: std::convert::Into<crate::model::RetryConfig>,
     {
         self.retry_config = v.map(|x| x.into());
         self
@@ -1416,7 +1426,8 @@ impl Queue {
     /// let x = Queue::new().set_purge_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_purge_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.purge_time = std::option::Option::Some(v.into());
         self
@@ -1432,7 +1443,8 @@ impl Queue {
     /// let x = Queue::new().set_or_clear_purge_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.purge_time = v.map(|x| x.into());
         self
@@ -1447,7 +1459,8 @@ impl Queue {
     /// let x = Queue::new().set_stackdriver_logging_config(StackdriverLoggingConfig::default()/* use setters */);
     /// ```
     pub fn set_stackdriver_logging_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::StackdriverLoggingConfig>
+    where
+        T: std::convert::Into<crate::model::StackdriverLoggingConfig>,
     {
         self.stackdriver_logging_config = std::option::Option::Some(v.into());
         self
@@ -1463,7 +1476,8 @@ impl Queue {
     /// let x = Queue::new().set_or_clear_stackdriver_logging_config(None::<StackdriverLoggingConfig>);
     /// ```
     pub fn set_or_clear_stackdriver_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::StackdriverLoggingConfig>
+    where
+        T: std::convert::Into<crate::model::StackdriverLoggingConfig>,
     {
         self.stackdriver_logging_config = v.map(|x| x.into());
         self
@@ -1480,7 +1494,6 @@ impl wkt::message::Message for Queue {
 pub mod queue {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// State of the queue.
     ///
@@ -1597,7 +1610,9 @@ pub mod queue {
                 1 => Self::Running,
                 2 => Self::Paused,
                 3 => Self::Disabled,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1610,7 +1625,9 @@ pub mod queue {
                 "RUNNING" => Self::Running,
                 "PAUSED" => Self::Paused,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1636,7 +1653,8 @@ pub mod queue {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.tasks.v2.Queue.State"))
+                ".google.cloud.tasks.v2.Queue.State",
+            ))
         }
     }
 }
@@ -1655,7 +1673,6 @@ pub mod queue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RateLimits {
-
     /// The maximum rate at which tasks are dispatched from this queue.
     ///
     /// If unspecified when the queue is created, Cloud Tasks will pick the
@@ -1777,7 +1794,6 @@ impl wkt::message::Message for RateLimits {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryConfig {
-
     /// Number of attempts per task.
     ///
     /// Cloud Tasks will attempt the task `max_attempts` times (that is, if the
@@ -1920,7 +1936,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_max_retry_duration(Duration::default()/* use setters */);
     /// ```
     pub fn set_max_retry_duration<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.max_retry_duration = std::option::Option::Some(v.into());
         self
@@ -1936,7 +1953,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_or_clear_max_retry_duration(None::<Duration>);
     /// ```
     pub fn set_or_clear_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.max_retry_duration = v.map(|x| x.into());
         self
@@ -1951,7 +1969,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_min_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_min_backoff<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.min_backoff = std::option::Option::Some(v.into());
         self
@@ -1967,7 +1986,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_or_clear_min_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_min_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.min_backoff = v.map(|x| x.into());
         self
@@ -1982,7 +2002,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_max_backoff(Duration::default()/* use setters */);
     /// ```
     pub fn set_max_backoff<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.max_backoff = std::option::Option::Some(v.into());
         self
@@ -1998,7 +2019,8 @@ impl RetryConfig {
     /// let x = RetryConfig::new().set_or_clear_max_backoff(None::<Duration>);
     /// ```
     pub fn set_or_clear_max_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.max_backoff = v.map(|x| x.into());
         self
@@ -2028,7 +2050,6 @@ impl wkt::message::Message for RetryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StackdriverLoggingConfig {
-
     /// Specifies the fraction of operations to write to
     /// [Stackdriver Logging](https://cloud.google.com/logging/docs/).
     /// This field may contain any value between 0.0 and 1.0, inclusive.
@@ -2102,7 +2123,6 @@ impl wkt::message::Message for StackdriverLoggingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
-
     /// Required. The full url path that the request will be sent to.
     ///
     /// This string must begin with either "http://" or "https://". Some examples
@@ -2147,7 +2167,7 @@ pub struct HttpRequest {
     /// The size of the headers must be less than 80KB.
     ///
     /// [google.cloud.tasks.v2.HttpRequest.url]: crate::model::HttpRequest::url
-    pub headers: std::collections::HashMap<std::string::String,std::string::String>,
+    pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// HTTP request body.
     ///
@@ -2199,7 +2219,10 @@ impl HttpRequest {
     /// let x1 = HttpRequest::new().set_http_method(HttpMethod::Get);
     /// let x2 = HttpRequest::new().set_http_method(HttpMethod::Head);
     /// ```
-    pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(mut self, v: T) -> Self {
+    pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.http_method = v.into();
         self
     }
@@ -2249,8 +2272,12 @@ impl HttpRequest {
     /// let x = HttpRequest::new().set_authorization_header(Some(
     ///     google_cloud_tasks_v2::model::http_request::AuthorizationHeader::OauthToken(OAuthToken::default().into())));
     /// ```
-    pub fn set_authorization_header<T: std::convert::Into<std::option::Option<crate::model::http_request::AuthorizationHeader>>>(mut self, v: T) -> Self
-    {
+    pub fn set_authorization_header<
+        T: std::convert::Into<std::option::Option<crate::model::http_request::AuthorizationHeader>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.authorization_header = v.into();
         self
     }
@@ -2261,7 +2288,9 @@ impl HttpRequest {
     pub fn oauth_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
-            crate::model::http_request::AuthorizationHeader::OauthToken(v) => std::option::Option::Some(v),
+            crate::model::http_request::AuthorizationHeader::OauthToken(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2280,11 +2309,12 @@ impl HttpRequest {
     /// assert!(x.oauth_token().is_some());
     /// assert!(x.oidc_token().is_none());
     /// ```
-    pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(mut self, v: T) -> Self {
+    pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.authorization_header = std::option::Option::Some(
-            crate::model::http_request::AuthorizationHeader::OauthToken(
-                v.into()
-            )
+            crate::model::http_request::AuthorizationHeader::OauthToken(v.into()),
         );
         self
     }
@@ -2295,7 +2325,9 @@ impl HttpRequest {
     pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
-            crate::model::http_request::AuthorizationHeader::OidcToken(v) => std::option::Option::Some(v),
+            crate::model::http_request::AuthorizationHeader::OidcToken(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2314,11 +2346,12 @@ impl HttpRequest {
     /// assert!(x.oidc_token().is_some());
     /// assert!(x.oauth_token().is_none());
     /// ```
-    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(mut self, v: T) -> Self {
+    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.authorization_header = std::option::Option::Some(
-            crate::model::http_request::AuthorizationHeader::OidcToken(
-                v.into()
-            )
+            crate::model::http_request::AuthorizationHeader::OidcToken(v.into()),
         );
         self
     }
@@ -2334,7 +2367,6 @@ impl wkt::message::Message for HttpRequest {
 pub mod http_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The mode for generating an `Authorization` header for HTTP requests.
     ///
@@ -2441,7 +2473,6 @@ pub mod http_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineHttpRequest {
-
     /// The HTTP method to use for the request. The default is POST.
     ///
     /// The app's request handler for the task's target URL must be able to handle
@@ -2519,7 +2550,7 @@ pub struct AppEngineHttpRequest {
     /// [google.cloud.tasks.v2.AppEngineHttpRequest.body]: crate::model::AppEngineHttpRequest::body
     /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
-    pub headers: std::collections::HashMap<std::string::String,std::string::String>,
+    pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// HTTP request body.
     ///
@@ -2548,7 +2579,10 @@ impl AppEngineHttpRequest {
     /// let x1 = AppEngineHttpRequest::new().set_http_method(HttpMethod::Get);
     /// let x2 = AppEngineHttpRequest::new().set_http_method(HttpMethod::Head);
     /// ```
-    pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(mut self, v: T) -> Self {
+    pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.http_method = v.into();
         self
     }
@@ -2562,7 +2596,8 @@ impl AppEngineHttpRequest {
     /// let x = AppEngineHttpRequest::new().set_app_engine_routing(AppEngineRouting::default()/* use setters */);
     /// ```
     pub fn set_app_engine_routing<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AppEngineRouting>
+    where
+        T: std::convert::Into<crate::model::AppEngineRouting>,
     {
         self.app_engine_routing = std::option::Option::Some(v.into());
         self
@@ -2578,7 +2613,8 @@ impl AppEngineHttpRequest {
     /// let x = AppEngineHttpRequest::new().set_or_clear_app_engine_routing(None::<AppEngineRouting>);
     /// ```
     pub fn set_or_clear_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AppEngineRouting>
+    where
+        T: std::convert::Into<crate::model::AppEngineRouting>,
     {
         self.app_engine_routing = v.map(|x| x.into());
         self
@@ -2662,7 +2698,6 @@ impl wkt::message::Message for AppEngineHttpRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineRouting {
-
     /// App service.
     ///
     /// By default, the task is sent to the service which is the default
@@ -2814,7 +2849,6 @@ impl wkt::message::Message for AppEngineRouting {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthToken {
-
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
     /// to be used for generating OAuth token.
     /// The service account must be within the same project as the queue. The
@@ -2842,7 +2876,10 @@ impl OAuthToken {
     /// # use google_cloud_tasks_v2::model::OAuthToken;
     /// let x = OAuthToken::new().set_service_account_email("example");
     /// ```
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -2875,7 +2912,6 @@ impl wkt::message::Message for OAuthToken {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OidcToken {
-
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
     /// to be used for generating OIDC token.
     /// The service account must be within the same project as the queue. The
@@ -2902,7 +2938,10 @@ impl OidcToken {
     /// # use google_cloud_tasks_v2::model::OidcToken;
     /// let x = OidcToken::new().set_service_account_email("example");
     /// ```
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -2930,7 +2969,6 @@ impl wkt::message::Message for OidcToken {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Task {
-
     /// Optionally caller-specified in
     /// [CreateTask][google.cloud.tasks.v2.CloudTasks.CreateTask].
     ///
@@ -3066,7 +3104,8 @@ impl Task {
     /// let x = Task::new().set_schedule_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.schedule_time = std::option::Option::Some(v.into());
         self
@@ -3082,7 +3121,8 @@ impl Task {
     /// let x = Task::new().set_or_clear_schedule_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.schedule_time = v.map(|x| x.into());
         self
@@ -3097,7 +3137,8 @@ impl Task {
     /// let x = Task::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3113,7 +3154,8 @@ impl Task {
     /// let x = Task::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3128,7 +3170,8 @@ impl Task {
     /// let x = Task::new().set_dispatch_deadline(Duration::default()/* use setters */);
     /// ```
     pub fn set_dispatch_deadline<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.dispatch_deadline = std::option::Option::Some(v.into());
         self
@@ -3144,7 +3187,8 @@ impl Task {
     /// let x = Task::new().set_or_clear_dispatch_deadline(None::<Duration>);
     /// ```
     pub fn set_or_clear_dispatch_deadline<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.dispatch_deadline = v.map(|x| x.into());
         self
@@ -3183,7 +3227,8 @@ impl Task {
     /// let x = Task::new().set_first_attempt(Attempt::default()/* use setters */);
     /// ```
     pub fn set_first_attempt<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Attempt>
+    where
+        T: std::convert::Into<crate::model::Attempt>,
     {
         self.first_attempt = std::option::Option::Some(v.into());
         self
@@ -3199,7 +3244,8 @@ impl Task {
     /// let x = Task::new().set_or_clear_first_attempt(None::<Attempt>);
     /// ```
     pub fn set_or_clear_first_attempt<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Attempt>
+    where
+        T: std::convert::Into<crate::model::Attempt>,
     {
         self.first_attempt = v.map(|x| x.into());
         self
@@ -3214,7 +3260,8 @@ impl Task {
     /// let x = Task::new().set_last_attempt(Attempt::default()/* use setters */);
     /// ```
     pub fn set_last_attempt<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Attempt>
+    where
+        T: std::convert::Into<crate::model::Attempt>,
     {
         self.last_attempt = std::option::Option::Some(v.into());
         self
@@ -3230,7 +3277,8 @@ impl Task {
     /// let x = Task::new().set_or_clear_last_attempt(None::<Attempt>);
     /// ```
     pub fn set_or_clear_last_attempt<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Attempt>
+    where
+        T: std::convert::Into<crate::model::Attempt>,
     {
         self.last_attempt = v.map(|x| x.into());
         self
@@ -3262,8 +3310,12 @@ impl Task {
     /// let x = Task::new().set_message_type(Some(
     ///     google_cloud_tasks_v2::model::task::MessageType::AppEngineHttpRequest(AppEngineHttpRequest::default().into())));
     /// ```
-    pub fn set_message_type<T: std::convert::Into<std::option::Option<crate::model::task::MessageType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_message_type<
+        T: std::convert::Into<std::option::Option<crate::model::task::MessageType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.message_type = v.into();
         self
     }
@@ -3271,10 +3323,14 @@ impl Task {
     /// The value of [message_type][crate::model::Task::message_type]
     /// if it holds a `AppEngineHttpRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn app_engine_http_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpRequest>> {
+    pub fn app_engine_http_request(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpRequest>> {
         #[allow(unreachable_patterns)]
         self.message_type.as_ref().and_then(|v| match v {
-            crate::model::task::MessageType::AppEngineHttpRequest(v) => std::option::Option::Some(v),
+            crate::model::task::MessageType::AppEngineHttpRequest(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3293,11 +3349,14 @@ impl Task {
     /// assert!(x.app_engine_http_request().is_some());
     /// assert!(x.http_request().is_none());
     /// ```
-    pub fn set_app_engine_http_request<T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpRequest>>>(mut self, v: T) -> Self {
+    pub fn set_app_engine_http_request<
+        T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.message_type = std::option::Option::Some(
-            crate::model::task::MessageType::AppEngineHttpRequest(
-                v.into()
-            )
+            crate::model::task::MessageType::AppEngineHttpRequest(v.into()),
         );
         self
     }
@@ -3327,12 +3386,12 @@ impl Task {
     /// assert!(x.http_request().is_some());
     /// assert!(x.app_engine_http_request().is_none());
     /// ```
-    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(mut self, v: T) -> Self {
-        self.message_type = std::option::Option::Some(
-            crate::model::task::MessageType::HttpRequest(
-                v.into()
-            )
-        );
+    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_type =
+            std::option::Option::Some(crate::model::task::MessageType::HttpRequest(v.into()));
         self
     }
 }
@@ -3347,7 +3406,6 @@ impl wkt::message::Message for Task {
 pub mod task {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The view specifies a subset of [Task][google.cloud.tasks.v2.Task] data.
     ///
@@ -3460,7 +3518,9 @@ pub mod task {
                 0 => Self::Unspecified,
                 1 => Self::Basic,
                 2 => Self::Full,
-                _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3472,7 +3532,9 @@ pub mod task {
                 "VIEW_UNSPECIFIED" => Self::Unspecified,
                 "BASIC" => Self::Basic,
                 "FULL" => Self::Full,
-                _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3497,7 +3559,8 @@ pub mod task {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<View>::new(
-                ".google.cloud.tasks.v2.Task.View"))
+                ".google.cloud.tasks.v2.Task.View",
+            ))
         }
     }
 
@@ -3526,7 +3589,6 @@ pub mod task {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attempt {
-
     /// Output only. The time that this attempt was scheduled.
     ///
     /// `schedule_time` will be truncated to the nearest microsecond.
@@ -3565,7 +3627,8 @@ impl Attempt {
     /// let x = Attempt::new().set_schedule_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.schedule_time = std::option::Option::Some(v.into());
         self
@@ -3581,7 +3644,8 @@ impl Attempt {
     /// let x = Attempt::new().set_or_clear_schedule_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.schedule_time = v.map(|x| x.into());
         self
@@ -3596,7 +3660,8 @@ impl Attempt {
     /// let x = Attempt::new().set_dispatch_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_dispatch_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.dispatch_time = std::option::Option::Some(v.into());
         self
@@ -3612,7 +3677,8 @@ impl Attempt {
     /// let x = Attempt::new().set_or_clear_dispatch_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_dispatch_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.dispatch_time = v.map(|x| x.into());
         self
@@ -3627,7 +3693,8 @@ impl Attempt {
     /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_response_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.response_time = std::option::Option::Some(v.into());
         self
@@ -3643,7 +3710,8 @@ impl Attempt {
     /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.response_time = v.map(|x| x.into());
         self
@@ -3658,7 +3726,8 @@ impl Attempt {
     /// let x = Attempt::new().set_response_status(Status::default()/* use setters */);
     /// ```
     pub fn set_response_status<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.response_status = std::option::Option::Some(v.into());
         self
@@ -3674,7 +3743,8 @@ impl Attempt {
     /// let x = Attempt::new().set_or_clear_response_status(None::<Status>);
     /// ```
     pub fn set_or_clear_response_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.response_status = v.map(|x| x.into());
         self
@@ -3798,7 +3868,9 @@ impl std::convert::From<i32> for HttpMethod {
             5 => Self::Delete,
             6 => Self::Patch,
             7 => Self::Options,
-            _ => Self::UnknownValue(http_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(http_method::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3815,7 +3887,9 @@ impl std::convert::From<&str> for HttpMethod {
             "DELETE" => Self::Delete,
             "PATCH" => Self::Patch,
             "OPTIONS" => Self::Options,
-            _ => Self::UnknownValue(http_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(http_method::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3845,6 +3919,7 @@ impl<'de> serde::de::Deserialize<'de> for HttpMethod {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HttpMethod>::new(
-            ".google.cloud.tasks.v2.HttpMethod"))
+            ".google.cloud.tasks.v2.HttpMethod",
+        ))
     }
 }

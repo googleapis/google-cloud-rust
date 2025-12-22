@@ -264,7 +264,6 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::Organizations] also implement [Organizations].
@@ -323,7 +322,6 @@ impl<T: super::Organizations> Organizations for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::Projects].

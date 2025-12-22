@@ -77,7 +77,9 @@ impl AnalyticsHubService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::analytics_hub_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::analytics_hub_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::analytics_hub_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -85,40 +87,55 @@ impl AnalyticsHubService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AnalyticsHubService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AnalyticsHubService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsHubService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsHubService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
         super::transport::AnalyticsHubService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
-        Self::build_transport(conf).await.map(super::tracing::AnalyticsHubService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AnalyticsHubService::new)
     }
 
     /// Lists all data exchanges in a given project and location.
-    pub fn list_data_exchanges(&self) -> super::builder::analytics_hub_service::ListDataExchanges
-    {
+    pub fn list_data_exchanges(&self) -> super::builder::analytics_hub_service::ListDataExchanges {
         super::builder::analytics_hub_service::ListDataExchanges::new(self.inner.clone())
     }
 
     /// Lists all data exchanges from projects in a given organization and
     /// location.
-    pub fn list_org_data_exchanges(&self) -> super::builder::analytics_hub_service::ListOrgDataExchanges
-    {
+    pub fn list_org_data_exchanges(
+        &self,
+    ) -> super::builder::analytics_hub_service::ListOrgDataExchanges {
         super::builder::analytics_hub_service::ListOrgDataExchanges::new(self.inner.clone())
     }
 
@@ -139,8 +156,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_data_exchange(&self) -> super::builder::analytics_hub_service::GetDataExchange
-    {
+    pub fn get_data_exchange(&self) -> super::builder::analytics_hub_service::GetDataExchange {
         super::builder::analytics_hub_service::GetDataExchange::new(self.inner.clone())
     }
 
@@ -161,8 +177,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_data_exchange(&self) -> super::builder::analytics_hub_service::CreateDataExchange
-    {
+    pub fn create_data_exchange(
+        &self,
+    ) -> super::builder::analytics_hub_service::CreateDataExchange {
         super::builder::analytics_hub_service::CreateDataExchange::new(self.inner.clone())
     }
 
@@ -183,8 +200,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_data_exchange(&self) -> super::builder::analytics_hub_service::UpdateDataExchange
-    {
+    pub fn update_data_exchange(
+        &self,
+    ) -> super::builder::analytics_hub_service::UpdateDataExchange {
         super::builder::analytics_hub_service::UpdateDataExchange::new(self.inner.clone())
     }
 
@@ -204,14 +222,14 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_data_exchange(&self) -> super::builder::analytics_hub_service::DeleteDataExchange
-    {
+    pub fn delete_data_exchange(
+        &self,
+    ) -> super::builder::analytics_hub_service::DeleteDataExchange {
         super::builder::analytics_hub_service::DeleteDataExchange::new(self.inner.clone())
     }
 
     /// Lists all listings in a given project and location.
-    pub fn list_listings(&self) -> super::builder::analytics_hub_service::ListListings
-    {
+    pub fn list_listings(&self) -> super::builder::analytics_hub_service::ListListings {
         super::builder::analytics_hub_service::ListListings::new(self.inner.clone())
     }
 
@@ -232,8 +250,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_listing(&self) -> super::builder::analytics_hub_service::GetListing
-    {
+    pub fn get_listing(&self) -> super::builder::analytics_hub_service::GetListing {
         super::builder::analytics_hub_service::GetListing::new(self.inner.clone())
     }
 
@@ -254,8 +271,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_listing(&self) -> super::builder::analytics_hub_service::CreateListing
-    {
+    pub fn create_listing(&self) -> super::builder::analytics_hub_service::CreateListing {
         super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
     }
 
@@ -276,8 +292,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_listing(&self) -> super::builder::analytics_hub_service::UpdateListing
-    {
+    pub fn update_listing(&self) -> super::builder::analytics_hub_service::UpdateListing {
         super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
     }
 
@@ -297,8 +312,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_listing(&self) -> super::builder::analytics_hub_service::DeleteListing
-    {
+    pub fn delete_listing(&self) -> super::builder::analytics_hub_service::DeleteListing {
         super::builder::analytics_hub_service::DeleteListing::new(self.inner.clone())
     }
 
@@ -324,8 +338,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn subscribe_listing(&self) -> super::builder::analytics_hub_service::SubscribeListing
-    {
+    pub fn subscribe_listing(&self) -> super::builder::analytics_hub_service::SubscribeListing {
         super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
     }
 
@@ -343,8 +356,9 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn subscribe_data_exchange(&self) -> super::builder::analytics_hub_service::SubscribeDataExchange
-    {
+    pub fn subscribe_data_exchange(
+        &self,
+    ) -> super::builder::analytics_hub_service::SubscribeDataExchange {
         super::builder::analytics_hub_service::SubscribeDataExchange::new(self.inner.clone())
     }
 
@@ -361,8 +375,9 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn refresh_subscription(&self) -> super::builder::analytics_hub_service::RefreshSubscription
-    {
+    pub fn refresh_subscription(
+        &self,
+    ) -> super::builder::analytics_hub_service::RefreshSubscription {
         super::builder::analytics_hub_service::RefreshSubscription::new(self.inner.clone())
     }
 
@@ -383,21 +398,22 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_subscription(&self) -> super::builder::analytics_hub_service::GetSubscription
-    {
+    pub fn get_subscription(&self) -> super::builder::analytics_hub_service::GetSubscription {
         super::builder::analytics_hub_service::GetSubscription::new(self.inner.clone())
     }
 
     /// Lists all subscriptions in a given project and location.
-    pub fn list_subscriptions(&self) -> super::builder::analytics_hub_service::ListSubscriptions
-    {
+    pub fn list_subscriptions(&self) -> super::builder::analytics_hub_service::ListSubscriptions {
         super::builder::analytics_hub_service::ListSubscriptions::new(self.inner.clone())
     }
 
     /// Lists all subscriptions on a given Data Exchange or Listing.
-    pub fn list_shared_resource_subscriptions(&self) -> super::builder::analytics_hub_service::ListSharedResourceSubscriptions
-    {
-        super::builder::analytics_hub_service::ListSharedResourceSubscriptions::new(self.inner.clone())
+    pub fn list_shared_resource_subscriptions(
+        &self,
+    ) -> super::builder::analytics_hub_service::ListSharedResourceSubscriptions {
+        super::builder::analytics_hub_service::ListSharedResourceSubscriptions::new(
+            self.inner.clone(),
+        )
     }
 
     /// Revokes a given subscription.
@@ -417,8 +433,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn revoke_subscription(&self) -> super::builder::analytics_hub_service::RevokeSubscription
-    {
+    pub fn revoke_subscription(&self) -> super::builder::analytics_hub_service::RevokeSubscription {
         super::builder::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
     }
 
@@ -433,8 +448,7 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_subscription(&self) -> super::builder::analytics_hub_service::DeleteSubscription
-    {
+    pub fn delete_subscription(&self) -> super::builder::analytics_hub_service::DeleteSubscription {
         super::builder::analytics_hub_service::DeleteSubscription::new(self.inner.clone())
     }
 
@@ -455,8 +469,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::analytics_hub_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::analytics_hub_service::GetIamPolicy {
         super::builder::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -477,8 +490,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::analytics_hub_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::analytics_hub_service::SetIamPolicy {
         super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -499,8 +511,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::analytics_hub_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::analytics_hub_service::TestIamPermissions {
         super::builder::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -521,8 +534,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_query_template(&self) -> super::builder::analytics_hub_service::CreateQueryTemplate
-    {
+    pub fn create_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::CreateQueryTemplate {
         super::builder::analytics_hub_service::CreateQueryTemplate::new(self.inner.clone())
     }
 
@@ -544,14 +558,14 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_query_template(&self) -> super::builder::analytics_hub_service::GetQueryTemplate
-    {
+    pub fn get_query_template(&self) -> super::builder::analytics_hub_service::GetQueryTemplate {
         super::builder::analytics_hub_service::GetQueryTemplate::new(self.inner.clone())
     }
 
     /// Lists all QueryTemplates in a given project and location.
-    pub fn list_query_templates(&self) -> super::builder::analytics_hub_service::ListQueryTemplates
-    {
+    pub fn list_query_templates(
+        &self,
+    ) -> super::builder::analytics_hub_service::ListQueryTemplates {
         super::builder::analytics_hub_service::ListQueryTemplates::new(self.inner.clone())
     }
 
@@ -572,8 +586,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_query_template(&self) -> super::builder::analytics_hub_service::UpdateQueryTemplate
-    {
+    pub fn update_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::UpdateQueryTemplate {
         super::builder::analytics_hub_service::UpdateQueryTemplate::new(self.inner.clone())
     }
 
@@ -593,8 +608,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_query_template(&self) -> super::builder::analytics_hub_service::DeleteQueryTemplate
-    {
+    pub fn delete_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::DeleteQueryTemplate {
         super::builder::analytics_hub_service::DeleteQueryTemplate::new(self.inner.clone())
     }
 
@@ -615,8 +631,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn submit_query_template(&self) -> super::builder::analytics_hub_service::SubmitQueryTemplate
-    {
+    pub fn submit_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::SubmitQueryTemplate {
         super::builder::analytics_hub_service::SubmitQueryTemplate::new(self.inner.clone())
     }
 
@@ -637,8 +654,9 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn approve_query_template(&self) -> super::builder::analytics_hub_service::ApproveQueryTemplate
-    {
+    pub fn approve_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::ApproveQueryTemplate {
         super::builder::analytics_hub_service::ApproveQueryTemplate::new(self.inner.clone())
     }
 
@@ -661,8 +679,7 @@ impl AnalyticsHubService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::analytics_hub_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::analytics_hub_service::GetOperation {
         super::builder::analytics_hub_service::GetOperation::new(self.inner.clone())
     }
 }

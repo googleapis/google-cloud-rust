@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [AutoscalingPolicyService](super::stub::AutoscalingPolicyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AutoscalingPolicyService<T>
-where T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> AutoscalingPolicyService<T>
-where T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AutoscalingPolicyService for AutoscalingPolicyService<T>
-where T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_autoscaling_policy(
         &self,
@@ -138,25 +144,30 @@ where T: super::stub::AutoscalingPolicyService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [BatchController](super::stub::BatchController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BatchController<T>
-where T: super::stub::BatchController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BatchController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> BatchController<T>
-where T: super::stub::BatchController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BatchController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BatchController for BatchController<T>
-where T: super::stub::BatchController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BatchController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_batch(
         &self,
@@ -256,7 +267,6 @@ where T: super::stub::BatchController + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -275,19 +285,25 @@ where T: super::stub::BatchController + std::fmt::Debug + Send + Sync {
 /// Implements a [ClusterController](super::stub::ClusterController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ClusterController<T>
-where T: super::stub::ClusterController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ClusterController<T>
-where T: super::stub::ClusterController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ClusterController for ClusterController<T>
-where T: super::stub::ClusterController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_cluster(
         &self,
@@ -423,7 +439,6 @@ where T: super::stub::ClusterController + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -442,19 +457,25 @@ where T: super::stub::ClusterController + std::fmt::Debug + Send + Sync {
 /// Implements a [JobController](super::stub::JobController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct JobController<T>
-where T: super::stub::JobController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::JobController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> JobController<T>
-where T: super::stub::JobController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::JobController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::JobController for JobController<T>
-where T: super::stub::JobController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::JobController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn submit_job(
         &self,
@@ -581,7 +602,6 @@ where T: super::stub::JobController + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -600,19 +620,25 @@ where T: super::stub::JobController + std::fmt::Debug + Send + Sync {
 /// Implements a [NodeGroupController](super::stub::NodeGroupController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NodeGroupController<T>
-where T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> NodeGroupController<T>
-where T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NodeGroupController for NodeGroupController<T>
-where T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_node_group(
         &self,
@@ -703,7 +729,6 @@ where T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -722,19 +747,25 @@ where T: super::stub::NodeGroupController + std::fmt::Debug + Send + Sync {
 /// Implements a [SessionTemplateController](super::stub::SessionTemplateController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SessionTemplateController<T>
-where T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SessionTemplateController<T>
-where T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SessionTemplateController for SessionTemplateController<T>
-where T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_session_template(
         &self,
@@ -842,25 +873,30 @@ where T: super::stub::SessionTemplateController + std::fmt::Debug + Send + Sync 
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [SessionController](super::stub::SessionController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SessionController<T>
-where T: super::stub::SessionController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SessionController<T>
-where T: super::stub::SessionController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SessionController for SessionController<T>
-where T: super::stub::SessionController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SessionController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_session(
         &self,
@@ -969,7 +1005,6 @@ where T: super::stub::SessionController + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -988,19 +1023,25 @@ where T: super::stub::SessionController + std::fmt::Debug + Send + Sync {
 /// Implements a [WorkflowTemplateService](super::stub::WorkflowTemplateService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct WorkflowTemplateService<T>
-where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> WorkflowTemplateService<T>
-where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::WorkflowTemplateService for WorkflowTemplateService<T>
-where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_workflow_template(
         &self,
@@ -1034,7 +1075,9 @@ where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
         req: crate::model::InstantiateInlineWorkflowTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.instantiate_inline_workflow_template(req, options).await
+        self.inner
+            .instantiate_inline_workflow_template(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1127,7 +1170,6 @@ where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1142,4 +1184,3 @@ where T: super::stub::WorkflowTemplateService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

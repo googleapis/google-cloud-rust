@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [IAMCredentials](super::stub::IAMCredentials) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials<T>
-where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> IAMCredentials<T>
-where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IAMCredentials for IAMCredentials<T>
-where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn generate_access_token(
         &self,
@@ -66,6 +72,4 @@ where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         self.inner.sign_jwt(req, options).await
     }
-
 }
-

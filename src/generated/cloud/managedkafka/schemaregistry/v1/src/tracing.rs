@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ManagedSchemaRegistry](super::stub::ManagedSchemaRegistry) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ManagedSchemaRegistry<T>
-where T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ManagedSchemaRegistry<T>
-where T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry<T>
-where T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_schema_registry(
         &self,
@@ -327,6 +333,4 @@ where T: super::stub::ManagedSchemaRegistry + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
-

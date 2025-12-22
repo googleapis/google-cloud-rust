@@ -85,7 +85,9 @@ impl AppGatewaysService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::app_gateways_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::app_gateways_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::app_gateways_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -93,33 +95,47 @@ impl AppGatewaysService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AppGatewaysService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AppGatewaysService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppGatewaysService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppGatewaysService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AppGatewaysService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AppGatewaysService> {
         super::transport::AppGatewaysService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AppGatewaysService> {
-        Self::build_transport(conf).await.map(super::tracing::AppGatewaysService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AppGatewaysService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AppGatewaysService::new)
     }
 
     /// Lists AppGateways in a given project and location.
-    pub fn list_app_gateways(&self) -> super::builder::app_gateways_service::ListAppGateways
-    {
+    pub fn list_app_gateways(&self) -> super::builder::app_gateways_service::ListAppGateways {
         super::builder::app_gateways_service::ListAppGateways::new(self.inner.clone())
     }
 
@@ -140,8 +156,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_app_gateway(&self) -> super::builder::app_gateways_service::GetAppGateway
-    {
+    pub fn get_app_gateway(&self) -> super::builder::app_gateways_service::GetAppGateway {
         super::builder::app_gateways_service::GetAppGateway::new(self.inner.clone())
     }
 
@@ -156,8 +171,7 @@ impl AppGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_app_gateway(&self) -> super::builder::app_gateways_service::CreateAppGateway
-    {
+    pub fn create_app_gateway(&self) -> super::builder::app_gateways_service::CreateAppGateway {
         super::builder::app_gateways_service::CreateAppGateway::new(self.inner.clone())
     }
 
@@ -172,14 +186,12 @@ impl AppGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_app_gateway(&self) -> super::builder::app_gateways_service::DeleteAppGateway
-    {
+    pub fn delete_app_gateway(&self) -> super::builder::app_gateways_service::DeleteAppGateway {
         super::builder::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::app_gateways_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::app_gateways_service::ListLocations {
         super::builder::app_gateways_service::ListLocations::new(self.inner.clone())
     }
 
@@ -200,8 +212,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::app_gateways_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::app_gateways_service::GetLocation {
         super::builder::app_gateways_service::GetLocation::new(self.inner.clone())
     }
 
@@ -226,8 +237,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::app_gateways_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::app_gateways_service::SetIamPolicy {
         super::builder::app_gateways_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -249,8 +259,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::app_gateways_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::app_gateways_service::GetIamPolicy {
         super::builder::app_gateways_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -277,16 +286,14 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::app_gateways_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::app_gateways_service::TestIamPermissions {
         super::builder::app_gateways_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::app_gateways_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::app_gateways_service::ListOperations {
         super::builder::app_gateways_service::ListOperations::new(self.inner.clone())
     }
 
@@ -309,8 +316,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::app_gateways_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::app_gateways_service::GetOperation {
         super::builder::app_gateways_service::GetOperation::new(self.inner.clone())
     }
 
@@ -332,8 +338,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::app_gateways_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::app_gateways_service::DeleteOperation {
         super::builder::app_gateways_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -355,8 +360,7 @@ impl AppGatewaysService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::app_gateways_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::app_gateways_service::CancelOperation {
         super::builder::app_gateways_service::CancelOperation::new(self.inner.clone())
     }
 }

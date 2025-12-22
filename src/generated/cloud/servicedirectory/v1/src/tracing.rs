@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [LookupService](super::stub::LookupService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LookupService<T>
-where T: super::stub::LookupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LookupService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> LookupService<T>
-where T: super::stub::LookupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LookupService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LookupService for LookupService<T>
-where T: super::stub::LookupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LookupService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn resolve_service(
         &self,
@@ -57,25 +63,30 @@ where T: super::stub::LookupService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
 
 /// Implements a [RegistrationService](super::stub::RegistrationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RegistrationService<T>
-where T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> RegistrationService<T>
-where T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RegistrationService for RegistrationService<T>
-where T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_namespace(
         &self,
@@ -255,6 +266,4 @@ where T: super::stub::RegistrationService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
-

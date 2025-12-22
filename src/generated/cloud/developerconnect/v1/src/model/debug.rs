@@ -69,8 +69,6 @@ impl std::fmt::Debug for super::Connection {
     }
 }
 
-
-
 impl std::fmt::Debug for super::CryptoKeyConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CryptoKeyConfig");
@@ -126,8 +124,14 @@ impl std::fmt::Debug for super::GitHubEnterpriseConfig {
         debug_struct.field("host_uri", &self.host_uri);
         debug_struct.field("app_id", &self.app_id);
         debug_struct.field("app_slug", &self.app_slug);
-        debug_struct.field("private_key_secret_version", &self.private_key_secret_version);
-        debug_struct.field("webhook_secret_secret_version", &self.webhook_secret_secret_version);
+        debug_struct.field(
+            "private_key_secret_version",
+            &self.private_key_secret_version,
+        );
+        debug_struct.field(
+            "webhook_secret_secret_version",
+            &self.webhook_secret_secret_version,
+        );
         debug_struct.field("app_installation_id", &self.app_installation_id);
         debug_struct.field("installation_uri", &self.installation_uri);
         debug_struct.field("service_directory_config", &self.service_directory_config);
@@ -154,7 +158,10 @@ impl std::fmt::Debug for super::ServiceDirectoryConfig {
 impl std::fmt::Debug for super::OAuthCredential {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OAuthCredential");
-        debug_struct.field("oauth_token_secret_version", &self.oauth_token_secret_version);
+        debug_struct.field(
+            "oauth_token_secret_version",
+            &self.oauth_token_secret_version,
+        );
         debug_struct.field("username", &self.username);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -166,8 +173,14 @@ impl std::fmt::Debug for super::OAuthCredential {
 impl std::fmt::Debug for super::GitLabConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitLabConfig");
-        debug_struct.field("webhook_secret_secret_version", &self.webhook_secret_secret_version);
-        debug_struct.field("read_authorizer_credential", &self.read_authorizer_credential);
+        debug_struct.field(
+            "webhook_secret_secret_version",
+            &self.webhook_secret_secret_version,
+        );
+        debug_struct.field(
+            "read_authorizer_credential",
+            &self.read_authorizer_credential,
+        );
         debug_struct.field("authorizer_credential", &self.authorizer_credential);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -192,8 +205,14 @@ impl std::fmt::Debug for super::GitLabEnterpriseConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitLabEnterpriseConfig");
         debug_struct.field("host_uri", &self.host_uri);
-        debug_struct.field("webhook_secret_secret_version", &self.webhook_secret_secret_version);
-        debug_struct.field("read_authorizer_credential", &self.read_authorizer_credential);
+        debug_struct.field(
+            "webhook_secret_secret_version",
+            &self.webhook_secret_secret_version,
+        );
+        debug_struct.field(
+            "read_authorizer_credential",
+            &self.read_authorizer_credential,
+        );
         debug_struct.field("authorizer_credential", &self.authorizer_credential);
         debug_struct.field("service_directory_config", &self.service_directory_config);
         debug_struct.field("ssl_ca_certificate", &self.ssl_ca_certificate);
@@ -209,8 +228,14 @@ impl std::fmt::Debug for super::BitbucketDataCenterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BitbucketDataCenterConfig");
         debug_struct.field("host_uri", &self.host_uri);
-        debug_struct.field("webhook_secret_secret_version", &self.webhook_secret_secret_version);
-        debug_struct.field("read_authorizer_credential", &self.read_authorizer_credential);
+        debug_struct.field(
+            "webhook_secret_secret_version",
+            &self.webhook_secret_secret_version,
+        );
+        debug_struct.field(
+            "read_authorizer_credential",
+            &self.read_authorizer_credential,
+        );
         debug_struct.field("authorizer_credential", &self.authorizer_credential);
         debug_struct.field("service_directory_config", &self.service_directory_config);
         debug_struct.field("ssl_ca_certificate", &self.ssl_ca_certificate);
@@ -226,8 +251,14 @@ impl std::fmt::Debug for super::BitbucketCloudConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BitbucketCloudConfig");
         debug_struct.field("workspace", &self.workspace);
-        debug_struct.field("webhook_secret_secret_version", &self.webhook_secret_secret_version);
-        debug_struct.field("read_authorizer_credential", &self.read_authorizer_credential);
+        debug_struct.field(
+            "webhook_secret_secret_version",
+            &self.webhook_secret_secret_version,
+        );
+        debug_struct.field(
+            "read_authorizer_credential",
+            &self.read_authorizer_credential,
+        );
         debug_struct.field("authorizer_credential", &self.authorizer_credential);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -746,8 +777,6 @@ impl std::fmt::Debug for super::AccountConnector {
     }
 }
 
-
-
 impl std::fmt::Debug for super::User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("User");
@@ -794,8 +823,6 @@ impl std::fmt::Debug for super::InsightsConfig {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::RuntimeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

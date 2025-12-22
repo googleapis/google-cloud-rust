@@ -36,7 +36,10 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("referencing_backups", &self.referencing_backups);
         debug_struct.field("max_expire_time", &self.max_expire_time);
         debug_struct.field("backup_schedules", &self.backup_schedules);
-        debug_struct.field("incremental_backup_chain_id", &self.incremental_backup_chain_id);
+        debug_struct.field(
+            "incremental_backup_chain_id",
+            &self.incremental_backup_chain_id,
+        );
         debug_struct.field("oldest_version_time", &self.oldest_version_time);
         debug_struct.field("instance_partitions", &self.instance_partitions);
         if !self._unknown_fields.is_empty() {
@@ -670,7 +673,10 @@ impl std::fmt::Debug for super::RestoreDatabaseMetadata {
         debug_struct.field("source_type", &self.source_type);
         debug_struct.field("progress", &self.progress);
         debug_struct.field("cancel_time", &self.cancel_time);
-        debug_struct.field("optimize_database_operation_name", &self.optimize_database_operation_name);
+        debug_struct.field(
+            "optimize_database_operation_name",
+            &self.optimize_database_operation_name,
+        );
         debug_struct.field("source_info", &self.source_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

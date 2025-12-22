@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,6 +29,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoverConnectionProfileRequest {
-
     /// Required. The parent resource of the connection profile type. Must be in
     /// the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -50,10 +49,12 @@ pub struct DiscoverConnectionProfileRequest {
     pub target: std::option::Option<crate::model::discover_connection_profile_request::Target>,
 
     /// The depth of the retrieved hierarchy of data objects.
-    pub hierarchy: std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
+    pub hierarchy:
+        std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
 
     /// The data object to populate with child data objects and metadata.
-    pub data_object: std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
+    pub data_object:
+        std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -86,8 +87,14 @@ impl DiscoverConnectionProfileRequest {
     /// use google_cloud_datastream_v1::model::discover_connection_profile_request::Target;
     /// let x = DiscoverConnectionProfileRequest::new().set_target(Some(Target::ConnectionProfileName("example".to_string())));
     /// ```
-    pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::discover_connection_profile_request::Target>>>(mut self, v: T) -> Self
-    {
+    pub fn set_target<
+        T: std::convert::Into<
+                std::option::Option<crate::model::discover_connection_profile_request::Target>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = v.into();
         self
     }
@@ -95,10 +102,14 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// if it holds a `ConnectionProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn connection_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::ConnectionProfile>> {
+    pub fn connection_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConnectionProfile>> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Target::ConnectionProfile(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::Target::ConnectionProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -117,11 +128,14 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.connection_profile().is_some());
     /// assert!(x.connection_profile_name().is_none());
     /// ```
-    pub fn set_connection_profile<T: std::convert::Into<std::boxed::Box<crate::model::ConnectionProfile>>>(mut self, v: T) -> Self {
+    pub fn set_connection_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::ConnectionProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Target::ConnectionProfile(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::Target::ConnectionProfile(v.into()),
         );
         self
     }
@@ -132,7 +146,9 @@ impl DiscoverConnectionProfileRequest {
     pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -150,11 +166,14 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.connection_profile_name().is_some());
     /// assert!(x.connection_profile().is_none());
     /// ```
-    pub fn set_connection_profile_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_connection_profile_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = std::option::Option::Some(
             crate::model::discover_connection_profile_request::Target::ConnectionProfileName(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -170,8 +189,14 @@ impl DiscoverConnectionProfileRequest {
     /// use google_cloud_datastream_v1::model::discover_connection_profile_request::Hierarchy;
     /// let x = DiscoverConnectionProfileRequest::new().set_hierarchy(Some(Hierarchy::FullHierarchy(true)));
     /// ```
-    pub fn set_hierarchy<T: std::convert::Into<std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>>>(mut self, v: T) -> Self
-    {
+    pub fn set_hierarchy<
+        T: std::convert::Into<
+                std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.hierarchy = v.into();
         self
     }
@@ -182,7 +207,9 @@ impl DiscoverConnectionProfileRequest {
     pub fn full_hierarchy(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.hierarchy.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -202,9 +229,7 @@ impl DiscoverConnectionProfileRequest {
     /// ```
     pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
         );
         self
     }
@@ -215,7 +240,9 @@ impl DiscoverConnectionProfileRequest {
     pub fn hierarchy_depth(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.hierarchy.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -235,9 +262,7 @@ impl DiscoverConnectionProfileRequest {
     /// ```
     pub fn set_hierarchy_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v.into()),
         );
         self
     }
@@ -254,8 +279,14 @@ impl DiscoverConnectionProfileRequest {
     /// let x = DiscoverConnectionProfileRequest::new().set_data_object(Some(
     ///     google_cloud_datastream_v1::model::discover_connection_profile_request::DataObject::OracleRdbms(OracleRdbms::default().into())));
     /// ```
-    pub fn set_data_object<T: std::convert::Into<std::option::Option<crate::model::discover_connection_profile_request::DataObject>>>(mut self, v: T) -> Self
-    {
+    pub fn set_data_object<
+        T: std::convert::Into<
+                std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = v.into();
         self
     }
@@ -266,7 +297,9 @@ impl DiscoverConnectionProfileRequest {
     pub fn oracle_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::OracleRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::OracleRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -289,11 +322,12 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::OracleRdbms(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::DataObject::OracleRdbms(v.into()),
         );
         self
     }
@@ -304,7 +338,9 @@ impl DiscoverConnectionProfileRequest {
     pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -327,11 +363,12 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v.into()),
         );
         self
     }
@@ -339,10 +376,14 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -365,11 +406,16 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_postgresql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_postgresql_rdbms<
+        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
             crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -377,10 +423,14 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sql_server_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -403,11 +453,14 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_sql_server_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_sql_server_rdbms<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v.into()),
         );
         self
     }
@@ -415,10 +468,14 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `SalesforceOrg`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn salesforce_org(&self) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+    pub fn salesforce_org(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -441,11 +498,14 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_salesforce_org<T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>>(mut self, v: T) -> Self {
+    pub fn set_salesforce_org<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(v.into()),
         );
         self
     }
@@ -453,10 +513,14 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `MongodbCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mongodb_cluster(&self) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+    pub fn mongodb_cluster(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -479,11 +543,14 @@ impl DiscoverConnectionProfileRequest {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// ```
-    pub fn set_mongodb_cluster<T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>>(mut self, v: T) -> Self {
+    pub fn set_mongodb_cluster<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(
-                v.into()
-            )
+            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v.into()),
         );
         self
     }
@@ -499,7 +566,6 @@ impl wkt::message::Message for DiscoverConnectionProfileRequest {
 pub mod discover_connection_profile_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The connection profile on which to run discover.
     #[derive(Clone, Debug, PartialEq)]
@@ -545,9 +611,9 @@ pub mod discover_connection_profile_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoverConnectionProfileResponse {
-
     /// The data object that has been enriched by the discover API call.
-    pub data_object: std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
+    pub data_object:
+        std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -569,8 +635,14 @@ impl DiscoverConnectionProfileResponse {
     /// let x = DiscoverConnectionProfileResponse::new().set_data_object(Some(
     ///     google_cloud_datastream_v1::model::discover_connection_profile_response::DataObject::OracleRdbms(OracleRdbms::default().into())));
     /// ```
-    pub fn set_data_object<T: std::convert::Into<std::option::Option<crate::model::discover_connection_profile_response::DataObject>>>(mut self, v: T) -> Self
-    {
+    pub fn set_data_object<
+        T: std::convert::Into<
+                std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = v.into();
         self
     }
@@ -581,7 +653,9 @@ impl DiscoverConnectionProfileResponse {
     pub fn oracle_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::OracleRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::OracleRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -604,11 +678,12 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::OracleRdbms(
-                v.into()
-            )
+            crate::model::discover_connection_profile_response::DataObject::OracleRdbms(v.into()),
         );
         self
     }
@@ -619,7 +694,9 @@ impl DiscoverConnectionProfileResponse {
     pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -642,11 +719,12 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(
-                v.into()
-            )
+            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v.into()),
         );
         self
     }
@@ -654,10 +732,14 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -680,11 +762,16 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_postgresql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_postgresql_rdbms<
+        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
             crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -692,10 +779,14 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sql_server_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -718,11 +809,16 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.salesforce_org().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_sql_server_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>>(mut self, v: T) -> Self {
+    pub fn set_sql_server_rdbms<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
             crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -730,10 +826,14 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `SalesforceOrg`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn salesforce_org(&self) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+    pub fn salesforce_org(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -756,11 +856,14 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.mongodb_cluster().is_none());
     /// ```
-    pub fn set_salesforce_org<T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>>(mut self, v: T) -> Self {
+    pub fn set_salesforce_org<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(
-                v.into()
-            )
+            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(v.into()),
         );
         self
     }
@@ -768,10 +871,14 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `MongodbCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mongodb_cluster(&self) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+    pub fn mongodb_cluster(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::MongodbCluster(v) => std::option::Option::Some(v),
+            crate::model::discover_connection_profile_response::DataObject::MongodbCluster(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -794,11 +901,16 @@ impl DiscoverConnectionProfileResponse {
     /// assert!(x.sql_server_rdbms().is_none());
     /// assert!(x.salesforce_org().is_none());
     /// ```
-    pub fn set_mongodb_cluster<T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>>(mut self, v: T) -> Self {
+    pub fn set_mongodb_cluster<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_object = std::option::Option::Some(
             crate::model::discover_connection_profile_response::DataObject::MongodbCluster(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -814,7 +926,6 @@ impl wkt::message::Message for DiscoverConnectionProfileResponse {
 pub mod discover_connection_profile_response {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The data object that has been enriched by the discover API call.
     #[derive(Clone, Debug, PartialEq)]
@@ -839,7 +950,6 @@ pub mod discover_connection_profile_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsRequest {
-
     /// Required. The resource name for the location for which static IPs should be
     /// returned. Must be in the format `projects/*/locations/*`.
     pub name: std::string::String,
@@ -906,7 +1016,6 @@ impl wkt::message::Message for FetchStaticIpsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsResponse {
-
     /// list of static ips by account
     pub static_ips: std::vec::Vec<std::string::String>,
 
@@ -932,7 +1041,7 @@ impl FetchStaticIpsResponse {
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.static_ips = v.into_iter().map(|i| i.into()).collect();
@@ -962,7 +1071,6 @@ impl wkt::message::Message for FetchStaticIpsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesRequest {
-
     /// Required. The parent that owns the collection of connection profiles.
     pub parent: std::string::String,
 
@@ -1063,7 +1171,6 @@ impl wkt::message::Message for ListConnectionProfilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesResponse {
-
     /// List of connection profiles.
     pub connection_profiles: std::vec::Vec<crate::model::ConnectionProfile>,
 
@@ -1097,7 +1204,7 @@ impl ListConnectionProfilesResponse {
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectionProfile>
+        V: std::convert::Into<crate::model::ConnectionProfile>,
     {
         use std::iter::Iterator;
         self.connection_profiles = v.into_iter().map(|i| i.into()).collect();
@@ -1126,7 +1233,7 @@ impl ListConnectionProfilesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1158,7 +1265,6 @@ impl gax::paginator::internal::PageableResponse for ListConnectionProfilesRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionProfileRequest {
-
     /// Required. The name of the connection profile resource to get.
     pub name: std::string::String,
 
@@ -1193,7 +1299,6 @@ impl wkt::message::Message for GetConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionProfileRequest {
-
     /// Required. The parent that owns the collection of ConnectionProfiles.
     pub parent: std::string::String,
 
@@ -1252,7 +1357,10 @@ impl CreateConnectionProfileRequest {
     /// # use google_cloud_datastream_v1::model::CreateConnectionProfileRequest;
     /// let x = CreateConnectionProfileRequest::new().set_connection_profile_id("example");
     /// ```
-    pub fn set_connection_profile_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_connection_profile_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connection_profile_id = v.into();
         self
     }
@@ -1266,7 +1374,8 @@ impl CreateConnectionProfileRequest {
     /// let x = CreateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
     /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConnectionProfile>
+    where
+        T: std::convert::Into<crate::model::ConnectionProfile>,
     {
         self.connection_profile = std::option::Option::Some(v.into());
         self
@@ -1282,7 +1391,8 @@ impl CreateConnectionProfileRequest {
     /// let x = CreateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
     /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConnectionProfile>
+    where
+        T: std::convert::Into<crate::model::ConnectionProfile>,
     {
         self.connection_profile = v.map(|x| x.into());
         self
@@ -1335,7 +1445,6 @@ impl wkt::message::Message for CreateConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionProfileRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// ConnectionProfile resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1385,7 +1494,8 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1401,7 +1511,8 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1416,7 +1527,8 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_connection_profile(ConnectionProfile::default()/* use setters */);
     /// ```
     pub fn set_connection_profile<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConnectionProfile>
+    where
+        T: std::convert::Into<crate::model::ConnectionProfile>,
     {
         self.connection_profile = std::option::Option::Some(v.into());
         self
@@ -1432,7 +1544,8 @@ impl UpdateConnectionProfileRequest {
     /// let x = UpdateConnectionProfileRequest::new().set_or_clear_connection_profile(None::<ConnectionProfile>);
     /// ```
     pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConnectionProfile>
+    where
+        T: std::convert::Into<crate::model::ConnectionProfile>,
     {
         self.connection_profile = v.map(|x| x.into());
         self
@@ -1485,7 +1598,6 @@ impl wkt::message::Message for UpdateConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionProfileRequest {
-
     /// Required. The name of the connection profile resource to delete.
     pub name: std::string::String,
 
@@ -1547,7 +1659,6 @@ impl wkt::message::Message for DeleteConnectionProfileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStreamsRequest {
-
     /// Required. The parent that owns the collection of streams.
     pub parent: std::string::String,
 
@@ -1648,7 +1759,6 @@ impl wkt::message::Message for ListStreamsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStreamsResponse {
-
     /// List of streams
     pub streams: std::vec::Vec<crate::model::Stream>,
 
@@ -1682,7 +1792,7 @@ impl ListStreamsResponse {
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Stream>
+        V: std::convert::Into<crate::model::Stream>,
     {
         use std::iter::Iterator;
         self.streams = v.into_iter().map(|i| i.into()).collect();
@@ -1711,7 +1821,7 @@ impl ListStreamsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1743,7 +1853,6 @@ impl gax::paginator::internal::PageableResponse for ListStreamsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStreamRequest {
-
     /// Required. The name of the stream resource to get.
     pub name: std::string::String,
 
@@ -1778,7 +1887,6 @@ impl wkt::message::Message for GetStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateStreamRequest {
-
     /// Required. The parent that owns the collection of streams.
     pub parent: std::string::String,
 
@@ -1851,7 +1959,8 @@ impl CreateStreamRequest {
     /// let x = CreateStreamRequest::new().set_stream(Stream::default()/* use setters */);
     /// ```
     pub fn set_stream<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Stream>
+    where
+        T: std::convert::Into<crate::model::Stream>,
     {
         self.stream = std::option::Option::Some(v.into());
         self
@@ -1867,7 +1976,8 @@ impl CreateStreamRequest {
     /// let x = CreateStreamRequest::new().set_or_clear_stream(None::<Stream>);
     /// ```
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Stream>
+    where
+        T: std::convert::Into<crate::model::Stream>,
     {
         self.stream = v.map(|x| x.into());
         self
@@ -1920,7 +2030,6 @@ impl wkt::message::Message for CreateStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateStreamRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// stream resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1970,7 +2079,8 @@ impl UpdateStreamRequest {
     /// let x = UpdateStreamRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1986,7 +2096,8 @@ impl UpdateStreamRequest {
     /// let x = UpdateStreamRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2001,7 +2112,8 @@ impl UpdateStreamRequest {
     /// let x = UpdateStreamRequest::new().set_stream(Stream::default()/* use setters */);
     /// ```
     pub fn set_stream<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Stream>
+    where
+        T: std::convert::Into<crate::model::Stream>,
     {
         self.stream = std::option::Option::Some(v.into());
         self
@@ -2017,7 +2129,8 @@ impl UpdateStreamRequest {
     /// let x = UpdateStreamRequest::new().set_or_clear_stream(None::<Stream>);
     /// ```
     pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Stream>
+    where
+        T: std::convert::Into<crate::model::Stream>,
     {
         self.stream = v.map(|x| x.into());
         self
@@ -2070,7 +2183,6 @@ impl wkt::message::Message for UpdateStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteStreamRequest {
-
     /// Required. The name of the stream resource to delete.
     pub name: std::string::String,
 
@@ -2132,7 +2244,6 @@ impl wkt::message::Message for DeleteStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunStreamRequest {
-
     /// Required. Name of the stream resource to start, in the format:
     /// projects/{project_id}/locations/{location}/streams/{stream_name}
     pub name: std::string::String,
@@ -2173,7 +2284,8 @@ impl RunStreamRequest {
     /// let x = RunStreamRequest::new().set_cdc_strategy(CdcStrategy::default()/* use setters */);
     /// ```
     pub fn set_cdc_strategy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CdcStrategy>
+    where
+        T: std::convert::Into<crate::model::CdcStrategy>,
     {
         self.cdc_strategy = std::option::Option::Some(v.into());
         self
@@ -2189,7 +2301,8 @@ impl RunStreamRequest {
     /// let x = RunStreamRequest::new().set_or_clear_cdc_strategy(None::<CdcStrategy>);
     /// ```
     pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CdcStrategy>
+    where
+        T: std::convert::Into<crate::model::CdcStrategy>,
     {
         self.cdc_strategy = v.map(|x| x.into());
         self
@@ -2218,7 +2331,6 @@ impl wkt::message::Message for RunStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStreamObjectRequest {
-
     /// Required. The name of the stream object resource to get.
     pub name: std::string::String,
 
@@ -2254,7 +2366,6 @@ impl wkt::message::Message for GetStreamObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupStreamObjectRequest {
-
     /// Required. The parent stream that owns the collection of objects.
     pub parent: std::string::String,
 
@@ -2290,7 +2401,8 @@ impl LookupStreamObjectRequest {
     /// let x = LookupStreamObjectRequest::new().set_source_object_identifier(SourceObjectIdentifier::default()/* use setters */);
     /// ```
     pub fn set_source_object_identifier<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SourceObjectIdentifier>
+    where
+        T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
         self.source_object_identifier = std::option::Option::Some(v.into());
         self
@@ -2306,7 +2418,8 @@ impl LookupStreamObjectRequest {
     /// let x = LookupStreamObjectRequest::new().set_or_clear_source_object_identifier(None::<SourceObjectIdentifier>);
     /// ```
     pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SourceObjectIdentifier>
+    where
+        T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
         self.source_object_identifier = v.map(|x| x.into());
         self
@@ -2323,7 +2436,6 @@ impl wkt::message::Message for LookupStreamObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartBackfillJobRequest {
-
     /// Required. The name of the stream object resource to start a backfill job
     /// for.
     pub object: std::string::String,
@@ -2359,7 +2471,6 @@ impl wkt::message::Message for StartBackfillJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartBackfillJobResponse {
-
     /// The stream object resource a backfill job was started for.
     pub object: std::option::Option<crate::model::StreamObject>,
 
@@ -2380,7 +2491,8 @@ impl StartBackfillJobResponse {
     /// let x = StartBackfillJobResponse::new().set_object(StreamObject::default()/* use setters */);
     /// ```
     pub fn set_object<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::StreamObject>
+    where
+        T: std::convert::Into<crate::model::StreamObject>,
     {
         self.object = std::option::Option::Some(v.into());
         self
@@ -2396,7 +2508,8 @@ impl StartBackfillJobResponse {
     /// let x = StartBackfillJobResponse::new().set_or_clear_object(None::<StreamObject>);
     /// ```
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::StreamObject>
+    where
+        T: std::convert::Into<crate::model::StreamObject>,
     {
         self.object = v.map(|x| x.into());
         self
@@ -2414,7 +2527,6 @@ impl wkt::message::Message for StartBackfillJobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopBackfillJobRequest {
-
     /// Required. The name of the stream object resource to stop the backfill job
     /// for.
     pub object: std::string::String,
@@ -2450,7 +2562,6 @@ impl wkt::message::Message for StopBackfillJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopBackfillJobResponse {
-
     /// The stream object resource the backfill job was stopped for.
     pub object: std::option::Option<crate::model::StreamObject>,
 
@@ -2471,7 +2582,8 @@ impl StopBackfillJobResponse {
     /// let x = StopBackfillJobResponse::new().set_object(StreamObject::default()/* use setters */);
     /// ```
     pub fn set_object<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::StreamObject>
+    where
+        T: std::convert::Into<crate::model::StreamObject>,
     {
         self.object = std::option::Option::Some(v.into());
         self
@@ -2487,7 +2599,8 @@ impl StopBackfillJobResponse {
     /// let x = StopBackfillJobResponse::new().set_or_clear_object(None::<StreamObject>);
     /// ```
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::StreamObject>
+    where
+        T: std::convert::Into<crate::model::StreamObject>,
     {
         self.object = v.map(|x| x.into());
         self
@@ -2504,7 +2617,6 @@ impl wkt::message::Message for StopBackfillJobResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStreamObjectsRequest {
-
     /// Required. The parent stream that owns the collection of objects.
     pub parent: std::string::String,
 
@@ -2575,7 +2687,6 @@ impl wkt::message::Message for ListStreamObjectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStreamObjectsResponse {
-
     /// List of stream objects.
     pub stream_objects: std::vec::Vec<crate::model::StreamObject>,
 
@@ -2605,7 +2716,7 @@ impl ListStreamObjectsResponse {
     pub fn set_stream_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StreamObject>
+        V: std::convert::Into<crate::model::StreamObject>,
     {
         use std::iter::Iterator;
         self.stream_objects = v.into_iter().map(|i| i.into()).collect();
@@ -2649,7 +2760,6 @@ impl gax::paginator::internal::PageableResponse for ListStreamObjectsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2699,7 +2809,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2715,7 +2826,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2730,7 +2842,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2746,7 +2859,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2821,7 +2935,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_validation_result(ValidationResult::default()/* use setters */);
     /// ```
     pub fn set_validation_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ValidationResult>
+    where
+        T: std::convert::Into<crate::model::ValidationResult>,
     {
         self.validation_result = std::option::Option::Some(v.into());
         self
@@ -2837,7 +2952,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_validation_result(None::<ValidationResult>);
     /// ```
     pub fn set_or_clear_validation_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ValidationResult>
+    where
+        T: std::convert::Into<crate::model::ValidationResult>,
     {
         self.validation_result = v.map(|x| x.into());
         self
@@ -2854,7 +2970,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateConnectionRequest {
-
     /// Required. The parent that owns the collection of PrivateConnections.
     pub parent: std::string::String,
 
@@ -2914,7 +3029,10 @@ impl CreatePrivateConnectionRequest {
     /// # use google_cloud_datastream_v1::model::CreatePrivateConnectionRequest;
     /// let x = CreatePrivateConnectionRequest::new().set_private_connection_id("example");
     /// ```
-    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.private_connection_id = v.into();
         self
     }
@@ -2928,7 +3046,8 @@ impl CreatePrivateConnectionRequest {
     /// let x = CreatePrivateConnectionRequest::new().set_private_connection(PrivateConnection::default()/* use setters */);
     /// ```
     pub fn set_private_connection<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PrivateConnection>
+    where
+        T: std::convert::Into<crate::model::PrivateConnection>,
     {
         self.private_connection = std::option::Option::Some(v.into());
         self
@@ -2944,7 +3063,8 @@ impl CreatePrivateConnectionRequest {
     /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(None::<PrivateConnection>);
     /// ```
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PrivateConnection>
+    where
+        T: std::convert::Into<crate::model::PrivateConnection>,
     {
         self.private_connection = v.map(|x| x.into());
         self
@@ -2997,7 +3117,6 @@ impl wkt::message::Message for CreatePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsRequest {
-
     /// Required. The parent that owns the collection of private connectivity
     /// configurations.
     pub parent: std::string::String,
@@ -3101,7 +3220,6 @@ impl wkt::message::Message for ListPrivateConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsResponse {
-
     /// List of private connectivity configurations.
     pub private_connections: std::vec::Vec<crate::model::PrivateConnection>,
 
@@ -3135,7 +3253,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrivateConnection>
+        V: std::convert::Into<crate::model::PrivateConnection>,
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
@@ -3164,7 +3282,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3196,7 +3314,6 @@ impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateConnectionRequest {
-
     /// Required. The name of the private connectivity configuration to delete.
     pub name: std::string::String,
 
@@ -3274,7 +3391,6 @@ impl wkt::message::Message for DeletePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateConnectionRequest {
-
     /// Required. The name of the  private connectivity configuration to get.
     pub name: std::string::String,
 
@@ -3309,7 +3425,6 @@ impl wkt::message::Message for GetPrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRouteRequest {
-
     /// Required. The parent that owns the collection of Routes.
     pub parent: std::string::String,
 
@@ -3375,7 +3490,8 @@ impl CreateRouteRequest {
     /// let x = CreateRouteRequest::new().set_route(Route::default()/* use setters */);
     /// ```
     pub fn set_route<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Route>
+    where
+        T: std::convert::Into<crate::model::Route>,
     {
         self.route = std::option::Option::Some(v.into());
         self
@@ -3391,7 +3507,8 @@ impl CreateRouteRequest {
     /// let x = CreateRouteRequest::new().set_or_clear_route(None::<Route>);
     /// ```
     pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Route>
+    where
+        T: std::convert::Into<crate::model::Route>,
     {
         self.route = v.map(|x| x.into());
         self
@@ -3420,7 +3537,6 @@ impl wkt::message::Message for CreateRouteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutesRequest {
-
     /// Required. The parent that owns the collection of Routess.
     pub parent: std::string::String,
 
@@ -3523,7 +3639,6 @@ impl wkt::message::Message for ListRoutesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutesResponse {
-
     /// List of Routes.
     pub routes: std::vec::Vec<crate::model::Route>,
 
@@ -3557,7 +3672,7 @@ impl ListRoutesResponse {
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Route>
+        V: std::convert::Into<crate::model::Route>,
     {
         use std::iter::Iterator;
         self.routes = v.into_iter().map(|i| i.into()).collect();
@@ -3586,7 +3701,7 @@ impl ListRoutesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3618,7 +3733,6 @@ impl gax::paginator::internal::PageableResponse for ListRoutesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRouteRequest {
-
     /// Required. The name of the Route resource to delete.
     pub name: std::string::String,
 
@@ -3680,7 +3794,6 @@ impl wkt::message::Message for DeleteRouteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRouteRequest {
-
     /// Required. The name of the Route resource to get.
     pub name: std::string::String,
 
@@ -3715,7 +3828,6 @@ impl wkt::message::Message for GetRouteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleProfile {
-
     /// Required. Hostname for the Oracle connection.
     pub hostname: std::string::String,
 
@@ -3733,7 +3845,7 @@ pub struct OracleProfile {
     pub database_service: std::string::String,
 
     /// Connection string attributes
-    pub connection_attributes: std::collections::HashMap<std::string::String,std::string::String>,
+    pub connection_attributes: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. SSL configuration for the Oracle connection.
     pub oracle_ssl_config: std::option::Option<crate::model::OracleSslConfig>,
@@ -3808,7 +3920,10 @@ impl OracleProfile {
     /// # use google_cloud_datastream_v1::model::OracleProfile;
     /// let x = OracleProfile::new().set_database_service("example");
     /// ```
-    pub fn set_database_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_database_service<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.database_service = v.into();
         self
     }
@@ -3843,7 +3958,8 @@ impl OracleProfile {
     /// let x = OracleProfile::new().set_oracle_ssl_config(OracleSslConfig::default()/* use setters */);
     /// ```
     pub fn set_oracle_ssl_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OracleSslConfig>
+    where
+        T: std::convert::Into<crate::model::OracleSslConfig>,
     {
         self.oracle_ssl_config = std::option::Option::Some(v.into());
         self
@@ -3859,7 +3975,8 @@ impl OracleProfile {
     /// let x = OracleProfile::new().set_or_clear_oracle_ssl_config(None::<OracleSslConfig>);
     /// ```
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OracleSslConfig>
+    where
+        T: std::convert::Into<crate::model::OracleSslConfig>,
     {
         self.oracle_ssl_config = v.map(|x| x.into());
         self
@@ -3874,7 +3991,8 @@ impl OracleProfile {
     /// let x = OracleProfile::new().set_oracle_asm_config(OracleAsmConfig::default()/* use setters */);
     /// ```
     pub fn set_oracle_asm_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OracleAsmConfig>
+    where
+        T: std::convert::Into<crate::model::OracleAsmConfig>,
     {
         self.oracle_asm_config = std::option::Option::Some(v.into());
         self
@@ -3890,7 +4008,8 @@ impl OracleProfile {
     /// let x = OracleProfile::new().set_or_clear_oracle_asm_config(None::<OracleAsmConfig>);
     /// ```
     pub fn set_or_clear_oracle_asm_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OracleAsmConfig>
+    where
+        T: std::convert::Into<crate::model::OracleAsmConfig>,
     {
         self.oracle_asm_config = v.map(|x| x.into());
         self
@@ -3903,7 +4022,10 @@ impl OracleProfile {
     /// # use google_cloud_datastream_v1::model::OracleProfile;
     /// let x = OracleProfile::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -3919,7 +4041,6 @@ impl wkt::message::Message for OracleProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleAsmConfig {
-
     /// Required. Hostname for the Oracle ASM connection.
     pub hostname: std::string::String,
 
@@ -3937,7 +4058,7 @@ pub struct OracleAsmConfig {
     pub asm_service: std::string::String,
 
     /// Optional. Connection string attributes
-    pub connection_attributes: std::collections::HashMap<std::string::String,std::string::String>,
+    pub connection_attributes: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. SSL configuration for the Oracle connection.
     pub oracle_ssl_config: std::option::Option<crate::model::OracleSslConfig>,
@@ -4044,7 +4165,8 @@ impl OracleAsmConfig {
     /// let x = OracleAsmConfig::new().set_oracle_ssl_config(OracleSslConfig::default()/* use setters */);
     /// ```
     pub fn set_oracle_ssl_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OracleSslConfig>
+    where
+        T: std::convert::Into<crate::model::OracleSslConfig>,
     {
         self.oracle_ssl_config = std::option::Option::Some(v.into());
         self
@@ -4060,7 +4182,8 @@ impl OracleAsmConfig {
     /// let x = OracleAsmConfig::new().set_or_clear_oracle_ssl_config(None::<OracleSslConfig>);
     /// ```
     pub fn set_or_clear_oracle_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OracleSslConfig>
+    where
+        T: std::convert::Into<crate::model::OracleSslConfig>,
     {
         self.oracle_ssl_config = v.map(|x| x.into());
         self
@@ -4073,7 +4196,10 @@ impl OracleAsmConfig {
     /// # use google_cloud_datastream_v1::model::OracleAsmConfig;
     /// let x = OracleAsmConfig::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -4089,7 +4215,6 @@ impl wkt::message::Message for OracleAsmConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlProfile {
-
     /// Required. Hostname for the MySQL connection.
     pub hostname: std::string::String,
 
@@ -4175,7 +4300,8 @@ impl MysqlProfile {
     /// let x = MysqlProfile::new().set_ssl_config(MysqlSslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MysqlSslConfig>
+    where
+        T: std::convert::Into<crate::model::MysqlSslConfig>,
     {
         self.ssl_config = std::option::Option::Some(v.into());
         self
@@ -4191,7 +4317,8 @@ impl MysqlProfile {
     /// let x = MysqlProfile::new().set_or_clear_ssl_config(None::<MysqlSslConfig>);
     /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MysqlSslConfig>
+    where
+        T: std::convert::Into<crate::model::MysqlSslConfig>,
     {
         self.ssl_config = v.map(|x| x.into());
         self
@@ -4204,7 +4331,10 @@ impl MysqlProfile {
     /// # use google_cloud_datastream_v1::model::MysqlProfile;
     /// let x = MysqlProfile::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -4220,7 +4350,6 @@ impl wkt::message::Message for MysqlProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlProfile {
-
     /// Required. Hostname for the PostgreSQL connection.
     pub hostname: std::string::String,
 
@@ -4323,7 +4452,10 @@ impl PostgresqlProfile {
     /// # use google_cloud_datastream_v1::model::PostgresqlProfile;
     /// let x = PostgresqlProfile::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -4337,7 +4469,8 @@ impl PostgresqlProfile {
     /// let x = PostgresqlProfile::new().set_ssl_config(PostgresqlSslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlSslConfig>
+    where
+        T: std::convert::Into<crate::model::PostgresqlSslConfig>,
     {
         self.ssl_config = std::option::Option::Some(v.into());
         self
@@ -4353,7 +4486,8 @@ impl PostgresqlProfile {
     /// let x = PostgresqlProfile::new().set_or_clear_ssl_config(None::<PostgresqlSslConfig>);
     /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlSslConfig>
+    where
+        T: std::convert::Into<crate::model::PostgresqlSslConfig>,
     {
         self.ssl_config = v.map(|x| x.into());
         self
@@ -4370,7 +4504,6 @@ impl wkt::message::Message for PostgresqlProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerProfile {
-
     /// Required. Hostname for the SQLServer connection.
     pub hostname: std::string::String,
 
@@ -4467,7 +4600,10 @@ impl SqlServerProfile {
     /// # use google_cloud_datastream_v1::model::SqlServerProfile;
     /// let x = SqlServerProfile::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -4483,7 +4619,6 @@ impl wkt::message::Message for SqlServerProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceProfile {
-
     /// Required. Domain endpoint for the Salesforce connection.
     pub domain: std::string::String,
 
@@ -4522,8 +4657,12 @@ impl SalesforceProfile {
     /// let x = SalesforceProfile::new().set_credentials(Some(
     ///     google_cloud_datastream_v1::model::salesforce_profile::Credentials::UserCredentials(UserCredentials::default().into())));
     /// ```
-    pub fn set_credentials<T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>>(mut self, v: T) -> Self
-    {
+    pub fn set_credentials<
+        T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.credentials = v.into();
         self
     }
@@ -4531,10 +4670,15 @@ impl SalesforceProfile {
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `UserCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_credentials(&self) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::UserCredentials>> {
+    pub fn user_credentials(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>
+    {
         #[allow(unreachable_patterns)]
         self.credentials.as_ref().and_then(|v| match v {
-            crate::model::salesforce_profile::Credentials::UserCredentials(v) => std::option::Option::Some(v),
+            crate::model::salesforce_profile::Credentials::UserCredentials(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -4553,11 +4697,14 @@ impl SalesforceProfile {
     /// assert!(x.user_credentials().is_some());
     /// assert!(x.oauth2_client_credentials().is_none());
     /// ```
-    pub fn set_user_credentials<T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>>(mut self, v: T) -> Self {
+    pub fn set_user_credentials<
+        T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.credentials = std::option::Option::Some(
-            crate::model::salesforce_profile::Credentials::UserCredentials(
-                v.into()
-            )
+            crate::model::salesforce_profile::Credentials::UserCredentials(v.into()),
         );
         self
     }
@@ -4565,10 +4712,16 @@ impl SalesforceProfile {
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oauth2_client_credentials(&self) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>> {
+    pub fn oauth2_client_credentials(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+    > {
         #[allow(unreachable_patterns)]
         self.credentials.as_ref().and_then(|v| match v {
-            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => std::option::Option::Some(v),
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -4587,11 +4740,16 @@ impl SalesforceProfile {
     /// assert!(x.oauth2_client_credentials().is_some());
     /// assert!(x.user_credentials().is_none());
     /// ```
-    pub fn set_oauth2_client_credentials<T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>>>(mut self, v: T) -> Self {
+    pub fn set_oauth2_client_credentials<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.credentials = std::option::Option::Some(
-            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(
-                v.into()
-            )
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v.into()),
         );
         self
     }
@@ -4608,12 +4766,10 @@ pub mod salesforce_profile {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Username-password credentials.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserCredentials {
-
         /// Required. Username for the Salesforce connection.
         pub username: std::string::String,
 
@@ -4674,7 +4830,10 @@ pub mod salesforce_profile {
         /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
         /// let x = UserCredentials::new().set_security_token("example");
         /// ```
-        pub fn set_security_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_security_token<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.security_token = v.into();
             self
         }
@@ -4686,7 +4845,10 @@ pub mod salesforce_profile {
         /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
         /// let x = UserCredentials::new().set_secret_manager_stored_password("example");
         /// ```
-        pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.secret_manager_stored_password = v.into();
             self
         }
@@ -4698,7 +4860,12 @@ pub mod salesforce_profile {
         /// # use google_cloud_datastream_v1::model::salesforce_profile::UserCredentials;
         /// let x = UserCredentials::new().set_secret_manager_stored_security_token("example");
         /// ```
-        pub fn set_secret_manager_stored_security_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_secret_manager_stored_security_token<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.secret_manager_stored_security_token = v.into();
             self
         }
@@ -4714,7 +4881,6 @@ pub mod salesforce_profile {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Oauth2ClientCredentials {
-
         /// Required. Client ID for Salesforce OAuth2 Client Credentials.
         pub client_id: std::string::String,
 
@@ -4754,7 +4920,10 @@ pub mod salesforce_profile {
         /// # use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
         /// let x = Oauth2ClientCredentials::new().set_client_secret("example");
         /// ```
-        pub fn set_client_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.client_secret = v.into();
             self
         }
@@ -4766,7 +4935,12 @@ pub mod salesforce_profile {
         /// # use google_cloud_datastream_v1::model::salesforce_profile::Oauth2ClientCredentials;
         /// let x = Oauth2ClientCredentials::new().set_secret_manager_stored_client_secret("example");
         /// ```
-        pub fn set_secret_manager_stored_client_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_secret_manager_stored_client_secret<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.secret_manager_stored_client_secret = v.into();
             self
         }
@@ -4785,7 +4959,9 @@ pub mod salesforce_profile {
         /// User-password authentication.
         UserCredentials(std::boxed::Box<crate::model::salesforce_profile::UserCredentials>),
         /// Connected app authentication.
-        Oauth2ClientCredentials(std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>),
+        Oauth2ClientCredentials(
+            std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+        ),
     }
 }
 
@@ -4793,7 +4969,6 @@ pub mod salesforce_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbProfile {
-
     /// Required. List of host addresses for a MongoDB cluster.
     /// For SRV connection format, this list must contain exactly one DNS host
     /// without a port. For Standard connection format, this list must contain all
@@ -4822,7 +4997,8 @@ pub struct MongodbProfile {
 
     /// MongoDB connection format.
     /// Must specify either srv_connection_format or standard_connection_format.
-    pub mongodb_connection_format: std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
+    pub mongodb_connection_format:
+        std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4847,7 +5023,7 @@ impl MongodbProfile {
     pub fn set_host_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HostAddress>
+        V: std::convert::Into<crate::model::HostAddress>,
     {
         use std::iter::Iterator;
         self.host_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -4897,7 +5073,10 @@ impl MongodbProfile {
     /// # use google_cloud_datastream_v1::model::MongodbProfile;
     /// let x = MongodbProfile::new().set_secret_manager_stored_password("example");
     /// ```
-    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_password = v.into();
         self
     }
@@ -4911,7 +5090,8 @@ impl MongodbProfile {
     /// let x = MongodbProfile::new().set_ssl_config(MongodbSslConfig::default()/* use setters */);
     /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MongodbSslConfig>
+    where
+        T: std::convert::Into<crate::model::MongodbSslConfig>,
     {
         self.ssl_config = std::option::Option::Some(v.into());
         self
@@ -4927,7 +5107,8 @@ impl MongodbProfile {
     /// let x = MongodbProfile::new().set_or_clear_ssl_config(None::<MongodbSslConfig>);
     /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MongodbSslConfig>
+    where
+        T: std::convert::Into<crate::model::MongodbSslConfig>,
     {
         self.ssl_config = v.map(|x| x.into());
         self
@@ -4945,8 +5126,14 @@ impl MongodbProfile {
     /// let x = MongodbProfile::new().set_mongodb_connection_format(Some(
     ///     google_cloud_datastream_v1::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(SrvConnectionFormat::default().into())));
     /// ```
-    pub fn set_mongodb_connection_format<T: std::convert::Into<std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>>>(mut self, v: T) -> Self
-    {
+    pub fn set_mongodb_connection_format<
+        T: std::convert::Into<
+                std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mongodb_connection_format = v.into();
         self
     }
@@ -4954,12 +5141,18 @@ impl MongodbProfile {
     /// The value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
     /// if it holds a `SrvConnectionFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn srv_connection_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::SrvConnectionFormat>> {
+    pub fn srv_connection_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SrvConnectionFormat>> {
         #[allow(unreachable_patterns)]
-        self.mongodb_connection_format.as_ref().and_then(|v| match v {
-            crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
+        self.mongodb_connection_format
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
     }
 
     /// Sets the value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
@@ -4976,11 +5169,14 @@ impl MongodbProfile {
     /// assert!(x.srv_connection_format().is_some());
     /// assert!(x.standard_connection_format().is_none());
     /// ```
-    pub fn set_srv_connection_format<T: std::convert::Into<std::boxed::Box<crate::model::SrvConnectionFormat>>>(mut self, v: T) -> Self {
+    pub fn set_srv_connection_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::SrvConnectionFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mongodb_connection_format = std::option::Option::Some(
-            crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(
-                v.into()
-            )
+            crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(v.into()),
         );
         self
     }
@@ -4988,7 +5184,9 @@ impl MongodbProfile {
     /// The value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
     /// if it holds a `StandardConnectionFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn standard_connection_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::StandardConnectionFormat>> {
+    pub fn standard_connection_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardConnectionFormat>> {
         #[allow(unreachable_patterns)]
         self.mongodb_connection_format.as_ref().and_then(|v| match v {
             crate::model::mongodb_profile::MongodbConnectionFormat::StandardConnectionFormat(v) => std::option::Option::Some(v),
@@ -5010,11 +5208,16 @@ impl MongodbProfile {
     /// assert!(x.standard_connection_format().is_some());
     /// assert!(x.srv_connection_format().is_none());
     /// ```
-    pub fn set_standard_connection_format<T: std::convert::Into<std::boxed::Box<crate::model::StandardConnectionFormat>>>(mut self, v: T) -> Self {
+    pub fn set_standard_connection_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::StandardConnectionFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mongodb_connection_format = std::option::Option::Some(
             crate::model::mongodb_profile::MongodbConnectionFormat::StandardConnectionFormat(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -5030,7 +5233,6 @@ impl wkt::message::Message for MongodbProfile {
 pub mod mongodb_profile {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// MongoDB connection format.
     /// Must specify either srv_connection_format or standard_connection_format.
@@ -5049,7 +5251,6 @@ pub mod mongodb_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HostAddress {
-
     /// Required. Hostname for the connection.
     pub hostname: std::string::String,
 
@@ -5099,7 +5300,6 @@ impl wkt::message::Message for HostAddress {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SrvConnectionFormat {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5119,7 +5319,6 @@ impl wkt::message::Message for SrvConnectionFormat {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StandardConnectionFormat {
-
     /// Optional. Specifies whether the client connects directly to the host[:port]
     /// in the connection URI.
     pub direct_connection: bool,
@@ -5155,7 +5354,6 @@ impl wkt::message::Message for StandardConnectionFormat {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsProfile {
-
     /// Required. The Cloud Storage bucket name.
     pub bucket: std::string::String,
 
@@ -5205,7 +5403,6 @@ impl wkt::message::Message for GcsProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryProfile {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5227,7 +5424,6 @@ impl wkt::message::Message for BigQueryProfile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticServiceIpConnectivity {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5247,7 +5443,6 @@ impl wkt::message::Message for StaticServiceIpConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForwardSshTunnelConnectivity {
-
     /// Required. Hostname for the SSH tunnel.
     pub hostname: std::string::String,
 
@@ -5257,7 +5452,8 @@ pub struct ForwardSshTunnelConnectivity {
     /// Port for the SSH tunnel, default value is 22.
     pub port: i32,
 
-    pub authentication_method: std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
+    pub authentication_method:
+        std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5314,8 +5510,16 @@ impl ForwardSshTunnelConnectivity {
     /// use google_cloud_datastream_v1::model::forward_ssh_tunnel_connectivity::AuthenticationMethod;
     /// let x = ForwardSshTunnelConnectivity::new().set_authentication_method(Some(AuthenticationMethod::Password("example".to_string())));
     /// ```
-    pub fn set_authentication_method<T: std::convert::Into<std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>>>(mut self, v: T) -> Self
-    {
+    pub fn set_authentication_method<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.authentication_method = v.into();
         self
     }
@@ -5326,7 +5530,9 @@ impl ForwardSshTunnelConnectivity {
     pub fn password(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => std::option::Option::Some(v),
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5346,9 +5552,7 @@ impl ForwardSshTunnelConnectivity {
     /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(
-                v.into()
-            )
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
         );
         self
     }
@@ -5359,7 +5563,9 @@ impl ForwardSshTunnelConnectivity {
     pub fn private_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => std::option::Option::Some(v),
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5380,8 +5586,8 @@ impl ForwardSshTunnelConnectivity {
     pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -5398,7 +5604,6 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
-
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthenticationMethod {
@@ -5414,7 +5619,6 @@ pub mod forward_ssh_tunnel_connectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcPeeringConfig {
-
     /// Required. Fully qualified name of the VPC that Datastream will peer to.
     /// Format: `projects/{project}/global/{networks}/{name}`
     pub vpc: std::string::String,
@@ -5466,7 +5670,6 @@ impl wkt::message::Message for VpcPeeringConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PscInterfaceConfig {
-
     /// Required. Fully qualified name of the Network Attachment that Datastream
     /// will connect to. Format:
     /// `projects/{project}/regions/{region}/networkAttachments/{name}`
@@ -5487,7 +5690,10 @@ impl PscInterfaceConfig {
     /// # use google_cloud_datastream_v1::model::PscInterfaceConfig;
     /// let x = PscInterfaceConfig::new().set_network_attachment("example");
     /// ```
-    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.network_attachment = v.into();
         self
     }
@@ -5504,7 +5710,6 @@ impl wkt::message::Message for PscInterfaceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnection {
-
     /// Output only. Identifier. The resource's name.
     pub name: std::string::String,
 
@@ -5515,7 +5720,7 @@ pub struct PrivateConnection {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Display name.
     pub display_name: std::string::String,
@@ -5568,7 +5773,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5584,7 +5790,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5599,7 +5806,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5615,7 +5823,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5664,7 +5873,10 @@ impl PrivateConnection {
     /// let x1 = PrivateConnection::new().set_state(State::Created);
     /// let x2 = PrivateConnection::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -5678,7 +5890,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_error(Error::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Error>
+    where
+        T: std::convert::Into<crate::model::Error>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -5694,7 +5907,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_error(None::<Error>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Error>
+    where
+        T: std::convert::Into<crate::model::Error>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -5708,7 +5922,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_satisfies_pzs(true);
     /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -5723,7 +5938,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_satisfies_pzs(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -5737,7 +5953,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_satisfies_pzi(true);
     /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = std::option::Option::Some(v.into());
         self
@@ -5752,7 +5969,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_satisfies_pzi(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = v.map(|x| x.into());
         self
@@ -5767,7 +5985,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_vpc_peering_config(VpcPeeringConfig::default()/* use setters */);
     /// ```
     pub fn set_vpc_peering_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::VpcPeeringConfig>
+    where
+        T: std::convert::Into<crate::model::VpcPeeringConfig>,
     {
         self.vpc_peering_config = std::option::Option::Some(v.into());
         self
@@ -5783,7 +6002,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_vpc_peering_config(None::<VpcPeeringConfig>);
     /// ```
     pub fn set_or_clear_vpc_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::VpcPeeringConfig>
+    where
+        T: std::convert::Into<crate::model::VpcPeeringConfig>,
     {
         self.vpc_peering_config = v.map(|x| x.into());
         self
@@ -5798,7 +6018,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_psc_interface_config(PscInterfaceConfig::default()/* use setters */);
     /// ```
     pub fn set_psc_interface_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PscInterfaceConfig>
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
     {
         self.psc_interface_config = std::option::Option::Some(v.into());
         self
@@ -5814,7 +6035,8 @@ impl PrivateConnection {
     /// let x = PrivateConnection::new().set_or_clear_psc_interface_config(None::<PscInterfaceConfig>);
     /// ```
     pub fn set_or_clear_psc_interface_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PscInterfaceConfig>
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
     {
         self.psc_interface_config = v.map(|x| x.into());
         self
@@ -5831,7 +6053,6 @@ impl wkt::message::Message for PrivateConnection {
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Private Connection state.
     ///
@@ -5934,7 +6155,9 @@ pub mod private_connection {
                 3 => Self::Failed,
                 4 => Self::Deleting,
                 5 => Self::FailedToDelete,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5949,7 +6172,9 @@ pub mod private_connection {
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
                 "FAILED_TO_DELETE" => Self::FailedToDelete,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5977,7 +6202,8 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datastream.v1.PrivateConnection.State"))
+                ".google.cloud.datastream.v1.PrivateConnection.State",
+            ))
         }
     }
 }
@@ -5986,7 +6212,6 @@ pub mod private_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnectivity {
-
     /// Required. A reference to a private connection resource.
     /// Format: `projects/{project}/locations/{location}/privateConnections/{name}`
     pub private_connection: std::string::String,
@@ -6006,7 +6231,10 @@ impl PrivateConnectivity {
     /// # use google_cloud_datastream_v1::model::PrivateConnectivity;
     /// let x = PrivateConnectivity::new().set_private_connection("example");
     /// ```
-    pub fn set_private_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_private_connection<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.private_connection = v.into();
         self
     }
@@ -6023,7 +6251,6 @@ impl wkt::message::Message for PrivateConnectivity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Route {
-
     /// Output only. Identifier. The resource's name.
     pub name: std::string::String,
 
@@ -6034,7 +6261,7 @@ pub struct Route {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Display name.
     pub display_name: std::string::String,
@@ -6074,7 +6301,8 @@ impl Route {
     /// let x = Route::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6090,7 +6318,8 @@ impl Route {
     /// let x = Route::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6105,7 +6334,8 @@ impl Route {
     /// let x = Route::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6121,7 +6351,8 @@ impl Route {
     /// let x = Route::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6167,7 +6398,10 @@ impl Route {
     /// # use google_cloud_datastream_v1::model::Route;
     /// let x = Route::new().set_destination_address("example");
     /// ```
-    pub fn set_destination_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_destination_address<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_address = v.into();
         self
     }
@@ -6195,7 +6429,6 @@ impl wkt::message::Message for Route {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbSslConfig {
-
     /// Optional. Input only. PEM-encoded private key associated with the Client
     /// Certificate. If this field is used then the 'client_certificate' and the
     /// 'ca_certificate' fields are mandatory.
@@ -6265,7 +6498,10 @@ impl MongodbSslConfig {
     /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
     /// let x = MongodbSslConfig::new().set_client_certificate("example");
     /// ```
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -6313,7 +6549,10 @@ impl MongodbSslConfig {
     /// # use google_cloud_datastream_v1::model::MongodbSslConfig;
     /// let x = MongodbSslConfig::new().set_secret_manager_stored_client_key("example");
     /// ```
-    pub fn set_secret_manager_stored_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_secret_manager_stored_client_key<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret_manager_stored_client_key = v.into();
         self
     }
@@ -6329,7 +6568,6 @@ impl wkt::message::Message for MongodbSslConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlSslConfig {
-
     /// Optional. Input only. PEM-encoded private key associated with the Client
     /// Certificate. If this field is used then the 'client_certificate' and the
     /// 'ca_certificate' fields are mandatory.
@@ -6393,7 +6631,10 @@ impl MysqlSslConfig {
     /// # use google_cloud_datastream_v1::model::MysqlSslConfig;
     /// let x = MysqlSslConfig::new().set_client_certificate("example");
     /// ```
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -6445,7 +6686,6 @@ impl wkt::message::Message for MysqlSslConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleSslConfig {
-
     /// Input only. PEM-encoded certificate of the CA that signed the source
     /// database server's certificate.
     pub ca_certificate: std::string::String,
@@ -6500,7 +6740,10 @@ impl OracleSslConfig {
     /// # use google_cloud_datastream_v1::model::OracleSslConfig;
     /// let x = OracleSslConfig::new().set_server_certificate_distinguished_name("example");
     /// ```
-    pub fn set_server_certificate_distinguished_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_server_certificate_distinguished_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.server_certificate_distinguished_name = v.into();
         self
     }
@@ -6516,12 +6759,12 @@ impl wkt::message::Message for OracleSslConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlSslConfig {
-
     /// The encryption settings available for PostgreSQL connection profiles.
     /// This captures various SSL mode supported by PostgreSQL, which includes
     /// TLS encryption with server verification, TLS encryption with both server
     /// and client verification and no TLS encryption.
-    pub encryption_setting: std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
+    pub encryption_setting:
+        std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6543,8 +6786,14 @@ impl PostgresqlSslConfig {
     /// let x = PostgresqlSslConfig::new().set_encryption_setting(Some(
     ///     google_cloud_datastream_v1::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(ServerVerification::default().into())));
     /// ```
-    pub fn set_encryption_setting<T: std::convert::Into<std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>>>(mut self, v: T) -> Self
-    {
+    pub fn set_encryption_setting<
+        T: std::convert::Into<
+                std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.encryption_setting = v.into();
         self
     }
@@ -6552,10 +6801,16 @@ impl PostgresqlSslConfig {
     /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// if it holds a `ServerVerification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn server_verification(&self) -> std::option::Option<&std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>> {
+    pub fn server_verification(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
+    > {
         #[allow(unreachable_patterns)]
         self.encryption_setting.as_ref().and_then(|v| match v {
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v) => std::option::Option::Some(v),
+            crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6574,11 +6829,16 @@ impl PostgresqlSslConfig {
     /// assert!(x.server_verification().is_some());
     /// assert!(x.server_and_client_verification().is_none());
     /// ```
-    pub fn set_server_verification<T: std::convert::Into<std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>>>(mut self, v: T) -> Self {
+    pub fn set_server_verification<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.encryption_setting = std::option::Option::Some(
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(
-                v.into()
-            )
+            crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v.into()),
         );
         self
     }
@@ -6586,10 +6846,16 @@ impl PostgresqlSslConfig {
     /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn server_and_client_verification(&self) -> std::option::Option<&std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>> {
+    pub fn server_and_client_verification(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+    > {
         #[allow(unreachable_patterns)]
         self.encryption_setting.as_ref().and_then(|v| match v {
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(v) => std::option::Option::Some(v),
+            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6608,11 +6874,18 @@ impl PostgresqlSslConfig {
     /// assert!(x.server_and_client_verification().is_some());
     /// assert!(x.server_verification().is_none());
     /// ```
-    pub fn set_server_and_client_verification<T: std::convert::Into<std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>>>(mut self, v: T) -> Self {
+    pub fn set_server_and_client_verification<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.encryption_setting = std::option::Option::Some(
             crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -6629,14 +6902,12 @@ pub mod postgresql_ssl_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Message represents the option where Datastream will enforce the encryption
     /// and authenticate the server identity. ca_certificate must be set if user
     /// selects this option.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServerVerification {
-
         /// Required. Input only. PEM-encoded server root CA certificate.
         pub ca_certificate: std::string::String,
 
@@ -6660,7 +6931,10 @@ pub mod postgresql_ssl_config {
         /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
         /// let x = ServerVerification::new().set_ca_certificate("example");
         /// ```
-        pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ca_certificate = v.into();
             self
         }
@@ -6672,7 +6946,10 @@ pub mod postgresql_ssl_config {
         /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerVerification;
         /// let x = ServerVerification::new().set_server_certificate_hostname("example");
         /// ```
-        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.server_certificate_hostname = v.into();
             self
         }
@@ -6691,7 +6968,6 @@ pub mod postgresql_ssl_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServerAndClientVerification {
-
         /// Required. Input only. PEM-encoded certificate used by the source database
         /// to authenticate the client identity (i.e., the Datastream's identity).
         /// This certificate is signed by either a root certificate trusted by the
@@ -6729,7 +7005,10 @@ pub mod postgresql_ssl_config {
         /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
         /// let x = ServerAndClientVerification::new().set_client_certificate("example");
         /// ```
-        pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.client_certificate = v.into();
             self
         }
@@ -6753,7 +7032,10 @@ pub mod postgresql_ssl_config {
         /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
         /// let x = ServerAndClientVerification::new().set_ca_certificate("example");
         /// ```
-        pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ca_certificate = v.into();
             self
         }
@@ -6765,7 +7047,10 @@ pub mod postgresql_ssl_config {
         /// # use google_cloud_datastream_v1::model::postgresql_ssl_config::ServerAndClientVerification;
         /// let x = ServerAndClientVerification::new().set_server_certificate_hostname("example");
         /// ```
-        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.server_certificate_hostname = v.into();
             self
         }
@@ -6786,11 +7071,15 @@ pub mod postgresql_ssl_config {
     pub enum EncryptionSetting {
         ///  If this field is set, the communication will be encrypted with TLS
         /// encryption and the server identity will be authenticated.
-        ServerVerification(std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>),
+        ServerVerification(
+            std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
+        ),
         /// If this field is set, the communication will be encrypted with TLS
         /// encryption and both the server identity and the client identity will be
         /// authenticated.
-        ServerAndClientVerification(std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>),
+        ServerAndClientVerification(
+            std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+        ),
     }
 }
 
@@ -6799,7 +7088,6 @@ pub mod postgresql_ssl_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionProfile {
-
     /// Output only. Identifier. The resource's name.
     pub name: std::string::String,
 
@@ -6810,7 +7098,7 @@ pub struct ConnectionProfile {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Display name.
     pub display_name: std::string::String,
@@ -6856,7 +7144,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6872,7 +7161,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6887,7 +7177,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6903,7 +7194,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6950,7 +7242,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_satisfies_pzs(true);
     /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -6965,7 +7258,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzs(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -6979,7 +7273,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_satisfies_pzi(true);
     /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = std::option::Option::Some(v.into());
         self
@@ -6994,7 +7289,8 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_or_clear_satisfies_pzi(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = v.map(|x| x.into());
         self
@@ -7012,8 +7308,12 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_profile(Some(
     ///     google_cloud_datastream_v1::model::connection_profile::Profile::OracleProfile(OracleProfile::default().into())));
     /// ```
-    pub fn set_profile<T: std::convert::Into<std::option::Option<crate::model::connection_profile::Profile>>>(mut self, v: T) -> Self
-    {
+    pub fn set_profile<
+        T: std::convert::Into<std::option::Option<crate::model::connection_profile::Profile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = v.into();
         self
     }
@@ -7021,10 +7321,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `OracleProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oracle_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleProfile>> {
+    pub fn oracle_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::OracleProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::OracleProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7049,11 +7353,14 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_oracle_profile<T: std::convert::Into<std::boxed::Box<crate::model::OracleProfile>>>(mut self, v: T) -> Self {
+    pub fn set_oracle_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::OracleProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::OracleProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::OracleProfile(v.into()),
         );
         self
     }
@@ -7064,7 +7371,9 @@ impl ConnectionProfile {
     pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::GcsProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::GcsProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7089,11 +7398,12 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_gcs_profile<T: std::convert::Into<std::boxed::Box<crate::model::GcsProfile>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_profile<T: std::convert::Into<std::boxed::Box<crate::model::GcsProfile>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::GcsProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::GcsProfile(v.into()),
         );
         self
     }
@@ -7101,10 +7411,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `MysqlProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
+    pub fn mysql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::MysqlProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::MysqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7129,11 +7443,12 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_mysql_profile<T: std::convert::Into<std::boxed::Box<crate::model::MysqlProfile>>>(mut self, v: T) -> Self {
+    pub fn set_mysql_profile<T: std::convert::Into<std::boxed::Box<crate::model::MysqlProfile>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::MysqlProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::MysqlProfile(v.into()),
         );
         self
     }
@@ -7141,10 +7456,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `BigqueryProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
+    pub fn bigquery_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::BigqueryProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::BigqueryProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7169,11 +7488,14 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_bigquery_profile<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryProfile>>>(mut self, v: T) -> Self {
+    pub fn set_bigquery_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::BigqueryProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::BigqueryProfile(v.into()),
         );
         self
     }
@@ -7181,10 +7503,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
+    pub fn postgresql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::PostgresqlProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::PostgresqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7209,11 +7535,14 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_postgresql_profile<T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlProfile>>>(mut self, v: T) -> Self {
+    pub fn set_postgresql_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::PostgresqlProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::PostgresqlProfile(v.into()),
         );
         self
     }
@@ -7221,10 +7550,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SqlServerProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sql_server_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
+    pub fn sql_server_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SqlServerProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::SqlServerProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7249,11 +7582,14 @@ impl ConnectionProfile {
     /// assert!(x.salesforce_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_sql_server_profile<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerProfile>>>(mut self, v: T) -> Self {
+    pub fn set_sql_server_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::SqlServerProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::SqlServerProfile(v.into()),
         );
         self
     }
@@ -7261,10 +7597,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SalesforceProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn salesforce_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
+    pub fn salesforce_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SalesforceProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7289,11 +7629,14 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.mongodb_profile().is_none());
     /// ```
-    pub fn set_salesforce_profile<T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>>(mut self, v: T) -> Self {
+    pub fn set_salesforce_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::SalesforceProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::SalesforceProfile(v.into()),
         );
         self
     }
@@ -7301,10 +7644,14 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `MongodbProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mongodb_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::MongodbProfile>> {
+    pub fn mongodb_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::MongodbProfile(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Profile::MongodbProfile(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7329,11 +7676,14 @@ impl ConnectionProfile {
     /// assert!(x.sql_server_profile().is_none());
     /// assert!(x.salesforce_profile().is_none());
     /// ```
-    pub fn set_mongodb_profile<T: std::convert::Into<std::boxed::Box<crate::model::MongodbProfile>>>(mut self, v: T) -> Self {
+    pub fn set_mongodb_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::MongodbProfile(
-                v.into()
-            )
+            crate::model::connection_profile::Profile::MongodbProfile(v.into()),
         );
         self
     }
@@ -7350,8 +7700,12 @@ impl ConnectionProfile {
     /// let x = ConnectionProfile::new().set_connectivity(Some(
     ///     google_cloud_datastream_v1::model::connection_profile::Connectivity::StaticServiceIpConnectivity(StaticServiceIpConnectivity::default().into())));
     /// ```
-    pub fn set_connectivity<T: std::convert::Into<std::option::Option<crate::model::connection_profile::Connectivity>>>(mut self, v: T) -> Self
-    {
+    pub fn set_connectivity<
+        T: std::convert::Into<std::option::Option<crate::model::connection_profile::Connectivity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connectivity = v.into();
         self
     }
@@ -7359,10 +7713,14 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `StaticServiceIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn static_service_ip_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
+    pub fn static_service_ip_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::StaticServiceIpConnectivity(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Connectivity::StaticServiceIpConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7382,11 +7740,14 @@ impl ConnectionProfile {
     /// assert!(x.forward_ssh_connectivity().is_none());
     /// assert!(x.private_connectivity().is_none());
     /// ```
-    pub fn set_static_service_ip_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>>(mut self, v: T) -> Self {
+    pub fn set_static_service_ip_connectivity<
+        T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::StaticServiceIpConnectivity(
-                v.into()
-            )
+            crate::model::connection_profile::Connectivity::StaticServiceIpConnectivity(v.into()),
         );
         self
     }
@@ -7394,10 +7755,14 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn forward_ssh_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
+    pub fn forward_ssh_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7417,11 +7782,14 @@ impl ConnectionProfile {
     /// assert!(x.static_service_ip_connectivity().is_none());
     /// assert!(x.private_connectivity().is_none());
     /// ```
-    pub fn set_forward_ssh_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>>(mut self, v: T) -> Self {
+    pub fn set_forward_ssh_connectivity<
+        T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(
-                v.into()
-            )
+            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
         );
         self
     }
@@ -7429,10 +7797,14 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn private_connectivity(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
+    pub fn private_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
         #[allow(unreachable_patterns)]
         self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => std::option::Option::Some(v),
+            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7452,11 +7824,14 @@ impl ConnectionProfile {
     /// assert!(x.static_service_ip_connectivity().is_none());
     /// assert!(x.forward_ssh_connectivity().is_none());
     /// ```
-    pub fn set_private_connectivity<T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>>(mut self, v: T) -> Self {
+    pub fn set_private_connectivity<
+        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::PrivateConnectivity(
-                v.into()
-            )
+            crate::model::connection_profile::Connectivity::PrivateConnectivity(v.into()),
         );
         self
     }
@@ -7472,7 +7847,6 @@ impl wkt::message::Message for ConnectionProfile {
 pub mod connection_profile {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Connection configuration for the ConnectionProfile.
     #[derive(Clone, Debug, PartialEq)]
@@ -7513,7 +7887,6 @@ pub mod connection_profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleColumn {
-
     /// Column name.
     pub column: std::string::String,
 
@@ -7668,7 +8041,6 @@ impl wkt::message::Message for OracleColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleTable {
-
     /// Table name.
     pub table: std::string::String,
 
@@ -7712,7 +8084,7 @@ impl OracleTable {
     pub fn set_oracle_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OracleColumn>
+        V: std::convert::Into<crate::model::OracleColumn>,
     {
         use std::iter::Iterator;
         self.oracle_columns = v.into_iter().map(|i| i.into()).collect();
@@ -7730,7 +8102,6 @@ impl wkt::message::Message for OracleTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleSchema {
-
     /// Schema name.
     pub schema: std::string::String,
 
@@ -7772,7 +8143,7 @@ impl OracleSchema {
     pub fn set_oracle_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OracleTable>
+        V: std::convert::Into<crate::model::OracleTable>,
     {
         use std::iter::Iterator;
         self.oracle_tables = v.into_iter().map(|i| i.into()).collect();
@@ -7790,7 +8161,6 @@ impl wkt::message::Message for OracleSchema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleRdbms {
-
     /// Oracle schemas/databases in the database server.
     pub oracle_schemas: std::vec::Vec<crate::model::OracleSchema>,
 
@@ -7817,7 +8187,7 @@ impl OracleRdbms {
     pub fn set_oracle_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OracleSchema>
+        V: std::convert::Into<crate::model::OracleSchema>,
     {
         use std::iter::Iterator;
         self.oracle_schemas = v.into_iter().map(|i| i.into()).collect();
@@ -7835,7 +8205,6 @@ impl wkt::message::Message for OracleRdbms {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleSourceConfig {
-
     /// Oracle objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::OracleRdbms>,
 
@@ -7851,7 +8220,8 @@ pub struct OracleSourceConfig {
     pub max_concurrent_backfill_tasks: i32,
 
     /// The configuration for handle Oracle large objects.
-    pub large_objects_handling: std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
+    pub large_objects_handling:
+        std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
 
     /// Configuration to select the CDC method.
     pub cdc_method: std::option::Option<crate::model::oracle_source_config::CdcMethod>,
@@ -7873,7 +8243,8 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_include_objects(OracleRdbms::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OracleRdbms>
+    where
+        T: std::convert::Into<crate::model::OracleRdbms>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -7889,7 +8260,8 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_or_clear_include_objects(None::<OracleRdbms>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OracleRdbms>
+    where
+        T: std::convert::Into<crate::model::OracleRdbms>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -7904,7 +8276,8 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_exclude_objects(OracleRdbms::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OracleRdbms>
+    where
+        T: std::convert::Into<crate::model::OracleRdbms>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -7920,7 +8293,8 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_or_clear_exclude_objects(None::<OracleRdbms>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OracleRdbms>
+    where
+        T: std::convert::Into<crate::model::OracleRdbms>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -7962,8 +8336,14 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_large_objects_handling(Some(
     ///     google_cloud_datastream_v1::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(DropLargeObjects::default().into())));
     /// ```
-    pub fn set_large_objects_handling<T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>>>(mut self, v: T) -> Self
-    {
+    pub fn set_large_objects_handling<
+        T: std::convert::Into<
+                std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.large_objects_handling = v.into();
         self
     }
@@ -7971,10 +8351,15 @@ impl OracleSourceConfig {
     /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// if it holds a `DropLargeObjects`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn drop_large_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>> {
+    pub fn drop_large_objects(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>
+    {
         #[allow(unreachable_patterns)]
         self.large_objects_handling.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v) => std::option::Option::Some(v),
+            crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -7993,11 +8378,14 @@ impl OracleSourceConfig {
     /// assert!(x.drop_large_objects().is_some());
     /// assert!(x.stream_large_objects().is_none());
     /// ```
-    pub fn set_drop_large_objects<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>>(mut self, v: T) -> Self {
+    pub fn set_drop_large_objects<
+        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.large_objects_handling = std::option::Option::Some(
-            crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(
-                v.into()
-            )
+            crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v.into()),
         );
         self
     }
@@ -8005,10 +8393,15 @@ impl OracleSourceConfig {
     /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn stream_large_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>> {
+    pub fn stream_large_objects(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
+    {
         #[allow(unreachable_patterns)]
         self.large_objects_handling.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => std::option::Option::Some(v),
+            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8027,11 +8420,14 @@ impl OracleSourceConfig {
     /// assert!(x.stream_large_objects().is_some());
     /// assert!(x.drop_large_objects().is_none());
     /// ```
-    pub fn set_stream_large_objects<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>>(mut self, v: T) -> Self {
+    pub fn set_stream_large_objects<
+        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.large_objects_handling = std::option::Option::Some(
-            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(
-                v.into()
-            )
+            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v.into()),
         );
         self
     }
@@ -8048,8 +8444,12 @@ impl OracleSourceConfig {
     /// let x = OracleSourceConfig::new().set_cdc_method(Some(
     ///     google_cloud_datastream_v1::model::oracle_source_config::CdcMethod::LogMiner(LogMiner::default().into())));
     /// ```
-    pub fn set_cdc_method<T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::CdcMethod>>>(mut self, v: T) -> Self
-    {
+    pub fn set_cdc_method<
+        T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::CdcMethod>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = v.into();
         self
     }
@@ -8057,10 +8457,14 @@ impl OracleSourceConfig {
     /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// if it holds a `LogMiner`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn log_miner(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::LogMiner>> {
+    pub fn log_miner(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::LogMiner>> {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::CdcMethod::LogMiner(v) => std::option::Option::Some(v),
+            crate::model::oracle_source_config::CdcMethod::LogMiner(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8079,11 +8483,14 @@ impl OracleSourceConfig {
     /// assert!(x.log_miner().is_some());
     /// assert!(x.binary_log_parser().is_none());
     /// ```
-    pub fn set_log_miner<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::LogMiner>>>(mut self, v: T) -> Self {
+    pub fn set_log_miner<
+        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::LogMiner>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = std::option::Option::Some(
-            crate::model::oracle_source_config::CdcMethod::LogMiner(
-                v.into()
-            )
+            crate::model::oracle_source_config::CdcMethod::LogMiner(v.into()),
         );
         self
     }
@@ -8091,10 +8498,15 @@ impl OracleSourceConfig {
     /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// if it holds a `BinaryLogParser`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn binary_log_parser(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>> {
+    pub fn binary_log_parser(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
+    {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => std::option::Option::Some(v),
+            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8113,11 +8525,14 @@ impl OracleSourceConfig {
     /// assert!(x.binary_log_parser().is_some());
     /// assert!(x.log_miner().is_none());
     /// ```
-    pub fn set_binary_log_parser<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>>(mut self, v: T) -> Self {
+    pub fn set_binary_log_parser<
+        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = std::option::Option::Some(
-            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(
-                v.into()
-            )
+            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v.into()),
         );
         self
     }
@@ -8134,12 +8549,10 @@ pub mod oracle_source_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Configuration to drop large object values.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DropLargeObjects {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8159,7 +8572,6 @@ pub mod oracle_source_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StreamLargeObjects {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8179,7 +8591,6 @@ pub mod oracle_source_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogMiner {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8199,9 +8610,10 @@ pub mod oracle_source_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BinaryLogParser {
-
         /// Configuration to specify how the log file should be accessed.
-        pub log_file_access: std::option::Option<crate::model::oracle_source_config::binary_log_parser::LogFileAccess>,
+        pub log_file_access: std::option::Option<
+            crate::model::oracle_source_config::binary_log_parser::LogFileAccess,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8223,8 +8635,16 @@ pub mod oracle_source_config {
         /// let x = BinaryLogParser::new().set_log_file_access(Some(
         ///     google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(OracleAsmLogFileAccess::default().into())));
         /// ```
-        pub fn set_log_file_access<T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::binary_log_parser::LogFileAccess>>>(mut self, v: T) -> Self
-        {
+        pub fn set_log_file_access<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::oracle_source_config::binary_log_parser::LogFileAccess,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.log_file_access = v.into();
             self
         }
@@ -8232,7 +8652,13 @@ pub mod oracle_source_config {
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `OracleAsmLogFileAccess`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn oracle_asm_log_file_access(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>> {
+        pub fn oracle_asm_log_file_access(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.log_file_access.as_ref().and_then(|v| match v {
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(v) => std::option::Option::Some(v),
@@ -8254,7 +8680,7 @@ pub mod oracle_source_config {
         /// assert!(x.oracle_asm_log_file_access().is_some());
         /// assert!(x.log_file_directories().is_none());
         /// ```
-        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self {
+        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
             self.log_file_access = std::option::Option::Some(
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
                     v.into()
@@ -8266,7 +8692,13 @@ pub mod oracle_source_config {
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `LogFileDirectories`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn log_file_directories(&self) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::LogFileDirectories>> {
+        pub fn log_file_directories(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.log_file_access.as_ref().and_then(|v| match v {
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(v) => std::option::Option::Some(v),
@@ -8288,7 +8720,16 @@ pub mod oracle_source_config {
         /// assert!(x.log_file_directories().is_some());
         /// assert!(x.oracle_asm_log_file_access().is_none());
         /// ```
-        pub fn set_log_file_directories<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::LogFileDirectories>>>(mut self, v: T) -> Self {
+        pub fn set_log_file_directories<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.log_file_access = std::option::Option::Some(
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(
                     v.into()
@@ -8309,12 +8750,10 @@ pub mod oracle_source_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Configuration to use Oracle ASM to access the log files.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct OracleAsmLogFileAccess {
-
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8334,7 +8773,6 @@ pub mod oracle_source_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LogFileDirectories {
-
             /// Required. Oracle directory for online logs.
             pub online_log_directory: std::string::String,
 
@@ -8356,7 +8794,10 @@ pub mod oracle_source_config {
             /// # use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileDirectories;
             /// let x = LogFileDirectories::new().set_online_log_directory("example");
             /// ```
-            pub fn set_online_log_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_online_log_directory<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.online_log_directory = v.into();
                 self
             }
@@ -8368,7 +8809,10 @@ pub mod oracle_source_config {
             /// # use google_cloud_datastream_v1::model::oracle_source_config::binary_log_parser::LogFileDirectories;
             /// let x = LogFileDirectories::new().set_archived_log_directory("example");
             /// ```
-            pub fn set_archived_log_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_archived_log_directory<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.archived_log_directory = v.into();
                 self
             }
@@ -8385,9 +8829,17 @@ pub mod oracle_source_config {
         #[non_exhaustive]
         pub enum LogFileAccess {
             /// Use Oracle ASM.
-            OracleAsmLogFileAccess(std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>),
+            OracleAsmLogFileAccess(
+                std::boxed::Box<
+                    crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess,
+                >,
+            ),
             /// Use Oracle directories.
-            LogFileDirectories(std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::LogFileDirectories>),
+            LogFileDirectories(
+                std::boxed::Box<
+                    crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
+                >,
+            ),
         }
     }
 
@@ -8416,7 +8868,6 @@ pub mod oracle_source_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlColumn {
-
     /// Column name.
     pub column: std::string::String,
 
@@ -8556,7 +9007,6 @@ impl wkt::message::Message for PostgresqlColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlTable {
-
     /// Table name.
     pub table: std::string::String,
 
@@ -8600,7 +9050,7 @@ impl PostgresqlTable {
     pub fn set_postgresql_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PostgresqlColumn>
+        V: std::convert::Into<crate::model::PostgresqlColumn>,
     {
         use std::iter::Iterator;
         self.postgresql_columns = v.into_iter().map(|i| i.into()).collect();
@@ -8618,7 +9068,6 @@ impl wkt::message::Message for PostgresqlTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlSchema {
-
     /// Schema name.
     pub schema: std::string::String,
 
@@ -8660,7 +9109,7 @@ impl PostgresqlSchema {
     pub fn set_postgresql_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PostgresqlTable>
+        V: std::convert::Into<crate::model::PostgresqlTable>,
     {
         use std::iter::Iterator;
         self.postgresql_tables = v.into_iter().map(|i| i.into()).collect();
@@ -8678,7 +9127,6 @@ impl wkt::message::Message for PostgresqlSchema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlRdbms {
-
     /// PostgreSQL schemas in the database server.
     pub postgresql_schemas: std::vec::Vec<crate::model::PostgresqlSchema>,
 
@@ -8705,7 +9153,7 @@ impl PostgresqlRdbms {
     pub fn set_postgresql_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PostgresqlSchema>
+        V: std::convert::Into<crate::model::PostgresqlSchema>,
     {
         use std::iter::Iterator;
         self.postgresql_schemas = v.into_iter().map(|i| i.into()).collect();
@@ -8723,7 +9171,6 @@ impl wkt::message::Message for PostgresqlRdbms {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlSourceConfig {
-
     /// PostgreSQL objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::PostgresqlRdbms>,
 
@@ -8760,7 +9207,8 @@ impl PostgresqlSourceConfig {
     /// let x = PostgresqlSourceConfig::new().set_include_objects(PostgresqlRdbms::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlRdbms>
+    where
+        T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -8776,7 +9224,8 @@ impl PostgresqlSourceConfig {
     /// let x = PostgresqlSourceConfig::new().set_or_clear_include_objects(None::<PostgresqlRdbms>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlRdbms>
+    where
+        T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -8791,7 +9240,8 @@ impl PostgresqlSourceConfig {
     /// let x = PostgresqlSourceConfig::new().set_exclude_objects(PostgresqlRdbms::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlRdbms>
+    where
+        T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -8807,7 +9257,8 @@ impl PostgresqlSourceConfig {
     /// let x = PostgresqlSourceConfig::new().set_or_clear_exclude_objects(None::<PostgresqlRdbms>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PostgresqlRdbms>
+    where
+        T: std::convert::Into<crate::model::PostgresqlRdbms>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -8820,7 +9271,10 @@ impl PostgresqlSourceConfig {
     /// # use google_cloud_datastream_v1::model::PostgresqlSourceConfig;
     /// let x = PostgresqlSourceConfig::new().set_replication_slot("example");
     /// ```
-    pub fn set_replication_slot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_replication_slot<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.replication_slot = v.into();
         self
     }
@@ -8860,7 +9314,6 @@ impl wkt::message::Message for PostgresqlSourceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerColumn {
-
     /// Column name.
     pub column: std::string::String,
 
@@ -9000,7 +9453,6 @@ impl wkt::message::Message for SqlServerColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerTable {
-
     /// Table name.
     pub table: std::string::String,
 
@@ -9044,7 +9496,7 @@ impl SqlServerTable {
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlServerColumn>
+        V: std::convert::Into<crate::model::SqlServerColumn>,
     {
         use std::iter::Iterator;
         self.columns = v.into_iter().map(|i| i.into()).collect();
@@ -9062,7 +9514,6 @@ impl wkt::message::Message for SqlServerTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerSchema {
-
     /// Schema name.
     pub schema: std::string::String,
 
@@ -9104,7 +9555,7 @@ impl SqlServerSchema {
     pub fn set_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlServerTable>
+        V: std::convert::Into<crate::model::SqlServerTable>,
     {
         use std::iter::Iterator;
         self.tables = v.into_iter().map(|i| i.into()).collect();
@@ -9122,7 +9573,6 @@ impl wkt::message::Message for SqlServerSchema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerRdbms {
-
     /// SQLServer schemas in the database server.
     pub schemas: std::vec::Vec<crate::model::SqlServerSchema>,
 
@@ -9149,7 +9599,7 @@ impl SqlServerRdbms {
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlServerSchema>
+        V: std::convert::Into<crate::model::SqlServerSchema>,
     {
         use std::iter::Iterator;
         self.schemas = v.into_iter().map(|i| i.into()).collect();
@@ -9167,7 +9617,6 @@ impl wkt::message::Message for SqlServerRdbms {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerSourceConfig {
-
     /// SQLServer objects to include in the stream.
     pub include_objects: std::option::Option<crate::model::SqlServerRdbms>,
 
@@ -9200,7 +9649,8 @@ impl SqlServerSourceConfig {
     /// let x = SqlServerSourceConfig::new().set_include_objects(SqlServerRdbms::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SqlServerRdbms>
+    where
+        T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -9216,7 +9666,8 @@ impl SqlServerSourceConfig {
     /// let x = SqlServerSourceConfig::new().set_or_clear_include_objects(None::<SqlServerRdbms>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SqlServerRdbms>
+    where
+        T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -9231,7 +9682,8 @@ impl SqlServerSourceConfig {
     /// let x = SqlServerSourceConfig::new().set_exclude_objects(SqlServerRdbms::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SqlServerRdbms>
+    where
+        T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -9247,7 +9699,8 @@ impl SqlServerSourceConfig {
     /// let x = SqlServerSourceConfig::new().set_or_clear_exclude_objects(None::<SqlServerRdbms>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SqlServerRdbms>
+    where
+        T: std::convert::Into<crate::model::SqlServerRdbms>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -9289,8 +9742,12 @@ impl SqlServerSourceConfig {
     /// let x = SqlServerSourceConfig::new().set_cdc_method(Some(
     ///     google_cloud_datastream_v1::model::sql_server_source_config::CdcMethod::TransactionLogs(SqlServerTransactionLogs::default().into())));
     /// ```
-    pub fn set_cdc_method<T: std::convert::Into<std::option::Option<crate::model::sql_server_source_config::CdcMethod>>>(mut self, v: T) -> Self
-    {
+    pub fn set_cdc_method<
+        T: std::convert::Into<std::option::Option<crate::model::sql_server_source_config::CdcMethod>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = v.into();
         self
     }
@@ -9298,10 +9755,14 @@ impl SqlServerSourceConfig {
     /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// if it holds a `TransactionLogs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn transaction_logs(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerTransactionLogs>> {
+    pub fn transaction_logs(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerTransactionLogs>> {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v) => std::option::Option::Some(v),
+            crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -9320,11 +9781,14 @@ impl SqlServerSourceConfig {
     /// assert!(x.transaction_logs().is_some());
     /// assert!(x.change_tables().is_none());
     /// ```
-    pub fn set_transaction_logs<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerTransactionLogs>>>(mut self, v: T) -> Self {
+    pub fn set_transaction_logs<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerTransactionLogs>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = std::option::Option::Some(
-            crate::model::sql_server_source_config::CdcMethod::TransactionLogs(
-                v.into()
-            )
+            crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v.into()),
         );
         self
     }
@@ -9332,10 +9796,14 @@ impl SqlServerSourceConfig {
     /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// if it holds a `ChangeTables`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn change_tables(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
+    pub fn change_tables(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => std::option::Option::Some(v),
+            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -9354,11 +9822,14 @@ impl SqlServerSourceConfig {
     /// assert!(x.change_tables().is_some());
     /// assert!(x.transaction_logs().is_none());
     /// ```
-    pub fn set_change_tables<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerChangeTables>>>(mut self, v: T) -> Self {
+    pub fn set_change_tables<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerChangeTables>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = std::option::Option::Some(
-            crate::model::sql_server_source_config::CdcMethod::ChangeTables(
-                v.into()
-            )
+            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v.into()),
         );
         self
     }
@@ -9375,7 +9846,6 @@ pub mod sql_server_source_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Configuration to select the CDC read method for the stream.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -9391,7 +9861,6 @@ pub mod sql_server_source_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerTransactionLogs {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9411,7 +9880,6 @@ impl wkt::message::Message for SqlServerTransactionLogs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerChangeTables {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9431,7 +9899,6 @@ impl wkt::message::Message for SqlServerChangeTables {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlColumn {
-
     /// Column name.
     pub column: std::string::String,
 
@@ -9587,7 +10054,6 @@ impl wkt::message::Message for MysqlColumn {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlTable {
-
     /// Table name.
     pub table: std::string::String,
 
@@ -9631,7 +10097,7 @@ impl MysqlTable {
     pub fn set_mysql_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MysqlColumn>
+        V: std::convert::Into<crate::model::MysqlColumn>,
     {
         use std::iter::Iterator;
         self.mysql_columns = v.into_iter().map(|i| i.into()).collect();
@@ -9649,7 +10115,6 @@ impl wkt::message::Message for MysqlTable {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlDatabase {
-
     /// Database name.
     pub database: std::string::String,
 
@@ -9691,7 +10156,7 @@ impl MysqlDatabase {
     pub fn set_mysql_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MysqlTable>
+        V: std::convert::Into<crate::model::MysqlTable>,
     {
         use std::iter::Iterator;
         self.mysql_tables = v.into_iter().map(|i| i.into()).collect();
@@ -9709,7 +10174,6 @@ impl wkt::message::Message for MysqlDatabase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlRdbms {
-
     /// Mysql databases on the server
     pub mysql_databases: std::vec::Vec<crate::model::MysqlDatabase>,
 
@@ -9736,7 +10200,7 @@ impl MysqlRdbms {
     pub fn set_mysql_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MysqlDatabase>
+        V: std::convert::Into<crate::model::MysqlDatabase>,
     {
         use std::iter::Iterator;
         self.mysql_databases = v.into_iter().map(|i| i.into()).collect();
@@ -9754,7 +10218,6 @@ impl wkt::message::Message for MysqlRdbms {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlSourceConfig {
-
     /// MySQL objects to retrieve from the source.
     pub include_objects: std::option::Option<crate::model::MysqlRdbms>,
 
@@ -9790,7 +10253,8 @@ impl MysqlSourceConfig {
     /// let x = MysqlSourceConfig::new().set_include_objects(MysqlRdbms::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MysqlRdbms>
+    where
+        T: std::convert::Into<crate::model::MysqlRdbms>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -9806,7 +10270,8 @@ impl MysqlSourceConfig {
     /// let x = MysqlSourceConfig::new().set_or_clear_include_objects(None::<MysqlRdbms>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MysqlRdbms>
+    where
+        T: std::convert::Into<crate::model::MysqlRdbms>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -9821,7 +10286,8 @@ impl MysqlSourceConfig {
     /// let x = MysqlSourceConfig::new().set_exclude_objects(MysqlRdbms::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MysqlRdbms>
+    where
+        T: std::convert::Into<crate::model::MysqlRdbms>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -9837,7 +10303,8 @@ impl MysqlSourceConfig {
     /// let x = MysqlSourceConfig::new().set_or_clear_exclude_objects(None::<MysqlRdbms>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MysqlRdbms>
+    where
+        T: std::convert::Into<crate::model::MysqlRdbms>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -9879,8 +10346,12 @@ impl MysqlSourceConfig {
     /// let x = MysqlSourceConfig::new().set_cdc_method(Some(
     ///     google_cloud_datastream_v1::model::mysql_source_config::CdcMethod::BinaryLogPosition(BinaryLogPosition::default().into())));
     /// ```
-    pub fn set_cdc_method<T: std::convert::Into<std::option::Option<crate::model::mysql_source_config::CdcMethod>>>(mut self, v: T) -> Self
-    {
+    pub fn set_cdc_method<
+        T: std::convert::Into<std::option::Option<crate::model::mysql_source_config::CdcMethod>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = v.into();
         self
     }
@@ -9888,10 +10359,15 @@ impl MysqlSourceConfig {
     /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// if it holds a `BinaryLogPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn binary_log_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>> {
+    pub fn binary_log_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>
+    {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v) => std::option::Option::Some(v),
+            crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -9910,11 +10386,14 @@ impl MysqlSourceConfig {
     /// assert!(x.binary_log_position().is_some());
     /// assert!(x.gtid().is_none());
     /// ```
-    pub fn set_binary_log_position<T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>>(mut self, v: T) -> Self {
+    pub fn set_binary_log_position<
+        T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cdc_method = std::option::Option::Some(
-            crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(
-                v.into()
-            )
+            crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v.into()),
         );
         self
     }
@@ -9922,7 +10401,9 @@ impl MysqlSourceConfig {
     /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// if it holds a `Gtid`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gtid(&self) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
+    pub fn gtid(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
         #[allow(unreachable_patterns)]
         self.cdc_method.as_ref().and_then(|v| match v {
             crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
@@ -9944,12 +10425,14 @@ impl MysqlSourceConfig {
     /// assert!(x.gtid().is_some());
     /// assert!(x.binary_log_position().is_none());
     /// ```
-    pub fn set_gtid<T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::Gtid>>>(mut self, v: T) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::mysql_source_config::CdcMethod::Gtid(
-                v.into()
-            )
-        );
+    pub fn set_gtid<
+        T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::Gtid>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cdc_method =
+            std::option::Option::Some(crate::model::mysql_source_config::CdcMethod::Gtid(v.into()));
         self
     }
 }
@@ -9965,12 +10448,10 @@ pub mod mysql_source_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Use Binary log position based replication.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BinaryLogPosition {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -9990,7 +10471,6 @@ pub mod mysql_source_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Gtid {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -10021,7 +10501,6 @@ pub mod mysql_source_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceSourceConfig {
-
     /// Salesforce objects to retrieve from the source.
     pub include_objects: std::option::Option<crate::model::SalesforceOrg>,
 
@@ -10050,7 +10529,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_include_objects(SalesforceOrg::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SalesforceOrg>
+    where
+        T: std::convert::Into<crate::model::SalesforceOrg>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -10066,7 +10546,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_or_clear_include_objects(None::<SalesforceOrg>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SalesforceOrg>
+    where
+        T: std::convert::Into<crate::model::SalesforceOrg>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -10081,7 +10562,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_exclude_objects(SalesforceOrg::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SalesforceOrg>
+    where
+        T: std::convert::Into<crate::model::SalesforceOrg>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -10097,7 +10579,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_or_clear_exclude_objects(None::<SalesforceOrg>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SalesforceOrg>
+    where
+        T: std::convert::Into<crate::model::SalesforceOrg>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -10112,7 +10595,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_polling_interval(Duration::default()/* use setters */);
     /// ```
     pub fn set_polling_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.polling_interval = std::option::Option::Some(v.into());
         self
@@ -10128,7 +10612,8 @@ impl SalesforceSourceConfig {
     /// let x = SalesforceSourceConfig::new().set_or_clear_polling_interval(None::<Duration>);
     /// ```
     pub fn set_or_clear_polling_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.polling_interval = v.map(|x| x.into());
         self
@@ -10145,7 +10630,6 @@ impl wkt::message::Message for SalesforceSourceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceOrg {
-
     /// Salesforce objects in the database server.
     pub objects: std::vec::Vec<crate::model::SalesforceObject>,
 
@@ -10172,7 +10656,7 @@ impl SalesforceOrg {
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SalesforceObject>
+        V: std::convert::Into<crate::model::SalesforceObject>,
     {
         use std::iter::Iterator;
         self.objects = v.into_iter().map(|i| i.into()).collect();
@@ -10190,7 +10674,6 @@ impl wkt::message::Message for SalesforceOrg {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceObject {
-
     /// Object name.
     pub object_name: std::string::String,
 
@@ -10235,7 +10718,7 @@ impl SalesforceObject {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SalesforceField>
+        V: std::convert::Into<crate::model::SalesforceField>,
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -10253,7 +10736,6 @@ impl wkt::message::Message for SalesforceObject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceField {
-
     /// Field name.
     pub name: std::string::String,
 
@@ -10318,7 +10800,6 @@ impl wkt::message::Message for SalesforceField {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbSourceConfig {
-
     /// MongoDB collections to include in the stream.
     pub include_objects: std::option::Option<crate::model::MongodbCluster>,
 
@@ -10347,7 +10828,8 @@ impl MongodbSourceConfig {
     /// let x = MongodbSourceConfig::new().set_include_objects(MongodbCluster::default()/* use setters */);
     /// ```
     pub fn set_include_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MongodbCluster>
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
     {
         self.include_objects = std::option::Option::Some(v.into());
         self
@@ -10363,7 +10845,8 @@ impl MongodbSourceConfig {
     /// let x = MongodbSourceConfig::new().set_or_clear_include_objects(None::<MongodbCluster>);
     /// ```
     pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MongodbCluster>
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
     {
         self.include_objects = v.map(|x| x.into());
         self
@@ -10378,7 +10861,8 @@ impl MongodbSourceConfig {
     /// let x = MongodbSourceConfig::new().set_exclude_objects(MongodbCluster::default()/* use setters */);
     /// ```
     pub fn set_exclude_objects<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MongodbCluster>
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
     {
         self.exclude_objects = std::option::Option::Some(v.into());
         self
@@ -10394,7 +10878,8 @@ impl MongodbSourceConfig {
     /// let x = MongodbSourceConfig::new().set_or_clear_exclude_objects(None::<MongodbCluster>);
     /// ```
     pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MongodbCluster>
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
     {
         self.exclude_objects = v.map(|x| x.into());
         self
@@ -10423,7 +10908,6 @@ impl wkt::message::Message for MongodbSourceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbCluster {
-
     /// MongoDB databases in the cluster.
     pub databases: std::vec::Vec<crate::model::MongodbDatabase>,
 
@@ -10450,7 +10934,7 @@ impl MongodbCluster {
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MongodbDatabase>
+        V: std::convert::Into<crate::model::MongodbDatabase>,
     {
         use std::iter::Iterator;
         self.databases = v.into_iter().map(|i| i.into()).collect();
@@ -10468,7 +10952,6 @@ impl wkt::message::Message for MongodbCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbDatabase {
-
     /// Database name.
     pub database: std::string::String,
 
@@ -10510,7 +10993,7 @@ impl MongodbDatabase {
     pub fn set_collections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MongodbCollection>
+        V: std::convert::Into<crate::model::MongodbCollection>,
     {
         use std::iter::Iterator;
         self.collections = v.into_iter().map(|i| i.into()).collect();
@@ -10528,7 +11011,6 @@ impl wkt::message::Message for MongodbDatabase {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbCollection {
-
     /// Collection name.
     pub collection: std::string::String,
 
@@ -10570,7 +11052,7 @@ impl MongodbCollection {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MongodbField>
+        V: std::convert::Into<crate::model::MongodbField>,
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -10588,7 +11070,6 @@ impl wkt::message::Message for MongodbCollection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MongodbField {
-
     /// Field name.
     pub field: std::string::String,
 
@@ -10623,7 +11104,6 @@ impl wkt::message::Message for MongodbField {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceConfig {
-
     /// Required. Source connection profile resource.
     /// Format: `projects/{project}/locations/{location}/connectionProfiles/{name}`
     pub source_connection_profile: std::string::String,
@@ -10646,7 +11126,10 @@ impl SourceConfig {
     /// # use google_cloud_datastream_v1::model::SourceConfig;
     /// let x = SourceConfig::new().set_source_connection_profile("example");
     /// ```
-    pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_connection_profile = v.into();
         self
     }
@@ -10663,8 +11146,12 @@ impl SourceConfig {
     /// let x = SourceConfig::new().set_source_stream_config(Some(
     ///     google_cloud_datastream_v1::model::source_config::SourceStreamConfig::OracleSourceConfig(OracleSourceConfig::default().into())));
     /// ```
-    pub fn set_source_stream_config<T: std::convert::Into<std::option::Option<crate::model::source_config::SourceStreamConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source_stream_config<
+        T: std::convert::Into<std::option::Option<crate::model::source_config::SourceStreamConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = v.into();
         self
     }
@@ -10672,10 +11159,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `OracleSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oracle_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleSourceConfig>> {
+    pub fn oracle_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10698,11 +11189,14 @@ impl SourceConfig {
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
     /// ```
-    pub fn set_oracle_source_config<T: std::convert::Into<std::boxed::Box<crate::model::OracleSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_oracle_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::OracleSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::OracleSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v.into()),
         );
         self
     }
@@ -10710,10 +11204,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
+    pub fn mysql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10736,11 +11234,14 @@ impl SourceConfig {
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
     /// ```
-    pub fn set_mysql_source_config<T: std::convert::Into<std::boxed::Box<crate::model::MysqlSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_mysql_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::MysqlSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v.into()),
         );
         self
     }
@@ -10748,10 +11249,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
+    pub fn postgresql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10774,11 +11279,14 @@ impl SourceConfig {
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
     /// ```
-    pub fn set_postgresql_source_config<T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_postgresql_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v.into()),
         );
         self
     }
@@ -10786,10 +11294,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sql_server_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
+    pub fn sql_server_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10812,11 +11324,14 @@ impl SourceConfig {
     /// assert!(x.salesforce_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
     /// ```
-    pub fn set_sql_server_source_config<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_sql_server_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v.into()),
         );
         self
     }
@@ -10824,10 +11339,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn salesforce_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
+    pub fn salesforce_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10850,11 +11369,14 @@ impl SourceConfig {
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.mongodb_source_config().is_none());
     /// ```
-    pub fn set_salesforce_source_config<T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_salesforce_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v.into()),
         );
         self
     }
@@ -10862,10 +11384,14 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `MongodbSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mongodb_source_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MongodbSourceConfig>> {
+    pub fn mongodb_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbSourceConfig>> {
         #[allow(unreachable_patterns)]
         self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v) => std::option::Option::Some(v),
+            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -10888,11 +11414,14 @@ impl SourceConfig {
     /// assert!(x.sql_server_source_config().is_none());
     /// assert!(x.salesforce_source_config().is_none());
     /// ```
-    pub fn set_mongodb_source_config<T: std::convert::Into<std::boxed::Box<crate::model::MongodbSourceConfig>>>(mut self, v: T) -> Self {
+    pub fn set_mongodb_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(
-                v.into()
-            )
+            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v.into()),
         );
         self
     }
@@ -10908,7 +11437,6 @@ impl wkt::message::Message for SourceConfig {
 pub mod source_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Stream configuration that is specific to the data source type.
     #[derive(Clone, Debug, PartialEq)]
@@ -10933,7 +11461,6 @@ pub mod source_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AvroFileFormat {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10953,7 +11480,6 @@ impl wkt::message::Message for AvroFileFormat {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JsonFileFormat {
-
     /// The schema file format along JSON data files.
     pub schema_file_format: crate::model::json_file_format::SchemaFileFormat,
 
@@ -10977,7 +11503,12 @@ impl JsonFileFormat {
     /// let x0 = JsonFileFormat::new().set_schema_file_format(SchemaFileFormat::NoSchemaFile);
     /// let x1 = JsonFileFormat::new().set_schema_file_format(SchemaFileFormat::AvroSchemaFile);
     /// ```
-    pub fn set_schema_file_format<T: std::convert::Into<crate::model::json_file_format::SchemaFileFormat>>(mut self, v: T) -> Self {
+    pub fn set_schema_file_format<
+        T: std::convert::Into<crate::model::json_file_format::SchemaFileFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.schema_file_format = v.into();
         self
     }
@@ -10991,7 +11522,12 @@ impl JsonFileFormat {
     /// let x0 = JsonFileFormat::new().set_compression(JsonCompression::NoCompression);
     /// let x1 = JsonFileFormat::new().set_compression(JsonCompression::Gzip);
     /// ```
-    pub fn set_compression<T: std::convert::Into<crate::model::json_file_format::JsonCompression>>(mut self, v: T) -> Self {
+    pub fn set_compression<
+        T: std::convert::Into<crate::model::json_file_format::JsonCompression>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.compression = v.into();
         self
     }
@@ -11007,7 +11543,6 @@ impl wkt::message::Message for JsonFileFormat {
 pub mod json_file_format {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Schema file format.
     ///
@@ -11095,7 +11630,9 @@ pub mod json_file_format {
                 0 => Self::Unspecified,
                 1 => Self::NoSchemaFile,
                 2 => Self::AvroSchemaFile,
-                _ => Self::UnknownValue(schema_file_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(schema_file_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11107,7 +11644,9 @@ pub mod json_file_format {
                 "SCHEMA_FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "NO_SCHEMA_FILE" => Self::NoSchemaFile,
                 "AVRO_SCHEMA_FILE" => Self::AvroSchemaFile,
-                _ => Self::UnknownValue(schema_file_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(schema_file_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11132,7 +11671,8 @@ pub mod json_file_format {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SchemaFileFormat>::new(
-                ".google.cloud.datastream.v1.JsonFileFormat.SchemaFileFormat"))
+                ".google.cloud.datastream.v1.JsonFileFormat.SchemaFileFormat",
+            ))
         }
     }
 
@@ -11222,7 +11762,9 @@ pub mod json_file_format {
                 0 => Self::Unspecified,
                 1 => Self::NoCompression,
                 2 => Self::Gzip,
-                _ => Self::UnknownValue(json_compression::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(json_compression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11234,7 +11776,9 @@ pub mod json_file_format {
                 "JSON_COMPRESSION_UNSPECIFIED" => Self::Unspecified,
                 "NO_COMPRESSION" => Self::NoCompression,
                 "GZIP" => Self::Gzip,
-                _ => Self::UnknownValue(json_compression::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(json_compression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11259,7 +11803,8 @@ pub mod json_file_format {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JsonCompression>::new(
-                ".google.cloud.datastream.v1.JsonFileFormat.JsonCompression"))
+                ".google.cloud.datastream.v1.JsonFileFormat.JsonCompression",
+            ))
         }
     }
 }
@@ -11268,7 +11813,6 @@ pub mod json_file_format {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestinationConfig {
-
     /// Path inside the Cloud Storage bucket to write data to.
     pub path: std::string::String,
 
@@ -11324,7 +11868,8 @@ impl GcsDestinationConfig {
     /// let x = GcsDestinationConfig::new().set_file_rotation_interval(Duration::default()/* use setters */);
     /// ```
     pub fn set_file_rotation_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.file_rotation_interval = std::option::Option::Some(v.into());
         self
@@ -11340,7 +11885,8 @@ impl GcsDestinationConfig {
     /// let x = GcsDestinationConfig::new().set_or_clear_file_rotation_interval(None::<Duration>);
     /// ```
     pub fn set_or_clear_file_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.file_rotation_interval = v.map(|x| x.into());
         self
@@ -11358,8 +11904,12 @@ impl GcsDestinationConfig {
     /// let x = GcsDestinationConfig::new().set_file_format(Some(
     ///     google_cloud_datastream_v1::model::gcs_destination_config::FileFormat::AvroFileFormat(AvroFileFormat::default().into())));
     /// ```
-    pub fn set_file_format<T: std::convert::Into<std::option::Option<crate::model::gcs_destination_config::FileFormat>>>(mut self, v: T) -> Self
-    {
+    pub fn set_file_format<
+        T: std::convert::Into<std::option::Option<crate::model::gcs_destination_config::FileFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.file_format = v.into();
         self
     }
@@ -11367,10 +11917,14 @@ impl GcsDestinationConfig {
     /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// if it holds a `AvroFileFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_file_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroFileFormat>> {
+    pub fn avro_file_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AvroFileFormat>> {
         #[allow(unreachable_patterns)]
         self.file_format.as_ref().and_then(|v| match v {
-            crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v) => std::option::Option::Some(v),
+            crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11389,11 +11943,14 @@ impl GcsDestinationConfig {
     /// assert!(x.avro_file_format().is_some());
     /// assert!(x.json_file_format().is_none());
     /// ```
-    pub fn set_avro_file_format<T: std::convert::Into<std::boxed::Box<crate::model::AvroFileFormat>>>(mut self, v: T) -> Self {
+    pub fn set_avro_file_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::AvroFileFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.file_format = std::option::Option::Some(
-            crate::model::gcs_destination_config::FileFormat::AvroFileFormat(
-                v.into()
-            )
+            crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v.into()),
         );
         self
     }
@@ -11401,10 +11958,14 @@ impl GcsDestinationConfig {
     /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// if it holds a `JsonFileFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn json_file_format(&self) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
+    pub fn json_file_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
         #[allow(unreachable_patterns)]
         self.file_format.as_ref().and_then(|v| match v {
-            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => std::option::Option::Some(v),
+            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11423,11 +11984,14 @@ impl GcsDestinationConfig {
     /// assert!(x.json_file_format().is_some());
     /// assert!(x.avro_file_format().is_none());
     /// ```
-    pub fn set_json_file_format<T: std::convert::Into<std::boxed::Box<crate::model::JsonFileFormat>>>(mut self, v: T) -> Self {
+    pub fn set_json_file_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::JsonFileFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.file_format = std::option::Option::Some(
-            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(
-                v.into()
-            )
+            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v.into()),
         );
         self
     }
@@ -11444,7 +12008,6 @@ pub mod gcs_destination_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// File Format that the data should be written in.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -11460,7 +12023,6 @@ pub mod gcs_destination_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDestinationConfig {
-
     /// The guaranteed data freshness (in seconds) when querying tables created by
     /// the stream. Editing this field will only affect new tables created in the
     /// future, but existing tables will not be impacted. Lower values mean that
@@ -11471,7 +12033,8 @@ pub struct BigQueryDestinationConfig {
     pub blmt_config: std::option::Option<crate::model::big_query_destination_config::BlmtConfig>,
 
     /// Target dataset(s) configuration.
-    pub dataset_config: std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
+    pub dataset_config:
+        std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
 
     pub write_mode: std::option::Option<crate::model::big_query_destination_config::WriteMode>,
 
@@ -11492,7 +12055,8 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_data_freshness(Duration::default()/* use setters */);
     /// ```
     pub fn set_data_freshness<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.data_freshness = std::option::Option::Some(v.into());
         self
@@ -11508,7 +12072,8 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_or_clear_data_freshness(None::<Duration>);
     /// ```
     pub fn set_or_clear_data_freshness<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.data_freshness = v.map(|x| x.into());
         self
@@ -11523,7 +12088,8 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_blmt_config(BlmtConfig::default()/* use setters */);
     /// ```
     pub fn set_blmt_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>
+    where
+        T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
     {
         self.blmt_config = std::option::Option::Some(v.into());
         self
@@ -11539,7 +12105,8 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_or_clear_blmt_config(None::<BlmtConfig>);
     /// ```
     pub fn set_or_clear_blmt_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>
+    where
+        T: std::convert::Into<crate::model::big_query_destination_config::BlmtConfig>,
     {
         self.blmt_config = v.map(|x| x.into());
         self
@@ -11557,8 +12124,14 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_dataset_config(Some(
     ///     google_cloud_datastream_v1::model::big_query_destination_config::DatasetConfig::SingleTargetDataset(SingleTargetDataset::default().into())));
     /// ```
-    pub fn set_dataset_config<T: std::convert::Into<std::option::Option<crate::model::big_query_destination_config::DatasetConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_dataset_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.dataset_config = v.into();
         self
     }
@@ -11566,10 +12139,16 @@ impl BigQueryDestinationConfig {
     /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// if it holds a `SingleTargetDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn single_target_dataset(&self) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>> {
+    pub fn single_target_dataset(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
+    > {
         #[allow(unreachable_patterns)]
         self.dataset_config.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::DatasetConfig::SingleTargetDataset(v) => std::option::Option::Some(v),
+            crate::model::big_query_destination_config::DatasetConfig::SingleTargetDataset(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11588,11 +12167,18 @@ impl BigQueryDestinationConfig {
     /// assert!(x.single_target_dataset().is_some());
     /// assert!(x.source_hierarchy_datasets().is_none());
     /// ```
-    pub fn set_single_target_dataset<T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>>>(mut self, v: T) -> Self {
+    pub fn set_single_target_dataset<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.dataset_config = std::option::Option::Some(
             crate::model::big_query_destination_config::DatasetConfig::SingleTargetDataset(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -11600,10 +12186,16 @@ impl BigQueryDestinationConfig {
     /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_hierarchy_datasets(&self) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>> {
+    pub fn source_hierarchy_datasets(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
+    > {
         #[allow(unreachable_patterns)]
         self.dataset_config.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(v) => std::option::Option::Some(v),
+            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -11622,11 +12214,20 @@ impl BigQueryDestinationConfig {
     /// assert!(x.source_hierarchy_datasets().is_some());
     /// assert!(x.single_target_dataset().is_none());
     /// ```
-    pub fn set_source_hierarchy_datasets<T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>>>(mut self, v: T) -> Self {
+    pub fn set_source_hierarchy_datasets<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::big_query_destination_config::SourceHierarchyDatasets,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.dataset_config = std::option::Option::Some(
             crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -11643,8 +12244,14 @@ impl BigQueryDestinationConfig {
     /// let x = BigQueryDestinationConfig::new().set_write_mode(Some(
     ///     google_cloud_datastream_v1::model::big_query_destination_config::WriteMode::Merge(Merge::default().into())));
     /// ```
-    pub fn set_write_mode<T: std::convert::Into<std::option::Option<crate::model::big_query_destination_config::WriteMode>>>(mut self, v: T) -> Self
-    {
+    pub fn set_write_mode<
+        T: std::convert::Into<
+                std::option::Option<crate::model::big_query_destination_config::WriteMode>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.write_mode = v.into();
         self
     }
@@ -11652,10 +12259,15 @@ impl BigQueryDestinationConfig {
     /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// if it holds a `Merge`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn merge(&self) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::Merge>> {
+    pub fn merge(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::Merge>>
+    {
         #[allow(unreachable_patterns)]
         self.write_mode.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::WriteMode::Merge(v) => std::option::Option::Some(v),
+            crate::model::big_query_destination_config::WriteMode::Merge(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11674,11 +12286,14 @@ impl BigQueryDestinationConfig {
     /// assert!(x.merge().is_some());
     /// assert!(x.append_only().is_none());
     /// ```
-    pub fn set_merge<T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::Merge>>>(mut self, v: T) -> Self {
+    pub fn set_merge<
+        T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::Merge>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.write_mode = std::option::Option::Some(
-            crate::model::big_query_destination_config::WriteMode::Merge(
-                v.into()
-            )
+            crate::model::big_query_destination_config::WriteMode::Merge(v.into()),
         );
         self
     }
@@ -11686,10 +12301,15 @@ impl BigQueryDestinationConfig {
     /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// if it holds a `AppendOnly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn append_only(&self) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>> {
+    pub fn append_only(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
+    {
         #[allow(unreachable_patterns)]
         self.write_mode.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => std::option::Option::Some(v),
+            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11708,11 +12328,14 @@ impl BigQueryDestinationConfig {
     /// assert!(x.append_only().is_some());
     /// assert!(x.merge().is_none());
     /// ```
-    pub fn set_append_only<T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>>(mut self, v: T) -> Self {
+    pub fn set_append_only<
+        T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.write_mode = std::option::Option::Some(
-            crate::model::big_query_destination_config::WriteMode::AppendOnly(
-                v.into()
-            )
+            crate::model::big_query_destination_config::WriteMode::AppendOnly(v.into()),
         );
         self
     }
@@ -11729,12 +12352,10 @@ pub mod big_query_destination_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A single target dataset to which all data will be streamed.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SingleTargetDataset {
-
         /// The dataset ID of the target dataset.
         /// DatasetIds allowed characters:
         /// <https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#datasetreference>.
@@ -11772,9 +12393,10 @@ pub mod big_query_destination_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceHierarchyDatasets {
-
         /// The dataset template to use for dynamic dataset creation.
-        pub dataset_template: std::option::Option<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>,
+        pub dataset_template: std::option::Option<
+            crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate,
+        >,
 
         /// Optional. The project id of the BigQuery dataset. If not specified, the
         /// project will be inferred from the stream resource.
@@ -11827,7 +12449,8 @@ pub mod big_query_destination_config {
         /// let x = SourceHierarchyDatasets::new().set_project_id("example");
         /// ```
         pub fn set_project_id<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.project_id = std::option::Option::Some(v.into());
             self
@@ -11842,7 +12465,8 @@ pub mod big_query_destination_config {
         /// let x = SourceHierarchyDatasets::new().set_or_clear_project_id(None::<String>);
         /// ```
         pub fn set_or_clear_project_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.project_id = v.map(|x| x.into());
             self
@@ -11860,12 +12484,10 @@ pub mod big_query_destination_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Dataset template used for dynamic dataset creation.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DatasetTemplate {
-
             /// Required. The geographic location where the dataset should reside. See
             /// <https://cloud.google.com/bigquery/docs/locations> for supported
             /// locations.
@@ -11900,7 +12522,10 @@ pub mod big_query_destination_config {
             /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
             /// let x = DatasetTemplate::new().set_location("example");
             /// ```
-            pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_location<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.location = v.into();
                 self
             }
@@ -11912,7 +12537,10 @@ pub mod big_query_destination_config {
             /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
             /// let x = DatasetTemplate::new().set_dataset_id_prefix("example");
             /// ```
-            pub fn set_dataset_id_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_dataset_id_prefix<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.dataset_id_prefix = v.into();
                 self
             }
@@ -11924,7 +12552,10 @@ pub mod big_query_destination_config {
             /// # use google_cloud_datastream_v1::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate;
             /// let x = DatasetTemplate::new().set_kms_key_name("example");
             /// ```
-            pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.kms_key_name = v.into();
                 self
             }
@@ -11941,7 +12572,6 @@ pub mod big_query_destination_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BlmtConfig {
-
         /// Required. The Cloud Storage bucket name.
         pub bucket: std::string::String,
 
@@ -11997,7 +12627,10 @@ pub mod big_query_destination_config {
         /// # use google_cloud_datastream_v1::model::big_query_destination_config::BlmtConfig;
         /// let x = BlmtConfig::new().set_connection_name("example");
         /// ```
-        pub fn set_connection_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_connection_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.connection_name = v.into();
             self
         }
@@ -12010,7 +12643,12 @@ pub mod big_query_destination_config {
         /// use google_cloud_datastream_v1::model::big_query_destination_config::blmt_config::FileFormat;
         /// let x0 = BlmtConfig::new().set_file_format(FileFormat::Parquet);
         /// ```
-        pub fn set_file_format<T: std::convert::Into<crate::model::big_query_destination_config::blmt_config::FileFormat>>(mut self, v: T) -> Self {
+        pub fn set_file_format<
+            T: std::convert::Into<crate::model::big_query_destination_config::blmt_config::FileFormat>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.file_format = v.into();
             self
         }
@@ -12023,7 +12661,14 @@ pub mod big_query_destination_config {
         /// use google_cloud_datastream_v1::model::big_query_destination_config::blmt_config::TableFormat;
         /// let x0 = BlmtConfig::new().set_table_format(TableFormat::Iceberg);
         /// ```
-        pub fn set_table_format<T: std::convert::Into<crate::model::big_query_destination_config::blmt_config::TableFormat>>(mut self, v: T) -> Self {
+        pub fn set_table_format<
+            T: std::convert::Into<
+                    crate::model::big_query_destination_config::blmt_config::TableFormat,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.table_format = v.into();
             self
         }
@@ -12039,7 +12684,6 @@ pub mod big_query_destination_config {
     pub mod blmt_config {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Supported file formats for BigLake managed tables.
         ///
@@ -12112,7 +12756,10 @@ pub mod big_query_destination_config {
         }
 
         impl std::fmt::Display for FileFormat {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -12122,7 +12769,9 @@ pub mod big_query_destination_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::Parquet,
-                    _ => Self::UnknownValue(file_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -12133,7 +12782,9 @@ pub mod big_query_destination_config {
                 match value {
                     "FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
                     "PARQUET" => Self::Parquet,
-                    _ => Self::UnknownValue(file_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -12157,7 +12808,8 @@ pub mod big_query_destination_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileFormat>::new(
-                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.FileFormat"))
+                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.FileFormat",
+                ))
             }
         }
 
@@ -12232,7 +12884,10 @@ pub mod big_query_destination_config {
         }
 
         impl std::fmt::Display for TableFormat {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -12242,7 +12897,9 @@ pub mod big_query_destination_config {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::Iceberg,
-                    _ => Self::UnknownValue(table_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -12253,7 +12910,9 @@ pub mod big_query_destination_config {
                 match value {
                     "TABLE_FORMAT_UNSPECIFIED" => Self::Unspecified,
                     "ICEBERG" => Self::Iceberg,
-                    _ => Self::UnknownValue(table_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -12277,7 +12936,8 @@ pub mod big_query_destination_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<TableFormat>::new(
-                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.TableFormat"))
+                    ".google.cloud.datastream.v1.BigQueryDestinationConfig.BlmtConfig.TableFormat",
+                ))
             }
         }
     }
@@ -12287,7 +12947,6 @@ pub mod big_query_destination_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppendOnly {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -12308,7 +12967,6 @@ pub mod big_query_destination_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Merge {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -12329,9 +12987,13 @@ pub mod big_query_destination_config {
     #[non_exhaustive]
     pub enum DatasetConfig {
         /// Single destination dataset.
-        SingleTargetDataset(std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>),
+        SingleTargetDataset(
+            std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
+        ),
         /// Source hierarchy datasets.
-        SourceHierarchyDatasets(std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>),
+        SourceHierarchyDatasets(
+            std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
+        ),
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -12348,13 +13010,13 @@ pub mod big_query_destination_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationConfig {
-
     /// Required. Destination connection profile resource.
     /// Format: `projects/{project}/locations/{location}/connectionProfiles/{name}`
     pub destination_connection_profile: std::string::String,
 
     /// Stream configuration that is specific to the data destination type.
-    pub destination_stream_config: std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
+    pub destination_stream_config:
+        std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12371,7 +13033,10 @@ impl DestinationConfig {
     /// # use google_cloud_datastream_v1::model::DestinationConfig;
     /// let x = DestinationConfig::new().set_destination_connection_profile("example");
     /// ```
-    pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_connection_profile = v.into();
         self
     }
@@ -12388,8 +13053,14 @@ impl DestinationConfig {
     /// let x = DestinationConfig::new().set_destination_stream_config(Some(
     ///     google_cloud_datastream_v1::model::destination_config::DestinationStreamConfig::GcsDestinationConfig(GcsDestinationConfig::default().into())));
     /// ```
-    pub fn set_destination_stream_config<T: std::convert::Into<std::option::Option<crate::model::destination_config::DestinationStreamConfig>>>(mut self, v: T) -> Self
-    {
+    pub fn set_destination_stream_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_stream_config = v.into();
         self
     }
@@ -12397,12 +13068,18 @@ impl DestinationConfig {
     /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// if it holds a `GcsDestinationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_destination_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestinationConfig>> {
+    pub fn gcs_destination_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestinationConfig>> {
         #[allow(unreachable_patterns)]
-        self.destination_stream_config.as_ref().and_then(|v| match v {
-            crate::model::destination_config::DestinationStreamConfig::GcsDestinationConfig(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
+        self.destination_stream_config
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::destination_config::DestinationStreamConfig::GcsDestinationConfig(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
     }
 
     /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
@@ -12419,11 +13096,16 @@ impl DestinationConfig {
     /// assert!(x.gcs_destination_config().is_some());
     /// assert!(x.bigquery_destination_config().is_none());
     /// ```
-    pub fn set_gcs_destination_config<T: std::convert::Into<std::boxed::Box<crate::model::GcsDestinationConfig>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_destination_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestinationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_stream_config = std::option::Option::Some(
             crate::model::destination_config::DestinationStreamConfig::GcsDestinationConfig(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -12431,7 +13113,9 @@ impl DestinationConfig {
     /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_destination_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
+    pub fn bigquery_destination_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
         #[allow(unreachable_patterns)]
         self.destination_stream_config.as_ref().and_then(|v| match v {
             crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
@@ -12453,11 +13137,16 @@ impl DestinationConfig {
     /// assert!(x.bigquery_destination_config().is_some());
     /// assert!(x.gcs_destination_config().is_none());
     /// ```
-    pub fn set_bigquery_destination_config<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestinationConfig>>>(mut self, v: T) -> Self {
+    pub fn set_bigquery_destination_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestinationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_stream_config = std::option::Option::Some(
             crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -12474,7 +13163,6 @@ pub mod destination_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Stream configuration that is specific to the data destination type.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -12490,7 +13178,6 @@ pub mod destination_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Stream {
-
     /// Output only. Identifier. The stream's name.
     pub name: std::string::String,
 
@@ -12501,7 +13188,7 @@ pub struct Stream {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Display name.
     pub display_name: std::string::String,
@@ -12566,7 +13253,8 @@ impl Stream {
     /// let x = Stream::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12582,7 +13270,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12597,7 +13286,8 @@ impl Stream {
     /// let x = Stream::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -12613,7 +13303,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -12661,7 +13352,8 @@ impl Stream {
     /// let x = Stream::new().set_source_config(SourceConfig::default()/* use setters */);
     /// ```
     pub fn set_source_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SourceConfig>
+    where
+        T: std::convert::Into<crate::model::SourceConfig>,
     {
         self.source_config = std::option::Option::Some(v.into());
         self
@@ -12677,7 +13369,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_source_config(None::<SourceConfig>);
     /// ```
     pub fn set_or_clear_source_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SourceConfig>
+    where
+        T: std::convert::Into<crate::model::SourceConfig>,
     {
         self.source_config = v.map(|x| x.into());
         self
@@ -12692,7 +13385,8 @@ impl Stream {
     /// let x = Stream::new().set_destination_config(DestinationConfig::default()/* use setters */);
     /// ```
     pub fn set_destination_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DestinationConfig>
+    where
+        T: std::convert::Into<crate::model::DestinationConfig>,
     {
         self.destination_config = std::option::Option::Some(v.into());
         self
@@ -12708,7 +13402,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_destination_config(None::<DestinationConfig>);
     /// ```
     pub fn set_or_clear_destination_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DestinationConfig>
+    where
+        T: std::convert::Into<crate::model::DestinationConfig>,
     {
         self.destination_config = v.map(|x| x.into());
         self
@@ -12744,7 +13439,7 @@ impl Stream {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>
+        V: std::convert::Into<crate::model::Error>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -12759,7 +13454,8 @@ impl Stream {
     /// let x = Stream::new().set_customer_managed_encryption_key("example");
     /// ```
     pub fn set_customer_managed_encryption_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.customer_managed_encryption_key = std::option::Option::Some(v.into());
         self
@@ -12773,8 +13469,12 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_customer_managed_encryption_key(Some("example"));
     /// let x = Stream::new().set_or_clear_customer_managed_encryption_key(None::<String>);
     /// ```
-    pub fn set_or_clear_customer_managed_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    pub fn set_or_clear_customer_managed_encryption_key<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.customer_managed_encryption_key = v.map(|x| x.into());
         self
@@ -12789,7 +13489,8 @@ impl Stream {
     /// let x = Stream::new().set_last_recovery_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_recovery_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_recovery_time = std::option::Option::Some(v.into());
         self
@@ -12805,7 +13506,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_last_recovery_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_recovery_time = v.map(|x| x.into());
         self
@@ -12819,7 +13521,8 @@ impl Stream {
     /// let x = Stream::new().set_satisfies_pzs(true);
     /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -12834,7 +13537,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_satisfies_pzs(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -12848,7 +13552,8 @@ impl Stream {
     /// let x = Stream::new().set_satisfies_pzi(true);
     /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = std::option::Option::Some(v.into());
         self
@@ -12863,7 +13568,8 @@ impl Stream {
     /// let x = Stream::new().set_or_clear_satisfies_pzi(None::<bool>);
     /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = v.map(|x| x.into());
         self
@@ -12881,8 +13587,12 @@ impl Stream {
     /// let x = Stream::new().set_backfill_strategy(Some(
     ///     google_cloud_datastream_v1::model::stream::BackfillStrategy::BackfillAll(BackfillAllStrategy::default().into())));
     /// ```
-    pub fn set_backfill_strategy<T: std::convert::Into<std::option::Option<crate::model::stream::BackfillStrategy>>>(mut self, v: T) -> Self
-    {
+    pub fn set_backfill_strategy<
+        T: std::convert::Into<std::option::Option<crate::model::stream::BackfillStrategy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.backfill_strategy = v.into();
         self
     }
@@ -12890,7 +13600,9 @@ impl Stream {
     /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// if it holds a `BackfillAll`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn backfill_all(&self) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillAllStrategy>> {
+    pub fn backfill_all(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillAllStrategy>> {
         #[allow(unreachable_patterns)]
         self.backfill_strategy.as_ref().and_then(|v| match v {
             crate::model::stream::BackfillStrategy::BackfillAll(v) => std::option::Option::Some(v),
@@ -12912,11 +13624,14 @@ impl Stream {
     /// assert!(x.backfill_all().is_some());
     /// assert!(x.backfill_none().is_none());
     /// ```
-    pub fn set_backfill_all<T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillAllStrategy>>>(mut self, v: T) -> Self {
+    pub fn set_backfill_all<
+        T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillAllStrategy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.backfill_strategy = std::option::Option::Some(
-            crate::model::stream::BackfillStrategy::BackfillAll(
-                v.into()
-            )
+            crate::model::stream::BackfillStrategy::BackfillAll(v.into()),
         );
         self
     }
@@ -12924,7 +13639,9 @@ impl Stream {
     /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// if it holds a `BackfillNone`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn backfill_none(&self) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
+    pub fn backfill_none(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
         #[allow(unreachable_patterns)]
         self.backfill_strategy.as_ref().and_then(|v| match v {
             crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
@@ -12946,11 +13663,14 @@ impl Stream {
     /// assert!(x.backfill_none().is_some());
     /// assert!(x.backfill_all().is_none());
     /// ```
-    pub fn set_backfill_none<T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillNoneStrategy>>>(mut self, v: T) -> Self {
+    pub fn set_backfill_none<
+        T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillNoneStrategy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.backfill_strategy = std::option::Option::Some(
-            crate::model::stream::BackfillStrategy::BackfillNone(
-                v.into()
-            )
+            crate::model::stream::BackfillStrategy::BackfillNone(v.into()),
         );
         self
     }
@@ -12967,15 +13687,14 @@ pub mod stream {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Backfill strategy to automatically backfill the Stream's objects.
     /// Specific objects can be excluded.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackfillAllStrategy {
-
         /// List of objects to exclude.
-        pub excluded_objects: std::option::Option<crate::model::stream::backfill_all_strategy::ExcludedObjects>,
+        pub excluded_objects:
+            std::option::Option<crate::model::stream::backfill_all_strategy::ExcludedObjects>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -12997,8 +13716,16 @@ pub mod stream {
         /// let x = BackfillAllStrategy::new().set_excluded_objects(Some(
         ///     google_cloud_datastream_v1::model::stream::backfill_all_strategy::ExcludedObjects::OracleExcludedObjects(OracleRdbms::default().into())));
         /// ```
-        pub fn set_excluded_objects<T: std::convert::Into<std::option::Option<crate::model::stream::backfill_all_strategy::ExcludedObjects>>>(mut self, v: T) -> Self
-        {
+        pub fn set_excluded_objects<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::stream::backfill_all_strategy::ExcludedObjects,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = v.into();
             self
         }
@@ -13006,7 +13733,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `OracleExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn oracle_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
+        pub fn oracle_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::OracleExcludedObjects(v) => std::option::Option::Some(v),
@@ -13032,11 +13761,16 @@ pub mod stream {
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
         /// ```
-        pub fn set_oracle_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(mut self, v: T) -> Self {
+        pub fn set_oracle_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::OracleExcludedObjects(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -13044,7 +13778,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn mysql_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+        pub fn mysql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
@@ -13070,11 +13806,16 @@ pub mod stream {
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
         /// ```
-        pub fn set_mysql_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(mut self, v: T) -> Self {
+        pub fn set_mysql_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -13082,7 +13823,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn postgresql_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+        pub fn postgresql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(v) => std::option::Option::Some(v),
@@ -13108,7 +13851,12 @@ pub mod stream {
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
         /// ```
-        pub fn set_postgresql_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>>(mut self, v: T) -> Self {
+        pub fn set_postgresql_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(
                     v.into()
@@ -13120,7 +13868,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn sql_server_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+        pub fn sql_server_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(v) => std::option::Option::Some(v),
@@ -13146,7 +13896,12 @@ pub mod stream {
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
         /// ```
-        pub fn set_sql_server_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>>(mut self, v: T) -> Self {
+        pub fn set_sql_server_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(
                     v.into()
@@ -13158,7 +13913,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn salesforce_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+        pub fn salesforce_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
@@ -13184,7 +13941,12 @@ pub mod stream {
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.mongodb_excluded_objects().is_none());
         /// ```
-        pub fn set_salesforce_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>>(mut self, v: T) -> Self {
+        pub fn set_salesforce_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(
                     v.into()
@@ -13196,7 +13958,9 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `MongodbExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn mongodb_excluded_objects(&self) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+        pub fn mongodb_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
             #[allow(unreachable_patterns)]
             self.excluded_objects.as_ref().and_then(|v| match v {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(v) => std::option::Option::Some(v),
@@ -13222,7 +13986,12 @@ pub mod stream {
         /// assert!(x.sql_server_excluded_objects().is_none());
         /// assert!(x.salesforce_excluded_objects().is_none());
         /// ```
-        pub fn set_mongodb_excluded_objects<T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>>(mut self, v: T) -> Self {
+        pub fn set_mongodb_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.excluded_objects = std::option::Option::Some(
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(
                     v.into()
@@ -13242,7 +14011,6 @@ pub mod stream {
     pub mod backfill_all_strategy {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// List of objects to exclude.
         #[derive(Clone, Debug, PartialEq)]
@@ -13267,7 +14035,6 @@ pub mod stream {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackfillNoneStrategy {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13403,7 +14170,9 @@ pub mod stream {
                 6 => Self::FailedPermanently,
                 7 => Self::Starting,
                 8 => Self::Draining,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -13421,7 +14190,9 @@ pub mod stream {
                 "FAILED_PERMANENTLY" => Self::FailedPermanently,
                 "STARTING" => Self::Starting,
                 "DRAINING" => Self::Draining,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -13452,7 +14223,8 @@ pub mod stream {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datastream.v1.Stream.State"))
+                ".google.cloud.datastream.v1.Stream.State",
+            ))
         }
     }
 
@@ -13472,7 +14244,6 @@ pub mod stream {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamObject {
-
     /// Output only. Identifier. The object resource's name.
     pub name: std::string::String,
 
@@ -13523,7 +14294,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -13539,7 +14311,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -13554,7 +14327,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -13570,7 +14344,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -13603,7 +14378,7 @@ impl StreamObject {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>
+        V: std::convert::Into<crate::model::Error>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -13619,7 +14394,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_backfill_job(BackfillJob::default()/* use setters */);
     /// ```
     pub fn set_backfill_job<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BackfillJob>
+    where
+        T: std::convert::Into<crate::model::BackfillJob>,
     {
         self.backfill_job = std::option::Option::Some(v.into());
         self
@@ -13635,7 +14411,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_or_clear_backfill_job(None::<BackfillJob>);
     /// ```
     pub fn set_or_clear_backfill_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BackfillJob>
+    where
+        T: std::convert::Into<crate::model::BackfillJob>,
     {
         self.backfill_job = v.map(|x| x.into());
         self
@@ -13650,7 +14427,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_source_object(SourceObjectIdentifier::default()/* use setters */);
     /// ```
     pub fn set_source_object<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SourceObjectIdentifier>
+    where
+        T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
         self.source_object = std::option::Option::Some(v.into());
         self
@@ -13666,7 +14444,8 @@ impl StreamObject {
     /// let x = StreamObject::new().set_or_clear_source_object(None::<SourceObjectIdentifier>);
     /// ```
     pub fn set_or_clear_source_object<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SourceObjectIdentifier>
+    where
+        T: std::convert::Into<crate::model::SourceObjectIdentifier>,
     {
         self.source_object = v.map(|x| x.into());
         self
@@ -13683,9 +14462,9 @@ impl wkt::message::Message for StreamObject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceObjectIdentifier {
-
     /// The identifier for an object in the data source.
-    pub source_identifier: std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
+    pub source_identifier:
+        std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13707,8 +14486,14 @@ impl SourceObjectIdentifier {
     /// let x = SourceObjectIdentifier::new().set_source_identifier(Some(
     ///     google_cloud_datastream_v1::model::source_object_identifier::SourceIdentifier::OracleIdentifier(OracleObjectIdentifier::default().into())));
     /// ```
-    pub fn set_source_identifier<T: std::convert::Into<std::option::Option<crate::model::source_object_identifier::SourceIdentifier>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source_identifier<
+        T: std::convert::Into<
+                std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = v.into();
         self
     }
@@ -13716,10 +14501,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `OracleIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oracle_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>> {
+    pub fn oracle_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::OracleIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::OracleIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13742,11 +14533,16 @@ impl SourceObjectIdentifier {
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
     /// ```
-    pub fn set_oracle_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_oracle_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::OracleIdentifier(
-                v.into()
-            )
+            crate::model::source_object_identifier::SourceIdentifier::OracleIdentifier(v.into()),
         );
         self
     }
@@ -13754,10 +14550,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>> {
+    pub fn mysql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13780,11 +14582,16 @@ impl SourceObjectIdentifier {
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
     /// ```
-    pub fn set_mysql_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_mysql_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(
-                v.into()
-            )
+            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v.into()),
         );
         self
     }
@@ -13792,10 +14599,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn postgresql_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>> {
+    pub fn postgresql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13818,11 +14631,18 @@ impl SourceObjectIdentifier {
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
     /// ```
-    pub fn set_postgresql_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_postgresql_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
             crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -13830,10 +14650,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sql_server_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>> {
+    pub fn sql_server_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13856,11 +14682,16 @@ impl SourceObjectIdentifier {
     /// assert!(x.salesforce_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
     /// ```
-    pub fn set_sql_server_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_sql_server_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(
-                v.into()
-            )
+            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v.into()),
         );
         self
     }
@@ -13868,10 +14699,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn salesforce_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>> {
+    pub fn salesforce_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13894,11 +14731,18 @@ impl SourceObjectIdentifier {
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.mongodb_identifier().is_none());
     /// ```
-    pub fn set_salesforce_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_salesforce_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
             crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -13906,10 +14750,16 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `MongodbIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mongodb_identifier(&self) -> std::option::Option<&std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>> {
+    pub fn mongodb_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
+    > {
         #[allow(unreachable_patterns)]
         self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v) => std::option::Option::Some(v),
+            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13932,11 +14782,16 @@ impl SourceObjectIdentifier {
     /// assert!(x.sql_server_identifier().is_none());
     /// assert!(x.salesforce_identifier().is_none());
     /// ```
-    pub fn set_mongodb_identifier<T: std::convert::Into<std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>>>(mut self, v: T) -> Self {
+    pub fn set_mongodb_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(
-                v.into()
-            )
+            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v.into()),
         );
         self
     }
@@ -13953,12 +14808,10 @@ pub mod source_object_identifier {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Oracle data source object identifier.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OracleObjectIdentifier {
-
         /// Required. The schema name.
         pub schema: std::string::String,
 
@@ -14008,7 +14861,6 @@ pub mod source_object_identifier {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PostgresqlObjectIdentifier {
-
         /// Required. The schema name.
         pub schema: std::string::String,
 
@@ -14058,7 +14910,6 @@ pub mod source_object_identifier {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MysqlObjectIdentifier {
-
         /// Required. The database name.
         pub database: std::string::String,
 
@@ -14108,7 +14959,6 @@ pub mod source_object_identifier {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlServerObjectIdentifier {
-
         /// Required. The schema name.
         pub schema: std::string::String,
 
@@ -14158,7 +15008,6 @@ pub mod source_object_identifier {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SalesforceObjectIdentifier {
-
         /// Required. The object name.
         pub object_name: std::string::String,
 
@@ -14193,7 +15042,6 @@ pub mod source_object_identifier {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MongodbObjectIdentifier {
-
         /// Required. The database name.
         pub database: std::string::String,
 
@@ -14244,17 +15092,29 @@ pub mod source_object_identifier {
     #[non_exhaustive]
     pub enum SourceIdentifier {
         /// Oracle data source object identifier.
-        OracleIdentifier(std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>),
+        OracleIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
+        ),
         /// Mysql data source object identifier.
-        MysqlIdentifier(std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>),
+        MysqlIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+        ),
         /// PostgreSQL data source object identifier.
-        PostgresqlIdentifier(std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>),
+        PostgresqlIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+        ),
         /// SQLServer data source object identifier.
-        SqlServerIdentifier(std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>),
+        SqlServerIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+        ),
         /// Salesforce data source object identifier.
-        SalesforceIdentifier(std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>),
+        SalesforceIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+        ),
         /// MongoDB data source object identifier.
-        MongodbIdentifier(std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>),
+        MongodbIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
+        ),
     }
 }
 
@@ -14262,7 +15122,6 @@ pub mod source_object_identifier {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackfillJob {
-
     /// Output only. Backfill job state.
     pub state: crate::model::backfill_job::State,
 
@@ -14296,7 +15155,10 @@ impl BackfillJob {
     /// let x1 = BackfillJob::new().set_state(State::Pending);
     /// let x2 = BackfillJob::new().set_state(State::Active);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::backfill_job::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::backfill_job::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -14310,7 +15172,10 @@ impl BackfillJob {
     /// let x0 = BackfillJob::new().set_trigger(Trigger::Automatic);
     /// let x1 = BackfillJob::new().set_trigger(Trigger::Manual);
     /// ```
-    pub fn set_trigger<T: std::convert::Into<crate::model::backfill_job::Trigger>>(mut self, v: T) -> Self {
+    pub fn set_trigger<T: std::convert::Into<crate::model::backfill_job::Trigger>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.trigger = v.into();
         self
     }
@@ -14324,7 +15189,8 @@ impl BackfillJob {
     /// let x = BackfillJob::new().set_last_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_start_time = std::option::Option::Some(v.into());
         self
@@ -14340,7 +15206,8 @@ impl BackfillJob {
     /// let x = BackfillJob::new().set_or_clear_last_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_start_time = v.map(|x| x.into());
         self
@@ -14355,7 +15222,8 @@ impl BackfillJob {
     /// let x = BackfillJob::new().set_last_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_end_time = std::option::Option::Some(v.into());
         self
@@ -14371,7 +15239,8 @@ impl BackfillJob {
     /// let x = BackfillJob::new().set_or_clear_last_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_end_time = v.map(|x| x.into());
         self
@@ -14392,7 +15261,7 @@ impl BackfillJob {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>
+        V: std::convert::Into<crate::model::Error>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -14410,7 +15279,6 @@ impl wkt::message::Message for BackfillJob {
 pub mod backfill_job {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// State of the stream object's backfill job.
     ///
@@ -14526,7 +15394,9 @@ pub mod backfill_job {
                 5 => Self::Failed,
                 6 => Self::Completed,
                 7 => Self::Unsupported,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -14543,7 +15413,9 @@ pub mod backfill_job {
                 "FAILED" => Self::Failed,
                 "COMPLETED" => Self::Completed,
                 "UNSUPPORTED" => Self::Unsupported,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -14573,7 +15445,8 @@ pub mod backfill_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datastream.v1.BackfillJob.State"))
+                ".google.cloud.datastream.v1.BackfillJob.State",
+            ))
         }
     }
 
@@ -14664,7 +15537,9 @@ pub mod backfill_job {
                 0 => Self::Unspecified,
                 1 => Self::Automatic,
                 2 => Self::Manual,
-                _ => Self::UnknownValue(trigger::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(trigger::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -14676,7 +15551,9 @@ pub mod backfill_job {
                 "TRIGGER_UNSPECIFIED" => Self::Unspecified,
                 "AUTOMATIC" => Self::Automatic,
                 "MANUAL" => Self::Manual,
-                _ => Self::UnknownValue(trigger::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(trigger::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -14701,7 +15578,8 @@ pub mod backfill_job {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Trigger>::new(
-                ".google.cloud.datastream.v1.BackfillJob.Trigger"))
+                ".google.cloud.datastream.v1.BackfillJob.Trigger",
+            ))
         }
     }
 }
@@ -14710,7 +15588,6 @@ pub mod backfill_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Error {
-
     /// A title that explains the reason for the error.
     pub reason: std::string::String,
 
@@ -14725,7 +15602,7 @@ pub struct Error {
     pub error_time: std::option::Option<wkt::Timestamp>,
 
     /// Additional information about the error.
-    pub details: std::collections::HashMap<std::string::String,std::string::String>,
+    pub details: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14780,7 +15657,8 @@ impl Error {
     /// let x = Error::new().set_error_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_error_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.error_time = std::option::Option::Some(v.into());
         self
@@ -14796,7 +15674,8 @@ impl Error {
     /// let x = Error::new().set_or_clear_error_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_error_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.error_time = v.map(|x| x.into());
         self
@@ -14834,7 +15713,6 @@ impl wkt::message::Message for Error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidationResult {
-
     /// A list of validations (includes both executed as well as not executed
     /// validations).
     pub validations: std::vec::Vec<crate::model::Validation>,
@@ -14862,7 +15740,7 @@ impl ValidationResult {
     pub fn set_validations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Validation>
+        V: std::convert::Into<crate::model::Validation>,
     {
         use std::iter::Iterator;
         self.validations = v.into_iter().map(|i| i.into()).collect();
@@ -14880,7 +15758,6 @@ impl wkt::message::Message for ValidationResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Validation {
-
     /// A short description of the validation.
     pub description: std::string::String,
 
@@ -14923,7 +15800,10 @@ impl Validation {
     /// let x1 = Validation::new().set_state(State::Failed);
     /// let x2 = Validation::new().set_state(State::Passed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::validation::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::validation::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -14943,7 +15823,7 @@ impl Validation {
     pub fn set_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ValidationMessage>
+        V: std::convert::Into<crate::model::ValidationMessage>,
     {
         use std::iter::Iterator;
         self.message = v.into_iter().map(|i| i.into()).collect();
@@ -14973,7 +15853,6 @@ impl wkt::message::Message for Validation {
 pub mod validation {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Validation execution state.
     ///
@@ -15071,7 +15950,9 @@ pub mod validation {
                 2 => Self::Failed,
                 3 => Self::Passed,
                 4 => Self::Warning,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15085,7 +15966,9 @@ pub mod validation {
                 "FAILED" => Self::Failed,
                 "PASSED" => Self::Passed,
                 "WARNING" => Self::Warning,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15112,7 +15995,8 @@ pub mod validation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datastream.v1.Validation.State"))
+                ".google.cloud.datastream.v1.Validation.State",
+            ))
         }
     }
 }
@@ -15121,7 +16005,6 @@ pub mod validation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidationMessage {
-
     /// The result of the validation.
     pub message: std::string::String,
 
@@ -15129,7 +16012,7 @@ pub struct ValidationMessage {
     pub level: crate::model::validation_message::Level,
 
     /// Additional metadata related to the result.
-    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A custom code identifying this specific message.
     pub code: std::string::String,
@@ -15163,7 +16046,10 @@ impl ValidationMessage {
     /// let x0 = ValidationMessage::new().set_level(Level::Warning);
     /// let x1 = ValidationMessage::new().set_level(Level::Error);
     /// ```
-    pub fn set_level<T: std::convert::Into<crate::model::validation_message::Level>>(mut self, v: T) -> Self {
+    pub fn set_level<T: std::convert::Into<crate::model::validation_message::Level>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.level = v.into();
         self
     }
@@ -15212,7 +16098,6 @@ impl wkt::message::Message for ValidationMessage {
 pub mod validation_message {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Validation message level.
     ///
@@ -15300,7 +16185,9 @@ pub mod validation_message {
                 0 => Self::Unspecified,
                 1 => Self::Warning,
                 2 => Self::Error,
-                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15312,7 +16199,9 @@ pub mod validation_message {
                 "LEVEL_UNSPECIFIED" => Self::Unspecified,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15337,7 +16226,8 @@ pub mod validation_message {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Level>::new(
-                ".google.cloud.datastream.v1.ValidationMessage.Level"))
+                ".google.cloud.datastream.v1.ValidationMessage.Level",
+            ))
         }
     }
 }
@@ -15346,7 +16236,6 @@ pub mod validation_message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CdcStrategy {
-
     /// The position to start reading from when starting, resuming, or recovering
     /// the stream.
     /// If not set, the system's default value will be used.
@@ -15372,8 +16261,12 @@ impl CdcStrategy {
     /// let x = CdcStrategy::new().set_start_position(Some(
     ///     google_cloud_datastream_v1::model::cdc_strategy::StartPosition::MostRecentStartPosition(MostRecentStartPosition::default().into())));
     /// ```
-    pub fn set_start_position<T: std::convert::Into<std::option::Option<crate::model::cdc_strategy::StartPosition>>>(mut self, v: T) -> Self
-    {
+    pub fn set_start_position<
+        T: std::convert::Into<std::option::Option<crate::model::cdc_strategy::StartPosition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_position = v.into();
         self
     }
@@ -15381,10 +16274,15 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `MostRecentStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn most_recent_start_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>> {
+    pub fn most_recent_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>
+    {
         #[allow(unreachable_patterns)]
         self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::MostRecentStartPosition(v) => std::option::Option::Some(v),
+            crate::model::cdc_strategy::StartPosition::MostRecentStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -15404,11 +16302,14 @@ impl CdcStrategy {
     /// assert!(x.next_available_start_position().is_none());
     /// assert!(x.specific_start_position().is_none());
     /// ```
-    pub fn set_most_recent_start_position<T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>>(mut self, v: T) -> Self {
+    pub fn set_most_recent_start_position<
+        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::MostRecentStartPosition(
-                v.into()
-            )
+            crate::model::cdc_strategy::StartPosition::MostRecentStartPosition(v.into()),
         );
         self
     }
@@ -15416,10 +16317,15 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn next_available_start_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>> {
+    pub fn next_available_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
+    {
         #[allow(unreachable_patterns)]
         self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => std::option::Option::Some(v),
+            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -15439,11 +16345,14 @@ impl CdcStrategy {
     /// assert!(x.most_recent_start_position().is_none());
     /// assert!(x.specific_start_position().is_none());
     /// ```
-    pub fn set_next_available_start_position<T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>>(mut self, v: T) -> Self {
+    pub fn set_next_available_start_position<
+        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(
-                v.into()
-            )
+            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v.into()),
         );
         self
     }
@@ -15451,10 +16360,15 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn specific_start_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>> {
+    pub fn specific_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
+    {
         #[allow(unreachable_patterns)]
         self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => std::option::Option::Some(v),
+            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -15474,11 +16388,14 @@ impl CdcStrategy {
     /// assert!(x.most_recent_start_position().is_none());
     /// assert!(x.next_available_start_position().is_none());
     /// ```
-    pub fn set_specific_start_position<T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>>(mut self, v: T) -> Self {
+    pub fn set_specific_start_position<
+        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(
-                v.into()
-            )
+            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v.into()),
         );
         self
     }
@@ -15495,13 +16412,11 @@ pub mod cdc_strategy {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// CDC strategy to start replicating from the most recent position in the
     /// source.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MostRecentStartPosition {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -15522,7 +16437,6 @@ pub mod cdc_strategy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NextAvailableStartPosition {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -15542,8 +16456,8 @@ pub mod cdc_strategy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpecificStartPosition {
-
-        pub position: std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
+        pub position:
+            std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -15565,8 +16479,16 @@ pub mod cdc_strategy {
         /// let x = SpecificStartPosition::new().set_position(Some(
         ///     google_cloud_datastream_v1::model::cdc_strategy::specific_start_position::Position::MysqlLogPosition(MysqlLogPosition::default().into())));
         /// ```
-        pub fn set_position<T: std::convert::Into<std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>>>(mut self, v: T) -> Self
-        {
+        pub fn set_position<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::cdc_strategy::specific_start_position::Position,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.position = v.into();
             self
         }
@@ -15574,10 +16496,14 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `MysqlLogPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn mysql_log_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlLogPosition>> {
+        pub fn mysql_log_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlLogPosition>> {
             #[allow(unreachable_patterns)]
             self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::MysqlLogPosition(v) => std::option::Option::Some(v),
+                crate::model::cdc_strategy::specific_start_position::Position::MysqlLogPosition(
+                    v,
+                ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -15598,11 +16524,16 @@ pub mod cdc_strategy {
         /// assert!(x.sql_server_lsn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
         /// ```
-        pub fn set_mysql_log_position<T: std::convert::Into<std::boxed::Box<crate::model::MysqlLogPosition>>>(mut self, v: T) -> Self {
+        pub fn set_mysql_log_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::MysqlLogPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.position = std::option::Option::Some(
                 crate::model::cdc_strategy::specific_start_position::Position::MysqlLogPosition(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -15610,7 +16541,9 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `OracleScnPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn oracle_scn_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
+        pub fn oracle_scn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
             #[allow(unreachable_patterns)]
             self.position.as_ref().and_then(|v| match v {
                 crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
@@ -15634,11 +16567,16 @@ pub mod cdc_strategy {
         /// assert!(x.sql_server_lsn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
         /// ```
-        pub fn set_oracle_scn_position<T: std::convert::Into<std::boxed::Box<crate::model::OracleScnPosition>>>(mut self, v: T) -> Self {
+        pub fn set_oracle_scn_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::OracleScnPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.position = std::option::Option::Some(
                 crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -15646,7 +16584,9 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn sql_server_lsn_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
+        pub fn sql_server_lsn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
             #[allow(unreachable_patterns)]
             self.position.as_ref().and_then(|v| match v {
                 crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(v) => std::option::Option::Some(v),
@@ -15670,11 +16610,16 @@ pub mod cdc_strategy {
         /// assert!(x.oracle_scn_position().is_none());
         /// assert!(x.mysql_gtid_position().is_none());
         /// ```
-        pub fn set_sql_server_lsn_position<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerLsnPosition>>>(mut self, v: T) -> Self {
+        pub fn set_sql_server_lsn_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::SqlServerLsnPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.position = std::option::Option::Some(
                 crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -15682,7 +16627,9 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn mysql_gtid_position(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
+        pub fn mysql_gtid_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
             #[allow(unreachable_patterns)]
             self.position.as_ref().and_then(|v| match v {
                 crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
@@ -15706,11 +16653,16 @@ pub mod cdc_strategy {
         /// assert!(x.oracle_scn_position().is_none());
         /// assert!(x.sql_server_lsn_position().is_none());
         /// ```
-        pub fn set_mysql_gtid_position<T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>>(mut self, v: T) -> Self {
+        pub fn set_mysql_gtid_position<
+            T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.position = std::option::Option::Some(
                 crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -15726,7 +16678,6 @@ pub mod cdc_strategy {
     pub mod specific_start_position {
         #[allow(unused_imports)]
         use super::*;
-
 
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -15749,10 +16700,14 @@ pub mod cdc_strategy {
     #[non_exhaustive]
     pub enum StartPosition {
         /// Optional. Start replicating from the most recent position in the source.
-        MostRecentStartPosition(std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>),
+        MostRecentStartPosition(
+            std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>,
+        ),
         /// Optional. Resume replication from the next available position in the
         /// source.
-        NextAvailableStartPosition(std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>),
+        NextAvailableStartPosition(
+            std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>,
+        ),
         /// Optional. Start replicating from a specific position in the source.
         SpecificStartPosition(std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>),
     }
@@ -15762,7 +16717,6 @@ pub mod cdc_strategy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerLsnPosition {
-
     /// Required. Log sequence number (LSN) from where Logs will be read
     pub lsn: std::string::String,
 
@@ -15797,7 +16751,6 @@ impl wkt::message::Message for SqlServerLsnPosition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleScnPosition {
-
     /// Required. SCN number from where Logs will be read
     pub scn: i64,
 
@@ -15832,7 +16785,6 @@ impl wkt::message::Message for OracleScnPosition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlLogPosition {
-
     /// Required. The binary log file name.
     pub log_file: std::string::String,
 
@@ -15867,7 +16819,8 @@ impl MysqlLogPosition {
     /// let x = MysqlLogPosition::new().set_log_position(42);
     /// ```
     pub fn set_log_position<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.log_position = std::option::Option::Some(v.into());
         self
@@ -15882,7 +16835,8 @@ impl MysqlLogPosition {
     /// let x = MysqlLogPosition::new().set_or_clear_log_position(None::<i32>);
     /// ```
     pub fn set_or_clear_log_position<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.log_position = v.map(|x| x.into());
         self
@@ -15899,7 +16853,6 @@ impl wkt::message::Message for MysqlLogPosition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MysqlGtidPosition {
-
     /// Required. The gtid set to start replication from.
     pub gtid_set: std::string::String,
 

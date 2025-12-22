@@ -58,7 +58,6 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListMigrationSubtasksRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>>;
-
 }
 
 /// All implementations of [super::MigrationService] also implement [MigrationService].
@@ -126,5 +125,4 @@ impl<T: super::MigrationService> MigrationService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
         T::list_migration_subtasks(self, req, options).await
     }
-
 }

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.optional_int32) {
             struct __With<'a>(&'a i32);
@@ -220,7 +220,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedInt32", &__With(&self.repeated_int32))?;
@@ -232,7 +234,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedInt64", &__With(&self.repeated_int64))?;
@@ -244,7 +248,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedUint32", &__With(&self.repeated_uint32))?;
@@ -256,7 +262,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedUint64", &__With(&self.repeated_uint64))?;
@@ -268,7 +276,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedSint32", &__With(&self.repeated_sint32))?;
@@ -280,7 +290,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedSint64", &__With(&self.repeated_sint64))?;
@@ -292,7 +304,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedFixed32", &__With(&self.repeated_fixed32))?;
@@ -304,7 +318,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedFixed64", &__With(&self.repeated_fixed64))?;
@@ -316,7 +332,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedSfixed32", &__With(&self.repeated_sfixed32))?;
@@ -328,7 +346,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedSfixed64", &__With(&self.repeated_sfixed64))?;
@@ -340,7 +360,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedFloat", &__With(&self.repeated_float))?;
@@ -352,7 +374,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedDouble", &__With(&self.repeated_double))?;
@@ -370,7 +394,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeatedBytes", &__With(&self.repeated_bytes))?;
@@ -400,7 +426,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedInt32", &__With(&self.packed_int32))?;
@@ -412,7 +440,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedInt64", &__With(&self.packed_int64))?;
@@ -424,7 +454,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedUint32", &__With(&self.packed_uint32))?;
@@ -436,7 +468,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedUint64", &__With(&self.packed_uint64))?;
@@ -448,7 +482,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedSint32", &__With(&self.packed_sint32))?;
@@ -460,7 +496,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedSint64", &__With(&self.packed_sint64))?;
@@ -472,7 +510,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedFixed32", &__With(&self.packed_fixed32))?;
@@ -484,7 +524,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedFixed64", &__With(&self.packed_fixed64))?;
@@ -496,7 +538,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedSfixed32", &__With(&self.packed_sfixed32))?;
@@ -508,7 +552,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedSfixed64", &__With(&self.packed_sfixed64))?;
@@ -520,7 +566,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedFloat", &__With(&self.packed_float))?;
@@ -532,7 +580,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("packedDouble", &__With(&self.packed_double))?;
@@ -550,7 +600,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedInt32", &__With(&self.unpacked_int32))?;
@@ -562,7 +614,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedInt64", &__With(&self.unpacked_int64))?;
@@ -574,7 +628,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedUint32", &__With(&self.unpacked_uint32))?;
@@ -586,7 +642,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedUint64", &__With(&self.unpacked_uint64))?;
@@ -598,7 +656,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedSint32", &__With(&self.unpacked_sint32))?;
@@ -610,7 +670,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedSint64", &__With(&self.unpacked_sint64))?;
@@ -622,7 +684,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedFixed32", &__With(&self.unpacked_fixed32))?;
@@ -634,7 +698,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedFixed64", &__With(&self.unpacked_fixed64))?;
@@ -646,7 +712,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedSfixed32", &__With(&self.unpacked_sfixed32))?;
@@ -658,7 +726,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedSfixed64", &__With(&self.unpacked_sfixed64))?;
@@ -670,7 +740,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedFloat", &__With(&self.unpacked_float))?;
@@ -682,7 +754,9 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("unpackedDouble", &__With(&self.unpacked_double))?;
@@ -694,157 +768,183 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
             state.serialize_entry("unpackedNestedEnum", &self.unpacked_nested_enum)?;
         }
         if !self.map_int32_int32.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapInt32Int32", &__With(&self.map_int32_int32))?;
         }
         if !self.map_int64_int64.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,i64>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I64, wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapInt64Int64", &__With(&self.map_int64_int64))?;
         }
         if !self.map_uint32_uint32.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u32,u32>);
+            struct __With<'a>(&'a std::collections::HashMap<u32, u32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U32, wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapUint32Uint32", &__With(&self.map_uint32_uint32))?;
         }
         if !self.map_uint64_uint64.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u64,u64>);
+            struct __With<'a>(&'a std::collections::HashMap<u64, u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U64, wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapUint64Uint64", &__With(&self.map_uint64_uint64))?;
         }
         if !self.map_sint32_sint32.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapSint32Sint32", &__With(&self.map_sint32_sint32))?;
         }
         if !self.map_sint64_sint64.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,i64>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I64, wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapSint64Sint64", &__With(&self.map_sint64_sint64))?;
         }
         if !self.map_fixed32_fixed32.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u32,u32>);
+            struct __With<'a>(&'a std::collections::HashMap<u32, u32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U32, wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapFixed32Fixed32", &__With(&self.map_fixed32_fixed32))?;
         }
         if !self.map_fixed64_fixed64.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u64,u64>);
+            struct __With<'a>(&'a std::collections::HashMap<u64, u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U64, wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapFixed64Fixed64", &__With(&self.map_fixed64_fixed64))?;
         }
         if !self.map_sfixed32_sfixed32.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapSfixed32Sfixed32", &__With(&self.map_sfixed32_sfixed32))?;
         }
         if !self.map_sfixed64_sfixed64.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,i64>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I64, wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapSfixed64Sfixed64", &__With(&self.map_sfixed64_sfixed64))?;
         }
         if !self.map_int32_float.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,f32>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, f32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapInt32Float", &__With(&self.map_int32_float))?;
         }
         if !self.map_int32_double.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,f64>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, f64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::F64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapInt32Double", &__With(&self.map_int32_double))?;
         }
         if !self.map_bool_bool.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<bool,bool>);
+            struct __With<'a>(&'a std::collections::HashMap<bool, bool>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapBoolBool", &__With(&self.map_bool_bool))?;
@@ -853,13 +953,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
             state.serialize_entry("mapStringString", &self.map_string_string)?;
         }
         if !self.map_string_bytes.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,::bytes::Bytes>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, ::bytes::Bytes>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::Same, serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::Same, serde_with::base64::Base64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapStringBytes", &__With(&self.map_string_bytes))?;
@@ -961,10 +1063,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalInt32Wrapper", &__With(&self.optional_int32_wrapper))?;
+            state.serialize_entry(
+                "optionalInt32Wrapper",
+                &__With(&self.optional_int32_wrapper),
+            )?;
         }
         if self.optional_int64_wrapper.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -973,10 +1080,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalInt64Wrapper", &__With(&self.optional_int64_wrapper))?;
+            state.serialize_entry(
+                "optionalInt64Wrapper",
+                &__With(&self.optional_int64_wrapper),
+            )?;
         }
         if self.optional_uint32_wrapper.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::UInt32Value>);
@@ -985,10 +1097,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalUint32Wrapper", &__With(&self.optional_uint32_wrapper))?;
+            state.serialize_entry(
+                "optionalUint32Wrapper",
+                &__With(&self.optional_uint32_wrapper),
+            )?;
         }
         if self.optional_uint64_wrapper.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::UInt64Value>);
@@ -997,10 +1114,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalUint64Wrapper", &__With(&self.optional_uint64_wrapper))?;
+            state.serialize_entry(
+                "optionalUint64Wrapper",
+                &__With(&self.optional_uint64_wrapper),
+            )?;
         }
         if self.optional_float_wrapper.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::FloatValue>);
@@ -1009,10 +1131,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalFloatWrapper", &__With(&self.optional_float_wrapper))?;
+            state.serialize_entry(
+                "optionalFloatWrapper",
+                &__With(&self.optional_float_wrapper),
+            )?;
         }
         if self.optional_double_wrapper.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::DoubleValue>);
@@ -1021,10 +1148,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalDoubleWrapper", &__With(&self.optional_double_wrapper))?;
+            state.serialize_entry(
+                "optionalDoubleWrapper",
+                &__With(&self.optional_double_wrapper),
+            )?;
         }
         if self.optional_string_wrapper.is_some() {
             state.serialize_entry("optionalStringWrapper", &self.optional_string_wrapper)?;
@@ -1036,10 +1168,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("optionalBytesWrapper", &__With(&self.optional_bytes_wrapper))?;
+            state.serialize_entry(
+                "optionalBytesWrapper",
+                &__With(&self.optional_bytes_wrapper),
+            )?;
         }
         if !self.repeated_bool_wrapper.is_empty() {
             state.serialize_entry("repeatedBoolWrapper", &self.repeated_bool_wrapper)?;
@@ -1051,10 +1188,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedInt32Wrapper", &__With(&self.repeated_int32_wrapper))?;
+            state.serialize_entry(
+                "repeatedInt32Wrapper",
+                &__With(&self.repeated_int32_wrapper),
+            )?;
         }
         if !self.repeated_int64_wrapper.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<wkt::Int64Value>);
@@ -1063,10 +1205,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedInt64Wrapper", &__With(&self.repeated_int64_wrapper))?;
+            state.serialize_entry(
+                "repeatedInt64Wrapper",
+                &__With(&self.repeated_int64_wrapper),
+            )?;
         }
         if !self.repeated_uint32_wrapper.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<wkt::UInt32Value>);
@@ -1075,10 +1222,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedUint32Wrapper", &__With(&self.repeated_uint32_wrapper))?;
+            state.serialize_entry(
+                "repeatedUint32Wrapper",
+                &__With(&self.repeated_uint32_wrapper),
+            )?;
         }
         if !self.repeated_uint64_wrapper.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<wkt::UInt64Value>);
@@ -1087,10 +1239,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedUint64Wrapper", &__With(&self.repeated_uint64_wrapper))?;
+            state.serialize_entry(
+                "repeatedUint64Wrapper",
+                &__With(&self.repeated_uint64_wrapper),
+            )?;
         }
         if !self.repeated_float_wrapper.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<wkt::FloatValue>);
@@ -1099,10 +1256,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedFloatWrapper", &__With(&self.repeated_float_wrapper))?;
+            state.serialize_entry(
+                "repeatedFloatWrapper",
+                &__With(&self.repeated_float_wrapper),
+            )?;
         }
         if !self.repeated_double_wrapper.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<wkt::DoubleValue>);
@@ -1111,10 +1273,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedDoubleWrapper", &__With(&self.repeated_double_wrapper))?;
+            state.serialize_entry(
+                "repeatedDoubleWrapper",
+                &__With(&self.repeated_double_wrapper),
+            )?;
         }
         if !self.repeated_string_wrapper.is_empty() {
             state.serialize_entry("repeatedStringWrapper", &self.repeated_string_wrapper)?;
@@ -1126,10 +1293,15 @@ impl serde::ser::Serialize for super::TestAllTypesProto3 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("repeatedBytesWrapper", &__With(&self.repeated_bytes_wrapper))?;
+            state.serialize_entry(
+                "repeatedBytesWrapper",
+                &__With(&self.repeated_bytes_wrapper),
+            )?;
         }
         if self.optional_duration.is_some() {
             state.serialize_entry("optionalDuration", &self.optional_duration)?;
@@ -1404,9 +1576,9 @@ impl serde::ser::Serialize for super::test_all_types_proto_3::NestedMessage {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.a) {
             struct __With<'a>(&'a i32);
@@ -1432,34 +1604,15 @@ impl serde::ser::Serialize for super::test_all_types_proto_3::NestedMessage {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ForeignMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.c) {
             struct __With<'a>(&'a i32);
@@ -1488,9 +1641,9 @@ impl serde::ser::Serialize for super::NullHypothesisProto3 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1507,9 +1660,9 @@ impl serde::ser::Serialize for super::EnumOnlyProto3 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

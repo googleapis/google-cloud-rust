@@ -40,7 +40,6 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>>;
-
 }
 
 /// All implementations of [super::IAMCredentials] also implement [IAMCredentials].
@@ -81,5 +80,4 @@ impl<T: super::IAMCredentials> IAMCredentials for T {
     ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>> {
         T::sign_jwt(self, req, options).await
     }
-
 }

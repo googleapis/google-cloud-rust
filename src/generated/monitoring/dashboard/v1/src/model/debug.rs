@@ -95,7 +95,6 @@ impl std::fmt::Debug for super::Dashboard {
     }
 }
 
-
 impl std::fmt::Debug for super::DashboardFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DashboardFilter");

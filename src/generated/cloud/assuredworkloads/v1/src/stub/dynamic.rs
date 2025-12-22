@@ -102,7 +102,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>
+    {
         T::restrict_allowed_resources(self, req, options).await
     }
 

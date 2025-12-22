@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,6 +26,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,7 +39,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAccountKey {
-
     /// Output only. Resource name.
     /// projects/{project}/locations/{location}/externalAccountKeys/{key_id}
     pub name: std::string::String,
@@ -113,7 +112,6 @@ impl wkt::message::Message for ExternalAccountKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAccountKeyRequest {
-
     /// Required. The parent resource where this external_account_key will be
     /// created. Format: projects/[project_id]/locations/[location]. At present
     /// only the "global" location is supported.
@@ -154,7 +152,8 @@ impl CreateExternalAccountKeyRequest {
     /// let x = CreateExternalAccountKeyRequest::new().set_external_account_key(ExternalAccountKey::default()/* use setters */);
     /// ```
     pub fn set_external_account_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ExternalAccountKey>
+    where
+        T: std::convert::Into<crate::model::ExternalAccountKey>,
     {
         self.external_account_key = std::option::Option::Some(v.into());
         self
@@ -170,7 +169,8 @@ impl CreateExternalAccountKeyRequest {
     /// let x = CreateExternalAccountKeyRequest::new().set_or_clear_external_account_key(None::<ExternalAccountKey>);
     /// ```
     pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ExternalAccountKey>
+    where
+        T: std::convert::Into<crate::model::ExternalAccountKey>,
     {
         self.external_account_key = v.map(|x| x.into());
         self

@@ -591,7 +591,10 @@ impl std::fmt::Debug for super::ConnectorVersion {
         debug_struct.field("release_version", &self.release_version);
         debug_struct.field("auth_config_templates", &self.auth_config_templates);
         debug_struct.field("config_variable_templates", &self.config_variable_templates);
-        debug_struct.field("supported_runtime_features", &self.supported_runtime_features);
+        debug_struct.field(
+            "supported_runtime_features",
+            &self.supported_runtime_features,
+        );
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("egress_control_config", &self.egress_control_config);
         debug_struct.field("role_grants", &self.role_grants);
@@ -801,7 +804,10 @@ impl std::fmt::Debug for super::RuntimeConfig {
         debug_struct.field("connd_topic", &self.connd_topic);
         debug_struct.field("connd_subscription", &self.connd_subscription);
         debug_struct.field("control_plane_topic", &self.control_plane_topic);
-        debug_struct.field("control_plane_subscription", &self.control_plane_subscription);
+        debug_struct.field(
+            "control_plane_subscription",
+            &self.control_plane_subscription,
+        );
         debug_struct.field("runtime_endpoint", &self.runtime_endpoint);
         debug_struct.field("state", &self.state);
         debug_struct.field("schema_gcs_bucket", &self.schema_gcs_bucket);
@@ -858,7 +864,10 @@ impl std::fmt::Debug for super::SslConfig {
         let mut debug_struct = f.debug_struct("SslConfig");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("trust_model", &self.trust_model);
-        debug_struct.field("private_server_certificate", &self.private_server_certificate);
+        debug_struct.field(
+            "private_server_certificate",
+            &self.private_server_certificate,
+        );
         debug_struct.field("client_certificate", &self.client_certificate);
         debug_struct.field("client_private_key", &self.client_private_key);
         debug_struct.field("client_private_key_pass", &self.client_private_key_pass);

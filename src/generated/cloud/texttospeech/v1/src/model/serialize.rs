@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ListVoicesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.language_code.is_empty() {
             state.serialize_entry("languageCode", &self.language_code)?;
@@ -45,9 +45,9 @@ impl serde::ser::Serialize for super::ListVoicesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.voices.is_empty() {
             state.serialize_entry("voices", &self.voices)?;
@@ -67,9 +67,9 @@ impl serde::ser::Serialize for super::Voice {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.language_codes.is_empty() {
             state.serialize_entry("languageCodes", &self.language_codes)?;
@@ -90,7 +90,10 @@ impl serde::ser::Serialize for super::Voice {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("naturalSampleRateHertz", &__With(&self.natural_sample_rate_hertz))?;
+            state.serialize_entry(
+                "naturalSampleRateHertz",
+                &__With(&self.natural_sample_rate_hertz),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -107,12 +110,15 @@ impl serde::ser::Serialize for super::AdvancedVoiceOptions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.low_latency_journey_synthesis.is_some() {
-            state.serialize_entry("lowLatencyJourneySynthesis", &self.low_latency_journey_synthesis)?;
+            state.serialize_entry(
+                "lowLatencyJourneySynthesis",
+                &self.low_latency_journey_synthesis,
+            )?;
         }
         if !wkt::internal::is_default(&self.relax_safety_filters) {
             state.serialize_entry("relaxSafetyFilters", &self.relax_safety_filters)?;
@@ -132,9 +138,9 @@ impl serde::ser::Serialize for super::SynthesizeSpeechRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.input.is_some() {
             state.serialize_entry("input", &self.input)?;
@@ -163,9 +169,9 @@ impl serde::ser::Serialize for super::CustomPronunciationParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.phrase.is_some() {
             state.serialize_entry("phrase", &self.phrase)?;
@@ -191,9 +197,9 @@ impl serde::ser::Serialize for super::CustomPronunciations {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pronunciations.is_empty() {
             state.serialize_entry("pronunciations", &self.pronunciations)?;
@@ -213,9 +219,9 @@ impl serde::ser::Serialize for super::MultiSpeakerMarkup {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.turns.is_empty() {
             state.serialize_entry("turns", &self.turns)?;
@@ -235,9 +241,9 @@ impl serde::ser::Serialize for super::multi_speaker_markup::Turn {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.speaker.is_empty() {
             state.serialize_entry("speaker", &self.speaker)?;
@@ -260,9 +266,9 @@ impl serde::ser::Serialize for super::MultispeakerPrebuiltVoice {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.speaker_alias.is_empty() {
             state.serialize_entry("speakerAlias", &self.speaker_alias)?;
@@ -285,9 +291,9 @@ impl serde::ser::Serialize for super::MultiSpeakerVoiceConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.speaker_voice_configs.is_empty() {
             state.serialize_entry("speakerVoiceConfigs", &self.speaker_voice_configs)?;
@@ -307,9 +313,9 @@ impl serde::ser::Serialize for super::SynthesisInput {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.text() {
             state.serialize_entry("text", value)?;
@@ -344,9 +350,9 @@ impl serde::ser::Serialize for super::VoiceSelectionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.language_code.is_empty() {
             state.serialize_entry("languageCode", &self.language_code)?;
@@ -384,9 +390,9 @@ impl serde::ser::Serialize for super::AudioConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.audio_encoding) {
             state.serialize_entry("audioEncoding", &self.audio_encoding)?;
@@ -457,9 +463,9 @@ impl serde::ser::Serialize for super::CustomVoiceParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -482,9 +488,9 @@ impl serde::ser::Serialize for super::VoiceCloneParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.voice_cloning_key.is_empty() {
             state.serialize_entry("voiceCloningKey", &self.voice_cloning_key)?;
@@ -504,9 +510,9 @@ impl serde::ser::Serialize for super::SynthesizeSpeechResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.audio_content.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -535,9 +541,9 @@ impl serde::ser::Serialize for super::StreamingAudioConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.audio_encoding) {
             state.serialize_entry("audioEncoding", &self.audio_encoding)?;
@@ -581,9 +587,9 @@ impl serde::ser::Serialize for super::StreamingSynthesizeConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.voice.is_some() {
             state.serialize_entry("voice", &self.voice)?;
@@ -609,9 +615,9 @@ impl serde::ser::Serialize for super::StreamingSynthesisInput {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.text() {
             state.serialize_entry("text", value)?;
@@ -640,9 +646,9 @@ impl serde::ser::Serialize for super::StreamingSynthesizeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.streaming_config() {
             state.serialize_entry("streamingConfig", value)?;
@@ -665,9 +671,9 @@ impl serde::ser::Serialize for super::StreamingSynthesizeResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.audio_content.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -696,9 +702,9 @@ impl serde::ser::Serialize for super::SynthesizeLongAudioRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -730,9 +736,9 @@ impl serde::ser::Serialize for super::SynthesizeLongAudioResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -749,9 +755,9 @@ impl serde::ser::Serialize for super::SynthesizeLongAudioMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;

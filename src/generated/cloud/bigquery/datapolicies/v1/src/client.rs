@@ -72,7 +72,9 @@ impl DataPolicyService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_policy_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::data_policy_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::data_policy_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,43 @@ impl DataPolicyService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DataPolicyService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DataPolicyService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataPolicyService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataPolicyService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataPolicyService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataPolicyService> {
         super::transport::DataPolicyService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataPolicyService> {
-        Self::build_transport(conf).await.map(super::tracing::DataPolicyService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataPolicyService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataPolicyService::new)
     }
 
     /// Creates a new data policy under a project with the given `dataPolicyId`
@@ -122,8 +139,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_data_policy(&self) -> super::builder::data_policy_service::CreateDataPolicy
-    {
+    pub fn create_data_policy(&self) -> super::builder::data_policy_service::CreateDataPolicy {
         super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
     }
 
@@ -145,8 +161,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_data_policy(&self) -> super::builder::data_policy_service::UpdateDataPolicy
-    {
+    pub fn update_data_policy(&self) -> super::builder::data_policy_service::UpdateDataPolicy {
         super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
     }
 
@@ -167,8 +182,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn rename_data_policy(&self) -> super::builder::data_policy_service::RenameDataPolicy
-    {
+    pub fn rename_data_policy(&self) -> super::builder::data_policy_service::RenameDataPolicy {
         super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
     }
 
@@ -188,8 +202,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_data_policy(&self) -> super::builder::data_policy_service::DeleteDataPolicy
-    {
+    pub fn delete_data_policy(&self) -> super::builder::data_policy_service::DeleteDataPolicy {
         super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
     }
 
@@ -210,14 +223,12 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_data_policy(&self) -> super::builder::data_policy_service::GetDataPolicy
-    {
+    pub fn get_data_policy(&self) -> super::builder::data_policy_service::GetDataPolicy {
         super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
     }
 
     /// List all of the data policies in the specified parent project.
-    pub fn list_data_policies(&self) -> super::builder::data_policy_service::ListDataPolicies
-    {
+    pub fn list_data_policies(&self) -> super::builder::data_policy_service::ListDataPolicies {
         super::builder::data_policy_service::ListDataPolicies::new(self.inner.clone())
     }
 
@@ -238,8 +249,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::data_policy_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::data_policy_service::GetIamPolicy {
         super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -260,8 +270,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::data_policy_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::data_policy_service::SetIamPolicy {
         super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -282,8 +291,7 @@ impl DataPolicyService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::data_policy_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::data_policy_service::TestIamPermissions {
         super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
     }
 }

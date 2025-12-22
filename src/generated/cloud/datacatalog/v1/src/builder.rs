@@ -39,7 +39,10 @@ pub mod data_catalog {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataCatalog;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod data_catalog {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod data_catalog {
     pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
 
     impl SearchCatalog {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchCatalogResponse> {
-            (*self.0.stub).search_catalog(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_catalog(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchCatalogResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchCatalogResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod data_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchCatalogResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchCatalogResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -134,7 +150,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_scope<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::search_catalog_request::Scope>
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
         {
             self.0.request.scope = std::option::Option::Some(v.into());
             self
@@ -144,7 +161,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::search_catalog_request::Scope>
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
         {
             self.0.request.scope = v.map(|x| x.into());
             self
@@ -209,14 +227,17 @@ pub mod data_catalog {
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
     impl CreateEntryGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateEntryGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateEntryGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -229,7 +250,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EntryGroup> {
-            (*self.0.stub).create_entry_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_entry_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
@@ -250,7 +274,8 @@ pub mod data_catalog {
 
         /// Sets the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
         pub fn set_entry_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EntryGroup>
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
         {
             self.0.request.entry_group = std::option::Option::Some(v.into());
             self
@@ -258,7 +283,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
         pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EntryGroup>
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
         {
             self.0.request.entry_group = v.map(|x| x.into());
             self
@@ -293,10 +319,10 @@ pub mod data_catalog {
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
     impl GetEntryGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -313,7 +339,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EntryGroup> {
-            (*self.0.stub).get_entry_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_entry_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryGroupRequest::name].
@@ -326,7 +355,8 @@ pub mod data_catalog {
 
         /// Sets the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -334,7 +364,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -369,14 +400,17 @@ pub mod data_catalog {
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
     impl UpdateEntryGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateEntryGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateEntryGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -389,14 +423,18 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EntryGroup> {
-            (*self.0.stub).update_entry_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_entry_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
         pub fn set_entry_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EntryGroup>
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
         {
             self.0.request.entry_group = std::option::Option::Some(v.into());
             self
@@ -406,7 +444,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EntryGroup>
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
         {
             self.0.request.entry_group = v.map(|x| x.into());
             self
@@ -414,7 +453,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -422,7 +462,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -457,14 +498,17 @@ pub mod data_catalog {
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
     impl DeleteEntryGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteEntryGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteEntryGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -477,7 +521,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_entry_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_entry_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
@@ -527,10 +574,10 @@ pub mod data_catalog {
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
     impl ListEntryGroups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -547,11 +594,17 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEntryGroupsResponse> {
-            (*self.0.stub).list_entry_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_entry_groups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEntryGroupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -563,7 +616,10 @@ pub mod data_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEntryGroupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -617,10 +673,10 @@ pub mod data_catalog {
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
     impl CreateEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -637,7 +693,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Entry> {
-            (*self.0.stub).create_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryRequest::parent].
@@ -660,7 +719,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Entry>
+        where
+            T: std::convert::Into<crate::model::Entry>,
         {
             self.0.request.entry = std::option::Option::Some(v.into());
             self
@@ -670,7 +730,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Entry>
+        where
+            T: std::convert::Into<crate::model::Entry>,
         {
             self.0.request.entry = v.map(|x| x.into());
             self
@@ -705,10 +766,10 @@ pub mod data_catalog {
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
     impl UpdateEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -725,14 +786,18 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Entry> {
-            (*self.0.stub).update_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Entry>
+        where
+            T: std::convert::Into<crate::model::Entry>,
         {
             self.0.request.entry = std::option::Option::Some(v.into());
             self
@@ -742,7 +807,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Entry>
+        where
+            T: std::convert::Into<crate::model::Entry>,
         {
             self.0.request.entry = v.map(|x| x.into());
             self
@@ -750,7 +816,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -758,7 +825,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -793,10 +861,10 @@ pub mod data_catalog {
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
     impl DeleteEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -813,7 +881,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryRequest::name].
@@ -853,10 +924,10 @@ pub mod data_catalog {
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
     impl GetEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -873,7 +944,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Entry> {
-            (*self.0.stub).get_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryRequest::name].
@@ -913,10 +987,10 @@ pub mod data_catalog {
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
     impl LookupEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -933,7 +1007,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Entry> {
-            (*self.0.stub).lookup_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .lookup_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::LookupEntryRequest::project].
@@ -952,7 +1029,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `target_name` are
         /// mutually exclusive.
-        pub fn set_target_name<T: Into<Option<crate::model::lookup_entry_request::TargetName>>>(mut self, v: T) ->Self {
+        pub fn set_target_name<T: Into<Option<crate::model::lookup_entry_request::TargetName>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.target_name = v.into();
             self
         }
@@ -962,7 +1042,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `target_name` are
         /// mutually exclusive.
-        pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_linked_resource(v);
             self
         }
@@ -972,7 +1055,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `target_name` are
         /// mutually exclusive.
-        pub fn set_sql_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_sql_resource<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_sql_resource(v);
             self
         }
@@ -982,7 +1068,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `target_name` are
         /// mutually exclusive.
-        pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_fully_qualified_name(v);
             self
         }
@@ -1020,10 +1109,10 @@ pub mod data_catalog {
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
     impl ListEntries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1040,11 +1129,17 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEntriesResponse> {
-            (*self.0.stub).list_entries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_entries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEntriesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEntriesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1056,7 +1151,10 @@ pub mod data_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEntriesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntriesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1083,7 +1181,8 @@ pub mod data_catalog {
 
         /// Sets the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -1091,7 +1190,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -1126,14 +1226,17 @@ pub mod data_catalog {
     pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
 
     impl ModifyEntryOverview {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ModifyEntryOverviewRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ModifyEntryOverviewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1146,7 +1249,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EntryOverview> {
-            (*self.0.stub).modify_entry_overview(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .modify_entry_overview(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryOverviewRequest::name].
@@ -1161,7 +1267,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_entry_overview<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EntryOverview>
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
         {
             self.0.request.entry_overview = std::option::Option::Some(v.into());
             self
@@ -1171,7 +1278,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entry_overview<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EntryOverview>
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
         {
             self.0.request.entry_overview = v.map(|x| x.into());
             self
@@ -1206,14 +1314,17 @@ pub mod data_catalog {
     pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
 
     impl ModifyEntryContacts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ModifyEntryContactsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ModifyEntryContactsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1226,7 +1337,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Contacts> {
-            (*self.0.stub).modify_entry_contacts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .modify_entry_contacts(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryContactsRequest::name].
@@ -1241,7 +1355,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_contacts<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Contacts>
+        where
+            T: std::convert::Into<crate::model::Contacts>,
         {
             self.0.request.contacts = std::option::Option::Some(v.into());
             self
@@ -1251,7 +1366,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_contacts<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Contacts>
+        where
+            T: std::convert::Into<crate::model::Contacts>,
         {
             self.0.request.contacts = v.map(|x| x.into());
             self
@@ -1286,14 +1402,17 @@ pub mod data_catalog {
     pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
     impl CreateTagTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateTagTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateTagTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1306,7 +1425,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplate> {
-            (*self.0.stub).create_tag_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_tag_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateRequest::parent].
@@ -1329,7 +1451,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_tag_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TagTemplate>
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
         {
             self.0.request.tag_template = std::option::Option::Some(v.into());
             self
@@ -1339,7 +1462,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TagTemplate>
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
         {
             self.0.request.tag_template = v.map(|x| x.into());
             self
@@ -1374,10 +1498,10 @@ pub mod data_catalog {
     pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
 
     impl GetTagTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1394,7 +1518,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplate> {
-            (*self.0.stub).get_tag_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_tag_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagTemplateRequest::name].
@@ -1434,14 +1561,17 @@ pub mod data_catalog {
     pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
     impl UpdateTagTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateTagTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateTagTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1454,14 +1584,18 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplate> {
-            (*self.0.stub).update_tag_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_tag_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
         pub fn set_tag_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TagTemplate>
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
         {
             self.0.request.tag_template = std::option::Option::Some(v.into());
             self
@@ -1471,7 +1605,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TagTemplate>
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
         {
             self.0.request.tag_template = v.map(|x| x.into());
             self
@@ -1479,7 +1614,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1487,7 +1623,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1522,14 +1659,17 @@ pub mod data_catalog {
     pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
     impl DeleteTagTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTagTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTagTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1542,7 +1682,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_tag_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_tag_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateRequest::name].
@@ -1590,14 +1733,17 @@ pub mod data_catalog {
     pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
 
     impl CreateTagTemplateField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateTagTemplateFieldRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateTagTemplateFieldRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1610,7 +1756,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplateField> {
-            (*self.0.stub).create_tag_template_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_tag_template_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateFieldRequest::parent].
@@ -1633,7 +1782,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_tag_template_field<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TagTemplateField>
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
         {
             self.0.request.tag_template_field = std::option::Option::Some(v.into());
             self
@@ -1643,7 +1793,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TagTemplateField>
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
         {
             self.0.request.tag_template_field = v.map(|x| x.into());
             self
@@ -1678,14 +1829,17 @@ pub mod data_catalog {
     pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
 
     impl UpdateTagTemplateField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateTagTemplateFieldRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateTagTemplateFieldRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1698,7 +1852,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplateField> {
-            (*self.0.stub).update_tag_template_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_tag_template_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateTagTemplateFieldRequest::name].
@@ -1713,7 +1870,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_tag_template_field<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TagTemplateField>
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
         {
             self.0.request.tag_template_field = std::option::Option::Some(v.into());
             self
@@ -1723,7 +1881,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TagTemplateField>
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
         {
             self.0.request.tag_template_field = v.map(|x| x.into());
             self
@@ -1731,7 +1890,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1739,7 +1899,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1774,14 +1935,17 @@ pub mod data_catalog {
     pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
 
     impl RenameTagTemplateField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RenameTagTemplateFieldRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RenameTagTemplateFieldRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1794,7 +1958,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplateField> {
-            (*self.0.stub).rename_tag_template_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .rename_tag_template_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldRequest::name].
@@ -1839,17 +2006,22 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameTagTemplateFieldEnumValue(RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>);
+    pub struct RenameTagTemplateFieldEnumValue(
+        RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
+    );
 
     impl RenameTagTemplateFieldEnumValue {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RenameTagTemplateFieldEnumValueRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RenameTagTemplateFieldEnumValueRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1862,7 +2034,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TagTemplateField> {
-            (*self.0.stub).rename_tag_template_field_enum_value(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .rename_tag_template_field_enum_value(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldEnumValueRequest::name].
@@ -1876,7 +2051,10 @@ pub mod data_catalog {
         /// Sets the value of [new_enum_value_display_name][crate::model::RenameTagTemplateFieldEnumValueRequest::new_enum_value_display_name].
         ///
         /// This is a **required** field for requests.
-        pub fn set_new_enum_value_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_new_enum_value_display_name<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.new_enum_value_display_name = v.into();
             self
         }
@@ -1910,14 +2088,17 @@ pub mod data_catalog {
     pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
 
     impl DeleteTagTemplateField {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTagTemplateFieldRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTagTemplateFieldRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1930,7 +2111,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_tag_template_field(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_tag_template_field(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateFieldRequest::name].
@@ -1978,10 +2162,10 @@ pub mod data_catalog {
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1998,7 +2182,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub).create_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
@@ -2013,7 +2200,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_tag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Tag>
+        where
+            T: std::convert::Into<crate::model::Tag>,
         {
             self.0.request.tag = std::option::Option::Some(v.into());
             self
@@ -2023,7 +2211,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Tag>
+        where
+            T: std::convert::Into<crate::model::Tag>,
         {
             self.0.request.tag = v.map(|x| x.into());
             self
@@ -2058,10 +2247,10 @@ pub mod data_catalog {
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2078,14 +2267,18 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub).update_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
         pub fn set_tag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Tag>
+        where
+            T: std::convert::Into<crate::model::Tag>,
         {
             self.0.request.tag = std::option::Option::Some(v.into());
             self
@@ -2095,7 +2288,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Tag>
+        where
+            T: std::convert::Into<crate::model::Tag>,
         {
             self.0.request.tag = v.map(|x| x.into());
             self
@@ -2103,7 +2297,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2111,7 +2306,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2146,10 +2342,10 @@ pub mod data_catalog {
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2166,7 +2362,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagRequest::name].
@@ -2210,10 +2409,10 @@ pub mod data_catalog {
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2230,11 +2429,17 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTagsResponse> {
-            (*self.0.stub).list_tags(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_tags(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2246,7 +2451,10 @@ pub mod data_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2301,10 +2509,10 @@ pub mod data_catalog {
     pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
 
     impl ReconcileTags {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2326,16 +2534,21 @@ pub mod data_catalog {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reconcile_tags][crate::client::DataCatalog::reconcile_tags].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).reconcile_tags(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reconcile_tags(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reconcile_tags`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ReconcileTagsResponse,
+                crate::model::ReconcileTagsMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2389,7 +2602,7 @@ pub mod data_catalog {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Tag>
+            V: std::convert::Into<crate::model::Tag>,
         {
             use std::iter::Iterator;
             self.0.request.tags = v.into_iter().map(|i| i.into()).collect();
@@ -2425,10 +2638,10 @@ pub mod data_catalog {
     pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
 
     impl StarEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2445,7 +2658,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StarEntryResponse> {
-            (*self.0.stub).star_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .star_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StarEntryRequest::name].
@@ -2485,10 +2701,10 @@ pub mod data_catalog {
     pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
 
     impl UnstarEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2505,7 +2721,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UnstarEntryResponse> {
-            (*self.0.stub).unstar_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .unstar_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UnstarEntryRequest::name].
@@ -2545,10 +2764,10 @@ pub mod data_catalog {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2565,7 +2784,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2580,7 +2802,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -2590,7 +2813,8 @@ pub mod data_catalog {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -2598,7 +2822,8 @@ pub mod data_catalog {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2606,7 +2831,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2641,10 +2867,10 @@ pub mod data_catalog {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2661,7 +2887,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2674,7 +2903,8 @@ pub mod data_catalog {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -2682,7 +2912,8 @@ pub mod data_catalog {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2717,14 +2948,17 @@ pub mod data_catalog {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2737,7 +2971,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2754,7 +2991,7 @@ pub mod data_catalog {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2791,10 +3028,10 @@ pub mod data_catalog {
     pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
 
     impl ImportEntries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2816,16 +3053,21 @@ pub mod data_catalog {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_entries][crate::client::DataCatalog::import_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).import_entries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_entries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entries`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportEntriesResponse,
+                crate::model::ImportEntriesMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2871,7 +3113,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_entries_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<T: Into<Option<crate::model::import_entries_request::Source>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -2881,7 +3126,10 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_bucket_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_gcs_bucket_path<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_gcs_bucket_path(v);
             self
         }
@@ -2915,10 +3163,10 @@ pub mod data_catalog {
     pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
 
     impl SetConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2935,7 +3183,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MigrationConfig> {
-            (*self.0.stub).set_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetConfigRequest::name].
@@ -2950,7 +3201,12 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `configuration` are
         /// mutually exclusive.
-        pub fn set_configuration<T: Into<Option<crate::model::set_config_request::Configuration>>>(mut self, v: T) ->Self {
+        pub fn set_configuration<
+            T: Into<Option<crate::model::set_config_request::Configuration>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.configuration = v.into();
             self
         }
@@ -2960,7 +3216,12 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `configuration` are
         /// mutually exclusive.
-        pub fn set_tag_template_migration<T: std::convert::Into<crate::model::TagTemplateMigration>>(mut self, v: T) -> Self {
+        pub fn set_tag_template_migration<
+            T: std::convert::Into<crate::model::TagTemplateMigration>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_tag_template_migration(v);
             self
         }
@@ -2970,7 +3231,12 @@ pub mod data_catalog {
         ///
         /// Note that all the setters affecting `configuration` are
         /// mutually exclusive.
-        pub fn set_catalog_ui_experience<T: std::convert::Into<crate::model::CatalogUIExperience>>(mut self, v: T) -> Self {
+        pub fn set_catalog_ui_experience<
+            T: std::convert::Into<crate::model::CatalogUIExperience>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_catalog_ui_experience(v);
             self
         }
@@ -3004,10 +3270,10 @@ pub mod data_catalog {
     pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
 
     impl RetrieveConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3024,7 +3290,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OrganizationConfig> {
-            (*self.0.stub).retrieve_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .retrieve_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveConfigRequest::name].
@@ -3061,17 +3330,22 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetrieveEffectiveConfig(RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>);
+    pub struct RetrieveEffectiveConfig(
+        RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
+    );
 
     impl RetrieveEffectiveConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RetrieveEffectiveConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RetrieveEffectiveConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3084,7 +3358,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MigrationConfig> {
-            (*self.0.stub).retrieve_effective_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .retrieve_effective_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveEffectiveConfigRequest::name].
@@ -3128,14 +3405,17 @@ pub mod data_catalog {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3148,11 +3428,17 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3164,7 +3450,12 @@ pub mod data_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3228,14 +3519,17 @@ pub mod data_catalog {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3248,7 +3542,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3286,14 +3583,17 @@ pub mod data_catalog {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3306,7 +3606,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3344,14 +3647,17 @@ pub mod data_catalog {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3364,7 +3670,10 @@ pub mod data_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3380,7 +3689,6 @@ pub mod data_catalog {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod policy_tag_manager {
@@ -3408,7 +3716,10 @@ pub mod policy_tag_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3423,8 +3734,12 @@ pub mod policy_tag_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3454,10 +3769,10 @@ pub mod policy_tag_manager {
     pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
     impl CreateTaxonomy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3474,7 +3789,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Taxonomy> {
-            (*self.0.stub).create_taxonomy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_taxonomy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaxonomyRequest::parent].
@@ -3487,7 +3805,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
         pub fn set_taxonomy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Taxonomy>
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
         {
             self.0.request.taxonomy = std::option::Option::Some(v.into());
             self
@@ -3495,7 +3814,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
         pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Taxonomy>
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
         {
             self.0.request.taxonomy = v.map(|x| x.into());
             self
@@ -3530,10 +3850,10 @@ pub mod policy_tag_manager {
     pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
     impl DeleteTaxonomy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3550,7 +3870,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_taxonomy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_taxonomy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaxonomyRequest::name].
@@ -3590,10 +3913,10 @@ pub mod policy_tag_manager {
     pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
     impl UpdateTaxonomy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3610,12 +3933,16 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Taxonomy> {
-            (*self.0.stub).update_taxonomy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_taxonomy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
         pub fn set_taxonomy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Taxonomy>
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
         {
             self.0.request.taxonomy = std::option::Option::Some(v.into());
             self
@@ -3623,7 +3950,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
         pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Taxonomy>
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
         {
             self.0.request.taxonomy = v.map(|x| x.into());
             self
@@ -3631,7 +3959,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3639,7 +3968,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3678,10 +4008,10 @@ pub mod policy_tag_manager {
     pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
     impl ListTaxonomies {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3698,11 +4028,17 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTaxonomiesResponse> {
-            (*self.0.stub).list_taxonomies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_taxonomies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTaxonomiesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3714,7 +4050,10 @@ pub mod policy_tag_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTaxonomiesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3774,10 +4113,10 @@ pub mod policy_tag_manager {
     pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
 
     impl GetTaxonomy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3794,7 +4133,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Taxonomy> {
-            (*self.0.stub).get_taxonomy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_taxonomy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaxonomyRequest::name].
@@ -3834,10 +4176,10 @@ pub mod policy_tag_manager {
     pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
     impl CreatePolicyTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3854,7 +4196,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PolicyTag> {
-            (*self.0.stub).create_policy_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_policy_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyTagRequest::parent].
@@ -3867,7 +4212,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
         pub fn set_policy_tag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PolicyTag>
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
         {
             self.0.request.policy_tag = std::option::Option::Some(v.into());
             self
@@ -3875,7 +4221,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
         pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PolicyTag>
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
         {
             self.0.request.policy_tag = v.map(|x| x.into());
             self
@@ -3910,10 +4257,10 @@ pub mod policy_tag_manager {
     pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
     impl DeletePolicyTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3930,7 +4277,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_policy_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_policy_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyTagRequest::name].
@@ -3970,10 +4320,10 @@ pub mod policy_tag_manager {
     pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
     impl UpdatePolicyTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3990,12 +4340,16 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PolicyTag> {
-            (*self.0.stub).update_policy_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_policy_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
         pub fn set_policy_tag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PolicyTag>
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
         {
             self.0.request.policy_tag = std::option::Option::Some(v.into());
             self
@@ -4003,7 +4357,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
         pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PolicyTag>
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
         {
             self.0.request.policy_tag = v.map(|x| x.into());
             self
@@ -4011,7 +4366,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4019,7 +4375,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4058,10 +4415,10 @@ pub mod policy_tag_manager {
     pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
     impl ListPolicyTags {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4078,11 +4435,17 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPolicyTagsResponse> {
-            (*self.0.stub).list_policy_tags(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_policy_tags(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPolicyTagsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4094,7 +4457,10 @@ pub mod policy_tag_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPolicyTagsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4148,10 +4514,10 @@ pub mod policy_tag_manager {
     pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
 
     impl GetPolicyTag {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4168,7 +4534,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PolicyTag> {
-            (*self.0.stub).get_policy_tag(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_policy_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyTagRequest::name].
@@ -4208,10 +4577,10 @@ pub mod policy_tag_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4228,7 +4597,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4241,7 +4613,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -4249,7 +4622,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -4284,10 +4658,10 @@ pub mod policy_tag_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4304,7 +4678,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4319,7 +4696,8 @@ pub mod policy_tag_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -4329,7 +4707,8 @@ pub mod policy_tag_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -4337,7 +4716,8 @@ pub mod policy_tag_manager {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4345,7 +4725,8 @@ pub mod policy_tag_manager {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4380,14 +4761,17 @@ pub mod policy_tag_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4400,7 +4784,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4417,7 +4804,7 @@ pub mod policy_tag_manager {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -4457,14 +4844,17 @@ pub mod policy_tag_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4477,11 +4867,17 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4493,7 +4889,12 @@ pub mod policy_tag_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4557,14 +4958,17 @@ pub mod policy_tag_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4577,7 +4981,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4615,14 +5022,17 @@ pub mod policy_tag_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4635,7 +5045,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4673,14 +5086,17 @@ pub mod policy_tag_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4693,7 +5109,10 @@ pub mod policy_tag_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4709,7 +5128,6 @@ pub mod policy_tag_manager {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod policy_tag_manager_serialization {
@@ -4737,7 +5155,10 @@ pub mod policy_tag_manager_serialization {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManagerSerialization;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4752,8 +5173,12 @@ pub mod policy_tag_manager_serialization {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4783,10 +5208,10 @@ pub mod policy_tag_manager_serialization {
     pub struct ReplaceTaxonomy(RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
 
     impl ReplaceTaxonomy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4803,7 +5228,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Taxonomy> {
-            (*self.0.stub).replace_taxonomy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .replace_taxonomy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReplaceTaxonomyRequest::name].
@@ -4818,7 +5246,8 @@ pub mod policy_tag_manager_serialization {
         ///
         /// This is a **required** field for requests.
         pub fn set_serialized_taxonomy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SerializedTaxonomy>
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
         {
             self.0.request.serialized_taxonomy = std::option::Option::Some(v.into());
             self
@@ -4828,7 +5257,8 @@ pub mod policy_tag_manager_serialization {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_serialized_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SerializedTaxonomy>
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
         {
             self.0.request.serialized_taxonomy = v.map(|x| x.into());
             self
@@ -4863,14 +5293,17 @@ pub mod policy_tag_manager_serialization {
     pub struct ImportTaxonomies(RequestBuilder<crate::model::ImportTaxonomiesRequest>);
 
     impl ImportTaxonomies {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportTaxonomiesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportTaxonomiesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4883,7 +5316,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImportTaxonomiesResponse> {
-            (*self.0.stub).import_taxonomies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_taxonomies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportTaxonomiesRequest::parent].
@@ -4898,7 +5334,10 @@ pub mod policy_tag_manager_serialization {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_taxonomies_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<T: Into<Option<crate::model::import_taxonomies_request::Source>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -4908,7 +5347,12 @@ pub mod policy_tag_manager_serialization {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_inline_source<T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>>(mut self, v: T) -> Self {
+        pub fn set_inline_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_inline_source(v);
             self
         }
@@ -4918,7 +5362,12 @@ pub mod policy_tag_manager_serialization {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_cross_regional_source<T: std::convert::Into<std::boxed::Box<crate::model::CrossRegionalSource>>>(mut self, v: T) -> Self {
+        pub fn set_cross_regional_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::CrossRegionalSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_cross_regional_source(v);
             self
         }
@@ -4952,14 +5401,17 @@ pub mod policy_tag_manager_serialization {
     pub struct ExportTaxonomies(RequestBuilder<crate::model::ExportTaxonomiesRequest>);
 
     impl ExportTaxonomies {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ExportTaxonomiesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ExportTaxonomiesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4972,7 +5424,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExportTaxonomiesResponse> {
-            (*self.0.stub).export_taxonomies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export_taxonomies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportTaxonomiesRequest::parent].
@@ -4989,7 +5444,7 @@ pub mod policy_tag_manager_serialization {
         pub fn set_taxonomies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.taxonomies = v.into_iter().map(|i| i.into()).collect();
@@ -5000,7 +5455,12 @@ pub mod policy_tag_manager_serialization {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<T: Into<Option<crate::model::export_taxonomies_request::Destination>>>(mut self, v: T) ->Self {
+        pub fn set_destination<
+            T: Into<Option<crate::model::export_taxonomies_request::Destination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.destination = v.into();
             self
         }
@@ -5048,14 +5508,17 @@ pub mod policy_tag_manager_serialization {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5068,11 +5531,17 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5084,7 +5553,12 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5148,14 +5622,17 @@ pub mod policy_tag_manager_serialization {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5168,7 +5645,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5206,14 +5686,17 @@ pub mod policy_tag_manager_serialization {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5226,7 +5709,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5264,14 +5750,17 @@ pub mod policy_tag_manager_serialization {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5284,7 +5773,10 @@ pub mod policy_tag_manager_serialization {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -5300,5 +5792,4 @@ pub mod policy_tag_manager_serialization {
             &mut self.0.options
         }
     }
-
 }

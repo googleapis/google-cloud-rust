@@ -39,7 +39,10 @@ pub mod vm_migration {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VmMigration;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod vm_migration {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod vm_migration {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSourcesResponse> {
-            (*self.0.stub).list_sources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_sources(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -193,10 +209,10 @@ pub mod vm_migration {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -213,7 +229,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Source> {
-            (*self.0.stub).get_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_source(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -254,10 +273,10 @@ pub mod vm_migration {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -279,16 +298,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_source][crate::client::VmMigration::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_source(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_source`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Source, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -336,7 +357,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_source<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Source>
+        where
+            T: std::convert::Into<crate::model::Source>,
         {
             self.0.request.source = std::option::Option::Some(v.into());
             self
@@ -346,7 +368,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Source>
+        where
+            T: std::convert::Into<crate::model::Source>,
         {
             self.0.request.source = v.map(|x| x.into());
             self
@@ -388,10 +411,10 @@ pub mod vm_migration {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -413,16 +436,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_source][crate::client::VmMigration::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_source(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_source`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Source, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +477,8 @@ pub mod vm_migration {
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -460,7 +486,8 @@ pub mod vm_migration {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -470,7 +497,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_source<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Source>
+        where
+            T: std::convert::Into<crate::model::Source>,
         {
             self.0.request.source = std::option::Option::Some(v.into());
             self
@@ -480,7 +508,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Source>
+        where
+            T: std::convert::Into<crate::model::Source>,
         {
             self.0.request.source = v.map(|x| x.into());
             self
@@ -522,10 +551,10 @@ pub mod vm_migration {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -547,15 +576,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_source][crate::client::VmMigration::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_source(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_source(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -581,7 +609,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
@@ -627,10 +660,10 @@ pub mod vm_migration {
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -647,7 +680,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchInventoryResponse> {
-            (*self.0.stub).fetch_inventory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_inventory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [source][crate::model::FetchInventoryRequest::source].
@@ -697,14 +733,17 @@ pub mod vm_migration {
     pub struct FetchStorageInventory(RequestBuilder<crate::model::FetchStorageInventoryRequest>);
 
     impl FetchStorageInventory {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchStorageInventoryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchStorageInventoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -717,11 +756,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchStorageInventoryResponse> {
-            (*self.0.stub).fetch_storage_inventory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_storage_inventory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::FetchStorageInventoryResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::FetchStorageInventoryResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -733,7 +778,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::FetchStorageInventoryResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchStorageInventoryResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -749,7 +799,10 @@ pub mod vm_migration {
         /// Sets the value of [r#type][crate::model::FetchStorageInventoryRequest::type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_type<T: Into<crate::model::fetch_storage_inventory_request::StorageType>>(mut self, v: T) -> Self {
+        pub fn set_type<T: Into<crate::model::fetch_storage_inventory_request::StorageType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.r#type = v.into();
             self
         }
@@ -805,14 +858,17 @@ pub mod vm_migration {
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
     impl ListUtilizationReports {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListUtilizationReportsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListUtilizationReportsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -825,11 +881,19 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUtilizationReportsResponse> {
-            (*self.0.stub).list_utilization_reports(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_utilization_reports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListUtilizationReportsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListUtilizationReportsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -841,7 +905,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListUtilizationReportsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUtilizationReportsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -915,14 +984,17 @@ pub mod vm_migration {
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
     impl GetUtilizationReport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetUtilizationReportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetUtilizationReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -935,7 +1007,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UtilizationReport> {
-            (*self.0.stub).get_utilization_report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_utilization_report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUtilizationReportRequest::name].
@@ -979,17 +1054,22 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUtilizationReport(RequestBuilder<crate::model::CreateUtilizationReportRequest>);
+    pub struct CreateUtilizationReport(
+        RequestBuilder<crate::model::CreateUtilizationReportRequest>,
+    );
 
     impl CreateUtilizationReport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateUtilizationReportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateUtilizationReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1007,16 +1087,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_utilization_report][crate::client::VmMigration::create_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_utilization_report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_utilization_report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_utilization_report`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::UtilizationReport, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::UtilizationReport, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::UtilizationReport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::UtilizationReport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1056,7 +1141,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_utilization_report<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UtilizationReport>
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
         {
             self.0.request.utilization_report = std::option::Option::Some(v.into());
             self
@@ -1066,7 +1152,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_utilization_report<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UtilizationReport>
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
         {
             self.0.request.utilization_report = v.map(|x| x.into());
             self
@@ -1113,17 +1200,22 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUtilizationReport(RequestBuilder<crate::model::DeleteUtilizationReportRequest>);
+    pub struct DeleteUtilizationReport(
+        RequestBuilder<crate::model::DeleteUtilizationReportRequest>,
+    );
 
     impl DeleteUtilizationReport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteUtilizationReportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteUtilizationReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1141,15 +1233,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_utilization_report][crate::client::VmMigration::delete_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_utilization_report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_utilization_report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_utilization_report`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1175,7 +1266,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteUtilizationReportRequest::name].
@@ -1222,17 +1318,22 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatacenterConnectors(RequestBuilder<crate::model::ListDatacenterConnectorsRequest>);
+    pub struct ListDatacenterConnectors(
+        RequestBuilder<crate::model::ListDatacenterConnectorsRequest>,
+    );
 
     impl ListDatacenterConnectors {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDatacenterConnectorsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDatacenterConnectorsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1245,11 +1346,19 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatacenterConnectorsResponse> {
-            (*self.0.stub).list_datacenter_connectors(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_datacenter_connectors(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatacenterConnectorsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListDatacenterConnectorsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1261,7 +1370,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatacenterConnectorsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDatacenterConnectorsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1329,14 +1443,17 @@ pub mod vm_migration {
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
     impl GetDatacenterConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDatacenterConnectorRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDatacenterConnectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1349,7 +1466,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DatacenterConnector> {
-            (*self.0.stub).get_datacenter_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_datacenter_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatacenterConnectorRequest::name].
@@ -1387,17 +1507,22 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDatacenterConnector(RequestBuilder<crate::model::CreateDatacenterConnectorRequest>);
+    pub struct CreateDatacenterConnector(
+        RequestBuilder<crate::model::CreateDatacenterConnectorRequest>,
+    );
 
     impl CreateDatacenterConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDatacenterConnectorRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDatacenterConnectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1415,16 +1540,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_datacenter_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_datacenter_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_datacenter_connector`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DatacenterConnector, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::DatacenterConnector, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::DatacenterConnector, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DatacenterConnector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1472,7 +1602,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_datacenter_connector<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DatacenterConnector>
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
         {
             self.0.request.datacenter_connector = std::option::Option::Some(v.into());
             self
@@ -1482,7 +1613,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_datacenter_connector<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DatacenterConnector>
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
         {
             self.0.request.datacenter_connector = v.map(|x| x.into());
             self
@@ -1521,17 +1653,22 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDatacenterConnector(RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>);
+    pub struct DeleteDatacenterConnector(
+        RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>,
+    );
 
     impl DeleteDatacenterConnector {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDatacenterConnectorRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDatacenterConnectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1549,15 +1686,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_datacenter_connector(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_datacenter_connector(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_datacenter_connector`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1583,7 +1719,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatacenterConnectorRequest::name].
@@ -1630,14 +1771,17 @@ pub mod vm_migration {
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpgradeApplianceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpgradeApplianceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1655,16 +1799,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [upgrade_appliance][crate::client::VmMigration::upgrade_appliance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).upgrade_appliance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .upgrade_appliance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upgrade_appliance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::UpgradeApplianceResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::UpgradeApplianceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::UpgradeApplianceResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::UpgradeApplianceResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1736,14 +1885,17 @@ pub mod vm_migration {
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateMigratingVmRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateMigratingVmRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1761,16 +1913,20 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_migrating_vm][crate::client::VmMigration::create_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_migrating_vm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_migrating_vm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_migrating_vm`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1818,7 +1974,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_migrating_vm<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::MigratingVm>
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
         {
             self.0.request.migrating_vm = std::option::Option::Some(v.into());
             self
@@ -1828,7 +1985,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::MigratingVm>
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
         {
             self.0.request.migrating_vm = v.map(|x| x.into());
             self
@@ -1873,14 +2031,17 @@ pub mod vm_migration {
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListMigratingVmsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListMigratingVmsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1893,11 +2054,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMigratingVmsResponse> {
-            (*self.0.stub).list_migrating_vms(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_migrating_vms(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMigratingVmsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListMigratingVmsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1909,7 +2076,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMigratingVmsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMigratingVmsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1983,10 +2153,10 @@ pub mod vm_migration {
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2003,7 +2173,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MigratingVm> {
-            (*self.0.stub).get_migrating_vm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_migrating_vm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigratingVmRequest::name].
@@ -2050,14 +2223,17 @@ pub mod vm_migration {
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateMigratingVmRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateMigratingVmRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2075,16 +2251,20 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_migrating_vm][crate::client::VmMigration::update_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_migrating_vm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_migrating_vm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_migrating_vm`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2114,7 +2294,8 @@ pub mod vm_migration {
 
         /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2122,7 +2303,8 @@ pub mod vm_migration {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2132,7 +2314,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_migrating_vm<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::MigratingVm>
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
         {
             self.0.request.migrating_vm = std::option::Option::Some(v.into());
             self
@@ -2142,7 +2325,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::MigratingVm>
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
         {
             self.0.request.migrating_vm = v.map(|x| x.into());
             self
@@ -2184,14 +2368,17 @@ pub mod vm_migration {
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteMigratingVmRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteMigratingVmRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2209,15 +2396,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_migrating_vm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_migrating_vm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migrating_vm`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2243,7 +2429,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMigratingVmRequest::name].
@@ -2284,10 +2475,10 @@ pub mod vm_migration {
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2309,16 +2500,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_migration][crate::client::VmMigration::start_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).start_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::StartMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::StartMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::StartMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StartMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2384,10 +2580,10 @@ pub mod vm_migration {
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2409,16 +2605,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [resume_migration][crate::client::VmMigration::resume_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).resume_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .resume_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resume_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ResumeMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ResumeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ResumeMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ResumeMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2484,10 +2685,10 @@ pub mod vm_migration {
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2509,16 +2710,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [pause_migration][crate::client::VmMigration::pause_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).pause_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .pause_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `pause_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PauseMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::PauseMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::PauseMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PauseMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2584,14 +2790,17 @@ pub mod vm_migration {
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FinalizeMigrationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FinalizeMigrationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2609,16 +2818,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [finalize_migration][crate::client::VmMigration::finalize_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).finalize_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .finalize_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `finalize_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::FinalizeMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::FinalizeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::FinalizeMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::FinalizeMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2684,10 +2898,10 @@ pub mod vm_migration {
     pub struct ExtendMigration(RequestBuilder<crate::model::ExtendMigrationRequest>);
 
     impl ExtendMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2709,16 +2923,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [extend_migration][crate::client::VmMigration::extend_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).extend_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .extend_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `extend_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ExtendMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ExtendMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ExtendMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExtendMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2784,10 +3003,10 @@ pub mod vm_migration {
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2809,16 +3028,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_clone_job][crate::client::VmMigration::create_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_clone_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_clone_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_clone_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CloneJob, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CloneJob, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2866,7 +3087,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_clone_job<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CloneJob>
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
         {
             self.0.request.clone_job = std::option::Option::Some(v.into());
             self
@@ -2876,7 +3098,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_clone_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CloneJob>
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
         {
             self.0.request.clone_job = v.map(|x| x.into());
             self
@@ -2918,10 +3141,10 @@ pub mod vm_migration {
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2943,16 +3166,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [cancel_clone_job][crate::client::VmMigration::cancel_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).cancel_clone_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_clone_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_clone_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CancelCloneJobResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::CancelCloneJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::CancelCloneJobResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CancelCloneJobResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3021,10 +3249,10 @@ pub mod vm_migration {
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3041,11 +3269,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCloneJobsResponse> {
-            (*self.0.stub).list_clone_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_clone_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCloneJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListCloneJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3057,7 +3291,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCloneJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCloneJobsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3125,10 +3362,10 @@ pub mod vm_migration {
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3145,7 +3382,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CloneJob> {
-            (*self.0.stub).get_clone_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_clone_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloneJobRequest::name].
@@ -3186,14 +3426,17 @@ pub mod vm_migration {
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCutoverJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCutoverJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3211,16 +3454,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cutover_job][crate::client::VmMigration::create_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_cutover_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_cutover_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cutover_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CutoverJob, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CutoverJob, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3268,7 +3513,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_cutover_job<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CutoverJob>
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
         {
             self.0.request.cutover_job = std::option::Option::Some(v.into());
             self
@@ -3278,7 +3524,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cutover_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CutoverJob>
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
         {
             self.0.request.cutover_job = v.map(|x| x.into());
             self
@@ -3320,14 +3567,17 @@ pub mod vm_migration {
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelCutoverJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CancelCutoverJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3345,16 +3595,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).cancel_cutover_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_cutover_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_cutover_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CancelCutoverJobResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::CancelCutoverJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::CancelCutoverJobResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CancelCutoverJobResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3423,10 +3678,10 @@ pub mod vm_migration {
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3443,11 +3698,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCutoverJobsResponse> {
-            (*self.0.stub).list_cutover_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_cutover_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCutoverJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListCutoverJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3459,7 +3720,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCutoverJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCutoverJobsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3527,10 +3791,10 @@ pub mod vm_migration {
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3547,7 +3811,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CutoverJob> {
-            (*self.0.stub).get_cutover_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_cutover_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCutoverJobRequest::name].
@@ -3591,10 +3858,10 @@ pub mod vm_migration {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3611,11 +3878,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListGroupsResponse> {
-            (*self.0.stub).list_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_groups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3627,7 +3900,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListGroupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGroupsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3695,10 +3971,10 @@ pub mod vm_migration {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3715,7 +3991,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Group> {
-            (*self.0.stub).get_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
@@ -3756,10 +4035,10 @@ pub mod vm_migration {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3781,16 +4060,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_group][crate::client::VmMigration::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_group`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Group, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3838,7 +4119,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Group>
+        where
+            T: std::convert::Into<crate::model::Group>,
         {
             self.0.request.group = std::option::Option::Some(v.into());
             self
@@ -3848,7 +4130,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Group>
+        where
+            T: std::convert::Into<crate::model::Group>,
         {
             self.0.request.group = v.map(|x| x.into());
             self
@@ -3890,10 +4173,10 @@ pub mod vm_migration {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3915,16 +4198,18 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_group][crate::client::VmMigration::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_group`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Group, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3954,7 +4239,8 @@ pub mod vm_migration {
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3962,7 +4248,8 @@ pub mod vm_migration {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3972,7 +4259,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Group>
+        where
+            T: std::convert::Into<crate::model::Group>,
         {
             self.0.request.group = std::option::Option::Some(v.into());
             self
@@ -3982,7 +4270,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Group>
+        where
+            T: std::convert::Into<crate::model::Group>,
         {
             self.0.request.group = v.map(|x| x.into());
             self
@@ -4024,10 +4313,10 @@ pub mod vm_migration {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4049,15 +4338,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_group][crate::client::VmMigration::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4083,7 +4371,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
@@ -4130,14 +4423,17 @@ pub mod vm_migration {
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AddGroupMigrationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AddGroupMigrationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4155,16 +4451,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [add_group_migration][crate::client::VmMigration::add_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).add_group_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .add_group_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_group_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::AddGroupMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::AddGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::AddGroupMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AddGroupMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4236,14 +4537,17 @@ pub mod vm_migration {
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
     impl RemoveGroupMigration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RemoveGroupMigrationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RemoveGroupMigrationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4261,16 +4565,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_group_migration][crate::client::VmMigration::remove_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).remove_group_migration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_group_migration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_group_migration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::RemoveGroupMigrationResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::RemoveGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::RemoveGroupMigrationResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::RemoveGroupMigrationResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4345,14 +4654,17 @@ pub mod vm_migration {
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
     impl ListTargetProjects {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTargetProjectsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTargetProjectsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4365,11 +4677,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTargetProjectsResponse> {
-            (*self.0.stub).list_target_projects(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_target_projects(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTargetProjectsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTargetProjectsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4381,7 +4699,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTargetProjectsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTargetProjectsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4449,14 +4772,17 @@ pub mod vm_migration {
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetTargetProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetTargetProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4469,7 +4795,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TargetProject> {
-            (*self.0.stub).get_target_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_target_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTargetProjectRequest::name].
@@ -4510,14 +4839,17 @@ pub mod vm_migration {
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
     impl CreateTargetProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateTargetProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateTargetProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4535,16 +4867,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_target_project][crate::client::VmMigration::create_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_target_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_target_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_target_project`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4592,7 +4929,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_target_project<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TargetProject>
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
         {
             self.0.request.target_project = std::option::Option::Some(v.into());
             self
@@ -4602,7 +4940,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TargetProject>
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
         {
             self.0.request.target_project = v.map(|x| x.into());
             self
@@ -4644,14 +4983,17 @@ pub mod vm_migration {
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
     impl UpdateTargetProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateTargetProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateTargetProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4669,16 +5011,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_target_project][crate::client::VmMigration::update_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_target_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_target_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_target_project`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4708,7 +5055,8 @@ pub mod vm_migration {
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4716,7 +5064,8 @@ pub mod vm_migration {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4726,7 +5075,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_target_project<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TargetProject>
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
         {
             self.0.request.target_project = std::option::Option::Some(v.into());
             self
@@ -4736,7 +5086,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TargetProject>
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
         {
             self.0.request.target_project = v.map(|x| x.into());
             self
@@ -4778,14 +5129,17 @@ pub mod vm_migration {
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
     impl DeleteTargetProject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTargetProjectRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTargetProjectRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4803,15 +5157,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_target_project][crate::client::VmMigration::delete_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_target_project(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_target_project(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target_project`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4837,7 +5190,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetProjectRequest::name].
@@ -4887,14 +5245,17 @@ pub mod vm_migration {
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
     impl ListReplicationCycles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReplicationCyclesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReplicationCyclesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4907,11 +5268,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListReplicationCyclesResponse> {
-            (*self.0.stub).list_replication_cycles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_replication_cycles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListReplicationCyclesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListReplicationCyclesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4923,7 +5290,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListReplicationCyclesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReplicationCyclesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4991,14 +5363,17 @@ pub mod vm_migration {
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
     impl GetReplicationCycle {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetReplicationCycleRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetReplicationCycleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5011,7 +5386,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReplicationCycle> {
-            (*self.0.stub).get_replication_cycle(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_replication_cycle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReplicationCycleRequest::name].
@@ -5055,14 +5433,17 @@ pub mod vm_migration {
     pub struct ListImageImports(RequestBuilder<crate::model::ListImageImportsRequest>);
 
     impl ListImageImports {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListImageImportsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListImageImportsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5075,11 +5456,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListImageImportsResponse> {
-            (*self.0.stub).list_image_imports(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_image_imports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListImageImportsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListImageImportsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5091,7 +5478,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListImageImportsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImageImportsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5157,10 +5547,10 @@ pub mod vm_migration {
     pub struct GetImageImport(RequestBuilder<crate::model::GetImageImportRequest>);
 
     impl GetImageImport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5177,7 +5567,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImageImport> {
-            (*self.0.stub).get_image_import(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_image_import(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImageImportRequest::name].
@@ -5218,14 +5611,17 @@ pub mod vm_migration {
     pub struct CreateImageImport(RequestBuilder<crate::model::CreateImageImportRequest>);
 
     impl CreateImageImport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateImageImportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateImageImportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5243,16 +5639,20 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_image_import][crate::client::VmMigration::create_image_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_image_import(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_image_import(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_image_import`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ImageImport, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::ImageImport, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::ImageImport, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::ImageImport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5300,7 +5700,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_image_import<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ImageImport>
+        where
+            T: std::convert::Into<crate::model::ImageImport>,
         {
             self.0.request.image_import = std::option::Option::Some(v.into());
             self
@@ -5310,7 +5711,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_image_import<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ImageImport>
+        where
+            T: std::convert::Into<crate::model::ImageImport>,
         {
             self.0.request.image_import = v.map(|x| x.into());
             self
@@ -5352,14 +5754,17 @@ pub mod vm_migration {
     pub struct DeleteImageImport(RequestBuilder<crate::model::DeleteImageImportRequest>);
 
     impl DeleteImageImport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteImageImportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteImageImportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5377,15 +5782,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_image_import][crate::client::VmMigration::delete_image_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_image_import(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_image_import(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_image_import`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5411,7 +5815,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteImageImportRequest::name].
@@ -5461,14 +5870,17 @@ pub mod vm_migration {
     pub struct ListImageImportJobs(RequestBuilder<crate::model::ListImageImportJobsRequest>);
 
     impl ListImageImportJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListImageImportJobsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListImageImportJobsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5481,11 +5893,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListImageImportJobsResponse> {
-            (*self.0.stub).list_image_import_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_image_import_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListImageImportJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListImageImportJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5497,7 +5915,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListImageImportJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListImageImportJobsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5563,14 +5986,17 @@ pub mod vm_migration {
     pub struct GetImageImportJob(RequestBuilder<crate::model::GetImageImportJobRequest>);
 
     impl GetImageImportJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetImageImportJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetImageImportJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5583,7 +6009,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImageImportJob> {
-            (*self.0.stub).get_image_import_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_image_import_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImageImportJobRequest::name].
@@ -5624,14 +6053,17 @@ pub mod vm_migration {
     pub struct CancelImageImportJob(RequestBuilder<crate::model::CancelImageImportJobRequest>);
 
     impl CancelImageImportJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelImageImportJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CancelImageImportJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5649,16 +6081,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [cancel_image_import_job][crate::client::VmMigration::cancel_image_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).cancel_image_import_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_image_import_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_image_import_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CancelImageImportJobResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::CancelImageImportJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::CancelImageImportJobResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CancelImageImportJobResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5724,14 +6161,17 @@ pub mod vm_migration {
     pub struct CreateDiskMigrationJob(RequestBuilder<crate::model::CreateDiskMigrationJobRequest>);
 
     impl CreateDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5749,16 +6189,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_disk_migration_job][crate::client::VmMigration::create_disk_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_disk_migration_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DiskMigrationJob, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::DiskMigrationJob, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::DiskMigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DiskMigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5806,7 +6251,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_disk_migration_job<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DiskMigrationJob>
+        where
+            T: std::convert::Into<crate::model::DiskMigrationJob>,
         {
             self.0.request.disk_migration_job = std::option::Option::Some(v.into());
             self
@@ -5816,7 +6262,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_disk_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DiskMigrationJob>
+        where
+            T: std::convert::Into<crate::model::DiskMigrationJob>,
         {
             self.0.request.disk_migration_job = v.map(|x| x.into());
             self
@@ -5861,14 +6308,17 @@ pub mod vm_migration {
     pub struct ListDiskMigrationJobs(RequestBuilder<crate::model::ListDiskMigrationJobsRequest>);
 
     impl ListDiskMigrationJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDiskMigrationJobsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDiskMigrationJobsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5881,11 +6331,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDiskMigrationJobsResponse> {
-            (*self.0.stub).list_disk_migration_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_disk_migration_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDiskMigrationJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDiskMigrationJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5897,7 +6353,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDiskMigrationJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDiskMigrationJobsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5963,14 +6424,17 @@ pub mod vm_migration {
     pub struct GetDiskMigrationJob(RequestBuilder<crate::model::GetDiskMigrationJobRequest>);
 
     impl GetDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5983,7 +6447,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiskMigrationJob> {
-            (*self.0.stub).get_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDiskMigrationJobRequest::name].
@@ -6024,14 +6491,17 @@ pub mod vm_migration {
     pub struct UpdateDiskMigrationJob(RequestBuilder<crate::model::UpdateDiskMigrationJobRequest>);
 
     impl UpdateDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6049,16 +6519,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_disk_migration_job][crate::client::VmMigration::update_disk_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_disk_migration_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DiskMigrationJob, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::DiskMigrationJob, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::DiskMigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DiskMigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6088,7 +6563,8 @@ pub mod vm_migration {
 
         /// Sets the value of [update_mask][crate::model::UpdateDiskMigrationJobRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -6096,7 +6572,8 @@ pub mod vm_migration {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateDiskMigrationJobRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6106,7 +6583,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_disk_migration_job<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DiskMigrationJob>
+        where
+            T: std::convert::Into<crate::model::DiskMigrationJob>,
         {
             self.0.request.disk_migration_job = std::option::Option::Some(v.into());
             self
@@ -6116,7 +6594,8 @@ pub mod vm_migration {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_disk_migration_job<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DiskMigrationJob>
+        where
+            T: std::convert::Into<crate::model::DiskMigrationJob>,
         {
             self.0.request.disk_migration_job = v.map(|x| x.into());
             self
@@ -6158,14 +6637,17 @@ pub mod vm_migration {
     pub struct DeleteDiskMigrationJob(RequestBuilder<crate::model::DeleteDiskMigrationJobRequest>);
 
     impl DeleteDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6183,15 +6665,14 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_disk_migration_job][crate::client::VmMigration::delete_disk_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_disk_migration_job`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -6217,7 +6698,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDiskMigrationJobRequest::name].
@@ -6258,14 +6744,17 @@ pub mod vm_migration {
     pub struct RunDiskMigrationJob(RequestBuilder<crate::model::RunDiskMigrationJobRequest>);
 
     impl RunDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RunDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RunDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6283,16 +6772,21 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [run_disk_migration_job][crate::client::VmMigration::run_disk_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).run_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .run_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_disk_migration_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::RunDiskMigrationJobResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::RunDiskMigrationJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::RunDiskMigrationJobResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::RunDiskMigrationJobResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6358,14 +6852,17 @@ pub mod vm_migration {
     pub struct CancelDiskMigrationJob(RequestBuilder<crate::model::CancelDiskMigrationJobRequest>);
 
     impl CancelDiskMigrationJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelDiskMigrationJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CancelDiskMigrationJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6383,16 +6880,23 @@ pub mod vm_migration {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [cancel_disk_migration_job][crate::client::VmMigration::cancel_disk_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).cancel_disk_migration_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_disk_migration_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_disk_migration_job`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CancelDiskMigrationJobResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CancelDiskMigrationJobResponse, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::CancelDiskMigrationJobResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::CancelDiskMigrationJobResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6461,14 +6965,17 @@ pub mod vm_migration {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6481,11 +6988,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6497,7 +7010,10 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6555,10 +7071,10 @@ pub mod vm_migration {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6575,7 +7091,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -6617,14 +7136,17 @@ pub mod vm_migration {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6637,11 +7159,17 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6653,7 +7181,12 @@ pub mod vm_migration {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6717,14 +7250,17 @@ pub mod vm_migration {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6737,7 +7273,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6775,14 +7314,17 @@ pub mod vm_migration {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6795,7 +7337,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -6833,14 +7378,17 @@ pub mod vm_migration {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6853,7 +7401,10 @@ pub mod vm_migration {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -6869,5 +7420,4 @@ pub mod vm_migration {
             &mut self.0.options
         }
     }
-
 }

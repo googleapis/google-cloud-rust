@@ -121,7 +121,9 @@ impl ManagedSchemaRegistry {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::managed_schema_registry::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::managed_schema_registry::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::managed_schema_registry::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -129,28 +131,43 @@ impl ManagedSchemaRegistry {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ManagedSchemaRegistry + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ManagedSchemaRegistry + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedSchemaRegistry>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
         super::transport::ManagedSchemaRegistry::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
-        Self::build_transport(conf).await.map(super::tracing::ManagedSchemaRegistry::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ManagedSchemaRegistry> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ManagedSchemaRegistry::new)
     }
 
     /// Get the schema registry instance.
@@ -171,8 +188,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema_registry(&self) -> super::builder::managed_schema_registry::GetSchemaRegistry
-    {
+    pub fn get_schema_registry(
+        &self,
+    ) -> super::builder::managed_schema_registry::GetSchemaRegistry {
         super::builder::managed_schema_registry::GetSchemaRegistry::new(self.inner.clone())
     }
 
@@ -193,8 +211,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_schema_registries(&self) -> super::builder::managed_schema_registry::ListSchemaRegistries
-    {
+    pub fn list_schema_registries(
+        &self,
+    ) -> super::builder::managed_schema_registry::ListSchemaRegistries {
         super::builder::managed_schema_registry::ListSchemaRegistries::new(self.inner.clone())
     }
 
@@ -215,8 +234,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_schema_registry(&self) -> super::builder::managed_schema_registry::CreateSchemaRegistry
-    {
+    pub fn create_schema_registry(
+        &self,
+    ) -> super::builder::managed_schema_registry::CreateSchemaRegistry {
         super::builder::managed_schema_registry::CreateSchemaRegistry::new(self.inner.clone())
     }
 
@@ -236,8 +256,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema_registry(&self) -> super::builder::managed_schema_registry::DeleteSchemaRegistry
-    {
+    pub fn delete_schema_registry(
+        &self,
+    ) -> super::builder::managed_schema_registry::DeleteSchemaRegistry {
         super::builder::managed_schema_registry::DeleteSchemaRegistry::new(self.inner.clone())
     }
 
@@ -259,8 +280,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_context(&self) -> super::builder::managed_schema_registry::GetContext
-    {
+    pub fn get_context(&self) -> super::builder::managed_schema_registry::GetContext {
         super::builder::managed_schema_registry::GetContext::new(self.inner.clone())
     }
 
@@ -281,8 +301,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_contexts(&self) -> super::builder::managed_schema_registry::ListContexts
-    {
+    pub fn list_contexts(&self) -> super::builder::managed_schema_registry::ListContexts {
         super::builder::managed_schema_registry::ListContexts::new(self.inner.clone())
     }
 
@@ -304,8 +323,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema(&self) -> super::builder::managed_schema_registry::GetSchema
-    {
+    pub fn get_schema(&self) -> super::builder::managed_schema_registry::GetSchema {
         super::builder::managed_schema_registry::GetSchema::new(self.inner.clone())
     }
 
@@ -327,8 +345,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_raw_schema(&self) -> super::builder::managed_schema_registry::GetRawSchema
-    {
+    pub fn get_raw_schema(&self) -> super::builder::managed_schema_registry::GetRawSchema {
         super::builder::managed_schema_registry::GetRawSchema::new(self.inner.clone())
     }
 
@@ -351,8 +368,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_schema_versions(&self) -> super::builder::managed_schema_registry::ListSchemaVersions
-    {
+    pub fn list_schema_versions(
+        &self,
+    ) -> super::builder::managed_schema_registry::ListSchemaVersions {
         super::builder::managed_schema_registry::ListSchemaVersions::new(self.inner.clone())
     }
 
@@ -374,8 +392,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_schema_types(&self) -> super::builder::managed_schema_registry::ListSchemaTypes
-    {
+    pub fn list_schema_types(&self) -> super::builder::managed_schema_registry::ListSchemaTypes {
         super::builder::managed_schema_registry::ListSchemaTypes::new(self.inner.clone())
     }
 
@@ -397,8 +414,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_subjects(&self) -> super::builder::managed_schema_registry::ListSubjects
-    {
+    pub fn list_subjects(&self) -> super::builder::managed_schema_registry::ListSubjects {
         super::builder::managed_schema_registry::ListSubjects::new(self.inner.clone())
     }
 
@@ -420,8 +436,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_subjects_by_schema_id(&self) -> super::builder::managed_schema_registry::ListSubjectsBySchemaId
-    {
+    pub fn list_subjects_by_schema_id(
+        &self,
+    ) -> super::builder::managed_schema_registry::ListSubjectsBySchemaId {
         super::builder::managed_schema_registry::ListSubjectsBySchemaId::new(self.inner.clone())
     }
 
@@ -443,8 +460,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_subject(&self) -> super::builder::managed_schema_registry::DeleteSubject
-    {
+    pub fn delete_subject(&self) -> super::builder::managed_schema_registry::DeleteSubject {
         super::builder::managed_schema_registry::DeleteSubject::new(self.inner.clone())
     }
 
@@ -465,8 +481,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn lookup_version(&self) -> super::builder::managed_schema_registry::LookupVersion
-    {
+    pub fn lookup_version(&self) -> super::builder::managed_schema_registry::LookupVersion {
         super::builder::managed_schema_registry::LookupVersion::new(self.inner.clone())
     }
 
@@ -488,8 +503,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_version(&self) -> super::builder::managed_schema_registry::GetVersion
-    {
+    pub fn get_version(&self) -> super::builder::managed_schema_registry::GetVersion {
         super::builder::managed_schema_registry::GetVersion::new(self.inner.clone())
     }
 
@@ -511,8 +525,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_raw_schema_version(&self) -> super::builder::managed_schema_registry::GetRawSchemaVersion
-    {
+    pub fn get_raw_schema_version(
+        &self,
+    ) -> super::builder::managed_schema_registry::GetRawSchemaVersion {
         super::builder::managed_schema_registry::GetRawSchemaVersion::new(self.inner.clone())
     }
 
@@ -534,8 +549,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_versions(&self) -> super::builder::managed_schema_registry::ListVersions
-    {
+    pub fn list_versions(&self) -> super::builder::managed_schema_registry::ListVersions {
         super::builder::managed_schema_registry::ListVersions::new(self.inner.clone())
     }
 
@@ -556,8 +570,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_version(&self) -> super::builder::managed_schema_registry::CreateVersion
-    {
+    pub fn create_version(&self) -> super::builder::managed_schema_registry::CreateVersion {
         super::builder::managed_schema_registry::CreateVersion::new(self.inner.clone())
     }
 
@@ -579,8 +592,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_version(&self) -> super::builder::managed_schema_registry::DeleteVersion
-    {
+    pub fn delete_version(&self) -> super::builder::managed_schema_registry::DeleteVersion {
         super::builder::managed_schema_registry::DeleteVersion::new(self.inner.clone())
     }
 
@@ -602,8 +614,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_referenced_schemas(&self) -> super::builder::managed_schema_registry::ListReferencedSchemas
-    {
+    pub fn list_referenced_schemas(
+        &self,
+    ) -> super::builder::managed_schema_registry::ListReferencedSchemas {
         super::builder::managed_schema_registry::ListReferencedSchemas::new(self.inner.clone())
     }
 
@@ -625,8 +638,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn check_compatibility(&self) -> super::builder::managed_schema_registry::CheckCompatibility
-    {
+    pub fn check_compatibility(
+        &self,
+    ) -> super::builder::managed_schema_registry::CheckCompatibility {
         super::builder::managed_schema_registry::CheckCompatibility::new(self.inner.clone())
     }
 
@@ -647,8 +661,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema_config(&self) -> super::builder::managed_schema_registry::GetSchemaConfig
-    {
+    pub fn get_schema_config(&self) -> super::builder::managed_schema_registry::GetSchemaConfig {
         super::builder::managed_schema_registry::GetSchemaConfig::new(self.inner.clone())
     }
 
@@ -670,8 +683,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_schema_config(&self) -> super::builder::managed_schema_registry::UpdateSchemaConfig
-    {
+    pub fn update_schema_config(
+        &self,
+    ) -> super::builder::managed_schema_registry::UpdateSchemaConfig {
         super::builder::managed_schema_registry::UpdateSchemaConfig::new(self.inner.clone())
     }
 
@@ -692,8 +706,9 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema_config(&self) -> super::builder::managed_schema_registry::DeleteSchemaConfig
-    {
+    pub fn delete_schema_config(
+        &self,
+    ) -> super::builder::managed_schema_registry::DeleteSchemaConfig {
         super::builder::managed_schema_registry::DeleteSchemaConfig::new(self.inner.clone())
     }
 
@@ -714,8 +729,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema_mode(&self) -> super::builder::managed_schema_registry::GetSchemaMode
-    {
+    pub fn get_schema_mode(&self) -> super::builder::managed_schema_registry::GetSchemaMode {
         super::builder::managed_schema_registry::GetSchemaMode::new(self.inner.clone())
     }
 
@@ -736,8 +750,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_schema_mode(&self) -> super::builder::managed_schema_registry::UpdateSchemaMode
-    {
+    pub fn update_schema_mode(&self) -> super::builder::managed_schema_registry::UpdateSchemaMode {
         super::builder::managed_schema_registry::UpdateSchemaMode::new(self.inner.clone())
     }
 
@@ -758,14 +771,12 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema_mode(&self) -> super::builder::managed_schema_registry::DeleteSchemaMode
-    {
+    pub fn delete_schema_mode(&self) -> super::builder::managed_schema_registry::DeleteSchemaMode {
         super::builder::managed_schema_registry::DeleteSchemaMode::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::managed_schema_registry::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::managed_schema_registry::ListLocations {
         super::builder::managed_schema_registry::ListLocations::new(self.inner.clone())
     }
 
@@ -786,16 +797,14 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::managed_schema_registry::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::managed_schema_registry::GetLocation {
         super::builder::managed_schema_registry::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::managed_schema_registry::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::managed_schema_registry::ListOperations {
         super::builder::managed_schema_registry::ListOperations::new(self.inner.clone())
     }
 
@@ -818,8 +827,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::managed_schema_registry::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::managed_schema_registry::GetOperation {
         super::builder::managed_schema_registry::GetOperation::new(self.inner.clone())
     }
 
@@ -841,8 +849,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::managed_schema_registry::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::managed_schema_registry::DeleteOperation {
         super::builder::managed_schema_registry::DeleteOperation::new(self.inner.clone())
     }
 
@@ -864,8 +871,7 @@ impl ManagedSchemaRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::managed_schema_registry::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::managed_schema_registry::CancelOperation {
         super::builder::managed_schema_registry::CancelOperation::new(self.inner.clone())
     }
 }

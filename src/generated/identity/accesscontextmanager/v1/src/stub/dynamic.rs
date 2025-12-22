@@ -360,7 +360,8 @@ impl<T: super::AccessContextManager> AccessContextManager for T {
         &self,
         req: crate::model::ListGcpUserAccessBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>>
+    {
         T::list_gcp_user_access_bindings(self, req, options).await
     }
 

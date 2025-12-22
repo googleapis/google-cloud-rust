@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::CreateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::GetConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -73,9 +73,9 @@ impl serde::ser::Serialize for super::ListConnectionsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -110,9 +110,9 @@ impl serde::ser::Serialize for super::ListConnectionsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
@@ -135,9 +135,9 @@ impl serde::ser::Serialize for super::UpdateConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -163,9 +163,9 @@ impl serde::ser::Serialize for super::DeleteConnectionRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -185,9 +185,9 @@ impl serde::ser::Serialize for super::Connection {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -261,9 +261,9 @@ impl serde::ser::Serialize for super::CloudSqlProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.instance_id.is_empty() {
             state.serialize_entry("instanceId", &self.instance_id)?;
@@ -295,9 +295,9 @@ impl serde::ser::Serialize for super::CloudSqlCredential {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.username.is_empty() {
             state.serialize_entry("username", &self.username)?;
@@ -320,9 +320,9 @@ impl serde::ser::Serialize for super::CloudSpannerProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.database.is_empty() {
             state.serialize_entry("database", &self.database)?;
@@ -366,9 +366,9 @@ impl serde::ser::Serialize for super::AwsProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.cross_account_role() {
             state.serialize_entry("crossAccountRole", value)?;
@@ -391,9 +391,9 @@ impl serde::ser::Serialize for super::AwsCrossAccountRole {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.iam_role_id.is_empty() {
             state.serialize_entry("iamRoleId", &self.iam_role_id)?;
@@ -419,9 +419,9 @@ impl serde::ser::Serialize for super::AwsAccessRole {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.iam_role_id.is_empty() {
             state.serialize_entry("iamRoleId", &self.iam_role_id)?;
@@ -444,9 +444,9 @@ impl serde::ser::Serialize for super::AzureProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.application.is_empty() {
             state.serialize_entry("application", &self.application)?;
@@ -464,7 +464,10 @@ impl serde::ser::Serialize for super::AzureProperties {
             state.serialize_entry("redirectUri", &self.redirect_uri)?;
         }
         if !self.federated_application_client_id.is_empty() {
-            state.serialize_entry("federatedApplicationClientId", &self.federated_application_client_id)?;
+            state.serialize_entry(
+                "federatedApplicationClientId",
+                &self.federated_application_client_id,
+            )?;
         }
         if !self.identity.is_empty() {
             state.serialize_entry("identity", &self.identity)?;
@@ -484,9 +487,9 @@ impl serde::ser::Serialize for super::CloudResourceProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service_account_id.is_empty() {
             state.serialize_entry("serviceAccountId", &self.service_account_id)?;
@@ -506,9 +509,9 @@ impl serde::ser::Serialize for super::MetastoreServiceConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.metastore_service.is_empty() {
             state.serialize_entry("metastoreService", &self.metastore_service)?;
@@ -528,9 +531,9 @@ impl serde::ser::Serialize for super::SparkHistoryServerConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.dataproc_cluster.is_empty() {
             state.serialize_entry("dataprocCluster", &self.dataproc_cluster)?;
@@ -550,9 +553,9 @@ impl serde::ser::Serialize for super::SparkProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service_account_id.is_empty() {
             state.serialize_entry("serviceAccountId", &self.service_account_id)?;
@@ -561,7 +564,10 @@ impl serde::ser::Serialize for super::SparkProperties {
             state.serialize_entry("metastoreServiceConfig", &self.metastore_service_config)?;
         }
         if self.spark_history_server_config.is_some() {
-            state.serialize_entry("sparkHistoryServerConfig", &self.spark_history_server_config)?;
+            state.serialize_entry(
+                "sparkHistoryServerConfig",
+                &self.spark_history_server_config,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -578,9 +584,9 @@ impl serde::ser::Serialize for super::SalesforceDataCloudProperties {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.instance_uri.is_empty() {
             state.serialize_entry("instanceUri", &self.instance_uri)?;

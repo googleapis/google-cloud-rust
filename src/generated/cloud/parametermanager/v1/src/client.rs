@@ -72,7 +72,9 @@ impl ParameterManager {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::parameter_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::parameter_manager::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::parameter_manager::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,33 +82,47 @@ impl ParameterManager {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ParameterManager + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ParameterManager + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ParameterManager>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ParameterManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ParameterManager> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ParameterManager> {
         super::transport::ParameterManager::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ParameterManager> {
-        Self::build_transport(conf).await.map(super::tracing::ParameterManager::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ParameterManager> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ParameterManager::new)
     }
 
     /// Lists Parameters in a given project and location.
-    pub fn list_parameters(&self) -> super::builder::parameter_manager::ListParameters
-    {
+    pub fn list_parameters(&self) -> super::builder::parameter_manager::ListParameters {
         super::builder::parameter_manager::ListParameters::new(self.inner.clone())
     }
 
@@ -128,8 +144,7 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_parameter(&self) -> super::builder::parameter_manager::GetParameter
-    {
+    pub fn get_parameter(&self) -> super::builder::parameter_manager::GetParameter {
         super::builder::parameter_manager::GetParameter::new(self.inner.clone())
     }
 
@@ -150,8 +165,7 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_parameter(&self) -> super::builder::parameter_manager::CreateParameter
-    {
+    pub fn create_parameter(&self) -> super::builder::parameter_manager::CreateParameter {
         super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
     }
 
@@ -172,8 +186,7 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_parameter(&self) -> super::builder::parameter_manager::UpdateParameter
-    {
+    pub fn update_parameter(&self) -> super::builder::parameter_manager::UpdateParameter {
         super::builder::parameter_manager::UpdateParameter::new(self.inner.clone())
     }
 
@@ -193,14 +206,14 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_parameter(&self) -> super::builder::parameter_manager::DeleteParameter
-    {
+    pub fn delete_parameter(&self) -> super::builder::parameter_manager::DeleteParameter {
         super::builder::parameter_manager::DeleteParameter::new(self.inner.clone())
     }
 
     /// Lists ParameterVersions in a given project, location, and parameter.
-    pub fn list_parameter_versions(&self) -> super::builder::parameter_manager::ListParameterVersions
-    {
+    pub fn list_parameter_versions(
+        &self,
+    ) -> super::builder::parameter_manager::ListParameterVersions {
         super::builder::parameter_manager::ListParameterVersions::new(self.inner.clone())
     }
 
@@ -222,8 +235,7 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_parameter_version(&self) -> super::builder::parameter_manager::GetParameterVersion
-    {
+    pub fn get_parameter_version(&self) -> super::builder::parameter_manager::GetParameterVersion {
         super::builder::parameter_manager::GetParameterVersion::new(self.inner.clone())
     }
 
@@ -244,8 +256,9 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn render_parameter_version(&self) -> super::builder::parameter_manager::RenderParameterVersion
-    {
+    pub fn render_parameter_version(
+        &self,
+    ) -> super::builder::parameter_manager::RenderParameterVersion {
         super::builder::parameter_manager::RenderParameterVersion::new(self.inner.clone())
     }
 
@@ -266,8 +279,9 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_parameter_version(&self) -> super::builder::parameter_manager::CreateParameterVersion
-    {
+    pub fn create_parameter_version(
+        &self,
+    ) -> super::builder::parameter_manager::CreateParameterVersion {
         super::builder::parameter_manager::CreateParameterVersion::new(self.inner.clone())
     }
 
@@ -288,8 +302,9 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_parameter_version(&self) -> super::builder::parameter_manager::UpdateParameterVersion
-    {
+    pub fn update_parameter_version(
+        &self,
+    ) -> super::builder::parameter_manager::UpdateParameterVersion {
         super::builder::parameter_manager::UpdateParameterVersion::new(self.inner.clone())
     }
 
@@ -309,14 +324,14 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_parameter_version(&self) -> super::builder::parameter_manager::DeleteParameterVersion
-    {
+    pub fn delete_parameter_version(
+        &self,
+    ) -> super::builder::parameter_manager::DeleteParameterVersion {
         super::builder::parameter_manager::DeleteParameterVersion::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::parameter_manager::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::parameter_manager::ListLocations {
         super::builder::parameter_manager::ListLocations::new(self.inner.clone())
     }
 
@@ -337,8 +352,7 @@ impl ParameterManager {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::parameter_manager::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::parameter_manager::GetLocation {
         super::builder::parameter_manager::GetLocation::new(self.inner.clone())
     }
 }

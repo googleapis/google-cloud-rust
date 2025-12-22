@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::OperationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -63,9 +63,9 @@ impl serde::ser::Serialize for super::PolicyBinding {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -118,9 +118,9 @@ impl serde::ser::Serialize for super::policy_binding::Target {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.principal_set() {
             state.serialize_entry("principalSet", value)?;
@@ -134,16 +134,15 @@ impl serde::ser::Serialize for super::policy_binding::Target {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CreatePolicyBindingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -172,9 +171,9 @@ impl serde::ser::Serialize for super::GetPolicyBindingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -194,9 +193,9 @@ impl serde::ser::Serialize for super::UpdatePolicyBindingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.policy_binding.is_some() {
             state.serialize_entry("policyBinding", &self.policy_binding)?;
@@ -222,9 +221,9 @@ impl serde::ser::Serialize for super::DeletePolicyBindingRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -250,9 +249,9 @@ impl serde::ser::Serialize for super::ListPolicyBindingsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -290,9 +289,9 @@ impl serde::ser::Serialize for super::ListPolicyBindingsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policy_bindings.is_empty() {
             state.serialize_entry("policyBindings", &self.policy_bindings)?;
@@ -315,9 +314,9 @@ impl serde::ser::Serialize for super::SearchTargetPolicyBindingsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.target.is_empty() {
             state.serialize_entry("target", &self.target)?;
@@ -355,9 +354,9 @@ impl serde::ser::Serialize for super::SearchTargetPolicyBindingsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policy_bindings.is_empty() {
             state.serialize_entry("policyBindings", &self.policy_bindings)?;
@@ -380,18 +379,24 @@ impl serde::ser::Serialize for super::CreatePrincipalAccessBoundaryPolicyRequest
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
         }
         if !self.principal_access_boundary_policy_id.is_empty() {
-            state.serialize_entry("principalAccessBoundaryPolicyId", &self.principal_access_boundary_policy_id)?;
+            state.serialize_entry(
+                "principalAccessBoundaryPolicyId",
+                &self.principal_access_boundary_policy_id,
+            )?;
         }
         if self.principal_access_boundary_policy.is_some() {
-            state.serialize_entry("principalAccessBoundaryPolicy", &self.principal_access_boundary_policy)?;
+            state.serialize_entry(
+                "principalAccessBoundaryPolicy",
+                &self.principal_access_boundary_policy,
+            )?;
         }
         if !wkt::internal::is_default(&self.validate_only) {
             state.serialize_entry("validateOnly", &self.validate_only)?;
@@ -411,9 +416,9 @@ impl serde::ser::Serialize for super::GetPrincipalAccessBoundaryPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -433,12 +438,15 @@ impl serde::ser::Serialize for super::UpdatePrincipalAccessBoundaryPolicyRequest
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.principal_access_boundary_policy.is_some() {
-            state.serialize_entry("principalAccessBoundaryPolicy", &self.principal_access_boundary_policy)?;
+            state.serialize_entry(
+                "principalAccessBoundaryPolicy",
+                &self.principal_access_boundary_policy,
+            )?;
         }
         if !wkt::internal::is_default(&self.validate_only) {
             state.serialize_entry("validateOnly", &self.validate_only)?;
@@ -461,9 +469,9 @@ impl serde::ser::Serialize for super::DeletePrincipalAccessBoundaryPolicyRequest
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -492,9 +500,9 @@ impl serde::ser::Serialize for super::ListPrincipalAccessBoundaryPoliciesRequest
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -529,12 +537,15 @@ impl serde::ser::Serialize for super::ListPrincipalAccessBoundaryPoliciesRespons
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.principal_access_boundary_policies.is_empty() {
-            state.serialize_entry("principalAccessBoundaryPolicies", &self.principal_access_boundary_policies)?;
+            state.serialize_entry(
+                "principalAccessBoundaryPolicies",
+                &self.principal_access_boundary_policies,
+            )?;
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
@@ -554,9 +565,9 @@ impl serde::ser::Serialize for super::SearchPrincipalAccessBoundaryPolicyBinding
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -591,9 +602,9 @@ impl serde::ser::Serialize for super::SearchPrincipalAccessBoundaryPolicyBinding
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policy_bindings.is_empty() {
             state.serialize_entry("policyBindings", &self.policy_bindings)?;
@@ -616,9 +627,9 @@ impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -659,9 +670,9 @@ impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicyDetails {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.rules.is_empty() {
             state.serialize_entry("rules", &self.rules)?;
@@ -684,9 +695,9 @@ impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicyRule {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.description.is_empty() {
             state.serialize_entry("description", &self.description)?;

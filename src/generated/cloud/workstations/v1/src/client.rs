@@ -80,28 +80,42 @@ impl Workstations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Workstations + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Workstations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workstations>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workstations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Workstations> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Workstations> {
         super::transport::Workstations::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Workstations> {
-        Self::build_transport(conf).await.map(super::tracing::Workstations::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Workstations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Workstations::new)
     }
 
     /// Returns the requested workstation cluster.
@@ -122,14 +136,14 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workstation_cluster(&self) -> super::builder::workstations::GetWorkstationCluster
-    {
+    pub fn get_workstation_cluster(&self) -> super::builder::workstations::GetWorkstationCluster {
         super::builder::workstations::GetWorkstationCluster::new(self.inner.clone())
     }
 
     /// Returns all workstation clusters in the specified location.
-    pub fn list_workstation_clusters(&self) -> super::builder::workstations::ListWorkstationClusters
-    {
+    pub fn list_workstation_clusters(
+        &self,
+    ) -> super::builder::workstations::ListWorkstationClusters {
         super::builder::workstations::ListWorkstationClusters::new(self.inner.clone())
     }
 
@@ -144,8 +158,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workstation_cluster(&self) -> super::builder::workstations::CreateWorkstationCluster
-    {
+    pub fn create_workstation_cluster(
+        &self,
+    ) -> super::builder::workstations::CreateWorkstationCluster {
         super::builder::workstations::CreateWorkstationCluster::new(self.inner.clone())
     }
 
@@ -160,8 +175,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workstation_cluster(&self) -> super::builder::workstations::UpdateWorkstationCluster
-    {
+    pub fn update_workstation_cluster(
+        &self,
+    ) -> super::builder::workstations::UpdateWorkstationCluster {
         super::builder::workstations::UpdateWorkstationCluster::new(self.inner.clone())
     }
 
@@ -176,8 +192,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workstation_cluster(&self) -> super::builder::workstations::DeleteWorkstationCluster
-    {
+    pub fn delete_workstation_cluster(
+        &self,
+    ) -> super::builder::workstations::DeleteWorkstationCluster {
         super::builder::workstations::DeleteWorkstationCluster::new(self.inner.clone())
     }
 
@@ -199,21 +216,20 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workstation_config(&self) -> super::builder::workstations::GetWorkstationConfig
-    {
+    pub fn get_workstation_config(&self) -> super::builder::workstations::GetWorkstationConfig {
         super::builder::workstations::GetWorkstationConfig::new(self.inner.clone())
     }
 
     /// Returns all workstation configurations in the specified cluster.
-    pub fn list_workstation_configs(&self) -> super::builder::workstations::ListWorkstationConfigs
-    {
+    pub fn list_workstation_configs(&self) -> super::builder::workstations::ListWorkstationConfigs {
         super::builder::workstations::ListWorkstationConfigs::new(self.inner.clone())
     }
 
     /// Returns all workstation configurations in the specified cluster on which
     /// the caller has the "workstations.workstation.create" permission.
-    pub fn list_usable_workstation_configs(&self) -> super::builder::workstations::ListUsableWorkstationConfigs
-    {
+    pub fn list_usable_workstation_configs(
+        &self,
+    ) -> super::builder::workstations::ListUsableWorkstationConfigs {
         super::builder::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
     }
 
@@ -228,8 +244,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workstation_config(&self) -> super::builder::workstations::CreateWorkstationConfig
-    {
+    pub fn create_workstation_config(
+        &self,
+    ) -> super::builder::workstations::CreateWorkstationConfig {
         super::builder::workstations::CreateWorkstationConfig::new(self.inner.clone())
     }
 
@@ -244,8 +261,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workstation_config(&self) -> super::builder::workstations::UpdateWorkstationConfig
-    {
+    pub fn update_workstation_config(
+        &self,
+    ) -> super::builder::workstations::UpdateWorkstationConfig {
         super::builder::workstations::UpdateWorkstationConfig::new(self.inner.clone())
     }
 
@@ -260,8 +278,9 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workstation_config(&self) -> super::builder::workstations::DeleteWorkstationConfig
-    {
+    pub fn delete_workstation_config(
+        &self,
+    ) -> super::builder::workstations::DeleteWorkstationConfig {
         super::builder::workstations::DeleteWorkstationConfig::new(self.inner.clone())
     }
 
@@ -283,21 +302,18 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_workstation(&self) -> super::builder::workstations::GetWorkstation
-    {
+    pub fn get_workstation(&self) -> super::builder::workstations::GetWorkstation {
         super::builder::workstations::GetWorkstation::new(self.inner.clone())
     }
 
     /// Returns all Workstations using the specified workstation configuration.
-    pub fn list_workstations(&self) -> super::builder::workstations::ListWorkstations
-    {
+    pub fn list_workstations(&self) -> super::builder::workstations::ListWorkstations {
         super::builder::workstations::ListWorkstations::new(self.inner.clone())
     }
 
     /// Returns all workstations using the specified workstation configuration
     /// on which the caller has the "workstations.workstations.use" permission.
-    pub fn list_usable_workstations(&self) -> super::builder::workstations::ListUsableWorkstations
-    {
+    pub fn list_usable_workstations(&self) -> super::builder::workstations::ListUsableWorkstations {
         super::builder::workstations::ListUsableWorkstations::new(self.inner.clone())
     }
 
@@ -312,8 +328,7 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workstation(&self) -> super::builder::workstations::CreateWorkstation
-    {
+    pub fn create_workstation(&self) -> super::builder::workstations::CreateWorkstation {
         super::builder::workstations::CreateWorkstation::new(self.inner.clone())
     }
 
@@ -328,8 +343,7 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workstation(&self) -> super::builder::workstations::UpdateWorkstation
-    {
+    pub fn update_workstation(&self) -> super::builder::workstations::UpdateWorkstation {
         super::builder::workstations::UpdateWorkstation::new(self.inner.clone())
     }
 
@@ -344,8 +358,7 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workstation(&self) -> super::builder::workstations::DeleteWorkstation
-    {
+    pub fn delete_workstation(&self) -> super::builder::workstations::DeleteWorkstation {
         super::builder::workstations::DeleteWorkstation::new(self.inner.clone())
     }
 
@@ -360,8 +373,7 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_workstation(&self) -> super::builder::workstations::StartWorkstation
-    {
+    pub fn start_workstation(&self) -> super::builder::workstations::StartWorkstation {
         super::builder::workstations::StartWorkstation::new(self.inner.clone())
     }
 
@@ -376,8 +388,7 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_workstation(&self) -> super::builder::workstations::StopWorkstation
-    {
+    pub fn stop_workstation(&self) -> super::builder::workstations::StopWorkstation {
         super::builder::workstations::StopWorkstation::new(self.inner.clone())
     }
 
@@ -399,8 +410,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn generate_access_token(&self) -> super::builder::workstations::GenerateAccessToken
-    {
+    pub fn generate_access_token(&self) -> super::builder::workstations::GenerateAccessToken {
         super::builder::workstations::GenerateAccessToken::new(self.inner.clone())
     }
 
@@ -425,8 +435,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::workstations::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::workstations::SetIamPolicy {
         super::builder::workstations::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -448,8 +457,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::workstations::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::workstations::GetIamPolicy {
         super::builder::workstations::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -476,16 +484,14 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::workstations::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::workstations::TestIamPermissions {
         super::builder::workstations::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::workstations::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::workstations::ListOperations {
         super::builder::workstations::ListOperations::new(self.inner.clone())
     }
 
@@ -508,8 +514,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::workstations::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::workstations::GetOperation {
         super::builder::workstations::GetOperation::new(self.inner.clone())
     }
 
@@ -531,8 +536,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::workstations::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::workstations::DeleteOperation {
         super::builder::workstations::DeleteOperation::new(self.inner.clone())
     }
 
@@ -554,8 +558,7 @@ impl Workstations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::workstations::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::workstations::CancelOperation {
         super::builder::workstations::CancelOperation::new(self.inner.clone())
     }
 }

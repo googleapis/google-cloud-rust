@@ -80,28 +80,42 @@ impl TopicAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::TopicAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::TopicAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
         super::transport::TopicAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::TopicAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::TopicAdmin::new)
     }
 
     /// Creates the given topic with the given name. See the [resource name rules]
@@ -122,8 +136,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_topic(&self) -> super::builder::topic_admin::CreateTopic
-    {
+    pub fn create_topic(&self) -> super::builder::topic_admin::CreateTopic {
         super::builder::topic_admin::CreateTopic::new(self.inner.clone())
     }
 
@@ -145,8 +158,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_topic(&self) -> super::builder::topic_admin::UpdateTopic
-    {
+    pub fn update_topic(&self) -> super::builder::topic_admin::UpdateTopic {
         super::builder::topic_admin::UpdateTopic::new(self.inner.clone())
     }
 
@@ -168,14 +180,12 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_topic(&self) -> super::builder::topic_admin::GetTopic
-    {
+    pub fn get_topic(&self) -> super::builder::topic_admin::GetTopic {
         super::builder::topic_admin::GetTopic::new(self.inner.clone())
     }
 
     /// Lists matching topics.
-    pub fn list_topics(&self) -> super::builder::topic_admin::ListTopics
-    {
+    pub fn list_topics(&self) -> super::builder::topic_admin::ListTopics {
         super::builder::topic_admin::ListTopics::new(self.inner.clone())
     }
 
@@ -196,8 +206,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_topic_subscriptions(&self) -> super::builder::topic_admin::ListTopicSubscriptions
-    {
+    pub fn list_topic_subscriptions(&self) -> super::builder::topic_admin::ListTopicSubscriptions {
         super::builder::topic_admin::ListTopicSubscriptions::new(self.inner.clone())
     }
 
@@ -222,8 +231,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_topic_snapshots(&self) -> super::builder::topic_admin::ListTopicSnapshots
-    {
+    pub fn list_topic_snapshots(&self) -> super::builder::topic_admin::ListTopicSnapshots {
         super::builder::topic_admin::ListTopicSnapshots::new(self.inner.clone())
     }
 
@@ -247,8 +255,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_topic(&self) -> super::builder::topic_admin::DeleteTopic
-    {
+    pub fn delete_topic(&self) -> super::builder::topic_admin::DeleteTopic {
         super::builder::topic_admin::DeleteTopic::new(self.inner.clone())
     }
 
@@ -272,8 +279,7 @@ impl TopicAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn detach_subscription(&self) -> super::builder::topic_admin::DetachSubscription
-    {
+    pub fn detach_subscription(&self) -> super::builder::topic_admin::DetachSubscription {
         super::builder::topic_admin::DetachSubscription::new(self.inner.clone())
     }
 }
@@ -334,7 +340,9 @@ impl SubscriptionAdmin {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::subscription_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::subscription_admin::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::subscription_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -342,28 +350,43 @@ impl SubscriptionAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SubscriptionAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SubscriptionAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SubscriptionAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SubscriptionAdmin>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
         super::transport::SubscriptionAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::SubscriptionAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SubscriptionAdmin::new)
     }
 
     /// Creates a subscription to a given topic. See the [resource name rules]
@@ -393,8 +416,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_subscription(&self) -> super::builder::subscription_admin::CreateSubscription
-    {
+    pub fn create_subscription(&self) -> super::builder::subscription_admin::CreateSubscription {
         super::builder::subscription_admin::CreateSubscription::new(self.inner.clone())
     }
 
@@ -416,8 +438,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_subscription(&self) -> super::builder::subscription_admin::GetSubscription
-    {
+    pub fn get_subscription(&self) -> super::builder::subscription_admin::GetSubscription {
         super::builder::subscription_admin::GetSubscription::new(self.inner.clone())
     }
 
@@ -440,14 +461,12 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_subscription(&self) -> super::builder::subscription_admin::UpdateSubscription
-    {
+    pub fn update_subscription(&self) -> super::builder::subscription_admin::UpdateSubscription {
         super::builder::subscription_admin::UpdateSubscription::new(self.inner.clone())
     }
 
     /// Lists matching subscriptions.
-    pub fn list_subscriptions(&self) -> super::builder::subscription_admin::ListSubscriptions
-    {
+    pub fn list_subscriptions(&self) -> super::builder::subscription_admin::ListSubscriptions {
         super::builder::subscription_admin::ListSubscriptions::new(self.inner.clone())
     }
 
@@ -471,8 +490,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_subscription(&self) -> super::builder::subscription_admin::DeleteSubscription
-    {
+    pub fn delete_subscription(&self) -> super::builder::subscription_admin::DeleteSubscription {
         super::builder::subscription_admin::DeleteSubscription::new(self.inner.clone())
     }
 
@@ -497,8 +515,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn modify_push_config(&self) -> super::builder::subscription_admin::ModifyPushConfig
-    {
+    pub fn modify_push_config(&self) -> super::builder::subscription_admin::ModifyPushConfig {
         super::builder::subscription_admin::ModifyPushConfig::new(self.inner.clone())
     }
 
@@ -524,8 +541,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_snapshot(&self) -> super::builder::subscription_admin::GetSnapshot
-    {
+    pub fn get_snapshot(&self) -> super::builder::subscription_admin::GetSnapshot {
         super::builder::subscription_admin::GetSnapshot::new(self.inner.clone())
     }
 
@@ -534,8 +550,7 @@ impl SubscriptionAdmin {
     /// allow you to manage message acknowledgments in bulk. That is, you can set
     /// the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
-    pub fn list_snapshots(&self) -> super::builder::subscription_admin::ListSnapshots
-    {
+    pub fn list_snapshots(&self) -> super::builder::subscription_admin::ListSnapshots {
         super::builder::subscription_admin::ListSnapshots::new(self.inner.clone())
     }
 
@@ -571,8 +586,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_snapshot(&self) -> super::builder::subscription_admin::CreateSnapshot
-    {
+    pub fn create_snapshot(&self) -> super::builder::subscription_admin::CreateSnapshot {
         super::builder::subscription_admin::CreateSnapshot::new(self.inner.clone())
     }
 
@@ -598,8 +612,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_snapshot(&self) -> super::builder::subscription_admin::UpdateSnapshot
-    {
+    pub fn update_snapshot(&self) -> super::builder::subscription_admin::UpdateSnapshot {
         super::builder::subscription_admin::UpdateSnapshot::new(self.inner.clone())
     }
 
@@ -627,8 +640,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_snapshot(&self) -> super::builder::subscription_admin::DeleteSnapshot
-    {
+    pub fn delete_snapshot(&self) -> super::builder::subscription_admin::DeleteSnapshot {
         super::builder::subscription_admin::DeleteSnapshot::new(self.inner.clone())
     }
 
@@ -655,8 +667,7 @@ impl SubscriptionAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn seek(&self) -> super::builder::subscription_admin::Seek
-    {
+    pub fn seek(&self) -> super::builder::subscription_admin::Seek {
         super::builder::subscription_admin::Seek::new(self.inner.clone())
     }
 }
@@ -725,28 +736,42 @@ impl SchemaService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SchemaService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SchemaService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SchemaService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SchemaService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SchemaService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SchemaService> {
         super::transport::SchemaService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SchemaService> {
-        Self::build_transport(conf).await.map(super::tracing::SchemaService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SchemaService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SchemaService::new)
     }
 
     /// Creates a schema.
@@ -766,8 +791,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_schema(&self) -> super::builder::schema_service::CreateSchema
-    {
+    pub fn create_schema(&self) -> super::builder::schema_service::CreateSchema {
         super::builder::schema_service::CreateSchema::new(self.inner.clone())
     }
 
@@ -788,20 +812,17 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema(&self) -> super::builder::schema_service::GetSchema
-    {
+    pub fn get_schema(&self) -> super::builder::schema_service::GetSchema {
         super::builder::schema_service::GetSchema::new(self.inner.clone())
     }
 
     /// Lists schemas in a project.
-    pub fn list_schemas(&self) -> super::builder::schema_service::ListSchemas
-    {
+    pub fn list_schemas(&self) -> super::builder::schema_service::ListSchemas {
         super::builder::schema_service::ListSchemas::new(self.inner.clone())
     }
 
     /// Lists all schema revisions for the named schema.
-    pub fn list_schema_revisions(&self) -> super::builder::schema_service::ListSchemaRevisions
-    {
+    pub fn list_schema_revisions(&self) -> super::builder::schema_service::ListSchemaRevisions {
         super::builder::schema_service::ListSchemaRevisions::new(self.inner.clone())
     }
 
@@ -822,8 +843,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn commit_schema(&self) -> super::builder::schema_service::CommitSchema
-    {
+    pub fn commit_schema(&self) -> super::builder::schema_service::CommitSchema {
         super::builder::schema_service::CommitSchema::new(self.inner.clone())
     }
 
@@ -844,8 +864,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn rollback_schema(&self) -> super::builder::schema_service::RollbackSchema
-    {
+    pub fn rollback_schema(&self) -> super::builder::schema_service::RollbackSchema {
         super::builder::schema_service::RollbackSchema::new(self.inner.clone())
     }
 
@@ -866,8 +885,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema_revision(&self) -> super::builder::schema_service::DeleteSchemaRevision
-    {
+    pub fn delete_schema_revision(&self) -> super::builder::schema_service::DeleteSchemaRevision {
         super::builder::schema_service::DeleteSchemaRevision::new(self.inner.clone())
     }
 
@@ -887,8 +905,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema(&self) -> super::builder::schema_service::DeleteSchema
-    {
+    pub fn delete_schema(&self) -> super::builder::schema_service::DeleteSchema {
         super::builder::schema_service::DeleteSchema::new(self.inner.clone())
     }
 
@@ -909,8 +926,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn validate_schema(&self) -> super::builder::schema_service::ValidateSchema
-    {
+    pub fn validate_schema(&self) -> super::builder::schema_service::ValidateSchema {
         super::builder::schema_service::ValidateSchema::new(self.inner.clone())
     }
 
@@ -931,8 +947,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn validate_message(&self) -> super::builder::schema_service::ValidateMessage
-    {
+    pub fn validate_message(&self) -> super::builder::schema_service::ValidateMessage {
         super::builder::schema_service::ValidateMessage::new(self.inner.clone())
     }
 
@@ -957,8 +972,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::schema_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::schema_service::SetIamPolicy {
         super::builder::schema_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -980,8 +994,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::schema_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::schema_service::GetIamPolicy {
         super::builder::schema_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1008,8 +1021,7 @@ impl SchemaService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::schema_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::schema_service::TestIamPermissions {
         super::builder::schema_service::TestIamPermissions::new(self.inner.clone())
     }
 }

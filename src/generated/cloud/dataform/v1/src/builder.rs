@@ -39,7 +39,10 @@ pub mod dataform {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Dataform;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,7 +57,9 @@ pub mod dataform {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
+    where
+        R: std::default::Default,
+    {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
             Self {
                 stub,
@@ -90,13 +95,14 @@ pub mod dataform {
 
     impl ListRepositories {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -109,11 +115,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRepositoriesResponse> {
-            (*self.0.stub).list_repositories(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_repositories(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +137,10 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -192,9 +207,7 @@ pub mod dataform {
 
     impl GetRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -211,7 +224,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub).get_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_repository(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -252,13 +268,14 @@ pub mod dataform {
 
     impl CreateRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -271,7 +288,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub).create_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_repository(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -286,7 +306,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Repository>
+        where
+            T: std::convert::Into<crate::model::Repository>,
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -296,7 +317,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Repository>
+        where
+            T: std::convert::Into<crate::model::Repository>,
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -340,13 +362,14 @@ pub mod dataform {
 
     impl UpdateRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -359,12 +382,16 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub).update_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_repository(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -372,7 +399,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -382,7 +410,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Repository>
+        where
+            T: std::convert::Into<crate::model::Repository>,
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -392,7 +421,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Repository>
+        where
+            T: std::convert::Into<crate::model::Repository>,
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -428,13 +458,14 @@ pub mod dataform {
 
     impl DeleteRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -447,7 +478,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_repository(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -490,17 +524,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CommitRepositoryChanges(RequestBuilder<crate::model::CommitRepositoryChangesRequest>);
+    pub struct CommitRepositoryChanges(
+        RequestBuilder<crate::model::CommitRepositoryChangesRequest>,
+    );
 
     impl CommitRepositoryChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CommitRepositoryChangesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CommitRepositoryChangesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -513,7 +550,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CommitRepositoryChangesResponse> {
-            (*self.0.stub).commit_repository_changes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .commit_repository_changes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CommitRepositoryChangesRequest::name].
@@ -528,7 +568,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_commit_metadata<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CommitMetadata>
+        where
+            T: std::convert::Into<crate::model::CommitMetadata>,
         {
             self.0.request.commit_metadata = std::option::Option::Some(v.into());
             self
@@ -538,7 +579,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_commit_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CommitMetadata>
+        where
+            T: std::convert::Into<crate::model::CommitMetadata>,
         {
             self.0.request.commit_metadata = v.map(|x| x.into());
             self
@@ -557,7 +599,8 @@ pub mod dataform {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::commit_repository_changes_request::FileOperation>,
         {
-            self.0.request.file_operations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.file_operations =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -591,13 +634,14 @@ pub mod dataform {
 
     impl ReadRepositoryFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReadRepositoryFileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ReadRepositoryFileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -610,7 +654,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReadRepositoryFileResponse> {
-            (*self.0.stub).read_repository_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .read_repository_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReadRepositoryFileRequest::name].
@@ -665,17 +712,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryRepositoryDirectoryContents(RequestBuilder<crate::model::QueryRepositoryDirectoryContentsRequest>);
+    pub struct QueryRepositoryDirectoryContents(
+        RequestBuilder<crate::model::QueryRepositoryDirectoryContentsRequest>,
+    );
 
     impl QueryRepositoryDirectoryContents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryRepositoryDirectoryContentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::QueryRepositoryDirectoryContentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -688,11 +738,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryRepositoryDirectoryContentsResponse> {
-            (*self.0.stub).query_repository_directory_contents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_repository_directory_contents(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::QueryRepositoryDirectoryContentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::QueryRepositoryDirectoryContentsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -704,7 +762,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::QueryRepositoryDirectoryContentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::QueryRepositoryDirectoryContentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -775,13 +838,14 @@ pub mod dataform {
 
     impl FetchRepositoryHistory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchRepositoryHistoryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchRepositoryHistoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -794,11 +858,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchRepositoryHistoryResponse> {
-            (*self.0.stub).fetch_repository_history(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_repository_history(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::FetchRepositoryHistoryResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::FetchRepositoryHistoryResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -810,7 +882,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::FetchRepositoryHistoryResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchRepositoryHistoryResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -861,17 +938,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeRepositoryAccessTokenStatus(RequestBuilder<crate::model::ComputeRepositoryAccessTokenStatusRequest>);
+    pub struct ComputeRepositoryAccessTokenStatus(
+        RequestBuilder<crate::model::ComputeRepositoryAccessTokenStatusRequest>,
+    );
 
     impl ComputeRepositoryAccessTokenStatus {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ComputeRepositoryAccessTokenStatusRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ComputeRepositoryAccessTokenStatusRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -883,8 +963,13 @@ pub mod dataform {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ComputeRepositoryAccessTokenStatusResponse> {
-            (*self.0.stub).compute_repository_access_token_status(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ComputeRepositoryAccessTokenStatusResponse> {
+            (*self.0.stub)
+                .compute_repository_access_token_status(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ComputeRepositoryAccessTokenStatusRequest::name].
@@ -925,13 +1010,14 @@ pub mod dataform {
 
     impl FetchRemoteBranches {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchRemoteBranchesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchRemoteBranchesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -944,7 +1030,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchRemoteBranchesResponse> {
-            (*self.0.stub).fetch_remote_branches(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_remote_branches(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchRemoteBranchesRequest::name].
@@ -989,9 +1078,7 @@ pub mod dataform {
 
     impl ListWorkspaces {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1008,11 +1095,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkspacesResponse> {
-            (*self.0.stub).list_workspaces(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_workspaces(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkspacesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListWorkspacesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1024,7 +1117,10 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkspacesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkspacesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1091,9 +1187,7 @@ pub mod dataform {
 
     impl GetWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1110,7 +1204,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Workspace> {
-            (*self.0.stub).get_workspace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_workspace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkspaceRequest::name].
@@ -1151,9 +1248,7 @@ pub mod dataform {
 
     impl CreateWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1170,7 +1265,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Workspace> {
-            (*self.0.stub).create_workspace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_workspace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkspaceRequest::parent].
@@ -1185,7 +1283,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_workspace<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Workspace>
+        where
+            T: std::convert::Into<crate::model::Workspace>,
         {
             self.0.request.workspace = std::option::Option::Some(v.into());
             self
@@ -1195,7 +1294,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workspace<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Workspace>
+        where
+            T: std::convert::Into<crate::model::Workspace>,
         {
             self.0.request.workspace = v.map(|x| x.into());
             self
@@ -1239,9 +1339,7 @@ pub mod dataform {
 
     impl DeleteWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1258,7 +1356,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_workspace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_workspace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkspaceRequest::name].
@@ -1299,13 +1400,14 @@ pub mod dataform {
 
     impl InstallNpmPackages {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::InstallNpmPackagesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::InstallNpmPackagesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1318,7 +1420,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstallNpmPackagesResponse> {
-            (*self.0.stub).install_npm_packages(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .install_npm_packages(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::InstallNpmPackagesRequest::workspace].
@@ -1359,9 +1464,7 @@ pub mod dataform {
 
     impl PullGitCommits {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1378,7 +1481,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PullGitCommitsResponse> {
-            (*self.0.stub).pull_git_commits(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .pull_git_commits(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PullGitCommitsRequest::name].
@@ -1399,7 +1505,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_author<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CommitAuthor>
+        where
+            T: std::convert::Into<crate::model::CommitAuthor>,
         {
             self.0.request.author = std::option::Option::Some(v.into());
             self
@@ -1409,7 +1516,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CommitAuthor>
+        where
+            T: std::convert::Into<crate::model::CommitAuthor>,
         {
             self.0.request.author = v.map(|x| x.into());
             self
@@ -1445,9 +1553,7 @@ pub mod dataform {
 
     impl PushGitCommits {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1464,7 +1570,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PushGitCommitsResponse> {
-            (*self.0.stub).push_git_commits(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .push_git_commits(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PushGitCommitsRequest::name].
@@ -1511,13 +1620,14 @@ pub mod dataform {
 
     impl FetchFileGitStatuses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchFileGitStatusesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchFileGitStatusesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1530,7 +1640,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchFileGitStatusesResponse> {
-            (*self.0.stub).fetch_file_git_statuses(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_file_git_statuses(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchFileGitStatusesRequest::name].
@@ -1571,13 +1684,14 @@ pub mod dataform {
 
     impl FetchGitAheadBehind {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchGitAheadBehindRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchGitAheadBehindRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1590,7 +1704,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchGitAheadBehindResponse> {
-            (*self.0.stub).fetch_git_ahead_behind(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_git_ahead_behind(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchGitAheadBehindRequest::name].
@@ -1637,13 +1754,14 @@ pub mod dataform {
 
     impl CommitWorkspaceChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CommitWorkspaceChangesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CommitWorkspaceChangesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1656,7 +1774,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CommitWorkspaceChangesResponse> {
-            (*self.0.stub).commit_workspace_changes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .commit_workspace_changes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CommitWorkspaceChangesRequest::name].
@@ -1671,7 +1792,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_author<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CommitAuthor>
+        where
+            T: std::convert::Into<crate::model::CommitAuthor>,
         {
             self.0.request.author = std::option::Option::Some(v.into());
             self
@@ -1681,7 +1803,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CommitAuthor>
+        where
+            T: std::convert::Into<crate::model::CommitAuthor>,
         {
             self.0.request.author = v.map(|x| x.into());
             self
@@ -1697,7 +1820,7 @@ pub mod dataform {
         pub fn set_paths<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.paths = v.into_iter().map(|i| i.into()).collect();
@@ -1734,13 +1857,14 @@ pub mod dataform {
 
     impl ResetWorkspaceChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResetWorkspaceChangesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ResetWorkspaceChangesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1753,7 +1877,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ResetWorkspaceChangesResponse> {
-            (*self.0.stub).reset_workspace_changes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reset_workspace_changes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetWorkspaceChangesRequest::name].
@@ -1768,7 +1895,7 @@ pub mod dataform {
         pub fn set_paths<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.paths = v.into_iter().map(|i| i.into()).collect();
@@ -1811,9 +1938,7 @@ pub mod dataform {
 
     impl FetchFileDiff {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1830,7 +1955,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchFileDiffResponse> {
-            (*self.0.stub).fetch_file_diff(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_file_diff(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::FetchFileDiffRequest::workspace].
@@ -1883,13 +2011,14 @@ pub mod dataform {
 
     impl QueryDirectoryContents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryDirectoryContentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::QueryDirectoryContentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1902,11 +2031,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryDirectoryContentsResponse> {
-            (*self.0.stub).query_directory_contents(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_directory_contents(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::QueryDirectoryContentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::QueryDirectoryContentsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1918,7 +2055,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::QueryDirectoryContentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::QueryDirectoryContentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1983,9 +2125,7 @@ pub mod dataform {
 
     impl SearchFiles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2002,11 +2142,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchFilesResponse> {
-            (*self.0.stub).search_files(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_files(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchFilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchFilesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2018,7 +2164,10 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchFilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchFilesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2079,9 +2228,7 @@ pub mod dataform {
 
     impl MakeDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2098,7 +2245,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MakeDirectoryResponse> {
-            (*self.0.stub).make_directory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .make_directory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::MakeDirectoryRequest::workspace].
@@ -2147,9 +2297,7 @@ pub mod dataform {
 
     impl RemoveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2166,7 +2314,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RemoveDirectoryResponse> {
-            (*self.0.stub).remove_directory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_directory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::RemoveDirectoryRequest::workspace].
@@ -2215,9 +2366,7 @@ pub mod dataform {
 
     impl MoveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2234,7 +2383,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MoveDirectoryResponse> {
-            (*self.0.stub).move_directory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .move_directory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::MoveDirectoryRequest::workspace].
@@ -2291,9 +2443,7 @@ pub mod dataform {
 
     impl ReadFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2310,7 +2460,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReadFileResponse> {
-            (*self.0.stub).read_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .read_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::ReadFileRequest::workspace].
@@ -2365,9 +2518,7 @@ pub mod dataform {
 
     impl RemoveFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2384,7 +2535,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RemoveFileResponse> {
-            (*self.0.stub).remove_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::RemoveFileRequest::workspace].
@@ -2433,9 +2587,7 @@ pub mod dataform {
 
     impl MoveFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2452,7 +2604,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::MoveFileResponse> {
-            (*self.0.stub).move_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .move_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::MoveFileRequest::workspace].
@@ -2509,9 +2664,7 @@ pub mod dataform {
 
     impl WriteFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2528,7 +2681,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WriteFileResponse> {
-            (*self.0.stub).write_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .write_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workspace][crate::model::WriteFileRequest::workspace].
@@ -2589,13 +2745,14 @@ pub mod dataform {
 
     impl ListReleaseConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReleaseConfigsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReleaseConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2608,11 +2765,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListReleaseConfigsResponse> {
-            (*self.0.stub).list_release_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_release_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListReleaseConfigsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListReleaseConfigsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2624,7 +2787,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListReleaseConfigsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReleaseConfigsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2679,13 +2847,14 @@ pub mod dataform {
 
     impl GetReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetReleaseConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetReleaseConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2698,7 +2867,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReleaseConfig> {
-            (*self.0.stub).get_release_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_release_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReleaseConfigRequest::name].
@@ -2739,13 +2911,14 @@ pub mod dataform {
 
     impl CreateReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateReleaseConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateReleaseConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2758,7 +2931,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReleaseConfig> {
-            (*self.0.stub).create_release_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_release_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReleaseConfigRequest::parent].
@@ -2773,7 +2949,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_release_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ReleaseConfig>
+        where
+            T: std::convert::Into<crate::model::ReleaseConfig>,
         {
             self.0.request.release_config = std::option::Option::Some(v.into());
             self
@@ -2783,7 +2960,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ReleaseConfig>
+        where
+            T: std::convert::Into<crate::model::ReleaseConfig>,
         {
             self.0.request.release_config = v.map(|x| x.into());
             self
@@ -2827,13 +3005,14 @@ pub mod dataform {
 
     impl UpdateReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateReleaseConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateReleaseConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2846,12 +3025,16 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReleaseConfig> {
-            (*self.0.stub).update_release_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_release_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2859,7 +3042,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2869,7 +3053,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_release_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ReleaseConfig>
+        where
+            T: std::convert::Into<crate::model::ReleaseConfig>,
         {
             self.0.request.release_config = std::option::Option::Some(v.into());
             self
@@ -2879,7 +3064,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ReleaseConfig>
+        where
+            T: std::convert::Into<crate::model::ReleaseConfig>,
         {
             self.0.request.release_config = v.map(|x| x.into());
             self
@@ -2915,13 +3101,14 @@ pub mod dataform {
 
     impl DeleteReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteReleaseConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteReleaseConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2934,7 +3121,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_release_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_release_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReleaseConfigRequest::name].
@@ -2979,13 +3169,14 @@ pub mod dataform {
 
     impl ListCompilationResults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCompilationResultsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCompilationResultsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2998,11 +3189,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCompilationResultsResponse> {
-            (*self.0.stub).list_compilation_results(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_compilation_results(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCompilationResultsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListCompilationResultsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3014,7 +3213,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCompilationResultsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCompilationResultsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3081,13 +3285,14 @@ pub mod dataform {
 
     impl GetCompilationResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCompilationResultRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCompilationResultRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3100,7 +3305,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CompilationResult> {
-            (*self.0.stub).get_compilation_result(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_compilation_result(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCompilationResultRequest::name].
@@ -3137,17 +3345,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCompilationResult(RequestBuilder<crate::model::CreateCompilationResultRequest>);
+    pub struct CreateCompilationResult(
+        RequestBuilder<crate::model::CreateCompilationResultRequest>,
+    );
 
     impl CreateCompilationResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCompilationResultRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCompilationResultRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3160,7 +3371,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CompilationResult> {
-            (*self.0.stub).create_compilation_result(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_compilation_result(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCompilationResultRequest::parent].
@@ -3175,7 +3389,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_compilation_result<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CompilationResult>
+        where
+            T: std::convert::Into<crate::model::CompilationResult>,
         {
             self.0.request.compilation_result = std::option::Option::Some(v.into());
             self
@@ -3185,7 +3400,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_compilation_result<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CompilationResult>
+        where
+            T: std::convert::Into<crate::model::CompilationResult>,
         {
             self.0.request.compilation_result = v.map(|x| x.into());
             self
@@ -3221,17 +3437,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryCompilationResultActions(RequestBuilder<crate::model::QueryCompilationResultActionsRequest>);
+    pub struct QueryCompilationResultActions(
+        RequestBuilder<crate::model::QueryCompilationResultActionsRequest>,
+    );
 
     impl QueryCompilationResultActions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryCompilationResultActionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::QueryCompilationResultActionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3244,11 +3463,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryCompilationResultActionsResponse> {
-            (*self.0.stub).query_compilation_result_actions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_compilation_result_actions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::QueryCompilationResultActionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::QueryCompilationResultActionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3260,7 +3487,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::QueryCompilationResultActionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::QueryCompilationResultActionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3325,13 +3557,14 @@ pub mod dataform {
 
     impl ListWorkflowConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListWorkflowConfigsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListWorkflowConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3344,11 +3577,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkflowConfigsResponse> {
-            (*self.0.stub).list_workflow_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_workflow_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkflowConfigsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListWorkflowConfigsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3360,7 +3599,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkflowConfigsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkflowConfigsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3415,13 +3659,14 @@ pub mod dataform {
 
     impl GetWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetWorkflowConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetWorkflowConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3434,7 +3679,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkflowConfig> {
-            (*self.0.stub).get_workflow_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_workflow_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowConfigRequest::name].
@@ -3475,13 +3723,14 @@ pub mod dataform {
 
     impl CreateWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateWorkflowConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateWorkflowConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3494,7 +3743,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkflowConfig> {
-            (*self.0.stub).create_workflow_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_workflow_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowConfigRequest::parent].
@@ -3509,7 +3761,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_workflow_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::WorkflowConfig>
+        where
+            T: std::convert::Into<crate::model::WorkflowConfig>,
         {
             self.0.request.workflow_config = std::option::Option::Some(v.into());
             self
@@ -3519,7 +3772,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::WorkflowConfig>
+        where
+            T: std::convert::Into<crate::model::WorkflowConfig>,
         {
             self.0.request.workflow_config = v.map(|x| x.into());
             self
@@ -3563,13 +3817,14 @@ pub mod dataform {
 
     impl UpdateWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateWorkflowConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateWorkflowConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3582,12 +3837,16 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkflowConfig> {
-            (*self.0.stub).update_workflow_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_workflow_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3595,7 +3854,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3605,7 +3865,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_workflow_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::WorkflowConfig>
+        where
+            T: std::convert::Into<crate::model::WorkflowConfig>,
         {
             self.0.request.workflow_config = std::option::Option::Some(v.into());
             self
@@ -3615,7 +3876,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::WorkflowConfig>
+        where
+            T: std::convert::Into<crate::model::WorkflowConfig>,
         {
             self.0.request.workflow_config = v.map(|x| x.into());
             self
@@ -3651,13 +3913,14 @@ pub mod dataform {
 
     impl DeleteWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteWorkflowConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteWorkflowConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3670,7 +3933,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_workflow_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_workflow_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowConfigRequest::name].
@@ -3711,17 +3977,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkflowInvocations(RequestBuilder<crate::model::ListWorkflowInvocationsRequest>);
+    pub struct ListWorkflowInvocations(
+        RequestBuilder<crate::model::ListWorkflowInvocationsRequest>,
+    );
 
     impl ListWorkflowInvocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListWorkflowInvocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListWorkflowInvocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3734,11 +4003,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkflowInvocationsResponse> {
-            (*self.0.stub).list_workflow_invocations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_workflow_invocations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkflowInvocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListWorkflowInvocationsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3750,7 +4027,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkflowInvocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkflowInvocationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3817,13 +4099,14 @@ pub mod dataform {
 
     impl GetWorkflowInvocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetWorkflowInvocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetWorkflowInvocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3836,7 +4119,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkflowInvocation> {
-            (*self.0.stub).get_workflow_invocation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_workflow_invocation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowInvocationRequest::name].
@@ -3873,17 +4159,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkflowInvocation(RequestBuilder<crate::model::CreateWorkflowInvocationRequest>);
+    pub struct CreateWorkflowInvocation(
+        RequestBuilder<crate::model::CreateWorkflowInvocationRequest>,
+    );
 
     impl CreateWorkflowInvocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateWorkflowInvocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateWorkflowInvocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3896,7 +4185,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::WorkflowInvocation> {
-            (*self.0.stub).create_workflow_invocation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_workflow_invocation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowInvocationRequest::parent].
@@ -3911,7 +4203,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_workflow_invocation<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::WorkflowInvocation>
+        where
+            T: std::convert::Into<crate::model::WorkflowInvocation>,
         {
             self.0.request.workflow_invocation = std::option::Option::Some(v.into());
             self
@@ -3921,7 +4214,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_workflow_invocation<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::WorkflowInvocation>
+        where
+            T: std::convert::Into<crate::model::WorkflowInvocation>,
         {
             self.0.request.workflow_invocation = v.map(|x| x.into());
             self
@@ -3953,17 +4247,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkflowInvocation(RequestBuilder<crate::model::DeleteWorkflowInvocationRequest>);
+    pub struct DeleteWorkflowInvocation(
+        RequestBuilder<crate::model::DeleteWorkflowInvocationRequest>,
+    );
 
     impl DeleteWorkflowInvocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteWorkflowInvocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteWorkflowInvocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3976,7 +4273,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_workflow_invocation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_workflow_invocation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowInvocationRequest::name].
@@ -4013,17 +4313,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelWorkflowInvocation(RequestBuilder<crate::model::CancelWorkflowInvocationRequest>);
+    pub struct CancelWorkflowInvocation(
+        RequestBuilder<crate::model::CancelWorkflowInvocationRequest>,
+    );
 
     impl CancelWorkflowInvocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelWorkflowInvocationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CancelWorkflowInvocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4036,7 +4339,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CancelWorkflowInvocationResponse> {
-            (*self.0.stub).cancel_workflow_invocation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_workflow_invocation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelWorkflowInvocationRequest::name].
@@ -4077,17 +4383,20 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryWorkflowInvocationActions(RequestBuilder<crate::model::QueryWorkflowInvocationActionsRequest>);
+    pub struct QueryWorkflowInvocationActions(
+        RequestBuilder<crate::model::QueryWorkflowInvocationActionsRequest>,
+    );
 
     impl QueryWorkflowInvocationActions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryWorkflowInvocationActionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::QueryWorkflowInvocationActionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4100,11 +4409,19 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryWorkflowInvocationActionsResponse> {
-            (*self.0.stub).query_workflow_invocation_actions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_workflow_invocation_actions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::QueryWorkflowInvocationActionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::QueryWorkflowInvocationActionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4116,7 +4433,12 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::QueryWorkflowInvocationActionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::QueryWorkflowInvocationActionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4171,9 +4493,7 @@ pub mod dataform {
 
     impl GetConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4190,7 +4510,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Config> {
-            (*self.0.stub).get_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
@@ -4231,9 +4554,7 @@ pub mod dataform {
 
     impl UpdateConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4250,14 +4571,18 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Config> {
-            (*self.0.stub).update_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
         ///
         /// This is a **required** field for requests.
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Config>
+        where
+            T: std::convert::Into<crate::model::Config>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -4267,7 +4592,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Config>
+        where
+            T: std::convert::Into<crate::model::Config>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -4275,7 +4601,8 @@ pub mod dataform {
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4283,7 +4610,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4323,13 +4651,14 @@ pub mod dataform {
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4342,11 +4671,17 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4358,7 +4693,10 @@ pub mod dataform {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4417,9 +4755,7 @@ pub mod dataform {
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4436,7 +4772,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4475,9 +4814,7 @@ pub mod dataform {
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4494,7 +4831,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4509,7 +4849,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -4519,7 +4860,8 @@ pub mod dataform {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -4527,7 +4869,8 @@ pub mod dataform {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4535,7 +4878,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4571,9 +4915,7 @@ pub mod dataform {
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4590,7 +4932,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4603,7 +4948,8 @@ pub mod dataform {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -4611,7 +4957,8 @@ pub mod dataform {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -4647,13 +4994,14 @@ pub mod dataform {
 
     impl TestIamPermissions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4666,7 +5014,10 @@ pub mod dataform {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4683,7 +5034,7 @@ pub mod dataform {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -4697,5 +5048,4 @@ pub mod dataform {
             &mut self.0.options
         }
     }
-
 }

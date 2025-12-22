@@ -879,11 +879,17 @@ impl std::fmt::Debug for super::OcrConfig {
         let mut debug_struct = f.debug_struct("OcrConfig");
         debug_struct.field("hints", &self.hints);
         debug_struct.field("enable_native_pdf_parsing", &self.enable_native_pdf_parsing);
-        debug_struct.field("enable_image_quality_scores", &self.enable_image_quality_scores);
+        debug_struct.field(
+            "enable_image_quality_scores",
+            &self.enable_image_quality_scores,
+        );
         debug_struct.field("advanced_ocr_options", &self.advanced_ocr_options);
         debug_struct.field("enable_symbol", &self.enable_symbol);
         debug_struct.field("compute_style_info", &self.compute_style_info);
-        debug_struct.field("disable_character_boxes_detection", &self.disable_character_boxes_detection);
+        debug_struct.field(
+            "disable_character_boxes_detection",
+            &self.disable_character_boxes_detection,
+        );
         debug_struct.field("premium_features", &self.premium_features);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -906,7 +912,10 @@ impl std::fmt::Debug for super::ocr_config::Hints {
 impl std::fmt::Debug for super::ocr_config::PremiumFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PremiumFeatures");
-        debug_struct.field("enable_selection_mark_detection", &self.enable_selection_mark_detection);
+        debug_struct.field(
+            "enable_selection_mark_detection",
+            &self.enable_selection_mark_detection,
+        );
         debug_struct.field("compute_style_info", &self.compute_style_info);
         debug_struct.field("enable_math_ocr", &self.enable_math_ocr);
         if !self._unknown_fields.is_empty() {
@@ -983,7 +992,6 @@ impl std::fmt::Debug for super::ProcessRequest {
     }
 }
 
-
 impl std::fmt::Debug for super::HumanReviewStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HumanReviewStatus");
@@ -1042,7 +1050,10 @@ impl std::fmt::Debug for super::BatchProcessMetadata {
         debug_struct.field("state_message", &self.state_message);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("individual_process_statuses", &self.individual_process_statuses);
+        debug_struct.field(
+            "individual_process_statuses",
+            &self.individual_process_statuses,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1477,7 +1488,10 @@ impl std::fmt::Debug for super::TrainProcessorVersionMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainProcessorVersionMetadata");
         debug_struct.field("common_metadata", &self.common_metadata);
-        debug_struct.field("training_dataset_validation", &self.training_dataset_validation);
+        debug_struct.field(
+            "training_dataset_validation",
+            &self.training_dataset_validation,
+        );
         debug_struct.field("test_dataset_validation", &self.test_dataset_validation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1669,8 +1683,14 @@ impl std::fmt::Debug for super::document_schema::Metadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metadata");
         debug_struct.field("document_splitter", &self.document_splitter);
-        debug_struct.field("document_allow_multiple_labels", &self.document_allow_multiple_labels);
-        debug_struct.field("prefixed_naming_on_properties", &self.prefixed_naming_on_properties);
+        debug_struct.field(
+            "document_allow_multiple_labels",
+            &self.document_allow_multiple_labels,
+        );
+        debug_struct.field(
+            "prefixed_naming_on_properties",
+            &self.prefixed_naming_on_properties,
+        );
         debug_struct.field("skip_naming_validation", &self.skip_naming_validation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1730,10 +1750,19 @@ impl std::fmt::Debug for super::evaluation::Metrics {
         debug_struct.field("precision", &self.precision);
         debug_struct.field("recall", &self.recall);
         debug_struct.field("f1_score", &self.f1_score);
-        debug_struct.field("predicted_occurrences_count", &self.predicted_occurrences_count);
-        debug_struct.field("ground_truth_occurrences_count", &self.ground_truth_occurrences_count);
+        debug_struct.field(
+            "predicted_occurrences_count",
+            &self.predicted_occurrences_count,
+        );
+        debug_struct.field(
+            "ground_truth_occurrences_count",
+            &self.ground_truth_occurrences_count,
+        );
         debug_struct.field("predicted_document_count", &self.predicted_document_count);
-        debug_struct.field("ground_truth_document_count", &self.ground_truth_document_count);
+        debug_struct.field(
+            "ground_truth_document_count",
+            &self.ground_truth_document_count,
+        );
         debug_struct.field("true_positives_count", &self.true_positives_count);
         debug_struct.field("false_positives_count", &self.false_positives_count);
         debug_struct.field("false_negatives_count", &self.false_negatives_count);
@@ -1761,11 +1790,20 @@ impl std::fmt::Debug for super::evaluation::MultiConfidenceMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiConfidenceMetrics");
         debug_struct.field("confidence_level_metrics", &self.confidence_level_metrics);
-        debug_struct.field("confidence_level_metrics_exact", &self.confidence_level_metrics_exact);
+        debug_struct.field(
+            "confidence_level_metrics_exact",
+            &self.confidence_level_metrics_exact,
+        );
         debug_struct.field("auprc", &self.auprc);
-        debug_struct.field("estimated_calibration_error", &self.estimated_calibration_error);
+        debug_struct.field(
+            "estimated_calibration_error",
+            &self.estimated_calibration_error,
+        );
         debug_struct.field("auprc_exact", &self.auprc_exact);
-        debug_struct.field("estimated_calibration_error_exact", &self.estimated_calibration_error_exact);
+        debug_struct.field(
+            "estimated_calibration_error_exact",
+            &self.estimated_calibration_error_exact,
+        );
         debug_struct.field("metrics_type", &self.metrics_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1773,7 +1811,6 @@ impl std::fmt::Debug for super::evaluation::MultiConfidenceMetrics {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::Vertex {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1854,7 +1891,10 @@ impl std::fmt::Debug for super::processor_version::DeprecationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeprecationInfo");
         debug_struct.field("deprecation_time", &self.deprecation_time);
-        debug_struct.field("replacement_processor_version", &self.replacement_processor_version);
+        debug_struct.field(
+            "replacement_processor_version",
+            &self.replacement_processor_version,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1877,7 +1917,10 @@ impl std::fmt::Debug for super::processor_version::gen_ai_model_info::Foundation
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FoundationGenAiModelInfo");
         debug_struct.field("finetuning_allowed", &self.finetuning_allowed);
-        debug_struct.field("min_train_labeled_documents", &self.min_train_labeled_documents);
+        debug_struct.field(
+            "min_train_labeled_documents",
+            &self.min_train_labeled_documents,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ServiceController](super::stub::ServiceController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ServiceController<T>
-where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ServiceController<T>
-where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ServiceController for ServiceController<T>
-where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn check(
         &self,
@@ -48,6 +54,4 @@ where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
         self.inner.report(req, options).await
     }
-
 }
-

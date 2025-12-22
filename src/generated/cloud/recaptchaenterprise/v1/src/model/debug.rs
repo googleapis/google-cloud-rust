@@ -87,7 +87,10 @@ impl std::fmt::Debug for super::AccountVerificationInfo {
         let mut debug_struct = f.debug_struct("AccountVerificationInfo");
         debug_struct.field("endpoints", &self.endpoints);
         debug_struct.field("language_code", &self.language_code);
-        debug_struct.field("latest_verification_result", &self.latest_verification_result);
+        debug_struct.field(
+            "latest_verification_result",
+            &self.latest_verification_result,
+        );
         debug_struct.field("username", &self.username);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -100,9 +103,18 @@ impl std::fmt::Debug for super::PrivatePasswordLeakVerification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivatePasswordLeakVerification");
         debug_struct.field("lookup_hash_prefix", &self.lookup_hash_prefix);
-        debug_struct.field("encrypted_user_credentials_hash", &self.encrypted_user_credentials_hash);
-        debug_struct.field("encrypted_leak_match_prefixes", &self.encrypted_leak_match_prefixes);
-        debug_struct.field("reencrypted_user_credentials_hash", &self.reencrypted_user_credentials_hash);
+        debug_struct.field(
+            "encrypted_user_credentials_hash",
+            &self.encrypted_user_credentials_hash,
+        );
+        debug_struct.field(
+            "encrypted_leak_match_prefixes",
+            &self.encrypted_leak_match_prefixes,
+        );
+        debug_struct.field(
+            "reencrypted_user_credentials_hash",
+            &self.reencrypted_user_credentials_hash,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -118,10 +130,22 @@ impl std::fmt::Debug for super::Assessment {
         debug_struct.field("risk_analysis", &self.risk_analysis);
         debug_struct.field("token_properties", &self.token_properties);
         debug_struct.field("account_verification", &self.account_verification);
-        debug_struct.field("account_defender_assessment", &self.account_defender_assessment);
-        debug_struct.field("private_password_leak_verification", &self.private_password_leak_verification);
-        debug_struct.field("firewall_policy_assessment", &self.firewall_policy_assessment);
-        debug_struct.field("fraud_prevention_assessment", &self.fraud_prevention_assessment);
+        debug_struct.field(
+            "account_defender_assessment",
+            &self.account_defender_assessment,
+        );
+        debug_struct.field(
+            "private_password_leak_verification",
+            &self.private_password_leak_verification,
+        );
+        debug_struct.field(
+            "firewall_policy_assessment",
+            &self.firewall_policy_assessment,
+        );
+        debug_struct.field(
+            "fraud_prevention_assessment",
+            &self.fraud_prevention_assessment,
+        );
         debug_struct.field("fraud_signals", &self.fraud_signals);
         debug_struct.field("phone_fraud_assessment", &self.phone_fraud_assessment);
         debug_struct.field("assessment_environment", &self.assessment_environment);
@@ -147,7 +171,10 @@ impl std::fmt::Debug for super::Event {
         debug_struct.field("ja3", &self.ja3);
         debug_struct.field("ja4", &self.ja4);
         debug_struct.field("headers", &self.headers);
-        debug_struct.field("firewall_policy_evaluation", &self.firewall_policy_evaluation);
+        debug_struct.field(
+            "firewall_policy_evaluation",
+            &self.firewall_policy_evaluation,
+        );
         debug_struct.field("transaction_data", &self.transaction_data);
         debug_struct.field("user_info", &self.user_info);
         debug_struct.field("fraud_prevention", &self.fraud_prevention);
@@ -652,7 +679,6 @@ impl std::fmt::Debug for super::Key {
     }
 }
 
-
 impl std::fmt::Debug for super::TestingOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestingOptions");
@@ -672,7 +698,10 @@ impl std::fmt::Debug for super::WebKeySettings {
         debug_struct.field("allowed_domains", &self.allowed_domains);
         debug_struct.field("allow_amp_traffic", &self.allow_amp_traffic);
         debug_struct.field("integration_type", &self.integration_type);
-        debug_struct.field("challenge_security_preference", &self.challenge_security_preference);
+        debug_struct.field(
+            "challenge_security_preference",
+            &self.challenge_security_preference,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -685,7 +714,10 @@ impl std::fmt::Debug for super::AndroidKeySettings {
         let mut debug_struct = f.debug_struct("AndroidKeySettings");
         debug_struct.field("allow_all_package_names", &self.allow_all_package_names);
         debug_struct.field("allowed_package_names", &self.allowed_package_names);
-        debug_struct.field("support_non_google_app_store_distribution", &self.support_non_google_app_store_distribution);
+        debug_struct.field(
+            "support_non_google_app_store_distribution",
+            &self.support_non_google_app_store_distribution,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -883,7 +915,10 @@ impl std::fmt::Debug for super::ListRelatedAccountGroupMembershipsRequest {
 impl std::fmt::Debug for super::ListRelatedAccountGroupMembershipsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRelatedAccountGroupMembershipsResponse");
-        debug_struct.field("related_account_group_memberships", &self.related_account_group_memberships);
+        debug_struct.field(
+            "related_account_group_memberships",
+            &self.related_account_group_memberships,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -935,7 +970,10 @@ impl std::fmt::Debug for super::SearchRelatedAccountGroupMembershipsRequest {
 impl std::fmt::Debug for super::SearchRelatedAccountGroupMembershipsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchRelatedAccountGroupMembershipsResponse");
-        debug_struct.field("related_account_group_memberships", &self.related_account_group_memberships);
+        debug_struct.field(
+            "related_account_group_memberships",
+            &self.related_account_group_memberships,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

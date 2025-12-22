@@ -660,7 +660,8 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>>
+    {
         T::submit_provisioning_config(self, req, options).await
     }
 

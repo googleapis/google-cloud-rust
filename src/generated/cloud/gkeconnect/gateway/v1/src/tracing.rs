@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [GatewayControl](super::stub::GatewayControl) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GatewayControl<T>
-where T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> GatewayControl<T>
-where T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GatewayControl for GatewayControl<T>
-where T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn generate_credentials(
         &self,
@@ -39,6 +45,4 @@ where T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         self.inner.generate_credentials(req, options).await
     }
-
 }
-

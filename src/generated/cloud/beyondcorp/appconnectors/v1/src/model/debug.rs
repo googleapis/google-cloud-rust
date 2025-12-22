@@ -201,7 +201,6 @@ impl std::fmt::Debug for super::app_connector::principal_info::ServiceAccount {
     }
 }
 
-
 impl std::fmt::Debug for super::AppConnectorOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppConnectorOperationMetadata");

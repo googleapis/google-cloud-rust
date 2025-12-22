@@ -87,28 +87,42 @@ impl CloudBuild {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudBuild + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudBuild + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBuild>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBuild>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
         super::transport::CloudBuild::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
-        Self::build_transport(conf).await.map(super::tracing::CloudBuild::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudBuild::new)
     }
 
     /// Starts a build with the specified configuration.
@@ -126,8 +140,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_build(&self) -> super::builder::cloud_build::CreateBuild
-    {
+    pub fn create_build(&self) -> super::builder::cloud_build::CreateBuild {
         super::builder::cloud_build::CreateBuild::new(self.inner.clone())
     }
 
@@ -152,8 +165,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_build(&self) -> super::builder::cloud_build::GetBuild
-    {
+    pub fn get_build(&self) -> super::builder::cloud_build::GetBuild {
         super::builder::cloud_build::GetBuild::new(self.inner.clone())
     }
 
@@ -161,8 +173,7 @@ impl CloudBuild {
     ///
     /// Previously requested builds may still be in-progress, or may have finished
     /// successfully or unsuccessfully.
-    pub fn list_builds(&self) -> super::builder::cloud_build::ListBuilds
-    {
+    pub fn list_builds(&self) -> super::builder::cloud_build::ListBuilds {
         super::builder::cloud_build::ListBuilds::new(self.inner.clone())
     }
 
@@ -183,8 +194,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_build(&self) -> super::builder::cloud_build::CancelBuild
-    {
+    pub fn cancel_build(&self) -> super::builder::cloud_build::CancelBuild {
         super::builder::cloud_build::CancelBuild::new(self.inner.clone())
     }
 
@@ -225,8 +235,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn retry_build(&self) -> super::builder::cloud_build::RetryBuild
-    {
+    pub fn retry_build(&self) -> super::builder::cloud_build::RetryBuild {
         super::builder::cloud_build::RetryBuild::new(self.inner.clone())
     }
 
@@ -246,8 +255,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn approve_build(&self) -> super::builder::cloud_build::ApproveBuild
-    {
+    pub fn approve_build(&self) -> super::builder::cloud_build::ApproveBuild {
         super::builder::cloud_build::ApproveBuild::new(self.inner.clone())
     }
 
@@ -268,8 +276,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_build_trigger(&self) -> super::builder::cloud_build::CreateBuildTrigger
-    {
+    pub fn create_build_trigger(&self) -> super::builder::cloud_build::CreateBuildTrigger {
         super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
     }
 
@@ -290,14 +297,12 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_build_trigger(&self) -> super::builder::cloud_build::GetBuildTrigger
-    {
+    pub fn get_build_trigger(&self) -> super::builder::cloud_build::GetBuildTrigger {
         super::builder::cloud_build::GetBuildTrigger::new(self.inner.clone())
     }
 
     /// Lists existing `BuildTrigger`s.
-    pub fn list_build_triggers(&self) -> super::builder::cloud_build::ListBuildTriggers
-    {
+    pub fn list_build_triggers(&self) -> super::builder::cloud_build::ListBuildTriggers {
         super::builder::cloud_build::ListBuildTriggers::new(self.inner.clone())
     }
 
@@ -317,8 +322,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_build_trigger(&self) -> super::builder::cloud_build::DeleteBuildTrigger
-    {
+    pub fn delete_build_trigger(&self) -> super::builder::cloud_build::DeleteBuildTrigger {
         super::builder::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
     }
 
@@ -339,8 +343,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_build_trigger(&self) -> super::builder::cloud_build::UpdateBuildTrigger
-    {
+    pub fn update_build_trigger(&self) -> super::builder::cloud_build::UpdateBuildTrigger {
         super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
     }
 
@@ -361,8 +364,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_build_trigger(&self) -> super::builder::cloud_build::RunBuildTrigger
-    {
+    pub fn run_build_trigger(&self) -> super::builder::cloud_build::RunBuildTrigger {
         super::builder::cloud_build::RunBuildTrigger::new(self.inner.clone())
     }
 
@@ -384,8 +386,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn receive_trigger_webhook(&self) -> super::builder::cloud_build::ReceiveTriggerWebhook
-    {
+    pub fn receive_trigger_webhook(&self) -> super::builder::cloud_build::ReceiveTriggerWebhook {
         super::builder::cloud_build::ReceiveTriggerWebhook::new(self.inner.clone())
     }
 
@@ -400,8 +401,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_worker_pool(&self) -> super::builder::cloud_build::CreateWorkerPool
-    {
+    pub fn create_worker_pool(&self) -> super::builder::cloud_build::CreateWorkerPool {
         super::builder::cloud_build::CreateWorkerPool::new(self.inner.clone())
     }
 
@@ -423,8 +423,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_worker_pool(&self) -> super::builder::cloud_build::GetWorkerPool
-    {
+    pub fn get_worker_pool(&self) -> super::builder::cloud_build::GetWorkerPool {
         super::builder::cloud_build::GetWorkerPool::new(self.inner.clone())
     }
 
@@ -439,8 +438,7 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_worker_pool(&self) -> super::builder::cloud_build::DeleteWorkerPool
-    {
+    pub fn delete_worker_pool(&self) -> super::builder::cloud_build::DeleteWorkerPool {
         super::builder::cloud_build::DeleteWorkerPool::new(self.inner.clone())
     }
 
@@ -455,14 +453,12 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_worker_pool(&self) -> super::builder::cloud_build::UpdateWorkerPool
-    {
+    pub fn update_worker_pool(&self) -> super::builder::cloud_build::UpdateWorkerPool {
         super::builder::cloud_build::UpdateWorkerPool::new(self.inner.clone())
     }
 
     /// Lists `WorkerPool`s.
-    pub fn list_worker_pools(&self) -> super::builder::cloud_build::ListWorkerPools
-    {
+    pub fn list_worker_pools(&self) -> super::builder::cloud_build::ListWorkerPools {
         super::builder::cloud_build::ListWorkerPools::new(self.inner.clone())
     }
 
@@ -484,8 +480,9 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_default_service_account(&self) -> super::builder::cloud_build::GetDefaultServiceAccount
-    {
+    pub fn get_default_service_account(
+        &self,
+    ) -> super::builder::cloud_build::GetDefaultServiceAccount {
         super::builder::cloud_build::GetDefaultServiceAccount::new(self.inner.clone())
     }
 
@@ -508,8 +505,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::cloud_build::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::cloud_build::GetOperation {
         super::builder::cloud_build::GetOperation::new(self.inner.clone())
     }
 
@@ -531,8 +527,7 @@ impl CloudBuild {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::cloud_build::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::cloud_build::CancelOperation {
         super::builder::cloud_build::CancelOperation::new(self.inner.clone())
     }
 }

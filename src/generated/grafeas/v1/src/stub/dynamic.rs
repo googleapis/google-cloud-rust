@@ -100,7 +100,6 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>;
-
 }
 
 /// All implementations of [super::Grafeas] also implement [Grafeas].
@@ -231,5 +230,4 @@ impl<T: super::Grafeas> Grafeas for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
         T::list_note_occurrences(self, req, options).await
     }
-
 }

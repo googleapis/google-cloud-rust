@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ApiHub](super::stub::ApiHub) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHub<T>
-where T: super::stub::ApiHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHub + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHub<T>
-where T: super::stub::ApiHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHub + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHub for ApiHub<T>
-where T: super::stub::ApiHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHub + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_api(
         &self,
@@ -426,25 +432,30 @@ where T: super::stub::ApiHub + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [ApiHubDependencies](super::stub::ApiHubDependencies) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHubDependencies<T>
-where T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHubDependencies<T>
-where T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHubDependencies for ApiHubDependencies<T>
-where T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_dependency(
         &self,
@@ -543,25 +554,30 @@ where T: super::stub::ApiHubDependencies + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [ApiHubCollect](super::stub::ApiHubCollect) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHubCollect<T>
-where T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHubCollect<T>
-where T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHubCollect for ApiHubCollect<T>
-where T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn collect_api_data(
         &self,
@@ -625,7 +641,6 @@ where T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -644,19 +659,25 @@ where T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync {
 /// Implements a [ApiHubCurate](super::stub::ApiHubCurate) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHubCurate<T>
-where T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHubCurate<T>
-where T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHubCurate for ApiHubCurate<T>
-where T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_curation(
         &self,
@@ -755,32 +776,39 @@ where T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [ApiHubDiscovery](super::stub::ApiHubDiscovery) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHubDiscovery<T>
-where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHubDiscovery<T>
-where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHubDiscovery for ApiHubDiscovery<T>
-where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_discovered_api_observations(
         &self,
         req: crate::model::ListDiscoveredApiObservationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>> {
-        self.inner.list_discovered_api_observations(req, options).await
+        self.inner
+            .list_discovered_api_observations(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -789,7 +817,9 @@ where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
         req: crate::model::GetDiscoveredApiObservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiscoveredApiObservation>> {
-        self.inner.get_discovered_api_observation(req, options).await
+        self.inner
+            .get_discovered_api_observation(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -798,7 +828,9 @@ where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
         req: crate::model::ListDiscoveredApiOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>> {
-        self.inner.list_discovered_api_operations(req, options).await
+        self.inner
+            .list_discovered_api_operations(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -863,32 +895,39 @@ where T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [HostProjectRegistrationService](super::stub::HostProjectRegistrationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService<T>
-where T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> HostProjectRegistrationService<T>
-where T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::HostProjectRegistrationService for HostProjectRegistrationService<T>
-where T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_host_project_registration(
         &self,
         req: crate::model::CreateHostProjectRegistrationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HostProjectRegistration>> {
-        self.inner.create_host_project_registration(req, options).await
+        self.inner
+            .create_host_project_registration(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -906,7 +945,9 @@ where T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + 
         req: crate::model::ListHostProjectRegistrationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>> {
-        self.inner.list_host_project_registrations(req, options).await
+        self.inner
+            .list_host_project_registrations(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -962,25 +1003,30 @@ where T: super::stub::HostProjectRegistrationService + std::fmt::Debug + Send + 
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [LintingService](super::stub::LintingService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LintingService<T>
-where T: super::stub::LintingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LintingService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> LintingService<T>
-where T: super::stub::LintingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LintingService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LintingService for LintingService<T>
-where T: super::stub::LintingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::LintingService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_style_guide(
         &self,
@@ -1070,25 +1116,30 @@ where T: super::stub::LintingService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [ApiHubPlugin](super::stub::ApiHubPlugin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiHubPlugin<T>
-where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ApiHubPlugin<T>
-where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiHubPlugin for ApiHubPlugin<T>
-where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_plugin(
         &self,
@@ -1158,7 +1209,9 @@ where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
         req: crate::model::ExecutePluginInstanceActionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.execute_plugin_instance_action(req, options).await
+        self.inner
+            .execute_plugin_instance_action(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1194,7 +1247,9 @@ where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
         req: crate::model::DisablePluginInstanceActionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.disable_plugin_instance_action(req, options).await
+        self.inner
+            .disable_plugin_instance_action(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1269,7 +1324,6 @@ where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1288,19 +1342,25 @@ where T: super::stub::ApiHubPlugin + std::fmt::Debug + Send + Sync {
 /// Implements a [Provisioning](super::stub::Provisioning) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Provisioning<T>
-where T: super::stub::Provisioning + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Provisioning + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Provisioning<T>
-where T: super::stub::Provisioning + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Provisioning + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Provisioning for Provisioning<T>
-where T: super::stub::Provisioning + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Provisioning + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_api_hub_instance(
         &self,
@@ -1391,7 +1451,6 @@ where T: super::stub::Provisioning + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1410,26 +1469,34 @@ where T: super::stub::Provisioning + std::fmt::Debug + Send + Sync {
 /// Implements a [RuntimeProjectAttachmentService](super::stub::RuntimeProjectAttachmentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RuntimeProjectAttachmentService<T>
-where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> RuntimeProjectAttachmentService<T>
-where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentService<T>
-where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_runtime_project_attachment(
         &self,
         req: crate::model::CreateRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
-        self.inner.create_runtime_project_attachment(req, options).await
+        self.inner
+            .create_runtime_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1438,7 +1505,9 @@ where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send +
         req: crate::model::GetRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
-        self.inner.get_runtime_project_attachment(req, options).await
+        self.inner
+            .get_runtime_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1447,7 +1516,9 @@ where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send +
         req: crate::model::ListRuntimeProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>> {
-        self.inner.list_runtime_project_attachments(req, options).await
+        self.inner
+            .list_runtime_project_attachments(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1456,7 +1527,9 @@ where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send +
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner.delete_runtime_project_attachment(req, options).await
+        self.inner
+            .delete_runtime_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1465,7 +1538,9 @@ where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send +
         req: crate::model::LookupRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>> {
-        self.inner.lookup_runtime_project_attachment(req, options).await
+        self.inner
+            .lookup_runtime_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -1521,6 +1596,4 @@ where T: super::stub::RuntimeProjectAttachmentService + std::fmt::Debug + Send +
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
-

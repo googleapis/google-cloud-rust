@@ -39,7 +39,10 @@ pub mod policy_troubleshooter {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTroubleshooter;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod policy_troubleshooter {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod policy_troubleshooter {
     pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
 
     impl TroubleshootIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::TroubleshootIamPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::TroubleshootIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,12 +115,16 @@ pub mod policy_troubleshooter {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TroubleshootIamPolicyResponse> {
-            (*self.0.stub).troubleshoot_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .troubleshoot_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
         pub fn set_access_tuple<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AccessTuple>
+        where
+            T: std::convert::Into<crate::model::AccessTuple>,
         {
             self.0.request.access_tuple = std::option::Option::Some(v.into());
             self
@@ -118,7 +132,8 @@ pub mod policy_troubleshooter {
 
         /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
         pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AccessTuple>
+        where
+            T: std::convert::Into<crate::model::AccessTuple>,
         {
             self.0.request.access_tuple = v.map(|x| x.into());
             self
@@ -131,5 +146,4 @@ pub mod policy_troubleshooter {
             &mut self.0.options
         }
     }
-
 }

@@ -39,7 +39,10 @@ pub mod policies {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Policies;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,7 +57,9 @@ pub mod policies {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
+    where
+        R: std::default::Default,
+    {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self {
                 stub,
@@ -90,9 +95,7 @@ pub mod policies {
 
     impl ListPolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +112,17 @@ pub mod policies {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPoliciesResponse> {
-            (*self.0.stub).list_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_policies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +134,10 @@ pub mod policies {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -180,9 +192,7 @@ pub mod policies {
 
     impl GetPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -199,7 +209,10 @@ pub mod policies {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -241,9 +254,7 @@ pub mod policies {
 
     impl CreatePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -265,16 +276,20 @@ pub mod policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_policy][crate::client::Policies::create_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_policy`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -314,7 +329,8 @@ pub mod policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -324,7 +340,8 @@ pub mod policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -367,9 +384,7 @@ pub mod policies {
 
     impl UpdatePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -391,16 +406,20 @@ pub mod policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_policy][crate::client::Policies::update_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_policy`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -432,7 +451,8 @@ pub mod policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -442,7 +462,8 @@ pub mod policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -479,9 +500,7 @@ pub mod policies {
 
     impl DeletePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -503,16 +522,20 @@ pub mod policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_policy][crate::client::Policies::delete_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -584,13 +607,14 @@ pub mod policies {
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -603,7 +627,10 @@ pub mod policies {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -619,5 +646,4 @@ pub mod policies {
             &mut self.0.options
         }
     }
-
 }

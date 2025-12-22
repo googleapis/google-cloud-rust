@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,6 +30,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppGatewaysRequest {
-
     /// Required. The resource name of the AppGateway location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     pub parent: std::string::String,
@@ -147,7 +146,6 @@ impl wkt::message::Message for ListAppGatewaysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppGatewaysResponse {
-
     /// A list of BeyondCorp AppGateways in the project.
     pub app_gateways: std::vec::Vec<crate::model::AppGateway>,
 
@@ -181,7 +179,7 @@ impl ListAppGatewaysResponse {
     pub fn set_app_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AppGateway>
+        V: std::convert::Into<crate::model::AppGateway>,
     {
         use std::iter::Iterator;
         self.app_gateways = v.into_iter().map(|i| i.into()).collect();
@@ -210,7 +208,7 @@ impl ListAppGatewaysResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -242,7 +240,6 @@ impl gax::paginator::internal::PageableResponse for ListAppGatewaysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppGatewayRequest {
-
     /// Required. BeyondCorp AppGateway name using the form:
     /// `projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}`
     pub name: std::string::String,
@@ -278,7 +275,6 @@ impl wkt::message::Message for GetAppGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppGatewayRequest {
-
     /// Required. The resource project name of the AppGateway location using the
     /// form: `projects/{project_id}/locations/{location_id}`
     pub parent: std::string::String,
@@ -353,7 +349,8 @@ impl CreateAppGatewayRequest {
     /// let x = CreateAppGatewayRequest::new().set_app_gateway(AppGateway::default()/* use setters */);
     /// ```
     pub fn set_app_gateway<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AppGateway>
+    where
+        T: std::convert::Into<crate::model::AppGateway>,
     {
         self.app_gateway = std::option::Option::Some(v.into());
         self
@@ -369,7 +366,8 @@ impl CreateAppGatewayRequest {
     /// let x = CreateAppGatewayRequest::new().set_or_clear_app_gateway(None::<AppGateway>);
     /// ```
     pub fn set_or_clear_app_gateway<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AppGateway>
+    where
+        T: std::convert::Into<crate::model::AppGateway>,
     {
         self.app_gateway = v.map(|x| x.into());
         self
@@ -410,7 +408,6 @@ impl wkt::message::Message for CreateAppGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppGatewayRequest {
-
     /// Required. BeyondCorp AppGateway name using the form:
     /// `projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}`
     pub name: std::string::String,
@@ -492,7 +489,6 @@ impl wkt::message::Message for DeleteAppGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppGateway {
-
     /// Required. Unique resource name of the AppGateway.
     /// The name is ignored when creating an AppGateway.
     pub name: std::string::String,
@@ -504,7 +500,7 @@ pub struct AppGateway {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Resource labels to represent user provided metadata.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. An arbitrary user-provided name for the AppGateway. Cannot exceed
     /// 64 characters.
@@ -558,7 +554,8 @@ impl AppGateway {
     /// let x = AppGateway::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -574,7 +571,8 @@ impl AppGateway {
     /// let x = AppGateway::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -589,7 +587,8 @@ impl AppGateway {
     /// let x = AppGateway::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -605,7 +604,8 @@ impl AppGateway {
     /// let x = AppGateway::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -664,7 +664,10 @@ impl AppGateway {
     /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::Type;
     /// let x0 = AppGateway::new().set_type(Type::TcpProxy);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::app_gateway::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::app_gateway::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -679,7 +682,10 @@ impl AppGateway {
     /// let x1 = AppGateway::new().set_state(State::Created);
     /// let x2 = AppGateway::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::app_gateway::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::app_gateway::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -711,7 +717,7 @@ impl AppGateway {
     pub fn set_allocated_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::app_gateway::AllocatedConnection>
+        V: std::convert::Into<crate::model::app_gateway::AllocatedConnection>,
     {
         use std::iter::Iterator;
         self.allocated_connections = v.into_iter().map(|i| i.into()).collect();
@@ -726,7 +732,10 @@ impl AppGateway {
     /// use google_cloud_beyondcorp_appgateways_v1::model::app_gateway::HostType;
     /// let x0 = AppGateway::new().set_host_type(HostType::GcpRegionalMig);
     /// ```
-    pub fn set_host_type<T: std::convert::Into<crate::model::app_gateway::HostType>>(mut self, v: T) -> Self {
+    pub fn set_host_type<T: std::convert::Into<crate::model::app_gateway::HostType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.host_type = v.into();
         self
     }
@@ -743,12 +752,10 @@ pub mod app_gateway {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Allocated connection of the AppGateway.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllocatedConnection {
-
         /// Required. The PSC uri of an allocated connection
         pub psc_uri: std::string::String,
 
@@ -876,7 +883,9 @@ pub mod app_gateway {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::TcpProxy,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -887,7 +896,9 @@ pub mod app_gateway {
             match value {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TCP_PROXY" => Self::TcpProxy,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -911,7 +922,8 @@ pub mod app_gateway {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.Type"))
+                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.Type",
+            ))
         }
     }
 
@@ -1017,7 +1029,9 @@ pub mod app_gateway {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::Down,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1032,7 +1046,9 @@ pub mod app_gateway {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "DOWN" => Self::Down,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1060,7 +1076,8 @@ pub mod app_gateway {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.State"))
+                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.State",
+            ))
         }
     }
 
@@ -1146,7 +1163,9 @@ pub mod app_gateway {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcpRegionalMig,
-                _ => Self::UnknownValue(host_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(host_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1157,7 +1176,9 @@ pub mod app_gateway {
             match value {
                 "HOST_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GCP_REGIONAL_MIG" => Self::GcpRegionalMig,
-                _ => Self::UnknownValue(host_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(host_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1181,7 +1202,8 @@ pub mod app_gateway {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HostType>::new(
-                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.HostType"))
+                ".google.cloud.beyondcorp.appgateways.v1.AppGateway.HostType",
+            ))
         }
     }
 }
@@ -1190,7 +1212,6 @@ pub mod app_gateway {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppGatewayOperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1235,7 +1256,8 @@ impl AppGatewayOperationMetadata {
     /// let x = AppGatewayOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1251,7 +1273,8 @@ impl AppGatewayOperationMetadata {
     /// let x = AppGatewayOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1266,7 +1289,8 @@ impl AppGatewayOperationMetadata {
     /// let x = AppGatewayOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1282,7 +1306,8 @@ impl AppGatewayOperationMetadata {
     /// let x = AppGatewayOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self

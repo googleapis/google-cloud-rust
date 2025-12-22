@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -30,6 +29,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaRegistryRequest {
-
     /// Required. The name of the schema registry instance to return. Structured
     /// like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
@@ -78,7 +77,6 @@ impl wkt::message::Message for GetSchemaRegistryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRegistriesRequest {
-
     /// Required. The parent whose schema registry instances are to be listed.
     /// Structured like: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -114,7 +112,6 @@ impl wkt::message::Message for ListSchemaRegistriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRegistriesResponse {
-
     /// The schema registry instances.
     pub schema_registries: std::vec::Vec<crate::model::SchemaRegistry>,
 
@@ -141,7 +138,7 @@ impl ListSchemaRegistriesResponse {
     pub fn set_schema_registries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SchemaRegistry>
+        V: std::convert::Into<crate::model::SchemaRegistry>,
     {
         use std::iter::Iterator;
         self.schema_registries = v.into_iter().map(|i| i.into()).collect();
@@ -159,7 +156,6 @@ impl wkt::message::Message for ListSchemaRegistriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSchemaRegistryRequest {
-
     /// Required. The parent whose schema registry instance is to be created.
     /// Structured like: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -201,7 +197,10 @@ impl CreateSchemaRegistryRequest {
     /// # use google_cloud_managedkafka_schemaregistry_v1::model::CreateSchemaRegistryRequest;
     /// let x = CreateSchemaRegistryRequest::new().set_schema_registry_id("example");
     /// ```
-    pub fn set_schema_registry_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_schema_registry_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.schema_registry_id = v.into();
         self
     }
@@ -215,7 +214,8 @@ impl CreateSchemaRegistryRequest {
     /// let x = CreateSchemaRegistryRequest::new().set_schema_registry(SchemaRegistry::default()/* use setters */);
     /// ```
     pub fn set_schema_registry<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SchemaRegistry>
+    where
+        T: std::convert::Into<crate::model::SchemaRegistry>,
     {
         self.schema_registry = std::option::Option::Some(v.into());
         self
@@ -231,7 +231,8 @@ impl CreateSchemaRegistryRequest {
     /// let x = CreateSchemaRegistryRequest::new().set_or_clear_schema_registry(None::<SchemaRegistry>);
     /// ```
     pub fn set_or_clear_schema_registry<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SchemaRegistry>
+    where
+        T: std::convert::Into<crate::model::SchemaRegistry>,
     {
         self.schema_registry = v.map(|x| x.into());
         self
@@ -248,7 +249,6 @@ impl wkt::message::Message for CreateSchemaRegistryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaRegistryRequest {
-
     /// Required. The name of the schema registry instance to delete. Structured
     /// like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
@@ -285,7 +285,6 @@ impl wkt::message::Message for DeleteSchemaRegistryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetContextRequest {
-
     /// Required. The name of the context to return. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}`
     pub name: std::string::String,
@@ -321,7 +320,6 @@ impl wkt::message::Message for GetContextRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContextsRequest {
-
     /// Required. The parent of the contexts. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     pub parent: std::string::String,
@@ -357,7 +355,6 @@ impl wkt::message::Message for ListContextsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaRequest {
-
     /// Required. The name of the schema to return. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/schemas/ids/{schema}`
     pub name: std::string::String,
@@ -395,7 +392,8 @@ impl GetSchemaRequest {
     /// let x = GetSchemaRequest::new().set_subject("example");
     /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = std::option::Option::Some(v.into());
         self
@@ -410,7 +408,8 @@ impl GetSchemaRequest {
     /// let x = GetSchemaRequest::new().set_or_clear_subject(None::<String>);
     /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = v.map(|x| x.into());
         self
@@ -427,7 +426,6 @@ impl wkt::message::Message for GetSchemaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaTypesRequest {
-
     /// Required. The parent schema registry whose schema types are to be listed.
     /// Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
@@ -464,7 +462,6 @@ impl wkt::message::Message for ListSchemaTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaVersionsRequest {
-
     /// Required. The schema whose schema versions are to be listed. Structured
     /// like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/schemas/ids/{schema}`
@@ -507,7 +504,8 @@ impl ListSchemaVersionsRequest {
     /// let x = ListSchemaVersionsRequest::new().set_subject("example");
     /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = std::option::Option::Some(v.into());
         self
@@ -522,7 +520,8 @@ impl ListSchemaVersionsRequest {
     /// let x = ListSchemaVersionsRequest::new().set_or_clear_subject(None::<String>);
     /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = v.map(|x| x.into());
         self
@@ -536,7 +535,8 @@ impl ListSchemaVersionsRequest {
     /// let x = ListSchemaVersionsRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -551,7 +551,8 @@ impl ListSchemaVersionsRequest {
     /// let x = ListSchemaVersionsRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -568,7 +569,6 @@ impl wkt::message::Message for ListSchemaVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubjectsRequest {
-
     /// Required. The parent schema registry/context whose subjects are to be
     /// listed. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
@@ -615,7 +615,8 @@ impl ListSubjectsRequest {
     /// let x = ListSubjectsRequest::new().set_subject_prefix("example");
     /// ```
     pub fn set_subject_prefix<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject_prefix = std::option::Option::Some(v.into());
         self
@@ -630,7 +631,8 @@ impl ListSubjectsRequest {
     /// let x = ListSubjectsRequest::new().set_or_clear_subject_prefix(None::<String>);
     /// ```
     pub fn set_or_clear_subject_prefix<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject_prefix = v.map(|x| x.into());
         self
@@ -644,7 +646,8 @@ impl ListSubjectsRequest {
     /// let x = ListSubjectsRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -659,7 +662,8 @@ impl ListSubjectsRequest {
     /// let x = ListSubjectsRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -676,7 +680,6 @@ impl wkt::message::Message for ListSubjectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubjectsBySchemaIdRequest {
-
     /// Required. The schema resource whose associated subjects are to be listed.
     /// Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/schemas/ids/{schema}`
@@ -719,7 +722,8 @@ impl ListSubjectsBySchemaIdRequest {
     /// let x = ListSubjectsBySchemaIdRequest::new().set_subject("example");
     /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = std::option::Option::Some(v.into());
         self
@@ -734,7 +738,8 @@ impl ListSubjectsBySchemaIdRequest {
     /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_subject(None::<String>);
     /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.subject = v.map(|x| x.into());
         self
@@ -748,7 +753,8 @@ impl ListSubjectsBySchemaIdRequest {
     /// let x = ListSubjectsBySchemaIdRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -763,7 +769,8 @@ impl ListSubjectsBySchemaIdRequest {
     /// let x = ListSubjectsBySchemaIdRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -780,7 +787,6 @@ impl wkt::message::Message for ListSubjectsBySchemaIdRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
-
     /// Required. The subject whose versions are to be listed. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}`
     /// or
@@ -819,7 +825,8 @@ impl ListVersionsRequest {
     /// let x = ListVersionsRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -834,7 +841,8 @@ impl ListVersionsRequest {
     /// let x = ListVersionsRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -851,7 +859,6 @@ impl wkt::message::Message for ListVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubjectRequest {
-
     /// Required. The name of the subject to delete. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}`
     /// or
@@ -893,7 +900,8 @@ impl DeleteSubjectRequest {
     /// let x = DeleteSubjectRequest::new().set_permanent(true);
     /// ```
     pub fn set_permanent<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.permanent = std::option::Option::Some(v.into());
         self
@@ -908,7 +916,8 @@ impl DeleteSubjectRequest {
     /// let x = DeleteSubjectRequest::new().set_or_clear_permanent(None::<bool>);
     /// ```
     pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.permanent = v.map(|x| x.into());
         self
@@ -925,7 +934,6 @@ impl wkt::message::Message for DeleteSubjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
-
     /// Required. The name of the subject to return versions. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}/versions/{version}`
     /// or
@@ -965,7 +973,8 @@ impl GetVersionRequest {
     /// let x = GetVersionRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -980,7 +989,8 @@ impl GetVersionRequest {
     /// let x = GetVersionRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -997,7 +1007,6 @@ impl wkt::message::Message for GetVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionRequest {
-
     /// Required. The subject to create the version for. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}`
     /// or
@@ -1057,7 +1066,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_version(42);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -1072,7 +1082,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_or_clear_version(None::<i32>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -1086,7 +1097,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_id(42);
     /// ```
     pub fn set_id<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.id = std::option::Option::Some(v.into());
         self
@@ -1101,7 +1113,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_or_clear_id(None::<i32>);
     /// ```
     pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.id = v.map(|x| x.into());
         self
@@ -1118,7 +1131,8 @@ impl CreateVersionRequest {
     /// let x2 = CreateVersionRequest::new().set_schema_type(SchemaType::Protobuf);
     /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = std::option::Option::Some(v.into());
         self
@@ -1136,7 +1150,8 @@ impl CreateVersionRequest {
     /// let x_none = CreateVersionRequest::new().set_or_clear_schema_type(None::<SchemaType>);
     /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = v.map(|x| x.into());
         self
@@ -1169,7 +1184,7 @@ impl CreateVersionRequest {
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::schema::SchemaReference>
+        V: std::convert::Into<crate::model::schema::SchemaReference>,
     {
         use std::iter::Iterator;
         self.references = v.into_iter().map(|i| i.into()).collect();
@@ -1184,7 +1199,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_normalize(true);
     /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = std::option::Option::Some(v.into());
         self
@@ -1199,7 +1215,8 @@ impl CreateVersionRequest {
     /// let x = CreateVersionRequest::new().set_or_clear_normalize(None::<bool>);
     /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = v.map(|x| x.into());
         self
@@ -1216,7 +1233,6 @@ impl wkt::message::Message for CreateVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionResponse {
-
     /// The unique identifier of the schema created.
     pub id: i32,
 
@@ -1251,7 +1267,6 @@ impl wkt::message::Message for CreateVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupVersionRequest {
-
     /// Required. The subject to lookup the schema in. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}`
     /// or
@@ -1307,7 +1322,8 @@ impl LookupVersionRequest {
     /// let x2 = LookupVersionRequest::new().set_schema_type(SchemaType::Protobuf);
     /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = std::option::Option::Some(v.into());
         self
@@ -1325,7 +1341,8 @@ impl LookupVersionRequest {
     /// let x_none = LookupVersionRequest::new().set_or_clear_schema_type(None::<SchemaType>);
     /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = v.map(|x| x.into());
         self
@@ -1358,7 +1375,7 @@ impl LookupVersionRequest {
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::schema::SchemaReference>
+        V: std::convert::Into<crate::model::schema::SchemaReference>,
     {
         use std::iter::Iterator;
         self.references = v.into_iter().map(|i| i.into()).collect();
@@ -1373,7 +1390,8 @@ impl LookupVersionRequest {
     /// let x = LookupVersionRequest::new().set_normalize(true);
     /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = std::option::Option::Some(v.into());
         self
@@ -1388,7 +1406,8 @@ impl LookupVersionRequest {
     /// let x = LookupVersionRequest::new().set_or_clear_normalize(None::<bool>);
     /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = v.map(|x| x.into());
         self
@@ -1402,7 +1421,8 @@ impl LookupVersionRequest {
     /// let x = LookupVersionRequest::new().set_deleted(true);
     /// ```
     pub fn set_deleted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = std::option::Option::Some(v.into());
         self
@@ -1417,7 +1437,8 @@ impl LookupVersionRequest {
     /// let x = LookupVersionRequest::new().set_or_clear_deleted(None::<bool>);
     /// ```
     pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.deleted = v.map(|x| x.into());
         self
@@ -1434,7 +1455,6 @@ impl wkt::message::Message for LookupVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
-
     /// Required. The name of the subject version to delete. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}/versions/{version}`
     /// or
@@ -1476,7 +1496,8 @@ impl DeleteVersionRequest {
     /// let x = DeleteVersionRequest::new().set_permanent(true);
     /// ```
     pub fn set_permanent<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.permanent = std::option::Option::Some(v.into());
         self
@@ -1491,7 +1512,8 @@ impl DeleteVersionRequest {
     /// let x = DeleteVersionRequest::new().set_or_clear_permanent(None::<bool>);
     /// ```
     pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.permanent = v.map(|x| x.into());
         self
@@ -1508,7 +1530,6 @@ impl wkt::message::Message for DeleteVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferencedSchemasRequest {
-
     /// Required. The version to list referenced by. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}/versions/{version}`
     /// or
@@ -1546,7 +1567,6 @@ impl wkt::message::Message for ListReferencedSchemasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckCompatibilityRequest {
-
     /// Required. The name of the resource to check compatibility for. The format
     /// is either of following:
     ///
@@ -1600,7 +1620,8 @@ impl CheckCompatibilityRequest {
     /// let x2 = CheckCompatibilityRequest::new().set_schema_type(SchemaType::Protobuf);
     /// ```
     pub fn set_schema_type<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = std::option::Option::Some(v.into());
         self
@@ -1618,7 +1639,8 @@ impl CheckCompatibilityRequest {
     /// let x_none = CheckCompatibilityRequest::new().set_or_clear_schema_type(None::<SchemaType>);
     /// ```
     pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::schema::SchemaType>
+    where
+        T: std::convert::Into<crate::model::schema::SchemaType>,
     {
         self.schema_type = v.map(|x| x.into());
         self
@@ -1651,7 +1673,7 @@ impl CheckCompatibilityRequest {
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::schema::SchemaReference>
+        V: std::convert::Into<crate::model::schema::SchemaReference>,
     {
         use std::iter::Iterator;
         self.references = v.into_iter().map(|i| i.into()).collect();
@@ -1666,7 +1688,8 @@ impl CheckCompatibilityRequest {
     /// let x = CheckCompatibilityRequest::new().set_verbose(true);
     /// ```
     pub fn set_verbose<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.verbose = std::option::Option::Some(v.into());
         self
@@ -1681,7 +1704,8 @@ impl CheckCompatibilityRequest {
     /// let x = CheckCompatibilityRequest::new().set_or_clear_verbose(None::<bool>);
     /// ```
     pub fn set_or_clear_verbose<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.verbose = v.map(|x| x.into());
         self
@@ -1698,7 +1722,6 @@ impl wkt::message::Message for CheckCompatibilityRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckCompatibilityResponse {
-
     /// The compatibility check result. If true, the schema is compatible with the
     /// resource.
     pub is_compatible: bool,
@@ -1736,7 +1759,7 @@ impl CheckCompatibilityResponse {
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
@@ -1754,7 +1777,6 @@ impl wkt::message::Message for CheckCompatibilityResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaConfigRequest {
-
     /// Required. The resource name to get the config for. It can be either of
     /// following:
     ///
@@ -1794,7 +1816,8 @@ impl GetSchemaConfigRequest {
     /// let x = GetSchemaConfigRequest::new().set_default_to_global(true);
     /// ```
     pub fn set_default_to_global<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.default_to_global = std::option::Option::Some(v.into());
         self
@@ -1809,7 +1832,8 @@ impl GetSchemaConfigRequest {
     /// let x = GetSchemaConfigRequest::new().set_or_clear_default_to_global(None::<bool>);
     /// ```
     pub fn set_or_clear_default_to_global<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.default_to_global = v.map(|x| x.into());
         self
@@ -1828,7 +1852,6 @@ impl wkt::message::Message for GetSchemaConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaConfigRequest {
-
     /// Required. The resource name to update the config for. It can be either of
     /// following:
     ///
@@ -1879,7 +1902,8 @@ impl UpdateSchemaConfigRequest {
     /// let x2 = UpdateSchemaConfigRequest::new().set_compatibility(CompatibilityType::Forward);
     /// ```
     pub fn set_compatibility<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+    where
+        T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
     {
         self.compatibility = std::option::Option::Some(v.into());
         self
@@ -1897,7 +1921,8 @@ impl UpdateSchemaConfigRequest {
     /// let x_none = UpdateSchemaConfigRequest::new().set_or_clear_compatibility(None::<CompatibilityType>);
     /// ```
     pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+    where
+        T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
     {
         self.compatibility = v.map(|x| x.into());
         self
@@ -1911,7 +1936,8 @@ impl UpdateSchemaConfigRequest {
     /// let x = UpdateSchemaConfigRequest::new().set_normalize(true);
     /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = std::option::Option::Some(v.into());
         self
@@ -1926,7 +1952,8 @@ impl UpdateSchemaConfigRequest {
     /// let x = UpdateSchemaConfigRequest::new().set_or_clear_normalize(None::<bool>);
     /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = v.map(|x| x.into());
         self
@@ -1943,7 +1970,6 @@ impl wkt::message::Message for UpdateSchemaConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaConfigRequest {
-
     /// Required. The resource name of subject to delete the config for. The format
     /// is
     ///
@@ -1981,7 +2007,6 @@ impl wkt::message::Message for DeleteSchemaConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaModeRequest {
-
     /// Required. The resource name of the mode. The format is
     ///
     /// * projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/mode/{subject}: mode for a schema registry, or
@@ -2019,7 +2044,6 @@ impl wkt::message::Message for GetSchemaModeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaModeRequest {
-
     /// Required. The resource name of the mode. The format is
     ///
     /// * projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/mode/{subject}: mode for a schema registry, or
@@ -2059,7 +2083,10 @@ impl UpdateSchemaModeRequest {
     /// let x1 = UpdateSchemaModeRequest::new().set_mode(ModeType::Readwrite);
     /// let x2 = UpdateSchemaModeRequest::new().set_mode(ModeType::Import);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(mut self, v: T) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode = v.into();
         self
     }
@@ -2075,7 +2102,6 @@ impl wkt::message::Message for UpdateSchemaModeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaModeRequest {
-
     /// Required. The resource name of subject to delete the mode for. The format
     /// is
     ///
@@ -2114,7 +2140,6 @@ impl wkt::message::Message for DeleteSchemaModeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaRegistry {
-
     /// Identifier. The name of the schema registry instance. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     /// The instance name {schema_registry} can contain the following:
@@ -2156,7 +2181,7 @@ impl SchemaRegistry {
     pub fn set_contexts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.contexts = v.into_iter().map(|i| i.into()).collect();
@@ -2175,7 +2200,6 @@ impl wkt::message::Message for SchemaRegistry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Context {
-
     /// Identifier. The name of the context. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}`
     /// The context name {context} can contain the following:
@@ -2218,7 +2242,7 @@ impl Context {
     pub fn set_subjects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.subjects = v.into_iter().map(|i| i.into()).collect();
@@ -2236,7 +2260,6 @@ impl wkt::message::Message for Context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
-
     /// Optional. The schema type of the schema.
     pub schema_type: crate::model::schema::SchemaType,
 
@@ -2264,7 +2287,10 @@ impl Schema {
     /// let x1 = Schema::new().set_schema_type(SchemaType::Json);
     /// let x2 = Schema::new().set_schema_type(SchemaType::Protobuf);
     /// ```
-    pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(mut self, v: T) -> Self {
+    pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.schema_type = v.into();
         self
     }
@@ -2296,7 +2322,7 @@ impl Schema {
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::schema::SchemaReference>
+        V: std::convert::Into<crate::model::schema::SchemaReference>,
     {
         use std::iter::Iterator;
         self.references = v.into_iter().map(|i| i.into()).collect();
@@ -2315,12 +2341,10 @@ pub mod schema {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// SchemaReference is a reference to a schema.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchemaReference {
-
         /// Required. The name of the reference.
         pub name: std::string::String,
 
@@ -2472,7 +2496,9 @@ pub mod schema {
                 1 => Self::Avro,
                 2 => Self::Json,
                 3 => Self::Protobuf,
-                _ => Self::UnknownValue(schema_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(schema_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2485,7 +2511,9 @@ pub mod schema {
                 "AVRO" => Self::Avro,
                 "JSON" => Self::Json,
                 "PROTOBUF" => Self::Protobuf,
-                _ => Self::UnknownValue(schema_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(schema_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2511,7 +2539,8 @@ pub mod schema {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SchemaType>::new(
-                ".google.cloud.managedkafka.schemaregistry.v1.Schema.SchemaType"))
+                ".google.cloud.managedkafka.schemaregistry.v1.Schema.SchemaType",
+            ))
         }
     }
 }
@@ -2521,7 +2550,6 @@ pub mod schema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaSubject {
-
     /// The name of the subject. Structured like:
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/subjects/{subject}`
     /// or
@@ -2567,7 +2595,7 @@ impl SchemaSubject {
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
@@ -2585,7 +2613,6 @@ impl wkt::message::Message for SchemaSubject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaVersion {
-
     /// Required. The subject of the version.
     pub subject: std::string::String,
 
@@ -2658,7 +2685,10 @@ impl SchemaVersion {
     /// let x1 = SchemaVersion::new().set_schema_type(SchemaType::Json);
     /// let x2 = SchemaVersion::new().set_schema_type(SchemaType::Protobuf);
     /// ```
-    pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(mut self, v: T) -> Self {
+    pub fn set_schema_type<T: std::convert::Into<crate::model::schema::SchemaType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.schema_type = v.into();
         self
     }
@@ -2690,7 +2720,7 @@ impl SchemaVersion {
     pub fn set_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::schema::SchemaReference>
+        V: std::convert::Into<crate::model::schema::SchemaReference>,
     {
         use std::iter::Iterator;
         self.references = v.into_iter().map(|i| i.into()).collect();
@@ -2709,7 +2739,6 @@ impl wkt::message::Message for SchemaVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaConfig {
-
     /// Required. The compatibility type of the schema.
     /// The default value is BACKWARD.
     /// If unset in a SchemaSubject-level SchemaConfig, defaults to the global
@@ -2746,7 +2775,8 @@ impl SchemaConfig {
     /// let x2 = SchemaConfig::new().set_compatibility(CompatibilityType::Forward);
     /// ```
     pub fn set_compatibility<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+    where
+        T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
     {
         self.compatibility = std::option::Option::Some(v.into());
         self
@@ -2764,7 +2794,8 @@ impl SchemaConfig {
     /// let x_none = SchemaConfig::new().set_or_clear_compatibility(None::<CompatibilityType>);
     /// ```
     pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+    where
+        T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
     {
         self.compatibility = v.map(|x| x.into());
         self
@@ -2778,7 +2809,8 @@ impl SchemaConfig {
     /// let x = SchemaConfig::new().set_normalize(true);
     /// ```
     pub fn set_normalize<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = std::option::Option::Some(v.into());
         self
@@ -2793,7 +2825,8 @@ impl SchemaConfig {
     /// let x = SchemaConfig::new().set_or_clear_normalize(None::<bool>);
     /// ```
     pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.normalize = v.map(|x| x.into());
         self
@@ -2822,7 +2855,6 @@ impl wkt::message::Message for SchemaConfig {
 pub mod schema_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Compatibility type of the schemas.
     ///
@@ -2930,7 +2962,9 @@ pub mod schema_config {
                 4 => Self::ForwardTransitive,
                 5 => Self::Full,
                 6 => Self::FullTransitive,
-                _ => Self::UnknownValue(compatibility_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(compatibility_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2946,7 +2980,9 @@ pub mod schema_config {
                 "FORWARD_TRANSITIVE" => Self::ForwardTransitive,
                 "FULL" => Self::Full,
                 "FULL_TRANSITIVE" => Self::FullTransitive,
-                _ => Self::UnknownValue(compatibility_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(compatibility_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2975,7 +3011,8 @@ pub mod schema_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompatibilityType>::new(
-                ".google.cloud.managedkafka.schemaregistry.v1.SchemaConfig.CompatibilityType"))
+                ".google.cloud.managedkafka.schemaregistry.v1.SchemaConfig.CompatibilityType",
+            ))
         }
     }
 }
@@ -2993,7 +3030,6 @@ pub mod schema_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaMode {
-
     /// Required. The mode type of a schema registry (READWRITE by default) or of a
     /// subject (unset by default, which means use the global schema registry
     /// setting).
@@ -3017,7 +3053,10 @@ impl SchemaMode {
     /// let x1 = SchemaMode::new().set_mode(ModeType::Readwrite);
     /// let x2 = SchemaMode::new().set_mode(ModeType::Import);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(mut self, v: T) -> Self {
+    pub fn set_mode<T: std::convert::Into<crate::model::schema_mode::ModeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode = v.into();
         self
     }
@@ -3033,7 +3072,6 @@ impl wkt::message::Message for SchemaMode {
 pub mod schema_mode {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Mode type of the schemas or subjects.
     ///
@@ -3128,7 +3166,9 @@ pub mod schema_mode {
                 1 => Self::Readonly,
                 2 => Self::Readwrite,
                 3 => Self::Import,
-                _ => Self::UnknownValue(mode_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(mode_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3141,7 +3181,9 @@ pub mod schema_mode {
                 "READONLY" => Self::Readonly,
                 "READWRITE" => Self::Readwrite,
                 "IMPORT" => Self::Import,
-                _ => Self::UnknownValue(mode_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(mode_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3167,7 +3209,8 @@ pub mod schema_mode {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ModeType>::new(
-                ".google.cloud.managedkafka.schemaregistry.v1.SchemaMode.ModeType"))
+                ".google.cloud.managedkafka.schemaregistry.v1.SchemaMode.ModeType",
+            ))
         }
     }
 }

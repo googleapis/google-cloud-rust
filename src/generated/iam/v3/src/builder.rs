@@ -39,7 +39,10 @@ pub mod policy_bindings {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyBindings;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod policy_bindings {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,14 +93,17 @@ pub mod policy_bindings {
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
     impl CreatePolicyBinding {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePolicyBindingRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePolicyBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -111,16 +121,21 @@ pub mod policy_bindings {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_policy_binding][crate::client::PolicyBindings::create_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_policy_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_policy_binding(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_policy_binding`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -168,7 +183,8 @@ pub mod policy_bindings {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy_binding<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PolicyBinding>
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
         {
             self.0.request.policy_binding = std::option::Option::Some(v.into());
             self
@@ -178,7 +194,8 @@ pub mod policy_bindings {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PolicyBinding>
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
         {
             self.0.request.policy_binding = v.map(|x| x.into());
             self
@@ -219,14 +236,17 @@ pub mod policy_bindings {
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPolicyBindingRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPolicyBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -239,7 +259,10 @@ pub mod policy_bindings {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PolicyBinding> {
-            (*self.0.stub).get_policy_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_policy_binding(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyBindingRequest::name].
@@ -280,14 +303,17 @@ pub mod policy_bindings {
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
     impl UpdatePolicyBinding {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePolicyBindingRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePolicyBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -305,16 +331,21 @@ pub mod policy_bindings {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_policy_binding][crate::client::PolicyBindings::update_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_policy_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_policy_binding(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_policy_binding`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -346,7 +377,8 @@ pub mod policy_bindings {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy_binding<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PolicyBinding>
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
         {
             self.0.request.policy_binding = std::option::Option::Some(v.into());
             self
@@ -356,7 +388,8 @@ pub mod policy_bindings {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PolicyBinding>
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
         {
             self.0.request.policy_binding = v.map(|x| x.into());
             self
@@ -370,7 +403,8 @@ pub mod policy_bindings {
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -378,7 +412,8 @@ pub mod policy_bindings {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -414,14 +449,17 @@ pub mod policy_bindings {
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
     impl DeletePolicyBinding {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePolicyBindingRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePolicyBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -439,15 +477,14 @@ pub mod policy_bindings {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_policy_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_policy_binding(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -473,7 +510,12 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyBindingRequest::name].
@@ -529,14 +571,17 @@ pub mod policy_bindings {
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
     impl ListPolicyBindings {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPolicyBindingsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPolicyBindingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -549,11 +594,17 @@ pub mod policy_bindings {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPolicyBindingsResponse> {
-            (*self.0.stub).list_policy_bindings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_policy_bindings(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -565,7 +616,12 @@ pub mod policy_bindings {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPolicyBindingsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -626,17 +682,22 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchTargetPolicyBindings(RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>);
+    pub struct SearchTargetPolicyBindings(
+        RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
+    );
 
     impl SearchTargetPolicyBindings {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchTargetPolicyBindingsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchTargetPolicyBindingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -649,11 +710,19 @@ pub mod policy_bindings {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchTargetPolicyBindingsResponse> {
-            (*self.0.stub).search_target_policy_bindings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_target_policy_bindings(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchTargetPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::SearchTargetPolicyBindingsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -665,7 +734,12 @@ pub mod policy_bindings {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchTargetPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchTargetPolicyBindingsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -727,14 +801,17 @@ pub mod policy_bindings {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -747,7 +824,10 @@ pub mod policy_bindings {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -763,7 +843,6 @@ pub mod policy_bindings {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod principal_access_boundary_policies {
@@ -791,7 +870,10 @@ pub mod principal_access_boundary_policies {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PrincipalAccessBoundaryPolicies;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -806,8 +888,12 @@ pub mod principal_access_boundary_policies {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -835,17 +921,22 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePrincipalAccessBoundaryPolicy(RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>);
+    pub struct CreatePrincipalAccessBoundaryPolicy(
+        RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
+    );
 
     impl CreatePrincipalAccessBoundaryPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -863,16 +954,21 @@ pub mod principal_access_boundary_policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_principal_access_boundary_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_principal_access_boundary_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_principal_access_boundary_policy`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrincipalAccessBoundaryPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -911,7 +1007,10 @@ pub mod principal_access_boundary_policies {
         /// Sets the value of [principal_access_boundary_policy_id][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy_id].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal_access_boundary_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_principal_access_boundary_policy_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.principal_access_boundary_policy_id = v.into();
             self
         }
@@ -920,7 +1019,8 @@ pub mod principal_access_boundary_policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
         {
             self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
             self
@@ -929,8 +1029,12 @@ pub mod principal_access_boundary_policies {
         /// Sets or clears the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
         {
             self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
@@ -968,17 +1072,22 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPrincipalAccessBoundaryPolicy(RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>);
+    pub struct GetPrincipalAccessBoundaryPolicy(
+        RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
+    );
 
     impl GetPrincipalAccessBoundaryPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPrincipalAccessBoundaryPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPrincipalAccessBoundaryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -991,7 +1100,10 @@ pub mod principal_access_boundary_policies {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PrincipalAccessBoundaryPolicy> {
-            (*self.0.stub).get_principal_access_boundary_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_principal_access_boundary_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrincipalAccessBoundaryPolicyRequest::name].
@@ -1029,17 +1141,22 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePrincipalAccessBoundaryPolicy(RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>);
+    pub struct UpdatePrincipalAccessBoundaryPolicy(
+        RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
+    );
 
     impl UpdatePrincipalAccessBoundaryPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1057,16 +1174,21 @@ pub mod principal_access_boundary_policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_principal_access_boundary_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_principal_access_boundary_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_principal_access_boundary_policy`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrincipalAccessBoundaryPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1098,7 +1220,8 @@ pub mod principal_access_boundary_policies {
         ///
         /// This is a **required** field for requests.
         pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
         {
             self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
             self
@@ -1107,8 +1230,12 @@ pub mod principal_access_boundary_policies {
         /// Sets or clears the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_principal_access_boundary_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
         {
             self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
@@ -1122,7 +1249,8 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1130,7 +1258,8 @@ pub mod principal_access_boundary_policies {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1163,17 +1292,22 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePrincipalAccessBoundaryPolicy(RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>);
+    pub struct DeletePrincipalAccessBoundaryPolicy(
+        RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
+    );
 
     impl DeletePrincipalAccessBoundaryPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1191,15 +1325,14 @@ pub mod principal_access_boundary_policies {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_principal_access_boundary_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_principal_access_boundary_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1225,7 +1358,12 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::name].
@@ -1284,17 +1422,22 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPrincipalAccessBoundaryPolicies(RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>);
+    pub struct ListPrincipalAccessBoundaryPolicies(
+        RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
+    );
 
     impl ListPrincipalAccessBoundaryPolicies {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1306,12 +1449,22 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ListPrincipalAccessBoundaryPoliciesResponse> {
-            (*self.0.stub).list_principal_access_boundary_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ListPrincipalAccessBoundaryPoliciesResponse> {
+            (*self.0.stub)
+                .list_principal_access_boundary_policies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPrincipalAccessBoundaryPoliciesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1323,7 +1476,12 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPrincipalAccessBoundaryPoliciesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1378,17 +1536,24 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchPrincipalAccessBoundaryPolicyBindings(RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>);
+    pub struct SearchPrincipalAccessBoundaryPolicyBindings(
+        RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
+    );
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<
+            V: Into<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1400,12 +1565,22 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse> {
-            (*self.0.stub).search_principal_access_boundary_policy_bindings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse> {
+            (*self.0.stub)
+                .search_principal_access_boundary_policy_bindings(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1417,7 +1592,12 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1471,14 +1651,17 @@ pub mod principal_access_boundary_policies {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1491,7 +1674,10 @@ pub mod principal_access_boundary_policies {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1507,5 +1693,4 @@ pub mod principal_access_boundary_policies {
             &mut self.0.options
         }
     }
-
 }

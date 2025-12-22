@@ -50,92 +50,125 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::POST, path);
-            let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::POST)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::POST, path);
-            let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::POST)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::POST, path);
-            let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::POST)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "projects/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "folders/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "organizations/*/locations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("policyBindingId", &req.policy_binding_id)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "folders/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.policy_binding, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_policy_binding(
@@ -148,86 +181,131 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "projects/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "folders/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "folders/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_policy_binding(
@@ -240,98 +318,188 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
-            let builder = (|| {
-                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
-                Ok(builder)
-            })();
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = (|| {
+                    let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
-            let builder = (|| {
-                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
-                Ok(builder)
-            })();
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = (|| {
+                    let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
-            let builder = (|| {
-                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
-                Ok(builder)
-            })();
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "policy_binding.name",
-                    "projects/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "policy_binding.name",
-                    "folders/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).and_then(|m| m.policy_binding.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "policy_binding.name",
-                    "organizations/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = (|| {
+                    let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "policy_binding.name",
+                        "projects/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "policy_binding.name",
+                        "folders/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.policy_binding.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "policy_binding.name",
+                        "organizations/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.policy_binding, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_policy_binding(
@@ -344,92 +512,137 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
-            let builder = builder.query(&[("etag", &req.etag)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
-            let builder = builder.query(&[("etag", &req.etag)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
-            let builder = builder.query(&[("etag", &req.etag)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "projects/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "folders/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/policyBindings/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/policyBindings/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "folders/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/policyBindings/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/policyBindings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_policy_bindings(
@@ -442,95 +655,128 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = builder.query(&[("filter", &req.filter)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = builder.query(&[("filter", &req.filter)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = builder.query(&[("filter", &req.filter)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "projects/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "folders/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "organizations/*/locations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "folders/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_target_policy_bindings(
@@ -543,95 +789,128 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings:searchTargetPolicyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings:searchTargetPolicyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("target", &req.target)]);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings:searchTargetPolicyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("target", &req.target)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings:searchTargetPolicyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("target", &req.target)]);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/policyBindings:searchTargetPolicyBindings",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("target", &req.target)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/policyBindings:searchTargetPolicyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("target", &req.target)]);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "projects/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "folders/*/locations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "organizations/*/locations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("target", &req.target)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "folders/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -644,86 +923,131 @@ impl super::stub::PolicyBindings for PolicyBindings {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "projects/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "folders/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "folders/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(
@@ -773,46 +1097,58 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/principalAccessBoundaryPolicies",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/principalAccessBoundaryPolicies",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::POST, path);
-            let builder = builder.query(&[("principalAccessBoundaryPolicyId", &req.principal_access_boundary_policy_id)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::POST)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "organizations/*/locations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[(
+                    "principalAccessBoundaryPolicyId",
+                    &req.principal_access_boundary_policy_id,
+                )]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.principal_access_boundary_policy, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_principal_access_boundary_policy(
@@ -825,44 +1161,57 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/principalAccessBoundaryPolicies/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/principalAccessBoundaryPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_principal_access_boundary_policy(
@@ -875,48 +1224,76 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).and_then(|m| m.principal_access_boundary_policy.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req)
+                            .and_then(|m| m.principal_access_boundary_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::PATCH, path);
-            let builder = (|| {
-                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
-                Ok(builder)
-            })();
-            Some(builder.map(|b| (b, reqwest::Method::PATCH)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).and_then(|m| m.principal_access_boundary_policy.as_ref()).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard],
-                    "principal_access_boundary_policy.name",
-                    "organizations/*/locations/*/principalAccessBoundaryPolicies/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                let builder = (|| {
+                    let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.principal_access_boundary_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "principal_access_boundary_policy.name",
+                        "organizations/*/locations/*/principalAccessBoundaryPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.principal_access_boundary_policy, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_principal_access_boundary_policy(
@@ -929,151 +1306,189 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::DELETE, path);
-            let builder = builder.query(&[("etag", &req.etag)]);
-            let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-            let builder = builder.query(&[("force", &req.force)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::DELETE)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/principalAccessBoundaryPolicies/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                let builder = builder.query(&[("force", &req.force)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/principalAccessBoundaryPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_principal_access_boundary_policies(
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>> {
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
+    {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}/principalAccessBoundaryPolicies",
-                try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}/principalAccessBoundaryPolicies",
+                    try_match(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard],
-                    "parent",
-                    "organizations/*/locations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_principal_access_boundary_policy_bindings(
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>> {
+    ) -> Result<
+        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
+    > {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}:searchPolicyBindings",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}:searchPolicyBindings",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = builder.query(&[("pageSize", &req.page_size)]);
-            let builder = builder.query(&[("pageToken", &req.page_token)]);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/principalAccessBoundaryPolicies/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/principalAccessBoundaryPolicies/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/principalAccessBoundaryPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/principalAccessBoundaryPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1086,86 +1501,131 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         let (builder, method) = None
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .or_else(|| {
-            let path = format!(
-                "/v3/{}",
-                try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?,
-            );
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v3/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
 
-            let builder = self
-                .inner
-                .builder(reqwest::Method::GET, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, reqwest::Method::GET)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "projects/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("folders/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "folders/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[Segment::Literal("organizations/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard],
-                    "name",
-                    "organizations/*/locations/*/operations/*");
-                paths.push(builder.build());
-            }
-            gax::error::Error::binding(BindingError { paths })
-        })??;
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "folders/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder
-                .query(&[("$alt", "json;enum-encoding=int")])
-                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(
-            builder,
-            body,
-            options,
-        ).await
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(
@@ -1182,4 +1642,3 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

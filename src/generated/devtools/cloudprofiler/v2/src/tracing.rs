@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ProfilerService](super::stub::ProfilerService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProfilerService<T>
-where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ProfilerService<T>
-where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProfilerService for ProfilerService<T>
-where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_profile(
         &self,
@@ -57,25 +63,30 @@ where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Profile>> {
         self.inner.update_profile(req, options).await
     }
-
 }
 
 /// Implements a [ExportService](super::stub::ExportService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ExportService<T>
-where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ExportService<T>
-where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ExportService for ExportService<T>
-where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_profiles(
         &self,
@@ -84,6 +95,4 @@ where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
         self.inner.list_profiles(req, options).await
     }
-
 }
-

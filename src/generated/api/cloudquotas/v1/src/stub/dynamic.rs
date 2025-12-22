@@ -52,7 +52,6 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateQuotaPreferenceRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>>;
-
 }
 
 /// All implementations of [super::CloudQuotas] also implement [CloudQuotas].
@@ -111,5 +110,4 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
     ) -> crate::Result<gax::response::Response<crate::model::QuotaPreference>> {
         T::update_quota_preference(self, req, options).await
     }
-
 }

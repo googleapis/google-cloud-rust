@@ -25,7 +25,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PendingRenameInfo {
-
     /// Output only. The name of the rename operation.
     pub operation: std::string::String,
 
@@ -61,7 +60,6 @@ impl wkt::message::Message for PendingRenameInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Folder {
-
     /// Identifier. The name of this folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     pub name: std::string::String,
@@ -124,7 +122,8 @@ impl Folder {
     /// let x = Folder::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -140,7 +139,8 @@ impl Folder {
     /// let x = Folder::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -155,7 +155,8 @@ impl Folder {
     /// let x = Folder::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -171,7 +172,8 @@ impl Folder {
     /// let x = Folder::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -186,7 +188,8 @@ impl Folder {
     /// let x = Folder::new().set_pending_rename_info(PendingRenameInfo::default()/* use setters */);
     /// ```
     pub fn set_pending_rename_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PendingRenameInfo>
+    where
+        T: std::convert::Into<crate::model::PendingRenameInfo>,
     {
         self.pending_rename_info = std::option::Option::Some(v.into());
         self
@@ -202,7 +205,8 @@ impl Folder {
     /// let x = Folder::new().set_or_clear_pending_rename_info(None::<PendingRenameInfo>);
     /// ```
     pub fn set_or_clear_pending_rename_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PendingRenameInfo>
+    where
+        T: std::convert::Into<crate::model::PendingRenameInfo>,
     {
         self.pending_rename_info = v.map(|x| x.into());
         self
@@ -220,7 +224,6 @@ impl wkt::message::Message for Folder {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderRequest {
-
     /// Required. Name of the folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     pub name: std::string::String,
@@ -265,7 +268,8 @@ impl GetFolderRequest {
     /// let x = GetFolderRequest::new().set_if_metageneration_match(42);
     /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -280,7 +284,8 @@ impl GetFolderRequest {
     /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -294,7 +299,8 @@ impl GetFolderRequest {
     /// let x = GetFolderRequest::new().set_if_metageneration_not_match(42);
     /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -309,7 +315,8 @@ impl GetFolderRequest {
     /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -339,7 +346,6 @@ impl wkt::message::Message for GetFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderRequest {
-
     /// Required. Name of the bucket in which the folder will reside. The bucket
     /// must be a hierarchical namespace enabled bucket.
     pub parent: std::string::String,
@@ -394,7 +400,8 @@ impl CreateFolderRequest {
     /// let x = CreateFolderRequest::new().set_folder(Folder::default()/* use setters */);
     /// ```
     pub fn set_folder<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Folder>
+    where
+        T: std::convert::Into<crate::model::Folder>,
     {
         self.folder = std::option::Option::Some(v.into());
         self
@@ -410,7 +417,8 @@ impl CreateFolderRequest {
     /// let x = CreateFolderRequest::new().set_or_clear_folder(None::<Folder>);
     /// ```
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Folder>
+    where
+        T: std::convert::Into<crate::model::Folder>,
     {
         self.folder = v.map(|x| x.into());
         self
@@ -464,7 +472,6 @@ impl wkt::message::Message for CreateFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderRequest {
-
     /// Required. Name of the folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     pub name: std::string::String,
@@ -509,7 +516,8 @@ impl DeleteFolderRequest {
     /// let x = DeleteFolderRequest::new().set_if_metageneration_match(42);
     /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -524,7 +532,8 @@ impl DeleteFolderRequest {
     /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -538,7 +547,8 @@ impl DeleteFolderRequest {
     /// let x = DeleteFolderRequest::new().set_if_metageneration_not_match(42);
     /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -553,7 +563,8 @@ impl DeleteFolderRequest {
     /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -583,7 +594,6 @@ impl wkt::message::Message for DeleteFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersRequest {
-
     /// Required. Name of the bucket in which to look for folders. The bucket must
     /// be a hierarchical namespace enabled bucket.
     pub parent: std::string::String,
@@ -696,7 +706,10 @@ impl ListFoldersRequest {
     /// # use google_cloud_storage::model::ListFoldersRequest;
     /// let x = ListFoldersRequest::new().set_lexicographic_start("example");
     /// ```
-    pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.lexicographic_start = v.into();
         self
     }
@@ -708,7 +721,10 @@ impl ListFoldersRequest {
     /// # use google_cloud_storage::model::ListFoldersRequest;
     /// let x = ListFoldersRequest::new().set_lexicographic_end("example");
     /// ```
-    pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.lexicographic_end = v.into();
         self
     }
@@ -736,7 +752,6 @@ impl wkt::message::Message for ListFoldersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersResponse {
-
     /// The list of child folders
     pub folders: std::vec::Vec<crate::model::Folder>,
 
@@ -767,7 +782,7 @@ impl ListFoldersResponse {
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Folder>
+        V: std::convert::Into<crate::model::Folder>,
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
@@ -812,7 +827,6 @@ impl gax::paginator::internal::PageableResponse for ListFoldersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameFolderRequest {
-
     /// Required. Name of the source folder being renamed.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     pub name: std::string::String,
@@ -860,7 +874,10 @@ impl RenameFolderRequest {
     /// # use google_cloud_storage::model::RenameFolderRequest;
     /// let x = RenameFolderRequest::new().set_destination_folder_id("example");
     /// ```
-    pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_folder_id = v.into();
         self
     }
@@ -873,7 +890,8 @@ impl RenameFolderRequest {
     /// let x = RenameFolderRequest::new().set_if_metageneration_match(42);
     /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -888,7 +906,8 @@ impl RenameFolderRequest {
     /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -902,7 +921,8 @@ impl RenameFolderRequest {
     /// let x = RenameFolderRequest::new().set_if_metageneration_not_match(42);
     /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -917,7 +937,8 @@ impl RenameFolderRequest {
     /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -948,7 +969,6 @@ impl wkt::message::Message for RenameFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonLongRunningOperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -985,7 +1005,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1001,7 +1022,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1016,7 +1038,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1032,7 +1055,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1047,7 +1071,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1063,7 +1088,8 @@ impl CommonLongRunningOperationMetadata {
     /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1117,7 +1143,6 @@ impl wkt::message::Message for CommonLongRunningOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameFolderMetadata {
-
     /// Generic metadata for the long running operation.
     pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
 
@@ -1144,7 +1169,8 @@ impl RenameFolderMetadata {
     /// let x = RenameFolderMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -1160,7 +1186,8 @@ impl RenameFolderMetadata {
     /// let x = RenameFolderMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -1173,7 +1200,10 @@ impl RenameFolderMetadata {
     /// # use google_cloud_storage::model::RenameFolderMetadata;
     /// let x = RenameFolderMetadata::new().set_source_folder_id("example");
     /// ```
-    pub fn set_source_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_source_folder_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_folder_id = v.into();
         self
     }
@@ -1185,7 +1215,10 @@ impl RenameFolderMetadata {
     /// # use google_cloud_storage::model::RenameFolderMetadata;
     /// let x = RenameFolderMetadata::new().set_destination_folder_id("example");
     /// ```
-    pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_folder_id = v.into();
         self
     }
@@ -1201,7 +1234,6 @@ impl wkt::message::Message for RenameFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageLayout {
-
     /// Output only. The name of the StorageLayout resource.
     /// Format: `projects/{project}/buckets/{bucket}/storageLayout`
     pub name: std::string::String,
@@ -1215,11 +1247,13 @@ pub struct StorageLayout {
 
     /// Output only. The data placement configuration for custom dual region. If
     /// there is no configuration, this is not a custom dual region bucket.
-    pub custom_placement_config: std::option::Option<crate::model::storage_layout::CustomPlacementConfig>,
+    pub custom_placement_config:
+        std::option::Option<crate::model::storage_layout::CustomPlacementConfig>,
 
     /// Output only. The bucket's hierarchical namespace configuration. If there is
     /// no configuration, the hierarchical namespace is disabled.
-    pub hierarchical_namespace: std::option::Option<crate::model::storage_layout::HierarchicalNamespace>,
+    pub hierarchical_namespace:
+        std::option::Option<crate::model::storage_layout::HierarchicalNamespace>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1274,7 +1308,8 @@ impl StorageLayout {
     /// let x = StorageLayout::new().set_custom_placement_config(CustomPlacementConfig::default()/* use setters */);
     /// ```
     pub fn set_custom_placement_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>
+    where
+        T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
     {
         self.custom_placement_config = std::option::Option::Some(v.into());
         self
@@ -1290,7 +1325,8 @@ impl StorageLayout {
     /// let x = StorageLayout::new().set_or_clear_custom_placement_config(None::<CustomPlacementConfig>);
     /// ```
     pub fn set_or_clear_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>
+    where
+        T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
     {
         self.custom_placement_config = v.map(|x| x.into());
         self
@@ -1305,7 +1341,8 @@ impl StorageLayout {
     /// let x = StorageLayout::new().set_hierarchical_namespace(HierarchicalNamespace::default()/* use setters */);
     /// ```
     pub fn set_hierarchical_namespace<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>
+    where
+        T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
     {
         self.hierarchical_namespace = std::option::Option::Some(v.into());
         self
@@ -1321,7 +1358,8 @@ impl StorageLayout {
     /// let x = StorageLayout::new().set_or_clear_hierarchical_namespace(None::<HierarchicalNamespace>);
     /// ```
     pub fn set_or_clear_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>
+    where
+        T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
     {
         self.hierarchical_namespace = v.map(|x| x.into());
         self
@@ -1339,14 +1377,12 @@ pub mod storage_layout {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Configuration for Custom Dual Regions.  It should specify precisely two
     /// eligible regions within the same Multiregion. More information on regions
     /// may be found [here](https://cloud.google.com/storage/docs/locations).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
-
         /// List of locations to use for data placement.
         pub data_locations: std::vec::Vec<std::string::String>,
 
@@ -1368,7 +1404,7 @@ pub mod storage_layout {
         pub fn set_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.data_locations = v.into_iter().map(|i| i.into()).collect();
@@ -1386,7 +1422,6 @@ pub mod storage_layout {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
-
         /// Enables the hierarchical namespace feature.
         pub enabled: bool,
 
@@ -1422,7 +1457,6 @@ pub mod storage_layout {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStorageLayoutRequest {
-
     /// Required. The name of the StorageLayout resource.
     /// Format: `projects/{project}/buckets/{bucket}/storageLayout`
     pub name: std::string::String,
@@ -1490,7 +1524,6 @@ impl wkt::message::Message for GetStorageLayoutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedFolder {
-
     /// Identifier. The name of this managed folder.
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
@@ -1548,7 +1581,8 @@ impl ManagedFolder {
     /// let x = ManagedFolder::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1564,7 +1598,8 @@ impl ManagedFolder {
     /// let x = ManagedFolder::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1579,7 +1614,8 @@ impl ManagedFolder {
     /// let x = ManagedFolder::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1595,7 +1631,8 @@ impl ManagedFolder {
     /// let x = ManagedFolder::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1612,7 +1649,6 @@ impl wkt::message::Message for ManagedFolder {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetManagedFolderRequest {
-
     /// Required. Name of the managed folder.
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
@@ -1658,7 +1694,8 @@ impl GetManagedFolderRequest {
     /// let x = GetManagedFolderRequest::new().set_if_metageneration_match(42);
     /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1673,7 +1710,8 @@ impl GetManagedFolderRequest {
     /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1687,7 +1725,8 @@ impl GetManagedFolderRequest {
     /// let x = GetManagedFolderRequest::new().set_if_metageneration_not_match(42);
     /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1702,7 +1741,8 @@ impl GetManagedFolderRequest {
     /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1731,7 +1771,6 @@ impl wkt::message::Message for GetManagedFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateManagedFolderRequest {
-
     /// Required. Name of the bucket this managed folder belongs to.
     pub parent: std::string::String,
 
@@ -1778,7 +1817,8 @@ impl CreateManagedFolderRequest {
     /// let x = CreateManagedFolderRequest::new().set_managed_folder(ManagedFolder::default()/* use setters */);
     /// ```
     pub fn set_managed_folder<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ManagedFolder>
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
     {
         self.managed_folder = std::option::Option::Some(v.into());
         self
@@ -1794,7 +1834,8 @@ impl CreateManagedFolderRequest {
     /// let x = CreateManagedFolderRequest::new().set_or_clear_managed_folder(None::<ManagedFolder>);
     /// ```
     pub fn set_or_clear_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ManagedFolder>
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
     {
         self.managed_folder = v.map(|x| x.into());
         self
@@ -1807,7 +1848,10 @@ impl CreateManagedFolderRequest {
     /// # use google_cloud_storage::model::CreateManagedFolderRequest;
     /// let x = CreateManagedFolderRequest::new().set_managed_folder_id("example");
     /// ```
-    pub fn set_managed_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_managed_folder_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.managed_folder_id = v.into();
         self
     }
@@ -1835,7 +1879,6 @@ impl wkt::message::Message for CreateManagedFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteManagedFolderRequest {
-
     /// Required. Name of the managed folder.
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
@@ -1887,7 +1930,8 @@ impl DeleteManagedFolderRequest {
     /// let x = DeleteManagedFolderRequest::new().set_if_metageneration_match(42);
     /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1902,7 +1946,8 @@ impl DeleteManagedFolderRequest {
     /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1916,7 +1961,8 @@ impl DeleteManagedFolderRequest {
     /// let x = DeleteManagedFolderRequest::new().set_if_metageneration_not_match(42);
     /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1931,7 +1977,8 @@ impl DeleteManagedFolderRequest {
     /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
     /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1972,7 +2019,6 @@ impl wkt::message::Message for DeleteManagedFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagedFoldersRequest {
-
     /// Required. Name of the bucket this managed folder belongs to.
     pub parent: std::string::String,
 
@@ -2071,7 +2117,6 @@ impl wkt::message::Message for ListManagedFoldersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagedFoldersResponse {
-
     /// The list of matching managed folders
     pub managed_folders: std::vec::Vec<crate::model::ManagedFolder>,
 
@@ -2102,7 +2147,7 @@ impl ListManagedFoldersResponse {
     pub fn set_managed_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ManagedFolder>
+        V: std::convert::Into<crate::model::ManagedFolder>,
     {
         use std::iter::Iterator;
         self.managed_folders = v.into_iter().map(|i| i.into()).collect();
@@ -2147,7 +2192,6 @@ impl gax::paginator::internal::PageableResponse for ListManagedFoldersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAnywhereCacheMetadata {
-
     /// Generic metadata for the long running operation.
     pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
 
@@ -2185,7 +2229,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -2201,7 +2246,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -2215,7 +2261,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_anywhere_cache_id("example");
     /// ```
     pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.anywhere_cache_id = std::option::Option::Some(v.into());
         self
@@ -2230,7 +2277,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(None::<String>);
     /// ```
     pub fn set_or_clear_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.anywhere_cache_id = v.map(|x| x.into());
         self
@@ -2244,7 +2292,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_zone("example");
     /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.zone = std::option::Option::Some(v.into());
         self
@@ -2259,7 +2308,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_zone(None::<String>);
     /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.zone = v.map(|x| x.into());
         self
@@ -2274,7 +2324,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -2290,7 +2341,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -2304,7 +2356,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_admission_policy("example");
     /// ```
     pub fn set_admission_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.admission_policy = std::option::Option::Some(v.into());
         self
@@ -2319,7 +2372,8 @@ impl CreateAnywhereCacheMetadata {
     /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
     /// ```
     pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.admission_policy = v.map(|x| x.into());
         self
@@ -2337,7 +2391,6 @@ impl wkt::message::Message for CreateAnywhereCacheMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAnywhereCacheMetadata {
-
     /// Generic metadata for the long running operation.
     pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
 
@@ -2375,7 +2428,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -2391,7 +2445,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -2405,7 +2460,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_anywhere_cache_id("example");
     /// ```
     pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.anywhere_cache_id = std::option::Option::Some(v.into());
         self
@@ -2420,7 +2476,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(None::<String>);
     /// ```
     pub fn set_or_clear_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.anywhere_cache_id = v.map(|x| x.into());
         self
@@ -2434,7 +2491,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_zone("example");
     /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.zone = std::option::Option::Some(v.into());
         self
@@ -2449,7 +2507,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_zone(None::<String>);
     /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.zone = v.map(|x| x.into());
         self
@@ -2464,7 +2523,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -2480,7 +2540,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -2494,7 +2555,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_admission_policy("example");
     /// ```
     pub fn set_admission_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.admission_policy = std::option::Option::Some(v.into());
         self
@@ -2509,7 +2571,8 @@ impl UpdateAnywhereCacheMetadata {
     /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
     /// ```
     pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.admission_policy = v.map(|x| x.into());
         self
@@ -2526,7 +2589,6 @@ impl wkt::message::Message for UpdateAnywhereCacheMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnywhereCache {
-
     /// Immutable. The resource name of this AnywhereCache.
     /// Format:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
@@ -2604,7 +2666,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -2620,7 +2683,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_or_clear_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -2633,7 +2697,10 @@ impl AnywhereCache {
     /// # use google_cloud_storage::model::AnywhereCache;
     /// let x = AnywhereCache::new().set_admission_policy("example");
     /// ```
-    pub fn set_admission_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_admission_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.admission_policy = v.into();
         self
     }
@@ -2659,7 +2726,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2675,7 +2743,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2690,7 +2759,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2706,7 +2776,8 @@ impl AnywhereCache {
     /// let x = AnywhereCache::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2735,7 +2806,6 @@ impl wkt::message::Message for AnywhereCache {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAnywhereCacheRequest {
-
     /// Required. The bucket to which this cache belongs.
     /// Format: `projects/{project}/buckets/{bucket}`
     pub parent: std::string::String,
@@ -2780,7 +2850,8 @@ impl CreateAnywhereCacheRequest {
     /// let x = CreateAnywhereCacheRequest::new().set_anywhere_cache(AnywhereCache::default()/* use setters */);
     /// ```
     pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AnywhereCache>
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
     {
         self.anywhere_cache = std::option::Option::Some(v.into());
         self
@@ -2796,7 +2867,8 @@ impl CreateAnywhereCacheRequest {
     /// let x = CreateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(None::<AnywhereCache>);
     /// ```
     pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AnywhereCache>
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
     {
         self.anywhere_cache = v.map(|x| x.into());
         self
@@ -2825,7 +2897,6 @@ impl wkt::message::Message for CreateAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAnywhereCacheRequest {
-
     /// Required. The Anywhere Cache instance to be updated.
     pub anywhere_cache: std::option::Option<crate::model::AnywhereCache>,
 
@@ -2862,7 +2933,8 @@ impl UpdateAnywhereCacheRequest {
     /// let x = UpdateAnywhereCacheRequest::new().set_anywhere_cache(AnywhereCache::default()/* use setters */);
     /// ```
     pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AnywhereCache>
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
     {
         self.anywhere_cache = std::option::Option::Some(v.into());
         self
@@ -2878,7 +2950,8 @@ impl UpdateAnywhereCacheRequest {
     /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(None::<AnywhereCache>);
     /// ```
     pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AnywhereCache>
+    where
+        T: std::convert::Into<crate::model::AnywhereCache>,
     {
         self.anywhere_cache = v.map(|x| x.into());
         self
@@ -2893,7 +2966,8 @@ impl UpdateAnywhereCacheRequest {
     /// let x = UpdateAnywhereCacheRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2909,7 +2983,8 @@ impl UpdateAnywhereCacheRequest {
     /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2938,7 +3013,6 @@ impl wkt::message::Message for UpdateAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableAnywhereCacheRequest {
-
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     pub name: std::string::String,
@@ -2991,7 +3065,6 @@ impl wkt::message::Message for DisableAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseAnywhereCacheRequest {
-
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     pub name: std::string::String,
@@ -3044,7 +3117,6 @@ impl wkt::message::Message for PauseAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeAnywhereCacheRequest {
-
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     pub name: std::string::String,
@@ -3097,7 +3169,6 @@ impl wkt::message::Message for ResumeAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAnywhereCacheRequest {
-
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     pub name: std::string::String,
@@ -3149,7 +3220,6 @@ impl wkt::message::Message for GetAnywhereCacheRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAnywhereCachesRequest {
-
     /// Required. The bucket to which this cache belongs.
     pub parent: std::string::String,
 
@@ -3232,7 +3302,6 @@ impl wkt::message::Message for ListAnywhereCachesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAnywhereCachesResponse {
-
     /// The list of items.
     pub anywhere_caches: std::vec::Vec<crate::model::AnywhereCache>,
 
@@ -3263,7 +3332,7 @@ impl ListAnywhereCachesResponse {
     pub fn set_anywhere_caches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnywhereCache>
+        V: std::convert::Into<crate::model::AnywhereCache>,
     {
         use std::iter::Iterator;
         self.anywhere_caches = v.into_iter().map(|i| i.into()).collect();
@@ -3308,7 +3377,6 @@ impl gax::paginator::internal::PageableResponse for ListAnywhereCachesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntelligenceConfig {
-
     /// Identifier. The name of the `IntelligenceConfig` resource associated with
     /// your organization, folder, or project.
     ///
@@ -3333,7 +3401,8 @@ pub struct IntelligenceConfig {
 
     /// Output only. The `IntelligenceConfig` resource that is applicable for the
     /// resource.
-    pub effective_intelligence_config: std::option::Option<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
+    pub effective_intelligence_config:
+        std::option::Option<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
 
     /// The trial configuration of the `IntelligenceConfig` resource.
     pub trial_config: std::option::Option<crate::model::intelligence_config::TrialConfig>,
@@ -3368,7 +3437,12 @@ impl IntelligenceConfig {
     /// let x1 = IntelligenceConfig::new().set_edition_config(EditionConfig::Disabled);
     /// let x2 = IntelligenceConfig::new().set_edition_config(EditionConfig::Standard);
     /// ```
-    pub fn set_edition_config<T: std::convert::Into<crate::model::intelligence_config::EditionConfig>>(mut self, v: T) -> Self {
+    pub fn set_edition_config<
+        T: std::convert::Into<crate::model::intelligence_config::EditionConfig>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.edition_config = v.into();
         self
     }
@@ -3382,7 +3456,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3398,7 +3473,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3413,7 +3489,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_filter(Filter::default()/* use setters */);
     /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::Filter>
+    where
+        T: std::convert::Into<crate::model::intelligence_config::Filter>,
     {
         self.filter = std::option::Option::Some(v.into());
         self
@@ -3429,7 +3506,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_or_clear_filter(None::<Filter>);
     /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::Filter>
+    where
+        T: std::convert::Into<crate::model::intelligence_config::Filter>,
     {
         self.filter = v.map(|x| x.into());
         self
@@ -3444,7 +3522,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_effective_intelligence_config(EffectiveIntelligenceConfig::default()/* use setters */);
     /// ```
     pub fn set_effective_intelligence_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
     {
         self.effective_intelligence_config = std::option::Option::Some(v.into());
         self
@@ -3459,8 +3538,12 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_or_clear_effective_intelligence_config(Some(EffectiveIntelligenceConfig::default()/* use setters */));
     /// let x = IntelligenceConfig::new().set_or_clear_effective_intelligence_config(None::<EffectiveIntelligenceConfig>);
     /// ```
-    pub fn set_or_clear_effective_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>
+    pub fn set_or_clear_effective_intelligence_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
     {
         self.effective_intelligence_config = v.map(|x| x.into());
         self
@@ -3475,7 +3558,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_trial_config(TrialConfig::default()/* use setters */);
     /// ```
     pub fn set_trial_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::TrialConfig>
+    where
+        T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
     {
         self.trial_config = std::option::Option::Some(v.into());
         self
@@ -3491,7 +3575,8 @@ impl IntelligenceConfig {
     /// let x = IntelligenceConfig::new().set_or_clear_trial_config(None::<TrialConfig>);
     /// ```
     pub fn set_or_clear_trial_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::intelligence_config::TrialConfig>
+    where
+        T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
     {
         self.trial_config = v.map(|x| x.into());
         self
@@ -3509,19 +3594,21 @@ pub mod intelligence_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Filter over location and bucket using include or exclude semantics.
     /// Resources that match the include or exclude filter are exclusively included
     /// or excluded from the Storage Intelligence plan.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
-
         /// Bucket locations to include or exclude.
-        pub cloud_storage_locations: std::option::Option<crate::model::intelligence_config::filter::CloudStorageLocationsOneOf>,
+        pub cloud_storage_locations: std::option::Option<
+            crate::model::intelligence_config::filter::CloudStorageLocationsOneOf,
+        >,
 
         /// Buckets to include or exclude.
-        pub cloud_storage_buckets: std::option::Option<crate::model::intelligence_config::filter::CloudStorageBucketsOneOf>,
+        pub cloud_storage_buckets: std::option::Option<
+            crate::model::intelligence_config::filter::CloudStorageBucketsOneOf,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3543,8 +3630,16 @@ pub mod intelligence_config {
         /// let x = Filter::new().set_cloud_storage_locations(Some(
         ///     google_cloud_storage::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(CloudStorageLocations::default().into())));
         /// ```
-        pub fn set_cloud_storage_locations<T: std::convert::Into<std::option::Option<crate::model::intelligence_config::filter::CloudStorageLocationsOneOf>>>(mut self, v: T) -> Self
-        {
+        pub fn set_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::intelligence_config::filter::CloudStorageLocationsOneOf,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_locations = v.into();
             self
         }
@@ -3552,7 +3647,11 @@ pub mod intelligence_config {
         /// The value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
         /// if it holds a `IncludedCloudStorageLocations`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn included_cloud_storage_locations(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>> {
+        pub fn included_cloud_storage_locations(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+        > {
             #[allow(unreachable_patterns)]
             self.cloud_storage_locations.as_ref().and_then(|v| match v {
                 crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(v) => std::option::Option::Some(v),
@@ -3574,7 +3673,16 @@ pub mod intelligence_config {
         /// assert!(x.included_cloud_storage_locations().is_some());
         /// assert!(x.excluded_cloud_storage_locations().is_none());
         /// ```
-        pub fn set_included_cloud_storage_locations<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>>>(mut self, v: T) -> Self {
+        pub fn set_included_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_locations = std::option::Option::Some(
                 crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(
                     v.into()
@@ -3586,7 +3694,11 @@ pub mod intelligence_config {
         /// The value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
         /// if it holds a `ExcludedCloudStorageLocations`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn excluded_cloud_storage_locations(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>> {
+        pub fn excluded_cloud_storage_locations(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+        > {
             #[allow(unreachable_patterns)]
             self.cloud_storage_locations.as_ref().and_then(|v| match v {
                 crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::ExcludedCloudStorageLocations(v) => std::option::Option::Some(v),
@@ -3608,7 +3720,16 @@ pub mod intelligence_config {
         /// assert!(x.excluded_cloud_storage_locations().is_some());
         /// assert!(x.included_cloud_storage_locations().is_none());
         /// ```
-        pub fn set_excluded_cloud_storage_locations<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>>>(mut self, v: T) -> Self {
+        pub fn set_excluded_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_locations = std::option::Option::Some(
                 crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::ExcludedCloudStorageLocations(
                     v.into()
@@ -3629,8 +3750,16 @@ pub mod intelligence_config {
         /// let x = Filter::new().set_cloud_storage_buckets(Some(
         ///     google_cloud_storage::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(CloudStorageBuckets::default().into())));
         /// ```
-        pub fn set_cloud_storage_buckets<T: std::convert::Into<std::option::Option<crate::model::intelligence_config::filter::CloudStorageBucketsOneOf>>>(mut self, v: T) -> Self
-        {
+        pub fn set_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::intelligence_config::filter::CloudStorageBucketsOneOf,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_buckets = v.into();
             self
         }
@@ -3638,7 +3767,11 @@ pub mod intelligence_config {
         /// The value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
         /// if it holds a `IncludedCloudStorageBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn included_cloud_storage_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>> {
+        pub fn included_cloud_storage_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+        > {
             #[allow(unreachable_patterns)]
             self.cloud_storage_buckets.as_ref().and_then(|v| match v {
                 crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(v) => std::option::Option::Some(v),
@@ -3660,7 +3793,14 @@ pub mod intelligence_config {
         /// assert!(x.included_cloud_storage_buckets().is_some());
         /// assert!(x.excluded_cloud_storage_buckets().is_none());
         /// ```
-        pub fn set_included_cloud_storage_buckets<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>>>(mut self, v: T) -> Self {
+        pub fn set_included_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_buckets = std::option::Option::Some(
                 crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(
                     v.into()
@@ -3672,7 +3812,11 @@ pub mod intelligence_config {
         /// The value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
         /// if it holds a `ExcludedCloudStorageBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn excluded_cloud_storage_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>> {
+        pub fn excluded_cloud_storage_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+        > {
             #[allow(unreachable_patterns)]
             self.cloud_storage_buckets.as_ref().and_then(|v| match v {
                 crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::ExcludedCloudStorageBuckets(v) => std::option::Option::Some(v),
@@ -3694,7 +3838,14 @@ pub mod intelligence_config {
         /// assert!(x.excluded_cloud_storage_buckets().is_some());
         /// assert!(x.included_cloud_storage_buckets().is_none());
         /// ```
-        pub fn set_excluded_cloud_storage_buckets<T: std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>>>(mut self, v: T) -> Self {
+        pub fn set_excluded_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cloud_storage_buckets = std::option::Option::Some(
                 crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::ExcludedCloudStorageBuckets(
                     v.into()
@@ -3715,12 +3866,10 @@ pub mod intelligence_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Collection of bucket locations.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudStorageLocations {
-
             /// Optional. Bucket locations. Location can be any of the Cloud Storage
             /// regions specified in lower case format. For example, `us-east1`,
             /// `us-west1`.
@@ -3744,7 +3893,7 @@ pub mod intelligence_config {
             pub fn set_locations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -3762,7 +3911,6 @@ pub mod intelligence_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudStorageBuckets {
-
             /// Optional. A regex pattern for matching bucket names. Regex should
             /// follow the syntax specified in
             /// [google/re2](https://github.com/google/re2). For example,
@@ -3791,7 +3939,7 @@ pub mod intelligence_config {
             pub fn set_bucket_id_regexes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.bucket_id_regexes = v.into_iter().map(|i| i.into()).collect();
@@ -3810,18 +3958,34 @@ pub mod intelligence_config {
         #[non_exhaustive]
         pub enum CloudStorageLocationsOneOf {
             /// Bucket locations to include.
-            IncludedCloudStorageLocations(std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>),
+            IncludedCloudStorageLocations(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+            ),
             /// Bucket locations to exclude.
-            ExcludedCloudStorageLocations(std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>),
+            ExcludedCloudStorageLocations(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+            ),
         }
 
         impl CloudStorageLocationsOneOf {
             /// Initializes the enum to the [IncludedCloudStorageLocations](Self::IncludedCloudStorageLocations) branch.
-            pub fn from_included_cloud_storage_locations(value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>>) -> Self {
+            pub fn from_included_cloud_storage_locations(
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+            ) -> Self {
                 Self::IncludedCloudStorageLocations(value.into())
             }
             /// Initializes the enum to the [ExcludedCloudStorageLocations](Self::ExcludedCloudStorageLocations) branch.
-            pub fn from_excluded_cloud_storage_locations(value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>>) -> Self {
+            pub fn from_excluded_cloud_storage_locations(
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+            ) -> Self {
                 Self::ExcludedCloudStorageLocations(value.into())
             }
         }
@@ -3831,18 +3995,30 @@ pub mod intelligence_config {
         #[non_exhaustive]
         pub enum CloudStorageBucketsOneOf {
             /// Buckets to include.
-            IncludedCloudStorageBuckets(std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>),
+            IncludedCloudStorageBuckets(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+            ),
             /// Buckets to exclude.
-            ExcludedCloudStorageBuckets(std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>),
+            ExcludedCloudStorageBuckets(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+            ),
         }
 
         impl CloudStorageBucketsOneOf {
             /// Initializes the enum to the [IncludedCloudStorageBuckets](Self::IncludedCloudStorageBuckets) branch.
-            pub fn from_included_cloud_storage_buckets(value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>>) -> Self {
+            pub fn from_included_cloud_storage_buckets(
+                value: impl std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+            ) -> Self {
                 Self::IncludedCloudStorageBuckets(value.into())
             }
             /// Initializes the enum to the [ExcludedCloudStorageBuckets](Self::ExcludedCloudStorageBuckets) branch.
-            pub fn from_excluded_cloud_storage_buckets(value: impl std::convert::Into<std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>>) -> Self {
+            pub fn from_excluded_cloud_storage_buckets(
+                value: impl std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+            ) -> Self {
                 Self::ExcludedCloudStorageBuckets(value.into())
             }
         }
@@ -3852,10 +4028,10 @@ pub mod intelligence_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveIntelligenceConfig {
-
         /// Output only. The `IntelligenceConfig` edition that is applicable for the
         /// resource.
-        pub effective_edition: crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition,
+        pub effective_edition:
+            crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition,
 
         /// Output only. The `IntelligenceConfig` resource that is applied for the
         /// target resource. Format:
@@ -3879,7 +4055,7 @@ pub mod intelligence_config {
         /// let x0 = EffectiveIntelligenceConfig::new().set_effective_edition(EffectiveEdition::None);
         /// let x1 = EffectiveIntelligenceConfig::new().set_effective_edition(EffectiveEdition::Standard);
         /// ```
-        pub fn set_effective_edition<T: std::convert::Into<crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition>>(mut self, v: T) -> Self {
+        pub fn set_effective_edition<T: std::convert::Into<crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition>>(mut self, v: T) -> Self{
             self.effective_edition = v.into();
             self
         }
@@ -3891,7 +4067,10 @@ pub mod intelligence_config {
         /// # use google_cloud_storage::model::intelligence_config::EffectiveIntelligenceConfig;
         /// let x = EffectiveIntelligenceConfig::new().set_intelligence_config("example");
         /// ```
-        pub fn set_intelligence_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_intelligence_config<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.intelligence_config = v.into();
             self
         }
@@ -3907,7 +4086,6 @@ pub mod intelligence_config {
     pub mod effective_intelligence_config {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The effective edition of the `IntelligenceConfig` resource.
         ///
@@ -3984,7 +4162,10 @@ pub mod intelligence_config {
         }
 
         impl std::fmt::Display for EffectiveEdition {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -3995,7 +4176,9 @@ pub mod intelligence_config {
                     0 => Self::Unspecified,
                     1 => Self::None,
                     2 => Self::Standard,
-                    _ => Self::UnknownValue(effective_edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(effective_edition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -4007,7 +4190,9 @@ pub mod intelligence_config {
                     "EFFECTIVE_EDITION_UNSPECIFIED" => Self::Unspecified,
                     "NONE" => Self::None,
                     "STANDARD" => Self::Standard,
-                    _ => Self::UnknownValue(effective_edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(effective_edition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -4041,7 +4226,6 @@ pub mod intelligence_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrialConfig {
-
         /// Output only. The time at which the trial expires.
         pub expire_time: std::option::Option<wkt::Timestamp>,
 
@@ -4062,7 +4246,8 @@ pub mod intelligence_config {
         /// let x = TrialConfig::new().set_expire_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.expire_time = std::option::Option::Some(v.into());
             self
@@ -4078,7 +4263,8 @@ pub mod intelligence_config {
         /// let x = TrialConfig::new().set_or_clear_expire_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.expire_time = v.map(|x| x.into());
             self
@@ -4197,7 +4383,9 @@ pub mod intelligence_config {
                 2 => Self::Disabled,
                 3 => Self::Standard,
                 5 => Self::Trial,
-                _ => Self::UnknownValue(edition_config::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(edition_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4211,7 +4399,9 @@ pub mod intelligence_config {
                 "DISABLED" => Self::Disabled,
                 "STANDARD" => Self::Standard,
                 "TRIAL" => Self::Trial,
-                _ => Self::UnknownValue(edition_config::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(edition_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4238,7 +4428,8 @@ pub mod intelligence_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EditionConfig>::new(
-                ".google.storage.control.v2.IntelligenceConfig.EditionConfig"))
+                ".google.storage.control.v2.IntelligenceConfig.EditionConfig",
+            ))
         }
     }
 }
@@ -4254,7 +4445,6 @@ pub mod intelligence_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateOrganizationIntelligenceConfigRequest {
-
     /// Required. The `IntelligenceConfig` resource to be updated.
     pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
 
@@ -4284,7 +4474,8 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
     /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = std::option::Option::Some(v.into());
         self
@@ -4300,7 +4491,8 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
     /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = v.map(|x| x.into());
         self
@@ -4315,7 +4507,8 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4331,7 +4524,8 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4367,7 +4561,6 @@ impl wkt::message::Message for UpdateOrganizationIntelligenceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderIntelligenceConfigRequest {
-
     /// Required. The `IntelligenceConfig` resource to be updated.
     pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
 
@@ -4397,7 +4590,8 @@ impl UpdateFolderIntelligenceConfigRequest {
     /// let x = UpdateFolderIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
     /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = std::option::Option::Some(v.into());
         self
@@ -4413,7 +4607,8 @@ impl UpdateFolderIntelligenceConfigRequest {
     /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
     /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = v.map(|x| x.into());
         self
@@ -4428,7 +4623,8 @@ impl UpdateFolderIntelligenceConfigRequest {
     /// let x = UpdateFolderIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4444,7 +4640,8 @@ impl UpdateFolderIntelligenceConfigRequest {
     /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4480,7 +4677,6 @@ impl wkt::message::Message for UpdateFolderIntelligenceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectIntelligenceConfigRequest {
-
     /// Required. The `IntelligenceConfig` resource to be updated.
     pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
 
@@ -4510,7 +4706,8 @@ impl UpdateProjectIntelligenceConfigRequest {
     /// let x = UpdateProjectIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
     /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = std::option::Option::Some(v.into());
         self
@@ -4526,7 +4723,8 @@ impl UpdateProjectIntelligenceConfigRequest {
     /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
     /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IntelligenceConfig>
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
     {
         self.intelligence_config = v.map(|x| x.into());
         self
@@ -4541,7 +4739,8 @@ impl UpdateProjectIntelligenceConfigRequest {
     /// let x = UpdateProjectIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4557,7 +4756,8 @@ impl UpdateProjectIntelligenceConfigRequest {
     /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4593,7 +4793,6 @@ impl wkt::message::Message for UpdateProjectIntelligenceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationIntelligenceConfigRequest {
-
     /// Required. The name of the `IntelligenceConfig` resource associated with
     /// your organization.
     ///
@@ -4638,7 +4837,6 @@ impl wkt::message::Message for GetOrganizationIntelligenceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderIntelligenceConfigRequest {
-
     /// Required. The name of the `IntelligenceConfig` resource associated with
     /// your folder.
     ///
@@ -4683,7 +4881,6 @@ impl wkt::message::Message for GetFolderIntelligenceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectIntelligenceConfigRequest {
-
     /// Required. The name of the `IntelligenceConfig` resource associated with
     /// your project.
     ///

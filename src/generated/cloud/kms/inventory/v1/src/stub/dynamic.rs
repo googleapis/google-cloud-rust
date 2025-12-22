@@ -22,7 +22,6 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>;
-
 }
 
 /// All implementations of [super::KeyDashboardService] also implement [KeyDashboardService].
@@ -36,7 +35,6 @@ impl<T: super::KeyDashboardService> KeyDashboardService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         T::list_crypto_keys(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::KeyTrackingService].
@@ -53,7 +51,6 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>;
-
 }
 
 /// All implementations of [super::KeyTrackingService] also implement [KeyTrackingService].
@@ -73,8 +70,8 @@ impl<T: super::KeyTrackingService> KeyTrackingService for T {
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>
+    {
         T::search_protected_resources(self, req, options).await
     }
-
 }

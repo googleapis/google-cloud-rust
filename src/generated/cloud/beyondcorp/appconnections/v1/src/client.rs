@@ -85,7 +85,9 @@ impl AppConnectionsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::app_connections_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::app_connections_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::app_connections_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -93,33 +95,49 @@ impl AppConnectionsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AppConnectionsService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AppConnectionsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppConnectionsService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppConnectionsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
         super::transport::AppConnectionsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
-        Self::build_transport(conf).await.map(super::tracing::AppConnectionsService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AppConnectionsService::new)
     }
 
     /// Lists AppConnections in a given project and location.
-    pub fn list_app_connections(&self) -> super::builder::app_connections_service::ListAppConnections
-    {
+    pub fn list_app_connections(
+        &self,
+    ) -> super::builder::app_connections_service::ListAppConnections {
         super::builder::app_connections_service::ListAppConnections::new(self.inner.clone())
     }
 
@@ -140,8 +158,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_app_connection(&self) -> super::builder::app_connections_service::GetAppConnection
-    {
+    pub fn get_app_connection(&self) -> super::builder::app_connections_service::GetAppConnection {
         super::builder::app_connections_service::GetAppConnection::new(self.inner.clone())
     }
 
@@ -156,8 +173,9 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_app_connection(&self) -> super::builder::app_connections_service::CreateAppConnection
-    {
+    pub fn create_app_connection(
+        &self,
+    ) -> super::builder::app_connections_service::CreateAppConnection {
         super::builder::app_connections_service::CreateAppConnection::new(self.inner.clone())
     }
 
@@ -172,8 +190,9 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_app_connection(&self) -> super::builder::app_connections_service::UpdateAppConnection
-    {
+    pub fn update_app_connection(
+        &self,
+    ) -> super::builder::app_connections_service::UpdateAppConnection {
         super::builder::app_connections_service::UpdateAppConnection::new(self.inner.clone())
     }
 
@@ -188,22 +207,23 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_app_connection(&self) -> super::builder::app_connections_service::DeleteAppConnection
-    {
+    pub fn delete_app_connection(
+        &self,
+    ) -> super::builder::app_connections_service::DeleteAppConnection {
         super::builder::app_connections_service::DeleteAppConnection::new(self.inner.clone())
     }
 
     /// Resolves AppConnections details for a given AppConnector.
     /// An internal method called by a connector to find AppConnections to connect
     /// to.
-    pub fn resolve_app_connections(&self) -> super::builder::app_connections_service::ResolveAppConnections
-    {
+    pub fn resolve_app_connections(
+        &self,
+    ) -> super::builder::app_connections_service::ResolveAppConnections {
         super::builder::app_connections_service::ResolveAppConnections::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::app_connections_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::app_connections_service::ListLocations {
         super::builder::app_connections_service::ListLocations::new(self.inner.clone())
     }
 
@@ -224,8 +244,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::app_connections_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::app_connections_service::GetLocation {
         super::builder::app_connections_service::GetLocation::new(self.inner.clone())
     }
 
@@ -250,8 +269,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::app_connections_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::app_connections_service::SetIamPolicy {
         super::builder::app_connections_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -273,8 +291,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::app_connections_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::app_connections_service::GetIamPolicy {
         super::builder::app_connections_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -301,16 +318,16 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::app_connections_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::app_connections_service::TestIamPermissions {
         super::builder::app_connections_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::app_connections_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::app_connections_service::ListOperations {
         super::builder::app_connections_service::ListOperations::new(self.inner.clone())
     }
 
@@ -333,8 +350,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::app_connections_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::app_connections_service::GetOperation {
         super::builder::app_connections_service::GetOperation::new(self.inner.clone())
     }
 
@@ -356,8 +372,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::app_connections_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::app_connections_service::DeleteOperation {
         super::builder::app_connections_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -379,8 +394,7 @@ impl AppConnectionsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::app_connections_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::app_connections_service::CancelOperation {
         super::builder::app_connections_service::CancelOperation::new(self.inner.clone())
     }
 }

@@ -147,7 +147,9 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>,
+    >;
 
     async fn analyze_org_policy_governed_assets(
         &self,
@@ -351,7 +353,8 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>>
+    {
         T::batch_get_effective_iam_policies(self, req, options).await
     }
 
@@ -369,7 +372,9 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>,
+    > {
         T::analyze_org_policy_governed_containers(self, req, options).await
     }
 
@@ -378,7 +383,8 @@ impl<T: super::AssetService> AssetService for T {
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>>
+    {
         T::analyze_org_policy_governed_assets(self, req, options).await
     }
 

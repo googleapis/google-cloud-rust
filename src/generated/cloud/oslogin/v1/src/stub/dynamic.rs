@@ -58,7 +58,6 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>;
-
 }
 
 /// All implementations of [super::OsLoginService] also implement [OsLoginService].
@@ -126,5 +125,4 @@ impl<T: super::OsLoginService> OsLoginService for T {
     ) -> crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         T::update_ssh_public_key(self, req, options).await
     }
-
 }

@@ -70,7 +70,6 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>>;
-
 }
 
 /// All implementations of [super::AccessApproval] also implement [AccessApproval].
@@ -156,5 +155,4 @@ impl<T: super::AccessApproval> AccessApproval for T {
     ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
         T::get_access_approval_service_account(self, req, options).await
     }
-
 }

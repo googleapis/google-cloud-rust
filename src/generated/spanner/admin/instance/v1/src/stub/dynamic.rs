@@ -231,7 +231,8 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: crate::model::ListInstanceConfigOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInstanceConfigOperationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstanceConfigOperationsResponse>>
+    {
         T::list_instance_config_operations(self, req, options).await
     }
 
@@ -357,7 +358,8 @@ impl<T: super::InstanceAdmin> InstanceAdmin for T {
         &self,
         req: crate::model::ListInstancePartitionOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInstancePartitionOperationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancePartitionOperationsResponse>>
+    {
         T::list_instance_partition_operations(self, req, options).await
     }
 

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [WebSecurityScanner](super::stub::WebSecurityScanner) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct WebSecurityScanner<T>
-where T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> WebSecurityScanner<T>
-where T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::WebSecurityScanner for WebSecurityScanner<T>
-where T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_scan_config(
         &self,
@@ -147,6 +153,4 @@ where T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         self.inner.list_finding_type_stats(req, options).await
     }
-
 }
-

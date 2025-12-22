@@ -39,7 +39,10 @@ pub mod alloy_dbcsql_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AlloyDBCSQLAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod alloy_dbcsql_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,14 +93,17 @@ pub mod alloy_dbcsql_admin {
     pub struct RestoreFromCloudSQL(RequestBuilder<crate::model::RestoreFromCloudSQLRequest>);
 
     impl RestoreFromCloudSQL {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestoreFromCloudSQLRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RestoreFromCloudSQLRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -111,16 +121,18 @@ pub mod alloy_dbcsql_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_from_cloud_sql][crate::client::AlloyDBCSQLAdmin::restore_from_cloud_sql].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).restore_from_cloud_sql(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restore_from_cloud_sql(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_from_cloud_sql`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -168,7 +180,8 @@ pub mod alloy_dbcsql_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -178,7 +191,8 @@ pub mod alloy_dbcsql_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -188,7 +202,10 @@ pub mod alloy_dbcsql_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::restore_from_cloud_sql_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<T: Into<Option<crate::model::restore_from_cloud_sql_request::Source>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -198,7 +215,12 @@ pub mod alloy_dbcsql_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_cloudsql_backup_run_source<T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>>(mut self, v: T) -> Self {
+        pub fn set_cloudsql_backup_run_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_cloudsql_backup_run_source(v);
             self
         }
@@ -236,14 +258,17 @@ pub mod alloy_dbcsql_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -256,11 +281,17 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -272,7 +303,10 @@ pub mod alloy_dbcsql_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -330,10 +364,10 @@ pub mod alloy_dbcsql_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -350,7 +384,10 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -392,14 +429,17 @@ pub mod alloy_dbcsql_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -412,11 +452,17 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -428,7 +474,12 @@ pub mod alloy_dbcsql_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -492,14 +543,17 @@ pub mod alloy_dbcsql_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -512,7 +566,10 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -550,14 +607,17 @@ pub mod alloy_dbcsql_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -570,7 +630,10 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -608,14 +671,17 @@ pub mod alloy_dbcsql_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -628,7 +694,10 @@ pub mod alloy_dbcsql_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -644,7 +713,6 @@ pub mod alloy_dbcsql_admin {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod alloy_db_admin {
@@ -672,7 +740,10 @@ pub mod alloy_db_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AlloyDBAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -687,8 +758,12 @@ pub mod alloy_db_admin {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -722,10 +797,10 @@ pub mod alloy_db_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -742,11 +817,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_clusters(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -758,7 +839,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -824,10 +908,10 @@ pub mod alloy_db_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -844,7 +928,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -891,10 +978,10 @@ pub mod alloy_db_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -916,16 +1003,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::AlloyDBAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -973,7 +1062,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -983,7 +1073,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -1031,10 +1122,10 @@ pub mod alloy_db_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1056,16 +1147,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::AlloyDBAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1095,7 +1188,8 @@ pub mod alloy_db_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1103,7 +1197,8 @@ pub mod alloy_db_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1113,7 +1208,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -1123,7 +1219,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -1177,10 +1274,10 @@ pub mod alloy_db_admin {
     pub struct ExportCluster(RequestBuilder<crate::model::ExportClusterRequest>);
 
     impl ExportCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1202,16 +1299,21 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_cluster][crate::client::AlloyDBAdmin::export_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).export_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ExportClusterResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ExportClusterResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ExportClusterResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExportClusterResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1259,7 +1361,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<T: Into<Option<crate::model::export_cluster_request::Destination>>>(mut self, v: T) ->Self {
+        pub fn set_destination<
+            T: Into<Option<crate::model::export_cluster_request::Destination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.destination = v.into();
             self
         }
@@ -1269,7 +1376,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_gcs_destination<T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>>(mut self, v: T) -> Self {
+        pub fn set_gcs_destination<
+            T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
@@ -1278,7 +1390,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `export_options` are
         /// mutually exclusive.
-        pub fn set_export_options<T: Into<Option<crate::model::export_cluster_request::ExportOptions>>>(mut self, v: T) ->Self {
+        pub fn set_export_options<
+            T: Into<Option<crate::model::export_cluster_request::ExportOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.export_options = v.into();
             self
         }
@@ -1288,7 +1405,14 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `export_options` are
         /// mutually exclusive.
-        pub fn set_csv_export_options<T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>>>(mut self, v: T) -> Self {
+        pub fn set_csv_export_options<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_csv_export_options(v);
             self
         }
@@ -1298,7 +1422,14 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `export_options` are
         /// mutually exclusive.
-        pub fn set_sql_export_options<T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>>>(mut self, v: T) -> Self {
+        pub fn set_sql_export_options<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_sql_export_options(v);
             self
         }
@@ -1333,10 +1464,10 @@ pub mod alloy_db_admin {
     pub struct ImportCluster(RequestBuilder<crate::model::ImportClusterRequest>);
 
     impl ImportCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1358,16 +1489,21 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_cluster][crate::client::AlloyDBAdmin::import_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).import_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ImportClusterResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::ImportClusterResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::ImportClusterResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportClusterResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1427,7 +1563,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `import_options` are
         /// mutually exclusive.
-        pub fn set_import_options<T: Into<Option<crate::model::import_cluster_request::ImportOptions>>>(mut self, v: T) ->Self {
+        pub fn set_import_options<
+            T: Into<Option<crate::model::import_cluster_request::ImportOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.import_options = v.into();
             self
         }
@@ -1437,7 +1578,14 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `import_options` are
         /// mutually exclusive.
-        pub fn set_sql_import_options<T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>>>(mut self, v: T) -> Self {
+        pub fn set_sql_import_options<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_sql_import_options(v);
             self
         }
@@ -1447,7 +1595,14 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `import_options` are
         /// mutually exclusive.
-        pub fn set_csv_import_options<T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>>>(mut self, v: T) -> Self {
+        pub fn set_csv_import_options<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_csv_import_options(v);
             self
         }
@@ -1482,10 +1637,10 @@ pub mod alloy_db_admin {
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1507,16 +1662,21 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [upgrade_cluster][crate::client::AlloyDBAdmin::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).upgrade_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .upgrade_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upgrade_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::UpgradeClusterResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::UpgradeClusterResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::UpgradeClusterResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::UpgradeClusterResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1608,10 +1768,10 @@ pub mod alloy_db_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1633,15 +1793,14 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::AlloyDBAdmin::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1667,7 +1826,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1732,10 +1896,10 @@ pub mod alloy_db_admin {
     pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
 
     impl PromoteCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1757,16 +1921,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [promote_cluster][crate::client::AlloyDBAdmin::promote_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).promote_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .promote_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `promote_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1850,14 +2016,17 @@ pub mod alloy_db_admin {
     pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
     impl SwitchoverCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SwitchoverClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SwitchoverClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1875,16 +2044,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [switchover_cluster][crate::client::AlloyDBAdmin::switchover_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).switchover_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .switchover_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `switchover_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1962,10 +2133,10 @@ pub mod alloy_db_admin {
     pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
 
     impl RestoreCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1987,16 +2158,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_cluster][crate::client::AlloyDBAdmin::restore_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).restore_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restore_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2044,7 +2217,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -2054,7 +2228,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -2076,7 +2251,10 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::restore_cluster_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<T: Into<Option<crate::model::restore_cluster_request::Source>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -2086,7 +2264,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(mut self, v: T) -> Self {
+        pub fn set_backup_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_backup_source(v);
             self
         }
@@ -2096,7 +2279,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_continuous_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>>(mut self, v: T) -> Self {
+        pub fn set_continuous_backup_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_continuous_backup_source(v);
             self
         }
@@ -2131,14 +2319,17 @@ pub mod alloy_db_admin {
     pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
 
     impl CreateSecondaryCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSecondaryClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSecondaryClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2156,16 +2347,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_secondary_cluster][crate::client::AlloyDBAdmin::create_secondary_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_secondary_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_secondary_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_secondary_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2213,7 +2406,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -2223,7 +2417,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -2274,10 +2469,10 @@ pub mod alloy_db_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2294,11 +2489,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancesResponse> {
-            (*self.0.stub).list_instances(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2310,7 +2511,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2376,10 +2580,10 @@ pub mod alloy_db_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2396,7 +2600,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            (*self.0.stub).get_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -2443,10 +2650,10 @@ pub mod alloy_db_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2468,16 +2675,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance][crate::client::AlloyDBAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2525,7 +2734,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = std::option::Option::Some(v.into());
             self
@@ -2535,7 +2745,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = v.map(|x| x.into());
             self
@@ -2580,17 +2791,22 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSecondaryInstance(RequestBuilder<crate::model::CreateSecondaryInstanceRequest>);
+    pub struct CreateSecondaryInstance(
+        RequestBuilder<crate::model::CreateSecondaryInstanceRequest>,
+    );
 
     impl CreateSecondaryInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSecondaryInstanceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSecondaryInstanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2608,16 +2824,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_secondary_instance][crate::client::AlloyDBAdmin::create_secondary_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_secondary_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_secondary_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_secondary_instance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2665,7 +2883,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = std::option::Option::Some(v.into());
             self
@@ -2675,7 +2894,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = v.map(|x| x.into());
             self
@@ -2723,14 +2943,17 @@ pub mod alloy_db_admin {
     pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
 
     impl BatchCreateInstances {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCreateInstancesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchCreateInstancesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2748,16 +2971,21 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_create_instances][crate::client::AlloyDBAdmin::batch_create_instances].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).batch_create_instances(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_create_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_instances`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BatchCreateInstancesResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::BatchCreateInstancesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::BatchCreateInstancesResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BatchCreateInstancesResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2797,7 +3025,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_requests<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CreateInstanceRequests>
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
         {
             self.0.request.requests = std::option::Option::Some(v.into());
             self
@@ -2807,7 +3036,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_requests<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CreateInstanceRequests>
+        where
+            T: std::convert::Into<crate::model::CreateInstanceRequests>,
         {
             self.0.request.requests = v.map(|x| x.into());
             self
@@ -2849,10 +3079,10 @@ pub mod alloy_db_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2874,16 +3104,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance][crate::client::AlloyDBAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2913,7 +3145,8 @@ pub mod alloy_db_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2921,7 +3154,8 @@ pub mod alloy_db_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2931,7 +3165,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = std::option::Option::Some(v.into());
             self
@@ -2941,7 +3176,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Instance>
+        where
+            T: std::convert::Into<crate::model::Instance>,
         {
             self.0.request.instance = v.map(|x| x.into());
             self
@@ -2995,10 +3231,10 @@ pub mod alloy_db_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3020,15 +3256,14 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_instance][crate::client::AlloyDBAdmin::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3054,7 +3289,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -3113,14 +3353,17 @@ pub mod alloy_db_admin {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FailoverInstanceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FailoverInstanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3138,16 +3381,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [failover_instance][crate::client::AlloyDBAdmin::failover_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).failover_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .failover_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `failover_instance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3225,10 +3470,10 @@ pub mod alloy_db_admin {
     pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
 
     impl InjectFault {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3250,16 +3495,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [inject_fault][crate::client::AlloyDBAdmin::inject_fault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).inject_fault(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .inject_fault(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `inject_fault`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3290,7 +3537,10 @@ pub mod alloy_db_admin {
         /// Sets the value of [fault_type][crate::model::InjectFaultRequest::fault_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_fault_type<T: Into<crate::model::inject_fault_request::FaultType>>(mut self, v: T) -> Self {
+        pub fn set_fault_type<T: Into<crate::model::inject_fault_request::FaultType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.fault_type = v.into();
             self
         }
@@ -3345,10 +3595,10 @@ pub mod alloy_db_admin {
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
     impl RestartInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3370,16 +3620,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restart_instance][crate::client::AlloyDBAdmin::restart_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).restart_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restart_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restart_instance`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3431,7 +3683,7 @@ pub mod alloy_db_admin {
         pub fn set_node_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.node_ids = v.into_iter().map(|i| i.into()).collect();
@@ -3467,10 +3719,10 @@ pub mod alloy_db_admin {
     pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3487,7 +3739,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExecuteSqlResponse> {
-            (*self.0.stub).execute_sql(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .execute_sql(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::ExecuteSqlRequest::instance].
@@ -3530,7 +3785,12 @@ pub mod alloy_db_admin {
         ///
         /// Note that all the setters affecting `user_credential` are
         /// mutually exclusive.
-        pub fn set_user_credential<T: Into<Option<crate::model::execute_sql_request::UserCredential>>>(mut self, v: T) ->Self {
+        pub fn set_user_credential<
+            T: Into<Option<crate::model::execute_sql_request::UserCredential>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.user_credential = v.into();
             self
         }
@@ -3578,10 +3838,10 @@ pub mod alloy_db_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3598,11 +3858,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
-            (*self.0.stub).list_backups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_backups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3614,7 +3880,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3680,10 +3949,10 @@ pub mod alloy_db_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3700,7 +3969,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            (*self.0.stub).get_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -3741,10 +4013,10 @@ pub mod alloy_db_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3766,16 +4038,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_backup][crate::client::AlloyDBAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3823,7 +4097,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_backup<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Backup>
+        where
+            T: std::convert::Into<crate::model::Backup>,
         {
             self.0.request.backup = std::option::Option::Some(v.into());
             self
@@ -3833,7 +4108,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Backup>
+        where
+            T: std::convert::Into<crate::model::Backup>,
         {
             self.0.request.backup = v.map(|x| x.into());
             self
@@ -3881,10 +4157,10 @@ pub mod alloy_db_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3906,16 +4182,18 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_backup][crate::client::AlloyDBAdmin::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3945,7 +4223,8 @@ pub mod alloy_db_admin {
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3953,7 +4232,8 @@ pub mod alloy_db_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3963,7 +4243,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_backup<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Backup>
+        where
+            T: std::convert::Into<crate::model::Backup>,
         {
             self.0.request.backup = std::option::Option::Some(v.into());
             self
@@ -3973,7 +4254,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Backup>
+        where
+            T: std::convert::Into<crate::model::Backup>,
         {
             self.0.request.backup = v.map(|x| x.into());
             self
@@ -4027,10 +4309,10 @@ pub mod alloy_db_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4052,15 +4334,14 @@ pub mod alloy_db_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_backup][crate::client::AlloyDBAdmin::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4086,7 +4367,12 @@ pub mod alloy_db_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -4145,17 +4431,22 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSupportedDatabaseFlags(RequestBuilder<crate::model::ListSupportedDatabaseFlagsRequest>);
+    pub struct ListSupportedDatabaseFlags(
+        RequestBuilder<crate::model::ListSupportedDatabaseFlagsRequest>,
+    );
 
     impl ListSupportedDatabaseFlags {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSupportedDatabaseFlagsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSupportedDatabaseFlagsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4168,11 +4459,19 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSupportedDatabaseFlagsResponse> {
-            (*self.0.stub).list_supported_database_flags(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_supported_database_flags(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSupportedDatabaseFlagsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListSupportedDatabaseFlagsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4184,7 +4483,12 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSupportedDatabaseFlagsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSupportedDatabaseFlagsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4210,7 +4514,10 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [scope][crate::model::ListSupportedDatabaseFlagsRequest::scope].
-        pub fn set_scope<T: Into<crate::model::supported_database_flag::Scope>>(mut self, v: T) -> Self {
+        pub fn set_scope<T: Into<crate::model::supported_database_flag::Scope>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.scope = v.into();
             self
         }
@@ -4241,17 +4548,22 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateClientCertificate(RequestBuilder<crate::model::GenerateClientCertificateRequest>);
+    pub struct GenerateClientCertificate(
+        RequestBuilder<crate::model::GenerateClientCertificateRequest>,
+    );
 
     impl GenerateClientCertificate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateClientCertificateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateClientCertificateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4264,7 +4576,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateClientCertificateResponse> {
-            (*self.0.stub).generate_client_certificate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .generate_client_certificate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateClientCertificateRequest::parent].
@@ -4283,7 +4598,8 @@ pub mod alloy_db_admin {
 
         /// Sets the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
         pub fn set_cert_duration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.cert_duration = std::option::Option::Some(v.into());
             self
@@ -4291,7 +4607,8 @@ pub mod alloy_db_admin {
 
         /// Sets or clears the value of [cert_duration][crate::model::GenerateClientCertificateRequest::cert_duration].
         pub fn set_or_clear_cert_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.cert_duration = v.map(|x| x.into());
             self
@@ -4338,14 +4655,17 @@ pub mod alloy_db_admin {
     pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
     impl GetConnectionInfo {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetConnectionInfoRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetConnectionInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4358,7 +4678,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConnectionInfo> {
-            (*self.0.stub).get_connection_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_connection_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetConnectionInfoRequest::parent].
@@ -4408,10 +4731,10 @@ pub mod alloy_db_admin {
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4428,11 +4751,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUsersResponse> {
-            (*self.0.stub).list_users(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_users(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListUsersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListUsersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4444,7 +4773,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListUsersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListUsersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4510,10 +4842,10 @@ pub mod alloy_db_admin {
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4530,7 +4862,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::User> {
-            (*self.0.stub).get_user(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_user(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserRequest::name].
@@ -4570,10 +4905,10 @@ pub mod alloy_db_admin {
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4590,7 +4925,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::User> {
-            (*self.0.stub).create_user(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_user(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserRequest::parent].
@@ -4613,7 +4951,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_user<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::User>
+        where
+            T: std::convert::Into<crate::model::User>,
         {
             self.0.request.user = std::option::Option::Some(v.into());
             self
@@ -4623,7 +4962,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::User>
+        where
+            T: std::convert::Into<crate::model::User>,
         {
             self.0.request.user = v.map(|x| x.into());
             self
@@ -4670,10 +5010,10 @@ pub mod alloy_db_admin {
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4690,12 +5030,16 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::User> {
-            (*self.0.stub).update_user(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_user(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4703,7 +5047,8 @@ pub mod alloy_db_admin {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4713,7 +5058,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_user<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::User>
+        where
+            T: std::convert::Into<crate::model::User>,
         {
             self.0.request.user = std::option::Option::Some(v.into());
             self
@@ -4723,7 +5069,8 @@ pub mod alloy_db_admin {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::User>
+        where
+            T: std::convert::Into<crate::model::User>,
         {
             self.0.request.user = v.map(|x| x.into());
             self
@@ -4776,10 +5123,10 @@ pub mod alloy_db_admin {
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4796,7 +5143,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_user(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_user(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserRequest::name].
@@ -4852,10 +5202,10 @@ pub mod alloy_db_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4872,11 +5222,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabasesResponse> {
-            (*self.0.stub).list_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_databases(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4888,7 +5244,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4952,14 +5311,17 @@ pub mod alloy_db_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4972,11 +5334,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4988,7 +5356,10 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5046,10 +5417,10 @@ pub mod alloy_db_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5066,7 +5437,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -5108,14 +5482,17 @@ pub mod alloy_db_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5128,11 +5505,17 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5144,7 +5527,12 @@ pub mod alloy_db_admin {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5208,14 +5596,17 @@ pub mod alloy_db_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5228,7 +5619,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5266,14 +5660,17 @@ pub mod alloy_db_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5286,7 +5683,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5324,14 +5724,17 @@ pub mod alloy_db_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5344,7 +5747,10 @@ pub mod alloy_db_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -5360,5 +5766,4 @@ pub mod alloy_db_admin {
             &mut self.0.options
         }
     }
-
 }

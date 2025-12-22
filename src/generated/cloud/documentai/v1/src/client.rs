@@ -75,7 +75,9 @@ impl DocumentProcessorService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::document_processor_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::document_processor_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::document_processor_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -83,28 +85,44 @@ impl DocumentProcessorService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DocumentProcessorService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DocumentProcessorService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DocumentProcessorService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::DocumentProcessorService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
         super::transport::DocumentProcessorService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
-        Self::build_transport(conf).await.map(super::tracing::DocumentProcessorService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DocumentProcessorService::new)
     }
 
     /// Processes a single document.
@@ -124,8 +142,7 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn process_document(&self) -> super::builder::document_processor_service::ProcessDocument
-    {
+    pub fn process_document(&self) -> super::builder::document_processor_service::ProcessDocument {
         super::builder::document_processor_service::ProcessDocument::new(self.inner.clone())
     }
 
@@ -141,8 +158,9 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_process_documents(&self) -> super::builder::document_processor_service::BatchProcessDocuments
-    {
+    pub fn batch_process_documents(
+        &self,
+    ) -> super::builder::document_processor_service::BatchProcessDocuments {
         super::builder::document_processor_service::BatchProcessDocuments::new(self.inner.clone())
     }
 
@@ -167,14 +185,16 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn fetch_processor_types(&self) -> super::builder::document_processor_service::FetchProcessorTypes
-    {
+    pub fn fetch_processor_types(
+        &self,
+    ) -> super::builder::document_processor_service::FetchProcessorTypes {
         super::builder::document_processor_service::FetchProcessorTypes::new(self.inner.clone())
     }
 
     /// Lists the processor types that exist.
-    pub fn list_processor_types(&self) -> super::builder::document_processor_service::ListProcessorTypes
-    {
+    pub fn list_processor_types(
+        &self,
+    ) -> super::builder::document_processor_service::ListProcessorTypes {
         super::builder::document_processor_service::ListProcessorTypes::new(self.inner.clone())
     }
 
@@ -195,14 +215,14 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_processor_type(&self) -> super::builder::document_processor_service::GetProcessorType
-    {
+    pub fn get_processor_type(
+        &self,
+    ) -> super::builder::document_processor_service::GetProcessorType {
         super::builder::document_processor_service::GetProcessorType::new(self.inner.clone())
     }
 
     /// Lists all processors which belong to this project.
-    pub fn list_processors(&self) -> super::builder::document_processor_service::ListProcessors
-    {
+    pub fn list_processors(&self) -> super::builder::document_processor_service::ListProcessors {
         super::builder::document_processor_service::ListProcessors::new(self.inner.clone())
     }
 
@@ -223,8 +243,7 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_processor(&self) -> super::builder::document_processor_service::GetProcessor
-    {
+    pub fn get_processor(&self) -> super::builder::document_processor_service::GetProcessor {
         super::builder::document_processor_service::GetProcessor::new(self.inner.clone())
     }
 
@@ -243,8 +262,9 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn train_processor_version(&self) -> super::builder::document_processor_service::TrainProcessorVersion
-    {
+    pub fn train_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::TrainProcessorVersion {
         super::builder::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
     }
 
@@ -265,14 +285,16 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_processor_version(&self) -> super::builder::document_processor_service::GetProcessorVersion
-    {
+    pub fn get_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::GetProcessorVersion {
         super::builder::document_processor_service::GetProcessorVersion::new(self.inner.clone())
     }
 
     /// Lists all versions of a processor.
-    pub fn list_processor_versions(&self) -> super::builder::document_processor_service::ListProcessorVersions
-    {
+    pub fn list_processor_versions(
+        &self,
+    ) -> super::builder::document_processor_service::ListProcessorVersions {
         super::builder::document_processor_service::ListProcessorVersions::new(self.inner.clone())
     }
 
@@ -288,8 +310,9 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_processor_version(&self) -> super::builder::document_processor_service::DeleteProcessorVersion
-    {
+    pub fn delete_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::DeleteProcessorVersion {
         super::builder::document_processor_service::DeleteProcessorVersion::new(self.inner.clone())
     }
 
@@ -304,8 +327,9 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn deploy_processor_version(&self) -> super::builder::document_processor_service::DeployProcessorVersion
-    {
+    pub fn deploy_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::DeployProcessorVersion {
         super::builder::document_processor_service::DeployProcessorVersion::new(self.inner.clone())
     }
 
@@ -320,9 +344,12 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undeploy_processor_version(&self) -> super::builder::document_processor_service::UndeployProcessorVersion
-    {
-        super::builder::document_processor_service::UndeployProcessorVersion::new(self.inner.clone())
+    pub fn undeploy_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::UndeployProcessorVersion {
+        super::builder::document_processor_service::UndeployProcessorVersion::new(
+            self.inner.clone(),
+        )
     }
 
     /// Creates a processor from the
@@ -350,8 +377,7 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_processor(&self) -> super::builder::document_processor_service::CreateProcessor
-    {
+    pub fn create_processor(&self) -> super::builder::document_processor_service::CreateProcessor {
         super::builder::document_processor_service::CreateProcessor::new(self.inner.clone())
     }
 
@@ -367,8 +393,7 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_processor(&self) -> super::builder::document_processor_service::DeleteProcessor
-    {
+    pub fn delete_processor(&self) -> super::builder::document_processor_service::DeleteProcessor {
         super::builder::document_processor_service::DeleteProcessor::new(self.inner.clone())
     }
 
@@ -383,8 +408,7 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn enable_processor(&self) -> super::builder::document_processor_service::EnableProcessor
-    {
+    pub fn enable_processor(&self) -> super::builder::document_processor_service::EnableProcessor {
         super::builder::document_processor_service::EnableProcessor::new(self.inner.clone())
     }
 
@@ -399,8 +423,9 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn disable_processor(&self) -> super::builder::document_processor_service::DisableProcessor
-    {
+    pub fn disable_processor(
+        &self,
+    ) -> super::builder::document_processor_service::DisableProcessor {
         super::builder::document_processor_service::DisableProcessor::new(self.inner.clone())
     }
 
@@ -423,9 +448,12 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn set_default_processor_version(&self) -> super::builder::document_processor_service::SetDefaultProcessorVersion
-    {
-        super::builder::document_processor_service::SetDefaultProcessorVersion::new(self.inner.clone())
+    pub fn set_default_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::SetDefaultProcessorVersion {
+        super::builder::document_processor_service::SetDefaultProcessorVersion::new(
+            self.inner.clone(),
+        )
     }
 
     /// Send a document for Human Review. The input document should be processed by
@@ -440,8 +468,7 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn review_document(&self) -> super::builder::document_processor_service::ReviewDocument
-    {
+    pub fn review_document(&self) -> super::builder::document_processor_service::ReviewDocument {
         super::builder::document_processor_service::ReviewDocument::new(self.inner.clone())
     }
 
@@ -457,9 +484,12 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn evaluate_processor_version(&self) -> super::builder::document_processor_service::EvaluateProcessorVersion
-    {
-        super::builder::document_processor_service::EvaluateProcessorVersion::new(self.inner.clone())
+    pub fn evaluate_processor_version(
+        &self,
+    ) -> super::builder::document_processor_service::EvaluateProcessorVersion {
+        super::builder::document_processor_service::EvaluateProcessorVersion::new(
+            self.inner.clone(),
+        )
     }
 
     /// Retrieves a specific evaluation.
@@ -479,20 +509,17 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_evaluation(&self) -> super::builder::document_processor_service::GetEvaluation
-    {
+    pub fn get_evaluation(&self) -> super::builder::document_processor_service::GetEvaluation {
         super::builder::document_processor_service::GetEvaluation::new(self.inner.clone())
     }
 
     /// Retrieves a set of evaluations for a given processor version.
-    pub fn list_evaluations(&self) -> super::builder::document_processor_service::ListEvaluations
-    {
+    pub fn list_evaluations(&self) -> super::builder::document_processor_service::ListEvaluations {
         super::builder::document_processor_service::ListEvaluations::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::document_processor_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::document_processor_service::ListLocations {
         super::builder::document_processor_service::ListLocations::new(self.inner.clone())
     }
 
@@ -513,16 +540,14 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::document_processor_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::document_processor_service::GetLocation {
         super::builder::document_processor_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::document_processor_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::document_processor_service::ListOperations {
         super::builder::document_processor_service::ListOperations::new(self.inner.clone())
     }
 
@@ -545,8 +570,7 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::document_processor_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::document_processor_service::GetOperation {
         super::builder::document_processor_service::GetOperation::new(self.inner.clone())
     }
 
@@ -568,8 +592,7 @@ impl DocumentProcessorService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::document_processor_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::document_processor_service::CancelOperation {
         super::builder::document_processor_service::CancelOperation::new(self.inner.clone())
     }
 }

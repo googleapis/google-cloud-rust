@@ -72,7 +72,9 @@ impl AdvisoryNotificationsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::advisory_notifications_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::advisory_notifications_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::advisory_notifications_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,33 +82,50 @@ impl AdvisoryNotificationsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::AdvisoryNotificationsService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::AdvisoryNotificationsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
         super::transport::AdvisoryNotificationsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
-        Self::build_transport(conf).await.map(super::tracing::AdvisoryNotificationsService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AdvisoryNotificationsService::new)
     }
 
     /// Lists notifications under a given parent.
-    pub fn list_notifications(&self) -> super::builder::advisory_notifications_service::ListNotifications
-    {
+    pub fn list_notifications(
+        &self,
+    ) -> super::builder::advisory_notifications_service::ListNotifications {
         super::builder::advisory_notifications_service::ListNotifications::new(self.inner.clone())
     }
 
@@ -128,8 +147,9 @@ impl AdvisoryNotificationsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_notification(&self) -> super::builder::advisory_notifications_service::GetNotification
-    {
+    pub fn get_notification(
+        &self,
+    ) -> super::builder::advisory_notifications_service::GetNotification {
         super::builder::advisory_notifications_service::GetNotification::new(self.inner.clone())
     }
 
@@ -151,8 +171,7 @@ impl AdvisoryNotificationsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings
-    {
+    pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings {
         super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
     }
 
@@ -173,8 +192,9 @@ impl AdvisoryNotificationsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_settings(&self) -> super::builder::advisory_notifications_service::UpdateSettings
-    {
+    pub fn update_settings(
+        &self,
+    ) -> super::builder::advisory_notifications_service::UpdateSettings {
         super::builder::advisory_notifications_service::UpdateSettings::new(self.inner.clone())
     }
 }

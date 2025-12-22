@@ -39,7 +39,10 @@ pub mod translation_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TranslationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod translation_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod translation_service {
     pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
 
     impl TranslateText {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TranslateTextResponse> {
-            (*self.0.stub).translate_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .translate_text(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
@@ -114,7 +124,7 @@ pub mod translation_service {
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
@@ -157,7 +167,8 @@ pub mod translation_service {
 
         /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
         pub fn set_glossary_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
             self.0.request.glossary_config = std::option::Option::Some(v.into());
             self
@@ -165,7 +176,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
             self.0.request.glossary_config = v.map(|x| x.into());
             self
@@ -173,7 +185,8 @@ pub mod translation_service {
 
         /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
         pub fn set_transliteration_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TransliterationConfig>
+        where
+            T: std::convert::Into<crate::model::TransliterationConfig>,
         {
             self.0.request.transliteration_config = std::option::Option::Some(v.into());
             self
@@ -181,7 +194,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
         pub fn set_or_clear_transliteration_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TransliterationConfig>
+        where
+            T: std::convert::Into<crate::model::TransliterationConfig>,
         {
             self.0.request.transliteration_config = v.map(|x| x.into());
             self
@@ -227,10 +241,10 @@ pub mod translation_service {
     pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
 
     impl RomanizeText {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -247,7 +261,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RomanizeTextResponse> {
-            (*self.0.stub).romanize_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .romanize_text(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
@@ -264,7 +281,7 @@ pub mod translation_service {
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
@@ -306,10 +323,10 @@ pub mod translation_service {
     pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
 
     impl DetectLanguage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -326,7 +343,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DetectLanguageResponse> {
-            (*self.0.stub).detect_language(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .detect_language(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
@@ -364,7 +384,10 @@ pub mod translation_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::detect_language_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<T: Into<Option<crate::model::detect_language_request::Source>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -408,14 +431,17 @@ pub mod translation_service {
     pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
 
     impl GetSupportedLanguages {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetSupportedLanguagesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetSupportedLanguagesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -428,7 +454,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SupportedLanguages> {
-            (*self.0.stub).get_supported_languages(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_supported_languages(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
@@ -480,14 +509,17 @@ pub mod translation_service {
     pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
 
     impl TranslateDocument {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::TranslateDocumentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::TranslateDocumentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -500,7 +532,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TranslateDocumentResponse> {
-            (*self.0.stub).translate_document(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .translate_document(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
@@ -529,7 +564,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_document_input_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DocumentInputConfig>
+        where
+            T: std::convert::Into<crate::model::DocumentInputConfig>,
         {
             self.0.request.document_input_config = std::option::Option::Some(v.into());
             self
@@ -539,7 +575,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DocumentInputConfig>
+        where
+            T: std::convert::Into<crate::model::DocumentInputConfig>,
         {
             self.0.request.document_input_config = v.map(|x| x.into());
             self
@@ -547,7 +584,8 @@ pub mod translation_service {
 
         /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
         pub fn set_document_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DocumentOutputConfig>
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
         {
             self.0.request.document_output_config = std::option::Option::Some(v.into());
             self
@@ -555,7 +593,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
         pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DocumentOutputConfig>
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
         {
             self.0.request.document_output_config = v.map(|x| x.into());
             self
@@ -569,7 +608,8 @@ pub mod translation_service {
 
         /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
         pub fn set_glossary_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
             self.0.request.glossary_config = std::option::Option::Some(v.into());
             self
@@ -577,7 +617,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
             self.0.request.glossary_config = v.map(|x| x.into());
             self
@@ -648,14 +689,17 @@ pub mod translation_service {
     pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
 
     impl BatchTranslateText {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchTranslateTextRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchTranslateTextRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -673,16 +717,21 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_translate_text][crate::client::TranslationService::batch_translate_text].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).batch_translate_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_translate_text(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_translate_text`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BatchTranslateResponse,
+                crate::model::BatchTranslateMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -732,7 +781,7 @@ pub mod translation_service {
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -756,7 +805,7 @@ pub mod translation_service {
         pub fn set_input_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::InputConfig>
+            V: std::convert::Into<crate::model::InputConfig>,
         {
             use std::iter::Iterator;
             self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
@@ -767,7 +816,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::OutputConfig>
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -777,7 +827,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::OutputConfig>
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -835,14 +886,17 @@ pub mod translation_service {
     pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
 
     impl BatchTranslateDocument {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchTranslateDocumentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchTranslateDocumentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -860,16 +914,23 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_translate_document][crate::client::TranslationService::batch_translate_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).batch_translate_document(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_translate_document(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_translate_document`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BatchTranslateDocumentResponse, crate::model::BatchTranslateDocumentMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::BatchTranslateDocumentResponse, crate::model::BatchTranslateDocumentMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::BatchTranslateDocumentResponse,
+            crate::model::BatchTranslateDocumentMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::BatchTranslateDocumentResponse,
+                crate::model::BatchTranslateDocumentMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -919,7 +980,7 @@ pub mod translation_service {
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
@@ -932,7 +993,7 @@ pub mod translation_service {
         pub fn set_input_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::BatchDocumentInputConfig>
+            V: std::convert::Into<crate::model::BatchDocumentInputConfig>,
         {
             use std::iter::Iterator;
             self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
@@ -943,7 +1004,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentOutputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -953,7 +1015,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentOutputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentOutputConfig>,
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -988,7 +1051,8 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.format_conversions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.format_conversions =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -1040,10 +1104,10 @@ pub mod translation_service {
     pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
 
     impl CreateGlossary {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1065,16 +1129,21 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_glossary][crate::client::TranslationService::create_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_glossary(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_glossary(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_glossary`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Glossary, crate::model::CreateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::CreateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1114,7 +1183,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_glossary<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Glossary>
+        where
+            T: std::convert::Into<crate::model::Glossary>,
         {
             self.0.request.glossary = std::option::Option::Some(v.into());
             self
@@ -1124,7 +1194,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Glossary>
+        where
+            T: std::convert::Into<crate::model::Glossary>,
         {
             self.0.request.glossary = v.map(|x| x.into());
             self
@@ -1160,10 +1231,10 @@ pub mod translation_service {
     pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
     impl UpdateGlossary {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1185,16 +1256,21 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_glossary][crate::client::TranslationService::update_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_glossary(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_glossary(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_glossary`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::UpdateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1226,7 +1302,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_glossary<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Glossary>
+        where
+            T: std::convert::Into<crate::model::Glossary>,
         {
             self.0.request.glossary = std::option::Option::Some(v.into());
             self
@@ -1236,7 +1313,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Glossary>
+        where
+            T: std::convert::Into<crate::model::Glossary>,
         {
             self.0.request.glossary = v.map(|x| x.into());
             self
@@ -1244,7 +1322,8 @@ pub mod translation_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1252,7 +1331,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1291,10 +1371,10 @@ pub mod translation_service {
     pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
 
     impl ListGlossaries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1311,11 +1391,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListGlossariesResponse> {
-            (*self.0.stub).list_glossaries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_glossaries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListGlossariesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListGlossariesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1327,7 +1413,10 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListGlossariesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGlossariesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1387,10 +1476,10 @@ pub mod translation_service {
     pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
 
     impl GetGlossary {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1407,7 +1496,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Glossary> {
-            (*self.0.stub).get_glossary(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_glossary(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
@@ -1448,10 +1540,10 @@ pub mod translation_service {
     pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
     impl DeleteGlossary {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1473,16 +1565,21 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_glossary][crate::client::TranslationService::delete_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_glossary(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_glossary(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_glossary`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeleteGlossaryResponse,
+                crate::model::DeleteGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1547,14 +1644,17 @@ pub mod translation_service {
     pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
     impl GetGlossaryEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetGlossaryEntryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetGlossaryEntryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1567,7 +1667,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GlossaryEntry> {
-            (*self.0.stub).get_glossary_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_glossary_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
@@ -1611,14 +1714,17 @@ pub mod translation_service {
     pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
 
     impl ListGlossaryEntries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListGlossaryEntriesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListGlossaryEntriesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1631,11 +1737,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListGlossaryEntriesResponse> {
-            (*self.0.stub).list_glossary_entries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_glossary_entries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListGlossaryEntriesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListGlossaryEntriesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1647,7 +1759,12 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListGlossaryEntriesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListGlossaryEntriesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1701,14 +1818,17 @@ pub mod translation_service {
     pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
 
     impl CreateGlossaryEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateGlossaryEntryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateGlossaryEntryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1721,7 +1841,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GlossaryEntry> {
-            (*self.0.stub).create_glossary_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_glossary_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
@@ -1736,7 +1859,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_glossary_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::GlossaryEntry>
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
         {
             self.0.request.glossary_entry = std::option::Option::Some(v.into());
             self
@@ -1746,7 +1870,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::GlossaryEntry>
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
         {
             self.0.request.glossary_entry = v.map(|x| x.into());
             self
@@ -1781,14 +1906,17 @@ pub mod translation_service {
     pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
 
     impl UpdateGlossaryEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateGlossaryEntryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateGlossaryEntryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1801,14 +1929,18 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GlossaryEntry> {
-            (*self.0.stub).update_glossary_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_glossary_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
         ///
         /// This is a **required** field for requests.
         pub fn set_glossary_entry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::GlossaryEntry>
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
         {
             self.0.request.glossary_entry = std::option::Option::Some(v.into());
             self
@@ -1818,7 +1950,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_glossary_entry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::GlossaryEntry>
+        where
+            T: std::convert::Into<crate::model::GlossaryEntry>,
         {
             self.0.request.glossary_entry = v.map(|x| x.into());
             self
@@ -1853,14 +1986,17 @@ pub mod translation_service {
     pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
 
     impl DeleteGlossaryEntry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteGlossaryEntryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteGlossaryEntryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1873,7 +2009,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_glossary_entry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_glossary_entry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
@@ -1914,10 +2053,10 @@ pub mod translation_service {
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1939,16 +2078,20 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_dataset][crate::client::TranslationService::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_dataset`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Dataset, crate::model::CreateDatasetMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Dataset,
+                crate::model::CreateDatasetMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1988,7 +2131,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_dataset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Dataset>
+        where
+            T: std::convert::Into<crate::model::Dataset>,
         {
             self.0.request.dataset = std::option::Option::Some(v.into());
             self
@@ -1998,7 +2142,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Dataset>
+        where
+            T: std::convert::Into<crate::model::Dataset>,
         {
             self.0.request.dataset = v.map(|x| x.into());
             self
@@ -2033,10 +2178,10 @@ pub mod translation_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2053,7 +2198,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Dataset> {
-            (*self.0.stub).get_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatasetRequest::name].
@@ -2097,10 +2245,10 @@ pub mod translation_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2117,11 +2265,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatasetsResponse> {
-            (*self.0.stub).list_datasets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_datasets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatasetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDatasetsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2133,7 +2287,10 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatasetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatasetsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2188,10 +2345,10 @@ pub mod translation_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2213,16 +2370,16 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_dataset][crate::client::TranslationService::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::DeleteDatasetMetadata>
-        {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteDatasetMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2247,7 +2404,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -2284,17 +2446,22 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAdaptiveMtDataset(RequestBuilder<crate::model::CreateAdaptiveMtDatasetRequest>);
+    pub struct CreateAdaptiveMtDataset(
+        RequestBuilder<crate::model::CreateAdaptiveMtDatasetRequest>,
+    );
 
     impl CreateAdaptiveMtDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAdaptiveMtDatasetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAdaptiveMtDatasetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2307,7 +2474,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AdaptiveMtDataset> {
-            (*self.0.stub).create_adaptive_mt_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_adaptive_mt_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
@@ -2322,7 +2492,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_adaptive_mt_dataset<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AdaptiveMtDataset>
+        where
+            T: std::convert::Into<crate::model::AdaptiveMtDataset>,
         {
             self.0.request.adaptive_mt_dataset = std::option::Option::Some(v.into());
             self
@@ -2332,7 +2503,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_adaptive_mt_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AdaptiveMtDataset>
+        where
+            T: std::convert::Into<crate::model::AdaptiveMtDataset>,
         {
             self.0.request.adaptive_mt_dataset = v.map(|x| x.into());
             self
@@ -2364,17 +2536,22 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAdaptiveMtDataset(RequestBuilder<crate::model::DeleteAdaptiveMtDatasetRequest>);
+    pub struct DeleteAdaptiveMtDataset(
+        RequestBuilder<crate::model::DeleteAdaptiveMtDatasetRequest>,
+    );
 
     impl DeleteAdaptiveMtDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAdaptiveMtDatasetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAdaptiveMtDatasetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2387,7 +2564,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_adaptive_mt_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_adaptive_mt_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
@@ -2427,14 +2607,17 @@ pub mod translation_service {
     pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
 
     impl GetAdaptiveMtDataset {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAdaptiveMtDatasetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAdaptiveMtDatasetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2447,7 +2630,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AdaptiveMtDataset> {
-            (*self.0.stub).get_adaptive_mt_dataset(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_adaptive_mt_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
@@ -2491,14 +2677,17 @@ pub mod translation_service {
     pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
 
     impl ListAdaptiveMtDatasets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAdaptiveMtDatasetsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAdaptiveMtDatasetsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2511,11 +2700,19 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAdaptiveMtDatasetsResponse> {
-            (*self.0.stub).list_adaptive_mt_datasets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_adaptive_mt_datasets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAdaptiveMtDatasetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListAdaptiveMtDatasetsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2527,7 +2724,12 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAdaptiveMtDatasetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAdaptiveMtDatasetsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2587,14 +2789,17 @@ pub mod translation_service {
     pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
 
     impl AdaptiveMtTranslate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AdaptiveMtTranslateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AdaptiveMtTranslateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2607,7 +2812,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AdaptiveMtTranslateResponse> {
-            (*self.0.stub).adaptive_mt_translate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .adaptive_mt_translate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
@@ -2632,7 +2840,7 @@ pub mod translation_service {
         pub fn set_content<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.content = v.into_iter().map(|i| i.into()).collect();
@@ -2641,15 +2849,24 @@ pub mod translation_service {
 
         /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
         pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>
+        where
+            T: std::convert::Into<
+                    crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
+                >,
         {
             self.0.request.reference_sentence_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
-        pub fn set_or_clear_reference_sentence_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>
+        pub fn set_or_clear_reference_sentence_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig,
+                >,
         {
             self.0.request.reference_sentence_config = v.map(|x| x.into());
             self
@@ -2657,7 +2874,8 @@ pub mod translation_service {
 
         /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
         pub fn set_glossary_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
         {
             self.0.request.glossary_config = std::option::Option::Some(v.into());
             self
@@ -2665,7 +2883,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
         pub fn set_or_clear_glossary_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>
+        where
+            T: std::convert::Into<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
         {
             self.0.request.glossary_config = v.map(|x| x.into());
             self
@@ -2700,14 +2919,17 @@ pub mod translation_service {
     pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
     impl GetAdaptiveMtFile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAdaptiveMtFileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAdaptiveMtFileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2720,7 +2942,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AdaptiveMtFile> {
-            (*self.0.stub).get_adaptive_mt_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_adaptive_mt_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
@@ -2760,14 +2985,17 @@ pub mod translation_service {
     pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
 
     impl DeleteAdaptiveMtFile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAdaptiveMtFileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAdaptiveMtFileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2780,7 +3008,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_adaptive_mt_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_adaptive_mt_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
@@ -2820,14 +3051,17 @@ pub mod translation_service {
     pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
 
     impl ImportAdaptiveMtFile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportAdaptiveMtFileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportAdaptiveMtFileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2840,7 +3074,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImportAdaptiveMtFileResponse> {
-            (*self.0.stub).import_adaptive_mt_file(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_adaptive_mt_file(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
@@ -2855,7 +3092,12 @@ pub mod translation_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_source<T: Into<Option<crate::model::import_adaptive_mt_file_request::Source>>>(mut self, v: T) ->Self {
+        pub fn set_source<
+            T: Into<Option<crate::model::import_adaptive_mt_file_request::Source>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.source = v.into();
             self
         }
@@ -2865,7 +3107,12 @@ pub mod translation_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_file_input_source<T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>>(mut self, v: T) -> Self {
+        pub fn set_file_input_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_file_input_source(v);
             self
         }
@@ -2875,7 +3122,12 @@ pub mod translation_service {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_gcs_input_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>>(mut self, v: T) -> Self {
+        pub fn set_gcs_input_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_gcs_input_source(v);
             self
         }
@@ -2913,14 +3165,17 @@ pub mod translation_service {
     pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
 
     impl ListAdaptiveMtFiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAdaptiveMtFilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAdaptiveMtFilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2933,11 +3188,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAdaptiveMtFilesResponse> {
-            (*self.0.stub).list_adaptive_mt_files(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_adaptive_mt_files(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAdaptiveMtFilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAdaptiveMtFilesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2949,7 +3210,12 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAdaptiveMtFilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAdaptiveMtFilesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3004,17 +3270,22 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAdaptiveMtSentences(RequestBuilder<crate::model::ListAdaptiveMtSentencesRequest>);
+    pub struct ListAdaptiveMtSentences(
+        RequestBuilder<crate::model::ListAdaptiveMtSentencesRequest>,
+    );
 
     impl ListAdaptiveMtSentences {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAdaptiveMtSentencesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAdaptiveMtSentencesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3027,11 +3298,19 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAdaptiveMtSentencesResponse> {
-            (*self.0.stub).list_adaptive_mt_sentences(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_adaptive_mt_sentences(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAdaptiveMtSentencesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListAdaptiveMtSentencesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3043,7 +3322,12 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAdaptiveMtSentencesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAdaptiveMtSentencesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3098,10 +3382,10 @@ pub mod translation_service {
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3123,15 +3407,14 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_data][crate::client::TranslationService::import_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).import_data(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_data(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_data`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::ImportDataMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDataMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3157,7 +3440,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
@@ -3172,7 +3460,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_input_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DatasetInputConfig>
+        where
+            T: std::convert::Into<crate::model::DatasetInputConfig>,
         {
             self.0.request.input_config = std::option::Option::Some(v.into());
             self
@@ -3182,7 +3471,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DatasetInputConfig>
+        where
+            T: std::convert::Into<crate::model::DatasetInputConfig>,
         {
             self.0.request.input_config = v.map(|x| x.into());
             self
@@ -3218,10 +3508,10 @@ pub mod translation_service {
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3243,15 +3533,14 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_data][crate::client::TranslationService::export_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).export_data(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export_data(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_data`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::ExportDataMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ExportDataMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3277,7 +3566,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
@@ -3292,7 +3586,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DatasetOutputConfig>
+        where
+            T: std::convert::Into<crate::model::DatasetOutputConfig>,
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -3302,7 +3597,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DatasetOutputConfig>
+        where
+            T: std::convert::Into<crate::model::DatasetOutputConfig>,
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -3341,10 +3637,10 @@ pub mod translation_service {
     pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
 
     impl ListExamples {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3361,11 +3657,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListExamplesResponse> {
-            (*self.0.stub).list_examples(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_examples(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListExamplesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListExamplesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3377,7 +3679,10 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListExamplesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListExamplesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3438,10 +3743,10 @@ pub mod translation_service {
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3463,16 +3768,18 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_model][crate::client::TranslationService::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_model(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_model`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3512,7 +3819,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_model<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Model>
+        where
+            T: std::convert::Into<crate::model::Model>,
         {
             self.0.request.model = std::option::Option::Some(v.into());
             self
@@ -3522,7 +3830,8 @@ pub mod translation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Model>
+        where
+            T: std::convert::Into<crate::model::Model>,
         {
             self.0.request.model = v.map(|x| x.into());
             self
@@ -3561,10 +3870,10 @@ pub mod translation_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3581,11 +3890,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListModelsResponse> {
-            (*self.0.stub).list_models(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_models(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3597,7 +3912,10 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListModelsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListModelsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3657,10 +3975,10 @@ pub mod translation_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3677,7 +3995,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Model> {
-            (*self.0.stub).get_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_model(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
@@ -3718,10 +4039,10 @@ pub mod translation_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3743,16 +4064,16 @@ pub mod translation_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_model][crate::client::TranslationService::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_model(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_model(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::DeleteModelMetadata>
-        {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteModelMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3777,7 +4098,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
@@ -3821,14 +4147,17 @@ pub mod translation_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3841,11 +4170,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3857,7 +4192,10 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3915,10 +4253,10 @@ pub mod translation_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3935,7 +4273,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3977,14 +4318,17 @@ pub mod translation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3997,11 +4341,17 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4013,7 +4363,12 @@ pub mod translation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4077,14 +4432,17 @@ pub mod translation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4097,7 +4455,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4135,14 +4496,17 @@ pub mod translation_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4155,7 +4519,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4193,14 +4560,17 @@ pub mod translation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4213,7 +4583,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4251,14 +4624,17 @@ pub mod translation_service {
     pub struct WaitOperation(RequestBuilder<longrunning::model::WaitOperationRequest>);
 
     impl WaitOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::WaitOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::WaitOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4271,7 +4647,10 @@ pub mod translation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).wait_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .wait_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -4282,7 +4661,8 @@ pub mod translation_service {
 
         /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.timeout = std::option::Option::Some(v.into());
             self
@@ -4290,7 +4670,8 @@ pub mod translation_service {
 
         /// Sets or clears the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.timeout = v.map(|x| x.into());
             self
@@ -4303,5 +4684,4 @@ pub mod translation_service {
             &mut self.0.options
         }
     }
-
 }

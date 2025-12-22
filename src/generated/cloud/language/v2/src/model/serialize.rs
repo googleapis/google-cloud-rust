@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Document {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -54,9 +54,9 @@ impl serde::ser::Serialize for super::Sentence {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.text.is_some() {
             state.serialize_entry("text", &self.text)?;
@@ -79,9 +79,9 @@ impl serde::ser::Serialize for super::Entity {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -107,16 +107,15 @@ impl serde::ser::Serialize for super::Entity {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Sentiment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.magnitude) {
             struct __With<'a>(&'a f32);
@@ -157,9 +156,9 @@ impl serde::ser::Serialize for super::EntityMention {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.text.is_some() {
             state.serialize_entry("text", &self.text)?;
@@ -197,9 +196,9 @@ impl serde::ser::Serialize for super::TextSpan {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.content.is_empty() {
             state.serialize_entry("content", &self.content)?;
@@ -231,9 +230,9 @@ impl serde::ser::Serialize for super::ClassificationCategory {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -277,9 +276,9 @@ impl serde::ser::Serialize for super::AnalyzeSentimentRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document.is_some() {
             state.serialize_entry("document", &self.document)?;
@@ -302,9 +301,9 @@ impl serde::ser::Serialize for super::AnalyzeSentimentResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document_sentiment.is_some() {
             state.serialize_entry("documentSentiment", &self.document_sentiment)?;
@@ -333,9 +332,9 @@ impl serde::ser::Serialize for super::AnalyzeEntitiesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document.is_some() {
             state.serialize_entry("document", &self.document)?;
@@ -358,9 +357,9 @@ impl serde::ser::Serialize for super::AnalyzeEntitiesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.entities.is_empty() {
             state.serialize_entry("entities", &self.entities)?;
@@ -386,9 +385,9 @@ impl serde::ser::Serialize for super::ClassifyTextRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document.is_some() {
             state.serialize_entry("document", &self.document)?;
@@ -408,9 +407,9 @@ impl serde::ser::Serialize for super::ClassifyTextResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.categories.is_empty() {
             state.serialize_entry("categories", &self.categories)?;
@@ -436,9 +435,9 @@ impl serde::ser::Serialize for super::ModerateTextRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document.is_some() {
             state.serialize_entry("document", &self.document)?;
@@ -461,9 +460,9 @@ impl serde::ser::Serialize for super::ModerateTextResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.moderation_categories.is_empty() {
             state.serialize_entry("moderationCategories", &self.moderation_categories)?;
@@ -489,9 +488,9 @@ impl serde::ser::Serialize for super::AnnotateTextRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.document.is_some() {
             state.serialize_entry("document", &self.document)?;
@@ -517,9 +516,9 @@ impl serde::ser::Serialize for super::annotate_text_request::Features {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.extract_entities) {
             state.serialize_entry("extractEntities", &self.extract_entities)?;
@@ -548,9 +547,9 @@ impl serde::ser::Serialize for super::AnnotateTextResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.sentences.is_empty() {
             state.serialize_entry("sentences", &self.sentences)?;

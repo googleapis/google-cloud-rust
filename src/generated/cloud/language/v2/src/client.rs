@@ -73,7 +73,9 @@ impl LanguageService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::language_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::language_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::language_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -81,28 +83,43 @@ impl LanguageService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::LanguageService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::LanguageService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LanguageService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LanguageService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LanguageService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::LanguageService> {
         super::transport::LanguageService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LanguageService> {
-        Self::build_transport(conf).await.map(super::tracing::LanguageService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::LanguageService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::LanguageService::new)
     }
 
     /// Analyzes the sentiment of the provided text.
@@ -122,8 +139,7 @@ impl LanguageService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn analyze_sentiment(&self) -> super::builder::language_service::AnalyzeSentiment
-    {
+    pub fn analyze_sentiment(&self) -> super::builder::language_service::AnalyzeSentiment {
         super::builder::language_service::AnalyzeSentiment::new(self.inner.clone())
     }
 
@@ -146,8 +162,7 @@ impl LanguageService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn analyze_entities(&self) -> super::builder::language_service::AnalyzeEntities
-    {
+    pub fn analyze_entities(&self) -> super::builder::language_service::AnalyzeEntities {
         super::builder::language_service::AnalyzeEntities::new(self.inner.clone())
     }
 
@@ -168,8 +183,7 @@ impl LanguageService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn classify_text(&self) -> super::builder::language_service::ClassifyText
-    {
+    pub fn classify_text(&self) -> super::builder::language_service::ClassifyText {
         super::builder::language_service::ClassifyText::new(self.inner.clone())
     }
 
@@ -190,8 +204,7 @@ impl LanguageService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn moderate_text(&self) -> super::builder::language_service::ModerateText
-    {
+    pub fn moderate_text(&self) -> super::builder::language_service::ModerateText {
         super::builder::language_service::ModerateText::new(self.inner.clone())
     }
 
@@ -212,8 +225,7 @@ impl LanguageService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn annotate_text(&self) -> super::builder::language_service::AnnotateText
-    {
+    pub fn annotate_text(&self) -> super::builder::language_service::AnnotateText {
         super::builder::language_service::AnnotateText::new(self.inner.clone())
     }
 }

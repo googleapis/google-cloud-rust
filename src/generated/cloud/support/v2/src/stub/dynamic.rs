@@ -22,7 +22,6 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAttachmentsResponse>>;
-
 }
 
 /// All implementations of [super::CaseAttachmentService] also implement [CaseAttachmentService].
@@ -36,7 +35,6 @@ impl<T: super::CaseAttachmentService> CaseAttachmentService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         T::list_attachments(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::CaseService].
@@ -89,7 +87,6 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>>;
-
 }
 
 /// All implementations of [super::CaseService] also implement [CaseService].
@@ -163,10 +160,10 @@ impl<T: super::CaseService> CaseService for T {
         &self,
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>>
+    {
         T::search_case_classifications(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::CommentService].
@@ -183,7 +180,6 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateCommentRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Comment>>;
-
 }
 
 /// All implementations of [super::CommentService] also implement [CommentService].
@@ -206,5 +202,4 @@ impl<T: super::CommentService> CommentService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Comment>> {
         T::create_comment(self, req, options).await
     }
-
 }

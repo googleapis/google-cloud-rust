@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,6 +30,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BacktestResult {
-
     /// Output only. The resource name of the BacktestResult.
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/backtestResults/{backtest_result}`
@@ -55,7 +54,7 @@ pub struct BacktestResult {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the BacktestResult (creating, active, deleting, etc.)
     pub state: crate::model::backtest_result::State,
@@ -117,7 +116,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -133,7 +133,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -148,7 +149,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -164,7 +166,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -201,7 +204,10 @@ impl BacktestResult {
     /// let x1 = BacktestResult::new().set_state(State::Active);
     /// let x2 = BacktestResult::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::backtest_result::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::backtest_result::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -239,7 +245,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -255,7 +262,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -282,7 +290,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_performance_target(PerformanceTarget::default()/* use setters */);
     /// ```
     pub fn set_performance_target<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>
+    where
+        T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>,
     {
         self.performance_target = std::option::Option::Some(v.into());
         self
@@ -298,7 +307,8 @@ impl BacktestResult {
     /// let x = BacktestResult::new().set_or_clear_performance_target(None::<PerformanceTarget>);
     /// ```
     pub fn set_or_clear_performance_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>
+    where
+        T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>,
     {
         self.performance_target = v.map(|x| x.into());
         self
@@ -313,7 +323,10 @@ impl BacktestResult {
     /// let x0 = BacktestResult::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = BacktestResult::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -330,13 +343,11 @@ pub mod backtest_result {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// PerformanceTarget gives hints on how to evaluate the performance of a
     /// model.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceTarget {
-
         /// Required. A number that gives the tuner a hint on the number of parties
         /// from this data that will be investigated per period (monthly). This is
         /// used to control how the model is evaluated. For example, when trying AML
@@ -360,7 +371,10 @@ pub mod backtest_result {
         /// # use google_cloud_financialservices_v1::model::backtest_result::PerformanceTarget;
         /// let x = PerformanceTarget::new().set_party_investigations_per_period_hint(42);
         /// ```
-        pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.party_investigations_per_period_hint = v.into();
             self
         }
@@ -468,7 +482,9 @@ pub mod backtest_result {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -482,7 +498,9 @@ pub mod backtest_result {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -509,7 +527,8 @@ pub mod backtest_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.BacktestResult.State"))
+                ".google.cloud.financialservices.v1.BacktestResult.State",
+            ))
         }
     }
 }
@@ -519,7 +538,6 @@ pub mod backtest_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBacktestResultsRequest {
-
     /// Required. The parent of the BacktestResult is the Instance.
     pub parent: std::string::String,
 
@@ -620,7 +638,6 @@ impl wkt::message::Message for ListBacktestResultsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBacktestResultsResponse {
-
     /// List of BacktestResult resources
     pub backtest_results: std::vec::Vec<crate::model::BacktestResult>,
 
@@ -655,7 +672,7 @@ impl ListBacktestResultsResponse {
     pub fn set_backtest_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BacktestResult>
+        V: std::convert::Into<crate::model::BacktestResult>,
     {
         use std::iter::Iterator;
         self.backtest_results = v.into_iter().map(|i| i.into()).collect();
@@ -684,7 +701,7 @@ impl ListBacktestResultsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -716,7 +733,6 @@ impl gax::paginator::internal::PageableResponse for ListBacktestResultsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBacktestResultRequest {
-
     /// Required. The resource name of the BacktestResult
     pub name: std::string::String,
 
@@ -751,7 +767,6 @@ impl wkt::message::Message for GetBacktestResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBacktestResultRequest {
-
     /// Required. The parent of the BacktestResult is the Instance.
     pub parent: std::string::String,
 
@@ -803,7 +818,10 @@ impl CreateBacktestResultRequest {
     /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
     /// let x = CreateBacktestResultRequest::new().set_backtest_result_id("example");
     /// ```
-    pub fn set_backtest_result_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_backtest_result_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.backtest_result_id = v.into();
         self
     }
@@ -817,7 +835,8 @@ impl CreateBacktestResultRequest {
     /// let x = CreateBacktestResultRequest::new().set_backtest_result(BacktestResult::default()/* use setters */);
     /// ```
     pub fn set_backtest_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BacktestResult>
+    where
+        T: std::convert::Into<crate::model::BacktestResult>,
     {
         self.backtest_result = std::option::Option::Some(v.into());
         self
@@ -833,7 +852,8 @@ impl CreateBacktestResultRequest {
     /// let x = CreateBacktestResultRequest::new().set_or_clear_backtest_result(None::<BacktestResult>);
     /// ```
     pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BacktestResult>
+    where
+        T: std::convert::Into<crate::model::BacktestResult>,
     {
         self.backtest_result = v.map(|x| x.into());
         self
@@ -862,7 +882,6 @@ impl wkt::message::Message for CreateBacktestResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBacktestResultRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// BacktestResult resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -906,7 +925,8 @@ impl UpdateBacktestResultRequest {
     /// let x = UpdateBacktestResultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -922,7 +942,8 @@ impl UpdateBacktestResultRequest {
     /// let x = UpdateBacktestResultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -937,7 +958,8 @@ impl UpdateBacktestResultRequest {
     /// let x = UpdateBacktestResultRequest::new().set_backtest_result(BacktestResult::default()/* use setters */);
     /// ```
     pub fn set_backtest_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BacktestResult>
+    where
+        T: std::convert::Into<crate::model::BacktestResult>,
     {
         self.backtest_result = std::option::Option::Some(v.into());
         self
@@ -953,7 +975,8 @@ impl UpdateBacktestResultRequest {
     /// let x = UpdateBacktestResultRequest::new().set_or_clear_backtest_result(None::<BacktestResult>);
     /// ```
     pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BacktestResult>
+    where
+        T: std::convert::Into<crate::model::BacktestResult>,
     {
         self.backtest_result = v.map(|x| x.into());
         self
@@ -982,7 +1005,6 @@ impl wkt::message::Message for UpdateBacktestResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBacktestResultRequest {
-
     /// Required. The resource name of the BacktestResult.
     pub name: std::string::String,
 
@@ -1044,7 +1066,6 @@ impl wkt::message::Message for DeleteBacktestResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportBacktestResultMetadataRequest {
-
     /// Required. The resource name of the BacktestResult.
     pub backtest_result: std::string::String,
 
@@ -1080,7 +1101,8 @@ impl ExportBacktestResultMetadataRequest {
     /// let x = ExportBacktestResultMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
     /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = std::option::Option::Some(v.into());
         self
@@ -1095,8 +1117,12 @@ impl ExportBacktestResultMetadataRequest {
     /// let x = ExportBacktestResultMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
     /// let x = ExportBacktestResultMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
     /// ```
-    pub fn set_or_clear_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    pub fn set_or_clear_structured_metadata_destination<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = v.map(|x| x.into());
         self
@@ -1113,7 +1139,6 @@ impl wkt::message::Message for ExportBacktestResultMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportBacktestResultMetadataResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1133,7 +1158,6 @@ impl wkt::message::Message for ExportBacktestResultMetadataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDestination {
-
     /// Optional. BigQuery URI to a table, must be of the form
     /// bq://projectId.bqDatasetId.tableId.
     /// Note that the BigQuery dataset must already exist.
@@ -1174,7 +1198,12 @@ impl BigQueryDestination {
     /// let x0 = BigQueryDestination::new().set_write_disposition(WriteDisposition::WriteEmpty);
     /// let x1 = BigQueryDestination::new().set_write_disposition(WriteDisposition::WriteTruncate);
     /// ```
-    pub fn set_write_disposition<T: std::convert::Into<crate::model::big_query_destination::WriteDisposition>>(mut self, v: T) -> Self {
+    pub fn set_write_disposition<
+        T: std::convert::Into<crate::model::big_query_destination::WriteDisposition>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.write_disposition = v.into();
         self
     }
@@ -1190,7 +1219,6 @@ impl wkt::message::Message for BigQueryDestination {
 pub mod big_query_destination {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// WriteDisposition controls the behavior when the destination table already
     /// exists.
@@ -1279,7 +1307,9 @@ pub mod big_query_destination {
                 0 => Self::Unspecified,
                 1 => Self::WriteEmpty,
                 2 => Self::WriteTruncate,
-                _ => Self::UnknownValue(write_disposition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(write_disposition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1291,7 +1321,9 @@ pub mod big_query_destination {
                 "WRITE_DISPOSITION_UNSPECIFIED" => Self::Unspecified,
                 "WRITE_EMPTY" => Self::WriteEmpty,
                 "WRITE_TRUNCATE" => Self::WriteTruncate,
-                _ => Self::UnknownValue(write_disposition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(write_disposition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1316,7 +1348,8 @@ pub mod big_query_destination {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<WriteDisposition>::new(
-                ".google.cloud.financialservices.v1.BigQueryDestination.WriteDisposition"))
+                ".google.cloud.financialservices.v1.BigQueryDestination.WriteDisposition",
+            ))
         }
     }
 }
@@ -1325,7 +1358,6 @@ pub mod big_query_destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dataset {
-
     /// Output only. The resource name of the Dataset.
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}`
@@ -1338,7 +1370,7 @@ pub struct Dataset {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The set of BigQuery tables in the dataset.  The key should be the
     /// table type and the value should be the BigQuery tables in the format
@@ -1350,7 +1382,7 @@ pub struct Dataset {
     /// * `transaction`
     /// * `risk_case_event`
     /// * `party_supplementary_data`
-    pub table_specs: std::collections::HashMap<std::string::String,std::string::String>,
+    pub table_specs: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the dataset (creating, active, deleting, etc.)
     pub state: crate::model::dataset::State,
@@ -1391,7 +1423,8 @@ impl Dataset {
     /// let x = Dataset::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1407,7 +1440,8 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1422,7 +1456,8 @@ impl Dataset {
     /// let x = Dataset::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1438,7 +1473,8 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1510,7 +1546,8 @@ impl Dataset {
     /// let x = Dataset::new().set_date_range(Interval::default()/* use setters */);
     /// ```
     pub fn set_date_range<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.date_range = std::option::Option::Some(v.into());
         self
@@ -1526,7 +1563,8 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_date_range(None::<Interval>);
     /// ```
     pub fn set_or_clear_date_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.date_range = v.map(|x| x.into());
         self
@@ -1541,7 +1579,8 @@ impl Dataset {
     /// let x = Dataset::new().set_time_zone(TimeZone::default()/* use setters */);
     /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::TimeZone>
+    where
+        T: std::convert::Into<gtype::model::TimeZone>,
     {
         self.time_zone = std::option::Option::Some(v.into());
         self
@@ -1557,7 +1596,8 @@ impl Dataset {
     /// let x = Dataset::new().set_or_clear_time_zone(None::<TimeZone>);
     /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::TimeZone>
+    where
+        T: std::convert::Into<gtype::model::TimeZone>,
     {
         self.time_zone = v.map(|x| x.into());
         self
@@ -1574,7 +1614,6 @@ impl wkt::message::Message for Dataset {
 pub mod dataset {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states of a resource.
     ///
@@ -1672,7 +1711,9 @@ pub mod dataset {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1686,7 +1727,9 @@ pub mod dataset {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1713,7 +1756,8 @@ pub mod dataset {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.Dataset.State"))
+                ".google.cloud.financialservices.v1.Dataset.State",
+            ))
         }
     }
 }
@@ -1723,7 +1767,6 @@ pub mod dataset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsRequest {
-
     /// Required. The parent of the Dataset is the Instance.
     pub parent: std::string::String,
 
@@ -1823,7 +1866,6 @@ impl wkt::message::Message for ListDatasetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsResponse {
-
     /// List of Dataset resources
     pub datasets: std::vec::Vec<crate::model::Dataset>,
 
@@ -1857,7 +1899,7 @@ impl ListDatasetsResponse {
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Dataset>
+        V: std::convert::Into<crate::model::Dataset>,
     {
         use std::iter::Iterator;
         self.datasets = v.into_iter().map(|i| i.into()).collect();
@@ -1886,7 +1928,7 @@ impl ListDatasetsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1918,7 +1960,6 @@ impl gax::paginator::internal::PageableResponse for ListDatasetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatasetRequest {
-
     /// Required. The resource name of the Dataset
     pub name: std::string::String,
 
@@ -1953,7 +1994,6 @@ impl wkt::message::Message for GetDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetRequest {
-
     /// Required. The parent of the Dataset is the Instance.
     pub parent: std::string::String,
 
@@ -2019,7 +2059,8 @@ impl CreateDatasetRequest {
     /// let x = CreateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
     /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Dataset>
+    where
+        T: std::convert::Into<crate::model::Dataset>,
     {
         self.dataset = std::option::Option::Some(v.into());
         self
@@ -2035,7 +2076,8 @@ impl CreateDatasetRequest {
     /// let x = CreateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
     /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Dataset>
+    where
+        T: std::convert::Into<crate::model::Dataset>,
     {
         self.dataset = v.map(|x| x.into());
         self
@@ -2064,7 +2106,6 @@ impl wkt::message::Message for CreateDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatasetRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Dataset resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2108,7 +2149,8 @@ impl UpdateDatasetRequest {
     /// let x = UpdateDatasetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2124,7 +2166,8 @@ impl UpdateDatasetRequest {
     /// let x = UpdateDatasetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2139,7 +2182,8 @@ impl UpdateDatasetRequest {
     /// let x = UpdateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
     /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Dataset>
+    where
+        T: std::convert::Into<crate::model::Dataset>,
     {
         self.dataset = std::option::Option::Some(v.into());
         self
@@ -2155,7 +2199,8 @@ impl UpdateDatasetRequest {
     /// let x = UpdateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
     /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Dataset>
+    where
+        T: std::convert::Into<crate::model::Dataset>,
     {
         self.dataset = v.map(|x| x.into());
         self
@@ -2184,7 +2229,6 @@ impl wkt::message::Message for UpdateDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetRequest {
-
     /// Required. The resource name of the Dataset.
     pub name: std::string::String,
 
@@ -2246,7 +2290,6 @@ impl wkt::message::Message for DeleteDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EngineConfig {
-
     /// Output only. The resource name of the EngineConfig.
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}`
@@ -2259,7 +2302,7 @@ pub struct EngineConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the EngineConfig (creating, active, deleting, etc.)
     pub state: crate::model::engine_config::State,
@@ -2290,7 +2333,8 @@ pub struct EngineConfig {
     pub hyperparameter_source_type: crate::model::engine_config::HyperparameterSourceType,
 
     /// Optional. Configuration of hyperparameters source EngineConfig.
-    pub hyperparameter_source: std::option::Option<crate::model::engine_config::HyperparameterSource>,
+    pub hyperparameter_source:
+        std::option::Option<crate::model::engine_config::HyperparameterSource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2321,7 +2365,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2337,7 +2382,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2352,7 +2398,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2368,7 +2415,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2405,7 +2453,10 @@ impl EngineConfig {
     /// let x1 = EngineConfig::new().set_state(State::Active);
     /// let x2 = EngineConfig::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::engine_config::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::engine_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -2431,7 +2482,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_tuning(Tuning::default()/* use setters */);
     /// ```
     pub fn set_tuning<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::engine_config::Tuning>
+    where
+        T: std::convert::Into<crate::model::engine_config::Tuning>,
     {
         self.tuning = std::option::Option::Some(v.into());
         self
@@ -2447,7 +2499,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_or_clear_tuning(None::<Tuning>);
     /// ```
     pub fn set_or_clear_tuning<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::engine_config::Tuning>
+    where
+        T: std::convert::Into<crate::model::engine_config::Tuning>,
     {
         self.tuning = v.map(|x| x.into());
         self
@@ -2462,7 +2515,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_performance_target(PerformanceTarget::default()/* use setters */);
     /// ```
     pub fn set_performance_target<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::engine_config::PerformanceTarget>
+    where
+        T: std::convert::Into<crate::model::engine_config::PerformanceTarget>,
     {
         self.performance_target = std::option::Option::Some(v.into());
         self
@@ -2478,7 +2532,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_or_clear_performance_target(None::<PerformanceTarget>);
     /// ```
     pub fn set_or_clear_performance_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::engine_config::PerformanceTarget>
+    where
+        T: std::convert::Into<crate::model::engine_config::PerformanceTarget>,
     {
         self.performance_target = v.map(|x| x.into());
         self
@@ -2493,7 +2548,10 @@ impl EngineConfig {
     /// let x0 = EngineConfig::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = EngineConfig::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -2507,7 +2565,12 @@ impl EngineConfig {
     /// let x0 = EngineConfig::new().set_hyperparameter_source_type(HyperparameterSourceType::Tuning);
     /// let x1 = EngineConfig::new().set_hyperparameter_source_type(HyperparameterSourceType::Inherited);
     /// ```
-    pub fn set_hyperparameter_source_type<T: std::convert::Into<crate::model::engine_config::HyperparameterSourceType>>(mut self, v: T) -> Self {
+    pub fn set_hyperparameter_source_type<
+        T: std::convert::Into<crate::model::engine_config::HyperparameterSourceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.hyperparameter_source_type = v.into();
         self
     }
@@ -2521,7 +2584,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_hyperparameter_source(HyperparameterSource::default()/* use setters */);
     /// ```
     pub fn set_hyperparameter_source<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::engine_config::HyperparameterSource>
+    where
+        T: std::convert::Into<crate::model::engine_config::HyperparameterSource>,
     {
         self.hyperparameter_source = std::option::Option::Some(v.into());
         self
@@ -2537,7 +2601,8 @@ impl EngineConfig {
     /// let x = EngineConfig::new().set_or_clear_hyperparameter_source(None::<HyperparameterSource>);
     /// ```
     pub fn set_or_clear_hyperparameter_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::engine_config::HyperparameterSource>
+    where
+        T: std::convert::Into<crate::model::engine_config::HyperparameterSource>,
     {
         self.hyperparameter_source = v.map(|x| x.into());
         self
@@ -2555,13 +2620,11 @@ pub mod engine_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The parameters needed for the tuning operation, these are used only in
     /// tuning and not passed on to training.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Tuning {
-
         /// Required. The resource name of the Primary Dataset used in this model
         /// tuning. For information about how primary and auxiliary datasets are
         /// used, refer to the engine version's documentation.  Format:
@@ -2588,7 +2651,10 @@ pub mod engine_config {
         /// # use google_cloud_financialservices_v1::model::engine_config::Tuning;
         /// let x = Tuning::new().set_primary_dataset("example");
         /// ```
-        pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.primary_dataset = v.into();
             self
         }
@@ -2602,7 +2668,8 @@ pub mod engine_config {
         /// let x = Tuning::new().set_end_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.end_time = std::option::Option::Some(v.into());
             self
@@ -2618,7 +2685,8 @@ pub mod engine_config {
         /// let x = Tuning::new().set_or_clear_end_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.end_time = v.map(|x| x.into());
             self
@@ -2636,7 +2704,6 @@ pub mod engine_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceTarget {
-
         /// Required. A number that gives the tuner a hint on the number of parties
         /// from this data that will be investigated per period (monthly). This is
         /// used to control how the model is evaluated. For example, when trying AML
@@ -2660,7 +2727,10 @@ pub mod engine_config {
         /// # use google_cloud_financialservices_v1::model::engine_config::PerformanceTarget;
         /// let x = PerformanceTarget::new().set_party_investigations_per_period_hint(42);
         /// ```
-        pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.party_investigations_per_period_hint = v.into();
             self
         }
@@ -2677,7 +2747,6 @@ pub mod engine_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HyperparameterSource {
-
         /// Required. The resource name of the source EngineConfig whose outputs are
         /// used. Format:
         /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}`
@@ -2703,7 +2772,10 @@ pub mod engine_config {
         /// # use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
         /// let x = HyperparameterSource::new().set_source_engine_config("example");
         /// ```
-        pub fn set_source_engine_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_source_engine_config<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.source_engine_config = v.into();
             self
         }
@@ -2715,7 +2787,10 @@ pub mod engine_config {
         /// # use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
         /// let x = HyperparameterSource::new().set_source_engine_version("example");
         /// ```
-        pub fn set_source_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_source_engine_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.source_engine_version = v.into();
             self
         }
@@ -2823,7 +2898,9 @@ pub mod engine_config {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2837,7 +2914,9 @@ pub mod engine_config {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2864,7 +2943,8 @@ pub mod engine_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.EngineConfig.State"))
+                ".google.cloud.financialservices.v1.EngineConfig.State",
+            ))
         }
     }
 
@@ -2928,7 +3008,9 @@ pub mod engine_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED")
+                }
                 Self::Tuning => std::option::Option::Some("TUNING"),
                 Self::Inherited => std::option::Option::Some("INHERITED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -2955,7 +3037,9 @@ pub mod engine_config {
                 0 => Self::Unspecified,
                 1 => Self::Tuning,
                 2 => Self::Inherited,
-                _ => Self::UnknownValue(hyperparameter_source_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(hyperparameter_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2967,7 +3051,9 @@ pub mod engine_config {
                 "HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TUNING" => Self::Tuning,
                 "INHERITED" => Self::Inherited,
-                _ => Self::UnknownValue(hyperparameter_source_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(hyperparameter_source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2991,8 +3077,11 @@ pub mod engine_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HyperparameterSourceType>::new(
-                ".google.cloud.financialservices.v1.EngineConfig.HyperparameterSourceType"))
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<HyperparameterSourceType>::new(
+                    ".google.cloud.financialservices.v1.EngineConfig.HyperparameterSourceType",
+                ),
+            )
         }
     }
 }
@@ -3002,7 +3091,6 @@ pub mod engine_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEngineConfigsRequest {
-
     /// Required. The parent of the EngineConfig is the Instance.
     pub parent: std::string::String,
 
@@ -3103,7 +3191,6 @@ impl wkt::message::Message for ListEngineConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEngineConfigsResponse {
-
     /// List of EngineConfig resources
     pub engine_configs: std::vec::Vec<crate::model::EngineConfig>,
 
@@ -3137,7 +3224,7 @@ impl ListEngineConfigsResponse {
     pub fn set_engine_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EngineConfig>
+        V: std::convert::Into<crate::model::EngineConfig>,
     {
         use std::iter::Iterator;
         self.engine_configs = v.into_iter().map(|i| i.into()).collect();
@@ -3166,7 +3253,7 @@ impl ListEngineConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3198,7 +3285,6 @@ impl gax::paginator::internal::PageableResponse for ListEngineConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEngineConfigRequest {
-
     /// Required. The resource name of the EngineConfig
     pub name: std::string::String,
 
@@ -3233,7 +3319,6 @@ impl wkt::message::Message for GetEngineConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEngineConfigRequest {
-
     /// Required. The parent of the EngineConfig is the Instance.
     pub parent: std::string::String,
 
@@ -3285,7 +3370,10 @@ impl CreateEngineConfigRequest {
     /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
     /// let x = CreateEngineConfigRequest::new().set_engine_config_id("example");
     /// ```
-    pub fn set_engine_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_engine_config_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.engine_config_id = v.into();
         self
     }
@@ -3299,7 +3387,8 @@ impl CreateEngineConfigRequest {
     /// let x = CreateEngineConfigRequest::new().set_engine_config(EngineConfig::default()/* use setters */);
     /// ```
     pub fn set_engine_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EngineConfig>
+    where
+        T: std::convert::Into<crate::model::EngineConfig>,
     {
         self.engine_config = std::option::Option::Some(v.into());
         self
@@ -3315,7 +3404,8 @@ impl CreateEngineConfigRequest {
     /// let x = CreateEngineConfigRequest::new().set_or_clear_engine_config(None::<EngineConfig>);
     /// ```
     pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EngineConfig>
+    where
+        T: std::convert::Into<crate::model::EngineConfig>,
     {
         self.engine_config = v.map(|x| x.into());
         self
@@ -3344,7 +3434,6 @@ impl wkt::message::Message for CreateEngineConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEngineConfigRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// EngineConfig resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -3388,7 +3477,8 @@ impl UpdateEngineConfigRequest {
     /// let x = UpdateEngineConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3404,7 +3494,8 @@ impl UpdateEngineConfigRequest {
     /// let x = UpdateEngineConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3419,7 +3510,8 @@ impl UpdateEngineConfigRequest {
     /// let x = UpdateEngineConfigRequest::new().set_engine_config(EngineConfig::default()/* use setters */);
     /// ```
     pub fn set_engine_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EngineConfig>
+    where
+        T: std::convert::Into<crate::model::EngineConfig>,
     {
         self.engine_config = std::option::Option::Some(v.into());
         self
@@ -3435,7 +3527,8 @@ impl UpdateEngineConfigRequest {
     /// let x = UpdateEngineConfigRequest::new().set_or_clear_engine_config(None::<EngineConfig>);
     /// ```
     pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EngineConfig>
+    where
+        T: std::convert::Into<crate::model::EngineConfig>,
     {
         self.engine_config = v.map(|x| x.into());
         self
@@ -3464,7 +3557,6 @@ impl wkt::message::Message for UpdateEngineConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEngineConfigRequest {
-
     /// Required. The resource name of the EngineConfig.
     pub name: std::string::String,
 
@@ -3526,7 +3618,6 @@ impl wkt::message::Message for DeleteEngineConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEngineConfigMetadataRequest {
-
     /// Required. The resource name of the EngineConfig.
     pub engine_config: std::string::String,
 
@@ -3562,7 +3653,8 @@ impl ExportEngineConfigMetadataRequest {
     /// let x = ExportEngineConfigMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
     /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = std::option::Option::Some(v.into());
         self
@@ -3577,8 +3669,12 @@ impl ExportEngineConfigMetadataRequest {
     /// let x = ExportEngineConfigMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
     /// let x = ExportEngineConfigMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
     /// ```
-    pub fn set_or_clear_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    pub fn set_or_clear_structured_metadata_destination<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = v.map(|x| x.into());
         self
@@ -3595,7 +3691,6 @@ impl wkt::message::Message for ExportEngineConfigMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEngineConfigMetadataResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3616,7 +3711,6 @@ impl wkt::message::Message for ExportEngineConfigMetadataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EngineVersion {
-
     /// Output only. Identifier. The resource name of the EngineVersion
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}`
@@ -3668,7 +3762,10 @@ impl EngineVersion {
     /// let x1 = EngineVersion::new().set_state(State::Limited);
     /// let x2 = EngineVersion::new().set_state(State::Decommissioned);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::engine_version::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::engine_version::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -3682,7 +3779,8 @@ impl EngineVersion {
     /// let x = EngineVersion::new().set_expected_limitation_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expected_limitation_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expected_limitation_start_time = std::option::Option::Some(v.into());
         self
@@ -3697,8 +3795,12 @@ impl EngineVersion {
     /// let x = EngineVersion::new().set_or_clear_expected_limitation_start_time(Some(Timestamp::default()/* use setters */));
     /// let x = EngineVersion::new().set_or_clear_expected_limitation_start_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_expected_limitation_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    pub fn set_or_clear_expected_limitation_start_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expected_limitation_start_time = v.map(|x| x.into());
         self
@@ -3713,7 +3815,8 @@ impl EngineVersion {
     /// let x = EngineVersion::new().set_expected_decommission_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expected_decommission_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expected_decommission_time = std::option::Option::Some(v.into());
         self
@@ -3729,7 +3832,8 @@ impl EngineVersion {
     /// let x = EngineVersion::new().set_or_clear_expected_decommission_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expected_decommission_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expected_decommission_time = v.map(|x| x.into());
         self
@@ -3744,7 +3848,10 @@ impl EngineVersion {
     /// let x0 = EngineVersion::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = EngineVersion::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -3760,7 +3867,6 @@ impl wkt::message::Message for EngineVersion {
 pub mod engine_version {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// State determines the lifecycle of a version and the models/engine configs
     /// trained with it.
@@ -3855,7 +3961,9 @@ pub mod engine_version {
                 1 => Self::Active,
                 2 => Self::Limited,
                 3 => Self::Decommissioned,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3868,7 +3976,9 @@ pub mod engine_version {
                 "ACTIVE" => Self::Active,
                 "LIMITED" => Self::Limited,
                 "DECOMMISSIONED" => Self::Decommissioned,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3894,7 +4004,8 @@ pub mod engine_version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.EngineVersion.State"))
+                ".google.cloud.financialservices.v1.EngineVersion.State",
+            ))
         }
     }
 }
@@ -3904,7 +4015,6 @@ pub mod engine_version {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEngineVersionsRequest {
-
     /// Required. The parent of the EngineVersion is the Instance.
     pub parent: std::string::String,
 
@@ -4007,7 +4117,6 @@ impl wkt::message::Message for ListEngineVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEngineVersionsResponse {
-
     /// List of EngineVersion resources
     pub engine_versions: std::vec::Vec<crate::model::EngineVersion>,
 
@@ -4041,7 +4150,7 @@ impl ListEngineVersionsResponse {
     pub fn set_engine_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EngineVersion>
+        V: std::convert::Into<crate::model::EngineVersion>,
     {
         use std::iter::Iterator;
         self.engine_versions = v.into_iter().map(|i| i.into()).collect();
@@ -4070,7 +4179,7 @@ impl ListEngineVersionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4102,7 +4211,6 @@ impl gax::paginator::internal::PageableResponse for ListEngineVersionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEngineVersionRequest {
-
     /// Required. The resource name of the EngineVersion
     pub name: std::string::String,
 
@@ -4141,7 +4249,6 @@ impl wkt::message::Message for GetEngineVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-
     /// Output only. The full path to the Instance resource in this API.
     /// format: `projects/{project}/locations/{location}/instances/{instance}`
     pub name: std::string::String,
@@ -4159,7 +4266,7 @@ pub struct Instance {
     pub state: crate::model::instance::State,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The KMS key name used for CMEK (encryption-at-rest).
     /// format:
@@ -4196,7 +4303,8 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4212,7 +4320,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4227,7 +4336,8 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4243,7 +4353,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4308,7 +4419,6 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The Resource State
     ///
@@ -4406,7 +4516,9 @@ pub mod instance {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4420,7 +4532,9 @@ pub mod instance {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4447,7 +4561,8 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.Instance.State"))
+                ".google.cloud.financialservices.v1.Instance.State",
+            ))
         }
     }
 }
@@ -4457,7 +4572,6 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
-
     /// Required. The parent of the Instance is the location for that Instance.
     /// Every location has exactly one instance.
     pub parent: std::string::String,
@@ -4558,7 +4672,6 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
-
     /// List of Instance resources
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -4592,7 +4705,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>
+        V: std::convert::Into<crate::model::Instance>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -4621,7 +4734,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4653,7 +4766,6 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
-
     /// Required. The resource name of the Instance.
     pub name: std::string::String,
 
@@ -4688,7 +4800,6 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
-
     /// Required. The parent of the Instance is the location for that Instance.
     /// Every location has exactly one instance.
     pub parent: std::string::String,
@@ -4755,7 +4866,8 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -4771,7 +4883,8 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = v.map(|x| x.into());
         self
@@ -4800,7 +4913,6 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Instance resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -4844,7 +4956,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4860,7 +4973,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4875,7 +4989,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -4891,7 +5006,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = v.map(|x| x.into());
         self
@@ -4920,7 +5036,6 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
-
     /// Required. The resource name of the Instance.
     pub name: std::string::String,
 
@@ -4983,7 +5098,6 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportRegisteredPartiesRequest {
-
     /// Required. The full path to the Instance resource in this API.
     /// format: `projects/{project}/locations/{location}/instances/{instance}`
     pub name: std::string::String,
@@ -5036,7 +5150,7 @@ impl ImportRegisteredPartiesRequest {
     pub fn set_party_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.party_tables = v.into_iter().map(|i| i.into()).collect();
@@ -5052,7 +5166,12 @@ impl ImportRegisteredPartiesRequest {
     /// let x0 = ImportRegisteredPartiesRequest::new().set_mode(UpdateMode::Replace);
     /// let x1 = ImportRegisteredPartiesRequest::new().set_mode(UpdateMode::Append);
     /// ```
-    pub fn set_mode<T: std::convert::Into<crate::model::import_registered_parties_request::UpdateMode>>(mut self, v: T) -> Self {
+    pub fn set_mode<
+        T: std::convert::Into<crate::model::import_registered_parties_request::UpdateMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode = v.into();
         self
     }
@@ -5078,7 +5197,10 @@ impl ImportRegisteredPartiesRequest {
     /// let x0 = ImportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = ImportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -5094,7 +5216,6 @@ impl wkt::message::Message for ImportRegisteredPartiesRequest {
 pub mod import_registered_parties_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// UpdateMode controls the behavior for ImportRegisteredParties.
     ///
@@ -5182,7 +5303,9 @@ pub mod import_registered_parties_request {
                 0 => Self::Unspecified,
                 1 => Self::Replace,
                 2 => Self::Append,
-                _ => Self::UnknownValue(update_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(update_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5194,7 +5317,9 @@ pub mod import_registered_parties_request {
                 "UPDATE_MODE_UNSPECIFIED" => Self::Unspecified,
                 "REPLACE" => Self::Replace,
                 "APPEND" => Self::Append,
-                _ => Self::UnknownValue(update_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(update_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5219,7 +5344,8 @@ pub mod import_registered_parties_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<UpdateMode>::new(
-                ".google.cloud.financialservices.v1.ImportRegisteredPartiesRequest.UpdateMode"))
+                ".google.cloud.financialservices.v1.ImportRegisteredPartiesRequest.UpdateMode",
+            ))
         }
     }
 }
@@ -5228,7 +5354,6 @@ pub mod import_registered_parties_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportRegisteredPartiesResponse {
-
     /// Number of parties added by this operation.
     pub parties_added: i64,
 
@@ -5353,7 +5478,6 @@ impl wkt::message::Message for ImportRegisteredPartiesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportRegisteredPartiesRequest {
-
     /// Required. The full path to the Instance resource in this API.
     /// format: `projects/{project}/locations/{location}/instances/{instance}`
     pub name: std::string::String,
@@ -5393,7 +5517,8 @@ impl ExportRegisteredPartiesRequest {
     /// let x = ExportRegisteredPartiesRequest::new().set_dataset(BigQueryDestination::default()/* use setters */);
     /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.dataset = std::option::Option::Some(v.into());
         self
@@ -5409,7 +5534,8 @@ impl ExportRegisteredPartiesRequest {
     /// let x = ExportRegisteredPartiesRequest::new().set_or_clear_dataset(None::<BigQueryDestination>);
     /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.dataset = v.map(|x| x.into());
         self
@@ -5424,7 +5550,10 @@ impl ExportRegisteredPartiesRequest {
     /// let x0 = ExportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = ExportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -5440,7 +5569,6 @@ impl wkt::message::Message for ExportRegisteredPartiesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportRegisteredPartiesResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5460,7 +5588,6 @@ impl wkt::message::Message for ExportRegisteredPartiesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Model {
-
     /// Output only. The resource name of the Model.
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}`
@@ -5473,7 +5600,7 @@ pub struct Model {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the model (creating, active, deleting, etc.)
     pub state: crate::model::model::State,
@@ -5531,7 +5658,8 @@ impl Model {
     /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5547,7 +5675,8 @@ impl Model {
     /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5562,7 +5691,8 @@ impl Model {
     /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5578,7 +5708,8 @@ impl Model {
     /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5665,7 +5796,8 @@ impl Model {
     /// let x = Model::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5681,7 +5813,8 @@ impl Model {
     /// let x = Model::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5696,7 +5829,10 @@ impl Model {
     /// let x0 = Model::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = Model::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -5712,7 +5848,6 @@ impl wkt::message::Message for Model {
 pub mod model {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states of a resource.
     ///
@@ -5810,7 +5945,9 @@ pub mod model {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5824,7 +5961,9 @@ pub mod model {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5851,7 +5990,8 @@ pub mod model {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.Model.State"))
+                ".google.cloud.financialservices.v1.Model.State",
+            ))
         }
     }
 }
@@ -5861,7 +6001,6 @@ pub mod model {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsRequest {
-
     /// Required. The parent of the Model is the Instance.
     pub parent: std::string::String,
 
@@ -5961,7 +6100,6 @@ impl wkt::message::Message for ListModelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsResponse {
-
     /// List of Model resources
     pub models: std::vec::Vec<crate::model::Model>,
 
@@ -5995,7 +6133,7 @@ impl ListModelsResponse {
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Model>
+        V: std::convert::Into<crate::model::Model>,
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
@@ -6024,7 +6162,7 @@ impl ListModelsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -6056,7 +6194,6 @@ impl gax::paginator::internal::PageableResponse for ListModelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetModelRequest {
-
     /// Required. The resource name of the Model
     pub name: std::string::String,
 
@@ -6091,7 +6228,6 @@ impl wkt::message::Message for GetModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelRequest {
-
     /// Required. The parent of the Model is the Instance.
     pub parent: std::string::String,
 
@@ -6157,7 +6293,8 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
     /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Model>
+    where
+        T: std::convert::Into<crate::model::Model>,
     {
         self.model = std::option::Option::Some(v.into());
         self
@@ -6173,7 +6310,8 @@ impl CreateModelRequest {
     /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
     /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Model>
+    where
+        T: std::convert::Into<crate::model::Model>,
     {
         self.model = v.map(|x| x.into());
         self
@@ -6202,7 +6340,6 @@ impl wkt::message::Message for CreateModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateModelRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Model resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -6246,7 +6383,8 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6262,7 +6400,8 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6277,7 +6416,8 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_model(Model::default()/* use setters */);
     /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Model>
+    where
+        T: std::convert::Into<crate::model::Model>,
     {
         self.model = std::option::Option::Some(v.into());
         self
@@ -6293,7 +6433,8 @@ impl UpdateModelRequest {
     /// let x = UpdateModelRequest::new().set_or_clear_model(None::<Model>);
     /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Model>
+    where
+        T: std::convert::Into<crate::model::Model>,
     {
         self.model = v.map(|x| x.into());
         self
@@ -6322,7 +6463,6 @@ impl wkt::message::Message for UpdateModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelRequest {
-
     /// Required. The resource name of the Model.
     pub name: std::string::String,
 
@@ -6384,7 +6524,6 @@ impl wkt::message::Message for DeleteModelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportModelMetadataRequest {
-
     /// Required. The resource name of the Model.
     pub model: std::string::String,
 
@@ -6420,7 +6559,8 @@ impl ExportModelMetadataRequest {
     /// let x = ExportModelMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
     /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = std::option::Option::Some(v.into());
         self
@@ -6435,8 +6575,12 @@ impl ExportModelMetadataRequest {
     /// let x = ExportModelMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
     /// let x = ExportModelMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
     /// ```
-    pub fn set_or_clear_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    pub fn set_or_clear_structured_metadata_destination<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = v.map(|x| x.into());
         self
@@ -6453,7 +6597,6 @@ impl wkt::message::Message for ExportModelMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportModelMetadataResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6473,7 +6616,6 @@ impl wkt::message::Message for ExportModelMetadataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredictionResult {
-
     /// Output only. The resource name of the PredictionResult.
     /// format:
     /// `/projects/{project_num}/locations/{location}/instances/{instance}/predictionResults/{prediction_result}`
@@ -6486,7 +6628,7 @@ pub struct PredictionResult {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the PredictionResult (creating, active, deleting,
     /// etc.)
@@ -6554,7 +6696,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6570,7 +6713,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6585,7 +6729,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6601,7 +6746,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6638,7 +6784,10 @@ impl PredictionResult {
     /// let x1 = PredictionResult::new().set_state(State::Active);
     /// let x2 = PredictionResult::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::prediction_result::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::prediction_result::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -6676,7 +6825,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -6692,7 +6842,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -6719,7 +6870,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_outputs(Outputs::default()/* use setters */);
     /// ```
     pub fn set_outputs<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::prediction_result::Outputs>
+    where
+        T: std::convert::Into<crate::model::prediction_result::Outputs>,
     {
         self.outputs = std::option::Option::Some(v.into());
         self
@@ -6735,7 +6887,8 @@ impl PredictionResult {
     /// let x = PredictionResult::new().set_or_clear_outputs(None::<Outputs>);
     /// ```
     pub fn set_or_clear_outputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::prediction_result::Outputs>
+    where
+        T: std::convert::Into<crate::model::prediction_result::Outputs>,
     {
         self.outputs = v.map(|x| x.into());
         self
@@ -6750,7 +6903,10 @@ impl PredictionResult {
     /// let x0 = PredictionResult::new().set_line_of_business(LineOfBusiness::Commercial);
     /// let x1 = PredictionResult::new().set_line_of_business(LineOfBusiness::Retail);
     /// ```
-    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(mut self, v: T) -> Self {
+    pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.line_of_business = v.into();
         self
     }
@@ -6767,12 +6923,10 @@ pub mod prediction_result {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Outputs is a list of places where the operation will write results.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Outputs {
-
         /// Required. The location to output the predictions.
         pub prediction_destination: std::option::Option<crate::model::BigQueryDestination>,
 
@@ -6797,7 +6951,8 @@ pub mod prediction_result {
         /// let x = Outputs::new().set_prediction_destination(BigQueryDestination::default()/* use setters */);
         /// ```
         pub fn set_prediction_destination<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BigQueryDestination>
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
         {
             self.prediction_destination = std::option::Option::Some(v.into());
             self
@@ -6813,7 +6968,8 @@ pub mod prediction_result {
         /// let x = Outputs::new().set_or_clear_prediction_destination(None::<BigQueryDestination>);
         /// ```
         pub fn set_or_clear_prediction_destination<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BigQueryDestination>
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
         {
             self.prediction_destination = v.map(|x| x.into());
             self
@@ -6828,7 +6984,8 @@ pub mod prediction_result {
         /// let x = Outputs::new().set_explainability_destination(BigQueryDestination::default()/* use setters */);
         /// ```
         pub fn set_explainability_destination<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BigQueryDestination>
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
         {
             self.explainability_destination = std::option::Option::Some(v.into());
             self
@@ -6843,8 +7000,12 @@ pub mod prediction_result {
         /// let x = Outputs::new().set_or_clear_explainability_destination(Some(BigQueryDestination::default()/* use setters */));
         /// let x = Outputs::new().set_or_clear_explainability_destination(None::<BigQueryDestination>);
         /// ```
-        pub fn set_or_clear_explainability_destination<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BigQueryDestination>
+        pub fn set_or_clear_explainability_destination<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
         {
             self.explainability_destination = v.map(|x| x.into());
             self
@@ -6953,7 +7114,9 @@ pub mod prediction_result {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6967,7 +7130,9 @@ pub mod prediction_result {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6994,7 +7159,8 @@ pub mod prediction_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.financialservices.v1.PredictionResult.State"))
+                ".google.cloud.financialservices.v1.PredictionResult.State",
+            ))
         }
     }
 }
@@ -7004,7 +7170,6 @@ pub mod prediction_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPredictionResultsRequest {
-
     /// Required. The parent of the PredictionResult is the Instance.
     pub parent: std::string::String,
 
@@ -7105,7 +7270,6 @@ impl wkt::message::Message for ListPredictionResultsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPredictionResultsResponse {
-
     /// List of PredictionResult resources
     pub prediction_results: std::vec::Vec<crate::model::PredictionResult>,
 
@@ -7140,7 +7304,7 @@ impl ListPredictionResultsResponse {
     pub fn set_prediction_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PredictionResult>
+        V: std::convert::Into<crate::model::PredictionResult>,
     {
         use std::iter::Iterator;
         self.prediction_results = v.into_iter().map(|i| i.into()).collect();
@@ -7169,7 +7333,7 @@ impl ListPredictionResultsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -7201,7 +7365,6 @@ impl gax::paginator::internal::PageableResponse for ListPredictionResultsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPredictionResultRequest {
-
     /// Required. The resource name of the PredictionResult
     pub name: std::string::String,
 
@@ -7236,7 +7399,6 @@ impl wkt::message::Message for GetPredictionResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePredictionResultRequest {
-
     /// Required. The parent of the PredictionResult is the Instance.
     pub parent: std::string::String,
 
@@ -7288,7 +7450,10 @@ impl CreatePredictionResultRequest {
     /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
     /// let x = CreatePredictionResultRequest::new().set_prediction_result_id("example");
     /// ```
-    pub fn set_prediction_result_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_prediction_result_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.prediction_result_id = v.into();
         self
     }
@@ -7302,7 +7467,8 @@ impl CreatePredictionResultRequest {
     /// let x = CreatePredictionResultRequest::new().set_prediction_result(PredictionResult::default()/* use setters */);
     /// ```
     pub fn set_prediction_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PredictionResult>
+    where
+        T: std::convert::Into<crate::model::PredictionResult>,
     {
         self.prediction_result = std::option::Option::Some(v.into());
         self
@@ -7318,7 +7484,8 @@ impl CreatePredictionResultRequest {
     /// let x = CreatePredictionResultRequest::new().set_or_clear_prediction_result(None::<PredictionResult>);
     /// ```
     pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PredictionResult>
+    where
+        T: std::convert::Into<crate::model::PredictionResult>,
     {
         self.prediction_result = v.map(|x| x.into());
         self
@@ -7347,7 +7514,6 @@ impl wkt::message::Message for CreatePredictionResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePredictionResultRequest {
-
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// PredictionResult resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -7391,7 +7557,8 @@ impl UpdatePredictionResultRequest {
     /// let x = UpdatePredictionResultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7407,7 +7574,8 @@ impl UpdatePredictionResultRequest {
     /// let x = UpdatePredictionResultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7422,7 +7590,8 @@ impl UpdatePredictionResultRequest {
     /// let x = UpdatePredictionResultRequest::new().set_prediction_result(PredictionResult::default()/* use setters */);
     /// ```
     pub fn set_prediction_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PredictionResult>
+    where
+        T: std::convert::Into<crate::model::PredictionResult>,
     {
         self.prediction_result = std::option::Option::Some(v.into());
         self
@@ -7438,7 +7607,8 @@ impl UpdatePredictionResultRequest {
     /// let x = UpdatePredictionResultRequest::new().set_or_clear_prediction_result(None::<PredictionResult>);
     /// ```
     pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PredictionResult>
+    where
+        T: std::convert::Into<crate::model::PredictionResult>,
     {
         self.prediction_result = v.map(|x| x.into());
         self
@@ -7467,7 +7637,6 @@ impl wkt::message::Message for UpdatePredictionResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePredictionResultRequest {
-
     /// Required. The resource name of the PredictionResult.
     pub name: std::string::String,
 
@@ -7529,7 +7698,6 @@ impl wkt::message::Message for DeletePredictionResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportPredictionResultMetadataRequest {
-
     /// Required. The resource name of the PredictionResult.
     pub prediction_result: std::string::String,
 
@@ -7551,7 +7719,10 @@ impl ExportPredictionResultMetadataRequest {
     /// # use google_cloud_financialservices_v1::model::ExportPredictionResultMetadataRequest;
     /// let x = ExportPredictionResultMetadataRequest::new().set_prediction_result("example");
     /// ```
-    pub fn set_prediction_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_prediction_result<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.prediction_result = v.into();
         self
     }
@@ -7565,7 +7736,8 @@ impl ExportPredictionResultMetadataRequest {
     /// let x = ExportPredictionResultMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
     /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = std::option::Option::Some(v.into());
         self
@@ -7580,8 +7752,12 @@ impl ExportPredictionResultMetadataRequest {
     /// let x = ExportPredictionResultMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
     /// let x = ExportPredictionResultMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
     /// ```
-    pub fn set_or_clear_structured_metadata_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BigQueryDestination>
+    pub fn set_or_clear_structured_metadata_destination<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryDestination>,
     {
         self.structured_metadata_destination = v.map(|x| x.into());
         self
@@ -7598,7 +7774,6 @@ impl wkt::message::Message for ExportPredictionResultMetadataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportPredictionResultMetadataResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7618,7 +7793,6 @@ impl wkt::message::Message for ExportPredictionResultMetadataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -7666,7 +7840,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7682,7 +7857,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7697,7 +7873,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -7713,7 +7890,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -7872,7 +8050,9 @@ impl std::convert::From<i32> for LineOfBusiness {
             0 => Self::Unspecified,
             1 => Self::Commercial,
             2 => Self::Retail,
-            _ => Self::UnknownValue(line_of_business::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(line_of_business::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -7884,7 +8064,9 @@ impl std::convert::From<&str> for LineOfBusiness {
             "LINE_OF_BUSINESS_UNSPECIFIED" => Self::Unspecified,
             "COMMERCIAL" => Self::Commercial,
             "RETAIL" => Self::Retail,
-            _ => Self::UnknownValue(line_of_business::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(line_of_business::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -7909,6 +8091,7 @@ impl<'de> serde::de::Deserialize<'de> for LineOfBusiness {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineOfBusiness>::new(
-            ".google.cloud.financialservices.v1.LineOfBusiness"))
+            ".google.cloud.financialservices.v1.LineOfBusiness",
+        ))
     }
 }

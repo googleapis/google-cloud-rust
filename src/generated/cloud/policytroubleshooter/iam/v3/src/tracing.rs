@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [PolicyTroubleshooter](super::stub::PolicyTroubleshooter) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyTroubleshooter<T>
-where T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PolicyTroubleshooter<T>
-where T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyTroubleshooter for PolicyTroubleshooter<T>
-where T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn troubleshoot_iam_policy(
         &self,
@@ -39,6 +45,4 @@ where T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         self.inner.troubleshoot_iam_policy(req, options).await
     }
-
 }
-

@@ -104,28 +104,42 @@ impl IAMPolicy {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::IAMPolicy + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::IAMPolicy + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMPolicy>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMPolicy>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
         super::transport::IAMPolicy::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
-        Self::build_transport(conf).await.map(super::tracing::IAMPolicy::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::IAMPolicy::new)
     }
 
     /// Sets the access control policy on the specified resource. Replaces any
@@ -148,8 +162,7 @@ impl IAMPolicy {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::iam_policy::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::iam_policy::SetIamPolicy {
         super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -172,8 +185,7 @@ impl IAMPolicy {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::iam_policy::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::iam_policy::GetIamPolicy {
         super::builder::iam_policy::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -200,8 +212,7 @@ impl IAMPolicy {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::iam_policy::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::iam_policy::TestIamPermissions {
         super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
     }
 }

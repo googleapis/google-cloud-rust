@@ -68,8 +68,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket(&self) -> crate::builder::storage_control::DeleteBucket
-    {
+    pub fn delete_bucket(&self) -> crate::builder::storage_control::DeleteBucket {
         self.storage.delete_bucket()
     }
 
@@ -101,8 +100,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket(&self) -> crate::builder::storage_control::GetBucket
-    {
+    pub fn get_bucket(&self) -> crate::builder::storage_control::GetBucket {
         self.storage.get_bucket()
     }
 
@@ -133,8 +131,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket(&self) -> crate::builder::storage_control::CreateBucket
-    {
+    pub fn create_bucket(&self) -> crate::builder::storage_control::CreateBucket {
         self.storage.create_bucket()
     }
 
@@ -149,8 +146,7 @@ impl StorageControl {
     ///
     /// - To list the IAM policies: `storage.buckets.getIamPolicy`
     /// - To list the bucket IP filtering rules: `storage.buckets.getIpFilter`
-    pub fn list_buckets(&self) -> crate::builder::storage_control::ListBuckets
-    {
+    pub fn list_buckets(&self) -> crate::builder::storage_control::ListBuckets {
         self.storage.list_buckets()
     }
 
@@ -189,8 +185,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn lock_bucket_retention_policy(&self) -> crate::builder::storage_control::LockBucketRetentionPolicy
-    {
+    pub fn lock_bucket_retention_policy(
+        &self,
+    ) -> crate::builder::storage_control::LockBucketRetentionPolicy {
         self.storage.lock_bucket_retention_policy()
     }
 
@@ -223,8 +220,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_bucket(&self) -> crate::builder::storage_control::UpdateBucket
-    {
+    pub fn update_bucket(&self) -> crate::builder::storage_control::UpdateBucket {
         self.storage.update_bucket()
     }
 
@@ -255,8 +251,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn compose_object(&self) -> crate::builder::storage_control::ComposeObject
-    {
+    pub fn compose_object(&self) -> crate::builder::storage_control::ComposeObject {
         self.storage.compose_object()
     }
 
@@ -295,8 +290,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_object(&self) -> crate::builder::storage_control::DeleteObject
-    {
+    pub fn delete_object(&self) -> crate::builder::storage_control::DeleteObject {
         self.storage.delete_object()
     }
 
@@ -353,8 +347,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn restore_object(&self) -> crate::builder::storage_control::RestoreObject
-    {
+    pub fn restore_object(&self) -> crate::builder::storage_control::RestoreObject {
         self.storage.restore_object()
     }
 
@@ -381,8 +374,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_object(&self) -> crate::builder::storage_control::GetObject
-    {
+    pub fn get_object(&self) -> crate::builder::storage_control::GetObject {
         self.storage.get_object()
     }
 
@@ -408,8 +400,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_object(&self) -> crate::builder::storage_control::UpdateObject
-    {
+    pub fn update_object(&self) -> crate::builder::storage_control::UpdateObject {
         self.storage.update_object()
     }
 
@@ -421,8 +412,7 @@ impl StorageControl {
     /// IAM permission to use this method. To return object ACLs, the
     /// authenticated user must also
     /// have the `storage.objects.getIamPolicy` permission.
-    pub fn list_objects(&self) -> crate::builder::storage_control::ListObjects
-    {
+    pub fn list_objects(&self) -> crate::builder::storage_control::ListObjects {
         self.storage.list_objects()
     }
 
@@ -444,8 +434,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn rewrite_object(&self) -> crate::builder::storage_control::RewriteObject
-    {
+    pub fn rewrite_object(&self) -> crate::builder::storage_control::RewriteObject {
         self.storage.rewrite_object()
     }
 
@@ -479,8 +468,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn move_object(&self) -> crate::builder::storage_control::MoveObject
-    {
+    pub fn move_object(&self) -> crate::builder::storage_control::MoveObject {
         self.storage.move_object()
     }
 
@@ -502,8 +490,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(&self) -> crate::builder::storage_control::CreateFolder
-    {
+    pub fn create_folder(&self) -> crate::builder::storage_control::CreateFolder {
         self.control.create_folder()
     }
 
@@ -524,8 +511,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self) -> crate::builder::storage_control::DeleteFolder
-    {
+    pub fn delete_folder(&self) -> crate::builder::storage_control::DeleteFolder {
         self.control.delete_folder()
     }
 
@@ -548,15 +534,13 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder(&self) -> crate::builder::storage_control::GetFolder
-    {
+    pub fn get_folder(&self) -> crate::builder::storage_control::GetFolder {
         self.control.get_folder()
     }
 
     /// Retrieves a list of folders. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
-    pub fn list_folders(&self) -> crate::builder::storage_control::ListFolders
-    {
+    pub fn list_folders(&self) -> crate::builder::storage_control::ListFolders {
         self.control.list_folders()
     }
 
@@ -574,8 +558,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> crate::builder::storage_control::RenameFolder
-    {
+    pub fn rename_folder(&self) -> crate::builder::storage_control::RenameFolder {
         self.control.rename_folder()
     }
 
@@ -597,8 +580,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_storage_layout(&self) -> crate::builder::storage_control::GetStorageLayout
-    {
+    pub fn get_storage_layout(&self) -> crate::builder::storage_control::GetStorageLayout {
         self.control.get_storage_layout()
     }
 
@@ -619,8 +601,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_managed_folder(&self) -> crate::builder::storage_control::CreateManagedFolder
-    {
+    pub fn create_managed_folder(&self) -> crate::builder::storage_control::CreateManagedFolder {
         self.control.create_managed_folder()
     }
 
@@ -640,8 +621,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_managed_folder(&self) -> crate::builder::storage_control::DeleteManagedFolder
-    {
+    pub fn delete_managed_folder(&self) -> crate::builder::storage_control::DeleteManagedFolder {
         self.control.delete_managed_folder()
     }
 
@@ -663,14 +643,12 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_managed_folder(&self) -> crate::builder::storage_control::GetManagedFolder
-    {
+    pub fn get_managed_folder(&self) -> crate::builder::storage_control::GetManagedFolder {
         self.control.get_managed_folder()
     }
 
     /// Retrieves a list of managed folders for a given bucket.
-    pub fn list_managed_folders(&self) -> crate::builder::storage_control::ListManagedFolders
-    {
+    pub fn list_managed_folders(&self) -> crate::builder::storage_control::ListManagedFolders {
         self.control.list_managed_folders()
     }
 
@@ -685,8 +663,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_anywhere_cache(&self) -> crate::builder::storage_control::CreateAnywhereCache
-    {
+    pub fn create_anywhere_cache(&self) -> crate::builder::storage_control::CreateAnywhereCache {
         self.control.create_anywhere_cache()
     }
 
@@ -702,8 +679,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_anywhere_cache(&self) -> crate::builder::storage_control::UpdateAnywhereCache
-    {
+    pub fn update_anywhere_cache(&self) -> crate::builder::storage_control::UpdateAnywhereCache {
         self.control.update_anywhere_cache()
     }
 
@@ -727,8 +703,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn disable_anywhere_cache(&self) -> crate::builder::storage_control::DisableAnywhereCache
-    {
+    pub fn disable_anywhere_cache(&self) -> crate::builder::storage_control::DisableAnywhereCache {
         self.control.disable_anywhere_cache()
     }
 
@@ -749,8 +724,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn pause_anywhere_cache(&self) -> crate::builder::storage_control::PauseAnywhereCache
-    {
+    pub fn pause_anywhere_cache(&self) -> crate::builder::storage_control::PauseAnywhereCache {
         self.control.pause_anywhere_cache()
     }
 
@@ -771,8 +745,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn resume_anywhere_cache(&self) -> crate::builder::storage_control::ResumeAnywhereCache
-    {
+    pub fn resume_anywhere_cache(&self) -> crate::builder::storage_control::ResumeAnywhereCache {
         self.control.resume_anywhere_cache()
     }
 
@@ -794,14 +767,12 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_anywhere_cache(&self) -> crate::builder::storage_control::GetAnywhereCache
-    {
+    pub fn get_anywhere_cache(&self) -> crate::builder::storage_control::GetAnywhereCache {
         self.control.get_anywhere_cache()
     }
 
     /// Lists Anywhere Cache instances for a given bucket.
-    pub fn list_anywhere_caches(&self) -> crate::builder::storage_control::ListAnywhereCaches
-    {
+    pub fn list_anywhere_caches(&self) -> crate::builder::storage_control::ListAnywhereCaches {
         self.control.list_anywhere_caches()
     }
 
@@ -822,8 +793,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_project_intelligence_config(&self) -> crate::builder::storage_control::GetProjectIntelligenceConfig
-    {
+    pub fn get_project_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::GetProjectIntelligenceConfig {
         self.control.get_project_intelligence_config()
     }
 
@@ -844,8 +816,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_project_intelligence_config(&self) -> crate::builder::storage_control::UpdateProjectIntelligenceConfig
-    {
+    pub fn update_project_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::UpdateProjectIntelligenceConfig {
         self.control.update_project_intelligence_config()
     }
 
@@ -866,8 +839,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder_intelligence_config(&self) -> crate::builder::storage_control::GetFolderIntelligenceConfig
-    {
+    pub fn get_folder_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::GetFolderIntelligenceConfig {
         self.control.get_folder_intelligence_config()
     }
 
@@ -888,8 +862,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_folder_intelligence_config(&self) -> crate::builder::storage_control::UpdateFolderIntelligenceConfig
-    {
+    pub fn update_folder_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::UpdateFolderIntelligenceConfig {
         self.control.update_folder_intelligence_config()
     }
 
@@ -910,8 +885,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_organization_intelligence_config(&self) -> crate::builder::storage_control::GetOrganizationIntelligenceConfig
-    {
+    pub fn get_organization_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::GetOrganizationIntelligenceConfig {
         self.control.get_organization_intelligence_config()
     }
 
@@ -932,8 +908,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_organization_intelligence_config(&self) -> crate::builder::storage_control::UpdateOrganizationIntelligenceConfig
-    {
+    pub fn update_organization_intelligence_config(
+        &self,
+    ) -> crate::builder::storage_control::UpdateOrganizationIntelligenceConfig {
         self.control.update_organization_intelligence_config()
     }
 
@@ -958,8 +935,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> crate::builder::storage_control::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> crate::builder::storage_control::GetIamPolicy {
         self.control.get_iam_policy()
     }
 
@@ -984,8 +960,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> crate::builder::storage_control::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> crate::builder::storage_control::SetIamPolicy {
         self.control.set_iam_policy()
     }
 
@@ -1012,8 +987,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> crate::builder::storage_control::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> crate::builder::storage_control::TestIamPermissions {
         self.control.test_iam_permissions()
     }
 
@@ -1036,8 +1010,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> crate::builder::storage_control::GetOperation
-    {
+    pub fn get_operation(&self) -> crate::builder::storage_control::GetOperation {
         self.control.get_operation()
     }
 

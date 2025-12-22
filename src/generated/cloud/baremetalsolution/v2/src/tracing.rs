@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [BareMetalSolution](super::stub::BareMetalSolution) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BareMetalSolution<T>
-where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> BareMetalSolution<T>
-where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BareMetalSolution for BareMetalSolution<T>
-where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_instances(
         &self,
@@ -100,7 +106,9 @@ where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.enable_interactive_serial_console(req, options).await
+        self.inner
+            .enable_interactive_serial_console(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -109,7 +117,9 @@ where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.disable_interactive_serial_console(req, options).await
+        self.inner
+            .disable_interactive_serial_console(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -454,7 +464,6 @@ where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -469,4 +478,3 @@ where T: super::stub::BareMetalSolution + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

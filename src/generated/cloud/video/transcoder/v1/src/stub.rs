@@ -38,13 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TranscoderService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::TranscoderService::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +53,9 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +64,8 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +83,9 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateJobTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +94,9 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListJobTemplatesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,7 +105,9 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetJobTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -111,4 +120,3 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

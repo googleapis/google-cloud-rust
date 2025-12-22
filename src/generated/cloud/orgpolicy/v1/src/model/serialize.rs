@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Policy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.version) {
             struct __With<'a>(&'a i32);
@@ -81,9 +81,9 @@ impl serde::ser::Serialize for super::policy::ListPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.allowed_values.is_empty() {
             state.serialize_entry("allowedValues", &self.allowed_values)?;
@@ -115,9 +115,9 @@ impl serde::ser::Serialize for super::policy::BooleanPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enforced) {
             state.serialize_entry("enforced", &self.enforced)?;
@@ -137,9 +137,9 @@ impl serde::ser::Serialize for super::policy::RestoreDefault {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

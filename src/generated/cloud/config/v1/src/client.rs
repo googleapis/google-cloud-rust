@@ -81,36 +81,49 @@ impl Config {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Config + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Config + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Config> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Config> {
         super::transport::Config::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Config> {
-        Self::build_transport(conf).await.map(super::tracing::Config::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Config> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Config::new)
     }
 
     /// Lists [Deployment][google.cloud.config.v1.Deployment]s in a given project
     /// and location.
     ///
     /// [google.cloud.config.v1.Deployment]: crate::model::Deployment
-    pub fn list_deployments(&self) -> super::builder::config::ListDeployments
-    {
+    pub fn list_deployments(&self) -> super::builder::config::ListDeployments {
         super::builder::config::ListDeployments::new(self.inner.clone())
     }
 
@@ -133,8 +146,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_deployment(&self) -> super::builder::config::GetDeployment
-    {
+    pub fn get_deployment(&self) -> super::builder::config::GetDeployment {
         super::builder::config::GetDeployment::new(self.inner.clone())
     }
 
@@ -151,8 +163,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_deployment(&self) -> super::builder::config::CreateDeployment
-    {
+    pub fn create_deployment(&self) -> super::builder::config::CreateDeployment {
         super::builder::config::CreateDeployment::new(self.inner.clone())
     }
 
@@ -169,8 +180,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_deployment(&self) -> super::builder::config::UpdateDeployment
-    {
+    pub fn update_deployment(&self) -> super::builder::config::UpdateDeployment {
         super::builder::config::UpdateDeployment::new(self.inner.clone())
     }
 
@@ -187,16 +197,14 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_deployment(&self) -> super::builder::config::DeleteDeployment
-    {
+    pub fn delete_deployment(&self) -> super::builder::config::DeleteDeployment {
         super::builder::config::DeleteDeployment::new(self.inner.clone())
     }
 
     /// Lists [Revision][google.cloud.config.v1.Revision]s of a deployment.
     ///
     /// [google.cloud.config.v1.Revision]: crate::model::Revision
-    pub fn list_revisions(&self) -> super::builder::config::ListRevisions
-    {
+    pub fn list_revisions(&self) -> super::builder::config::ListRevisions {
         super::builder::config::ListRevisions::new(self.inner.clone())
     }
 
@@ -219,8 +227,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_revision(&self) -> super::builder::config::GetRevision
-    {
+    pub fn get_revision(&self) -> super::builder::config::GetRevision {
         super::builder::config::GetRevision::new(self.inner.clone())
     }
 
@@ -244,16 +251,14 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_resource(&self) -> super::builder::config::GetResource
-    {
+    pub fn get_resource(&self) -> super::builder::config::GetResource {
         super::builder::config::GetResource::new(self.inner.clone())
     }
 
     /// Lists [Resources][google.cloud.config.v1.Resource] in a given revision.
     ///
     /// [google.cloud.config.v1.Resource]: crate::model::Resource
-    pub fn list_resources(&self) -> super::builder::config::ListResources
-    {
+    pub fn list_resources(&self) -> super::builder::config::ListResources {
         super::builder::config::ListResources::new(self.inner.clone())
     }
 
@@ -274,8 +279,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn export_deployment_statefile(&self) -> super::builder::config::ExportDeploymentStatefile
-    {
+    pub fn export_deployment_statefile(&self) -> super::builder::config::ExportDeploymentStatefile {
         super::builder::config::ExportDeploymentStatefile::new(self.inner.clone())
     }
 
@@ -296,8 +300,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn export_revision_statefile(&self) -> super::builder::config::ExportRevisionStatefile
-    {
+    pub fn export_revision_statefile(&self) -> super::builder::config::ExportRevisionStatefile {
         super::builder::config::ExportRevisionStatefile::new(self.inner.clone())
     }
 
@@ -319,8 +322,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn import_statefile(&self) -> super::builder::config::ImportStatefile
-    {
+    pub fn import_statefile(&self) -> super::builder::config::ImportStatefile {
         super::builder::config::ImportStatefile::new(self.inner.clone())
     }
 
@@ -340,8 +342,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_statefile(&self) -> super::builder::config::DeleteStatefile
-    {
+    pub fn delete_statefile(&self) -> super::builder::config::DeleteStatefile {
         super::builder::config::DeleteStatefile::new(self.inner.clone())
     }
 
@@ -356,8 +357,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn lock_deployment(&self) -> super::builder::config::LockDeployment
-    {
+    pub fn lock_deployment(&self) -> super::builder::config::LockDeployment {
         super::builder::config::LockDeployment::new(self.inner.clone())
     }
 
@@ -372,8 +372,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn unlock_deployment(&self) -> super::builder::config::UnlockDeployment
-    {
+    pub fn unlock_deployment(&self) -> super::builder::config::UnlockDeployment {
         super::builder::config::UnlockDeployment::new(self.inner.clone())
     }
 
@@ -394,8 +393,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn export_lock_info(&self) -> super::builder::config::ExportLockInfo
-    {
+    pub fn export_lock_info(&self) -> super::builder::config::ExportLockInfo {
         super::builder::config::ExportLockInfo::new(self.inner.clone())
     }
 
@@ -412,8 +410,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_preview(&self) -> super::builder::config::CreatePreview
-    {
+    pub fn create_preview(&self) -> super::builder::config::CreatePreview {
         super::builder::config::CreatePreview::new(self.inner.clone())
     }
 
@@ -437,8 +434,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_preview(&self) -> super::builder::config::GetPreview
-    {
+    pub fn get_preview(&self) -> super::builder::config::GetPreview {
         super::builder::config::GetPreview::new(self.inner.clone())
     }
 
@@ -446,8 +442,7 @@ impl Config {
     /// location.
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
-    pub fn list_previews(&self) -> super::builder::config::ListPreviews
-    {
+    pub fn list_previews(&self) -> super::builder::config::ListPreviews {
         super::builder::config::ListPreviews::new(self.inner.clone())
     }
 
@@ -464,8 +459,7 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_preview(&self) -> super::builder::config::DeletePreview
-    {
+    pub fn delete_preview(&self) -> super::builder::config::DeletePreview {
         super::builder::config::DeletePreview::new(self.inner.clone())
     }
 
@@ -488,8 +482,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn export_preview_result(&self) -> super::builder::config::ExportPreviewResult
-    {
+    pub fn export_preview_result(&self) -> super::builder::config::ExportPreviewResult {
         super::builder::config::ExportPreviewResult::new(self.inner.clone())
     }
 
@@ -497,8 +490,7 @@ impl Config {
     /// given project and location.
     ///
     /// [google.cloud.config.v1.TerraformVersion]: crate::model::TerraformVersion
-    pub fn list_terraform_versions(&self) -> super::builder::config::ListTerraformVersions
-    {
+    pub fn list_terraform_versions(&self) -> super::builder::config::ListTerraformVersions {
         super::builder::config::ListTerraformVersions::new(self.inner.clone())
     }
 
@@ -523,14 +515,12 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_terraform_version(&self) -> super::builder::config::GetTerraformVersion
-    {
+    pub fn get_terraform_version(&self) -> super::builder::config::GetTerraformVersion {
         super::builder::config::GetTerraformVersion::new(self.inner.clone())
     }
 
     /// Lists ResourceChanges for a given preview.
-    pub fn list_resource_changes(&self) -> super::builder::config::ListResourceChanges
-    {
+    pub fn list_resource_changes(&self) -> super::builder::config::ListResourceChanges {
         super::builder::config::ListResourceChanges::new(self.inner.clone())
     }
 
@@ -552,14 +542,12 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_resource_change(&self) -> super::builder::config::GetResourceChange
-    {
+    pub fn get_resource_change(&self) -> super::builder::config::GetResourceChange {
         super::builder::config::GetResourceChange::new(self.inner.clone())
     }
 
     /// List ResourceDrifts for a given preview.
-    pub fn list_resource_drifts(&self) -> super::builder::config::ListResourceDrifts
-    {
+    pub fn list_resource_drifts(&self) -> super::builder::config::ListResourceDrifts {
         super::builder::config::ListResourceDrifts::new(self.inner.clone())
     }
 
@@ -581,14 +569,12 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_resource_drift(&self) -> super::builder::config::GetResourceDrift
-    {
+    pub fn get_resource_drift(&self) -> super::builder::config::GetResourceDrift {
         super::builder::config::GetResourceDrift::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::config::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::config::ListLocations {
         super::builder::config::ListLocations::new(self.inner.clone())
     }
 
@@ -609,8 +595,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::config::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::config::GetLocation {
         super::builder::config::GetLocation::new(self.inner.clone())
     }
 
@@ -635,8 +620,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::config::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::config::SetIamPolicy {
         super::builder::config::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -658,8 +642,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::config::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::config::GetIamPolicy {
         super::builder::config::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -686,16 +669,14 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::config::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::config::TestIamPermissions {
         super::builder::config::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::config::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::config::ListOperations {
         super::builder::config::ListOperations::new(self.inner.clone())
     }
 
@@ -718,8 +699,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::config::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::config::GetOperation {
         super::builder::config::GetOperation::new(self.inner.clone())
     }
 
@@ -741,8 +721,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::config::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::config::DeleteOperation {
         super::builder::config::DeleteOperation::new(self.inner.clone())
     }
 
@@ -764,8 +743,7 @@ impl Config {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::config::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::config::CancelOperation {
         super::builder::config::CancelOperation::new(self.inner.clone())
     }
 }

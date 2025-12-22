@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::AutoMlImageClassification {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -48,9 +48,9 @@ impl serde::ser::Serialize for super::AutoMlImageClassificationInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -68,7 +68,10 @@ impl serde::ser::Serialize for super::AutoMlImageClassificationInputs {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("budgetMilliNodeHours", &__With(&self.budget_milli_node_hours))?;
+            state.serialize_entry(
+                "budgetMilliNodeHours",
+                &__With(&self.budget_milli_node_hours),
+            )?;
         }
         if !wkt::internal::is_default(&self.disable_early_stopping) {
             state.serialize_entry("disableEarlyStopping", &self.disable_early_stopping)?;
@@ -91,9 +94,9 @@ impl serde::ser::Serialize for super::AutoMlImageClassificationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.cost_milli_node_hours) {
             struct __With<'a>(&'a i64);
@@ -125,9 +128,9 @@ impl serde::ser::Serialize for super::AutoMlImageObjectDetection {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -150,9 +153,9 @@ impl serde::ser::Serialize for super::AutoMlImageObjectDetectionInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -167,7 +170,10 @@ impl serde::ser::Serialize for super::AutoMlImageObjectDetectionInputs {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("budgetMilliNodeHours", &__With(&self.budget_milli_node_hours))?;
+            state.serialize_entry(
+                "budgetMilliNodeHours",
+                &__With(&self.budget_milli_node_hours),
+            )?;
         }
         if !wkt::internal::is_default(&self.disable_early_stopping) {
             state.serialize_entry("disableEarlyStopping", &self.disable_early_stopping)?;
@@ -187,9 +193,9 @@ impl serde::ser::Serialize for super::AutoMlImageObjectDetectionMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.cost_milli_node_hours) {
             struct __With<'a>(&'a i64);
@@ -221,9 +227,9 @@ impl serde::ser::Serialize for super::AutoMlImageSegmentation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -246,9 +252,9 @@ impl serde::ser::Serialize for super::AutoMlImageSegmentationInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -263,7 +269,10 @@ impl serde::ser::Serialize for super::AutoMlImageSegmentationInputs {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("budgetMilliNodeHours", &__With(&self.budget_milli_node_hours))?;
+            state.serialize_entry(
+                "budgetMilliNodeHours",
+                &__With(&self.budget_milli_node_hours),
+            )?;
         }
         if !self.base_model_id.is_empty() {
             state.serialize_entry("baseModelId", &self.base_model_id)?;
@@ -283,9 +292,9 @@ impl serde::ser::Serialize for super::AutoMlImageSegmentationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.cost_milli_node_hours) {
             struct __With<'a>(&'a i64);
@@ -317,9 +326,9 @@ impl serde::ser::Serialize for super::AutoMlTables {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -342,9 +351,9 @@ impl serde::ser::Serialize for super::AutoMlTablesInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.optimization_objective_recall_value() {
             struct __With<'a>(&'a f32);
@@ -392,7 +401,10 @@ impl serde::ser::Serialize for super::AutoMlTablesInputs {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("trainBudgetMilliNodeHours", &__With(&self.train_budget_milli_node_hours))?;
+            state.serialize_entry(
+                "trainBudgetMilliNodeHours",
+                &__With(&self.train_budget_milli_node_hours),
+            )?;
         }
         if !wkt::internal::is_default(&self.disable_early_stopping) {
             state.serialize_entry("disableEarlyStopping", &self.disable_early_stopping)?;
@@ -401,7 +413,10 @@ impl serde::ser::Serialize for super::AutoMlTablesInputs {
             state.serialize_entry("weightColumnName", &self.weight_column_name)?;
         }
         if self.export_evaluated_data_items_config.is_some() {
-            state.serialize_entry("exportEvaluatedDataItemsConfig", &self.export_evaluated_data_items_config)?;
+            state.serialize_entry(
+                "exportEvaluatedDataItemsConfig",
+                &self.export_evaluated_data_items_config,
+            )?;
         }
         if !self.additional_experiments.is_empty() {
             state.serialize_entry("additionalExperiments", &self.additional_experiments)?;
@@ -421,9 +436,9 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::Transformation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.auto() {
             state.serialize_entry("auto", value)?;
@@ -464,9 +479,9 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Aut
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -486,9 +501,9 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Num
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -506,14 +521,16 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Num
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::CategoricalTransformation {
+impl serde::ser::Serialize
+    for super::auto_ml_tables_inputs::transformation::CategoricalTransformation
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -528,14 +545,16 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Cat
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::TimestampTransformation {
+impl serde::ser::Serialize
+    for super::auto_ml_tables_inputs::transformation::TimestampTransformation
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -561,9 +580,9 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Tex
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -578,14 +597,16 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Tex
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::NumericArrayTransformation {
+impl serde::ser::Serialize
+    for super::auto_ml_tables_inputs::transformation::NumericArrayTransformation
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -603,14 +624,16 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Num
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation {
+impl serde::ser::Serialize
+    for super::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -625,14 +648,16 @@ impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::Cat
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::auto_ml_tables_inputs::transformation::TextArrayTransformation {
+impl serde::ser::Serialize
+    for super::auto_ml_tables_inputs::transformation::TextArrayTransformation
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column_name.is_empty() {
             state.serialize_entry("columnName", &self.column_name)?;
@@ -652,9 +677,9 @@ impl serde::ser::Serialize for super::AutoMlTablesMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.train_cost_milli_node_hours) {
             struct __With<'a>(&'a i64);
@@ -666,7 +691,10 @@ impl serde::ser::Serialize for super::AutoMlTablesMetadata {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("trainCostMilliNodeHours", &__With(&self.train_cost_milli_node_hours))?;
+            state.serialize_entry(
+                "trainCostMilliNodeHours",
+                &__With(&self.train_cost_milli_node_hours),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -683,9 +711,9 @@ impl serde::ser::Serialize for super::AutoMlTextClassification {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -705,9 +733,9 @@ impl serde::ser::Serialize for super::AutoMlTextClassificationInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.multi_label) {
             state.serialize_entry("multiLabel", &self.multi_label)?;
@@ -727,9 +755,9 @@ impl serde::ser::Serialize for super::AutoMlTextExtraction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -749,9 +777,9 @@ impl serde::ser::Serialize for super::AutoMlTextExtractionInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -768,9 +796,9 @@ impl serde::ser::Serialize for super::AutoMlTextSentiment {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -790,9 +818,9 @@ impl serde::ser::Serialize for super::AutoMlTextSentimentInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.sentiment_max) {
             struct __With<'a>(&'a i32);
@@ -821,9 +849,9 @@ impl serde::ser::Serialize for super::AutoMlVideoActionRecognition {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -843,9 +871,9 @@ impl serde::ser::Serialize for super::AutoMlVideoActionRecognitionInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -865,9 +893,9 @@ impl serde::ser::Serialize for super::AutoMlVideoClassification {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -887,9 +915,9 @@ impl serde::ser::Serialize for super::AutoMlVideoClassificationInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -909,9 +937,9 @@ impl serde::ser::Serialize for super::AutoMlVideoObjectTracking {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inputs.is_some() {
             state.serialize_entry("inputs", &self.inputs)?;
@@ -931,9 +959,9 @@ impl serde::ser::Serialize for super::AutoMlVideoObjectTrackingInputs {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.model_type) {
             state.serialize_entry("modelType", &self.model_type)?;
@@ -953,9 +981,9 @@ impl serde::ser::Serialize for super::ExportEvaluatedDataItemsConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.destination_bigquery_uri.is_empty() {
             state.serialize_entry("destinationBigqueryUri", &self.destination_bigquery_uri)?;

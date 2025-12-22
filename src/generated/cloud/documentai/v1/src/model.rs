@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -33,6 +32,7 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,7 +44,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Barcode {
-
     /// Format of a barcode.
     /// The supported formats are:
     ///
@@ -144,7 +143,6 @@ impl wkt::message::Message for Barcode {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
-
     /// Optional. An internal identifier for document. Should be loggable (no PII).
     pub docid: std::string::String,
 
@@ -205,7 +203,8 @@ pub struct Document {
 
     /// The entity validation output for the document. This is the validation
     /// output for `document.entities` field.
-    pub entity_validation_output: std::option::Option<crate::model::document::EntityValidationOutput>,
+    pub entity_validation_output:
+        std::option::Option<crate::model::document::EntityValidationOutput>,
 
     /// A list of entity revisions. The entity revisions are appended to the
     /// document in the processing order. This field can be used for comparing the
@@ -282,7 +281,7 @@ impl Document {
     pub fn set_text_styles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::Style>
+        V: std::convert::Into<crate::model::document::Style>,
     {
         use std::iter::Iterator;
         self.text_styles = v.into_iter().map(|i| i.into()).collect();
@@ -304,7 +303,7 @@ impl Document {
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::Page>
+        V: std::convert::Into<crate::model::document::Page>,
     {
         use std::iter::Iterator;
         self.pages = v.into_iter().map(|i| i.into()).collect();
@@ -326,7 +325,7 @@ impl Document {
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::Entity>
+        V: std::convert::Into<crate::model::document::Entity>,
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -348,7 +347,7 @@ impl Document {
     pub fn set_entity_relations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::EntityRelation>
+        V: std::convert::Into<crate::model::document::EntityRelation>,
     {
         use std::iter::Iterator;
         self.entity_relations = v.into_iter().map(|i| i.into()).collect();
@@ -370,7 +369,7 @@ impl Document {
     pub fn set_text_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::TextChange>
+        V: std::convert::Into<crate::model::document::TextChange>,
     {
         use std::iter::Iterator;
         self.text_changes = v.into_iter().map(|i| i.into()).collect();
@@ -386,7 +385,8 @@ impl Document {
     /// let x = Document::new().set_shard_info(ShardInfo::default()/* use setters */);
     /// ```
     pub fn set_shard_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::document::ShardInfo>
+    where
+        T: std::convert::Into<crate::model::document::ShardInfo>,
     {
         self.shard_info = std::option::Option::Some(v.into());
         self
@@ -402,7 +402,8 @@ impl Document {
     /// let x = Document::new().set_or_clear_shard_info(None::<ShardInfo>);
     /// ```
     pub fn set_or_clear_shard_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::document::ShardInfo>
+    where
+        T: std::convert::Into<crate::model::document::ShardInfo>,
     {
         self.shard_info = v.map(|x| x.into());
         self
@@ -417,7 +418,8 @@ impl Document {
     /// let x = Document::new().set_error(Status::default()/* use setters */);
     /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -433,7 +435,8 @@ impl Document {
     /// let x = Document::new().set_or_clear_error(None::<Status>);
     /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.error = v.map(|x| x.into());
         self
@@ -454,7 +457,7 @@ impl Document {
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::Revision>
+        V: std::convert::Into<crate::model::document::Revision>,
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
@@ -470,7 +473,8 @@ impl Document {
     /// let x = Document::new().set_document_layout(DocumentLayout::default()/* use setters */);
     /// ```
     pub fn set_document_layout<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::document::DocumentLayout>
+    where
+        T: std::convert::Into<crate::model::document::DocumentLayout>,
     {
         self.document_layout = std::option::Option::Some(v.into());
         self
@@ -486,7 +490,8 @@ impl Document {
     /// let x = Document::new().set_or_clear_document_layout(None::<DocumentLayout>);
     /// ```
     pub fn set_or_clear_document_layout<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::document::DocumentLayout>
+    where
+        T: std::convert::Into<crate::model::document::DocumentLayout>,
     {
         self.document_layout = v.map(|x| x.into());
         self
@@ -501,7 +506,8 @@ impl Document {
     /// let x = Document::new().set_chunked_document(ChunkedDocument::default()/* use setters */);
     /// ```
     pub fn set_chunked_document<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::document::ChunkedDocument>
+    where
+        T: std::convert::Into<crate::model::document::ChunkedDocument>,
     {
         self.chunked_document = std::option::Option::Some(v.into());
         self
@@ -517,7 +523,8 @@ impl Document {
     /// let x = Document::new().set_or_clear_chunked_document(None::<ChunkedDocument>);
     /// ```
     pub fn set_or_clear_chunked_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::document::ChunkedDocument>
+    where
+        T: std::convert::Into<crate::model::document::ChunkedDocument>,
     {
         self.chunked_document = v.map(|x| x.into());
         self
@@ -532,7 +539,8 @@ impl Document {
     /// let x = Document::new().set_entity_validation_output(EntityValidationOutput::default()/* use setters */);
     /// ```
     pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::document::EntityValidationOutput>
+    where
+        T: std::convert::Into<crate::model::document::EntityValidationOutput>,
     {
         self.entity_validation_output = std::option::Option::Some(v.into());
         self
@@ -548,7 +556,8 @@ impl Document {
     /// let x = Document::new().set_or_clear_entity_validation_output(None::<EntityValidationOutput>);
     /// ```
     pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::document::EntityValidationOutput>
+    where
+        T: std::convert::Into<crate::model::document::EntityValidationOutput>,
     {
         self.entity_validation_output = v.map(|x| x.into());
         self
@@ -569,7 +578,7 @@ impl Document {
     pub fn set_entities_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document::EntitiesRevision>
+        V: std::convert::Into<crate::model::document::EntitiesRevision>,
     {
         use std::iter::Iterator;
         self.entities_revisions = v.into_iter().map(|i| i.into()).collect();
@@ -583,7 +592,10 @@ impl Document {
     /// # use google_cloud_documentai_v1::model::Document;
     /// let x = Document::new().set_entities_revision_id("example");
     /// ```
-    pub fn set_entities_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_entities_revision_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.entities_revision_id = v.into();
         self
     }
@@ -599,8 +611,12 @@ impl Document {
     /// use google_cloud_documentai_v1::model::document::Source;
     /// let x = Document::new().set_source(Some(Source::Uri("example".to_string())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::document::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -630,11 +646,7 @@ impl Document {
     /// assert!(x.content().is_none());
     /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::document::Source::Uri(
-                v.into()
-            )
-        );
+        self.source = std::option::Option::Some(crate::model::document::Source::Uri(v.into()));
         self
     }
 
@@ -663,11 +675,7 @@ impl Document {
     /// assert!(x.uri().is_none());
     /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::document::Source::Content(
-                v.into()
-            )
-        );
+        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
         self
     }
 }
@@ -683,14 +691,12 @@ pub mod document {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// For a large document, sharding may be performed to produce several
     /// document shards. Each document shard contains this field to detail which
     /// shard it is.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ShardInfo {
-
         /// The 0-based index of this shard.
         pub shard_index: i64,
 
@@ -760,7 +766,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Style {
-
         /// Text anchor indexing into the
         /// [Document.text][google.cloud.documentai.v1.Document.text].
         ///
@@ -811,7 +816,8 @@ pub mod document {
         /// let x = Style::new().set_text_anchor(TextAnchor::default()/* use setters */);
         /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = std::option::Option::Some(v.into());
             self
@@ -827,7 +833,8 @@ pub mod document {
         /// let x = Style::new().set_or_clear_text_anchor(None::<TextAnchor>);
         /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = v.map(|x| x.into());
             self
@@ -842,7 +849,8 @@ pub mod document {
         /// let x = Style::new().set_color(Color::default()/* use setters */);
         /// ```
         pub fn set_color<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<gtype::model::Color>
+        where
+            T: std::convert::Into<gtype::model::Color>,
         {
             self.color = std::option::Option::Some(v.into());
             self
@@ -858,7 +866,8 @@ pub mod document {
         /// let x = Style::new().set_or_clear_color(None::<Color>);
         /// ```
         pub fn set_or_clear_color<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<gtype::model::Color>
+        where
+            T: std::convert::Into<gtype::model::Color>,
         {
             self.color = v.map(|x| x.into());
             self
@@ -873,7 +882,8 @@ pub mod document {
         /// let x = Style::new().set_background_color(Color::default()/* use setters */);
         /// ```
         pub fn set_background_color<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<gtype::model::Color>
+        where
+            T: std::convert::Into<gtype::model::Color>,
         {
             self.background_color = std::option::Option::Some(v.into());
             self
@@ -889,7 +899,8 @@ pub mod document {
         /// let x = Style::new().set_or_clear_background_color(None::<Color>);
         /// ```
         pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<gtype::model::Color>
+        where
+            T: std::convert::Into<gtype::model::Color>,
         {
             self.background_color = v.map(|x| x.into());
             self
@@ -926,7 +937,10 @@ pub mod document {
         /// # use google_cloud_documentai_v1::model::document::Style;
         /// let x = Style::new().set_text_decoration("example");
         /// ```
-        pub fn set_text_decoration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_text_decoration<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.text_decoration = v.into();
             self
         }
@@ -940,7 +954,8 @@ pub mod document {
         /// let x = Style::new().set_font_size(FontSize::default()/* use setters */);
         /// ```
         pub fn set_font_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::style::FontSize>
+        where
+            T: std::convert::Into<crate::model::document::style::FontSize>,
         {
             self.font_size = std::option::Option::Some(v.into());
             self
@@ -956,7 +971,8 @@ pub mod document {
         /// let x = Style::new().set_or_clear_font_size(None::<FontSize>);
         /// ```
         pub fn set_or_clear_font_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::style::FontSize>
+        where
+            T: std::convert::Into<crate::model::document::style::FontSize>,
         {
             self.font_size = v.map(|x| x.into());
             self
@@ -986,12 +1002,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Font size with unit.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FontSize {
-
             /// Font size for the text.
             pub size: f32,
 
@@ -1045,7 +1059,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Page {
-
         /// 1-based index for current
         /// [Page][google.cloud.documentai.v1.Document.Page] in a parent
         /// [Document][google.cloud.documentai.v1.Document]. Useful when a page is
@@ -1111,7 +1124,8 @@ pub mod document {
         pub detected_barcodes: std::vec::Vec<crate::model::document::page::DetectedBarcode>,
 
         /// Image quality scores.
-        pub image_quality_scores: std::option::Option<crate::model::document::page::ImageQualityScores>,
+        pub image_quality_scores:
+            std::option::Option<crate::model::document::page::ImageQualityScores>,
 
         /// The history of this page.
         #[deprecated]
@@ -1146,7 +1160,8 @@ pub mod document {
         /// let x = Page::new().set_image(Image::default()/* use setters */);
         /// ```
         pub fn set_image<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::page::Image>
+        where
+            T: std::convert::Into<crate::model::document::page::Image>,
         {
             self.image = std::option::Option::Some(v.into());
             self
@@ -1162,7 +1177,8 @@ pub mod document {
         /// let x = Page::new().set_or_clear_image(None::<Image>);
         /// ```
         pub fn set_or_clear_image<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::page::Image>
+        where
+            T: std::convert::Into<crate::model::document::page::Image>,
         {
             self.image = v.map(|x| x.into());
             self
@@ -1183,7 +1199,7 @@ pub mod document {
         pub fn set_transforms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Matrix>
+            V: std::convert::Into<crate::model::document::page::Matrix>,
         {
             use std::iter::Iterator;
             self.transforms = v.into_iter().map(|i| i.into()).collect();
@@ -1199,7 +1215,8 @@ pub mod document {
         /// let x = Page::new().set_dimension(Dimension::default()/* use setters */);
         /// ```
         pub fn set_dimension<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::page::Dimension>
+        where
+            T: std::convert::Into<crate::model::document::page::Dimension>,
         {
             self.dimension = std::option::Option::Some(v.into());
             self
@@ -1215,7 +1232,8 @@ pub mod document {
         /// let x = Page::new().set_or_clear_dimension(None::<Dimension>);
         /// ```
         pub fn set_or_clear_dimension<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::page::Dimension>
+        where
+            T: std::convert::Into<crate::model::document::page::Dimension>,
         {
             self.dimension = v.map(|x| x.into());
             self
@@ -1230,7 +1248,8 @@ pub mod document {
         /// let x = Page::new().set_layout(Layout::default()/* use setters */);
         /// ```
         pub fn set_layout<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::page::Layout>
+        where
+            T: std::convert::Into<crate::model::document::page::Layout>,
         {
             self.layout = std::option::Option::Some(v.into());
             self
@@ -1246,7 +1265,8 @@ pub mod document {
         /// let x = Page::new().set_or_clear_layout(None::<Layout>);
         /// ```
         pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::page::Layout>
+        where
+            T: std::convert::Into<crate::model::document::page::Layout>,
         {
             self.layout = v.map(|x| x.into());
             self
@@ -1267,7 +1287,7 @@ pub mod document {
         pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+            V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
         {
             use std::iter::Iterator;
             self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -1289,7 +1309,7 @@ pub mod document {
         pub fn set_blocks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Block>
+            V: std::convert::Into<crate::model::document::page::Block>,
         {
             use std::iter::Iterator;
             self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -1311,7 +1331,7 @@ pub mod document {
         pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Paragraph>
+            V: std::convert::Into<crate::model::document::page::Paragraph>,
         {
             use std::iter::Iterator;
             self.paragraphs = v.into_iter().map(|i| i.into()).collect();
@@ -1333,7 +1353,7 @@ pub mod document {
         pub fn set_lines<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Line>
+            V: std::convert::Into<crate::model::document::page::Line>,
         {
             use std::iter::Iterator;
             self.lines = v.into_iter().map(|i| i.into()).collect();
@@ -1355,7 +1375,7 @@ pub mod document {
         pub fn set_tokens<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Token>
+            V: std::convert::Into<crate::model::document::page::Token>,
         {
             use std::iter::Iterator;
             self.tokens = v.into_iter().map(|i| i.into()).collect();
@@ -1377,7 +1397,7 @@ pub mod document {
         pub fn set_visual_elements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::VisualElement>
+            V: std::convert::Into<crate::model::document::page::VisualElement>,
         {
             use std::iter::Iterator;
             self.visual_elements = v.into_iter().map(|i| i.into()).collect();
@@ -1399,7 +1419,7 @@ pub mod document {
         pub fn set_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Table>
+            V: std::convert::Into<crate::model::document::page::Table>,
         {
             use std::iter::Iterator;
             self.tables = v.into_iter().map(|i| i.into()).collect();
@@ -1421,7 +1441,7 @@ pub mod document {
         pub fn set_form_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::FormField>
+            V: std::convert::Into<crate::model::document::page::FormField>,
         {
             use std::iter::Iterator;
             self.form_fields = v.into_iter().map(|i| i.into()).collect();
@@ -1443,7 +1463,7 @@ pub mod document {
         pub fn set_symbols<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Symbol>
+            V: std::convert::Into<crate::model::document::page::Symbol>,
         {
             use std::iter::Iterator;
             self.symbols = v.into_iter().map(|i| i.into()).collect();
@@ -1465,7 +1485,7 @@ pub mod document {
         pub fn set_detected_barcodes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::DetectedBarcode>
+            V: std::convert::Into<crate::model::document::page::DetectedBarcode>,
         {
             use std::iter::Iterator;
             self.detected_barcodes = v.into_iter().map(|i| i.into()).collect();
@@ -1481,7 +1501,8 @@ pub mod document {
         /// let x = Page::new().set_image_quality_scores(ImageQualityScores::default()/* use setters */);
         /// ```
         pub fn set_image_quality_scores<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::page::ImageQualityScores>
+        where
+            T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
         {
             self.image_quality_scores = std::option::Option::Some(v.into());
             self
@@ -1497,7 +1518,8 @@ pub mod document {
         /// let x = Page::new().set_or_clear_image_quality_scores(None::<ImageQualityScores>);
         /// ```
         pub fn set_or_clear_image_quality_scores<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::page::ImageQualityScores>
+        where
+            T: std::convert::Into<crate::model::document::page::ImageQualityScores>,
         {
             self.image_quality_scores = v.map(|x| x.into());
             self
@@ -1513,7 +1535,8 @@ pub mod document {
         /// ```
         #[deprecated]
         pub fn set_provenance<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::Provenance>
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
         {
             self.provenance = std::option::Option::Some(v.into());
             self
@@ -1530,7 +1553,8 @@ pub mod document {
         /// ```
         #[deprecated]
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::Provenance>
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
         {
             self.provenance = v.map(|x| x.into());
             self
@@ -1548,12 +1572,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Dimension for the page.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Dimension {
-
             /// Page width.
             pub width: f32,
 
@@ -1618,7 +1640,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Image {
-
             /// Raw byte content of the image.
             pub content: ::bytes::Bytes,
 
@@ -1660,7 +1681,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::page::Image;
             /// let x = Image::new().set_mime_type("example");
             /// ```
-            pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_mime_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.mime_type = v.into();
                 self
             }
@@ -1701,7 +1725,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Matrix {
-
             /// Number of rows in the matrix.
             pub rows: i32,
 
@@ -1784,7 +1807,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Layout {
-
             /// Text anchor indexing into the
             /// [Document.text][google.cloud.documentai.v1.Document.text].
             ///
@@ -1829,7 +1851,8 @@ pub mod document {
             /// let x = Layout::new().set_text_anchor(TextAnchor::default()/* use setters */);
             /// ```
             pub fn set_text_anchor<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::TextAnchor>
+            where
+                T: std::convert::Into<crate::model::document::TextAnchor>,
             {
                 self.text_anchor = std::option::Option::Some(v.into());
                 self
@@ -1845,7 +1868,8 @@ pub mod document {
             /// let x = Layout::new().set_or_clear_text_anchor(None::<TextAnchor>);
             /// ```
             pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::TextAnchor>
+            where
+                T: std::convert::Into<crate::model::document::TextAnchor>,
             {
                 self.text_anchor = v.map(|x| x.into());
                 self
@@ -1872,7 +1896,8 @@ pub mod document {
             /// let x = Layout::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
             /// ```
             pub fn set_bounding_poly<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_poly = std::option::Option::Some(v.into());
                 self
@@ -1888,7 +1913,8 @@ pub mod document {
             /// let x = Layout::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
             /// ```
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_poly = v.map(|x| x.into());
                 self
@@ -1904,7 +1930,12 @@ pub mod document {
             /// let x1 = Layout::new().set_orientation(Orientation::PageRight);
             /// let x2 = Layout::new().set_orientation(Orientation::PageDown);
             /// ```
-            pub fn set_orientation<T: std::convert::Into<crate::model::document::page::layout::Orientation>>(mut self, v: T) -> Self {
+            pub fn set_orientation<
+                T: std::convert::Into<crate::model::document::page::layout::Orientation>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.orientation = v.into();
                 self
             }
@@ -1920,7 +1951,6 @@ pub mod document {
         pub mod layout {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Detected human reading orientation.
             ///
@@ -2008,7 +2038,10 @@ pub mod document {
             }
 
             impl std::fmt::Display for Orientation {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2021,7 +2054,9 @@ pub mod document {
                         2 => Self::PageRight,
                         3 => Self::PageDown,
                         4 => Self::PageLeft,
-                        _ => Self::UnknownValue(orientation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(orientation::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -2035,7 +2070,9 @@ pub mod document {
                         "PAGE_RIGHT" => Self::PageRight,
                         "PAGE_DOWN" => Self::PageDown,
                         "PAGE_LEFT" => Self::PageLeft,
-                        _ => Self::UnknownValue(orientation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(orientation::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -2062,7 +2099,8 @@ pub mod document {
                     D: serde::Deserializer<'de>,
                 {
                     deserializer.deserialize_any(wkt::internal::EnumVisitor::<Orientation>::new(
-                        ".google.cloud.documentai.v1.Document.Page.Layout.Orientation"))
+                        ".google.cloud.documentai.v1.Document.Page.Layout.Orientation",
+                    ))
                 }
             }
         }
@@ -2072,7 +2110,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Block {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Block][google.cloud.documentai.v1.Document.Page.Block].
             ///
@@ -2104,7 +2141,8 @@ pub mod document {
             /// let x = Block::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -2120,7 +2158,8 @@ pub mod document {
             /// let x = Block::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -2141,7 +2180,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -2158,7 +2197,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -2175,7 +2215,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -2192,7 +2233,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Paragraph {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Paragraph][google.cloud.documentai.v1.Document.Page.Paragraph].
             ///
@@ -2224,7 +2264,8 @@ pub mod document {
             /// let x = Paragraph::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -2240,7 +2281,8 @@ pub mod document {
             /// let x = Paragraph::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -2261,7 +2303,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -2278,7 +2320,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -2295,7 +2338,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -2313,7 +2357,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Line {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Line][google.cloud.documentai.v1.Document.Page.Line].
             ///
@@ -2345,7 +2388,8 @@ pub mod document {
             /// let x = Line::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -2361,7 +2405,8 @@ pub mod document {
             /// let x = Line::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -2382,7 +2427,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -2399,7 +2444,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -2416,7 +2462,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -2433,7 +2480,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Token {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Token][google.cloud.documentai.v1.Document.Page.Token].
             ///
@@ -2445,7 +2491,8 @@ pub mod document {
             /// [Token][google.cloud.documentai.v1.Document.Page.Token].
             ///
             /// [google.cloud.documentai.v1.Document.Page.Token]: crate::model::document::page::Token
-            pub detected_break: std::option::Option<crate::model::document::page::token::DetectedBreak>,
+            pub detected_break:
+                std::option::Option<crate::model::document::page::token::DetectedBreak>,
 
             /// A list of detected languages together with confidence.
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
@@ -2474,7 +2521,8 @@ pub mod document {
             /// let x = Token::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -2490,7 +2538,8 @@ pub mod document {
             /// let x = Token::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -2505,7 +2554,8 @@ pub mod document {
             /// let x = Token::new().set_detected_break(DetectedBreak::default()/* use setters */);
             /// ```
             pub fn set_detected_break<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::token::DetectedBreak>
+            where
+                T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
             {
                 self.detected_break = std::option::Option::Some(v.into());
                 self
@@ -2521,7 +2571,8 @@ pub mod document {
             /// let x = Token::new().set_or_clear_detected_break(None::<DetectedBreak>);
             /// ```
             pub fn set_or_clear_detected_break<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::token::DetectedBreak>
+            where
+                T: std::convert::Into<crate::model::document::page::token::DetectedBreak>,
             {
                 self.detected_break = v.map(|x| x.into());
                 self
@@ -2542,7 +2593,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -2559,7 +2610,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -2576,7 +2628,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -2591,7 +2644,8 @@ pub mod document {
             /// let x = Token::new().set_style_info(StyleInfo::default()/* use setters */);
             /// ```
             pub fn set_style_info<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::token::StyleInfo>
+            where
+                T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
             {
                 self.style_info = std::option::Option::Some(v.into());
                 self
@@ -2607,7 +2661,8 @@ pub mod document {
             /// let x = Token::new().set_or_clear_style_info(None::<StyleInfo>);
             /// ```
             pub fn set_or_clear_style_info<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::token::StyleInfo>
+            where
+                T: std::convert::Into<crate::model::document::page::token::StyleInfo>,
             {
                 self.style_info = v.map(|x| x.into());
                 self
@@ -2625,7 +2680,6 @@ pub mod document {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Detected break at the end of a
             /// [Token][google.cloud.documentai.v1.Document.Page.Token].
             ///
@@ -2633,7 +2687,6 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DetectedBreak {
-
                 /// Detected break type.
                 pub r#type: crate::model::document::page::token::detected_break::Type,
 
@@ -2655,7 +2708,12 @@ pub mod document {
                 /// let x1 = DetectedBreak::new().set_type(Type::WideSpace);
                 /// let x2 = DetectedBreak::new().set_type(Type::Hyphen);
                 /// ```
-                pub fn set_type<T: std::convert::Into<crate::model::document::page::token::detected_break::Type>>(mut self, v: T) -> Self {
+                pub fn set_type<
+                    T: std::convert::Into<crate::model::document::page::token::detected_break::Type>,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.r#type = v.into();
                     self
                 }
@@ -2671,7 +2729,6 @@ pub mod document {
             pub mod detected_break {
                 #[allow(unused_imports)]
                 use super::*;
-
 
                 /// Enum to denote the type of break found.
                 ///
@@ -2752,7 +2809,10 @@ pub mod document {
                 }
 
                 impl std::fmt::Display for Type {
-                    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
                         wkt::internal::display_enum(f, self.name(), self.value())
                     }
                 }
@@ -2764,7 +2824,9 @@ pub mod document {
                             1 => Self::Space,
                             2 => Self::WideSpace,
                             3 => Self::Hyphen,
-                            _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                            _ => Self::UnknownValue(r#type::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
                         }
                     }
                 }
@@ -2777,7 +2839,9 @@ pub mod document {
                             "SPACE" => Self::Space,
                             "WIDE_SPACE" => Self::WideSpace,
                             "HYPHEN" => Self::Hyphen,
-                            _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                            _ => Self::UnknownValue(r#type::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
                         }
                     }
                 }
@@ -2803,7 +2867,8 @@ pub mod document {
                         D: serde::Deserializer<'de>,
                     {
                         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                            ".google.cloud.documentai.v1.Document.Page.Token.DetectedBreak.Type"))
+                            ".google.cloud.documentai.v1.Document.Page.Token.DetectedBreak.Type",
+                        ))
                     }
                 }
             }
@@ -2812,7 +2877,6 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct StyleInfo {
-
                 /// Font size in points (`1` point is `¹⁄₇₂` inches).
                 pub font_size: i32,
 
@@ -2919,7 +2983,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::page::token::StyleInfo;
                 /// let x = StyleInfo::new().set_font_type("example");
                 /// ```
-                pub fn set_font_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_font_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.font_type = v.into();
                     self
                 }
@@ -3041,7 +3108,8 @@ pub mod document {
                 /// let x = StyleInfo::new().set_text_color(Color::default()/* use setters */);
                 /// ```
                 pub fn set_text_color<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<gtype::model::Color>
+                where
+                    T: std::convert::Into<gtype::model::Color>,
                 {
                     self.text_color = std::option::Option::Some(v.into());
                     self
@@ -3057,7 +3125,8 @@ pub mod document {
                 /// let x = StyleInfo::new().set_or_clear_text_color(None::<Color>);
                 /// ```
                 pub fn set_or_clear_text_color<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<gtype::model::Color>
+                where
+                    T: std::convert::Into<gtype::model::Color>,
                 {
                     self.text_color = v.map(|x| x.into());
                     self
@@ -3072,7 +3141,8 @@ pub mod document {
                 /// let x = StyleInfo::new().set_background_color(Color::default()/* use setters */);
                 /// ```
                 pub fn set_background_color<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<gtype::model::Color>
+                where
+                    T: std::convert::Into<gtype::model::Color>,
                 {
                     self.background_color = std::option::Option::Some(v.into());
                     self
@@ -3088,7 +3158,8 @@ pub mod document {
                 /// let x = StyleInfo::new().set_or_clear_background_color(None::<Color>);
                 /// ```
                 pub fn set_or_clear_background_color<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<gtype::model::Color>
+                where
+                    T: std::convert::Into<gtype::model::Color>,
                 {
                     self.background_color = v.map(|x| x.into());
                     self
@@ -3106,7 +3177,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Symbol {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Symbol][google.cloud.documentai.v1.Document.Page.Symbol].
             ///
@@ -3134,7 +3204,8 @@ pub mod document {
             /// let x = Symbol::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -3150,7 +3221,8 @@ pub mod document {
             /// let x = Symbol::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -3171,7 +3243,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3190,7 +3262,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VisualElement {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [VisualElement][google.cloud.documentai.v1.Document.Page.VisualElement].
             ///
@@ -3224,7 +3295,8 @@ pub mod document {
             /// let x = VisualElement::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -3240,7 +3312,8 @@ pub mod document {
             /// let x = VisualElement::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -3273,7 +3346,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3291,7 +3364,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Table {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [Table][google.cloud.documentai.v1.Document.Page.Table].
             ///
@@ -3329,7 +3401,8 @@ pub mod document {
             /// let x = Table::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -3345,7 +3418,8 @@ pub mod document {
             /// let x = Table::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -3366,7 +3440,7 @@ pub mod document {
             pub fn set_header_rows<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::table::TableRow>
+                V: std::convert::Into<crate::model::document::page::table::TableRow>,
             {
                 use std::iter::Iterator;
                 self.header_rows = v.into_iter().map(|i| i.into()).collect();
@@ -3388,7 +3462,7 @@ pub mod document {
             pub fn set_body_rows<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::table::TableRow>
+                V: std::convert::Into<crate::model::document::page::table::TableRow>,
             {
                 use std::iter::Iterator;
                 self.body_rows = v.into_iter().map(|i| i.into()).collect();
@@ -3410,7 +3484,7 @@ pub mod document {
             pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3427,7 +3501,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -3444,7 +3519,8 @@ pub mod document {
             /// ```
             #[deprecated]
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -3462,12 +3538,10 @@ pub mod document {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// A row of table cells.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct TableRow {
-
                 /// Cells that make up this row.
                 pub cells: std::vec::Vec<crate::model::document::page::table::TableCell>,
 
@@ -3494,7 +3568,7 @@ pub mod document {
                 pub fn set_cells<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::document::page::table::TableCell>
+                    V: std::convert::Into<crate::model::document::page::table::TableCell>,
                 {
                     use std::iter::Iterator;
                     self.cells = v.into_iter().map(|i| i.into()).collect();
@@ -3512,7 +3586,6 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct TableCell {
-
                 /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
                 /// [TableCell][google.cloud.documentai.v1.Document.Page.Table.TableCell].
                 ///
@@ -3527,7 +3600,8 @@ pub mod document {
                 pub col_span: i32,
 
                 /// A list of detected languages together with confidence.
-                pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+                pub detected_languages:
+                    std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -3546,7 +3620,8 @@ pub mod document {
                 /// let x = TableCell::new().set_layout(Layout::default()/* use setters */);
                 /// ```
                 pub fn set_layout<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<crate::model::document::page::Layout>
+                where
+                    T: std::convert::Into<crate::model::document::page::Layout>,
                 {
                     self.layout = std::option::Option::Some(v.into());
                     self
@@ -3562,7 +3637,8 @@ pub mod document {
                 /// let x = TableCell::new().set_or_clear_layout(None::<Layout>);
                 /// ```
                 pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<crate::model::document::page::Layout>
+                where
+                    T: std::convert::Into<crate::model::document::page::Layout>,
                 {
                     self.layout = v.map(|x| x.into());
                     self
@@ -3607,7 +3683,7 @@ pub mod document {
                 pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                    V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
                 {
                     use std::iter::Iterator;
                     self.detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3626,7 +3702,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FormField {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for the
             /// [FormField][google.cloud.documentai.v1.Document.Page.FormField] name.
             /// e.g. `Address`, `Email`, `Grand total`, `Phone number`, etc.
@@ -3643,10 +3718,12 @@ pub mod document {
             pub field_value: std::option::Option<crate::model::document::page::Layout>,
 
             /// A list of detected languages for name together with confidence.
-            pub name_detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+            pub name_detected_languages:
+                std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// A list of detected languages for value together with confidence.
-            pub value_detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+            pub value_detected_languages:
+                std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// If the value is non-textual, this field represents the type. Current
             /// valid values are:
@@ -3686,7 +3763,8 @@ pub mod document {
             /// let x = FormField::new().set_field_name(Layout::default()/* use setters */);
             /// ```
             pub fn set_field_name<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.field_name = std::option::Option::Some(v.into());
                 self
@@ -3702,7 +3780,8 @@ pub mod document {
             /// let x = FormField::new().set_or_clear_field_name(None::<Layout>);
             /// ```
             pub fn set_or_clear_field_name<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.field_name = v.map(|x| x.into());
                 self
@@ -3717,7 +3796,8 @@ pub mod document {
             /// let x = FormField::new().set_field_value(Layout::default()/* use setters */);
             /// ```
             pub fn set_field_value<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.field_value = std::option::Option::Some(v.into());
                 self
@@ -3733,7 +3813,8 @@ pub mod document {
             /// let x = FormField::new().set_or_clear_field_value(None::<Layout>);
             /// ```
             pub fn set_or_clear_field_value<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.field_value = v.map(|x| x.into());
                 self
@@ -3754,7 +3835,7 @@ pub mod document {
             pub fn set_name_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.name_detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3776,7 +3857,7 @@ pub mod document {
             pub fn set_value_detected_languages<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
             {
                 use std::iter::Iterator;
                 self.value_detected_languages = v.into_iter().map(|i| i.into()).collect();
@@ -3790,7 +3871,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::page::FormField;
             /// let x = FormField::new().set_value_type("example");
             /// ```
-            pub fn set_value_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_value_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.value_type = v.into();
                 self
             }
@@ -3802,7 +3886,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::page::FormField;
             /// let x = FormField::new().set_corrected_key_text("example");
             /// ```
-            pub fn set_corrected_key_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_corrected_key_text<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.corrected_key_text = v.into();
                 self
             }
@@ -3814,7 +3901,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::page::FormField;
             /// let x = FormField::new().set_corrected_value_text("example");
             /// ```
-            pub fn set_corrected_value_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_corrected_value_text<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.corrected_value_text = v.into();
                 self
             }
@@ -3828,7 +3918,8 @@ pub mod document {
             /// let x = FormField::new().set_provenance(Provenance::default()/* use setters */);
             /// ```
             pub fn set_provenance<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = std::option::Option::Some(v.into());
                 self
@@ -3844,7 +3935,8 @@ pub mod document {
             /// let x = FormField::new().set_or_clear_provenance(None::<Provenance>);
             /// ```
             pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::Provenance>
+            where
+                T: std::convert::Into<crate::model::document::Provenance>,
             {
                 self.provenance = v.map(|x| x.into());
                 self
@@ -3861,7 +3953,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DetectedBarcode {
-
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
             /// [DetectedBarcode][google.cloud.documentai.v1.Document.Page.DetectedBarcode].
             ///
@@ -3892,7 +3983,8 @@ pub mod document {
             /// let x = DetectedBarcode::new().set_layout(Layout::default()/* use setters */);
             /// ```
             pub fn set_layout<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = std::option::Option::Some(v.into());
                 self
@@ -3908,7 +4000,8 @@ pub mod document {
             /// let x = DetectedBarcode::new().set_or_clear_layout(None::<Layout>);
             /// ```
             pub fn set_or_clear_layout<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::page::Layout>
+            where
+                T: std::convert::Into<crate::model::document::page::Layout>,
             {
                 self.layout = v.map(|x| x.into());
                 self
@@ -3923,7 +4016,8 @@ pub mod document {
             /// let x = DetectedBarcode::new().set_barcode(Barcode::default()/* use setters */);
             /// ```
             pub fn set_barcode<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::Barcode>
+            where
+                T: std::convert::Into<crate::model::Barcode>,
             {
                 self.barcode = std::option::Option::Some(v.into());
                 self
@@ -3939,7 +4033,8 @@ pub mod document {
             /// let x = DetectedBarcode::new().set_or_clear_barcode(None::<Barcode>);
             /// ```
             pub fn set_or_clear_barcode<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::Barcode>
+            where
+                T: std::convert::Into<crate::model::Barcode>,
             {
                 self.barcode = v.map(|x| x.into());
                 self
@@ -3956,7 +4051,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DetectedLanguage {
-
             /// The [BCP-47 language
             /// code](https://www.unicode.org/reports/tr35/#Unicode_locale_identifier),
             /// such as `en-US` or `sr-Latn`.
@@ -3980,7 +4074,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::page::DetectedLanguage;
             /// let x = DetectedLanguage::new().set_language_code("example");
             /// ```
-            pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_language_code<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.language_code = v.into();
                 self
             }
@@ -4008,12 +4105,12 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ImageQualityScores {
-
             /// The overall quality score. Range `[0, 1]` where `1` is perfect quality.
             pub quality_score: f32,
 
             /// A list of detected defects.
-            pub detected_defects: std::vec::Vec<crate::model::document::page::image_quality_scores::DetectedDefect>,
+            pub detected_defects:
+                std::vec::Vec<crate::model::document::page::image_quality_scores::DetectedDefect>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -4050,7 +4147,9 @@ pub mod document {
             pub fn set_detected_defects<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::image_quality_scores::DetectedDefect>
+                V: std::convert::Into<
+                        crate::model::document::page::image_quality_scores::DetectedDefect,
+                    >,
             {
                 use std::iter::Iterator;
                 self.detected_defects = v.into_iter().map(|i| i.into()).collect();
@@ -4069,12 +4168,10 @@ pub mod document {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Image Quality Defects
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DetectedDefect {
-
                 /// Name of the defect type. Supported values are:
                 ///
                 /// - `quality/defect_blurry`
@@ -4106,7 +4203,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::page::image_quality_scores::DetectedDefect;
                 /// let x = DetectedDefect::new().set_type("example");
                 /// ```
-                pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.r#type = v.into();
                     self
                 }
@@ -4138,7 +4238,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Entity {
-
         /// Optional. Provenance of the entity.
         /// Text anchor indexing into the
         /// [Document.text][google.cloud.documentai.v1.Document.text].
@@ -4203,7 +4302,8 @@ pub mod document {
         /// let x = Entity::new().set_text_anchor(TextAnchor::default()/* use setters */);
         /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = std::option::Option::Some(v.into());
             self
@@ -4219,7 +4319,8 @@ pub mod document {
         /// let x = Entity::new().set_or_clear_text_anchor(None::<TextAnchor>);
         /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = v.map(|x| x.into());
             self
@@ -4244,7 +4345,10 @@ pub mod document {
         /// # use google_cloud_documentai_v1::model::document::Entity;
         /// let x = Entity::new().set_mention_text("example");
         /// ```
-        pub fn set_mention_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_mention_text<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.mention_text = v.into();
             self
         }
@@ -4282,7 +4386,8 @@ pub mod document {
         /// let x = Entity::new().set_page_anchor(PageAnchor::default()/* use setters */);
         /// ```
         pub fn set_page_anchor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::PageAnchor>
+        where
+            T: std::convert::Into<crate::model::document::PageAnchor>,
         {
             self.page_anchor = std::option::Option::Some(v.into());
             self
@@ -4298,7 +4403,8 @@ pub mod document {
         /// let x = Entity::new().set_or_clear_page_anchor(None::<PageAnchor>);
         /// ```
         pub fn set_or_clear_page_anchor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::PageAnchor>
+        where
+            T: std::convert::Into<crate::model::document::PageAnchor>,
         {
             self.page_anchor = v.map(|x| x.into());
             self
@@ -4325,7 +4431,8 @@ pub mod document {
         /// let x = Entity::new().set_normalized_value(NormalizedValue::default()/* use setters */);
         /// ```
         pub fn set_normalized_value<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::entity::NormalizedValue>
+        where
+            T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
         {
             self.normalized_value = std::option::Option::Some(v.into());
             self
@@ -4341,7 +4448,8 @@ pub mod document {
         /// let x = Entity::new().set_or_clear_normalized_value(None::<NormalizedValue>);
         /// ```
         pub fn set_or_clear_normalized_value<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::entity::NormalizedValue>
+        where
+            T: std::convert::Into<crate::model::document::entity::NormalizedValue>,
         {
             self.normalized_value = v.map(|x| x.into());
             self
@@ -4361,7 +4469,7 @@ pub mod document {
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::Entity>
+            V: std::convert::Into<crate::model::document::Entity>,
         {
             use std::iter::Iterator;
             self.properties = v.into_iter().map(|i| i.into()).collect();
@@ -4377,7 +4485,8 @@ pub mod document {
         /// let x = Entity::new().set_provenance(Provenance::default()/* use setters */);
         /// ```
         pub fn set_provenance<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::Provenance>
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
         {
             self.provenance = std::option::Option::Some(v.into());
             self
@@ -4393,7 +4502,8 @@ pub mod document {
         /// let x = Entity::new().set_or_clear_provenance(None::<Provenance>);
         /// ```
         pub fn set_or_clear_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::Provenance>
+        where
+            T: std::convert::Into<crate::model::document::Provenance>,
         {
             self.provenance = v.map(|x| x.into());
             self
@@ -4420,7 +4530,10 @@ pub mod document {
         /// let x0 = Entity::new().set_method(Method::Extract);
         /// let x1 = Entity::new().set_method(Method::Derive);
         /// ```
-        pub fn set_method<T: std::convert::Into<crate::model::document::entity::Method>>(mut self, v: T) -> Self {
+        pub fn set_method<T: std::convert::Into<crate::model::document::entity::Method>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.method = v.into();
             self
         }
@@ -4437,12 +4550,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Parsed and normalized entity value.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NormalizedValue {
-
             /// Optional. An optional field to store a normalized string.
             /// For some entity types, one of respective `structured_value` fields may
             /// also be populated. Also not all the types of `structured_value` will be
@@ -4460,7 +4571,9 @@ pub mod document {
             /// Must match entity type defined in schema if
             /// known. If this field is present, the `text` field could also be
             /// populated.
-            pub structured_value: std::option::Option<crate::model::document::entity::normalized_value::StructuredValue>,
+            pub structured_value: std::option::Option<
+                crate::model::document::entity::normalized_value::StructuredValue,
+            >,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -4493,8 +4606,16 @@ pub mod document {
             /// use google_cloud_documentai_v1::model::document::entity::normalized_value::StructuredValue;
             /// let x = NormalizedValue::new().set_structured_value(Some(StructuredValue::BooleanValue(true)));
             /// ```
-            pub fn set_structured_value<T: std::convert::Into<std::option::Option<crate::model::document::entity::normalized_value::StructuredValue>>>(mut self, v: T) -> Self
-            {
+            pub fn set_structured_value<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::document::entity::normalized_value::StructuredValue,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.structured_value = v.into();
                 self
             }
@@ -4502,7 +4623,9 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `MoneyValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn money_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
+            pub fn money_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::MoneyValue(v) => std::option::Option::Some(v),
@@ -4530,11 +4653,14 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_money_value<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(mut self, v: T) -> Self {
+            pub fn set_money_value<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::MoneyValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4570,11 +4696,14 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(mut self, v: T) -> Self {
+            pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::DateValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4582,7 +4711,9 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `DatetimeValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn datetime_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
+            pub fn datetime_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(v) => std::option::Option::Some(v),
@@ -4610,7 +4741,12 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_datetime_value<T: std::convert::Into<std::boxed::Box<gtype::model::DateTime>>>(mut self, v: T) -> Self {
+            pub fn set_datetime_value<
+                T: std::convert::Into<std::boxed::Box<gtype::model::DateTime>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(
                         v.into()
@@ -4622,7 +4758,9 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `AddressValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn address_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
+            pub fn address_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::AddressValue(v) => std::option::Option::Some(v),
@@ -4650,11 +4788,16 @@ pub mod document {
             /// assert!(x.float_value().is_none());
             /// assert!(x.signature_value().is_none());
             /// ```
-            pub fn set_address_value<T: std::convert::Into<std::boxed::Box<gtype::model::PostalAddress>>>(mut self, v: T) -> Self {
+            pub fn set_address_value<
+                T: std::convert::Into<std::boxed::Box<gtype::model::PostalAddress>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::AddressValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4692,8 +4835,8 @@ pub mod document {
             pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4731,8 +4874,8 @@ pub mod document {
             pub fn set_integer_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4770,8 +4913,8 @@ pub mod document {
             pub fn set_float_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.structured_value = std::option::Option::Some(
                     crate::model::document::entity::normalized_value::StructuredValue::FloatValue(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -4826,7 +4969,6 @@ pub mod document {
         pub mod normalized_value {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// An optional structured entity value.
             /// Must match entity type defined in schema if
@@ -4935,7 +5077,10 @@ pub mod document {
         }
 
         impl std::fmt::Display for Method {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -4946,7 +5091,9 @@ pub mod document {
                     0 => Self::Unspecified,
                     1 => Self::Extract,
                     2 => Self::Derive,
-                    _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -4958,7 +5105,9 @@ pub mod document {
                     "METHOD_UNSPECIFIED" => Self::Unspecified,
                     "EXTRACT" => Self::Extract,
                     "DERIVE" => Self::Derive,
-                    _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -4983,7 +5132,8 @@ pub mod document {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
-                    ".google.cloud.documentai.v1.Document.Entity.Method"))
+                    ".google.cloud.documentai.v1.Document.Entity.Method",
+                ))
             }
         }
     }
@@ -4995,7 +5145,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityRelation {
-
         /// Subject entity id.
         pub subject_id: std::string::String,
 
@@ -5063,7 +5212,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextAnchor {
-
         /// The text segments from the
         /// [Document.text][google.cloud.documentai.v1.Document.text].
         ///
@@ -5098,7 +5246,7 @@ pub mod document {
         pub fn set_text_segments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::text_anchor::TextSegment>
+            V: std::convert::Into<crate::model::document::text_anchor::TextSegment>,
         {
             use std::iter::Iterator;
             self.text_segments = v.into_iter().map(|i| i.into()).collect();
@@ -5129,7 +5277,6 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// A text segment in the
         /// [Document.text][google.cloud.documentai.v1.Document.text]. The indices
         /// may be out of bounds which indicate that the text extends into another
@@ -5141,7 +5288,6 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextSegment {
-
             /// [TextSegment][google.cloud.documentai.v1.Document.TextAnchor.TextSegment]
             /// start UTF-8 char index in the
             /// [Document.text][google.cloud.documentai.v1.Document.text].
@@ -5207,7 +5353,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PageAnchor {
-
         /// One or more references to visual page elements
         pub page_refs: std::vec::Vec<crate::model::document::page_anchor::PageRef>,
 
@@ -5234,7 +5379,7 @@ pub mod document {
         pub fn set_page_refs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page_anchor::PageRef>
+            V: std::convert::Into<crate::model::document::page_anchor::PageRef>,
         {
             use std::iter::Iterator;
             self.page_refs = v.into_iter().map(|i| i.into()).collect();
@@ -5253,12 +5398,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Represents a weak reference to a page element within a document.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PageRef {
-
             /// Required. Index into the
             /// [Document.pages][google.cloud.documentai.v1.Document.pages] element,
             /// for example using
@@ -5320,7 +5463,12 @@ pub mod document {
             /// let x1 = PageRef::new().set_layout_type(LayoutType::Paragraph);
             /// let x2 = PageRef::new().set_layout_type(LayoutType::Line);
             /// ```
-            pub fn set_layout_type<T: std::convert::Into<crate::model::document::page_anchor::page_ref::LayoutType>>(mut self, v: T) -> Self {
+            pub fn set_layout_type<
+                T: std::convert::Into<crate::model::document::page_anchor::page_ref::LayoutType>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.layout_type = v.into();
                 self
             }
@@ -5333,7 +5481,10 @@ pub mod document {
             /// let x = PageRef::new().set_layout_id("example");
             /// ```
             #[deprecated]
-            pub fn set_layout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_layout_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.layout_id = v.into();
                 self
             }
@@ -5347,7 +5498,8 @@ pub mod document {
             /// let x = PageRef::new().set_bounding_poly(BoundingPoly::default()/* use setters */);
             /// ```
             pub fn set_bounding_poly<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_poly = std::option::Option::Some(v.into());
                 self
@@ -5363,7 +5515,8 @@ pub mod document {
             /// let x = PageRef::new().set_or_clear_bounding_poly(None::<BoundingPoly>);
             /// ```
             pub fn set_or_clear_bounding_poly<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_poly = v.map(|x| x.into());
                 self
@@ -5392,7 +5545,6 @@ pub mod document {
         pub mod page_ref {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// The type of layout that is being referenced.
             ///
@@ -5516,7 +5668,10 @@ pub mod document {
             }
 
             impl std::fmt::Display for LayoutType {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -5532,7 +5687,9 @@ pub mod document {
                         5 => Self::VisualElement,
                         6 => Self::Table,
                         7 => Self::FormField,
-                        _ => Self::UnknownValue(layout_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(layout_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -5549,7 +5706,9 @@ pub mod document {
                         "VISUAL_ELEMENT" => Self::VisualElement,
                         "TABLE" => Self::Table,
                         "FORM_FIELD" => Self::FormField,
-                        _ => Self::UnknownValue(layout_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(layout_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -5579,7 +5738,8 @@ pub mod document {
                     D: serde::Deserializer<'de>,
                 {
                     deserializer.deserialize_any(wkt::internal::EnumVisitor::<LayoutType>::new(
-                        ".google.cloud.documentai.v1.Document.PageAnchor.PageRef.LayoutType"))
+                        ".google.cloud.documentai.v1.Document.PageAnchor.PageRef.LayoutType",
+                    ))
                 }
             }
         }
@@ -5590,7 +5750,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Provenance {
-
         /// The index of the revision that produced this element.
         #[deprecated]
         pub revision: i32,
@@ -5655,7 +5814,7 @@ pub mod document {
         pub fn set_parents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::provenance::Parent>
+            V: std::convert::Into<crate::model::document::provenance::Parent>,
         {
             use std::iter::Iterator;
             self.parents = v.into_iter().map(|i| i.into()).collect();
@@ -5672,7 +5831,12 @@ pub mod document {
         /// let x1 = Provenance::new().set_type(OperationType::Remove);
         /// let x2 = Provenance::new().set_type(OperationType::Update);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::document::provenance::OperationType>>(mut self, v: T) -> Self {
+        pub fn set_type<
+            T: std::convert::Into<crate::model::document::provenance::OperationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = v.into();
             self
         }
@@ -5689,13 +5853,11 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The parent element the current element is based on. Used for
         /// referencing/aligning, removal and replacement operations.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Parent {
-
             /// The index of the index into current revision's parent_ids list.
             pub revision: i32,
 
@@ -5863,7 +6025,10 @@ pub mod document {
         }
 
         impl std::fmt::Display for OperationType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -5879,7 +6044,9 @@ pub mod document {
                     5 => Self::EvalApproved,
                     6 => Self::EvalSkipped,
                     7 => Self::Update,
-                    _ => Self::UnknownValue(operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(operation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -5896,7 +6063,9 @@ pub mod document {
                     "EVAL_REQUESTED" => Self::EvalRequested,
                     "EVAL_APPROVED" => Self::EvalApproved,
                     "EVAL_SKIPPED" => Self::EvalSkipped,
-                    _ => Self::UnknownValue(operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(operation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -5926,7 +6095,8 @@ pub mod document {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationType>::new(
-                    ".google.cloud.documentai.v1.Document.Provenance.OperationType"))
+                    ".google.cloud.documentai.v1.Document.Provenance.OperationType",
+                ))
             }
         }
     }
@@ -5935,7 +6105,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Revision {
-
         /// Id of the revision, internally generated by doc proto storage.
         /// Unique within the context of the document.
         pub id: std::string::String,
@@ -5992,7 +6161,7 @@ pub mod document {
         pub fn set_parent<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>
+            V: std::convert::Into<i32>,
         {
             use std::iter::Iterator;
             self.parent = v.into_iter().map(|i| i.into()).collect();
@@ -6009,7 +6178,7 @@ pub mod document {
         pub fn set_parent_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.parent_ids = v.into_iter().map(|i| i.into()).collect();
@@ -6025,7 +6194,8 @@ pub mod document {
         /// let x = Revision::new().set_create_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.create_time = std::option::Option::Some(v.into());
             self
@@ -6041,7 +6211,8 @@ pub mod document {
         /// let x = Revision::new().set_or_clear_create_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.create_time = v.map(|x| x.into());
             self
@@ -6056,7 +6227,8 @@ pub mod document {
         /// let x = Revision::new().set_human_review(HumanReview::default()/* use setters */);
         /// ```
         pub fn set_human_review<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::revision::HumanReview>
+        where
+            T: std::convert::Into<crate::model::document::revision::HumanReview>,
         {
             self.human_review = std::option::Option::Some(v.into());
             self
@@ -6072,7 +6244,8 @@ pub mod document {
         /// let x = Revision::new().set_or_clear_human_review(None::<HumanReview>);
         /// ```
         pub fn set_or_clear_human_review<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::revision::HumanReview>
+        where
+            T: std::convert::Into<crate::model::document::revision::HumanReview>,
         {
             self.human_review = v.map(|x| x.into());
             self
@@ -6089,8 +6262,12 @@ pub mod document {
         /// use google_cloud_documentai_v1::model::document::revision::Source;
         /// let x = Revision::new().set_source(Some(Source::Agent("example".to_string())));
         /// ```
-        pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::document::revision::Source>>>(mut self, v: T) -> Self
-        {
+        pub fn set_source<
+            T: std::convert::Into<std::option::Option<crate::model::document::revision::Source>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.source = v.into();
             self
         }
@@ -6121,9 +6298,7 @@ pub mod document {
         /// ```
         pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
-                crate::model::document::revision::Source::Agent(
-                    v.into()
-                )
+                crate::model::document::revision::Source::Agent(v.into()),
             );
             self
         }
@@ -6134,7 +6309,9 @@ pub mod document {
         pub fn processor(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
-                crate::model::document::revision::Source::Processor(v) => std::option::Option::Some(v),
+                crate::model::document::revision::Source::Processor(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6154,9 +6331,7 @@ pub mod document {
         /// ```
         pub fn set_processor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
-                crate::model::document::revision::Source::Processor(
-                    v.into()
-                )
+                crate::model::document::revision::Source::Processor(v.into()),
             );
             self
         }
@@ -6173,12 +6348,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Human Review information of the document.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HumanReview {
-
             /// Human review state. e.g. `requested`, `succeeded`, `rejected`.
             pub state: std::string::String,
 
@@ -6213,7 +6386,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::revision::HumanReview;
             /// let x = HumanReview::new().set_state_message("example");
             /// ```
-            pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_state_message<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.state_message = v.into();
                 self
             }
@@ -6242,7 +6418,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextChange {
-
         /// Provenance of the correction.
         /// Text anchor indexing into the
         /// [Document.text][google.cloud.documentai.v1.Document.text].  There can
@@ -6277,7 +6452,8 @@ pub mod document {
         /// let x = TextChange::new().set_text_anchor(TextAnchor::default()/* use setters */);
         /// ```
         pub fn set_text_anchor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = std::option::Option::Some(v.into());
             self
@@ -6293,7 +6469,8 @@ pub mod document {
         /// let x = TextChange::new().set_or_clear_text_anchor(None::<TextAnchor>);
         /// ```
         pub fn set_or_clear_text_anchor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::TextAnchor>
+        where
+            T: std::convert::Into<crate::model::document::TextAnchor>,
         {
             self.text_anchor = v.map(|x| x.into());
             self
@@ -6306,7 +6483,10 @@ pub mod document {
         /// # use google_cloud_documentai_v1::model::document::TextChange;
         /// let x = TextChange::new().set_changed_text("example");
         /// ```
-        pub fn set_changed_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_changed_text<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.changed_text = v.into();
             self
         }
@@ -6327,7 +6507,7 @@ pub mod document {
         pub fn set_provenance<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::Provenance>
+            V: std::convert::Into<crate::model::document::Provenance>,
         {
             use std::iter::Iterator;
             self.provenance = v.into_iter().map(|i| i.into()).collect();
@@ -6346,7 +6526,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DocumentLayout {
-
         /// List of blocks in the document.
         pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
@@ -6373,7 +6552,7 @@ pub mod document {
         pub fn set_blocks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::document_layout::DocumentLayoutBlock>
+            V: std::convert::Into<crate::model::document::document_layout::DocumentLayoutBlock>,
         {
             use std::iter::Iterator;
             self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -6392,23 +6571,25 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Represents a block. A block could be one of the various types (text,
         /// table, list) supported.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DocumentLayoutBlock {
-
             /// ID of the block.
             pub block_id: std::string::String,
 
             /// Page span of the block.
-            pub page_span: std::option::Option<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>,
+            pub page_span: std::option::Option<
+                crate::model::document::document_layout::document_layout_block::LayoutPageSpan,
+            >,
 
             /// Identifies the bounding box for the block.
             pub bounding_box: std::option::Option<crate::model::BoundingPoly>,
 
-            pub block: std::option::Option<crate::model::document::document_layout::document_layout_block::Block>,
+            pub block: std::option::Option<
+                crate::model::document::document_layout::document_layout_block::Block,
+            >,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -6425,7 +6606,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
             /// let x = DocumentLayoutBlock::new().set_block_id("example");
             /// ```
-            pub fn set_block_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_block_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.block_id = v.into();
                 self
             }
@@ -6470,7 +6654,8 @@ pub mod document {
             /// let x = DocumentLayoutBlock::new().set_bounding_box(BoundingPoly::default()/* use setters */);
             /// ```
             pub fn set_bounding_box<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_box = std::option::Option::Some(v.into());
                 self
@@ -6486,7 +6671,8 @@ pub mod document {
             /// let x = DocumentLayoutBlock::new().set_or_clear_bounding_box(None::<BoundingPoly>);
             /// ```
             pub fn set_or_clear_bounding_box<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::BoundingPoly>
+            where
+                T: std::convert::Into<crate::model::BoundingPoly>,
             {
                 self.bounding_box = v.map(|x| x.into());
                 self
@@ -6504,8 +6690,16 @@ pub mod document {
             /// let x = DocumentLayoutBlock::new().set_block(Some(
             ///     google_cloud_documentai_v1::model::document::document_layout::document_layout_block::Block::TextBlock(LayoutTextBlock::default().into())));
             /// ```
-            pub fn set_block<T: std::convert::Into<std::option::Option<crate::model::document::document_layout::document_layout_block::Block>>>(mut self, v: T) -> Self
-            {
+            pub fn set_block<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::document::document_layout::document_layout_block::Block,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.block = v.into();
                 self
             }
@@ -6513,7 +6707,13 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TextBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn text_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>> {
+            pub fn text_block(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::document::document_layout::document_layout_block::LayoutTextBlock,
+                >,
+            > {
                 #[allow(unreachable_patterns)]
                 self.block.as_ref().and_then(|v| match v {
                     crate::model::document::document_layout::document_layout_block::Block::TextBlock(v) => std::option::Option::Some(v),
@@ -6536,7 +6736,7 @@ pub mod document {
             /// assert!(x.table_block().is_none());
             /// assert!(x.list_block().is_none());
             /// ```
-            pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self {
+            pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::TextBlock(
                         v.into()
@@ -6548,7 +6748,7 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TableBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn table_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>> {
+            pub fn table_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>{
                 #[allow(unreachable_patterns)]
                 self.block.as_ref().and_then(|v| match v {
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(v) => std::option::Option::Some(v),
@@ -6571,7 +6771,7 @@ pub mod document {
             /// assert!(x.text_block().is_none());
             /// assert!(x.list_block().is_none());
             /// ```
-            pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self {
+            pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(
                         v.into()
@@ -6583,7 +6783,13 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `ListBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn list_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>> {
+            pub fn list_block(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::document::document_layout::document_layout_block::LayoutListBlock,
+                >,
+            > {
                 #[allow(unreachable_patterns)]
                 self.block.as_ref().and_then(|v| match v {
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(v) => std::option::Option::Some(v),
@@ -6606,7 +6812,7 @@ pub mod document {
             /// assert!(x.text_block().is_none());
             /// assert!(x.table_block().is_none());
             /// ```
-            pub fn set_list_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>(mut self, v: T) -> Self {
+            pub fn set_list_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(
                         v.into()
@@ -6627,12 +6833,10 @@ pub mod document {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Represents where the block starts and ends in the document.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutPageSpan {
-
                 /// Page where block starts in the document.
                 pub page_start: i32,
 
@@ -6682,7 +6886,6 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTextBlock {
-
                 /// Text content stored in the block.
                 pub text: std::string::String,
 
@@ -6693,7 +6896,8 @@ pub mod document {
 
                 /// A text block could further have child blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
-                pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+                pub blocks:
+                    std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -6710,7 +6914,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
                 /// let x = LayoutTextBlock::new().set_text("example");
                 /// ```
-                pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_text<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.text = v.into();
                     self
                 }
@@ -6722,7 +6929,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
                 /// let x = LayoutTextBlock::new().set_type("example");
                 /// ```
-                pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.r#type = v.into();
                     self
                 }
@@ -6742,7 +6952,9 @@ pub mod document {
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::document::document_layout::DocumentLayoutBlock>
+                    V: std::convert::Into<
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -6760,12 +6972,15 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableBlock {
-
                 /// Header rows at the top of the table.
-                pub header_rows: std::vec::Vec<crate::model::document::document_layout::document_layout_block::LayoutTableRow>,
+                pub header_rows: std::vec::Vec<
+                    crate::model::document::document_layout::document_layout_block::LayoutTableRow,
+                >,
 
                 /// Body rows containing main table content.
-                pub body_rows: std::vec::Vec<crate::model::document::document_layout::document_layout_block::LayoutTableRow>,
+                pub body_rows: std::vec::Vec<
+                    crate::model::document::document_layout::document_layout_block::LayoutTableRow,
+                >,
 
                 /// Table caption/title.
                 pub caption: std::string::String,
@@ -6829,7 +7044,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
                 /// let x = LayoutTableBlock::new().set_caption("example");
                 /// ```
-                pub fn set_caption<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_caption<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.caption = v.into();
                     self
                 }
@@ -6845,9 +7063,10 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableRow {
-
                 /// A table row is a list of table cells.
-                pub cells: std::vec::Vec<crate::model::document::document_layout::document_layout_block::LayoutTableCell>,
+                pub cells: std::vec::Vec<
+                    crate::model::document::document_layout::document_layout_block::LayoutTableCell,
+                >,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -6890,10 +7109,10 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableCell {
-
                 /// A table cell is a list of blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
-                pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+                pub blocks:
+                    std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
                 /// How many rows this cell spans.
                 pub row_span: i32,
@@ -6924,7 +7143,9 @@ pub mod document {
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::document::document_layout::DocumentLayoutBlock>
+                    V: std::convert::Into<
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -6966,9 +7187,10 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutListBlock {
-
                 /// List entries that constitute a list block.
-                pub list_entries: std::vec::Vec<crate::model::document::document_layout::document_layout_block::LayoutListEntry>,
+                pub list_entries: std::vec::Vec<
+                    crate::model::document::document_layout::document_layout_block::LayoutListEntry,
+                >,
 
                 /// Type of the list_entries (if exist). Available options are `ordered`
                 /// and `unordered`.
@@ -7011,7 +7233,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutListBlock;
                 /// let x = LayoutListBlock::new().set_type("example");
                 /// ```
-                pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.r#type = v.into();
                     self
                 }
@@ -7027,10 +7252,10 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutListEntry {
-
                 /// A list entry is a list of blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
-                pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+                pub blocks:
+                    std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -7055,7 +7280,9 @@ pub mod document {
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<crate::model::document::document_layout::DocumentLayoutBlock>
+                    V: std::convert::Into<
+                            crate::model::document::document_layout::DocumentLayoutBlock,
+                        >,
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
@@ -7086,7 +7313,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ChunkedDocument {
-
         /// List of chunks.
         pub chunks: std::vec::Vec<crate::model::document::chunked_document::Chunk>,
 
@@ -7113,7 +7339,7 @@ pub mod document {
         pub fn set_chunks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::chunked_document::Chunk>
+            V: std::convert::Into<crate::model::document::chunked_document::Chunk>,
         {
             use std::iter::Iterator;
             self.chunks = v.into_iter().map(|i| i.into()).collect();
@@ -7132,12 +7358,10 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Represents a chunk.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Chunk {
-
             /// ID of the chunk.
             pub chunk_id: std::string::String,
 
@@ -7148,13 +7372,16 @@ pub mod document {
             pub content: std::string::String,
 
             /// Page span of the chunk.
-            pub page_span: std::option::Option<crate::model::document::chunked_document::chunk::ChunkPageSpan>,
+            pub page_span:
+                std::option::Option<crate::model::document::chunked_document::chunk::ChunkPageSpan>,
 
             /// Page headers associated with the chunk.
-            pub page_headers: std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageHeader>,
+            pub page_headers:
+                std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageHeader>,
 
             /// Page footers associated with the chunk.
-            pub page_footers: std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>,
+            pub page_footers:
+                std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -7171,7 +7398,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
             /// let x = Chunk::new().set_chunk_id("example");
             /// ```
-            pub fn set_chunk_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_chunk_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.chunk_id = v.into();
                 self
             }
@@ -7186,7 +7416,7 @@ pub mod document {
             pub fn set_source_block_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.source_block_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7214,7 +7444,10 @@ pub mod document {
             /// let x = Chunk::new().set_page_span(ChunkPageSpan::default()/* use setters */);
             /// ```
             pub fn set_page_span<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+            where
+                T: std::convert::Into<
+                        crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                    >,
             {
                 self.page_span = std::option::Option::Some(v.into());
                 self
@@ -7230,7 +7463,10 @@ pub mod document {
             /// let x = Chunk::new().set_or_clear_page_span(None::<ChunkPageSpan>);
             /// ```
             pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+            where
+                T: std::convert::Into<
+                        crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                    >,
             {
                 self.page_span = v.map(|x| x.into());
                 self
@@ -7251,7 +7487,9 @@ pub mod document {
             pub fn set_page_headers<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageHeader>
+                V: std::convert::Into<
+                        crate::model::document::chunked_document::chunk::ChunkPageHeader,
+                    >,
             {
                 use std::iter::Iterator;
                 self.page_headers = v.into_iter().map(|i| i.into()).collect();
@@ -7273,7 +7511,9 @@ pub mod document {
             pub fn set_page_footers<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageFooter>
+                V: std::convert::Into<
+                        crate::model::document::chunked_document::chunk::ChunkPageFooter,
+                    >,
             {
                 use std::iter::Iterator;
                 self.page_footers = v.into_iter().map(|i| i.into()).collect();
@@ -7292,12 +7532,10 @@ pub mod document {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Represents where the chunk starts and ends in the document.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageSpan {
-
                 /// Page where chunk starts in the document.
                 pub page_start: i32,
 
@@ -7347,12 +7585,13 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageHeader {
-
                 /// Header in text format.
                 pub text: std::string::String,
 
                 /// Page span of the header.
-                pub page_span: std::option::Option<crate::model::document::chunked_document::chunk::ChunkPageSpan>,
+                pub page_span: std::option::Option<
+                    crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                >,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -7369,7 +7608,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageHeader;
                 /// let x = ChunkPageHeader::new().set_text("example");
                 /// ```
-                pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_text<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.text = v.into();
                     self
                 }
@@ -7383,7 +7625,10 @@ pub mod document {
                 /// let x = ChunkPageHeader::new().set_page_span(ChunkPageSpan::default()/* use setters */);
                 /// ```
                 pub fn set_page_span<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
                 {
                     self.page_span = std::option::Option::Some(v.into());
                     self
@@ -7399,7 +7644,10 @@ pub mod document {
                 /// let x = ChunkPageHeader::new().set_or_clear_page_span(None::<ChunkPageSpan>);
                 /// ```
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
                 {
                     self.page_span = v.map(|x| x.into());
                     self
@@ -7416,12 +7664,13 @@ pub mod document {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageFooter {
-
                 /// Footer in text format.
                 pub text: std::string::String,
 
                 /// Page span of the footer.
-                pub page_span: std::option::Option<crate::model::document::chunked_document::chunk::ChunkPageSpan>,
+                pub page_span: std::option::Option<
+                    crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                >,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -7438,7 +7687,10 @@ pub mod document {
                 /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkPageFooter;
                 /// let x = ChunkPageFooter::new().set_text("example");
                 /// ```
-                pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_text<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.text = v.into();
                     self
                 }
@@ -7452,7 +7704,10 @@ pub mod document {
                 /// let x = ChunkPageFooter::new().set_page_span(ChunkPageSpan::default()/* use setters */);
                 /// ```
                 pub fn set_page_span<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
                 {
                     self.page_span = std::option::Option::Some(v.into());
                     self
@@ -7468,7 +7723,10 @@ pub mod document {
                 /// let x = ChunkPageFooter::new().set_or_clear_page_span(None::<ChunkPageSpan>);
                 /// ```
                 pub fn set_or_clear_page_span<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkPageSpan>
+                where
+                    T: std::convert::Into<
+                            crate::model::document::chunked_document::chunk::ChunkPageSpan,
+                        >,
                 {
                     self.page_span = v.map(|x| x.into());
                     self
@@ -7487,9 +7745,9 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityValidationOutput {
-
         /// The result of each validation rule.
-        pub validation_results: std::vec::Vec<crate::model::document::entity_validation_output::ValidationResult>,
+        pub validation_results:
+            std::vec::Vec<crate::model::document::entity_validation_output::ValidationResult>,
 
         /// The overall result of the validation, true if all applicable rules are
         /// valid.
@@ -7518,7 +7776,9 @@ pub mod document {
         pub fn set_validation_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::entity_validation_output::ValidationResult>
+            V: std::convert::Into<
+                    crate::model::document::entity_validation_output::ValidationResult,
+                >,
         {
             use std::iter::Iterator;
             self.validation_results = v.into_iter().map(|i| i.into()).collect();
@@ -7548,7 +7808,6 @@ pub mod document {
     pub mod entity_validation_output {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Validation result for a single validation rule.
         #[derive(Clone, Default, PartialEq)]
@@ -7583,7 +7842,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
             /// let x = ValidationResult::new().set_rule_name("example");
             /// ```
-            pub fn set_rule_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_rule_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.rule_name = v.into();
                 self
             }
@@ -7595,7 +7857,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
             /// let x = ValidationResult::new().set_rule_description("example");
             /// ```
-            pub fn set_rule_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_rule_description<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.rule_description = v.into();
                 self
             }
@@ -7610,7 +7875,7 @@ pub mod document {
             /// let x1 = ValidationResult::new().set_validation_result_type(ValidationResultType::Invalid);
             /// let x2 = ValidationResult::new().set_validation_result_type(ValidationResultType::Skipped);
             /// ```
-            pub fn set_validation_result_type<T: std::convert::Into<crate::model::document::entity_validation_output::validation_result::ValidationResultType>>(mut self, v: T) -> Self {
+            pub fn set_validation_result_type<T: std::convert::Into<crate::model::document::entity_validation_output::validation_result::ValidationResultType>>(mut self, v: T) -> Self{
                 self.validation_result_type = v.into();
                 self
             }
@@ -7622,7 +7887,10 @@ pub mod document {
             /// # use google_cloud_documentai_v1::model::document::entity_validation_output::ValidationResult;
             /// let x = ValidationResult::new().set_validation_details("example");
             /// ```
-            pub fn set_validation_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_validation_details<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.validation_details = v.into();
                 self
             }
@@ -7638,7 +7906,6 @@ pub mod document {
         pub mod validation_result {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// The result of the validation rule.
             ///
@@ -7705,11 +7972,19 @@ pub mod document {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("VALIDATION_RESULT_TYPE_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_UNSPECIFIED")
+                        }
                         Self::Valid => std::option::Option::Some("VALIDATION_RESULT_TYPE_VALID"),
-                        Self::Invalid => std::option::Option::Some("VALIDATION_RESULT_TYPE_INVALID"),
-                        Self::Skipped => std::option::Option::Some("VALIDATION_RESULT_TYPE_SKIPPED"),
-                        Self::NotApplicable => std::option::Option::Some("VALIDATION_RESULT_TYPE_NOT_APPLICABLE"),
+                        Self::Invalid => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_INVALID")
+                        }
+                        Self::Skipped => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_SKIPPED")
+                        }
+                        Self::NotApplicable => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_NOT_APPLICABLE")
+                        }
                         Self::UnknownValue(u) => u.0.name(),
                     }
                 }
@@ -7723,7 +7998,10 @@ pub mod document {
             }
 
             impl std::fmt::Display for ValidationResultType {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -7736,7 +8014,9 @@ pub mod document {
                         2 => Self::Invalid,
                         3 => Self::Skipped,
                         4 => Self::NotApplicable,
-                        _ => Self::UnknownValue(validation_result_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(validation_result_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -7750,7 +8030,9 @@ pub mod document {
                         "VALIDATION_RESULT_TYPE_INVALID" => Self::Invalid,
                         "VALIDATION_RESULT_TYPE_SKIPPED" => Self::Skipped,
                         "VALIDATION_RESULT_TYPE_NOT_APPLICABLE" => Self::NotApplicable,
-                        _ => Self::UnknownValue(validation_result_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(validation_result_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -7787,7 +8069,6 @@ pub mod document {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntitiesRevision {
-
         /// The revision id.
         pub revision_id: std::string::String,
 
@@ -7795,7 +8076,8 @@ pub mod document {
         pub entities: std::vec::Vec<crate::model::document::Entity>,
 
         /// The entity validation output for this revision.
-        pub entity_validation_output: std::option::Option<crate::model::document::EntityValidationOutput>,
+        pub entity_validation_output:
+            std::option::Option<crate::model::document::EntityValidationOutput>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7832,7 +8114,7 @@ pub mod document {
         pub fn set_entities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::Entity>
+            V: std::convert::Into<crate::model::document::Entity>,
         {
             use std::iter::Iterator;
             self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -7848,7 +8130,8 @@ pub mod document {
         /// let x = EntitiesRevision::new().set_entity_validation_output(EntityValidationOutput::default()/* use setters */);
         /// ```
         pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document::EntityValidationOutput>
+        where
+            T: std::convert::Into<crate::model::document::EntityValidationOutput>,
         {
             self.entity_validation_output = std::option::Option::Some(v.into());
             self
@@ -7864,7 +8147,8 @@ pub mod document {
         /// let x = EntitiesRevision::new().set_or_clear_entity_validation_output(None::<EntityValidationOutput>);
         /// ```
         pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document::EntityValidationOutput>
+        where
+            T: std::convert::Into<crate::model::document::EntityValidationOutput>,
         {
             self.entity_validation_output = v.map(|x| x.into());
             self
@@ -7897,7 +8181,6 @@ pub mod document {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDocument {
-
     /// Inline document content.
     pub content: ::bytes::Bytes,
 
@@ -7969,7 +8252,6 @@ impl wkt::message::Message for RawDocument {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDocument {
-
     /// The Cloud Storage object uri.
     pub gcs_uri: std::string::String,
 
@@ -8019,7 +8301,6 @@ impl wkt::message::Message for GcsDocument {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDocuments {
-
     /// The list of documents.
     pub documents: std::vec::Vec<crate::model::GcsDocument>,
 
@@ -8046,7 +8327,7 @@ impl GcsDocuments {
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GcsDocument>
+        V: std::convert::Into<crate::model::GcsDocument>,
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
@@ -8064,7 +8345,6 @@ impl wkt::message::Message for GcsDocuments {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsPrefix {
-
     /// The URI prefix.
     pub gcs_uri_prefix: std::string::String,
 
@@ -8099,7 +8379,6 @@ impl wkt::message::Message for GcsPrefix {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentsInputConfig {
-
     /// The source. Make sure that the caller of the API has storage.objects.get
     /// access to the buckets.
     pub source: std::option::Option<crate::model::batch_documents_input_config::Source>,
@@ -8124,8 +8403,12 @@ impl BatchDocumentsInputConfig {
     /// let x = BatchDocumentsInputConfig::new().set_source(Some(
     ///     google_cloud_documentai_v1::model::batch_documents_input_config::Source::GcsPrefix(GcsPrefix::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::batch_documents_input_config::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::batch_documents_input_config::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -8136,7 +8419,9 @@ impl BatchDocumentsInputConfig {
     pub fn gcs_prefix(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPrefix>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::batch_documents_input_config::Source::GcsPrefix(v) => std::option::Option::Some(v),
+            crate::model::batch_documents_input_config::Source::GcsPrefix(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8155,11 +8440,12 @@ impl BatchDocumentsInputConfig {
     /// assert!(x.gcs_prefix().is_some());
     /// assert!(x.gcs_documents().is_none());
     /// ```
-    pub fn set_gcs_prefix<T: std::convert::Into<std::boxed::Box<crate::model::GcsPrefix>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_prefix<T: std::convert::Into<std::boxed::Box<crate::model::GcsPrefix>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::batch_documents_input_config::Source::GcsPrefix(
-                v.into()
-            )
+            crate::model::batch_documents_input_config::Source::GcsPrefix(v.into()),
         );
         self
     }
@@ -8167,10 +8453,14 @@ impl BatchDocumentsInputConfig {
     /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
     /// if it holds a `GcsDocuments`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_documents(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocuments>> {
+    pub fn gcs_documents(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocuments>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::batch_documents_input_config::Source::GcsDocuments(v) => std::option::Option::Some(v),
+            crate::model::batch_documents_input_config::Source::GcsDocuments(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8189,11 +8479,12 @@ impl BatchDocumentsInputConfig {
     /// assert!(x.gcs_documents().is_some());
     /// assert!(x.gcs_prefix().is_none());
     /// ```
-    pub fn set_gcs_documents<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocuments>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_documents<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocuments>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::batch_documents_input_config::Source::GcsDocuments(
-                v.into()
-            )
+            crate::model::batch_documents_input_config::Source::GcsDocuments(v.into()),
         );
         self
     }
@@ -8209,7 +8500,6 @@ impl wkt::message::Message for BatchDocumentsInputConfig {
 pub mod batch_documents_input_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The source. Make sure that the caller of the API has storage.objects.get
     /// access to the buckets.
@@ -8228,7 +8518,6 @@ pub mod batch_documents_input_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentOutputConfig {
-
     /// The destination of the results.
     pub destination: std::option::Option<crate::model::document_output_config::Destination>,
 
@@ -8252,8 +8541,12 @@ impl DocumentOutputConfig {
     /// let x = DocumentOutputConfig::new().set_destination(Some(
     ///     google_cloud_documentai_v1::model::document_output_config::Destination::GcsOutputConfig(GcsOutputConfig::default().into())));
     /// ```
-    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>>(mut self, v: T) -> Self
-    {
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination = v.into();
         self
     }
@@ -8261,10 +8554,15 @@ impl DocumentOutputConfig {
     /// The value of [destination][crate::model::DocumentOutputConfig::destination]
     /// if it holds a `GcsOutputConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gcs_output_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>> {
+    pub fn gcs_output_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>
+    {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::document_output_config::Destination::GcsOutputConfig(v) => std::option::Option::Some(v),
+            crate::model::document_output_config::Destination::GcsOutputConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8282,11 +8580,14 @@ impl DocumentOutputConfig {
     /// let x = DocumentOutputConfig::new().set_gcs_output_config(GcsOutputConfig::default()/* use setters */);
     /// assert!(x.gcs_output_config().is_some());
     /// ```
-    pub fn set_gcs_output_config<T: std::convert::Into<std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>>(mut self, v: T) -> Self {
+    pub fn set_gcs_output_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::document_output_config::Destination::GcsOutputConfig(
-                v.into()
-            )
+            crate::model::document_output_config::Destination::GcsOutputConfig(v.into()),
         );
         self
     }
@@ -8303,12 +8604,10 @@ pub mod document_output_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The configuration used when outputting documents.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GcsOutputConfig {
-
         /// The Cloud Storage uri (a directory) of the output.
         pub gcs_uri: std::string::String,
 
@@ -8318,7 +8617,9 @@ pub mod document_output_config {
         pub field_mask: std::option::Option<wkt::FieldMask>,
 
         /// Specifies the sharding config for the output document.
-        pub sharding_config: std::option::Option<crate::model::document_output_config::gcs_output_config::ShardingConfig>,
+        pub sharding_config: std::option::Option<
+            crate::model::document_output_config::gcs_output_config::ShardingConfig,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8349,7 +8650,8 @@ pub mod document_output_config {
         /// let x = GcsOutputConfig::new().set_field_mask(FieldMask::default()/* use setters */);
         /// ```
         pub fn set_field_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.field_mask = std::option::Option::Some(v.into());
             self
@@ -8365,7 +8667,8 @@ pub mod document_output_config {
         /// let x = GcsOutputConfig::new().set_or_clear_field_mask(None::<FieldMask>);
         /// ```
         pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.field_mask = v.map(|x| x.into());
             self
@@ -8380,7 +8683,10 @@ pub mod document_output_config {
         /// let x = GcsOutputConfig::new().set_sharding_config(ShardingConfig::default()/* use setters */);
         /// ```
         pub fn set_sharding_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::document_output_config::gcs_output_config::ShardingConfig>
+        where
+            T: std::convert::Into<
+                    crate::model::document_output_config::gcs_output_config::ShardingConfig,
+                >,
         {
             self.sharding_config = std::option::Option::Some(v.into());
             self
@@ -8396,7 +8702,10 @@ pub mod document_output_config {
         /// let x = GcsOutputConfig::new().set_or_clear_sharding_config(None::<ShardingConfig>);
         /// ```
         pub fn set_or_clear_sharding_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::document_output_config::gcs_output_config::ShardingConfig>
+        where
+            T: std::convert::Into<
+                    crate::model::document_output_config::gcs_output_config::ShardingConfig,
+                >,
         {
             self.sharding_config = v.map(|x| x.into());
             self
@@ -8414,12 +8723,10 @@ pub mod document_output_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The sharding config for the output document.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ShardingConfig {
-
             /// The number of pages per shard.
             pub pages_per_shard: i32,
 
@@ -8479,7 +8786,6 @@ pub mod document_output_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OcrConfig {
-
     /// Hints for the OCR model.
     pub hints: std::option::Option<crate::model::ocr_config::Hints>,
 
@@ -8537,7 +8843,8 @@ impl OcrConfig {
     /// let x = OcrConfig::new().set_hints(Hints::default()/* use setters */);
     /// ```
     pub fn set_hints<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ocr_config::Hints>
+    where
+        T: std::convert::Into<crate::model::ocr_config::Hints>,
     {
         self.hints = std::option::Option::Some(v.into());
         self
@@ -8553,7 +8860,8 @@ impl OcrConfig {
     /// let x = OcrConfig::new().set_or_clear_hints(None::<Hints>);
     /// ```
     pub fn set_or_clear_hints<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ocr_config::Hints>
+    where
+        T: std::convert::Into<crate::model::ocr_config::Hints>,
     {
         self.hints = v.map(|x| x.into());
         self
@@ -8593,7 +8901,7 @@ impl OcrConfig {
     pub fn set_advanced_ocr_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.advanced_ocr_options = v.into_iter().map(|i| i.into()).collect();
@@ -8632,7 +8940,10 @@ impl OcrConfig {
     /// # use google_cloud_documentai_v1::model::OcrConfig;
     /// let x = OcrConfig::new().set_disable_character_boxes_detection(true);
     /// ```
-    pub fn set_disable_character_boxes_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_disable_character_boxes_detection<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.disable_character_boxes_detection = v.into();
         self
     }
@@ -8646,7 +8957,8 @@ impl OcrConfig {
     /// let x = OcrConfig::new().set_premium_features(PremiumFeatures::default()/* use setters */);
     /// ```
     pub fn set_premium_features<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>
+    where
+        T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
     {
         self.premium_features = std::option::Option::Some(v.into());
         self
@@ -8662,7 +8974,8 @@ impl OcrConfig {
     /// let x = OcrConfig::new().set_or_clear_premium_features(None::<PremiumFeatures>);
     /// ```
     pub fn set_or_clear_premium_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>
+    where
+        T: std::convert::Into<crate::model::ocr_config::PremiumFeatures>,
     {
         self.premium_features = v.map(|x| x.into());
         self
@@ -8680,12 +8993,10 @@ pub mod ocr_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Hints for OCR Engine
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Hints {
-
         /// List of BCP-47 language codes to use for OCR. In most cases, not
         /// specifying it yields the best results since it enables automatic language
         /// detection. For languages based on the Latin alphabet, setting hints is
@@ -8712,7 +9023,7 @@ pub mod ocr_config {
         pub fn set_language_hints<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.language_hints = v.into_iter().map(|i| i.into()).collect();
@@ -8730,7 +9041,6 @@ pub mod ocr_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PremiumFeatures {
-
         /// Turn on selection mark detector in OCR engine. Only available in OCR 2.0
         /// (and later) processors.
         pub enable_selection_mark_detection: bool,
@@ -8756,7 +9066,10 @@ pub mod ocr_config {
         /// # use google_cloud_documentai_v1::model::ocr_config::PremiumFeatures;
         /// let x = PremiumFeatures::new().set_enable_selection_mark_detection(true);
         /// ```
-        pub fn set_enable_selection_mark_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_enable_selection_mark_detection<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.enable_selection_mark_detection = v.into();
             self
         }
@@ -8797,7 +9110,6 @@ pub mod ocr_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOptions {
-
     /// Only applicable to `OCR_PROCESSOR` and `FORM_PARSER_PROCESSOR`.
     /// Returns error if set on other processor types.
     pub ocr_config: std::option::Option<crate::model::OcrConfig>,
@@ -8844,7 +9156,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_ocr_config(OcrConfig::default()/* use setters */);
     /// ```
     pub fn set_ocr_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OcrConfig>
+    where
+        T: std::convert::Into<crate::model::OcrConfig>,
     {
         self.ocr_config = std::option::Option::Some(v.into());
         self
@@ -8860,7 +9173,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_or_clear_ocr_config(None::<OcrConfig>);
     /// ```
     pub fn set_or_clear_ocr_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OcrConfig>
+    where
+        T: std::convert::Into<crate::model::OcrConfig>,
     {
         self.ocr_config = v.map(|x| x.into());
         self
@@ -8875,7 +9189,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_layout_config(LayoutConfig::default()/* use setters */);
     /// ```
     pub fn set_layout_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::process_options::LayoutConfig>
+    where
+        T: std::convert::Into<crate::model::process_options::LayoutConfig>,
     {
         self.layout_config = std::option::Option::Some(v.into());
         self
@@ -8891,7 +9206,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_or_clear_layout_config(None::<LayoutConfig>);
     /// ```
     pub fn set_or_clear_layout_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::process_options::LayoutConfig>
+    where
+        T: std::convert::Into<crate::model::process_options::LayoutConfig>,
     {
         self.layout_config = v.map(|x| x.into());
         self
@@ -8906,7 +9222,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_schema_override(DocumentSchema::default()/* use setters */);
     /// ```
     pub fn set_schema_override<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.schema_override = std::option::Option::Some(v.into());
         self
@@ -8922,7 +9239,8 @@ impl ProcessOptions {
     /// let x = ProcessOptions::new().set_or_clear_schema_override(None::<DocumentSchema>);
     /// ```
     pub fn set_or_clear_schema_override<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.schema_override = v.map(|x| x.into());
         self
@@ -8939,8 +9257,12 @@ impl ProcessOptions {
     /// use google_cloud_documentai_v1::model::process_options::PageRange;
     /// let x = ProcessOptions::new().set_page_range(Some(PageRange::FromStart(42)));
     /// ```
-    pub fn set_page_range<T: std::convert::Into<std::option::Option<crate::model::process_options::PageRange>>>(mut self, v: T) -> Self
-    {
+    pub fn set_page_range<
+        T: std::convert::Into<std::option::Option<crate::model::process_options::PageRange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.page_range = v.into();
         self
     }
@@ -8948,10 +9270,15 @@ impl ProcessOptions {
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `IndividualPageSelector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn individual_page_selector(&self) -> std::option::Option<&std::boxed::Box<crate::model::process_options::IndividualPageSelector>> {
+    pub fn individual_page_selector(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::process_options::IndividualPageSelector>>
+    {
         #[allow(unreachable_patterns)]
         self.page_range.as_ref().and_then(|v| match v {
-            crate::model::process_options::PageRange::IndividualPageSelector(v) => std::option::Option::Some(v),
+            crate::model::process_options::PageRange::IndividualPageSelector(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -8971,11 +9298,14 @@ impl ProcessOptions {
     /// assert!(x.from_start().is_none());
     /// assert!(x.from_end().is_none());
     /// ```
-    pub fn set_individual_page_selector<T: std::convert::Into<std::boxed::Box<crate::model::process_options::IndividualPageSelector>>>(mut self, v: T) -> Self {
+    pub fn set_individual_page_selector<
+        T: std::convert::Into<std::boxed::Box<crate::model::process_options::IndividualPageSelector>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.page_range = std::option::Option::Some(
-            crate::model::process_options::PageRange::IndividualPageSelector(
-                v.into()
-            )
+            crate::model::process_options::PageRange::IndividualPageSelector(v.into()),
         );
         self
     }
@@ -9007,9 +9337,7 @@ impl ProcessOptions {
     /// ```
     pub fn set_from_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_range = std::option::Option::Some(
-            crate::model::process_options::PageRange::FromStart(
-                v.into()
-            )
+            crate::model::process_options::PageRange::FromStart(v.into()),
         );
         self
     }
@@ -9040,11 +9368,8 @@ impl ProcessOptions {
     /// assert!(x.from_start().is_none());
     /// ```
     pub fn set_from_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.page_range = std::option::Option::Some(
-            crate::model::process_options::PageRange::FromEnd(
-                v.into()
-            )
-        );
+        self.page_range =
+            std::option::Option::Some(crate::model::process_options::PageRange::FromEnd(v.into()));
         self
     }
 }
@@ -9060,14 +9385,13 @@ pub mod process_options {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Serving config for layout parser processor.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LayoutConfig {
-
         /// Optional. Config for chunking in layout parser processor.
-        pub chunking_config: std::option::Option<crate::model::process_options::layout_config::ChunkingConfig>,
+        pub chunking_config:
+            std::option::Option<crate::model::process_options::layout_config::ChunkingConfig>,
 
         /// Optional. Whether to include images in layout parser processor response.
         pub return_images: bool,
@@ -9093,7 +9417,8 @@ pub mod process_options {
         /// let x = LayoutConfig::new().set_chunking_config(ChunkingConfig::default()/* use setters */);
         /// ```
         pub fn set_chunking_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>
+        where
+            T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
         {
             self.chunking_config = std::option::Option::Some(v.into());
             self
@@ -9109,7 +9434,8 @@ pub mod process_options {
         /// let x = LayoutConfig::new().set_or_clear_chunking_config(None::<ChunkingConfig>);
         /// ```
         pub fn set_or_clear_chunking_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>
+        where
+            T: std::convert::Into<crate::model::process_options::layout_config::ChunkingConfig>,
         {
             self.chunking_config = v.map(|x| x.into());
             self
@@ -9151,12 +9477,10 @@ pub mod process_options {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Serving config for chunking.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ChunkingConfig {
-
             /// Optional. The chunk sizes to use when splitting documents, in order of
             /// level.
             pub chunk_size: i32,
@@ -9191,7 +9515,10 @@ pub mod process_options {
             /// # use google_cloud_documentai_v1::model::process_options::layout_config::ChunkingConfig;
             /// let x = ChunkingConfig::new().set_include_ancestor_headings(true);
             /// ```
-            pub fn set_include_ancestor_headings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            pub fn set_include_ancestor_headings<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.include_ancestor_headings = v.into();
                 self
             }
@@ -9208,7 +9535,6 @@ pub mod process_options {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndividualPageSelector {
-
         /// Optional. Indices of the pages (starting from 1).
         pub pages: std::vec::Vec<i32>,
 
@@ -9230,7 +9556,7 @@ pub mod process_options {
         pub fn set_pages<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>
+            V: std::convert::Into<i32>,
         {
             use std::iter::Iterator;
             self.pages = v.into_iter().map(|i| i.into()).collect();
@@ -9258,7 +9584,9 @@ pub mod process_options {
     #[non_exhaustive]
     pub enum PageRange {
         /// Which pages to process (1-indexed).
-        IndividualPageSelector(std::boxed::Box<crate::model::process_options::IndividualPageSelector>),
+        IndividualPageSelector(
+            std::boxed::Box<crate::model::process_options::IndividualPageSelector>,
+        ),
         /// Only process certain pages from the start. Process all if the document
         /// has fewer pages.
         FromStart(i32),
@@ -9275,7 +9603,6 @@ pub mod process_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessRequest {
-
     /// Required. The resource name of the
     /// [Processor][google.cloud.documentai.v1.Processor] or
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion]
@@ -9313,7 +9640,7 @@ pub struct ProcessRequest {
     /// (Unicode codepoints) and can only contain lowercase letters, numeric
     /// characters, underscores, and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Option to remove images from the document.
     pub imageless_mode: bool,
@@ -9362,7 +9689,8 @@ impl ProcessRequest {
     /// let x = ProcessRequest::new().set_field_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.field_mask = std::option::Option::Some(v.into());
         self
@@ -9378,7 +9706,8 @@ impl ProcessRequest {
     /// let x = ProcessRequest::new().set_or_clear_field_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.field_mask = v.map(|x| x.into());
         self
@@ -9393,7 +9722,8 @@ impl ProcessRequest {
     /// let x = ProcessRequest::new().set_process_options(ProcessOptions::default()/* use setters */);
     /// ```
     pub fn set_process_options<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProcessOptions>
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
     {
         self.process_options = std::option::Option::Some(v.into());
         self
@@ -9409,7 +9739,8 @@ impl ProcessRequest {
     /// let x = ProcessRequest::new().set_or_clear_process_options(None::<ProcessOptions>);
     /// ```
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProcessOptions>
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
     {
         self.process_options = v.map(|x| x.into());
         self
@@ -9460,8 +9791,12 @@ impl ProcessRequest {
     /// let x = ProcessRequest::new().set_source(Some(
     ///     google_cloud_documentai_v1::model::process_request::Source::InlineDocument(Document::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::process_request::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::process_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -9472,7 +9807,9 @@ impl ProcessRequest {
     pub fn inline_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::process_request::Source::InlineDocument(v) => std::option::Option::Some(v),
+            crate::model::process_request::Source::InlineDocument(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -9492,11 +9829,12 @@ impl ProcessRequest {
     /// assert!(x.raw_document().is_none());
     /// assert!(x.gcs_document().is_none());
     /// ```
-    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::process_request::Source::InlineDocument(
-                v.into()
-            )
+            crate::model::process_request::Source::InlineDocument(v.into()),
         );
         self
     }
@@ -9527,12 +9865,12 @@ impl ProcessRequest {
     /// assert!(x.inline_document().is_none());
     /// assert!(x.gcs_document().is_none());
     /// ```
-    pub fn set_raw_document<T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::process_request::Source::RawDocument(
-                v.into()
-            )
-        );
+    pub fn set_raw_document<T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::process_request::Source::RawDocument(v.into()));
         self
     }
 
@@ -9562,12 +9900,12 @@ impl ProcessRequest {
     /// assert!(x.inline_document().is_none());
     /// assert!(x.raw_document().is_none());
     /// ```
-    pub fn set_gcs_document<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::process_request::Source::GcsDocument(
-                v.into()
-            )
-        );
+    pub fn set_gcs_document<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::process_request::Source::GcsDocument(v.into()));
         self
     }
 }
@@ -9582,7 +9920,6 @@ impl wkt::message::Message for ProcessRequest {
 pub mod process_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The document payload.
     #[derive(Clone, Debug, PartialEq)]
@@ -9601,7 +9938,6 @@ pub mod process_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HumanReviewStatus {
-
     /// The state of human review on the processing request.
     pub state: crate::model::human_review_status::State,
 
@@ -9637,7 +9973,10 @@ impl HumanReviewStatus {
     /// let x1 = HumanReviewStatus::new().set_state(State::ValidationPassed);
     /// let x2 = HumanReviewStatus::new().set_state(State::InProgress);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::human_review_status::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::human_review_status::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -9661,7 +10000,10 @@ impl HumanReviewStatus {
     /// # use google_cloud_documentai_v1::model::HumanReviewStatus;
     /// let x = HumanReviewStatus::new().set_human_review_operation("example");
     /// ```
-    pub fn set_human_review_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_human_review_operation<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.human_review_operation = v.into();
         self
     }
@@ -9677,7 +10019,6 @@ impl wkt::message::Message for HumanReviewStatus {
 pub mod human_review_status {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The final state of human review on a processed document.
     ///
@@ -9781,7 +10122,9 @@ pub mod human_review_status {
                 2 => Self::ValidationPassed,
                 3 => Self::InProgress,
                 4 => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9795,7 +10138,9 @@ pub mod human_review_status {
                 "VALIDATION_PASSED" => Self::ValidationPassed,
                 "IN_PROGRESS" => Self::InProgress,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9822,7 +10167,8 @@ pub mod human_review_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.HumanReviewStatus.State"))
+                ".google.cloud.documentai.v1.HumanReviewStatus.State",
+            ))
         }
     }
 }
@@ -9835,7 +10181,6 @@ pub mod human_review_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessResponse {
-
     /// The document payload, will populate fields based on the processor's
     /// behavior.
     pub document: std::option::Option<crate::model::Document>,
@@ -9860,7 +10205,8 @@ impl ProcessResponse {
     /// let x = ProcessResponse::new().set_document(Document::default()/* use setters */);
     /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Document>
+    where
+        T: std::convert::Into<crate::model::Document>,
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -9876,7 +10222,8 @@ impl ProcessResponse {
     /// let x = ProcessResponse::new().set_or_clear_document(None::<Document>);
     /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Document>
+    where
+        T: std::convert::Into<crate::model::Document>,
     {
         self.document = v.map(|x| x.into());
         self
@@ -9891,7 +10238,8 @@ impl ProcessResponse {
     /// let x = ProcessResponse::new().set_human_review_status(HumanReviewStatus::default()/* use setters */);
     /// ```
     pub fn set_human_review_status<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::HumanReviewStatus>
+    where
+        T: std::convert::Into<crate::model::HumanReviewStatus>,
     {
         self.human_review_status = std::option::Option::Some(v.into());
         self
@@ -9907,7 +10255,8 @@ impl ProcessResponse {
     /// let x = ProcessResponse::new().set_or_clear_human_review_status(None::<HumanReviewStatus>);
     /// ```
     pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::HumanReviewStatus>
+    where
+        T: std::convert::Into<crate::model::HumanReviewStatus>,
     {
         self.human_review_status = v.map(|x| x.into());
         self
@@ -9927,7 +10276,6 @@ impl wkt::message::Message for ProcessResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessRequest {
-
     /// Required. The resource name of
     /// [Processor][google.cloud.documentai.v1.Processor] or
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion].
@@ -9966,7 +10314,7 @@ pub struct BatchProcessRequest {
     /// (Unicode codepoints) and can only contain lowercase letters, numeric
     /// characters, underscores, and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9997,7 +10345,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_input_documents(BatchDocumentsInputConfig::default()/* use setters */);
     /// ```
     pub fn set_input_documents<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
     {
         self.input_documents = std::option::Option::Some(v.into());
         self
@@ -10013,7 +10362,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_or_clear_input_documents(None::<BatchDocumentsInputConfig>);
     /// ```
     pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
     {
         self.input_documents = v.map(|x| x.into());
         self
@@ -10028,7 +10378,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_document_output_config(DocumentOutputConfig::default()/* use setters */);
     /// ```
     pub fn set_document_output_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DocumentOutputConfig>
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
     {
         self.document_output_config = std::option::Option::Some(v.into());
         self
@@ -10044,7 +10395,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_or_clear_document_output_config(None::<DocumentOutputConfig>);
     /// ```
     pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DocumentOutputConfig>
+    where
+        T: std::convert::Into<crate::model::DocumentOutputConfig>,
     {
         self.document_output_config = v.map(|x| x.into());
         self
@@ -10071,7 +10423,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_process_options(ProcessOptions::default()/* use setters */);
     /// ```
     pub fn set_process_options<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProcessOptions>
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
     {
         self.process_options = std::option::Option::Some(v.into());
         self
@@ -10087,7 +10440,8 @@ impl BatchProcessRequest {
     /// let x = BatchProcessRequest::new().set_or_clear_process_options(None::<ProcessOptions>);
     /// ```
     pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProcessOptions>
+    where
+        T: std::convert::Into<crate::model::ProcessOptions>,
     {
         self.process_options = v.map(|x| x.into());
         self
@@ -10128,7 +10482,6 @@ impl wkt::message::Message for BatchProcessRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10151,7 +10504,6 @@ impl wkt::message::Message for BatchProcessResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessMetadata {
-
     /// The state of the current batch processing.
     pub state: crate::model::batch_process_metadata::State,
 
@@ -10166,7 +10518,8 @@ pub struct BatchProcessMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// The list of response details of each document.
-    pub individual_process_statuses: std::vec::Vec<crate::model::batch_process_metadata::IndividualProcessStatus>,
+    pub individual_process_statuses:
+        std::vec::Vec<crate::model::batch_process_metadata::IndividualProcessStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10186,7 +10539,10 @@ impl BatchProcessMetadata {
     /// let x1 = BatchProcessMetadata::new().set_state(State::Running);
     /// let x2 = BatchProcessMetadata::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::batch_process_metadata::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::batch_process_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -10212,7 +10568,8 @@ impl BatchProcessMetadata {
     /// let x = BatchProcessMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10228,7 +10585,8 @@ impl BatchProcessMetadata {
     /// let x = BatchProcessMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10243,7 +10601,8 @@ impl BatchProcessMetadata {
     /// let x = BatchProcessMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10259,7 +10618,8 @@ impl BatchProcessMetadata {
     /// let x = BatchProcessMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10280,7 +10640,7 @@ impl BatchProcessMetadata {
     pub fn set_individual_process_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::batch_process_metadata::IndividualProcessStatus>
+        V: std::convert::Into<crate::model::batch_process_metadata::IndividualProcessStatus>,
     {
         use std::iter::Iterator;
         self.individual_process_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -10299,12 +10659,10 @@ pub mod batch_process_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The status of a each individual document in the batch process.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndividualProcessStatus {
-
         /// The source of the document, same as the
         /// [input_gcs_source][google.cloud.documentai.v1.BatchProcessMetadata.IndividualProcessStatus.input_gcs_source]
         /// field in the request when the batch process started.
@@ -10340,7 +10698,10 @@ pub mod batch_process_metadata {
         /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
         /// let x = IndividualProcessStatus::new().set_input_gcs_source("example");
         /// ```
-        pub fn set_input_gcs_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_input_gcs_source<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.input_gcs_source = v.into();
             self
         }
@@ -10354,7 +10715,8 @@ pub mod batch_process_metadata {
         /// let x = IndividualProcessStatus::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -10370,7 +10732,8 @@ pub mod batch_process_metadata {
         /// let x = IndividualProcessStatus::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -10383,7 +10746,10 @@ pub mod batch_process_metadata {
         /// # use google_cloud_documentai_v1::model::batch_process_metadata::IndividualProcessStatus;
         /// let x = IndividualProcessStatus::new().set_output_gcs_destination("example");
         /// ```
-        pub fn set_output_gcs_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_output_gcs_destination<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.output_gcs_destination = v.into();
             self
         }
@@ -10397,7 +10763,8 @@ pub mod batch_process_metadata {
         /// let x = IndividualProcessStatus::new().set_human_review_status(HumanReviewStatus::default()/* use setters */);
         /// ```
         pub fn set_human_review_status<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::HumanReviewStatus>
+        where
+            T: std::convert::Into<crate::model::HumanReviewStatus>,
         {
             self.human_review_status = std::option::Option::Some(v.into());
             self
@@ -10413,7 +10780,8 @@ pub mod batch_process_metadata {
         /// let x = IndividualProcessStatus::new().set_or_clear_human_review_status(None::<HumanReviewStatus>);
         /// ```
         pub fn set_or_clear_human_review_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::HumanReviewStatus>
+        where
+            T: std::convert::Into<crate::model::HumanReviewStatus>,
         {
             self.human_review_status = v.map(|x| x.into());
             self
@@ -10532,7 +10900,9 @@ pub mod batch_process_metadata {
                 4 => Self::Cancelling,
                 5 => Self::Cancelled,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10548,7 +10918,9 @@ pub mod batch_process_metadata {
                 "CANCELLING" => Self::Cancelling,
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10577,7 +10949,8 @@ pub mod batch_process_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.BatchProcessMetadata.State"))
+                ".google.cloud.documentai.v1.BatchProcessMetadata.State",
+            ))
         }
     }
 }
@@ -10591,7 +10964,6 @@ pub mod batch_process_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProcessorTypesRequest {
-
     /// Required. The location of processor types to list.
     /// Format: `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -10631,7 +11003,6 @@ impl wkt::message::Message for FetchProcessorTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProcessorTypesResponse {
-
     /// The list of processor types.
     pub processor_types: std::vec::Vec<crate::model::ProcessorType>,
 
@@ -10658,7 +11029,7 @@ impl FetchProcessorTypesResponse {
     pub fn set_processor_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessorType>
+        V: std::convert::Into<crate::model::ProcessorType>,
     {
         use std::iter::Iterator;
         self.processor_types = v.into_iter().map(|i| i.into()).collect();
@@ -10681,7 +11052,6 @@ impl wkt::message::Message for FetchProcessorTypesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorTypesRequest {
-
     /// Required. The location of processor types to list.
     /// Format: `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -10753,7 +11123,6 @@ impl wkt::message::Message for ListProcessorTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorTypesResponse {
-
     /// The processor types.
     pub processor_types: std::vec::Vec<crate::model::ProcessorType>,
 
@@ -10783,7 +11152,7 @@ impl ListProcessorTypesResponse {
     pub fn set_processor_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessorType>
+        V: std::convert::Into<crate::model::ProcessorType>,
     {
         use std::iter::Iterator;
         self.processor_types = v.into_iter().map(|i| i.into()).collect();
@@ -10827,7 +11196,6 @@ impl gax::paginator::internal::PageableResponse for ListProcessorTypesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorsRequest {
-
     /// Required. The parent (project and location) which owns this collection of
     /// Processors. Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -10900,7 +11268,6 @@ impl wkt::message::Message for ListProcessorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorsResponse {
-
     /// The list of processors.
     pub processors: std::vec::Vec<crate::model::Processor>,
 
@@ -10930,7 +11297,7 @@ impl ListProcessorsResponse {
     pub fn set_processors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Processor>
+        V: std::convert::Into<crate::model::Processor>,
     {
         use std::iter::Iterator;
         self.processors = v.into_iter().map(|i| i.into()).collect();
@@ -10978,7 +11345,6 @@ impl gax::paginator::internal::PageableResponse for ListProcessorsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorTypeRequest {
-
     /// Required. The processor type resource name.
     pub name: std::string::String,
 
@@ -11017,7 +11383,6 @@ impl wkt::message::Message for GetProcessorTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorRequest {
-
     /// Required. The processor resource name.
     pub name: std::string::String,
 
@@ -11056,7 +11421,6 @@ impl wkt::message::Message for GetProcessorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorVersionRequest {
-
     /// Required. The processor resource name.
     pub name: std::string::String,
 
@@ -11091,7 +11455,6 @@ impl wkt::message::Message for GetProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorVersionsRequest {
-
     /// Required. The parent (project, location and processor) to list all
     /// versions. Format:
     /// `projects/{project}/locations/{location}/processors/{processor}`
@@ -11165,7 +11528,6 @@ impl wkt::message::Message for ListProcessorVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorVersionsResponse {
-
     /// The list of processors.
     pub processor_versions: std::vec::Vec<crate::model::ProcessorVersion>,
 
@@ -11195,7 +11557,7 @@ impl ListProcessorVersionsResponse {
     pub fn set_processor_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessorVersion>
+        V: std::convert::Into<crate::model::ProcessorVersion>,
     {
         use std::iter::Iterator;
         self.processor_versions = v.into_iter().map(|i| i.into()).collect();
@@ -11243,7 +11605,6 @@ impl gax::paginator::internal::PageableResponse for ListProcessorVersionsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorVersionRequest {
-
     /// Required. The processor version resource name to be deleted.
     pub name: std::string::String,
 
@@ -11282,7 +11643,6 @@ impl wkt::message::Message for DeleteProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11303,7 +11663,8 @@ impl DeleteProcessorVersionMetadata {
     /// let x = DeleteProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11319,7 +11680,8 @@ impl DeleteProcessorVersionMetadata {
     /// let x = DeleteProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -11340,7 +11702,6 @@ impl wkt::message::Message for DeleteProcessorVersionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionRequest {
-
     /// Required. The processor version resource name to be deployed.
     pub name: std::string::String,
 
@@ -11379,7 +11740,6 @@ impl wkt::message::Message for DeployProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11403,7 +11763,6 @@ impl wkt::message::Message for DeployProcessorVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11424,7 +11783,8 @@ impl DeployProcessorVersionMetadata {
     /// let x = DeployProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11440,7 +11800,8 @@ impl DeployProcessorVersionMetadata {
     /// let x = DeployProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -11461,7 +11822,6 @@ impl wkt::message::Message for DeployProcessorVersionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionRequest {
-
     /// Required. The processor version resource name to be undeployed.
     pub name: std::string::String,
 
@@ -11500,7 +11860,6 @@ impl wkt::message::Message for UndeployProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11524,7 +11883,6 @@ impl wkt::message::Message for UndeployProcessorVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11545,7 +11903,8 @@ impl UndeployProcessorVersionMetadata {
     /// let x = UndeployProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11561,7 +11920,8 @@ impl UndeployProcessorVersionMetadata {
     /// let x = UndeployProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -11585,7 +11945,6 @@ impl wkt::message::Message for UndeployProcessorVersionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProcessorRequest {
-
     /// Required. The parent (project and location) under which to create the
     /// processor. Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -11631,7 +11990,8 @@ impl CreateProcessorRequest {
     /// let x = CreateProcessorRequest::new().set_processor(Processor::default()/* use setters */);
     /// ```
     pub fn set_processor<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Processor>
+    where
+        T: std::convert::Into<crate::model::Processor>,
     {
         self.processor = std::option::Option::Some(v.into());
         self
@@ -11647,7 +12007,8 @@ impl CreateProcessorRequest {
     /// let x = CreateProcessorRequest::new().set_or_clear_processor(None::<Processor>);
     /// ```
     pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Processor>
+    where
+        T: std::convert::Into<crate::model::Processor>,
     {
         self.processor = v.map(|x| x.into());
         self
@@ -11668,7 +12029,6 @@ impl wkt::message::Message for CreateProcessorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorRequest {
-
     /// Required. The processor resource name to be deleted.
     pub name: std::string::String,
 
@@ -11707,7 +12067,6 @@ impl wkt::message::Message for DeleteProcessorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11728,7 +12087,8 @@ impl DeleteProcessorMetadata {
     /// let x = DeleteProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11744,7 +12104,8 @@ impl DeleteProcessorMetadata {
     /// let x = DeleteProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -11765,7 +12126,6 @@ impl wkt::message::Message for DeleteProcessorMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorRequest {
-
     /// Required. The processor resource name to be enabled.
     pub name: std::string::String,
 
@@ -11804,7 +12164,6 @@ impl wkt::message::Message for EnableProcessorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11828,7 +12187,6 @@ impl wkt::message::Message for EnableProcessorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11849,7 +12207,8 @@ impl EnableProcessorMetadata {
     /// let x = EnableProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11865,7 +12224,8 @@ impl EnableProcessorMetadata {
     /// let x = EnableProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -11886,7 +12246,6 @@ impl wkt::message::Message for EnableProcessorMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorRequest {
-
     /// Required. The processor resource name to be disabled.
     pub name: std::string::String,
 
@@ -11925,7 +12284,6 @@ impl wkt::message::Message for DisableProcessorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11949,7 +12307,6 @@ impl wkt::message::Message for DisableProcessorResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -11970,7 +12327,8 @@ impl DisableProcessorMetadata {
     /// let x = DisableProcessorMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -11986,7 +12344,8 @@ impl DisableProcessorMetadata {
     /// let x = DisableProcessorMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -12007,7 +12366,6 @@ impl wkt::message::Message for DisableProcessorMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionRequest {
-
     /// Required. The resource name of the
     /// [Processor][google.cloud.documentai.v1.Processor] to change default
     /// version.
@@ -12050,7 +12408,10 @@ impl SetDefaultProcessorVersionRequest {
     /// # use google_cloud_documentai_v1::model::SetDefaultProcessorVersionRequest;
     /// let x = SetDefaultProcessorVersionRequest::new().set_default_processor_version("example");
     /// ```
-    pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.default_processor_version = v.into();
         self
     }
@@ -12070,7 +12431,6 @@ impl wkt::message::Message for SetDefaultProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12094,7 +12454,6 @@ impl wkt::message::Message for SetDefaultProcessorVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -12115,7 +12474,8 @@ impl SetDefaultProcessorVersionMetadata {
     /// let x = SetDefaultProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -12131,7 +12491,8 @@ impl SetDefaultProcessorVersionMetadata {
     /// let x = SetDefaultProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -12152,7 +12513,6 @@ impl wkt::message::Message for SetDefaultProcessorVersionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionRequest {
-
     /// Required. The parent (project, location and processor) to create the new
     /// version for. Format:
     /// `projects/{project}/locations/{location}/processors/{processor}`.
@@ -12175,7 +12535,8 @@ pub struct TrainProcessorVersionRequest {
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processorVersion}`.
     pub base_processor_version: std::string::String,
 
-    pub processor_flags: std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
+    pub processor_flags:
+        std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12206,7 +12567,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_processor_version(ProcessorVersion::default()/* use setters */);
     /// ```
     pub fn set_processor_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProcessorVersion>
+    where
+        T: std::convert::Into<crate::model::ProcessorVersion>,
     {
         self.processor_version = std::option::Option::Some(v.into());
         self
@@ -12222,7 +12584,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_or_clear_processor_version(None::<ProcessorVersion>);
     /// ```
     pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProcessorVersion>
+    where
+        T: std::convert::Into<crate::model::ProcessorVersion>,
     {
         self.processor_version = v.map(|x| x.into());
         self
@@ -12237,7 +12600,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_document_schema(DocumentSchema::default()/* use setters */);
     /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = std::option::Option::Some(v.into());
         self
@@ -12253,7 +12617,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_or_clear_document_schema(None::<DocumentSchema>);
     /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = v.map(|x| x.into());
         self
@@ -12268,7 +12633,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_input_data(InputData::default()/* use setters */);
     /// ```
     pub fn set_input_data<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_request::InputData>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
     {
         self.input_data = std::option::Option::Some(v.into());
         self
@@ -12284,7 +12650,8 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_or_clear_input_data(None::<InputData>);
     /// ```
     pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_request::InputData>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
     {
         self.input_data = v.map(|x| x.into());
         self
@@ -12297,7 +12664,10 @@ impl TrainProcessorVersionRequest {
     /// # use google_cloud_documentai_v1::model::TrainProcessorVersionRequest;
     /// let x = TrainProcessorVersionRequest::new().set_base_processor_version("example");
     /// ```
-    pub fn set_base_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_base_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.base_processor_version = v.into();
         self
     }
@@ -12314,8 +12684,14 @@ impl TrainProcessorVersionRequest {
     /// let x = TrainProcessorVersionRequest::new().set_processor_flags(Some(
     ///     google_cloud_documentai_v1::model::train_processor_version_request::ProcessorFlags::CustomDocumentExtractionOptions(CustomDocumentExtractionOptions::default().into())));
     /// ```
-    pub fn set_processor_flags<T: std::convert::Into<std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>>>(mut self, v: T) -> Self
-    {
+    pub fn set_processor_flags<
+        T: std::convert::Into<
+                std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_flags = v.into();
         self
     }
@@ -12323,7 +12699,13 @@ impl TrainProcessorVersionRequest {
     /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// if it holds a `CustomDocumentExtractionOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn custom_document_extraction_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>> {
+    pub fn custom_document_extraction_options(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
+        >,
+    > {
         #[allow(unreachable_patterns)]
         self.processor_flags.as_ref().and_then(|v| match v {
             crate::model::train_processor_version_request::ProcessorFlags::CustomDocumentExtractionOptions(v) => std::option::Option::Some(v),
@@ -12345,7 +12727,16 @@ impl TrainProcessorVersionRequest {
     /// assert!(x.custom_document_extraction_options().is_some());
     /// assert!(x.foundation_model_tuning_options().is_none());
     /// ```
-    pub fn set_custom_document_extraction_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>>>(mut self, v: T) -> Self {
+    pub fn set_custom_document_extraction_options<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_flags = std::option::Option::Some(
             crate::model::train_processor_version_request::ProcessorFlags::CustomDocumentExtractionOptions(
                 v.into()
@@ -12357,7 +12748,13 @@ impl TrainProcessorVersionRequest {
     /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// if it holds a `FoundationModelTuningOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn foundation_model_tuning_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::train_processor_version_request::FoundationModelTuningOptions>> {
+    pub fn foundation_model_tuning_options(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::train_processor_version_request::FoundationModelTuningOptions,
+        >,
+    > {
         #[allow(unreachable_patterns)]
         self.processor_flags.as_ref().and_then(|v| match v {
             crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(v) => std::option::Option::Some(v),
@@ -12379,7 +12776,16 @@ impl TrainProcessorVersionRequest {
     /// assert!(x.foundation_model_tuning_options().is_some());
     /// assert!(x.custom_document_extraction_options().is_none());
     /// ```
-    pub fn set_foundation_model_tuning_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::FoundationModelTuningOptions>>>(mut self, v: T) -> Self {
+    pub fn set_foundation_model_tuning_options<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::train_processor_version_request::FoundationModelTuningOptions,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_flags = std::option::Option::Some(
             crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(
                 v.into()
@@ -12400,7 +12806,6 @@ pub mod train_processor_version_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The input data used to train a new
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion].
     ///
@@ -12408,7 +12813,6 @@ pub mod train_processor_version_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputData {
-
         /// The documents used for training the new version.
         pub training_documents: std::option::Option<crate::model::BatchDocumentsInputConfig>,
 
@@ -12432,7 +12836,8 @@ pub mod train_processor_version_request {
         /// let x = InputData::new().set_training_documents(BatchDocumentsInputConfig::default()/* use setters */);
         /// ```
         pub fn set_training_documents<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
         {
             self.training_documents = std::option::Option::Some(v.into());
             self
@@ -12448,7 +12853,8 @@ pub mod train_processor_version_request {
         /// let x = InputData::new().set_or_clear_training_documents(None::<BatchDocumentsInputConfig>);
         /// ```
         pub fn set_or_clear_training_documents<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
         {
             self.training_documents = v.map(|x| x.into());
             self
@@ -12463,7 +12869,8 @@ pub mod train_processor_version_request {
         /// let x = InputData::new().set_test_documents(BatchDocumentsInputConfig::default()/* use setters */);
         /// ```
         pub fn set_test_documents<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
         {
             self.test_documents = std::option::Option::Some(v.into());
             self
@@ -12479,7 +12886,8 @@ pub mod train_processor_version_request {
         /// let x = InputData::new().set_or_clear_test_documents(None::<BatchDocumentsInputConfig>);
         /// ```
         pub fn set_or_clear_test_documents<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
         {
             self.test_documents = v.map(|x| x.into());
             self
@@ -12518,7 +12926,7 @@ pub mod train_processor_version_request {
         /// let x0 = CustomDocumentExtractionOptions::new().set_training_method(TrainingMethod::ModelBased);
         /// let x1 = CustomDocumentExtractionOptions::new().set_training_method(TrainingMethod::TemplateBased);
         /// ```
-        pub fn set_training_method<T: std::convert::Into<crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod>>(mut self, v: T) -> Self {
+        pub fn set_training_method<T: std::convert::Into<crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod>>(mut self, v: T) -> Self{
             self.training_method = v.into();
             self
         }
@@ -12534,7 +12942,6 @@ pub mod train_processor_version_request {
     pub mod custom_document_extraction_options {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Training Method for CDE. `TRAINING_METHOD_UNSPECIFIED` will fall back to
         /// `MODEL_BASED`.
@@ -12609,7 +13016,10 @@ pub mod train_processor_version_request {
         }
 
         impl std::fmt::Display for TrainingMethod {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -12620,7 +13030,9 @@ pub mod train_processor_version_request {
                     0 => Self::Unspecified,
                     1 => Self::ModelBased,
                     2 => Self::TemplateBased,
-                    _ => Self::UnknownValue(training_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(training_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -12632,7 +13044,9 @@ pub mod train_processor_version_request {
                     "TRAINING_METHOD_UNSPECIFIED" => Self::Unspecified,
                     "MODEL_BASED" => Self::ModelBased,
                     "TEMPLATE_BASED" => Self::TemplateBased,
-                    _ => Self::UnknownValue(training_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(training_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -12666,7 +13080,6 @@ pub mod train_processor_version_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FoundationModelTuningOptions {
-
         /// Optional. The number of steps to run for model tuning. Valid values are
         /// between 1 and 400. If not provided, recommended steps will be used.
         pub train_steps: i32,
@@ -12719,9 +13132,17 @@ pub mod train_processor_version_request {
     #[non_exhaustive]
     pub enum ProcessorFlags {
         /// Options to control Custom Document Extraction (CDE) Processor.
-        CustomDocumentExtractionOptions(std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>),
+        CustomDocumentExtractionOptions(
+            std::boxed::Box<
+                crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
+            >,
+        ),
         /// Options to control foundation model tuning of a processor.
-        FoundationModelTuningOptions(std::boxed::Box<crate::model::train_processor_version_request::FoundationModelTuningOptions>),
+        FoundationModelTuningOptions(
+            std::boxed::Box<
+                crate::model::train_processor_version_request::FoundationModelTuningOptions,
+            >,
+        ),
     }
 }
 
@@ -12732,7 +13153,6 @@ pub mod train_processor_version_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionResponse {
-
     /// The resource name of the processor version produced by training.
     pub processor_version: std::string::String,
 
@@ -12751,7 +13171,10 @@ impl TrainProcessorVersionResponse {
     /// # use google_cloud_documentai_v1::model::TrainProcessorVersionResponse;
     /// let x = TrainProcessorVersionResponse::new().set_processor_version("example");
     /// ```
-    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_version = v.into();
         self
     }
@@ -12767,15 +13190,16 @@ impl wkt::message::Message for TrainProcessorVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
     /// The training dataset validation information.
-    pub training_dataset_validation: std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
+    pub training_dataset_validation:
+        std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
 
     /// The test dataset validation information.
-    pub test_dataset_validation: std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
+    pub test_dataset_validation:
+        std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12794,7 +13218,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -12810,7 +13235,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -12825,7 +13251,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_training_dataset_validation(DatasetValidation::default()/* use setters */);
     /// ```
     pub fn set_training_dataset_validation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
     {
         self.training_dataset_validation = std::option::Option::Some(v.into());
         self
@@ -12841,7 +13268,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_or_clear_training_dataset_validation(None::<DatasetValidation>);
     /// ```
     pub fn set_or_clear_training_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
     {
         self.training_dataset_validation = v.map(|x| x.into());
         self
@@ -12856,7 +13284,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_test_dataset_validation(DatasetValidation::default()/* use setters */);
     /// ```
     pub fn set_test_dataset_validation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
     {
         self.test_dataset_validation = std::option::Option::Some(v.into());
         self
@@ -12872,7 +13301,8 @@ impl TrainProcessorVersionMetadata {
     /// let x = TrainProcessorVersionMetadata::new().set_or_clear_test_dataset_validation(None::<DatasetValidation>);
     /// ```
     pub fn set_or_clear_test_dataset_validation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>
+    where
+        T: std::convert::Into<crate::model::train_processor_version_metadata::DatasetValidation>,
     {
         self.test_dataset_validation = v.map(|x| x.into());
         self
@@ -12890,13 +13320,11 @@ pub mod train_processor_version_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The dataset validation information.
     /// This includes any and all errors with documents and the dataset.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DatasetValidation {
-
         /// The total number of document errors.
         pub document_error_count: i32,
 
@@ -12960,7 +13388,7 @@ pub mod train_processor_version_metadata {
         pub fn set_document_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>
+            V: std::convert::Into<rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.document_errors = v.into_iter().map(|i| i.into()).collect();
@@ -12982,7 +13410,7 @@ pub mod train_processor_version_metadata {
         pub fn set_dataset_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>
+            V: std::convert::Into<rpc::model::Status>,
         {
             use std::iter::Iterator;
             self.dataset_errors = v.into_iter().map(|i| i.into()).collect();
@@ -13005,7 +13433,6 @@ pub mod train_processor_version_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentRequest {
-
     /// Required. The resource name of the
     /// [HumanReviewConfig][google.cloud.documentai.v1.HumanReviewConfig] that the
     /// document will be reviewed with.
@@ -13038,7 +13465,10 @@ impl ReviewDocumentRequest {
     /// # use google_cloud_documentai_v1::model::ReviewDocumentRequest;
     /// let x = ReviewDocumentRequest::new().set_human_review_config("example");
     /// ```
-    pub fn set_human_review_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_human_review_config<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.human_review_config = v.into();
         self
     }
@@ -13063,7 +13493,10 @@ impl ReviewDocumentRequest {
     /// use google_cloud_documentai_v1::model::review_document_request::Priority;
     /// let x0 = ReviewDocumentRequest::new().set_priority(Priority::Urgent);
     /// ```
-    pub fn set_priority<T: std::convert::Into<crate::model::review_document_request::Priority>>(mut self, v: T) -> Self {
+    pub fn set_priority<T: std::convert::Into<crate::model::review_document_request::Priority>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.priority = v.into();
         self
     }
@@ -13077,7 +13510,8 @@ impl ReviewDocumentRequest {
     /// let x = ReviewDocumentRequest::new().set_document_schema(DocumentSchema::default()/* use setters */);
     /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = std::option::Option::Some(v.into());
         self
@@ -13093,7 +13527,8 @@ impl ReviewDocumentRequest {
     /// let x = ReviewDocumentRequest::new().set_or_clear_document_schema(None::<DocumentSchema>);
     /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = v.map(|x| x.into());
         self
@@ -13111,8 +13546,12 @@ impl ReviewDocumentRequest {
     /// let x = ReviewDocumentRequest::new().set_source(Some(
     ///     google_cloud_documentai_v1::model::review_document_request::Source::InlineDocument(Document::default().into())));
     /// ```
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::review_document_request::Source>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::review_document_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = v.into();
         self
     }
@@ -13123,7 +13562,9 @@ impl ReviewDocumentRequest {
     pub fn inline_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::review_document_request::Source::InlineDocument(v) => std::option::Option::Some(v),
+            crate::model::review_document_request::Source::InlineDocument(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13141,11 +13582,12 @@ impl ReviewDocumentRequest {
     /// let x = ReviewDocumentRequest::new().set_inline_document(Document::default()/* use setters */);
     /// assert!(x.inline_document().is_some());
     /// ```
-    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::review_document_request::Source::InlineDocument(
-                v.into()
-            )
+            crate::model::review_document_request::Source::InlineDocument(v.into()),
         );
         self
     }
@@ -13161,7 +13603,6 @@ impl wkt::message::Message for ReviewDocumentRequest {
 pub mod review_document_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The priority level of the human review task.
     ///
@@ -13245,7 +13686,9 @@ pub mod review_document_request {
             match value {
                 0 => Self::Default,
                 1 => Self::Urgent,
-                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -13256,7 +13699,9 @@ pub mod review_document_request {
             match value {
                 "DEFAULT" => Self::Default,
                 "URGENT" => Self::Urgent,
-                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -13280,7 +13725,8 @@ pub mod review_document_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Priority>::new(
-                ".google.cloud.documentai.v1.ReviewDocumentRequest.Priority"))
+                ".google.cloud.documentai.v1.ReviewDocumentRequest.Priority",
+            ))
         }
     }
 
@@ -13301,7 +13747,6 @@ pub mod review_document_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentResponse {
-
     /// The Cloud Storage uri for the human reviewed document if the review is
     /// succeeded.
     pub gcs_destination: std::string::String,
@@ -13341,7 +13786,10 @@ impl ReviewDocumentResponse {
     /// let x0 = ReviewDocumentResponse::new().set_state(State::Rejected);
     /// let x1 = ReviewDocumentResponse::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::review_document_response::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::review_document_response::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -13353,7 +13801,10 @@ impl ReviewDocumentResponse {
     /// # use google_cloud_documentai_v1::model::ReviewDocumentResponse;
     /// let x = ReviewDocumentResponse::new().set_rejection_reason("example");
     /// ```
-    pub fn set_rejection_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_rejection_reason<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.rejection_reason = v.into();
         self
     }
@@ -13369,7 +13820,6 @@ impl wkt::message::Message for ReviewDocumentResponse {
 pub mod review_document_response {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Possible states of the review operation.
     ///
@@ -13457,7 +13907,9 @@ pub mod review_document_response {
                 0 => Self::Unspecified,
                 1 => Self::Rejected,
                 2 => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -13469,7 +13921,9 @@ pub mod review_document_response {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "REJECTED" => Self::Rejected,
                 "SUCCEEDED" => Self::Succeeded,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -13494,7 +13948,8 @@ pub mod review_document_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.ReviewDocumentResponse.State"))
+                ".google.cloud.documentai.v1.ReviewDocumentResponse.State",
+            ))
         }
     }
 }
@@ -13507,7 +13962,6 @@ pub mod review_document_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentOperationMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -13531,7 +13985,8 @@ impl ReviewDocumentOperationMetadata {
     /// let x = ReviewDocumentOperationMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -13547,7 +14002,8 @@ impl ReviewDocumentOperationMetadata {
     /// let x = ReviewDocumentOperationMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -13580,7 +14036,6 @@ impl wkt::message::Message for ReviewDocumentOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionRequest {
-
     /// Required. The resource name of the
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion] to
     /// evaluate.
@@ -13608,7 +14063,10 @@ impl EvaluateProcessorVersionRequest {
     /// # use google_cloud_documentai_v1::model::EvaluateProcessorVersionRequest;
     /// let x = EvaluateProcessorVersionRequest::new().set_processor_version("example");
     /// ```
-    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_version = v.into();
         self
     }
@@ -13622,7 +14080,8 @@ impl EvaluateProcessorVersionRequest {
     /// let x = EvaluateProcessorVersionRequest::new().set_evaluation_documents(BatchDocumentsInputConfig::default()/* use setters */);
     /// ```
     pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
     {
         self.evaluation_documents = std::option::Option::Some(v.into());
         self
@@ -13638,7 +14097,8 @@ impl EvaluateProcessorVersionRequest {
     /// let x = EvaluateProcessorVersionRequest::new().set_or_clear_evaluation_documents(None::<BatchDocumentsInputConfig>);
     /// ```
     pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BatchDocumentsInputConfig>
+    where
+        T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
     {
         self.evaluation_documents = v.map(|x| x.into());
         self
@@ -13659,7 +14119,6 @@ impl wkt::message::Message for EvaluateProcessorVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionMetadata {
-
     /// The basic metadata of the long-running operation.
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
 
@@ -13680,7 +14139,8 @@ impl EvaluateProcessorVersionMetadata {
     /// let x = EvaluateProcessorVersionMetadata::new().set_common_metadata(CommonOperationMetadata::default()/* use setters */);
     /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = std::option::Option::Some(v.into());
         self
@@ -13696,7 +14156,8 @@ impl EvaluateProcessorVersionMetadata {
     /// let x = EvaluateProcessorVersionMetadata::new().set_or_clear_common_metadata(None::<CommonOperationMetadata>);
     /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CommonOperationMetadata>
+    where
+        T: std::convert::Into<crate::model::CommonOperationMetadata>,
     {
         self.common_metadata = v.map(|x| x.into());
         self
@@ -13717,7 +14178,6 @@ impl wkt::message::Message for EvaluateProcessorVersionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionResponse {
-
     /// The resource name of the created evaluation.
     pub evaluation: std::string::String,
 
@@ -13752,7 +14212,6 @@ impl wkt::message::Message for EvaluateProcessorVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEvaluationRequest {
-
     /// Required. The resource name of the
     /// [Evaluation][google.cloud.documentai.v1.Evaluation] to get.
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processorVersion}/evaluations/{evaluation}`
@@ -13794,7 +14253,6 @@ impl wkt::message::Message for GetEvaluationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEvaluationsRequest {
-
     /// Required. The resource name of the
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion] to list
     /// evaluations for.
@@ -13867,7 +14325,6 @@ impl wkt::message::Message for ListEvaluationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEvaluationsResponse {
-
     /// The evaluations requested.
     pub evaluations: std::vec::Vec<crate::model::Evaluation>,
 
@@ -13898,7 +14355,7 @@ impl ListEvaluationsResponse {
     pub fn set_evaluations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Evaluation>
+        V: std::convert::Into<crate::model::Evaluation>,
     {
         use std::iter::Iterator;
         self.evaluations = v.into_iter().map(|i| i.into()).collect();
@@ -13942,7 +14399,6 @@ impl gax::paginator::internal::PageableResponse for ListEvaluationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentSchema {
-
     /// Display name to show to users.
     pub display_name: std::string::String,
 
@@ -14002,7 +14458,7 @@ impl DocumentSchema {
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document_schema::EntityType>
+        V: std::convert::Into<crate::model::document_schema::EntityType>,
     {
         use std::iter::Iterator;
         self.entity_types = v.into_iter().map(|i| i.into()).collect();
@@ -14018,7 +14474,8 @@ impl DocumentSchema {
     /// let x = DocumentSchema::new().set_metadata(Metadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::document_schema::Metadata>
+    where
+        T: std::convert::Into<crate::model::document_schema::Metadata>,
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -14034,7 +14491,8 @@ impl DocumentSchema {
     /// let x = DocumentSchema::new().set_or_clear_metadata(None::<Metadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::document_schema::Metadata>
+    where
+        T: std::convert::Into<crate::model::document_schema::Metadata>,
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -14052,14 +14510,12 @@ pub mod document_schema {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// EntityType is the wrapper of a label of the corresponding model with
     /// detailed attributes and limitations for entity-based processors. Multiple
     /// types can also compose a dependency tree to represent nested types.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityType {
-
         /// User defined name for the type.
         pub display_name: std::string::String,
 
@@ -14085,7 +14541,8 @@ pub mod document_schema {
         /// Description the nested structure, or composition of an entity.
         pub properties: std::vec::Vec<crate::model::document_schema::entity_type::Property>,
 
-        pub value_source: std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
+        pub value_source:
+            std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -14102,7 +14559,10 @@ pub mod document_schema {
         /// # use google_cloud_documentai_v1::model::document_schema::EntityType;
         /// let x = EntityType::new().set_display_name("example");
         /// ```
-        pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.display_name = v.into();
             self
         }
@@ -14129,7 +14589,7 @@ pub mod document_schema {
         pub fn set_base_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.base_types = v.into_iter().map(|i| i.into()).collect();
@@ -14151,7 +14611,7 @@ pub mod document_schema {
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document_schema::entity_type::Property>
+            V: std::convert::Into<crate::model::document_schema::entity_type::Property>,
         {
             use std::iter::Iterator;
             self.properties = v.into_iter().map(|i| i.into()).collect();
@@ -14170,8 +14630,14 @@ pub mod document_schema {
         /// let x = EntityType::new().set_value_source(Some(
         ///     google_cloud_documentai_v1::model::document_schema::entity_type::ValueSource::EnumValues(EnumValues::default().into())));
         /// ```
-        pub fn set_value_source<T: std::convert::Into<std::option::Option<crate::model::document_schema::entity_type::ValueSource>>>(mut self, v: T) -> Self
-        {
+        pub fn set_value_source<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.value_source = v.into();
             self
         }
@@ -14179,10 +14645,16 @@ pub mod document_schema {
         /// The value of [value_source][crate::model::document_schema::EntityType::value_source]
         /// if it holds a `EnumValues`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn enum_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>> {
+        pub fn enum_values(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
+        > {
             #[allow(unreachable_patterns)]
             self.value_source.as_ref().and_then(|v| match v {
-                crate::model::document_schema::entity_type::ValueSource::EnumValues(v) => std::option::Option::Some(v),
+                crate::model::document_schema::entity_type::ValueSource::EnumValues(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -14200,11 +14672,16 @@ pub mod document_schema {
         /// let x = EntityType::new().set_enum_values(EnumValues::default()/* use setters */);
         /// assert!(x.enum_values().is_some());
         /// ```
-        pub fn set_enum_values<T: std::convert::Into<std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>>>(mut self, v: T) -> Self {
+        pub fn set_enum_values<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.value_source = std::option::Option::Some(
-                crate::model::document_schema::entity_type::ValueSource::EnumValues(
-                    v.into()
-                )
+                crate::model::document_schema::entity_type::ValueSource::EnumValues(v.into()),
             );
             self
         }
@@ -14221,12 +14698,10 @@ pub mod document_schema {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Defines the a list of enum values.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct EnumValues {
-
             /// The individual values that this enum values type can include.
             pub values: std::vec::Vec<std::string::String>,
 
@@ -14248,7 +14723,7 @@ pub mod document_schema {
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.values = v.into_iter().map(|i| i.into()).collect();
@@ -14266,7 +14741,6 @@ pub mod document_schema {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Property {
-
             /// The name of the property.  Follows the same guidelines as the
             /// EntityType name.
             pub name: std::string::String,
@@ -14280,7 +14754,8 @@ pub mod document_schema {
 
             /// Occurrence type limits the number of instances an entity type appears
             /// in the document.
-            pub occurrence_type: crate::model::document_schema::entity_type::property::OccurrenceType,
+            pub occurrence_type:
+                crate::model::document_schema::entity_type::property::OccurrenceType,
 
             /// Specifies how the entity's value is obtained.
             pub method: crate::model::document_schema::entity_type::property::Method,
@@ -14312,7 +14787,10 @@ pub mod document_schema {
             /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
             /// let x = Property::new().set_display_name("example");
             /// ```
-            pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.display_name = v.into();
                 self
             }
@@ -14324,7 +14802,10 @@ pub mod document_schema {
             /// # use google_cloud_documentai_v1::model::document_schema::entity_type::Property;
             /// let x = Property::new().set_value_type("example");
             /// ```
-            pub fn set_value_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_value_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.value_type = v.into();
                 self
             }
@@ -14339,7 +14820,14 @@ pub mod document_schema {
             /// let x1 = Property::new().set_occurrence_type(OccurrenceType::OptionalMultiple);
             /// let x2 = Property::new().set_occurrence_type(OccurrenceType::RequiredOnce);
             /// ```
-            pub fn set_occurrence_type<T: std::convert::Into<crate::model::document_schema::entity_type::property::OccurrenceType>>(mut self, v: T) -> Self {
+            pub fn set_occurrence_type<
+                T: std::convert::Into<
+                        crate::model::document_schema::entity_type::property::OccurrenceType,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.occurrence_type = v.into();
                 self
             }
@@ -14353,7 +14841,12 @@ pub mod document_schema {
             /// let x0 = Property::new().set_method(Method::Extract);
             /// let x1 = Property::new().set_method(Method::Derive);
             /// ```
-            pub fn set_method<T: std::convert::Into<crate::model::document_schema::entity_type::property::Method>>(mut self, v: T) -> Self {
+            pub fn set_method<
+                T: std::convert::Into<crate::model::document_schema::entity_type::property::Method>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.method = v.into();
                 self
             }
@@ -14369,7 +14862,6 @@ pub mod document_schema {
         pub mod property {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Types of occurrences of the entity type in the document.  This
             /// represents the number of instances, not mentions, of an entity.
@@ -14446,7 +14938,9 @@ pub mod document_schema {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("OCCURRENCE_TYPE_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("OCCURRENCE_TYPE_UNSPECIFIED")
+                        }
                         Self::OptionalOnce => std::option::Option::Some("OPTIONAL_ONCE"),
                         Self::OptionalMultiple => std::option::Option::Some("OPTIONAL_MULTIPLE"),
                         Self::RequiredOnce => std::option::Option::Some("REQUIRED_ONCE"),
@@ -14464,7 +14958,10 @@ pub mod document_schema {
             }
 
             impl std::fmt::Display for OccurrenceType {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -14477,7 +14974,9 @@ pub mod document_schema {
                         2 => Self::OptionalMultiple,
                         3 => Self::RequiredOnce,
                         4 => Self::RequiredMultiple,
-                        _ => Self::UnknownValue(occurrence_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(occurrence_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -14491,7 +14990,9 @@ pub mod document_schema {
                         "OPTIONAL_MULTIPLE" => Self::OptionalMultiple,
                         "REQUIRED_ONCE" => Self::RequiredOnce,
                         "REQUIRED_MULTIPLE" => Self::RequiredMultiple,
-                        _ => Self::UnknownValue(occurrence_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(occurrence_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -14599,7 +15100,10 @@ pub mod document_schema {
             }
 
             impl std::fmt::Display for Method {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -14610,7 +15114,9 @@ pub mod document_schema {
                         0 => Self::Unspecified,
                         1 => Self::Extract,
                         2 => Self::Derive,
-                        _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(method::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -14622,7 +15128,9 @@ pub mod document_schema {
                         "METHOD_UNSPECIFIED" => Self::Unspecified,
                         "EXTRACT" => Self::Extract,
                         "DERIVE" => Self::Derive,
-                        _ => Self::UnknownValue(method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(method::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -14647,7 +15155,8 @@ pub mod document_schema {
                     D: serde::Deserializer<'de>,
                 {
                     deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
-                        ".google.cloud.documentai.v1.DocumentSchema.EntityType.Property.Method"))
+                        ".google.cloud.documentai.v1.DocumentSchema.EntityType.Property.Method",
+                    ))
                 }
             }
         }
@@ -14668,7 +15177,6 @@ pub mod document_schema {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metadata {
-
         /// If true, a `document` entity type can be applied to subdocument
         /// (splitting). Otherwise, it can only be applied to the entire document
         /// (classification).
@@ -14713,7 +15221,10 @@ pub mod document_schema {
         /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
         /// let x = Metadata::new().set_document_allow_multiple_labels(true);
         /// ```
-        pub fn set_document_allow_multiple_labels<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_document_allow_multiple_labels<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.document_allow_multiple_labels = v.into();
             self
         }
@@ -14725,7 +15236,10 @@ pub mod document_schema {
         /// # use google_cloud_documentai_v1::model::document_schema::Metadata;
         /// let x = Metadata::new().set_prefixed_naming_on_properties(true);
         /// ```
-        pub fn set_prefixed_naming_on_properties<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_prefixed_naming_on_properties<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.prefixed_naming_on_properties = v.into();
             self
         }
@@ -14754,7 +15268,6 @@ pub mod document_schema {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluationReference {
-
     /// The resource name of the Long Running Operation for the evaluation.
     pub operation: std::string::String,
 
@@ -14808,7 +15321,8 @@ impl EvaluationReference {
     /// let x = EvaluationReference::new().set_aggregate_metrics(Metrics::default()/* use setters */);
     /// ```
     pub fn set_aggregate_metrics<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Metrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
     {
         self.aggregate_metrics = std::option::Option::Some(v.into());
         self
@@ -14824,7 +15338,8 @@ impl EvaluationReference {
     /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics(None::<Metrics>);
     /// ```
     pub fn set_or_clear_aggregate_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Metrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
     {
         self.aggregate_metrics = v.map(|x| x.into());
         self
@@ -14839,7 +15354,8 @@ impl EvaluationReference {
     /// let x = EvaluationReference::new().set_aggregate_metrics_exact(Metrics::default()/* use setters */);
     /// ```
     pub fn set_aggregate_metrics_exact<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Metrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
     {
         self.aggregate_metrics_exact = std::option::Option::Some(v.into());
         self
@@ -14855,7 +15371,8 @@ impl EvaluationReference {
     /// let x = EvaluationReference::new().set_or_clear_aggregate_metrics_exact(None::<Metrics>);
     /// ```
     pub fn set_or_clear_aggregate_metrics_exact<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Metrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::Metrics>,
     {
         self.aggregate_metrics_exact = v.map(|x| x.into());
         self
@@ -14872,7 +15389,6 @@ impl wkt::message::Message for EvaluationReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Evaluation {
-
     /// The resource name of the evaluation.
     /// Format:
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processor_version}/evaluations/{evaluation}`
@@ -14888,7 +15404,10 @@ pub struct Evaluation {
     pub all_entities_metrics: std::option::Option<crate::model::evaluation::MultiConfidenceMetrics>,
 
     /// Metrics across confidence levels, for different entities.
-    pub entity_metrics: std::collections::HashMap<std::string::String,crate::model::evaluation::MultiConfidenceMetrics>,
+    pub entity_metrics: std::collections::HashMap<
+        std::string::String,
+        crate::model::evaluation::MultiConfidenceMetrics,
+    >,
 
     /// The KMS key name used for encryption.
     pub kms_key_name: std::string::String,
@@ -14925,7 +15444,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -14941,7 +15461,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -14956,7 +15477,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_document_counters(Counters::default()/* use setters */);
     /// ```
     pub fn set_document_counters<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Counters>
+    where
+        T: std::convert::Into<crate::model::evaluation::Counters>,
     {
         self.document_counters = std::option::Option::Some(v.into());
         self
@@ -14972,7 +15494,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_or_clear_document_counters(None::<Counters>);
     /// ```
     pub fn set_or_clear_document_counters<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::evaluation::Counters>
+    where
+        T: std::convert::Into<crate::model::evaluation::Counters>,
     {
         self.document_counters = v.map(|x| x.into());
         self
@@ -14987,7 +15510,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_all_entities_metrics(MultiConfidenceMetrics::default()/* use setters */);
     /// ```
     pub fn set_all_entities_metrics<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
     {
         self.all_entities_metrics = std::option::Option::Some(v.into());
         self
@@ -15003,7 +15527,8 @@ impl Evaluation {
     /// let x = Evaluation::new().set_or_clear_all_entities_metrics(None::<MultiConfidenceMetrics>);
     /// ```
     pub fn set_or_clear_all_entities_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>
+    where
+        T: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
     {
         self.all_entities_metrics = v.map(|x| x.into());
         self
@@ -15050,7 +15575,10 @@ impl Evaluation {
     /// # use google_cloud_documentai_v1::model::Evaluation;
     /// let x = Evaluation::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -15067,12 +15595,10 @@ pub mod evaluation {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Evaluation counters for the documents that were used.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Counters {
-
         /// How many documents were sent for evaluation.
         pub input_documents_count: i32,
 
@@ -15154,7 +15680,6 @@ pub mod evaluation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
-
         /// The calculated precision.
         pub precision: f32,
 
@@ -15251,7 +15776,10 @@ pub mod evaluation {
         /// # use google_cloud_documentai_v1::model::evaluation::Metrics;
         /// let x = Metrics::new().set_ground_truth_occurrences_count(42);
         /// ```
-        pub fn set_ground_truth_occurrences_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        pub fn set_ground_truth_occurrences_count<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ground_truth_occurrences_count = v.into();
             self
         }
@@ -15339,7 +15867,6 @@ pub mod evaluation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConfidenceLevelMetrics {
-
         /// The confidence level.
         pub confidence_level: f32,
 
@@ -15375,7 +15902,8 @@ pub mod evaluation {
         /// let x = ConfidenceLevelMetrics::new().set_metrics(Metrics::default()/* use setters */);
         /// ```
         pub fn set_metrics<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::evaluation::Metrics>
+        where
+            T: std::convert::Into<crate::model::evaluation::Metrics>,
         {
             self.metrics = std::option::Option::Some(v.into());
             self
@@ -15391,7 +15919,8 @@ pub mod evaluation {
         /// let x = ConfidenceLevelMetrics::new().set_or_clear_metrics(None::<Metrics>);
         /// ```
         pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::evaluation::Metrics>
+        where
+            T: std::convert::Into<crate::model::evaluation::Metrics>,
         {
             self.metrics = v.map(|x| x.into());
             self
@@ -15408,12 +15937,13 @@ pub mod evaluation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultiConfidenceMetrics {
-
         /// Metrics across confidence levels with fuzzy matching enabled.
-        pub confidence_level_metrics: std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
+        pub confidence_level_metrics:
+            std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
 
         /// Metrics across confidence levels with only exact matching.
-        pub confidence_level_metrics_exact: std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
+        pub confidence_level_metrics_exact:
+            std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
 
         /// The calculated area under the precision recall curve (AUPRC), computed by
         /// integrating over all confidence thresholds.
@@ -15457,7 +15987,7 @@ pub mod evaluation {
         pub fn set_confidence_level_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>
+            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
         {
             use std::iter::Iterator;
             self.confidence_level_metrics = v.into_iter().map(|i| i.into()).collect();
@@ -15479,7 +16009,7 @@ pub mod evaluation {
         pub fn set_confidence_level_metrics_exact<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>
+            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
         {
             use std::iter::Iterator;
             self.confidence_level_metrics_exact = v.into_iter().map(|i| i.into()).collect();
@@ -15529,7 +16059,10 @@ pub mod evaluation {
         /// # use google_cloud_documentai_v1::model::evaluation::MultiConfidenceMetrics;
         /// let x = MultiConfidenceMetrics::new().set_estimated_calibration_error_exact(42.0);
         /// ```
-        pub fn set_estimated_calibration_error_exact<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        pub fn set_estimated_calibration_error_exact<T: std::convert::Into<f32>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.estimated_calibration_error_exact = v.into();
             self
         }
@@ -15542,7 +16075,12 @@ pub mod evaluation {
         /// use google_cloud_documentai_v1::model::evaluation::multi_confidence_metrics::MetricsType;
         /// let x0 = MultiConfidenceMetrics::new().set_metrics_type(MetricsType::Aggregate);
         /// ```
-        pub fn set_metrics_type<T: std::convert::Into<crate::model::evaluation::multi_confidence_metrics::MetricsType>>(mut self, v: T) -> Self {
+        pub fn set_metrics_type<
+            T: std::convert::Into<crate::model::evaluation::multi_confidence_metrics::MetricsType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.metrics_type = v.into();
             self
         }
@@ -15558,7 +16096,6 @@ pub mod evaluation {
     pub mod multi_confidence_metrics {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// A type that determines how metrics should be interpreted.
         ///
@@ -15637,7 +16174,10 @@ pub mod evaluation {
         }
 
         impl std::fmt::Display for MetricsType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -15647,7 +16187,9 @@ pub mod evaluation {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::Aggregate,
-                    _ => Self::UnknownValue(metrics_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(metrics_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -15658,7 +16200,9 @@ pub mod evaluation {
                 match value {
                     "METRICS_TYPE_UNSPECIFIED" => Self::Unspecified,
                     "AGGREGATE" => Self::Aggregate,
-                    _ => Self::UnknownValue(metrics_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(metrics_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -15682,7 +16226,8 @@ pub mod evaluation {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricsType>::new(
-                    ".google.cloud.documentai.v1.Evaluation.MultiConfidenceMetrics.MetricsType"))
+                    ".google.cloud.documentai.v1.Evaluation.MultiConfidenceMetrics.MetricsType",
+                ))
             }
         }
     }
@@ -15693,7 +16238,6 @@ pub mod evaluation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vertex {
-
     /// X coordinate.
     pub x: i32,
 
@@ -15745,7 +16289,6 @@ impl wkt::message::Message for Vertex {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
-
     /// X coordinate.
     pub x: f32,
 
@@ -15795,7 +16338,6 @@ impl wkt::message::Message for NormalizedVertex {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoundingPoly {
-
     /// The bounding polygon vertices.
     pub vertices: std::vec::Vec<crate::model::Vertex>,
 
@@ -15825,7 +16367,7 @@ impl BoundingPoly {
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Vertex>
+        V: std::convert::Into<crate::model::Vertex>,
     {
         use std::iter::Iterator;
         self.vertices = v.into_iter().map(|i| i.into()).collect();
@@ -15847,7 +16389,7 @@ impl BoundingPoly {
     pub fn set_normalized_vertices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NormalizedVertex>
+        V: std::convert::Into<crate::model::NormalizedVertex>,
     {
         use std::iter::Iterator;
         self.normalized_vertices = v.into_iter().map(|i| i.into()).collect();
@@ -15865,7 +16407,6 @@ impl wkt::message::Message for BoundingPoly {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonOperationMetadata {
-
     /// The state of the operation.
     pub state: crate::model::common_operation_metadata::State,
 
@@ -15899,7 +16440,10 @@ impl CommonOperationMetadata {
     /// let x1 = CommonOperationMetadata::new().set_state(State::Cancelling);
     /// let x2 = CommonOperationMetadata::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::common_operation_metadata::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::common_operation_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -15937,7 +16481,8 @@ impl CommonOperationMetadata {
     /// let x = CommonOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -15953,7 +16498,8 @@ impl CommonOperationMetadata {
     /// let x = CommonOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -15968,7 +16514,8 @@ impl CommonOperationMetadata {
     /// let x = CommonOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -15984,7 +16531,8 @@ impl CommonOperationMetadata {
     /// let x = CommonOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -16001,7 +16549,6 @@ impl wkt::message::Message for CommonOperationMetadata {
 pub mod common_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// State of the longrunning operation.
     ///
@@ -16104,7 +16651,9 @@ pub mod common_operation_metadata {
                 3 => Self::Succeeded,
                 4 => Self::Failed,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -16119,7 +16668,9 @@ pub mod common_operation_metadata {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -16147,7 +16698,8 @@ pub mod common_operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.CommonOperationMetadata.State"))
+                ".google.cloud.documentai.v1.CommonOperationMetadata.State",
+            ))
         }
     }
 }
@@ -16159,7 +16711,6 @@ pub mod common_operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorVersion {
-
     /// Identifier. The resource name of the processor version.
     /// Format:
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processor_version}`
@@ -16248,7 +16799,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_document_schema(DocumentSchema::default()/* use setters */);
     /// ```
     pub fn set_document_schema<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = std::option::Option::Some(v.into());
         self
@@ -16264,7 +16816,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_or_clear_document_schema(None::<DocumentSchema>);
     /// ```
     pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DocumentSchema>
+    where
+        T: std::convert::Into<crate::model::DocumentSchema>,
     {
         self.document_schema = v.map(|x| x.into());
         self
@@ -16280,7 +16833,10 @@ impl ProcessorVersion {
     /// let x1 = ProcessorVersion::new().set_state(State::Deploying);
     /// let x2 = ProcessorVersion::new().set_state(State::Undeployed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::processor_version::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::processor_version::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -16294,7 +16850,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -16310,7 +16867,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -16325,7 +16883,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_latest_evaluation(EvaluationReference::default()/* use setters */);
     /// ```
     pub fn set_latest_evaluation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EvaluationReference>
+    where
+        T: std::convert::Into<crate::model::EvaluationReference>,
     {
         self.latest_evaluation = std::option::Option::Some(v.into());
         self
@@ -16341,7 +16900,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_or_clear_latest_evaluation(None::<EvaluationReference>);
     /// ```
     pub fn set_or_clear_latest_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EvaluationReference>
+    where
+        T: std::convert::Into<crate::model::EvaluationReference>,
     {
         self.latest_evaluation = v.map(|x| x.into());
         self
@@ -16366,7 +16926,10 @@ impl ProcessorVersion {
     /// # use google_cloud_documentai_v1::model::ProcessorVersion;
     /// let x = ProcessorVersion::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -16392,7 +16955,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_deprecation_info(DeprecationInfo::default()/* use setters */);
     /// ```
     pub fn set_deprecation_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::processor_version::DeprecationInfo>
+    where
+        T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
     {
         self.deprecation_info = std::option::Option::Some(v.into());
         self
@@ -16408,7 +16972,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_or_clear_deprecation_info(None::<DeprecationInfo>);
     /// ```
     pub fn set_or_clear_deprecation_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::processor_version::DeprecationInfo>
+    where
+        T: std::convert::Into<crate::model::processor_version::DeprecationInfo>,
     {
         self.deprecation_info = v.map(|x| x.into());
         self
@@ -16423,7 +16988,10 @@ impl ProcessorVersion {
     /// let x0 = ProcessorVersion::new().set_model_type(ModelType::Generative);
     /// let x1 = ProcessorVersion::new().set_model_type(ModelType::Custom);
     /// ```
-    pub fn set_model_type<T: std::convert::Into<crate::model::processor_version::ModelType>>(mut self, v: T) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::processor_version::ModelType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.model_type = v.into();
         self
     }
@@ -16461,7 +17029,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_gen_ai_model_info(GenAiModelInfo::default()/* use setters */);
     /// ```
     pub fn set_gen_ai_model_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>
+    where
+        T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
     {
         self.gen_ai_model_info = std::option::Option::Some(v.into());
         self
@@ -16477,7 +17046,8 @@ impl ProcessorVersion {
     /// let x = ProcessorVersion::new().set_or_clear_gen_ai_model_info(None::<GenAiModelInfo>);
     /// ```
     pub fn set_or_clear_gen_ai_model_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>
+    where
+        T: std::convert::Into<crate::model::processor_version::GenAiModelInfo>,
     {
         self.gen_ai_model_info = v.map(|x| x.into());
         self
@@ -16495,12 +17065,10 @@ pub mod processor_version {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Information about the upcoming deprecation of this processor version.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeprecationInfo {
-
         /// The time at which this processor version will be deprecated.
         pub deprecation_time: std::option::Option<wkt::Timestamp>,
 
@@ -16524,7 +17092,8 @@ pub mod processor_version {
         /// let x = DeprecationInfo::new().set_deprecation_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_deprecation_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.deprecation_time = std::option::Option::Some(v.into());
             self
@@ -16540,7 +17109,8 @@ pub mod processor_version {
         /// let x = DeprecationInfo::new().set_or_clear_deprecation_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_deprecation_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.deprecation_time = v.map(|x| x.into());
             self
@@ -16553,7 +17123,10 @@ pub mod processor_version {
         /// # use google_cloud_documentai_v1::model::processor_version::DeprecationInfo;
         /// let x = DeprecationInfo::new().set_replacement_processor_version("example");
         /// ```
-        pub fn set_replacement_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_replacement_processor_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.replacement_processor_version = v.into();
             self
         }
@@ -16569,10 +17142,10 @@ pub mod processor_version {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GenAiModelInfo {
-
         /// The processor version is either a pretrained Google-managed foundation
         /// model or a custom Generative AI model created by the user.
-        pub model_info: std::option::Option<crate::model::processor_version::gen_ai_model_info::ModelInfo>,
+        pub model_info:
+            std::option::Option<crate::model::processor_version::gen_ai_model_info::ModelInfo>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -16594,8 +17167,16 @@ pub mod processor_version {
         /// let x = GenAiModelInfo::new().set_model_info(Some(
         ///     google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(FoundationGenAiModelInfo::default().into())));
         /// ```
-        pub fn set_model_info<T: std::convert::Into<std::option::Option<crate::model::processor_version::gen_ai_model_info::ModelInfo>>>(mut self, v: T) -> Self
-        {
+        pub fn set_model_info<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::processor_version::gen_ai_model_info::ModelInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.model_info = v.into();
             self
         }
@@ -16603,7 +17184,13 @@ pub mod processor_version {
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `FoundationGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn foundation_gen_ai_model_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>> {
+        pub fn foundation_gen_ai_model_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.model_info.as_ref().and_then(|v| match v {
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(v) => std::option::Option::Some(v),
@@ -16625,7 +17212,7 @@ pub mod processor_version {
         /// assert!(x.foundation_gen_ai_model_info().is_some());
         /// assert!(x.custom_gen_ai_model_info().is_none());
         /// ```
-        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self {
+        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
             self.model_info = std::option::Option::Some(
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
                     v.into()
@@ -16637,7 +17224,13 @@ pub mod processor_version {
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `CustomGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn custom_gen_ai_model_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo>> {
+        pub fn custom_gen_ai_model_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.model_info.as_ref().and_then(|v| match v {
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::CustomGenAiModelInfo(v) => std::option::Option::Some(v),
@@ -16659,11 +17252,20 @@ pub mod processor_version {
         /// assert!(x.custom_gen_ai_model_info().is_some());
         /// assert!(x.foundation_gen_ai_model_info().is_none());
         /// ```
-        pub fn set_custom_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo>>>(mut self, v: T) -> Self {
+        pub fn set_custom_gen_ai_model_info<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.model_info = std::option::Option::Some(
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::CustomGenAiModelInfo(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -16680,12 +17282,10 @@ pub mod processor_version {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Information for a pretrained Google-managed foundation model.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FoundationGenAiModelInfo {
-
             /// Whether finetuning is allowed for this base processor version.
             pub finetuning_allowed: bool,
 
@@ -16720,7 +17320,10 @@ pub mod processor_version {
             /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo;
             /// let x = FoundationGenAiModelInfo::new().set_min_train_labeled_documents(42);
             /// ```
-            pub fn set_min_train_labeled_documents<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            pub fn set_min_train_labeled_documents<T: std::convert::Into<i32>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.min_train_labeled_documents = v.into();
                 self
             }
@@ -16762,7 +17365,7 @@ pub mod processor_version {
             /// let x0 = CustomGenAiModelInfo::new().set_custom_model_type(CustomModelType::VersionedFoundation);
             /// let x1 = CustomGenAiModelInfo::new().set_custom_model_type(CustomModelType::FineTuned);
             /// ```
-            pub fn set_custom_model_type<T: std::convert::Into<crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType>>(mut self, v: T) -> Self {
+            pub fn set_custom_model_type<T: std::convert::Into<crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType>>(mut self, v: T) -> Self{
                 self.custom_model_type = v.into();
                 self
             }
@@ -16774,7 +17377,10 @@ pub mod processor_version {
             /// # use google_cloud_documentai_v1::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo;
             /// let x = CustomGenAiModelInfo::new().set_base_processor_version_id("example");
             /// ```
-            pub fn set_base_processor_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_base_processor_version_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.base_processor_version_id = v.into();
                 self
             }
@@ -16790,7 +17396,6 @@ pub mod processor_version {
         pub mod custom_gen_ai_model_info {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// The type of custom model created by the user.
             ///
@@ -16851,8 +17456,12 @@ pub mod processor_version {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("CUSTOM_MODEL_TYPE_UNSPECIFIED"),
-                        Self::VersionedFoundation => std::option::Option::Some("VERSIONED_FOUNDATION"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("CUSTOM_MODEL_TYPE_UNSPECIFIED")
+                        }
+                        Self::VersionedFoundation => {
+                            std::option::Option::Some("VERSIONED_FOUNDATION")
+                        }
                         Self::FineTuned => std::option::Option::Some("FINE_TUNED"),
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -16867,7 +17476,10 @@ pub mod processor_version {
             }
 
             impl std::fmt::Display for CustomModelType {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -16878,7 +17490,9 @@ pub mod processor_version {
                         0 => Self::Unspecified,
                         1 => Self::VersionedFoundation,
                         2 => Self::FineTuned,
-                        _ => Self::UnknownValue(custom_model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(custom_model_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -16890,7 +17504,9 @@ pub mod processor_version {
                         "CUSTOM_MODEL_TYPE_UNSPECIFIED" => Self::Unspecified,
                         "VERSIONED_FOUNDATION" => Self::VersionedFoundation,
                         "FINE_TUNED" => Self::FineTuned,
-                        _ => Self::UnknownValue(custom_model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(custom_model_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -16926,9 +17542,17 @@ pub mod processor_version {
         #[non_exhaustive]
         pub enum ModelInfo {
             /// Information for a pretrained Google-managed foundation model.
-            FoundationGenAiModelInfo(std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>),
+            FoundationGenAiModelInfo(
+                std::boxed::Box<
+                    crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo,
+                >,
+            ),
             /// Information for a custom Generative AI model created by the user.
-            CustomGenAiModelInfo(std::boxed::Box<crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo>),
+            CustomGenAiModelInfo(
+                std::boxed::Box<
+                    crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
+                >,
+            ),
         }
     }
 
@@ -17048,7 +17672,9 @@ pub mod processor_version {
                 6 => Self::Deleting,
                 7 => Self::Failed,
                 8 => Self::Importing,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -17066,7 +17692,9 @@ pub mod processor_version {
                 "DELETING" => Self::Deleting,
                 "FAILED" => Self::Failed,
                 "IMPORTING" => Self::Importing,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -17097,7 +17725,8 @@ pub mod processor_version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.ProcessorVersion.State"))
+                ".google.cloud.documentai.v1.ProcessorVersion.State",
+            ))
         }
     }
 
@@ -17187,7 +17816,9 @@ pub mod processor_version {
                 0 => Self::Unspecified,
                 1 => Self::Generative,
                 2 => Self::Custom,
-                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(model_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -17199,7 +17830,9 @@ pub mod processor_version {
                 "MODEL_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "MODEL_TYPE_GENERATIVE" => Self::Generative,
                 "MODEL_TYPE_CUSTOM" => Self::Custom,
-                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(model_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -17224,7 +17857,8 @@ pub mod processor_version {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ModelType>::new(
-                ".google.cloud.documentai.v1.ProcessorVersion.ModelType"))
+                ".google.cloud.documentai.v1.ProcessorVersion.ModelType",
+            ))
         }
     }
 }
@@ -17233,7 +17867,6 @@ pub mod processor_version {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorVersionAlias {
-
     /// The alias in the form of `processor_version` resource name.
     pub alias: std::string::String,
 
@@ -17267,7 +17900,10 @@ impl ProcessorVersionAlias {
     /// # use google_cloud_documentai_v1::model::ProcessorVersionAlias;
     /// let x = ProcessorVersionAlias::new().set_processor_version("example");
     /// ```
-    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.processor_version = v.into();
         self
     }
@@ -17284,7 +17920,6 @@ impl wkt::message::Message for ProcessorVersionAlias {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Processor {
-
     /// Output only. Immutable. The resource name of the processor.
     /// Format: `projects/{project}/locations/{location}/processors/{processor}`
     pub name: std::string::String,
@@ -17379,7 +18014,10 @@ impl Processor {
     /// let x1 = Processor::new().set_state(State::Disabled);
     /// let x2 = Processor::new().set_state(State::Enabling);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::processor::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::processor::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -17391,7 +18029,10 @@ impl Processor {
     /// # use google_cloud_documentai_v1::model::Processor;
     /// let x = Processor::new().set_default_processor_version("example");
     /// ```
-    pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_default_processor_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.default_processor_version = v.into();
         self
     }
@@ -17411,7 +18052,7 @@ impl Processor {
     pub fn set_processor_version_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessorVersionAlias>
+        V: std::convert::Into<crate::model::ProcessorVersionAlias>,
     {
         use std::iter::Iterator;
         self.processor_version_aliases = v.into_iter().map(|i| i.into()).collect();
@@ -17425,7 +18066,10 @@ impl Processor {
     /// # use google_cloud_documentai_v1::model::Processor;
     /// let x = Processor::new().set_process_endpoint("example");
     /// ```
-    pub fn set_process_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_process_endpoint<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.process_endpoint = v.into();
         self
     }
@@ -17439,7 +18083,8 @@ impl Processor {
     /// let x = Processor::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -17455,7 +18100,8 @@ impl Processor {
     /// let x = Processor::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -17508,7 +18154,6 @@ impl wkt::message::Message for Processor {
 pub mod processor {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states of the processor.
     ///
@@ -17629,7 +18274,9 @@ pub mod processor {
                 5 => Self::Creating,
                 6 => Self::Failed,
                 7 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -17646,7 +18293,9 @@ pub mod processor {
                 "CREATING" => Self::Creating,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -17676,7 +18325,8 @@ pub mod processor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.documentai.v1.Processor.State"))
+                ".google.cloud.documentai.v1.Processor.State",
+            ))
         }
     }
 }
@@ -17686,7 +18336,6 @@ pub mod processor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorType {
-
     /// The resource name of the processor type.
     /// Format: `projects/{project}/processorTypes/{processor_type}`
     pub name: std::string::String,
@@ -17769,7 +18418,7 @@ impl ProcessorType {
     pub fn set_available_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::processor_type::LocationInfo>
+        V: std::convert::Into<crate::model::processor_type::LocationInfo>,
     {
         use std::iter::Iterator;
         self.available_locations = v.into_iter().map(|i| i.into()).collect();
@@ -17798,7 +18447,10 @@ impl ProcessorType {
     /// let x1 = ProcessorType::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = ProcessorType::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -17813,7 +18465,7 @@ impl ProcessorType {
     pub fn set_sample_document_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.sample_document_uris = v.into_iter().map(|i| i.into()).collect();
@@ -17832,12 +18484,10 @@ pub mod processor_type {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The location information about where the processor is available.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LocationInfo {
-
         /// The location ID. For supported locations, refer to [regional and
         /// multi-regional support](/document-ai/docs/regions).
         pub location_id: std::string::String,

@@ -234,7 +234,8 @@ impl<T: super::NotebookService> NotebookService for T {
         &self,
         req: crate::model::CheckInstanceUpgradabilityRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CheckInstanceUpgradabilityResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::CheckInstanceUpgradabilityResponse>>
+    {
         T::check_instance_upgradability(self, req, options).await
     }
 

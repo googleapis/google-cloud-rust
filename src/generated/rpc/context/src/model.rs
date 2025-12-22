@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -48,7 +48,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeContext {
-
     /// The origin of a network activity. In a multi hop network activity,
     /// the origin represents the sender of the first hop. For the first hop,
     /// the `source` and the `origin` must have the same content.
@@ -98,7 +97,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_origin(Peer::default()/* use setters */);
     /// ```
     pub fn set_origin<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.origin = std::option::Option::Some(v.into());
         self
@@ -114,7 +114,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_origin(None::<Peer>);
     /// ```
     pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.origin = v.map(|x| x.into());
         self
@@ -129,7 +130,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_source(Peer::default()/* use setters */);
     /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -145,7 +147,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_source(None::<Peer>);
     /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.source = v.map(|x| x.into());
         self
@@ -160,7 +163,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_destination(Peer::default()/* use setters */);
     /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -176,7 +180,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_destination(None::<Peer>);
     /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Peer>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Peer>,
     {
         self.destination = v.map(|x| x.into());
         self
@@ -191,7 +196,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_request(Request::default()/* use setters */);
     /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Request>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Request>,
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -207,7 +213,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_request(None::<Request>);
     /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Request>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Request>,
     {
         self.request = v.map(|x| x.into());
         self
@@ -222,7 +229,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_response(Response::default()/* use setters */);
     /// ```
     pub fn set_response<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Response>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Response>,
     {
         self.response = std::option::Option::Some(v.into());
         self
@@ -238,7 +246,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_response(None::<Response>);
     /// ```
     pub fn set_or_clear_response<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Response>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Response>,
     {
         self.response = v.map(|x| x.into());
         self
@@ -253,7 +262,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_resource(Resource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Resource>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Resource>,
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -269,7 +279,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_resource(None::<Resource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Resource>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Resource>,
     {
         self.resource = v.map(|x| x.into());
         self
@@ -284,7 +295,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_api(Api::default()/* use setters */);
     /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Api>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Api>,
     {
         self.api = std::option::Option::Some(v.into());
         self
@@ -300,7 +312,8 @@ impl AttributeContext {
     /// let x = AttributeContext::new().set_or_clear_api(None::<Api>);
     /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::attribute_context::Api>
+    where
+        T: std::convert::Into<crate::model::attribute_context::Api>,
     {
         self.api = v.map(|x| x.into());
         self
@@ -321,7 +334,7 @@ impl AttributeContext {
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>
+        V: std::convert::Into<wkt::Any>,
     {
         use std::iter::Iterator;
         self.extensions = v.into_iter().map(|i| i.into()).collect();
@@ -340,7 +353,6 @@ pub mod attribute_context {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// This message defines attributes for a node that handles a network request.
     /// The node can be either a service or an application that sends, forwards,
     /// or receives the request. Service peers should fill in
@@ -348,7 +360,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Peer {
-
         /// The IP address of the peer.
         pub ip: std::string::String,
 
@@ -356,7 +367,7 @@ pub mod attribute_context {
         pub port: i64,
 
         /// The labels associated with the peer.
-        pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+        pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The identity of this peer. Similar to `Request.auth.principal`, but
         /// relative to the peer instead of the request. For example, the
@@ -458,7 +469,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Api {
-
         /// The API service name. It is a logical identifier for a networked API,
         /// such as "pubsub.googleapis.com". The naming syntax depends on the
         /// API management system being used for handling the request.
@@ -546,7 +556,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Auth {
-
         /// The authenticated principal. Reflects the issuer (`iss`) and subject
         /// (`sub`) claims within a JWT. The issuer and subject should be `/`
         /// delimited, with `/` percent-encoded within the subject fragment. For
@@ -632,7 +641,7 @@ pub mod attribute_context {
         pub fn set_audiences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.audiences = v.into_iter().map(|i| i.into()).collect();
@@ -660,7 +669,8 @@ pub mod attribute_context {
         /// let x = Auth::new().set_claims(Struct::default()/* use setters */);
         /// ```
         pub fn set_claims<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.claims = std::option::Option::Some(v.into());
             self
@@ -676,7 +686,8 @@ pub mod attribute_context {
         /// let x = Auth::new().set_or_clear_claims(None::<Struct>);
         /// ```
         pub fn set_or_clear_claims<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.claims = v.map(|x| x.into());
             self
@@ -692,7 +703,7 @@ pub mod attribute_context {
         pub fn set_access_levels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.access_levels = v.into_iter().map(|i| i.into()).collect();
@@ -712,7 +723,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Request {
-
         /// The unique ID for a request, which can be propagated to downstream
         /// systems. The ID should have low probability of collision
         /// within a single day for a specific service.
@@ -724,7 +734,7 @@ pub mod attribute_context {
         /// The HTTP request headers. If multiple headers share the same key, they
         /// must be merged according to the HTTP spec. All header keys must be
         /// lowercased, because HTTP header keys are case-insensitive.
-        pub headers: std::collections::HashMap<std::string::String,std::string::String>,
+        pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The HTTP URL path, excluding the query parameters.
         pub path: std::string::String,
@@ -870,7 +880,8 @@ pub mod attribute_context {
         /// let x = Request::new().set_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.time = std::option::Option::Some(v.into());
             self
@@ -886,7 +897,8 @@ pub mod attribute_context {
         /// let x = Request::new().set_or_clear_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.time = v.map(|x| x.into());
             self
@@ -937,7 +949,8 @@ pub mod attribute_context {
         /// let x = Request::new().set_auth(Auth::default()/* use setters */);
         /// ```
         pub fn set_auth<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::attribute_context::Auth>
+        where
+            T: std::convert::Into<crate::model::attribute_context::Auth>,
         {
             self.auth = std::option::Option::Some(v.into());
             self
@@ -953,7 +966,8 @@ pub mod attribute_context {
         /// let x = Request::new().set_or_clear_auth(None::<Auth>);
         /// ```
         pub fn set_or_clear_auth<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::attribute_context::Auth>
+        where
+            T: std::convert::Into<crate::model::attribute_context::Auth>,
         {
             self.auth = v.map(|x| x.into());
             self
@@ -971,7 +985,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Response {
-
         /// The HTTP response status code, such as `200` and `404`.
         pub code: i64,
 
@@ -981,7 +994,7 @@ pub mod attribute_context {
         /// The HTTP response headers. If multiple headers share the same key, they
         /// must be merged according to HTTP spec. All header keys must be
         /// lowercased, because HTTP header keys are case-insensitive.
-        pub headers: std::collections::HashMap<std::string::String,std::string::String>,
+        pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The timestamp when the `destination` service sends the last byte of
         /// the response.
@@ -1055,7 +1068,8 @@ pub mod attribute_context {
         /// let x = Response::new().set_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.time = std::option::Option::Some(v.into());
             self
@@ -1071,7 +1085,8 @@ pub mod attribute_context {
         /// let x = Response::new().set_or_clear_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.time = v.map(|x| x.into());
             self
@@ -1086,7 +1101,8 @@ pub mod attribute_context {
         /// let x = Response::new().set_backend_latency(Duration::default()/* use setters */);
         /// ```
         pub fn set_backend_latency<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.backend_latency = std::option::Option::Some(v.into());
             self
@@ -1102,7 +1118,8 @@ pub mod attribute_context {
         /// let x = Response::new().set_or_clear_backend_latency(None::<Duration>);
         /// ```
         pub fn set_or_clear_backend_latency<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.backend_latency = v.map(|x| x.into());
             self
@@ -1121,7 +1138,6 @@ pub mod attribute_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
-
         /// The name of the service that this resource belongs to, such as
         /// `pubsub.googleapis.com`. The service may be different from the DNS
         /// hostname that actually serves the request.
@@ -1150,7 +1166,7 @@ pub mod attribute_context {
 
         /// The labels or tags on the resource, such as AWS resource tags and
         /// Kubernetes resource labels.
-        pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+        pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The unique identifier of the resource. UID is unique in the time
         /// and space for this resource within the scope of the service. It is
@@ -1165,7 +1181,7 @@ pub mod attribute_context {
         ///
         /// More info:
         /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/>
-        pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+        pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Mutable. The display name set by clients. Must be <= 63 characters.
         pub display_name: std::string::String,
@@ -1303,7 +1319,10 @@ pub mod attribute_context {
         /// # use google_cloud_rpc_context::model::attribute_context::Resource;
         /// let x = Resource::new().set_display_name("example");
         /// ```
-        pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.display_name = v.into();
             self
         }
@@ -1317,7 +1336,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_create_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.create_time = std::option::Option::Some(v.into());
             self
@@ -1333,7 +1353,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_or_clear_create_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.create_time = v.map(|x| x.into());
             self
@@ -1348,7 +1369,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_update_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.update_time = std::option::Option::Some(v.into());
             self
@@ -1364,7 +1386,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_or_clear_update_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.update_time = v.map(|x| x.into());
             self
@@ -1379,7 +1402,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_delete_time(Timestamp::default()/* use setters */);
         /// ```
         pub fn set_delete_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.delete_time = std::option::Option::Some(v.into());
             self
@@ -1395,7 +1419,8 @@ pub mod attribute_context {
         /// let x = Resource::new().set_or_clear_delete_time(None::<Timestamp>);
         /// ```
         pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.delete_time = v.map(|x| x.into());
             self
@@ -1437,7 +1462,6 @@ pub mod attribute_context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditContext {
-
     /// Serialized audit log.
     pub audit_log: ::bytes::Bytes,
 
@@ -1488,7 +1512,8 @@ impl AuditContext {
     /// let x = AuditContext::new().set_scrubbed_request(Struct::default()/* use setters */);
     /// ```
     pub fn set_scrubbed_request<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.scrubbed_request = std::option::Option::Some(v.into());
         self
@@ -1504,7 +1529,8 @@ impl AuditContext {
     /// let x = AuditContext::new().set_or_clear_scrubbed_request(None::<Struct>);
     /// ```
     pub fn set_or_clear_scrubbed_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.scrubbed_request = v.map(|x| x.into());
         self
@@ -1519,7 +1545,8 @@ impl AuditContext {
     /// let x = AuditContext::new().set_scrubbed_response(Struct::default()/* use setters */);
     /// ```
     pub fn set_scrubbed_response<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.scrubbed_response = std::option::Option::Some(v.into());
         self
@@ -1535,7 +1562,8 @@ impl AuditContext {
     /// let x = AuditContext::new().set_or_clear_scrubbed_response(None::<Struct>);
     /// ```
     pub fn set_or_clear_scrubbed_response<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.scrubbed_response = v.map(|x| x.into());
         self

@@ -82,7 +82,6 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>;
-
 }
 
 /// All implementations of [super::IdentityAwareProxyAdminService] also implement [IdentityAwareProxyAdminService].
@@ -138,7 +137,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
         &self,
         req: crate::model::ValidateIapAttributeExpressionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>>
+    {
         T::validate_iap_attribute_expression(self, req, options).await
     }
 
@@ -186,7 +186,6 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         T::update_tunnel_dest_group(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::IdentityAwareProxyOAuthService].
@@ -239,7 +238,6 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::IdentityAwareProxyOAuthService] also implement [IdentityAwareProxyOAuthService].
@@ -286,7 +284,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>>
+    {
         T::list_identity_aware_proxy_clients(self, req, options).await
     }
 
@@ -316,5 +315,4 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_identity_aware_proxy_client(self, req, options).await
     }
-
 }

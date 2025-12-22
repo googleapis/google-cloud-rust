@@ -105,7 +105,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>,
+    >;
 
     async fn get_external_address(
         &self,
@@ -441,7 +443,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>,
+    >;
 
     async fn grant_dns_bind_permission(
         &self,
@@ -654,7 +658,9 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>,
+    > {
         T::fetch_network_policy_external_addresses(self, req, options).await
     }
 
@@ -1014,7 +1020,8 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListManagementDnsZoneBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>>
+    {
         T::list_management_dns_zone_bindings(self, req, options).await
     }
 
@@ -1104,7 +1111,8 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListVmwareEngineNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>>
+    {
         T::list_vmware_engine_networks(self, req, options).await
     }
 
@@ -1158,7 +1166,9 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>,
+    > {
         T::list_private_connection_peering_routes(self, req, options).await
     }
 

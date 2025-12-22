@@ -252,7 +252,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::LookupServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupServiceProjectAttachmentResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupServiceProjectAttachmentResponse>>
+    {
         T::lookup_service_project_attachment(self, req, options).await
     }
 
@@ -261,7 +262,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListServiceProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceProjectAttachmentsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceProjectAttachmentsResponse>>
+    {
         T::list_service_project_attachments(self, req, options).await
     }
 
@@ -297,7 +299,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DetachServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>>
+    {
         T::detach_service_project_attachment(self, req, options).await
     }
 
@@ -396,7 +399,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::LookupDiscoveredWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredWorkloadResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredWorkloadResponse>>
+    {
         T::lookup_discovered_workload(self, req, options).await
     }
 

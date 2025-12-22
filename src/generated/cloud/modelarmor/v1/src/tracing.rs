@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ModelArmor](super::stub::ModelArmor) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ModelArmor<T>
-where T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ModelArmor<T>
-where T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ModelArmor for ModelArmor<T>
-where T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_templates(
         &self,
@@ -129,6 +135,4 @@ where T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
-

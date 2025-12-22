@@ -73,7 +73,9 @@ impl DashboardsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dashboards_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::dashboards_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::dashboards_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -81,28 +83,43 @@ impl DashboardsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DashboardsService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DashboardsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
         super::transport::DashboardsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
-        Self::build_transport(conf).await.map(super::tracing::DashboardsService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DashboardsService::new)
     }
 
     /// Creates a new custom dashboard. For examples on how you can use this API to
@@ -127,8 +144,7 @@ impl DashboardsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard
-    {
+    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
     }
 
@@ -137,8 +153,7 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.list` permission
     /// on the specified project. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards
-    {
+    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards {
         super::builder::dashboards_service::ListDashboards::new(self.inner.clone())
     }
 
@@ -163,8 +178,7 @@ impl DashboardsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard
-    {
+    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard {
         super::builder::dashboards_service::GetDashboard::new(self.inner.clone())
     }
 
@@ -188,8 +202,7 @@ impl DashboardsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard
-    {
+    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard {
         super::builder::dashboards_service::DeleteDashboard::new(self.inner.clone())
     }
 
@@ -214,8 +227,7 @@ impl DashboardsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard
-    {
+    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard {
         super::builder::dashboards_service::UpdateDashboard::new(self.inner.clone())
     }
 }

@@ -39,7 +39,10 @@ pub mod telco_automation {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TelcoAutomation;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod telco_automation {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,17 +93,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOrchestrationClusters(RequestBuilder<crate::model::ListOrchestrationClustersRequest>);
+    pub struct ListOrchestrationClusters(
+        RequestBuilder<crate::model::ListOrchestrationClustersRequest>,
+    );
 
     impl ListOrchestrationClusters {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOrchestrationClustersRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOrchestrationClustersRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -109,11 +121,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOrchestrationClustersResponse> {
-            (*self.0.stub).list_orchestration_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_orchestration_clusters(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOrchestrationClustersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOrchestrationClustersResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +145,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOrchestrationClustersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrchestrationClustersResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -188,17 +213,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrchestrationCluster(RequestBuilder<crate::model::GetOrchestrationClusterRequest>);
+    pub struct GetOrchestrationCluster(
+        RequestBuilder<crate::model::GetOrchestrationClusterRequest>,
+    );
 
     impl GetOrchestrationCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOrchestrationClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOrchestrationClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -211,7 +241,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OrchestrationCluster> {
-            (*self.0.stub).get_orchestration_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_orchestration_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrchestrationClusterRequest::name].
@@ -249,17 +282,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOrchestrationCluster(RequestBuilder<crate::model::CreateOrchestrationClusterRequest>);
+    pub struct CreateOrchestrationCluster(
+        RequestBuilder<crate::model::CreateOrchestrationClusterRequest>,
+    );
 
     impl CreateOrchestrationCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateOrchestrationClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateOrchestrationClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -277,16 +315,21 @@ pub mod telco_automation {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_orchestration_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_orchestration_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_orchestration_cluster`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::OrchestrationCluster, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::OrchestrationCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::OrchestrationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::OrchestrationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -334,7 +377,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_orchestration_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::OrchestrationCluster>
+        where
+            T: std::convert::Into<crate::model::OrchestrationCluster>,
         {
             self.0.request.orchestration_cluster = std::option::Option::Some(v.into());
             self
@@ -344,7 +388,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::OrchestrationCluster>
+        where
+            T: std::convert::Into<crate::model::OrchestrationCluster>,
         {
             self.0.request.orchestration_cluster = v.map(|x| x.into());
             self
@@ -383,17 +428,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOrchestrationCluster(RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>);
+    pub struct DeleteOrchestrationCluster(
+        RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>,
+    );
 
     impl DeleteOrchestrationCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteOrchestrationClusterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteOrchestrationClusterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -411,15 +461,14 @@ pub mod telco_automation {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_orchestration_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_orchestration_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_orchestration_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -445,7 +494,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteOrchestrationClusterRequest::name].
@@ -495,10 +549,10 @@ pub mod telco_automation {
     pub struct ListEdgeSlms(RequestBuilder<crate::model::ListEdgeSlmsRequest>);
 
     impl ListEdgeSlms {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -515,11 +569,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEdgeSlmsResponse> {
-            (*self.0.stub).list_edge_slms(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_edge_slms(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -531,7 +591,10 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEdgeSlmsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -597,10 +660,10 @@ pub mod telco_automation {
     pub struct GetEdgeSlm(RequestBuilder<crate::model::GetEdgeSlmRequest>);
 
     impl GetEdgeSlm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -617,7 +680,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EdgeSlm> {
-            (*self.0.stub).get_edge_slm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_edge_slm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEdgeSlmRequest::name].
@@ -658,10 +724,10 @@ pub mod telco_automation {
     pub struct CreateEdgeSlm(RequestBuilder<crate::model::CreateEdgeSlmRequest>);
 
     impl CreateEdgeSlm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -683,16 +749,18 @@ pub mod telco_automation {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_edge_slm][crate::client::TelcoAutomation::create_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_edge_slm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_edge_slm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_edge_slm`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -740,7 +808,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_edge_slm<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EdgeSlm>
+        where
+            T: std::convert::Into<crate::model::EdgeSlm>,
         {
             self.0.request.edge_slm = std::option::Option::Some(v.into());
             self
@@ -750,7 +819,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EdgeSlm>
+        where
+            T: std::convert::Into<crate::model::EdgeSlm>,
         {
             self.0.request.edge_slm = v.map(|x| x.into());
             self
@@ -792,10 +862,10 @@ pub mod telco_automation {
     pub struct DeleteEdgeSlm(RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
 
     impl DeleteEdgeSlm {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -817,15 +887,14 @@ pub mod telco_automation {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_edge_slm(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_edge_slm(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_edge_slm`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -851,7 +920,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEdgeSlmRequest::name].
@@ -897,10 +971,10 @@ pub mod telco_automation {
     pub struct CreateBlueprint(RequestBuilder<crate::model::CreateBlueprintRequest>);
 
     impl CreateBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -917,7 +991,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).create_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBlueprintRequest::parent].
@@ -938,7 +1015,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_blueprint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Blueprint>
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
         {
             self.0.request.blueprint = std::option::Option::Some(v.into());
             self
@@ -948,7 +1026,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Blueprint>
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
         {
             self.0.request.blueprint = v.map(|x| x.into());
             self
@@ -983,10 +1062,10 @@ pub mod telco_automation {
     pub struct UpdateBlueprint(RequestBuilder<crate::model::UpdateBlueprintRequest>);
 
     impl UpdateBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1003,14 +1082,18 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).update_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
         ///
         /// This is a **required** field for requests.
         pub fn set_blueprint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Blueprint>
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
         {
             self.0.request.blueprint = std::option::Option::Some(v.into());
             self
@@ -1020,7 +1103,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Blueprint>
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
         {
             self.0.request.blueprint = v.map(|x| x.into());
             self
@@ -1030,7 +1114,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1040,7 +1125,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1075,10 +1161,10 @@ pub mod telco_automation {
     pub struct GetBlueprint(RequestBuilder<crate::model::GetBlueprintRequest>);
 
     impl GetBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1095,7 +1181,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).get_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBlueprintRequest::name].
@@ -1141,10 +1230,10 @@ pub mod telco_automation {
     pub struct DeleteBlueprint(RequestBuilder<crate::model::DeleteBlueprintRequest>);
 
     impl DeleteBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1161,7 +1250,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBlueprintRequest::name].
@@ -1205,10 +1297,10 @@ pub mod telco_automation {
     pub struct ListBlueprints(RequestBuilder<crate::model::ListBlueprintsRequest>);
 
     impl ListBlueprints {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1225,11 +1317,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBlueprintsResponse> {
-            (*self.0.stub).list_blueprints(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_blueprints(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1241,7 +1339,10 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBlueprintsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBlueprintsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1301,14 +1402,17 @@ pub mod telco_automation {
     pub struct ApproveBlueprint(RequestBuilder<crate::model::ApproveBlueprintRequest>);
 
     impl ApproveBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ApproveBlueprintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ApproveBlueprintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1321,7 +1425,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).approve_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .approve_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveBlueprintRequest::name].
@@ -1361,14 +1468,17 @@ pub mod telco_automation {
     pub struct ProposeBlueprint(RequestBuilder<crate::model::ProposeBlueprintRequest>);
 
     impl ProposeBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ProposeBlueprintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ProposeBlueprintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1381,7 +1491,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).propose_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .propose_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ProposeBlueprintRequest::name].
@@ -1421,10 +1534,10 @@ pub mod telco_automation {
     pub struct RejectBlueprint(RequestBuilder<crate::model::RejectBlueprintRequest>);
 
     impl RejectBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1441,7 +1554,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Blueprint> {
-            (*self.0.stub).reject_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reject_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RejectBlueprintRequest::name].
@@ -1485,14 +1601,17 @@ pub mod telco_automation {
     pub struct ListBlueprintRevisions(RequestBuilder<crate::model::ListBlueprintRevisionsRequest>);
 
     impl ListBlueprintRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBlueprintRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBlueprintRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1505,11 +1624,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBlueprintRevisionsResponse> {
-            (*self.0.stub).list_blueprint_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_blueprint_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBlueprintRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1521,7 +1648,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBlueprintRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1576,17 +1708,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchBlueprintRevisions(RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>);
+    pub struct SearchBlueprintRevisions(
+        RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>,
+    );
 
     impl SearchBlueprintRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchBlueprintRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchBlueprintRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1599,11 +1736,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchBlueprintRevisionsResponse> {
-            (*self.0.stub).search_blueprint_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_blueprint_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchBlueprintRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::SearchBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1615,7 +1760,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchBlueprintRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1678,17 +1828,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchDeploymentRevisions(RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>);
+    pub struct SearchDeploymentRevisions(
+        RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>,
+    );
 
     impl SearchDeploymentRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchDeploymentRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchDeploymentRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1701,11 +1856,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchDeploymentRevisionsResponse> {
-            (*self.0.stub).search_deployment_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_deployment_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchDeploymentRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::SearchDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1717,7 +1880,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchDeploymentRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1776,17 +1944,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiscardBlueprintChanges(RequestBuilder<crate::model::DiscardBlueprintChangesRequest>);
+    pub struct DiscardBlueprintChanges(
+        RequestBuilder<crate::model::DiscardBlueprintChangesRequest>,
+    );
 
     impl DiscardBlueprintChanges {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DiscardBlueprintChangesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DiscardBlueprintChangesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1799,7 +1972,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiscardBlueprintChangesResponse> {
-            (*self.0.stub).discard_blueprint_changes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .discard_blueprint_changes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardBlueprintChangesRequest::name].
@@ -1843,14 +2019,17 @@ pub mod telco_automation {
     pub struct ListPublicBlueprints(RequestBuilder<crate::model::ListPublicBlueprintsRequest>);
 
     impl ListPublicBlueprints {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPublicBlueprintsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPublicBlueprintsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1863,11 +2042,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPublicBlueprintsResponse> {
-            (*self.0.stub).list_public_blueprints(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_public_blueprints(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1879,7 +2064,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPublicBlueprintsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1933,14 +2123,17 @@ pub mod telco_automation {
     pub struct GetPublicBlueprint(RequestBuilder<crate::model::GetPublicBlueprintRequest>);
 
     impl GetPublicBlueprint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPublicBlueprintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPublicBlueprintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1953,7 +2146,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PublicBlueprint> {
-            (*self.0.stub).get_public_blueprint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_public_blueprint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPublicBlueprintRequest::name].
@@ -1993,14 +2189,17 @@ pub mod telco_automation {
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2013,7 +2212,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub).create_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -2034,7 +2236,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = std::option::Option::Some(v.into());
             self
@@ -2044,7 +2247,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = v.map(|x| x.into());
             self
@@ -2079,14 +2283,17 @@ pub mod telco_automation {
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2099,14 +2306,18 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub).update_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = std::option::Option::Some(v.into());
             self
@@ -2116,7 +2327,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = v.map(|x| x.into());
             self
@@ -2126,7 +2338,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2136,7 +2349,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2171,10 +2385,10 @@ pub mod telco_automation {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2191,7 +2405,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub).get_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -2237,14 +2454,17 @@ pub mod telco_automation {
     pub struct RemoveDeployment(RequestBuilder<crate::model::RemoveDeploymentRequest>);
 
     impl RemoveDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RemoveDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RemoveDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2257,7 +2477,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).remove_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveDeploymentRequest::name].
@@ -2301,10 +2524,10 @@ pub mod telco_automation {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2321,11 +2544,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDeploymentsResponse> {
-            (*self.0.stub).list_deployments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_deployments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2337,7 +2566,10 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2398,17 +2630,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeploymentRevisions(RequestBuilder<crate::model::ListDeploymentRevisionsRequest>);
+    pub struct ListDeploymentRevisions(
+        RequestBuilder<crate::model::ListDeploymentRevisionsRequest>,
+    );
 
     impl ListDeploymentRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDeploymentRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDeploymentRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2421,11 +2658,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDeploymentRevisionsResponse> {
-            (*self.0.stub).list_deployment_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_deployment_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDeploymentRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2437,7 +2682,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2488,17 +2738,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiscardDeploymentChanges(RequestBuilder<crate::model::DiscardDeploymentChangesRequest>);
+    pub struct DiscardDeploymentChanges(
+        RequestBuilder<crate::model::DiscardDeploymentChangesRequest>,
+    );
 
     impl DiscardDeploymentChanges {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DiscardDeploymentChangesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DiscardDeploymentChangesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2511,7 +2766,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiscardDeploymentChangesResponse> {
-            (*self.0.stub).discard_deployment_changes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .discard_deployment_changes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardDeploymentChangesRequest::name].
@@ -2551,10 +2809,10 @@ pub mod telco_automation {
     pub struct ApplyDeployment(RequestBuilder<crate::model::ApplyDeploymentRequest>);
 
     impl ApplyDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2571,7 +2829,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub).apply_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .apply_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyDeploymentRequest::name].
@@ -2608,17 +2869,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeDeploymentStatus(RequestBuilder<crate::model::ComputeDeploymentStatusRequest>);
+    pub struct ComputeDeploymentStatus(
+        RequestBuilder<crate::model::ComputeDeploymentStatusRequest>,
+    );
 
     impl ComputeDeploymentStatus {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ComputeDeploymentStatusRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ComputeDeploymentStatusRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2631,7 +2897,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ComputeDeploymentStatusResponse> {
-            (*self.0.stub).compute_deployment_status(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .compute_deployment_status(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ComputeDeploymentStatusRequest::name].
@@ -2671,14 +2940,17 @@ pub mod telco_automation {
     pub struct RollbackDeployment(RequestBuilder<crate::model::RollbackDeploymentRequest>);
 
     impl RollbackDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RollbackDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RollbackDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2691,7 +2963,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Deployment> {
-            (*self.0.stub).rollback_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .rollback_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackDeploymentRequest::name].
@@ -2739,14 +3014,17 @@ pub mod telco_automation {
     pub struct GetHydratedDeployment(RequestBuilder<crate::model::GetHydratedDeploymentRequest>);
 
     impl GetHydratedDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetHydratedDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetHydratedDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2759,7 +3037,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HydratedDeployment> {
-            (*self.0.stub).get_hydrated_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_hydrated_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHydratedDeploymentRequest::name].
@@ -2800,17 +3081,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHydratedDeployments(RequestBuilder<crate::model::ListHydratedDeploymentsRequest>);
+    pub struct ListHydratedDeployments(
+        RequestBuilder<crate::model::ListHydratedDeploymentsRequest>,
+    );
 
     impl ListHydratedDeployments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListHydratedDeploymentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListHydratedDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2823,11 +3109,19 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListHydratedDeploymentsResponse> {
-            (*self.0.stub).list_hydrated_deployments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_hydrated_deployments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListHydratedDeploymentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListHydratedDeploymentsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2839,7 +3133,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListHydratedDeploymentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListHydratedDeploymentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2890,17 +3189,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHydratedDeployment(RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>);
+    pub struct UpdateHydratedDeployment(
+        RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>,
+    );
 
     impl UpdateHydratedDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateHydratedDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateHydratedDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2913,14 +3217,18 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HydratedDeployment> {
-            (*self.0.stub).update_hydrated_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_hydrated_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_hydrated_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::HydratedDeployment>
+        where
+            T: std::convert::Into<crate::model::HydratedDeployment>,
         {
             self.0.request.hydrated_deployment = std::option::Option::Some(v.into());
             self
@@ -2930,7 +3238,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::HydratedDeployment>
+        where
+            T: std::convert::Into<crate::model::HydratedDeployment>,
         {
             self.0.request.hydrated_deployment = v.map(|x| x.into());
             self
@@ -2940,7 +3249,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2950,7 +3260,8 @@ pub mod telco_automation {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2982,17 +3293,22 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApplyHydratedDeployment(RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>);
+    pub struct ApplyHydratedDeployment(
+        RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>,
+    );
 
     impl ApplyHydratedDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ApplyHydratedDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ApplyHydratedDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3005,7 +3321,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HydratedDeployment> {
-            (*self.0.stub).apply_hydrated_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .apply_hydrated_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyHydratedDeploymentRequest::name].
@@ -3049,14 +3368,17 @@ pub mod telco_automation {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3069,11 +3391,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3085,7 +3413,10 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3143,10 +3474,10 @@ pub mod telco_automation {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3163,7 +3494,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3205,14 +3539,17 @@ pub mod telco_automation {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3225,11 +3562,17 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3241,7 +3584,12 @@ pub mod telco_automation {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3305,14 +3653,17 @@ pub mod telco_automation {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3325,7 +3676,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3363,14 +3717,17 @@ pub mod telco_automation {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3383,7 +3740,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3421,14 +3781,17 @@ pub mod telco_automation {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3441,7 +3804,10 @@ pub mod telco_automation {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3457,5 +3823,4 @@ pub mod telco_automation {
             &mut self.0.options
         }
     }
-
 }

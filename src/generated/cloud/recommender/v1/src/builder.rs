@@ -39,7 +39,10 @@ pub mod recommender {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Recommender;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod recommender {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod recommender {
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInsightsResponse> {
-            (*self.0.stub).list_insights(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_insights(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod recommender {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInsightsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInsightsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -185,10 +201,10 @@ pub mod recommender {
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -205,7 +221,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Insight> {
-            (*self.0.stub).get_insight(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_insight(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightRequest::name].
@@ -245,14 +264,17 @@ pub mod recommender {
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
     impl MarkInsightAccepted {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MarkInsightAcceptedRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MarkInsightAcceptedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -265,7 +287,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Insight> {
-            (*self.0.stub).mark_insight_accepted(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .mark_insight_accepted(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
@@ -283,7 +308,8 @@ pub mod recommender {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.state_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -328,14 +354,17 @@ pub mod recommender {
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
     impl ListRecommendations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRecommendationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRecommendationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -348,11 +377,17 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRecommendationsResponse> {
-            (*self.0.stub).list_recommendations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_recommendations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -364,7 +399,12 @@ pub mod recommender {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRecommendationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRecommendationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -424,14 +464,17 @@ pub mod recommender {
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetRecommendationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetRecommendationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -444,7 +487,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recommendation> {
-            (*self.0.stub).get_recommendation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_recommendation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
@@ -481,17 +527,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkRecommendationDismissed(RequestBuilder<crate::model::MarkRecommendationDismissedRequest>);
+    pub struct MarkRecommendationDismissed(
+        RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
+    );
 
     impl MarkRecommendationDismissed {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MarkRecommendationDismissedRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MarkRecommendationDismissedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -504,7 +555,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recommendation> {
-            (*self.0.stub).mark_recommendation_dismissed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .mark_recommendation_dismissed(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
@@ -547,17 +601,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkRecommendationClaimed(RequestBuilder<crate::model::MarkRecommendationClaimedRequest>);
+    pub struct MarkRecommendationClaimed(
+        RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
+    );
 
     impl MarkRecommendationClaimed {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MarkRecommendationClaimedRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MarkRecommendationClaimedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -570,7 +629,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recommendation> {
-            (*self.0.stub).mark_recommendation_claimed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .mark_recommendation_claimed(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
@@ -588,7 +650,8 @@ pub mod recommender {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.state_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -626,17 +689,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkRecommendationSucceeded(RequestBuilder<crate::model::MarkRecommendationSucceededRequest>);
+    pub struct MarkRecommendationSucceeded(
+        RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
+    );
 
     impl MarkRecommendationSucceeded {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MarkRecommendationSucceededRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MarkRecommendationSucceededRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -649,7 +717,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recommendation> {
-            (*self.0.stub).mark_recommendation_succeeded(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .mark_recommendation_succeeded(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
@@ -667,7 +738,8 @@ pub mod recommender {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.state_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -705,17 +777,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkRecommendationFailed(RequestBuilder<crate::model::MarkRecommendationFailedRequest>);
+    pub struct MarkRecommendationFailed(
+        RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
+    );
 
     impl MarkRecommendationFailed {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MarkRecommendationFailedRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MarkRecommendationFailedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -728,7 +805,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recommendation> {
-            (*self.0.stub).mark_recommendation_failed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .mark_recommendation_failed(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
@@ -746,7 +826,8 @@ pub mod recommender {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            self.0.request.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self.0.request.state_metadata =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -787,14 +868,17 @@ pub mod recommender {
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
     impl GetRecommenderConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetRecommenderConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetRecommenderConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -807,7 +891,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RecommenderConfig> {
-            (*self.0.stub).get_recommender_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_recommender_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
@@ -844,17 +931,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRecommenderConfig(RequestBuilder<crate::model::UpdateRecommenderConfigRequest>);
+    pub struct UpdateRecommenderConfig(
+        RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
+    );
 
     impl UpdateRecommenderConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateRecommenderConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateRecommenderConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -867,14 +959,18 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RecommenderConfig> {
-            (*self.0.stub).update_recommender_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_recommender_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_recommender_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RecommenderConfig>
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
         {
             self.0.request.recommender_config = std::option::Option::Some(v.into());
             self
@@ -884,7 +980,8 @@ pub mod recommender {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RecommenderConfig>
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
         {
             self.0.request.recommender_config = v.map(|x| x.into());
             self
@@ -892,7 +989,8 @@ pub mod recommender {
 
         /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -900,7 +998,8 @@ pub mod recommender {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -941,14 +1040,17 @@ pub mod recommender {
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
     impl GetInsightTypeConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetInsightTypeConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetInsightTypeConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -961,7 +1063,10 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InsightTypeConfig> {
-            (*self.0.stub).get_insight_type_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_insight_type_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
@@ -998,17 +1103,22 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInsightTypeConfig(RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>);
+    pub struct UpdateInsightTypeConfig(
+        RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,
+    );
 
     impl UpdateInsightTypeConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateInsightTypeConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateInsightTypeConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1021,14 +1131,18 @@ pub mod recommender {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InsightTypeConfig> {
-            (*self.0.stub).update_insight_type_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_insight_type_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_insight_type_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InsightTypeConfig>
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
         {
             self.0.request.insight_type_config = std::option::Option::Some(v.into());
             self
@@ -1038,7 +1152,8 @@ pub mod recommender {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InsightTypeConfig>
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
         {
             self.0.request.insight_type_config = v.map(|x| x.into());
             self
@@ -1046,7 +1161,8 @@ pub mod recommender {
 
         /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1054,7 +1170,8 @@ pub mod recommender {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1073,5 +1190,4 @@ pub mod recommender {
             &mut self.0.options
         }
     }
-
 }

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [DataAccessControlService](super::stub::DataAccessControlService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataAccessControlService<T>
-where T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataAccessControlService<T>
-where T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataAccessControlService for DataAccessControlService<T>
-where T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_data_access_label(
         &self,
@@ -156,25 +162,30 @@ where T: super::stub::DataAccessControlService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [EntityService](super::stub::EntityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EntityService<T>
-where T: super::stub::EntityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::EntityService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> EntityService<T>
-where T: super::stub::EntityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::EntityService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::EntityService for EntityService<T>
-where T: super::stub::EntityService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::EntityService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_watchlist(
         &self,
@@ -255,25 +266,30 @@ where T: super::stub::EntityService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [InstanceService](super::stub::InstanceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct InstanceService<T>
-where T: super::stub::InstanceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InstanceService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> InstanceService<T>
-where T: super::stub::InstanceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InstanceService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::InstanceService for InstanceService<T>
-where T: super::stub::InstanceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InstanceService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_instance(
         &self,
@@ -318,25 +334,30 @@ where T: super::stub::InstanceService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [ReferenceListService](super::stub::ReferenceListService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ReferenceListService<T>
-where T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ReferenceListService<T>
-where T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ReferenceListService for ReferenceListService<T>
-where T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_reference_list(
         &self,
@@ -408,25 +429,30 @@ where T: super::stub::ReferenceListService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [RuleService](super::stub::RuleService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct RuleService<T>
-where T: super::stub::RuleService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuleService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> RuleService<T>
-where T: super::stub::RuleService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuleService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::RuleService for RuleService<T>
-where T: super::stub::RuleService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::RuleService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_rule(
         &self,
@@ -571,7 +597,6 @@ where T: super::stub::RuleService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -586,4 +611,3 @@ where T: super::stub::RuleService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

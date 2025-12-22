@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,6 +30,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientConnectorService {
-
     /// Required. Name of resource. The name is ignored during creation.
     pub name: std::string::String,
 
@@ -98,7 +97,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -114,7 +114,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -129,7 +130,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -145,7 +147,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -172,7 +175,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_ingress(Ingress::default()/* use setters */);
     /// ```
     pub fn set_ingress<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::client_connector_service::Ingress>
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Ingress>,
     {
         self.ingress = std::option::Option::Some(v.into());
         self
@@ -188,7 +192,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_or_clear_ingress(None::<Ingress>);
     /// ```
     pub fn set_or_clear_ingress<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::client_connector_service::Ingress>
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Ingress>,
     {
         self.ingress = v.map(|x| x.into());
         self
@@ -203,7 +208,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_egress(Egress::default()/* use setters */);
     /// ```
     pub fn set_egress<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::client_connector_service::Egress>
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Egress>,
     {
         self.egress = std::option::Option::Some(v.into());
         self
@@ -219,7 +225,8 @@ impl ClientConnectorService {
     /// let x = ClientConnectorService::new().set_or_clear_egress(None::<Egress>);
     /// ```
     pub fn set_or_clear_egress<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::client_connector_service::Egress>
+    where
+        T: std::convert::Into<crate::model::client_connector_service::Egress>,
     {
         self.egress = v.map(|x| x.into());
         self
@@ -235,7 +242,10 @@ impl ClientConnectorService {
     /// let x1 = ClientConnectorService::new().set_state(State::Updating);
     /// let x2 = ClientConnectorService::new().set_state(State::Deleting);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::client_connector_service::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::client_connector_service::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -252,14 +262,13 @@ pub mod client_connector_service {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Settings of how to connect to the ClientGateway.
     /// One of the following options should be set.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Ingress {
-
-        pub ingress_config: std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>,
+        pub ingress_config:
+            std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -281,8 +290,16 @@ pub mod client_connector_service {
         /// let x = Ingress::new().set_ingress_config(Some(
         ///     google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::IngressConfig::Config(Config::default().into())));
         /// ```
-        pub fn set_ingress_config<T: std::convert::Into<std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>>>(mut self, v: T) -> Self
-        {
+        pub fn set_ingress_config<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::client_connector_service::ingress::IngressConfig,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ingress_config = v.into();
             self
         }
@@ -290,10 +307,16 @@ pub mod client_connector_service {
         /// The value of [ingress_config][crate::model::client_connector_service::Ingress::ingress_config]
         /// if it holds a `Config`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::client_connector_service::ingress::Config>> {
+        pub fn config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
+        > {
             #[allow(unreachable_patterns)]
             self.ingress_config.as_ref().and_then(|v| match v {
-                crate::model::client_connector_service::ingress::IngressConfig::Config(v) => std::option::Option::Some(v),
+                crate::model::client_connector_service::ingress::IngressConfig::Config(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -311,11 +334,16 @@ pub mod client_connector_service {
         /// let x = Ingress::new().set_config(Config::default()/* use setters */);
         /// assert!(x.config().is_some());
         /// ```
-        pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::client_connector_service::ingress::Config>>>(mut self, v: T) -> Self {
+        pub fn set_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ingress_config = std::option::Option::Some(
-                crate::model::client_connector_service::ingress::IngressConfig::Config(
-                    v.into()
-                )
+                crate::model::client_connector_service::ingress::IngressConfig::Config(v.into()),
             );
             self
         }
@@ -332,18 +360,19 @@ pub mod client_connector_service {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The basic ingress config for ClientGateways.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Config {
-
             /// Required. Immutable. The transport protocol used between the client and
             /// the server.
-            pub transport_protocol: crate::model::client_connector_service::ingress::config::TransportProtocol,
+            pub transport_protocol:
+                crate::model::client_connector_service::ingress::config::TransportProtocol,
 
             /// Required. The settings used to configure basic ClientGateways.
-            pub destination_routes: std::vec::Vec<crate::model::client_connector_service::ingress::config::DestinationRoute>,
+            pub destination_routes: std::vec::Vec<
+                crate::model::client_connector_service::ingress::config::DestinationRoute,
+            >,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -361,7 +390,14 @@ pub mod client_connector_service {
             /// use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::TransportProtocol;
             /// let x0 = Config::new().set_transport_protocol(TransportProtocol::Tcp);
             /// ```
-            pub fn set_transport_protocol<T: std::convert::Into<crate::model::client_connector_service::ingress::config::TransportProtocol>>(mut self, v: T) -> Self {
+            pub fn set_transport_protocol<
+                T: std::convert::Into<
+                        crate::model::client_connector_service::ingress::config::TransportProtocol,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.transport_protocol = v.into();
                 self
             }
@@ -381,7 +417,9 @@ pub mod client_connector_service {
             pub fn set_destination_routes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::client_connector_service::ingress::config::DestinationRoute>
+                V: std::convert::Into<
+                        crate::model::client_connector_service::ingress::config::DestinationRoute,
+                    >,
             {
                 use std::iter::Iterator;
                 self.destination_routes = v.into_iter().map(|i| i.into()).collect();
@@ -400,14 +438,12 @@ pub mod client_connector_service {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// The setting used to configure ClientGateways.
             /// It is adding routes to the client's routing table
             /// after the connection is established.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DestinationRoute {
-
                 /// Required. The network address of the subnet
                 /// for which the packet is routed to the ClientGateway.
                 pub address: std::string::String,
@@ -431,7 +467,10 @@ pub mod client_connector_service {
                 /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::DestinationRoute;
                 /// let x = DestinationRoute::new().set_address("example");
                 /// ```
-                pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_address<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.address = v.into();
                     self
                 }
@@ -443,7 +482,10 @@ pub mod client_connector_service {
                 /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::ingress::config::DestinationRoute;
                 /// let x = DestinationRoute::new().set_netmask("example");
                 /// ```
-                pub fn set_netmask<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_netmask<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.netmask = v.into();
                     self
                 }
@@ -511,7 +553,9 @@ pub mod client_connector_service {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("TRANSPORT_PROTOCOL_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("TRANSPORT_PROTOCOL_UNSPECIFIED")
+                        }
                         Self::Tcp => std::option::Option::Some("TCP"),
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -526,7 +570,10 @@ pub mod client_connector_service {
             }
 
             impl std::fmt::Display for TransportProtocol {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -536,7 +583,9 @@ pub mod client_connector_service {
                     match value {
                         0 => Self::Unspecified,
                         1 => Self::Tcp,
-                        _ => Self::UnknownValue(transport_protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(transport_protocol::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -547,7 +596,9 @@ pub mod client_connector_service {
                     match value {
                         "TRANSPORT_PROTOCOL_UNSPECIFIED" => Self::Unspecified,
                         "TCP" => Self::Tcp,
-                        _ => Self::UnknownValue(transport_protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(transport_protocol::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -588,8 +639,8 @@ pub mod client_connector_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Egress {
-
-        pub destination_type: std::option::Option<crate::model::client_connector_service::egress::DestinationType>,
+        pub destination_type:
+            std::option::Option<crate::model::client_connector_service::egress::DestinationType>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -611,8 +662,16 @@ pub mod client_connector_service {
         /// let x = Egress::new().set_destination_type(Some(
         ///     google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress::DestinationType::PeeredVpc(PeeredVpc::default().into())));
         /// ```
-        pub fn set_destination_type<T: std::convert::Into<std::option::Option<crate::model::client_connector_service::egress::DestinationType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_destination_type<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::client_connector_service::egress::DestinationType,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.destination_type = v.into();
             self
         }
@@ -620,10 +679,16 @@ pub mod client_connector_service {
         /// The value of [destination_type][crate::model::client_connector_service::Egress::destination_type]
         /// if it holds a `PeeredVpc`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn peered_vpc(&self) -> std::option::Option<&std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>> {
+        pub fn peered_vpc(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
+        > {
             #[allow(unreachable_patterns)]
             self.destination_type.as_ref().and_then(|v| match v {
-                crate::model::client_connector_service::egress::DestinationType::PeeredVpc(v) => std::option::Option::Some(v),
+                crate::model::client_connector_service::egress::DestinationType::PeeredVpc(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -641,11 +706,18 @@ pub mod client_connector_service {
         /// let x = Egress::new().set_peered_vpc(PeeredVpc::default()/* use setters */);
         /// assert!(x.peered_vpc().is_some());
         /// ```
-        pub fn set_peered_vpc<T: std::convert::Into<std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>>>(mut self, v: T) -> Self {
+        pub fn set_peered_vpc<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.destination_type = std::option::Option::Some(
                 crate::model::client_connector_service::egress::DestinationType::PeeredVpc(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -662,12 +734,10 @@ pub mod client_connector_service {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The peered VPC owned by the consumer project.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PeeredVpc {
-
             /// Required. The name of the peered VPC owned by the consumer project.
             pub network_vpc: std::string::String,
 
@@ -686,7 +756,10 @@ pub mod client_connector_service {
             /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::client_connector_service::egress::PeeredVpc;
             /// let x = PeeredVpc::new().set_network_vpc("example");
             /// ```
-            pub fn set_network_vpc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_network_vpc<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.network_vpc = v.into();
                 self
             }
@@ -814,7 +887,9 @@ pub mod client_connector_service {
                 4 => Self::Running,
                 5 => Self::Down,
                 6 => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -830,7 +905,9 @@ pub mod client_connector_service {
                 "RUNNING" => Self::Running,
                 "DOWN" => Self::Down,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -859,7 +936,8 @@ pub mod client_connector_service {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.beyondcorp.clientconnectorservices.v1.ClientConnectorService.State"))
+                ".google.cloud.beyondcorp.clientconnectorservices.v1.ClientConnectorService.State",
+            ))
         }
     }
 }
@@ -868,7 +946,6 @@ pub mod client_connector_service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientConnectorServicesRequest {
-
     /// Required. Parent value for ListClientConnectorServicesRequest.
     pub parent: std::string::String,
 
@@ -964,7 +1041,6 @@ impl wkt::message::Message for ListClientConnectorServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientConnectorServicesResponse {
-
     /// The list of ClientConnectorService.
     pub client_connector_services: std::vec::Vec<crate::model::ClientConnectorService>,
 
@@ -997,7 +1073,7 @@ impl ListClientConnectorServicesResponse {
     pub fn set_client_connector_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientConnectorService>
+        V: std::convert::Into<crate::model::ClientConnectorService>,
     {
         use std::iter::Iterator;
         self.client_connector_services = v.into_iter().map(|i| i.into()).collect();
@@ -1026,7 +1102,7 @@ impl ListClientConnectorServicesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1058,7 +1134,6 @@ impl gax::paginator::internal::PageableResponse for ListClientConnectorServicesR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientConnectorServiceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1093,7 +1168,6 @@ impl wkt::message::Message for GetClientConnectorServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientConnectorServiceRequest {
-
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -1156,7 +1230,10 @@ impl CreateClientConnectorServiceRequest {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::model::CreateClientConnectorServiceRequest;
     /// let x = CreateClientConnectorServiceRequest::new().set_client_connector_service_id("example");
     /// ```
-    pub fn set_client_connector_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_client_connector_service_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_connector_service_id = v.into();
         self
     }
@@ -1170,7 +1247,8 @@ impl CreateClientConnectorServiceRequest {
     /// let x = CreateClientConnectorServiceRequest::new().set_client_connector_service(ClientConnectorService::default()/* use setters */);
     /// ```
     pub fn set_client_connector_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ClientConnectorService>
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
     {
         self.client_connector_service = std::option::Option::Some(v.into());
         self
@@ -1186,7 +1264,8 @@ impl CreateClientConnectorServiceRequest {
     /// let x = CreateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(None::<ClientConnectorService>);
     /// ```
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ClientConnectorService>
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
     {
         self.client_connector_service = v.map(|x| x.into());
         self
@@ -1227,7 +1306,6 @@ impl wkt::message::Message for CreateClientConnectorServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClientConnectorServiceRequest {
-
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// ClientConnectorService resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1279,7 +1357,8 @@ impl UpdateClientConnectorServiceRequest {
     /// let x = UpdateClientConnectorServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1295,7 +1374,8 @@ impl UpdateClientConnectorServiceRequest {
     /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1310,7 +1390,8 @@ impl UpdateClientConnectorServiceRequest {
     /// let x = UpdateClientConnectorServiceRequest::new().set_client_connector_service(ClientConnectorService::default()/* use setters */);
     /// ```
     pub fn set_client_connector_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ClientConnectorService>
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
     {
         self.client_connector_service = std::option::Option::Some(v.into());
         self
@@ -1326,7 +1407,8 @@ impl UpdateClientConnectorServiceRequest {
     /// let x = UpdateClientConnectorServiceRequest::new().set_or_clear_client_connector_service(None::<ClientConnectorService>);
     /// ```
     pub fn set_or_clear_client_connector_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ClientConnectorService>
+    where
+        T: std::convert::Into<crate::model::ClientConnectorService>,
     {
         self.client_connector_service = v.map(|x| x.into());
         self
@@ -1379,7 +1461,6 @@ impl wkt::message::Message for UpdateClientConnectorServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientConnectorServiceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1457,7 +1538,6 @@ impl wkt::message::Message for DeleteClientConnectorServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientConnectorServiceOperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1502,7 +1582,8 @@ impl ClientConnectorServiceOperationMetadata {
     /// let x = ClientConnectorServiceOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1518,7 +1599,8 @@ impl ClientConnectorServiceOperationMetadata {
     /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1533,7 +1615,8 @@ impl ClientConnectorServiceOperationMetadata {
     /// let x = ClientConnectorServiceOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1549,7 +1632,8 @@ impl ClientConnectorServiceOperationMetadata {
     /// let x = ClientConnectorServiceOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self

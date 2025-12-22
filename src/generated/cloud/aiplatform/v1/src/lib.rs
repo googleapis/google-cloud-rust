@@ -69,7 +69,6 @@
 //! * [VizierService](client/struct.VizierService.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
-
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -96,10 +95,78 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(feature = "data-foundry-service",feature = "dataset-service",feature = "deployment-resource-pool-service",feature = "endpoint-service",feature = "evaluation-service",feature = "feature-online-store-admin-service",feature = "feature-online-store-service",feature = "feature-registry-service",feature = "featurestore-online-serving-service",feature = "featurestore-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "index-endpoint-service",feature = "index-service",feature = "job-service",feature = "llm-utility-service",feature = "match-service",feature = "metadata-service",feature = "migration-service",feature = "model-garden-service",feature = "model-service",feature = "notebook-service",feature = "persistent-resource-service",feature = "pipeline-service",feature = "prediction-service",feature = "reasoning-engine-execution-service",feature = "reasoning-engine-service",feature = "schedule-service",feature = "specialist-pool-service",feature = "tensorboard-service",feature = "vertex-rag-data-service",feature = "vertex-rag-service",feature = "vizier-service",))]
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "dataset-service",
+    feature = "deployment-resource-pool-service",
+    feature = "endpoint-service",
+    feature = "evaluation-service",
+    feature = "feature-online-store-admin-service",
+    feature = "feature-online-store-service",
+    feature = "feature-registry-service",
+    feature = "featurestore-online-serving-service",
+    feature = "featurestore-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "index-endpoint-service",
+    feature = "index-service",
+    feature = "job-service",
+    feature = "llm-utility-service",
+    feature = "match-service",
+    feature = "metadata-service",
+    feature = "migration-service",
+    feature = "model-garden-service",
+    feature = "model-service",
+    feature = "notebook-service",
+    feature = "persistent-resource-service",
+    feature = "pipeline-service",
+    feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "reasoning-engine-service",
+    feature = "schedule-service",
+    feature = "specialist-pool-service",
+    feature = "tensorboard-service",
+    feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
+    feature = "vizier-service",
+))]
 const DEFAULT_HOST: &str = "https://aiplatform.googleapis.com/";
 
-#[cfg(any(feature = "data-foundry-service",feature = "dataset-service",feature = "deployment-resource-pool-service",feature = "endpoint-service",feature = "evaluation-service",feature = "feature-online-store-admin-service",feature = "feature-online-store-service",feature = "feature-registry-service",feature = "featurestore-online-serving-service",feature = "featurestore-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "index-endpoint-service",feature = "index-service",feature = "job-service",feature = "llm-utility-service",feature = "match-service",feature = "metadata-service",feature = "migration-service",feature = "model-garden-service",feature = "model-service",feature = "notebook-service",feature = "persistent-resource-service",feature = "pipeline-service",feature = "prediction-service",feature = "reasoning-engine-execution-service",feature = "reasoning-engine-service",feature = "schedule-service",feature = "specialist-pool-service",feature = "tensorboard-service",feature = "vertex-rag-data-service",feature = "vertex-rag-service",feature = "vizier-service",))]
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "dataset-service",
+    feature = "deployment-resource-pool-service",
+    feature = "endpoint-service",
+    feature = "evaluation-service",
+    feature = "feature-online-store-admin-service",
+    feature = "feature-online-store-service",
+    feature = "feature-registry-service",
+    feature = "featurestore-online-serving-service",
+    feature = "featurestore-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "index-endpoint-service",
+    feature = "index-service",
+    feature = "job-service",
+    feature = "llm-utility-service",
+    feature = "match-service",
+    feature = "metadata-service",
+    feature = "migration-service",
+    feature = "model-garden-service",
+    feature = "model-service",
+    feature = "notebook-service",
+    feature = "persistent-resource-service",
+    feature = "pipeline-service",
+    feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "reasoning-engine-service",
+    feature = "schedule-service",
+    feature = "specialist-pool-service",
+    feature = "tensorboard-service",
+    feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
+    feature = "vizier-service",
+))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -114,4 +181,3 @@ pub(crate) mod info {
         };
     }
 }
-

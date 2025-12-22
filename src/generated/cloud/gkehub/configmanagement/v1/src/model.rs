@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,7 +32,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipState {
-
     /// This field is set to the `cluster_name` field of the Membership Spec if it
     /// is not empty. Otherwise, it is set to the cluster's fleet membership name.
     pub cluster_name: std::string::String,
@@ -83,7 +82,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_membership_spec(MembershipSpec::default()/* use setters */);
     /// ```
     pub fn set_membership_spec<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MembershipSpec>
+    where
+        T: std::convert::Into<crate::model::MembershipSpec>,
     {
         self.membership_spec = std::option::Option::Some(v.into());
         self
@@ -99,7 +99,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_or_clear_membership_spec(None::<MembershipSpec>);
     /// ```
     pub fn set_or_clear_membership_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MembershipSpec>
+    where
+        T: std::convert::Into<crate::model::MembershipSpec>,
     {
         self.membership_spec = v.map(|x| x.into());
         self
@@ -114,7 +115,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_operator_state(OperatorState::default()/* use setters */);
     /// ```
     pub fn set_operator_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OperatorState>
+    where
+        T: std::convert::Into<crate::model::OperatorState>,
     {
         self.operator_state = std::option::Option::Some(v.into());
         self
@@ -130,7 +132,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_or_clear_operator_state(None::<OperatorState>);
     /// ```
     pub fn set_or_clear_operator_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OperatorState>
+    where
+        T: std::convert::Into<crate::model::OperatorState>,
     {
         self.operator_state = v.map(|x| x.into());
         self
@@ -145,7 +148,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_config_sync_state(ConfigSyncState::default()/* use setters */);
     /// ```
     pub fn set_config_sync_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncState>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncState>,
     {
         self.config_sync_state = std::option::Option::Some(v.into());
         self
@@ -161,7 +165,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_or_clear_config_sync_state(None::<ConfigSyncState>);
     /// ```
     pub fn set_or_clear_config_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncState>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncState>,
     {
         self.config_sync_state = v.map(|x| x.into());
         self
@@ -176,7 +181,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_policy_controller_state(PolicyControllerState::default()/* use setters */);
     /// ```
     pub fn set_policy_controller_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicyControllerState>
+    where
+        T: std::convert::Into<crate::model::PolicyControllerState>,
     {
         self.policy_controller_state = std::option::Option::Some(v.into());
         self
@@ -192,7 +198,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_or_clear_policy_controller_state(None::<PolicyControllerState>);
     /// ```
     pub fn set_or_clear_policy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicyControllerState>
+    where
+        T: std::convert::Into<crate::model::PolicyControllerState>,
     {
         self.policy_controller_state = v.map(|x| x.into());
         self
@@ -207,7 +214,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_hierarchy_controller_state(HierarchyControllerState::default()/* use setters */);
     /// ```
     pub fn set_hierarchy_controller_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerState>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerState>,
     {
         self.hierarchy_controller_state = std::option::Option::Some(v.into());
         self
@@ -223,7 +231,8 @@ impl MembershipState {
     /// let x = MembershipState::new().set_or_clear_hierarchy_controller_state(None::<HierarchyControllerState>);
     /// ```
     pub fn set_or_clear_hierarchy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerState>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerState>,
     {
         self.hierarchy_controller_state = v.map(|x| x.into());
         self
@@ -241,7 +250,6 @@ impl wkt::message::Message for MembershipState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipSpec {
-
     /// Config Sync configuration for the cluster.
     pub config_sync: std::option::Option<crate::model::ConfigSync>,
 
@@ -283,7 +291,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_config_sync(ConfigSync::default()/* use setters */);
     /// ```
     pub fn set_config_sync<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConfigSync>
+    where
+        T: std::convert::Into<crate::model::ConfigSync>,
     {
         self.config_sync = std::option::Option::Some(v.into());
         self
@@ -299,7 +308,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_or_clear_config_sync(None::<ConfigSync>);
     /// ```
     pub fn set_or_clear_config_sync<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConfigSync>
+    where
+        T: std::convert::Into<crate::model::ConfigSync>,
     {
         self.config_sync = v.map(|x| x.into());
         self
@@ -314,7 +324,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_policy_controller(PolicyController::default()/* use setters */);
     /// ```
     pub fn set_policy_controller<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicyController>
+    where
+        T: std::convert::Into<crate::model::PolicyController>,
     {
         self.policy_controller = std::option::Option::Some(v.into());
         self
@@ -330,7 +341,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_or_clear_policy_controller(None::<PolicyController>);
     /// ```
     pub fn set_or_clear_policy_controller<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicyController>
+    where
+        T: std::convert::Into<crate::model::PolicyController>,
     {
         self.policy_controller = v.map(|x| x.into());
         self
@@ -345,7 +357,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_hierarchy_controller(HierarchyControllerConfig::default()/* use setters */);
     /// ```
     pub fn set_hierarchy_controller<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerConfig>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerConfig>,
     {
         self.hierarchy_controller = std::option::Option::Some(v.into());
         self
@@ -361,7 +374,8 @@ impl MembershipSpec {
     /// let x = MembershipSpec::new().set_or_clear_hierarchy_controller(None::<HierarchyControllerConfig>);
     /// ```
     pub fn set_or_clear_hierarchy_controller<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerConfig>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerConfig>,
     {
         self.hierarchy_controller = v.map(|x| x.into());
         self
@@ -400,7 +414,10 @@ impl MembershipSpec {
     /// let x0 = MembershipSpec::new().set_management(Management::Automatic);
     /// let x1 = MembershipSpec::new().set_management(Management::Manual);
     /// ```
-    pub fn set_management<T: std::convert::Into<crate::model::membership_spec::Management>>(mut self, v: T) -> Self {
+    pub fn set_management<T: std::convert::Into<crate::model::membership_spec::Management>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.management = v.into();
         self
     }
@@ -416,7 +433,6 @@ impl wkt::message::Message for MembershipSpec {
 pub mod membership_spec {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Whether to automatically manage the Feature.
     ///
@@ -504,7 +520,9 @@ pub mod membership_spec {
                 0 => Self::Unspecified,
                 1 => Self::Automatic,
                 2 => Self::Manual,
-                _ => Self::UnknownValue(management::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(management::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -516,7 +534,9 @@ pub mod membership_spec {
                 "MANAGEMENT_UNSPECIFIED" => Self::Unspecified,
                 "MANAGEMENT_AUTOMATIC" => Self::Automatic,
                 "MANAGEMENT_MANUAL" => Self::Manual,
-                _ => Self::UnknownValue(management::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(management::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -541,7 +561,8 @@ pub mod membership_spec {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Management>::new(
-                ".google.cloud.gkehub.configmanagement.v1.MembershipSpec.Management"))
+                ".google.cloud.gkehub.configmanagement.v1.MembershipSpec.Management",
+            ))
         }
     }
 }
@@ -550,7 +571,6 @@ pub mod membership_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSync {
-
     /// Git repo configuration for the cluster.
     pub git: std::option::Option<crate::model::GitConfig>,
 
@@ -600,7 +620,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_git(GitConfig::default()/* use setters */);
     /// ```
     pub fn set_git<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::GitConfig>
+    where
+        T: std::convert::Into<crate::model::GitConfig>,
     {
         self.git = std::option::Option::Some(v.into());
         self
@@ -616,7 +637,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_or_clear_git(None::<GitConfig>);
     /// ```
     pub fn set_or_clear_git<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::GitConfig>
+    where
+        T: std::convert::Into<crate::model::GitConfig>,
     {
         self.git = v.map(|x| x.into());
         self
@@ -642,7 +664,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_enabled(true);
     /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -657,7 +680,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_or_clear_enabled(None::<bool>);
     /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -684,7 +708,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_oci(OciConfig::default()/* use setters */);
     /// ```
     pub fn set_oci<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::OciConfig>
+    where
+        T: std::convert::Into<crate::model::OciConfig>,
     {
         self.oci = std::option::Option::Some(v.into());
         self
@@ -700,7 +725,8 @@ impl ConfigSync {
     /// let x = ConfigSync::new().set_or_clear_oci(None::<OciConfig>);
     /// ```
     pub fn set_or_clear_oci<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::OciConfig>
+    where
+        T: std::convert::Into<crate::model::OciConfig>,
     {
         self.oci = v.map(|x| x.into());
         self
@@ -713,7 +739,10 @@ impl ConfigSync {
     /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
     /// let x = ConfigSync::new().set_metrics_gcp_service_account_email("example");
     /// ```
-    pub fn set_metrics_gcp_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_metrics_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.metrics_gcp_service_account_email = v.into();
         self
     }
@@ -729,7 +758,6 @@ impl wkt::message::Message for ConfigSync {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitConfig {
-
     /// The URL of the Git repository to use as the source of truth.
     pub sync_repo: std::string::String,
 
@@ -857,7 +885,10 @@ impl GitConfig {
     /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
     /// let x = GitConfig::new().set_gcp_service_account_email("example");
     /// ```
-    pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.gcp_service_account_email = v.into();
         self
     }
@@ -873,7 +904,6 @@ impl wkt::message::Message for GitConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OciConfig {
-
     /// The OCI image repository URL for the package to sync from.
     /// e.g. `LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_NAME/PACKAGE_NAME`.
     pub sync_repo: std::string::String,
@@ -955,7 +985,10 @@ impl OciConfig {
     /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
     /// let x = OciConfig::new().set_gcp_service_account_email("example");
     /// ```
-    pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.gcp_service_account_email = v.into();
         self
     }
@@ -971,7 +1004,6 @@ impl wkt::message::Message for OciConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyController {
-
     /// Enables the installation of Policy Controller.
     /// If false, the rest of PolicyController fields take no
     /// effect.
@@ -1023,7 +1055,8 @@ impl PolicyController {
     /// let x = PolicyController::new().set_template_library_installed(true);
     /// ```
     pub fn set_template_library_installed<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.template_library_installed = std::option::Option::Some(v.into());
         self
@@ -1038,7 +1071,8 @@ impl PolicyController {
     /// let x = PolicyController::new().set_or_clear_template_library_installed(None::<bool>);
     /// ```
     pub fn set_or_clear_template_library_installed<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.template_library_installed = v.map(|x| x.into());
         self
@@ -1052,7 +1086,8 @@ impl PolicyController {
     /// let x = PolicyController::new().set_audit_interval_seconds(42);
     /// ```
     pub fn set_audit_interval_seconds<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.audit_interval_seconds = std::option::Option::Some(v.into());
         self
@@ -1067,7 +1102,8 @@ impl PolicyController {
     /// let x = PolicyController::new().set_or_clear_audit_interval_seconds(None::<i32>);
     /// ```
     pub fn set_or_clear_audit_interval_seconds<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.audit_interval_seconds = v.map(|x| x.into());
         self
@@ -1083,7 +1119,7 @@ impl PolicyController {
     pub fn set_exemptable_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.exemptable_namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -1125,7 +1161,6 @@ impl wkt::message::Message for PolicyController {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerConfig {
-
     /// Whether Hierarchy Controller is enabled in this cluster.
     pub enabled: bool,
 
@@ -1174,7 +1209,10 @@ impl HierarchyControllerConfig {
     /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
     /// let x = HierarchyControllerConfig::new().set_enable_hierarchical_resource_quota(true);
     /// ```
-    pub fn set_enable_hierarchical_resource_quota<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_enable_hierarchical_resource_quota<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.enable_hierarchical_resource_quota = v.into();
         self
     }
@@ -1190,7 +1228,6 @@ impl wkt::message::Message for HierarchyControllerConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerDeploymentState {
-
     /// The deployment state for open source HNC (e.g. v0.7.0-hc.0)
     pub hnc: crate::model::DeploymentState,
 
@@ -1230,7 +1267,10 @@ impl HierarchyControllerDeploymentState {
     /// let x1 = HierarchyControllerDeploymentState::new().set_extension(DeploymentState::Installed);
     /// let x2 = HierarchyControllerDeploymentState::new().set_extension(DeploymentState::Error);
     /// ```
-    pub fn set_extension<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_extension<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.extension = v.into();
         self
     }
@@ -1246,7 +1286,6 @@ impl wkt::message::Message for HierarchyControllerDeploymentState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerVersion {
-
     /// Version for open source HNC
     pub hnc: std::string::String,
 
@@ -1296,7 +1335,6 @@ impl wkt::message::Message for HierarchyControllerVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerState {
-
     /// The version for Hierarchy Controller
     pub version: std::option::Option<crate::model::HierarchyControllerVersion>,
 
@@ -1320,7 +1358,8 @@ impl HierarchyControllerState {
     /// let x = HierarchyControllerState::new().set_version(HierarchyControllerVersion::default()/* use setters */);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerVersion>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerVersion>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -1336,7 +1375,8 @@ impl HierarchyControllerState {
     /// let x = HierarchyControllerState::new().set_or_clear_version(None::<HierarchyControllerVersion>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerVersion>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerVersion>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -1351,7 +1391,8 @@ impl HierarchyControllerState {
     /// let x = HierarchyControllerState::new().set_state(HierarchyControllerDeploymentState::default()/* use setters */);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -1367,7 +1408,8 @@ impl HierarchyControllerState {
     /// let x = HierarchyControllerState::new().set_or_clear_state(None::<HierarchyControllerDeploymentState>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>
+    where
+        T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
     {
         self.state = v.map(|x| x.into());
         self
@@ -1384,7 +1426,6 @@ impl wkt::message::Message for HierarchyControllerState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperatorState {
-
     /// The semenatic version number of the operator
     pub version: std::string::String,
 
@@ -1424,7 +1465,10 @@ impl OperatorState {
     /// let x1 = OperatorState::new().set_deployment_state(DeploymentState::Installed);
     /// let x2 = OperatorState::new().set_deployment_state(DeploymentState::Error);
     /// ```
-    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.deployment_state = v.into();
         self
     }
@@ -1444,7 +1488,7 @@ impl OperatorState {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstallError>
+        V: std::convert::Into<crate::model::InstallError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -1462,7 +1506,6 @@ impl wkt::message::Message for OperatorState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallError {
-
     /// A string representing the user facing error message
     pub error_message: std::string::String,
 
@@ -1497,7 +1540,6 @@ impl wkt::message::Message for InstallError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncState {
-
     /// The version of ConfigSync deployed
     pub version: std::option::Option<crate::model::ConfigSyncVersion>,
 
@@ -1538,7 +1580,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_version(ConfigSyncVersion::default()/* use setters */);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncVersion>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncVersion>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -1554,7 +1597,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_or_clear_version(None::<ConfigSyncVersion>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncVersion>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncVersion>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -1569,7 +1613,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_deployment_state(ConfigSyncDeploymentState::default()/* use setters */);
     /// ```
     pub fn set_deployment_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncDeploymentState>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
     {
         self.deployment_state = std::option::Option::Some(v.into());
         self
@@ -1585,7 +1630,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_or_clear_deployment_state(None::<ConfigSyncDeploymentState>);
     /// ```
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ConfigSyncDeploymentState>
+    where
+        T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
     {
         self.deployment_state = v.map(|x| x.into());
         self
@@ -1600,7 +1646,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_sync_state(SyncState::default()/* use setters */);
     /// ```
     pub fn set_sync_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SyncState>
+    where
+        T: std::convert::Into<crate::model::SyncState>,
     {
         self.sync_state = std::option::Option::Some(v.into());
         self
@@ -1616,7 +1663,8 @@ impl ConfigSyncState {
     /// let x = ConfigSyncState::new().set_or_clear_sync_state(None::<SyncState>);
     /// ```
     pub fn set_or_clear_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SyncState>
+    where
+        T: std::convert::Into<crate::model::SyncState>,
     {
         self.sync_state = v.map(|x| x.into());
         self
@@ -1637,7 +1685,7 @@ impl ConfigSyncState {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConfigSyncError>
+        V: std::convert::Into<crate::model::ConfigSyncError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -1654,7 +1702,10 @@ impl ConfigSyncState {
     /// let x1 = ConfigSyncState::new().set_rootsync_crd(CRDState::Installed);
     /// let x2 = ConfigSyncState::new().set_rootsync_crd(CRDState::Terminating);
     /// ```
-    pub fn set_rootsync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(mut self, v: T) -> Self {
+    pub fn set_rootsync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.rootsync_crd = v.into();
         self
     }
@@ -1669,7 +1720,10 @@ impl ConfigSyncState {
     /// let x1 = ConfigSyncState::new().set_reposync_crd(CRDState::Installed);
     /// let x2 = ConfigSyncState::new().set_reposync_crd(CRDState::Terminating);
     /// ```
-    pub fn set_reposync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(mut self, v: T) -> Self {
+    pub fn set_reposync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.reposync_crd = v.into();
         self
     }
@@ -1684,7 +1738,10 @@ impl ConfigSyncState {
     /// let x1 = ConfigSyncState::new().set_state(State::ConfigSyncInstalled);
     /// let x2 = ConfigSyncState::new().set_state(State::ConfigSyncError);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::config_sync_state::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::config_sync_state::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -1700,7 +1757,6 @@ impl wkt::message::Message for ConfigSyncState {
 pub mod config_sync_state {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// CRDState representing the state of a CRD
     ///
@@ -1798,7 +1854,9 @@ pub mod config_sync_state {
                 2 => Self::Installed,
                 3 => Self::Terminating,
                 4 => Self::Installing,
-                _ => Self::UnknownValue(crd_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(crd_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1812,7 +1870,9 @@ pub mod config_sync_state {
                 "INSTALLED" => Self::Installed,
                 "TERMINATING" => Self::Terminating,
                 "INSTALLING" => Self::Installing,
-                _ => Self::UnknownValue(crd_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(crd_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1839,7 +1899,8 @@ pub mod config_sync_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CRDState>::new(
-                ".google.cloud.gkehub.configmanagement.v1.ConfigSyncState.CRDState"))
+                ".google.cloud.gkehub.configmanagement.v1.ConfigSyncState.CRDState",
+            ))
         }
     }
 
@@ -1908,7 +1969,9 @@ pub mod config_sync_state {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
-                Self::ConfigSyncNotInstalled => std::option::Option::Some("CONFIG_SYNC_NOT_INSTALLED"),
+                Self::ConfigSyncNotInstalled => {
+                    std::option::Option::Some("CONFIG_SYNC_NOT_INSTALLED")
+                }
                 Self::ConfigSyncInstalled => std::option::Option::Some("CONFIG_SYNC_INSTALLED"),
                 Self::ConfigSyncError => std::option::Option::Some("CONFIG_SYNC_ERROR"),
                 Self::ConfigSyncPending => std::option::Option::Some("CONFIG_SYNC_PENDING"),
@@ -1938,7 +2001,9 @@ pub mod config_sync_state {
                 2 => Self::ConfigSyncInstalled,
                 3 => Self::ConfigSyncError,
                 4 => Self::ConfigSyncPending,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1952,7 +2017,9 @@ pub mod config_sync_state {
                 "CONFIG_SYNC_INSTALLED" => Self::ConfigSyncInstalled,
                 "CONFIG_SYNC_ERROR" => Self::ConfigSyncError,
                 "CONFIG_SYNC_PENDING" => Self::ConfigSyncPending,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1979,7 +2046,8 @@ pub mod config_sync_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkehub.configmanagement.v1.ConfigSyncState.State"))
+                ".google.cloud.gkehub.configmanagement.v1.ConfigSyncState.State",
+            ))
         }
     }
 }
@@ -1988,7 +2056,6 @@ pub mod config_sync_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncError {
-
     /// A string representing the user facing error message
     pub error_message: std::string::String,
 
@@ -2023,7 +2090,6 @@ impl wkt::message::Message for ConfigSyncError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncVersion {
-
     /// Version of the deployed importer pod
     pub importer: std::string::String,
 
@@ -2108,7 +2174,10 @@ impl ConfigSyncVersion {
     /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
     /// let x = ConfigSyncVersion::new().set_reconciler_manager("example");
     /// ```
-    pub fn set_reconciler_manager<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_reconciler_manager<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.reconciler_manager = v.into();
         self
     }
@@ -2132,7 +2201,10 @@ impl ConfigSyncVersion {
     /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
     /// let x = ConfigSyncVersion::new().set_admission_webhook("example");
     /// ```
-    pub fn set_admission_webhook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_admission_webhook<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.admission_webhook = v.into();
         self
     }
@@ -2148,7 +2220,6 @@ impl wkt::message::Message for ConfigSyncVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncDeploymentState {
-
     /// Deployment state of the importer pod
     pub importer: crate::model::DeploymentState,
 
@@ -2188,7 +2259,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_importer(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_importer(DeploymentState::Error);
     /// ```
-    pub fn set_importer<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_importer<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.importer = v.into();
         self
     }
@@ -2203,7 +2277,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_syncer(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_syncer(DeploymentState::Error);
     /// ```
-    pub fn set_syncer<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_syncer<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.syncer = v.into();
         self
     }
@@ -2218,7 +2295,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_git_sync(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_git_sync(DeploymentState::Error);
     /// ```
-    pub fn set_git_sync<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_git_sync<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.git_sync = v.into();
         self
     }
@@ -2233,7 +2313,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_monitor(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_monitor(DeploymentState::Error);
     /// ```
-    pub fn set_monitor<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_monitor<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.monitor = v.into();
         self
     }
@@ -2248,7 +2331,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_reconciler_manager(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_reconciler_manager(DeploymentState::Error);
     /// ```
-    pub fn set_reconciler_manager<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_reconciler_manager<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.reconciler_manager = v.into();
         self
     }
@@ -2263,7 +2349,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_root_reconciler(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_root_reconciler(DeploymentState::Error);
     /// ```
-    pub fn set_root_reconciler<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_root_reconciler<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.root_reconciler = v.into();
         self
     }
@@ -2278,7 +2367,10 @@ impl ConfigSyncDeploymentState {
     /// let x1 = ConfigSyncDeploymentState::new().set_admission_webhook(DeploymentState::Installed);
     /// let x2 = ConfigSyncDeploymentState::new().set_admission_webhook(DeploymentState::Error);
     /// ```
-    pub fn set_admission_webhook<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_admission_webhook<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.admission_webhook = v.into();
         self
     }
@@ -2294,7 +2386,6 @@ impl wkt::message::Message for ConfigSyncDeploymentState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyncState {
-
     /// Token indicating the state of the repo.
     pub source_token: std::string::String,
 
@@ -2387,7 +2478,8 @@ impl SyncState {
     /// let x = SyncState::new().set_last_sync_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_sync_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_sync_time = std::option::Option::Some(v.into());
         self
@@ -2403,7 +2495,8 @@ impl SyncState {
     /// let x = SyncState::new().set_or_clear_last_sync_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_last_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_sync_time = v.map(|x| x.into());
         self
@@ -2419,7 +2512,10 @@ impl SyncState {
     /// let x1 = SyncState::new().set_code(SyncCode::Pending);
     /// let x2 = SyncState::new().set_code(SyncCode::Error);
     /// ```
-    pub fn set_code<T: std::convert::Into<crate::model::sync_state::SyncCode>>(mut self, v: T) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::sync_state::SyncCode>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.code = v.into();
         self
     }
@@ -2439,7 +2535,7 @@ impl SyncState {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SyncError>
+        V: std::convert::Into<crate::model::SyncError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -2457,7 +2553,6 @@ impl wkt::message::Message for SyncState {
 pub mod sync_state {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// An enum representing Config Sync's status of syncing configs to a cluster.
     ///
@@ -2570,7 +2665,9 @@ pub mod sync_state {
                 5 => Self::NotInstalled,
                 6 => Self::Unauthorized,
                 7 => Self::Unreachable,
-                _ => Self::UnknownValue(sync_code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(sync_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2587,7 +2684,9 @@ pub mod sync_state {
                 "NOT_INSTALLED" => Self::NotInstalled,
                 "UNAUTHORIZED" => Self::Unauthorized,
                 "UNREACHABLE" => Self::Unreachable,
-                _ => Self::UnknownValue(sync_code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(sync_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2617,7 +2716,8 @@ pub mod sync_state {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SyncCode>::new(
-                ".google.cloud.gkehub.configmanagement.v1.SyncState.SyncCode"))
+                ".google.cloud.gkehub.configmanagement.v1.SyncState.SyncCode",
+            ))
         }
     }
 }
@@ -2626,7 +2726,6 @@ pub mod sync_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyncError {
-
     /// An ACM defined error code
     pub code: std::string::String,
 
@@ -2683,7 +2782,7 @@ impl SyncError {
     pub fn set_error_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorResource>
+        V: std::convert::Into<crate::model::ErrorResource>,
     {
         use std::iter::Iterator;
         self.error_resources = v.into_iter().map(|i| i.into()).collect();
@@ -2701,7 +2800,6 @@ impl wkt::message::Message for SyncError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorResource {
-
     /// Path in the git repo of the erroneous config
     pub source_path: std::string::String,
 
@@ -2753,7 +2851,10 @@ impl ErrorResource {
     /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
     /// let x = ErrorResource::new().set_resource_namespace("example");
     /// ```
-    pub fn set_resource_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_resource_namespace<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource_namespace = v.into();
         self
     }
@@ -2767,7 +2868,8 @@ impl ErrorResource {
     /// let x = ErrorResource::new().set_resource_gvk(GroupVersionKind::default()/* use setters */);
     /// ```
     pub fn set_resource_gvk<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::GroupVersionKind>
+    where
+        T: std::convert::Into<crate::model::GroupVersionKind>,
     {
         self.resource_gvk = std::option::Option::Some(v.into());
         self
@@ -2783,7 +2885,8 @@ impl ErrorResource {
     /// let x = ErrorResource::new().set_or_clear_resource_gvk(None::<GroupVersionKind>);
     /// ```
     pub fn set_or_clear_resource_gvk<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::GroupVersionKind>
+    where
+        T: std::convert::Into<crate::model::GroupVersionKind>,
     {
         self.resource_gvk = v.map(|x| x.into());
         self
@@ -2800,7 +2903,6 @@ impl wkt::message::Message for ErrorResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupVersionKind {
-
     /// Kubernetes Group
     pub group: std::string::String,
 
@@ -2865,7 +2967,6 @@ impl wkt::message::Message for GroupVersionKind {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyControllerState {
-
     /// The version of Gatekeeper Policy Controller deployed.
     pub version: std::option::Option<crate::model::PolicyControllerVersion>,
 
@@ -2889,7 +2990,8 @@ impl PolicyControllerState {
     /// let x = PolicyControllerState::new().set_version(PolicyControllerVersion::default()/* use setters */);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicyControllerVersion>
+    where
+        T: std::convert::Into<crate::model::PolicyControllerVersion>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -2905,7 +3007,8 @@ impl PolicyControllerState {
     /// let x = PolicyControllerState::new().set_or_clear_version(None::<PolicyControllerVersion>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicyControllerVersion>
+    where
+        T: std::convert::Into<crate::model::PolicyControllerVersion>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -2920,7 +3023,8 @@ impl PolicyControllerState {
     /// let x = PolicyControllerState::new().set_deployment_state(GatekeeperDeploymentState::default()/* use setters */);
     /// ```
     pub fn set_deployment_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::GatekeeperDeploymentState>
+    where
+        T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
     {
         self.deployment_state = std::option::Option::Some(v.into());
         self
@@ -2936,7 +3040,8 @@ impl PolicyControllerState {
     /// let x = PolicyControllerState::new().set_or_clear_deployment_state(None::<GatekeeperDeploymentState>);
     /// ```
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::GatekeeperDeploymentState>
+    where
+        T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
     {
         self.deployment_state = v.map(|x| x.into());
         self
@@ -2953,7 +3058,6 @@ impl wkt::message::Message for PolicyControllerState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyControllerVersion {
-
     /// The gatekeeper image tag that is composed of ACM version, git tag, build
     /// number.
     pub version: std::string::String,
@@ -2989,7 +3093,6 @@ impl wkt::message::Message for PolicyControllerVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GatekeeperDeploymentState {
-
     /// Status of gatekeeper-controller-manager pod.
     pub gatekeeper_controller_manager_state: crate::model::DeploymentState,
 
@@ -3014,7 +3117,12 @@ impl GatekeeperDeploymentState {
     /// let x1 = GatekeeperDeploymentState::new().set_gatekeeper_controller_manager_state(DeploymentState::Installed);
     /// let x2 = GatekeeperDeploymentState::new().set_gatekeeper_controller_manager_state(DeploymentState::Error);
     /// ```
-    pub fn set_gatekeeper_controller_manager_state<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_gatekeeper_controller_manager_state<
+        T: std::convert::Into<crate::model::DeploymentState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.gatekeeper_controller_manager_state = v.into();
         self
     }
@@ -3029,7 +3137,10 @@ impl GatekeeperDeploymentState {
     /// let x1 = GatekeeperDeploymentState::new().set_gatekeeper_audit(DeploymentState::Installed);
     /// let x2 = GatekeeperDeploymentState::new().set_gatekeeper_audit(DeploymentState::Error);
     /// ```
-    pub fn set_gatekeeper_audit<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
+    pub fn set_gatekeeper_audit<T: std::convert::Into<crate::model::DeploymentState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.gatekeeper_audit = v.into();
         self
     }
@@ -3137,7 +3248,9 @@ impl std::convert::From<i32> for DeploymentState {
             2 => Self::Installed,
             3 => Self::Error,
             4 => Self::Pending,
-            _ => Self::UnknownValue(deployment_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(deployment_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3151,7 +3264,9 @@ impl std::convert::From<&str> for DeploymentState {
             "INSTALLED" => Self::Installed,
             "ERROR" => Self::Error,
             "PENDING" => Self::Pending,
-            _ => Self::UnknownValue(deployment_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(deployment_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3178,6 +3293,7 @@ impl<'de> serde::de::Deserialize<'de> for DeploymentState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentState>::new(
-            ".google.cloud.gkehub.configmanagement.v1.DeploymentState"))
+            ".google.cloud.gkehub.configmanagement.v1.DeploymentState",
+        ))
     }
 }

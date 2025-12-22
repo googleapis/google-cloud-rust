@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BillingAccount {
-
     /// Output only. The resource name of the billing account. The resource name
     /// has the form `billingAccounts/{billing_account_id}`. For example,
     /// `billingAccounts/012345-567890-ABCDEF` would be the resource name for
@@ -139,7 +138,10 @@ impl BillingAccount {
     /// # use google_cloud_billing_v1::model::BillingAccount;
     /// let x = BillingAccount::new().set_master_billing_account("example");
     /// ```
-    pub fn set_master_billing_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_master_billing_account<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.master_billing_account = v.into();
         self
     }
@@ -181,7 +183,6 @@ impl wkt::message::Message for BillingAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectBillingInfo {
-
     /// Output only. The resource name for the `ProjectBillingInfo`; has the form
     /// `projects/{project_id}/billingInfo`. For example, the resource name for the
     /// billing information for project `tokyo-rain-123` would be
@@ -242,7 +243,10 @@ impl ProjectBillingInfo {
     /// # use google_cloud_billing_v1::model::ProjectBillingInfo;
     /// let x = ProjectBillingInfo::new().set_billing_account_name("example");
     /// ```
-    pub fn set_billing_account_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_billing_account_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.billing_account_name = v.into();
         self
     }
@@ -270,7 +274,6 @@ impl wkt::message::Message for ProjectBillingInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBillingAccountRequest {
-
     /// Required. The resource name of the billing account to retrieve. For
     /// example, `billingAccounts/012345-567890-ABCDEF`.
     pub name: std::string::String,
@@ -306,7 +309,6 @@ impl wkt::message::Message for GetBillingAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBillingAccountsRequest {
-
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
     pub page_size: i32,
@@ -401,7 +403,6 @@ impl wkt::message::Message for ListBillingAccountsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBillingAccountsResponse {
-
     /// A list of billing accounts.
     pub billing_accounts: std::vec::Vec<crate::model::BillingAccount>,
 
@@ -433,7 +434,7 @@ impl ListBillingAccountsResponse {
     pub fn set_billing_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BillingAccount>
+        V: std::convert::Into<crate::model::BillingAccount>,
     {
         use std::iter::Iterator;
         self.billing_accounts = v.into_iter().map(|i| i.into()).collect();
@@ -477,7 +478,6 @@ impl gax::paginator::internal::PageableResponse for ListBillingAccountsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBillingAccountRequest {
-
     /// Required. The billing account resource to create.
     /// Currently CreateBillingAccount only supports subaccount creation, so
     /// any created billing accounts must be under a provided parent billing
@@ -508,7 +508,8 @@ impl CreateBillingAccountRequest {
     /// let x = CreateBillingAccountRequest::new().set_billing_account(BillingAccount::default()/* use setters */);
     /// ```
     pub fn set_billing_account<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BillingAccount>
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
     {
         self.billing_account = std::option::Option::Some(v.into());
         self
@@ -524,7 +525,8 @@ impl CreateBillingAccountRequest {
     /// let x = CreateBillingAccountRequest::new().set_or_clear_billing_account(None::<BillingAccount>);
     /// ```
     pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BillingAccount>
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
     {
         self.billing_account = v.map(|x| x.into());
         self
@@ -553,7 +555,6 @@ impl wkt::message::Message for CreateBillingAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBillingAccountRequest {
-
     /// Required. The name of the billing account resource to be updated.
     pub name: std::string::String,
 
@@ -594,7 +595,8 @@ impl UpdateBillingAccountRequest {
     /// let x = UpdateBillingAccountRequest::new().set_account(BillingAccount::default()/* use setters */);
     /// ```
     pub fn set_account<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BillingAccount>
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
     {
         self.account = std::option::Option::Some(v.into());
         self
@@ -610,7 +612,8 @@ impl UpdateBillingAccountRequest {
     /// let x = UpdateBillingAccountRequest::new().set_or_clear_account(None::<BillingAccount>);
     /// ```
     pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BillingAccount>
+    where
+        T: std::convert::Into<crate::model::BillingAccount>,
     {
         self.account = v.map(|x| x.into());
         self
@@ -625,7 +628,8 @@ impl UpdateBillingAccountRequest {
     /// let x = UpdateBillingAccountRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -641,7 +645,8 @@ impl UpdateBillingAccountRequest {
     /// let x = UpdateBillingAccountRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -658,7 +663,6 @@ impl wkt::message::Message for UpdateBillingAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectBillingInfoRequest {
-
     /// Required. The resource name of the billing account associated with the
     /// projects that you want to list. For example,
     /// `billingAccounts/012345-567890-ABCDEF`.
@@ -728,7 +732,6 @@ impl wkt::message::Message for ListProjectBillingInfoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectBillingInfoResponse {
-
     /// A list of `ProjectBillingInfo` resources representing the projects
     /// associated with the billing account.
     pub project_billing_info: std::vec::Vec<crate::model::ProjectBillingInfo>,
@@ -761,7 +764,7 @@ impl ListProjectBillingInfoResponse {
     pub fn set_project_billing_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProjectBillingInfo>
+        V: std::convert::Into<crate::model::ProjectBillingInfo>,
     {
         use std::iter::Iterator;
         self.project_billing_info = v.into_iter().map(|i| i.into()).collect();
@@ -805,7 +808,6 @@ impl gax::paginator::internal::PageableResponse for ListProjectBillingInfoRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectBillingInfoRequest {
-
     /// Required. The resource name of the project for which billing information is
     /// retrieved. For example, `projects/tokyo-rain-123`.
     pub name: std::string::String,
@@ -841,7 +843,6 @@ impl wkt::message::Message for GetProjectBillingInfoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectBillingInfoRequest {
-
     /// Required. The resource name of the project associated with the billing
     /// information that you want to update. For example,
     /// `projects/tokyo-rain-123`.
@@ -881,7 +882,8 @@ impl UpdateProjectBillingInfoRequest {
     /// let x = UpdateProjectBillingInfoRequest::new().set_project_billing_info(ProjectBillingInfo::default()/* use setters */);
     /// ```
     pub fn set_project_billing_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProjectBillingInfo>
+    where
+        T: std::convert::Into<crate::model::ProjectBillingInfo>,
     {
         self.project_billing_info = std::option::Option::Some(v.into());
         self
@@ -897,7 +899,8 @@ impl UpdateProjectBillingInfoRequest {
     /// let x = UpdateProjectBillingInfoRequest::new().set_or_clear_project_billing_info(None::<ProjectBillingInfo>);
     /// ```
     pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProjectBillingInfo>
+    where
+        T: std::convert::Into<crate::model::ProjectBillingInfo>,
     {
         self.project_billing_info = v.map(|x| x.into());
         self
@@ -914,7 +917,6 @@ impl wkt::message::Message for UpdateProjectBillingInfoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveBillingAccountRequest {
-
     /// Required. The resource name of the billing account to move.
     /// Must be of the form `billingAccounts/{billing_account_id}`.
     /// The specified billing account cannot be a subaccount, since a subaccount
@@ -953,7 +955,10 @@ impl MoveBillingAccountRequest {
     /// # use google_cloud_billing_v1::model::MoveBillingAccountRequest;
     /// let x = MoveBillingAccountRequest::new().set_destination_parent("example");
     /// ```
-    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destination_parent = v.into();
         self
     }
@@ -969,7 +974,6 @@ impl wkt::message::Message for MoveBillingAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
-
     /// The resource name for the service.
     /// Example: "services/6F81-5844-456A"
     pub name: std::string::String,
@@ -1036,7 +1040,10 @@ impl Service {
     /// # use google_cloud_billing_v1::model::Service;
     /// let x = Service::new().set_business_entity_name("example");
     /// ```
-    pub fn set_business_entity_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_business_entity_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.business_entity_name = v.into();
         self
     }
@@ -1052,7 +1059,6 @@ impl wkt::message::Message for Service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sku {
-
     /// The resource name for the SKU.
     /// Example: "services/6F81-5844-456A/skus/D041-B8A1-6E0B"
     pub name: std::string::String,
@@ -1136,7 +1142,8 @@ impl Sku {
     /// let x = Sku::new().set_category(Category::default()/* use setters */);
     /// ```
     pub fn set_category<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Category>
+    where
+        T: std::convert::Into<crate::model::Category>,
     {
         self.category = std::option::Option::Some(v.into());
         self
@@ -1152,7 +1159,8 @@ impl Sku {
     /// let x = Sku::new().set_or_clear_category(None::<Category>);
     /// ```
     pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Category>
+    where
+        T: std::convert::Into<crate::model::Category>,
     {
         self.category = v.map(|x| x.into());
         self
@@ -1168,7 +1176,7 @@ impl Sku {
     pub fn set_service_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.service_regions = v.into_iter().map(|i| i.into()).collect();
@@ -1190,7 +1198,7 @@ impl Sku {
     pub fn set_pricing_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PricingInfo>
+        V: std::convert::Into<crate::model::PricingInfo>,
     {
         use std::iter::Iterator;
         self.pricing_info = v.into_iter().map(|i| i.into()).collect();
@@ -1204,7 +1212,10 @@ impl Sku {
     /// # use google_cloud_billing_v1::model::Sku;
     /// let x = Sku::new().set_service_provider_name("example");
     /// ```
-    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_provider_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_provider_name = v.into();
         self
     }
@@ -1218,7 +1229,8 @@ impl Sku {
     /// let x = Sku::new().set_geo_taxonomy(GeoTaxonomy::default()/* use setters */);
     /// ```
     pub fn set_geo_taxonomy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::GeoTaxonomy>
+    where
+        T: std::convert::Into<crate::model::GeoTaxonomy>,
     {
         self.geo_taxonomy = std::option::Option::Some(v.into());
         self
@@ -1234,7 +1246,8 @@ impl Sku {
     /// let x = Sku::new().set_or_clear_geo_taxonomy(None::<GeoTaxonomy>);
     /// ```
     pub fn set_or_clear_geo_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::GeoTaxonomy>
+    where
+        T: std::convert::Into<crate::model::GeoTaxonomy>,
     {
         self.geo_taxonomy = v.map(|x| x.into());
         self
@@ -1251,7 +1264,6 @@ impl wkt::message::Message for Sku {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Category {
-
     /// The display name of the service this SKU belongs to.
     pub service_display_name: std::string::String,
 
@@ -1282,7 +1294,10 @@ impl Category {
     /// # use google_cloud_billing_v1::model::Category;
     /// let x = Category::new().set_service_display_name("example");
     /// ```
-    pub fn set_service_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_display_name = v.into();
         self
     }
@@ -1334,7 +1349,6 @@ impl wkt::message::Message for Category {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PricingInfo {
-
     /// The timestamp from which this pricing was effective within the requested
     /// time range. This is guaranteed to be greater than or equal to the
     /// start_time field in the request and less than the end_time field in the
@@ -1378,7 +1392,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_effective_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_effective_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.effective_time = std::option::Option::Some(v.into());
         self
@@ -1394,7 +1409,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_or_clear_effective_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.effective_time = v.map(|x| x.into());
         self
@@ -1421,7 +1437,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_pricing_expression(PricingExpression::default()/* use setters */);
     /// ```
     pub fn set_pricing_expression<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PricingExpression>
+    where
+        T: std::convert::Into<crate::model::PricingExpression>,
     {
         self.pricing_expression = std::option::Option::Some(v.into());
         self
@@ -1437,7 +1454,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_or_clear_pricing_expression(None::<PricingExpression>);
     /// ```
     pub fn set_or_clear_pricing_expression<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PricingExpression>
+    where
+        T: std::convert::Into<crate::model::PricingExpression>,
     {
         self.pricing_expression = v.map(|x| x.into());
         self
@@ -1452,7 +1470,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_aggregation_info(AggregationInfo::default()/* use setters */);
     /// ```
     pub fn set_aggregation_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AggregationInfo>
+    where
+        T: std::convert::Into<crate::model::AggregationInfo>,
     {
         self.aggregation_info = std::option::Option::Some(v.into());
         self
@@ -1468,7 +1487,8 @@ impl PricingInfo {
     /// let x = PricingInfo::new().set_or_clear_aggregation_info(None::<AggregationInfo>);
     /// ```
     pub fn set_or_clear_aggregation_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AggregationInfo>
+    where
+        T: std::convert::Into<crate::model::AggregationInfo>,
     {
         self.aggregation_info = v.map(|x| x.into());
         self
@@ -1506,7 +1526,6 @@ impl wkt::message::Message for PricingInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PricingExpression {
-
     /// The short hand for unit of usage this pricing is specified in.
     /// Example: usage_unit of "GiBy" means that usage is specified in "Gibi Byte".
     pub usage_unit: std::string::String,
@@ -1592,7 +1611,7 @@ impl PricingExpression {
     pub fn set_tiered_rates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pricing_expression::TierRate>
+        V: std::convert::Into<crate::model::pricing_expression::TierRate>,
     {
         use std::iter::Iterator;
         self.tiered_rates = v.into_iter().map(|i| i.into()).collect();
@@ -1606,7 +1625,10 @@ impl PricingExpression {
     /// # use google_cloud_billing_v1::model::PricingExpression;
     /// let x = PricingExpression::new().set_usage_unit_description("example");
     /// ```
-    pub fn set_usage_unit_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_usage_unit_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.usage_unit_description = v.into();
         self
     }
@@ -1630,7 +1652,10 @@ impl PricingExpression {
     /// # use google_cloud_billing_v1::model::PricingExpression;
     /// let x = PricingExpression::new().set_base_unit_description("example");
     /// ```
-    pub fn set_base_unit_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_base_unit_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.base_unit_description = v.into();
         self
     }
@@ -1659,12 +1684,10 @@ pub mod pricing_expression {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The price rate indicating starting usage and its corresponding price.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TierRate {
-
         /// Usage is priced at this rate only after this amount.
         /// Example: start_usage_amount of 10 indicates that the usage will be priced
         /// at the unit_price after the first 10 usage_units.
@@ -1703,7 +1726,8 @@ pub mod pricing_expression {
         /// let x = TierRate::new().set_unit_price(Money::default()/* use setters */);
         /// ```
         pub fn set_unit_price<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<gtype::model::Money>
+        where
+            T: std::convert::Into<gtype::model::Money>,
         {
             self.unit_price = std::option::Option::Some(v.into());
             self
@@ -1719,7 +1743,8 @@ pub mod pricing_expression {
         /// let x = TierRate::new().set_or_clear_unit_price(None::<Money>);
         /// ```
         pub fn set_or_clear_unit_price<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<gtype::model::Money>
+        where
+            T: std::convert::Into<gtype::model::Money>,
         {
             self.unit_price = v.map(|x| x.into());
             self
@@ -1737,7 +1762,6 @@ pub mod pricing_expression {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregationInfo {
-
     pub aggregation_level: crate::model::aggregation_info::AggregationLevel,
 
     pub aggregation_interval: crate::model::aggregation_info::AggregationInterval,
@@ -1764,7 +1788,12 @@ impl AggregationInfo {
     /// let x0 = AggregationInfo::new().set_aggregation_level(AggregationLevel::Account);
     /// let x1 = AggregationInfo::new().set_aggregation_level(AggregationLevel::Project);
     /// ```
-    pub fn set_aggregation_level<T: std::convert::Into<crate::model::aggregation_info::AggregationLevel>>(mut self, v: T) -> Self {
+    pub fn set_aggregation_level<
+        T: std::convert::Into<crate::model::aggregation_info::AggregationLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.aggregation_level = v.into();
         self
     }
@@ -1778,7 +1807,12 @@ impl AggregationInfo {
     /// let x0 = AggregationInfo::new().set_aggregation_interval(AggregationInterval::Daily);
     /// let x1 = AggregationInfo::new().set_aggregation_interval(AggregationInterval::Monthly);
     /// ```
-    pub fn set_aggregation_interval<T: std::convert::Into<crate::model::aggregation_info::AggregationInterval>>(mut self, v: T) -> Self {
+    pub fn set_aggregation_interval<
+        T: std::convert::Into<crate::model::aggregation_info::AggregationInterval>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.aggregation_interval = v.into();
         self
     }
@@ -1806,7 +1840,6 @@ impl wkt::message::Message for AggregationInfo {
 pub mod aggregation_info {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The level at which usage is aggregated to compute cost.
     /// Example: "ACCOUNT" aggregation level indicates that usage for tiered
@@ -1893,7 +1926,9 @@ pub mod aggregation_info {
                 0 => Self::Unspecified,
                 1 => Self::Account,
                 2 => Self::Project,
-                _ => Self::UnknownValue(aggregation_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(aggregation_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1905,7 +1940,9 @@ pub mod aggregation_info {
                 "AGGREGATION_LEVEL_UNSPECIFIED" => Self::Unspecified,
                 "ACCOUNT" => Self::Account,
                 "PROJECT" => Self::Project,
-                _ => Self::UnknownValue(aggregation_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(aggregation_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1930,7 +1967,8 @@ pub mod aggregation_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationLevel>::new(
-                ".google.cloud.billing.v1.AggregationInfo.AggregationLevel"))
+                ".google.cloud.billing.v1.AggregationInfo.AggregationLevel",
+            ))
         }
     }
 
@@ -2019,7 +2057,9 @@ pub mod aggregation_info {
                 0 => Self::Unspecified,
                 1 => Self::Daily,
                 2 => Self::Monthly,
-                _ => Self::UnknownValue(aggregation_interval::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2031,7 +2071,9 @@ pub mod aggregation_info {
                 "AGGREGATION_INTERVAL_UNSPECIFIED" => Self::Unspecified,
                 "DAILY" => Self::Daily,
                 "MONTHLY" => Self::Monthly,
-                _ => Self::UnknownValue(aggregation_interval::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(aggregation_interval::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2056,7 +2098,8 @@ pub mod aggregation_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationInterval>::new(
-                ".google.cloud.billing.v1.AggregationInfo.AggregationInterval"))
+                ".google.cloud.billing.v1.AggregationInfo.AggregationInterval",
+            ))
         }
     }
 }
@@ -2065,7 +2108,6 @@ pub mod aggregation_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeoTaxonomy {
-
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
     pub r#type: crate::model::geo_taxonomy::Type,
 
@@ -2091,7 +2133,10 @@ impl GeoTaxonomy {
     /// let x1 = GeoTaxonomy::new().set_type(Type::Regional);
     /// let x2 = GeoTaxonomy::new().set_type(Type::MultiRegional);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::geo_taxonomy::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::geo_taxonomy::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2106,7 +2151,7 @@ impl GeoTaxonomy {
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.regions = v.into_iter().map(|i| i.into()).collect();
@@ -2124,7 +2169,6 @@ impl wkt::message::Message for GeoTaxonomy {
 pub mod geo_taxonomy {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
     ///
@@ -2219,7 +2263,9 @@ pub mod geo_taxonomy {
                 1 => Self::Global,
                 2 => Self::Regional,
                 3 => Self::MultiRegional,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2232,7 +2278,9 @@ pub mod geo_taxonomy {
                 "GLOBAL" => Self::Global,
                 "REGIONAL" => Self::Regional,
                 "MULTI_REGIONAL" => Self::MultiRegional,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2258,7 +2306,8 @@ pub mod geo_taxonomy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.billing.v1.GeoTaxonomy.Type"))
+                ".google.cloud.billing.v1.GeoTaxonomy.Type",
+            ))
         }
     }
 }
@@ -2267,7 +2316,6 @@ pub mod geo_taxonomy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
-
     /// Requested page size. Defaults to 5000.
     pub page_size: i32,
 
@@ -2319,7 +2367,6 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
-
     /// A list of services.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -2351,7 +2398,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>
+        V: std::convert::Into<crate::model::Service>,
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -2395,7 +2442,6 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSkusRequest {
-
     /// Required. The name of the service.
     /// Example: "services/6F81-5844-456A"
     pub parent: std::string::String,
@@ -2458,7 +2504,8 @@ impl ListSkusRequest {
     /// let x = ListSkusRequest::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2474,7 +2521,8 @@ impl ListSkusRequest {
     /// let x = ListSkusRequest::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2489,7 +2537,8 @@ impl ListSkusRequest {
     /// let x = ListSkusRequest::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2505,7 +2554,8 @@ impl ListSkusRequest {
     /// let x = ListSkusRequest::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2558,7 +2608,6 @@ impl wkt::message::Message for ListSkusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSkusResponse {
-
     /// The list of public SKUs of the given service.
     pub skus: std::vec::Vec<crate::model::Sku>,
 
@@ -2590,7 +2639,7 @@ impl ListSkusResponse {
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Sku>
+        V: std::convert::Into<crate::model::Sku>,
     {
         use std::iter::Iterator;
         self.skus = v.into_iter().map(|i| i.into()).collect();

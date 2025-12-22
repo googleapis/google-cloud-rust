@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::HttpRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.request_method.is_empty() {
             state.serialize_entry("requestMethod", &self.request_method)?;
@@ -91,7 +91,10 @@ impl serde::ser::Serialize for super::HttpRequest {
             state.serialize_entry("cacheHit", &self.cache_hit)?;
         }
         if !wkt::internal::is_default(&self.cache_validated_with_origin_server) {
-            state.serialize_entry("cacheValidatedWithOriginServer", &self.cache_validated_with_origin_server)?;
+            state.serialize_entry(
+                "cacheValidatedWithOriginServer",
+                &self.cache_validated_with_origin_server,
+            )?;
         }
         if !wkt::internal::is_default(&self.cache_fill_bytes) {
             struct __With<'a>(&'a i64);

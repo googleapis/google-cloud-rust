@@ -39,7 +39,10 @@ pub mod reservation_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ReservationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod reservation_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod reservation_service {
     pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
 
     impl CreateReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Reservation> {
-            (*self.0.stub).create_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReservationRequest::parent].
@@ -124,7 +137,8 @@ pub mod reservation_service {
 
         /// Sets the value of [reservation][crate::model::CreateReservationRequest::reservation].
         pub fn set_reservation<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Reservation>
+        where
+            T: std::convert::Into<crate::model::Reservation>,
         {
             self.0.request.reservation = std::option::Option::Some(v.into());
             self
@@ -132,7 +146,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
         pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Reservation>
+        where
+            T: std::convert::Into<crate::model::Reservation>,
         {
             self.0.request.reservation = v.map(|x| x.into());
             self
@@ -171,14 +186,17 @@ pub mod reservation_service {
     pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
 
     impl ListReservations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReservationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReservationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -191,11 +209,17 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListReservationsResponse> {
-            (*self.0.stub).list_reservations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_reservations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -207,7 +231,10 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListReservationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReservationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -261,10 +288,10 @@ pub mod reservation_service {
     pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
 
     impl GetReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -281,7 +308,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Reservation> {
-            (*self.0.stub).get_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReservationRequest::name].
@@ -321,14 +351,17 @@ pub mod reservation_service {
     pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
 
     impl DeleteReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -341,7 +374,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReservationRequest::name].
@@ -381,14 +417,17 @@ pub mod reservation_service {
     pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
 
     impl UpdateReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -401,12 +440,16 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Reservation> {
-            (*self.0.stub).update_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
         pub fn set_reservation<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Reservation>
+        where
+            T: std::convert::Into<crate::model::Reservation>,
         {
             self.0.request.reservation = std::option::Option::Some(v.into());
             self
@@ -414,7 +457,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
         pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Reservation>
+        where
+            T: std::convert::Into<crate::model::Reservation>,
         {
             self.0.request.reservation = v.map(|x| x.into());
             self
@@ -422,7 +466,8 @@ pub mod reservation_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -430,7 +475,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -465,14 +511,17 @@ pub mod reservation_service {
     pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
 
     impl FailoverReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FailoverReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FailoverReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -485,7 +534,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Reservation> {
-            (*self.0.stub).failover_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .failover_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FailoverReservationRequest::name].
@@ -528,17 +580,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCapacityCommitment(RequestBuilder<crate::model::CreateCapacityCommitmentRequest>);
+    pub struct CreateCapacityCommitment(
+        RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
+    );
 
     impl CreateCapacityCommitment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCapacityCommitmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCapacityCommitmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -551,7 +608,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CapacityCommitment> {
-            (*self.0.stub).create_capacity_commitment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_capacity_commitment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCapacityCommitmentRequest::parent].
@@ -564,7 +624,8 @@ pub mod reservation_service {
 
         /// Sets the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CapacityCommitment>
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
         {
             self.0.request.capacity_commitment = std::option::Option::Some(v.into());
             self
@@ -572,7 +633,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CapacityCommitment>
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
         {
             self.0.request.capacity_commitment = v.map(|x| x.into());
             self
@@ -620,17 +682,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCapacityCommitments(RequestBuilder<crate::model::ListCapacityCommitmentsRequest>);
+    pub struct ListCapacityCommitments(
+        RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
+    );
 
     impl ListCapacityCommitments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCapacityCommitmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCapacityCommitmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -643,11 +710,19 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCapacityCommitmentsResponse> {
-            (*self.0.stub).list_capacity_commitments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_capacity_commitments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCapacityCommitmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListCapacityCommitmentsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -659,7 +734,12 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCapacityCommitmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCapacityCommitmentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -713,14 +793,17 @@ pub mod reservation_service {
     pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
 
     impl GetCapacityCommitment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCapacityCommitmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCapacityCommitmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -733,7 +816,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CapacityCommitment> {
-            (*self.0.stub).get_capacity_commitment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_capacity_commitment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCapacityCommitmentRequest::name].
@@ -770,17 +856,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCapacityCommitment(RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>);
+    pub struct DeleteCapacityCommitment(
+        RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
+    );
 
     impl DeleteCapacityCommitment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCapacityCommitmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCapacityCommitmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -793,7 +884,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_capacity_commitment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_capacity_commitment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCapacityCommitmentRequest::name].
@@ -836,17 +930,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCapacityCommitment(RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>);
+    pub struct UpdateCapacityCommitment(
+        RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
+    );
 
     impl UpdateCapacityCommitment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCapacityCommitmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCapacityCommitmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -859,12 +958,16 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CapacityCommitment> {
-            (*self.0.stub).update_capacity_commitment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_capacity_commitment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CapacityCommitment>
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
         {
             self.0.request.capacity_commitment = std::option::Option::Some(v.into());
             self
@@ -872,7 +975,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
         pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CapacityCommitment>
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
         {
             self.0.request.capacity_commitment = v.map(|x| x.into());
             self
@@ -880,7 +984,8 @@ pub mod reservation_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -888,7 +993,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -920,17 +1026,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SplitCapacityCommitment(RequestBuilder<crate::model::SplitCapacityCommitmentRequest>);
+    pub struct SplitCapacityCommitment(
+        RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
+    );
 
     impl SplitCapacityCommitment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SplitCapacityCommitmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SplitCapacityCommitmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -943,7 +1054,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SplitCapacityCommitmentResponse> {
-            (*self.0.stub).split_capacity_commitment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .split_capacity_commitment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SplitCapacityCommitmentRequest::name].
@@ -986,17 +1100,22 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MergeCapacityCommitments(RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>);
+    pub struct MergeCapacityCommitments(
+        RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
+    );
 
     impl MergeCapacityCommitments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MergeCapacityCommitmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MergeCapacityCommitmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1009,7 +1128,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CapacityCommitment> {
-            (*self.0.stub).merge_capacity_commitments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .merge_capacity_commitments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::MergeCapacityCommitmentsRequest::parent].
@@ -1022,7 +1144,7 @@ pub mod reservation_service {
         pub fn set_capacity_commitment_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.capacity_commitment_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1064,14 +1186,17 @@ pub mod reservation_service {
     pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
 
     impl CreateAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1084,7 +1209,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Assignment> {
-            (*self.0.stub).create_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssignmentRequest::parent].
@@ -1097,7 +1225,8 @@ pub mod reservation_service {
 
         /// Sets the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
         pub fn set_assignment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Assignment>
+        where
+            T: std::convert::Into<crate::model::Assignment>,
         {
             self.0.request.assignment = std::option::Option::Some(v.into());
             self
@@ -1105,7 +1234,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
         pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Assignment>
+        where
+            T: std::convert::Into<crate::model::Assignment>,
         {
             self.0.request.assignment = v.map(|x| x.into());
             self
@@ -1150,10 +1280,10 @@ pub mod reservation_service {
     pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
 
     impl ListAssignments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1170,11 +1300,17 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAssignmentsResponse> {
-            (*self.0.stub).list_assignments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_assignments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1186,7 +1322,10 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAssignmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssignmentsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1240,14 +1379,17 @@ pub mod reservation_service {
     pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
     impl DeleteAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1260,7 +1402,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssignmentRequest::name].
@@ -1304,14 +1449,17 @@ pub mod reservation_service {
     pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
     impl SearchAssignments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchAssignmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchAssignmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1324,11 +1472,17 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchAssignmentsResponse> {
-            (*self.0.stub).search_assignments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_assignments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1340,7 +1494,10 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchAssignmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1404,14 +1561,17 @@ pub mod reservation_service {
     pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
 
     impl SearchAllAssignments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchAllAssignmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchAllAssignmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1424,11 +1584,17 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchAllAssignmentsResponse> {
-            (*self.0.stub).search_all_assignments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_all_assignments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1440,7 +1606,12 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchAllAssignmentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1500,10 +1671,10 @@ pub mod reservation_service {
     pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
 
     impl MoveAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1520,7 +1691,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Assignment> {
-            (*self.0.stub).move_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .move_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MoveAssignmentRequest::name].
@@ -1572,14 +1746,17 @@ pub mod reservation_service {
     pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
     impl UpdateAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1592,12 +1769,16 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Assignment> {
-            (*self.0.stub).update_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
         pub fn set_assignment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Assignment>
+        where
+            T: std::convert::Into<crate::model::Assignment>,
         {
             self.0.request.assignment = std::option::Option::Some(v.into());
             self
@@ -1605,7 +1786,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
         pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Assignment>
+        where
+            T: std::convert::Into<crate::model::Assignment>,
         {
             self.0.request.assignment = v.map(|x| x.into());
             self
@@ -1613,7 +1795,8 @@ pub mod reservation_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1621,7 +1804,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1656,14 +1840,17 @@ pub mod reservation_service {
     pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
 
     impl GetBiReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBiReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBiReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1676,7 +1863,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BiReservation> {
-            (*self.0.stub).get_bi_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_bi_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBiReservationRequest::name].
@@ -1716,14 +1906,17 @@ pub mod reservation_service {
     pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
 
     impl UpdateBiReservation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBiReservationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBiReservationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1736,12 +1929,16 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BiReservation> {
-            (*self.0.stub).update_bi_reservation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_bi_reservation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
         pub fn set_bi_reservation<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BiReservation>
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
         {
             self.0.request.bi_reservation = std::option::Option::Some(v.into());
             self
@@ -1749,7 +1946,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
         pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BiReservation>
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
         {
             self.0.request.bi_reservation = v.map(|x| x.into());
             self
@@ -1757,7 +1955,8 @@ pub mod reservation_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1765,7 +1964,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1800,10 +2000,10 @@ pub mod reservation_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1820,7 +2020,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1833,7 +2036,8 @@ pub mod reservation_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -1841,7 +2045,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1876,10 +2081,10 @@ pub mod reservation_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1896,7 +2101,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1911,7 +2119,8 @@ pub mod reservation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -1921,7 +2130,8 @@ pub mod reservation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -1929,7 +2139,8 @@ pub mod reservation_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1937,7 +2148,8 @@ pub mod reservation_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1972,14 +2184,17 @@ pub mod reservation_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1992,7 +2207,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2009,7 +2227,7 @@ pub mod reservation_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2045,14 +2263,17 @@ pub mod reservation_service {
     pub struct CreateReservationGroup(RequestBuilder<crate::model::CreateReservationGroupRequest>);
 
     impl CreateReservationGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateReservationGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateReservationGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2065,7 +2286,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReservationGroup> {
-            (*self.0.stub).create_reservation_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_reservation_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReservationGroupRequest::parent].
@@ -2088,7 +2312,8 @@ pub mod reservation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_reservation_group<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ReservationGroup>
+        where
+            T: std::convert::Into<crate::model::ReservationGroup>,
         {
             self.0.request.reservation_group = std::option::Option::Some(v.into());
             self
@@ -2098,7 +2323,8 @@ pub mod reservation_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_reservation_group<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ReservationGroup>
+        where
+            T: std::convert::Into<crate::model::ReservationGroup>,
         {
             self.0.request.reservation_group = v.map(|x| x.into());
             self
@@ -2133,14 +2359,17 @@ pub mod reservation_service {
     pub struct GetReservationGroup(RequestBuilder<crate::model::GetReservationGroupRequest>);
 
     impl GetReservationGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetReservationGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetReservationGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2153,7 +2382,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReservationGroup> {
-            (*self.0.stub).get_reservation_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_reservation_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReservationGroupRequest::name].
@@ -2193,14 +2425,17 @@ pub mod reservation_service {
     pub struct DeleteReservationGroup(RequestBuilder<crate::model::DeleteReservationGroupRequest>);
 
     impl DeleteReservationGroup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteReservationGroupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteReservationGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2213,7 +2448,10 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_reservation_group(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_reservation_group(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReservationGroupRequest::name].
@@ -2257,14 +2495,17 @@ pub mod reservation_service {
     pub struct ListReservationGroups(RequestBuilder<crate::model::ListReservationGroupsRequest>);
 
     impl ListReservationGroups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReservationGroupsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReservationGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2277,11 +2518,17 @@ pub mod reservation_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListReservationGroupsResponse> {
-            (*self.0.stub).list_reservation_groups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_reservation_groups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListReservationGroupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListReservationGroupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2293,7 +2540,12 @@ pub mod reservation_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListReservationGroupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReservationGroupsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2325,5 +2577,4 @@ pub mod reservation_service {
             &mut self.0.options
         }
     }
-
 }

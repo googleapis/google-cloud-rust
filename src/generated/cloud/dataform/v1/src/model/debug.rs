@@ -35,10 +35,19 @@ impl std::fmt::Debug for super::Repository {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("git_remote_settings", &self.git_remote_settings);
-        debug_struct.field("npmrc_environment_variables_secret_version", &self.npmrc_environment_variables_secret_version);
-        debug_struct.field("workspace_compilation_overrides", &self.workspace_compilation_overrides);
+        debug_struct.field(
+            "npmrc_environment_variables_secret_version",
+            &self.npmrc_environment_variables_secret_version,
+        );
+        debug_struct.field(
+            "workspace_compilation_overrides",
+            &self.workspace_compilation_overrides,
+        );
         debug_struct.field("labels", &self.labels);
-        debug_struct.field("set_authenticated_user_admin", &self.set_authenticated_user_admin);
+        debug_struct.field(
+            "set_authenticated_user_admin",
+            &self.set_authenticated_user_admin,
+        );
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("data_encryption_state", &self.data_encryption_state);
@@ -55,7 +64,10 @@ impl std::fmt::Debug for super::repository::GitRemoteSettings {
         let mut debug_struct = f.debug_struct("GitRemoteSettings");
         debug_struct.field("url", &self.url);
         debug_struct.field("default_branch", &self.default_branch);
-        debug_struct.field("authentication_token_secret_version", &self.authentication_token_secret_version);
+        debug_struct.field(
+            "authentication_token_secret_version",
+            &self.authentication_token_secret_version,
+        );
         debug_struct.field("ssh_authentication_config", &self.ssh_authentication_config);
         debug_struct.field("token_status", &self.token_status);
         if !self._unknown_fields.is_empty() {
@@ -68,7 +80,10 @@ impl std::fmt::Debug for super::repository::GitRemoteSettings {
 impl std::fmt::Debug for super::repository::git_remote_settings::SshAuthenticationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SshAuthenticationConfig");
-        debug_struct.field("user_private_key_secret_version", &self.user_private_key_secret_version);
+        debug_struct.field(
+            "user_private_key_secret_version",
+            &self.user_private_key_secret_version,
+        );
         debug_struct.field("host_public_key", &self.host_public_key);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -89,7 +104,6 @@ impl std::fmt::Debug for super::repository::WorkspaceCompilationOverrides {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListRepositoriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -212,7 +226,6 @@ impl std::fmt::Debug for super::commit_repository_changes_request::file_operatio
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CommitRepositoryChangesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -917,8 +930,14 @@ impl std::fmt::Debug for super::ReleaseConfig {
         debug_struct.field("code_compilation_config", &self.code_compilation_config);
         debug_struct.field("cron_schedule", &self.cron_schedule);
         debug_struct.field("time_zone", &self.time_zone);
-        debug_struct.field("recent_scheduled_release_records", &self.recent_scheduled_release_records);
-        debug_struct.field("release_compilation_result", &self.release_compilation_result);
+        debug_struct.field(
+            "recent_scheduled_release_records",
+            &self.recent_scheduled_release_records,
+        );
+        debug_struct.field(
+            "release_compilation_result",
+            &self.release_compilation_result,
+        );
         debug_struct.field("disabled", &self.disabled);
         debug_struct.field("internal_metadata", &self.internal_metadata);
         if !self._unknown_fields.is_empty() {
@@ -1057,8 +1076,14 @@ impl std::fmt::Debug for super::CodeCompilationConfig {
         debug_struct.field("database_suffix", &self.database_suffix);
         debug_struct.field("schema_suffix", &self.schema_suffix);
         debug_struct.field("table_prefix", &self.table_prefix);
-        debug_struct.field("builtin_assertion_name_prefix", &self.builtin_assertion_name_prefix);
-        debug_struct.field("default_notebook_runtime_options", &self.default_notebook_runtime_options);
+        debug_struct.field(
+            "builtin_assertion_name_prefix",
+            &self.builtin_assertion_name_prefix,
+        );
+        debug_struct.field(
+            "default_notebook_runtime_options",
+            &self.default_notebook_runtime_options,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1069,7 +1094,10 @@ impl std::fmt::Debug for super::CodeCompilationConfig {
 impl std::fmt::Debug for super::NotebookRuntimeOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotebookRuntimeOptions");
-        debug_struct.field("ai_platform_notebook_runtime_template", &self.ai_platform_notebook_runtime_template);
+        debug_struct.field(
+            "ai_platform_notebook_runtime_template",
+            &self.ai_platform_notebook_runtime_template,
+        );
         debug_struct.field("execution_sink", &self.execution_sink);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1168,7 +1196,6 @@ impl std::fmt::Debug for super::relation_descriptor::ColumnDescriptor {
     }
 }
 
-
 impl std::fmt::Debug for super::CompilationResultAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompilationResultAction");
@@ -1215,15 +1242,20 @@ impl std::fmt::Debug for super::compilation_result_action::relation::Incremental
         debug_struct.field("refresh_disabled", &self.refresh_disabled);
         debug_struct.field("unique_key_parts", &self.unique_key_parts);
         debug_struct.field("update_partition_filter", &self.update_partition_filter);
-        debug_struct.field("incremental_pre_operations", &self.incremental_pre_operations);
-        debug_struct.field("incremental_post_operations", &self.incremental_post_operations);
+        debug_struct.field(
+            "incremental_pre_operations",
+            &self.incremental_pre_operations,
+        );
+        debug_struct.field(
+            "incremental_post_operations",
+            &self.incremental_post_operations,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::compilation_result_action::Operations {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1370,7 +1402,10 @@ impl std::fmt::Debug for super::QueryCompilationResultActionsRequest {
 impl std::fmt::Debug for super::QueryCompilationResultActionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryCompilationResultActionsResponse");
-        debug_struct.field("compilation_result_actions", &self.compilation_result_actions);
+        debug_struct.field(
+            "compilation_result_actions",
+            &self.compilation_result_actions,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1387,7 +1422,10 @@ impl std::fmt::Debug for super::WorkflowConfig {
         debug_struct.field("invocation_config", &self.invocation_config);
         debug_struct.field("cron_schedule", &self.cron_schedule);
         debug_struct.field("time_zone", &self.time_zone);
-        debug_struct.field("recent_scheduled_execution_records", &self.recent_scheduled_execution_records);
+        debug_struct.field(
+            "recent_scheduled_execution_records",
+            &self.recent_scheduled_execution_records,
+        );
         debug_struct.field("disabled", &self.disabled);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
@@ -1416,9 +1454,18 @@ impl std::fmt::Debug for super::InvocationConfig {
         let mut debug_struct = f.debug_struct("InvocationConfig");
         debug_struct.field("included_targets", &self.included_targets);
         debug_struct.field("included_tags", &self.included_tags);
-        debug_struct.field("transitive_dependencies_included", &self.transitive_dependencies_included);
-        debug_struct.field("transitive_dependents_included", &self.transitive_dependents_included);
-        debug_struct.field("fully_refresh_incremental_tables_enabled", &self.fully_refresh_incremental_tables_enabled);
+        debug_struct.field(
+            "transitive_dependencies_included",
+            &self.transitive_dependencies_included,
+        );
+        debug_struct.field(
+            "transitive_dependents_included",
+            &self.transitive_dependents_included,
+        );
+        debug_struct.field(
+            "fully_refresh_incremental_tables_enabled",
+            &self.fully_refresh_incremental_tables_enabled,
+        );
         debug_struct.field("service_account", &self.service_account);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1507,7 +1554,10 @@ impl std::fmt::Debug for super::WorkflowInvocation {
         debug_struct.field("invocation_config", &self.invocation_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("invocation_timing", &self.invocation_timing);
-        debug_struct.field("resolved_compilation_result", &self.resolved_compilation_result);
+        debug_struct.field(
+            "resolved_compilation_result",
+            &self.resolved_compilation_result,
+        );
         debug_struct.field("data_encryption_state", &self.data_encryption_state);
         debug_struct.field("internal_metadata", &self.internal_metadata);
         debug_struct.field("compilation_source", &self.compilation_source);
@@ -1655,7 +1705,9 @@ impl std::fmt::Debug for super::workflow_invocation_action::DataPreparationActio
     }
 }
 
-impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_action::ActionSqlDefinition {
+impl std::fmt::Debug
+    for super::workflow_invocation_action::data_preparation_action::ActionSqlDefinition
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionSqlDefinition");
         debug_struct.field("query", &self.query);
@@ -1668,7 +1720,9 @@ impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_act
     }
 }
 
-impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_action::ActionErrorTable {
+impl std::fmt::Debug
+    for super::workflow_invocation_action::data_preparation_action::ActionErrorTable
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionErrorTable");
         debug_struct.field("target", &self.target);
@@ -1680,7 +1734,9 @@ impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_act
     }
 }
 
-impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_action::ActionLoadConfig {
+impl std::fmt::Debug
+    for super::workflow_invocation_action::data_preparation_action::ActionLoadConfig
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionLoadConfig");
         debug_struct.field("mode", &self.mode);
@@ -1691,7 +1747,9 @@ impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_act
     }
 }
 
-impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode {
+impl std::fmt::Debug
+    for super::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionSimpleLoadMode");
         if !self._unknown_fields.is_empty() {
@@ -1701,7 +1759,9 @@ impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_act
     }
 }
 
-impl std::fmt::Debug for super::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode {
+impl std::fmt::Debug
+    for super::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionIncrementalLoadMode");
         debug_struct.field("column", &self.column);
@@ -1728,7 +1788,10 @@ impl std::fmt::Debug for super::QueryWorkflowInvocationActionsRequest {
 impl std::fmt::Debug for super::QueryWorkflowInvocationActionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryWorkflowInvocationActionsResponse");
-        debug_struct.field("workflow_invocation_actions", &self.workflow_invocation_actions);
+        debug_struct.field(
+            "workflow_invocation_actions",
+            &self.workflow_invocation_actions,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

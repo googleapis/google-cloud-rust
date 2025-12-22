@@ -73,7 +73,9 @@ impl DataAccessControlService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_access_control_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::data_access_control_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::data_access_control_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -81,28 +83,44 @@ impl DataAccessControlService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::DataAccessControlService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::DataAccessControlService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataAccessControlService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::DataAccessControlService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
         super::transport::DataAccessControlService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
-        Self::build_transport(conf).await.map(super::tracing::DataAccessControlService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataAccessControlService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataAccessControlService::new)
     }
 
     /// Creates a data access label.
@@ -127,8 +145,9 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_data_access_label(&self) -> super::builder::data_access_control_service::CreateDataAccessLabel
-    {
+    pub fn create_data_access_label(
+        &self,
+    ) -> super::builder::data_access_control_service::CreateDataAccessLabel {
         super::builder::data_access_control_service::CreateDataAccessLabel::new(self.inner.clone())
     }
 
@@ -149,14 +168,16 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_data_access_label(&self) -> super::builder::data_access_control_service::GetDataAccessLabel
-    {
+    pub fn get_data_access_label(
+        &self,
+    ) -> super::builder::data_access_control_service::GetDataAccessLabel {
         super::builder::data_access_control_service::GetDataAccessLabel::new(self.inner.clone())
     }
 
     /// Lists all data access labels for the customer.
-    pub fn list_data_access_labels(&self) -> super::builder::data_access_control_service::ListDataAccessLabels
-    {
+    pub fn list_data_access_labels(
+        &self,
+    ) -> super::builder::data_access_control_service::ListDataAccessLabels {
         super::builder::data_access_control_service::ListDataAccessLabels::new(self.inner.clone())
     }
 
@@ -177,8 +198,9 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_data_access_label(&self) -> super::builder::data_access_control_service::UpdateDataAccessLabel
-    {
+    pub fn update_data_access_label(
+        &self,
+    ) -> super::builder::data_access_control_service::UpdateDataAccessLabel {
         super::builder::data_access_control_service::UpdateDataAccessLabel::new(self.inner.clone())
     }
 
@@ -200,8 +222,9 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_data_access_label(&self) -> super::builder::data_access_control_service::DeleteDataAccessLabel
-    {
+    pub fn delete_data_access_label(
+        &self,
+    ) -> super::builder::data_access_control_service::DeleteDataAccessLabel {
         super::builder::data_access_control_service::DeleteDataAccessLabel::new(self.inner.clone())
     }
 
@@ -227,8 +250,9 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_data_access_scope(&self) -> super::builder::data_access_control_service::CreateDataAccessScope
-    {
+    pub fn create_data_access_scope(
+        &self,
+    ) -> super::builder::data_access_control_service::CreateDataAccessScope {
         super::builder::data_access_control_service::CreateDataAccessScope::new(self.inner.clone())
     }
 
@@ -249,14 +273,16 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_data_access_scope(&self) -> super::builder::data_access_control_service::GetDataAccessScope
-    {
+    pub fn get_data_access_scope(
+        &self,
+    ) -> super::builder::data_access_control_service::GetDataAccessScope {
         super::builder::data_access_control_service::GetDataAccessScope::new(self.inner.clone())
     }
 
     /// Lists all existing data access scopes for the customer.
-    pub fn list_data_access_scopes(&self) -> super::builder::data_access_control_service::ListDataAccessScopes
-    {
+    pub fn list_data_access_scopes(
+        &self,
+    ) -> super::builder::data_access_control_service::ListDataAccessScopes {
         super::builder::data_access_control_service::ListDataAccessScopes::new(self.inner.clone())
     }
 
@@ -277,8 +303,9 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_data_access_scope(&self) -> super::builder::data_access_control_service::UpdateDataAccessScope
-    {
+    pub fn update_data_access_scope(
+        &self,
+    ) -> super::builder::data_access_control_service::UpdateDataAccessScope {
         super::builder::data_access_control_service::UpdateDataAccessScope::new(self.inner.clone())
     }
 
@@ -298,16 +325,16 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_data_access_scope(&self) -> super::builder::data_access_control_service::DeleteDataAccessScope
-    {
+    pub fn delete_data_access_scope(
+        &self,
+    ) -> super::builder::data_access_control_service::DeleteDataAccessScope {
         super::builder::data_access_control_service::DeleteDataAccessScope::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::data_access_control_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::data_access_control_service::ListOperations {
         super::builder::data_access_control_service::ListOperations::new(self.inner.clone())
     }
 
@@ -330,8 +357,7 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::data_access_control_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::data_access_control_service::GetOperation {
         super::builder::data_access_control_service::GetOperation::new(self.inner.clone())
     }
 
@@ -353,8 +379,7 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::data_access_control_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::data_access_control_service::DeleteOperation {
         super::builder::data_access_control_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -376,8 +401,7 @@ impl DataAccessControlService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::data_access_control_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::data_access_control_service::CancelOperation {
         super::builder::data_access_control_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -446,28 +470,42 @@ impl EntityService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::EntityService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::EntityService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EntityService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EntityService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EntityService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EntityService> {
         super::transport::EntityService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EntityService> {
-        Self::build_transport(conf).await.map(super::tracing::EntityService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EntityService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::EntityService::new)
     }
 
     /// Gets watchlist details for the given watchlist ID.
@@ -488,14 +526,12 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_watchlist(&self) -> super::builder::entity_service::GetWatchlist
-    {
+    pub fn get_watchlist(&self) -> super::builder::entity_service::GetWatchlist {
         super::builder::entity_service::GetWatchlist::new(self.inner.clone())
     }
 
     /// Lists all watchlists for the given instance.
-    pub fn list_watchlists(&self) -> super::builder::entity_service::ListWatchlists
-    {
+    pub fn list_watchlists(&self) -> super::builder::entity_service::ListWatchlists {
         super::builder::entity_service::ListWatchlists::new(self.inner.clone())
     }
 
@@ -517,8 +553,7 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_watchlist(&self) -> super::builder::entity_service::CreateWatchlist
-    {
+    pub fn create_watchlist(&self) -> super::builder::entity_service::CreateWatchlist {
         super::builder::entity_service::CreateWatchlist::new(self.inner.clone())
     }
 
@@ -539,8 +574,7 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_watchlist(&self) -> super::builder::entity_service::UpdateWatchlist
-    {
+    pub fn update_watchlist(&self) -> super::builder::entity_service::UpdateWatchlist {
         super::builder::entity_service::UpdateWatchlist::new(self.inner.clone())
     }
 
@@ -560,16 +594,14 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_watchlist(&self) -> super::builder::entity_service::DeleteWatchlist
-    {
+    pub fn delete_watchlist(&self) -> super::builder::entity_service::DeleteWatchlist {
         super::builder::entity_service::DeleteWatchlist::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::entity_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::entity_service::ListOperations {
         super::builder::entity_service::ListOperations::new(self.inner.clone())
     }
 
@@ -592,8 +624,7 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::entity_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::entity_service::GetOperation {
         super::builder::entity_service::GetOperation::new(self.inner.clone())
     }
 
@@ -615,8 +646,7 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::entity_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::entity_service::DeleteOperation {
         super::builder::entity_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -638,8 +668,7 @@ impl EntityService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::entity_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::entity_service::CancelOperation {
         super::builder::entity_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -700,7 +729,9 @@ impl InstanceService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instance_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::instance_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::instance_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -708,28 +739,43 @@ impl InstanceService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::InstanceService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::InstanceService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceService> {
         super::transport::InstanceService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::InstanceService> {
-        Self::build_transport(conf).await.map(super::tracing::InstanceService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InstanceService::new)
     }
 
     /// Gets a Instance.
@@ -750,16 +796,14 @@ impl InstanceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance(&self) -> super::builder::instance_service::GetInstance
-    {
+    pub fn get_instance(&self) -> super::builder::instance_service::GetInstance {
         super::builder::instance_service::GetInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::instance_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::instance_service::ListOperations {
         super::builder::instance_service::ListOperations::new(self.inner.clone())
     }
 
@@ -782,8 +826,7 @@ impl InstanceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::instance_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::instance_service::GetOperation {
         super::builder::instance_service::GetOperation::new(self.inner.clone())
     }
 
@@ -805,8 +848,7 @@ impl InstanceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::instance_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::instance_service::DeleteOperation {
         super::builder::instance_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -828,8 +870,7 @@ impl InstanceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::instance_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::instance_service::CancelOperation {
         super::builder::instance_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -890,7 +931,9 @@ impl ReferenceListService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reference_list_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::reference_list_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::reference_list_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -898,28 +941,43 @@ impl ReferenceListService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ReferenceListService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ReferenceListService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReferenceListService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReferenceListService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
         super::transport::ReferenceListService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
-        Self::build_transport(conf).await.map(super::tracing::ReferenceListService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReferenceListService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReferenceListService::new)
     }
 
     /// Gets a single reference list.
@@ -939,14 +997,14 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_reference_list(&self) -> super::builder::reference_list_service::GetReferenceList
-    {
+    pub fn get_reference_list(&self) -> super::builder::reference_list_service::GetReferenceList {
         super::builder::reference_list_service::GetReferenceList::new(self.inner.clone())
     }
 
     /// Lists a collection of reference lists.
-    pub fn list_reference_lists(&self) -> super::builder::reference_list_service::ListReferenceLists
-    {
+    pub fn list_reference_lists(
+        &self,
+    ) -> super::builder::reference_list_service::ListReferenceLists {
         super::builder::reference_list_service::ListReferenceLists::new(self.inner.clone())
     }
 
@@ -967,8 +1025,9 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_reference_list(&self) -> super::builder::reference_list_service::CreateReferenceList
-    {
+    pub fn create_reference_list(
+        &self,
+    ) -> super::builder::reference_list_service::CreateReferenceList {
         super::builder::reference_list_service::CreateReferenceList::new(self.inner.clone())
     }
 
@@ -989,16 +1048,16 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_reference_list(&self) -> super::builder::reference_list_service::UpdateReferenceList
-    {
+    pub fn update_reference_list(
+        &self,
+    ) -> super::builder::reference_list_service::UpdateReferenceList {
         super::builder::reference_list_service::UpdateReferenceList::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::reference_list_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::reference_list_service::ListOperations {
         super::builder::reference_list_service::ListOperations::new(self.inner.clone())
     }
 
@@ -1021,8 +1080,7 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::reference_list_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::reference_list_service::GetOperation {
         super::builder::reference_list_service::GetOperation::new(self.inner.clone())
     }
 
@@ -1044,8 +1102,7 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::reference_list_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::reference_list_service::DeleteOperation {
         super::builder::reference_list_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1067,8 +1124,7 @@ impl ReferenceListService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::reference_list_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::reference_list_service::CancelOperation {
         super::builder::reference_list_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -1137,28 +1193,42 @@ impl RuleService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::RuleService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::RuleService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RuleService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RuleService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RuleService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RuleService> {
         super::transport::RuleService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RuleService> {
-        Self::build_transport(conf).await.map(super::tracing::RuleService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RuleService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RuleService::new)
     }
 
     /// Creates a new Rule.
@@ -1178,8 +1248,7 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_rule(&self) -> super::builder::rule_service::CreateRule
-    {
+    pub fn create_rule(&self) -> super::builder::rule_service::CreateRule {
         super::builder::rule_service::CreateRule::new(self.inner.clone())
     }
 
@@ -1200,14 +1269,12 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_rule(&self) -> super::builder::rule_service::GetRule
-    {
+    pub fn get_rule(&self) -> super::builder::rule_service::GetRule {
         super::builder::rule_service::GetRule::new(self.inner.clone())
     }
 
     /// Lists Rules.
-    pub fn list_rules(&self) -> super::builder::rule_service::ListRules
-    {
+    pub fn list_rules(&self) -> super::builder::rule_service::ListRules {
         super::builder::rule_service::ListRules::new(self.inner.clone())
     }
 
@@ -1228,8 +1295,7 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_rule(&self) -> super::builder::rule_service::UpdateRule
-    {
+    pub fn update_rule(&self) -> super::builder::rule_service::UpdateRule {
         super::builder::rule_service::UpdateRule::new(self.inner.clone())
     }
 
@@ -1249,14 +1315,12 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_rule(&self) -> super::builder::rule_service::DeleteRule
-    {
+    pub fn delete_rule(&self) -> super::builder::rule_service::DeleteRule {
         super::builder::rule_service::DeleteRule::new(self.inner.clone())
     }
 
     /// Lists all revisions of the rule.
-    pub fn list_rule_revisions(&self) -> super::builder::rule_service::ListRuleRevisions
-    {
+    pub fn list_rule_revisions(&self) -> super::builder::rule_service::ListRuleRevisions {
         super::builder::rule_service::ListRuleRevisions::new(self.inner.clone())
     }
 
@@ -1271,8 +1335,7 @@ impl RuleService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_retrohunt(&self) -> super::builder::rule_service::CreateRetrohunt
-    {
+    pub fn create_retrohunt(&self) -> super::builder::rule_service::CreateRetrohunt {
         super::builder::rule_service::CreateRetrohunt::new(self.inner.clone())
     }
 
@@ -1293,14 +1356,12 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_retrohunt(&self) -> super::builder::rule_service::GetRetrohunt
-    {
+    pub fn get_retrohunt(&self) -> super::builder::rule_service::GetRetrohunt {
         super::builder::rule_service::GetRetrohunt::new(self.inner.clone())
     }
 
     /// List Retrohunts.
-    pub fn list_retrohunts(&self) -> super::builder::rule_service::ListRetrohunts
-    {
+    pub fn list_retrohunts(&self) -> super::builder::rule_service::ListRetrohunts {
         super::builder::rule_service::ListRetrohunts::new(self.inner.clone())
     }
 
@@ -1321,14 +1382,12 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_rule_deployment(&self) -> super::builder::rule_service::GetRuleDeployment
-    {
+    pub fn get_rule_deployment(&self) -> super::builder::rule_service::GetRuleDeployment {
         super::builder::rule_service::GetRuleDeployment::new(self.inner.clone())
     }
 
     /// Lists RuleDeployments across all Rules.
-    pub fn list_rule_deployments(&self) -> super::builder::rule_service::ListRuleDeployments
-    {
+    pub fn list_rule_deployments(&self) -> super::builder::rule_service::ListRuleDeployments {
         super::builder::rule_service::ListRuleDeployments::new(self.inner.clone())
     }
 
@@ -1352,16 +1411,14 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_rule_deployment(&self) -> super::builder::rule_service::UpdateRuleDeployment
-    {
+    pub fn update_rule_deployment(&self) -> super::builder::rule_service::UpdateRuleDeployment {
         super::builder::rule_service::UpdateRuleDeployment::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::rule_service::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::rule_service::ListOperations {
         super::builder::rule_service::ListOperations::new(self.inner.clone())
     }
 
@@ -1384,8 +1441,7 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::rule_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::rule_service::GetOperation {
         super::builder::rule_service::GetOperation::new(self.inner.clone())
     }
 
@@ -1407,8 +1463,7 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::rule_service::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::rule_service::DeleteOperation {
         super::builder::rule_service::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1430,8 +1485,7 @@ impl RuleService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::rule_service::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::rule_service::CancelOperation {
         super::builder::rule_service::CancelOperation::new(self.inner.clone())
     }
 }

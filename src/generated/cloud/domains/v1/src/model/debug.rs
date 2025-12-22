@@ -39,7 +39,6 @@ impl std::fmt::Debug for super::Registration {
     }
 }
 
-
 impl std::fmt::Debug for super::ManagementSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagementSettings");

@@ -39,7 +39,10 @@ pub mod cloud_redis_cluster {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudRedisCluster;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod cloud_redis_cluster {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod cloud_redis_cluster {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_clusters(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -179,10 +195,10 @@ pub mod cloud_redis_cluster {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -199,7 +215,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -240,10 +259,10 @@ pub mod cloud_redis_cluster {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -265,15 +284,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::CloudRedisCluster::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
             type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -306,7 +324,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -316,7 +335,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -326,7 +346,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -336,7 +357,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -378,10 +400,10 @@ pub mod cloud_redis_cluster {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -403,15 +425,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::CloudRedisCluster::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Any> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -437,7 +458,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -484,10 +510,10 @@ pub mod cloud_redis_cluster {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -509,15 +535,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::CloudRedisCluster::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
             type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -566,7 +591,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -576,7 +602,8 @@ pub mod cloud_redis_cluster {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Cluster>
+        where
+            T: std::convert::Into<crate::model::Cluster>,
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -614,17 +641,22 @@ pub mod cloud_redis_cluster {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetClusterCertificateAuthority(RequestBuilder<crate::model::GetClusterCertificateAuthorityRequest>);
+    pub struct GetClusterCertificateAuthority(
+        RequestBuilder<crate::model::GetClusterCertificateAuthorityRequest>,
+    );
 
     impl GetClusterCertificateAuthority {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetClusterCertificateAuthorityRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetClusterCertificateAuthorityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -637,7 +669,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CertificateAuthority> {
-            (*self.0.stub).get_cluster_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_cluster_certificate_authority(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterCertificateAuthorityRequest::name].
@@ -675,17 +710,22 @@ pub mod cloud_redis_cluster {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RescheduleClusterMaintenance(RequestBuilder<crate::model::RescheduleClusterMaintenanceRequest>);
+    pub struct RescheduleClusterMaintenance(
+        RequestBuilder<crate::model::RescheduleClusterMaintenanceRequest>,
+    );
 
     impl RescheduleClusterMaintenance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RescheduleClusterMaintenanceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RescheduleClusterMaintenanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -703,15 +743,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reschedule_cluster_maintenance][crate::client::CloudRedisCluster::reschedule_cluster_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).reschedule_cluster_maintenance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reschedule_cluster_maintenance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reschedule_cluster_maintenance`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
             type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -751,14 +790,20 @@ pub mod cloud_redis_cluster {
         /// Sets the value of [reschedule_type][crate::model::RescheduleClusterMaintenanceRequest::reschedule_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reschedule_type<T: Into<crate::model::reschedule_cluster_maintenance_request::RescheduleType>>(mut self, v: T) -> Self {
+        pub fn set_reschedule_type<
+            T: Into<crate::model::reschedule_cluster_maintenance_request::RescheduleType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.reschedule_type = v.into();
             self
         }
 
         /// Sets the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
         pub fn set_schedule_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.schedule_time = std::option::Option::Some(v.into());
             self
@@ -766,7 +811,8 @@ pub mod cloud_redis_cluster {
 
         /// Sets or clears the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.schedule_time = v.map(|x| x.into());
             self
@@ -805,14 +851,17 @@ pub mod cloud_redis_cluster {
     pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
 
     impl ListBackupCollections {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBackupCollectionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBackupCollectionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -825,11 +874,17 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupCollectionsResponse> {
-            (*self.0.stub).list_backup_collections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_backup_collections(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupCollectionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBackupCollectionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -841,7 +896,12 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupCollectionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBackupCollectionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -895,14 +955,17 @@ pub mod cloud_redis_cluster {
     pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
 
     impl GetBackupCollection {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBackupCollectionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBackupCollectionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -915,7 +978,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupCollection> {
-            (*self.0.stub).get_backup_collection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_backup_collection(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupCollectionRequest::name].
@@ -959,10 +1025,10 @@ pub mod cloud_redis_cluster {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -979,11 +1045,17 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
-            (*self.0.stub).list_backups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_backups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -995,7 +1067,10 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1049,10 +1124,10 @@ pub mod cloud_redis_cluster {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1069,7 +1144,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            (*self.0.stub).get_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1110,10 +1188,10 @@ pub mod cloud_redis_cluster {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1135,15 +1213,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_backup][crate::client::CloudRedisCluster::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Any> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1169,7 +1246,12 @@ pub mod cloud_redis_cluster {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1216,10 +1298,10 @@ pub mod cloud_redis_cluster {
     pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
 
     impl ExportBackup {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1241,15 +1323,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_backup][crate::client::CloudRedisCluster::export_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).export_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_backup`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Backup, wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<crate::model::Backup, wkt::Any> {
             type Operation = lro::internal::Operation<crate::model::Backup, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1290,7 +1371,12 @@ pub mod cloud_redis_cluster {
         ///
         /// Note that all the setters affecting `destination` are
         /// mutually exclusive.
-        pub fn set_destination<T: Into<Option<crate::model::export_backup_request::Destination>>>(mut self, v: T) ->Self {
+        pub fn set_destination<
+            T: Into<Option<crate::model::export_backup_request::Destination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.destination = v.into();
             self
         }
@@ -1335,10 +1421,10 @@ pub mod cloud_redis_cluster {
     pub struct BackupCluster(RequestBuilder<crate::model::BackupClusterRequest>);
 
     impl BackupCluster {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1360,15 +1446,14 @@ pub mod cloud_redis_cluster {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [backup_cluster][crate::client::CloudRedisCluster::backup_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).backup_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .backup_cluster(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `backup_cluster`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Cluster, wkt::Any>
-        {
+        pub fn poller(self) -> impl lro::Poller<crate::model::Cluster, wkt::Any> {
             type Operation = lro::internal::Operation<crate::model::Cluster, wkt::Any>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1407,7 +1492,8 @@ pub mod cloud_redis_cluster {
 
         /// Sets the value of [ttl][crate::model::BackupClusterRequest::ttl].
         pub fn set_ttl<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.ttl = std::option::Option::Some(v.into());
             self
@@ -1415,7 +1501,8 @@ pub mod cloud_redis_cluster {
 
         /// Sets or clears the value of [ttl][crate::model::BackupClusterRequest::ttl].
         pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.ttl = v.map(|x| x.into());
             self
@@ -1423,7 +1510,8 @@ pub mod cloud_redis_cluster {
 
         /// Sets the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
         pub fn set_backup_id<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.backup_id = std::option::Option::Some(v.into());
             self
@@ -1431,7 +1519,8 @@ pub mod cloud_redis_cluster {
 
         /// Sets or clears the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
         pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.backup_id = v.map(|x| x.into());
             self
@@ -1470,14 +1559,17 @@ pub mod cloud_redis_cluster {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1490,11 +1582,17 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1506,7 +1604,10 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1564,10 +1665,10 @@ pub mod cloud_redis_cluster {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1584,7 +1685,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1626,14 +1730,17 @@ pub mod cloud_redis_cluster {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1646,11 +1753,17 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1662,7 +1775,12 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1726,14 +1844,17 @@ pub mod cloud_redis_cluster {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1746,7 +1867,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1784,14 +1908,17 @@ pub mod cloud_redis_cluster {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1804,7 +1931,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1842,14 +1972,17 @@ pub mod cloud_redis_cluster {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1862,7 +1995,10 @@ pub mod cloud_redis_cluster {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1878,5 +2014,4 @@ pub mod cloud_redis_cluster {
             &mut self.0.options
         }
     }
-
 }

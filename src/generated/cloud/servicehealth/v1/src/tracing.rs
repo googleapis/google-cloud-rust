@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ServiceHealth](super::stub::ServiceHealth) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ServiceHealth<T>
-where T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ServiceHealth<T>
-where T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ServiceHealth for ServiceHealth<T>
-where T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_events(
         &self,
@@ -102,6 +108,4 @@ where T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
-

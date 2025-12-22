@@ -27,9 +27,15 @@ impl std::fmt::Debug for super::DataExchange {
         debug_struct.field("documentation", &self.documentation);
         debug_struct.field("listing_count", &self.listing_count);
         debug_struct.field("icon", &self.icon);
-        debug_struct.field("sharing_environment_config", &self.sharing_environment_config);
+        debug_struct.field(
+            "sharing_environment_config",
+            &self.sharing_environment_config,
+        );
         debug_struct.field("discovery_type", &self.discovery_type);
-        debug_struct.field("log_linked_dataset_query_user_email", &self.log_linked_dataset_query_user_email);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -187,8 +193,14 @@ impl std::fmt::Debug for super::sharing_environment_config::DefaultExchangeConfi
 impl std::fmt::Debug for super::sharing_environment_config::DcrExchangeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DcrExchangeConfig");
-        debug_struct.field("single_selected_resource_sharing_restriction", &self.single_selected_resource_sharing_restriction);
-        debug_struct.field("single_linked_dataset_per_cleanroom", &self.single_linked_dataset_per_cleanroom);
+        debug_struct.field(
+            "single_selected_resource_sharing_restriction",
+            &self.single_selected_resource_sharing_restriction,
+        );
+        debug_struct.field(
+            "single_linked_dataset_per_cleanroom",
+            &self.single_linked_dataset_per_cleanroom,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -278,8 +290,14 @@ impl std::fmt::Debug for super::Listing {
         debug_struct.field("discovery_type", &self.discovery_type);
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("commercial_info", &self.commercial_info);
-        debug_struct.field("log_linked_dataset_query_user_email", &self.log_linked_dataset_query_user_email);
-        debug_struct.field("allow_only_metadata_sharing", &self.allow_only_metadata_sharing);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
+        debug_struct.field(
+            "allow_only_metadata_sharing",
+            &self.allow_only_metadata_sharing,
+        );
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -318,7 +336,10 @@ impl std::fmt::Debug for super::listing::big_query_dataset_source::RestrictedExp
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestrictedExportPolicy");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("restrict_direct_table_access", &self.restrict_direct_table_access);
+        debug_struct.field(
+            "restrict_direct_table_access",
+            &self.restrict_direct_table_access,
+        );
         debug_struct.field("restrict_query_result", &self.restrict_query_result);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -356,7 +377,10 @@ impl std::fmt::Debug for super::listing::RestrictedExportConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestrictedExportConfig");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("restrict_direct_table_access", &self.restrict_direct_table_access);
+        debug_struct.field(
+            "restrict_direct_table_access",
+            &self.restrict_direct_table_access,
+        );
         debug_struct.field("restrict_query_result", &self.restrict_query_result);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -392,7 +416,10 @@ impl std::fmt::Debug for super::StoredProcedureConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StoredProcedureConfig");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("allowed_stored_procedure_types", &self.allowed_stored_procedure_types);
+        debug_struct.field(
+            "allowed_stored_procedure_types",
+            &self.allowed_stored_procedure_types,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -414,7 +441,10 @@ impl std::fmt::Debug for super::Subscription {
         debug_struct.field("linked_resources", &self.linked_resources);
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("commercial_info", &self.commercial_info);
-        debug_struct.field("log_linked_dataset_query_user_email", &self.log_linked_dataset_query_user_email);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
         debug_struct.field("destination_dataset", &self.destination_dataset);
         debug_struct.field("resource_name", &self.resource_name);
         if !self._unknown_fields.is_empty() {
@@ -457,7 +487,6 @@ impl std::fmt::Debug for super::subscription::commercial_info::GoogleCloudMarket
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListDataExchangesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -741,7 +770,10 @@ impl std::fmt::Debug for super::ListSharedResourceSubscriptionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSharedResourceSubscriptionsRequest");
         debug_struct.field("resource", &self.resource);
-        debug_struct.field("include_deleted_subscriptions", &self.include_deleted_subscriptions);
+        debug_struct.field(
+            "include_deleted_subscriptions",
+            &self.include_deleted_subscriptions,
+        );
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         if !self._unknown_fields.is_empty() {
@@ -754,7 +786,10 @@ impl std::fmt::Debug for super::ListSharedResourceSubscriptionsRequest {
 impl std::fmt::Debug for super::ListSharedResourceSubscriptionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSharedResourceSubscriptionsResponse");
-        debug_struct.field("shared_resource_subscriptions", &self.shared_resource_subscriptions);
+        debug_struct.field(
+            "shared_resource_subscriptions",
+            &self.shared_resource_subscriptions,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -822,7 +857,10 @@ impl std::fmt::Debug for super::PubSubSubscription {
         debug_struct.field("cloud_storage_config", &self.cloud_storage_config);
         debug_struct.field("ack_deadline_seconds", &self.ack_deadline_seconds);
         debug_struct.field("retain_acked_messages", &self.retain_acked_messages);
-        debug_struct.field("message_retention_duration", &self.message_retention_duration);
+        debug_struct.field(
+            "message_retention_duration",
+            &self.message_retention_duration,
+        );
         debug_struct.field("labels", &self.labels);
         debug_struct.field("enable_message_ordering", &self.enable_message_ordering);
         debug_struct.field("expiration_policy", &self.expiration_policy);
@@ -830,7 +868,10 @@ impl std::fmt::Debug for super::PubSubSubscription {
         debug_struct.field("dead_letter_policy", &self.dead_letter_policy);
         debug_struct.field("retry_policy", &self.retry_policy);
         debug_struct.field("detached", &self.detached);
-        debug_struct.field("enable_exactly_once_delivery", &self.enable_exactly_once_delivery);
+        debug_struct.field(
+            "enable_exactly_once_delivery",
+            &self.enable_exactly_once_delivery,
+        );
         debug_struct.field("message_transforms", &self.message_transforms);
         debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
@@ -921,7 +962,6 @@ impl std::fmt::Debug for super::push_config::NoWrapper {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::BigQueryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

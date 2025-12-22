@@ -96,28 +96,42 @@ impl FleetRouting {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::FleetRouting + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::FleetRouting + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FleetRouting>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FleetRouting>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
         super::transport::FleetRouting::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
-        Self::build_transport(conf).await.map(super::tracing::FleetRouting::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::FleetRouting::new)
     }
 
     /// Sends an `OptimizeToursRequest` containing a `ShipmentModel` and returns an
@@ -150,8 +164,7 @@ impl FleetRouting {
     ///     Ok(())
     /// }
     /// ```
-    pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours
-    {
+    pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours {
         super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
     }
 
@@ -175,8 +188,7 @@ impl FleetRouting {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_optimize_tours(&self) -> super::builder::fleet_routing::BatchOptimizeTours
-    {
+    pub fn batch_optimize_tours(&self) -> super::builder::fleet_routing::BatchOptimizeTours {
         super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
     }
 
@@ -199,8 +211,7 @@ impl FleetRouting {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
         super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }
 }

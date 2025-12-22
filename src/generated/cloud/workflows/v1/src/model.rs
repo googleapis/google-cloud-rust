@@ -19,7 +19,6 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::bare_urls)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -32,6 +31,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,7 +43,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workflow {
-
     /// The resource name of the workflow.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}.
     /// This is a workflow-wide field and is not tied to a specific revision.
@@ -91,7 +90,7 @@ pub struct Workflow {
     /// characters, underscores, and dashes. Label keys must start with a letter.
     /// International characters are allowed.
     /// This is a workflow-wide field and is not tied to a specific revision.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The service account associated with the latest workflow version.
     /// This service account represents the identity of the workflow and determines
@@ -135,7 +134,7 @@ pub struct Workflow {
     /// revision. This map has a maximum length of 20. Each string can take up to
     /// 4KiB. Keys cannot be empty strings and cannot start with "GOOGLE" or
     /// "WORKFLOWS".
-    pub user_env_vars: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_env_vars: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Describes the execution history level to apply to this workflow.
     pub execution_history_level: crate::model::ExecutionHistoryLevel,
@@ -156,7 +155,7 @@ pub struct Workflow {
     pub crypto_key_version: std::string::String,
 
     /// Optional. Input only. Immutable. Tags associated with this workflow.
-    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Location of the workflow source code.
     /// Modifying this field for an existing workflow results in a new workflow
@@ -230,7 +229,8 @@ impl Workflow {
     /// let x = Workflow::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -246,7 +246,8 @@ impl Workflow {
     /// let x = Workflow::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -261,7 +262,8 @@ impl Workflow {
     /// let x = Workflow::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -277,7 +279,8 @@ impl Workflow {
     /// let x = Workflow::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -292,7 +295,8 @@ impl Workflow {
     /// let x = Workflow::new().set_revision_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = std::option::Option::Some(v.into());
         self
@@ -308,7 +312,8 @@ impl Workflow {
     /// let x = Workflow::new().set_or_clear_revision_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = v.map(|x| x.into());
         self
@@ -368,7 +373,8 @@ impl Workflow {
     /// let x = Workflow::new().set_state_error(StateError::default()/* use setters */);
     /// ```
     pub fn set_state_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::workflow::StateError>
+    where
+        T: std::convert::Into<crate::model::workflow::StateError>,
     {
         self.state_error = std::option::Option::Some(v.into());
         self
@@ -384,7 +390,8 @@ impl Workflow {
     /// let x = Workflow::new().set_or_clear_state_error(None::<StateError>);
     /// ```
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::workflow::StateError>
+    where
+        T: std::convert::Into<crate::model::workflow::StateError>,
     {
         self.state_error = v.map(|x| x.into());
         self
@@ -400,7 +407,10 @@ impl Workflow {
     /// let x1 = Workflow::new().set_call_log_level(CallLogLevel::LogErrorsOnly);
     /// let x2 = Workflow::new().set_call_log_level(CallLogLevel::LogNone);
     /// ```
-    pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(mut self, v: T) -> Self {
+    pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.call_log_level = v.into();
         self
     }
@@ -435,7 +445,12 @@ impl Workflow {
     /// let x0 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryBasic);
     /// let x1 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryDetailed);
     /// ```
-    pub fn set_execution_history_level<T: std::convert::Into<crate::model::ExecutionHistoryLevel>>(mut self, v: T) -> Self {
+    pub fn set_execution_history_level<
+        T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_history_level = v.into();
         self
     }
@@ -450,7 +465,7 @@ impl Workflow {
     pub fn set_all_kms_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.all_kms_keys = v.into_iter().map(|i| i.into()).collect();
@@ -467,7 +482,7 @@ impl Workflow {
     pub fn set_all_kms_keys_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.all_kms_keys_versions = v.into_iter().map(|i| i.into()).collect();
@@ -481,7 +496,10 @@ impl Workflow {
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_crypto_key_version("example");
     /// ```
-    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.crypto_key_version = v.into();
         self
     }
@@ -518,8 +536,12 @@ impl Workflow {
     /// use google_cloud_workflows_v1::model::workflow::SourceCode;
     /// let x = Workflow::new().set_source_code(Some(SourceCode::SourceContents("example".to_string())));
     /// ```
-    pub fn set_source_code<T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>>(mut self, v: T) -> Self
-    {
+    pub fn set_source_code<
+        T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_code = v.into();
         self
     }
@@ -548,11 +570,8 @@ impl Workflow {
     /// assert!(x.source_contents().is_some());
     /// ```
     pub fn set_source_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_code = std::option::Option::Some(
-            crate::model::workflow::SourceCode::SourceContents(
-                v.into()
-            )
-        );
+        self.source_code =
+            std::option::Option::Some(crate::model::workflow::SourceCode::SourceContents(v.into()));
         self
     }
 }
@@ -568,12 +587,10 @@ pub mod workflow {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Describes an error related to the current state of the workflow.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateError {
-
         /// Provides specifics about the error.
         pub details: std::string::String,
 
@@ -608,7 +625,10 @@ pub mod workflow {
         /// use google_cloud_workflows_v1::model::workflow::state_error::Type;
         /// let x0 = StateError::new().set_type(Type::KmsError);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(mut self, v: T) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = v.into();
             self
         }
@@ -624,7 +644,6 @@ pub mod workflow {
     pub mod state_error {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Describes the possibled types of a state error.
         ///
@@ -697,7 +716,10 @@ pub mod workflow {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -707,7 +729,9 @@ pub mod workflow {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::KmsError,
-                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -718,7 +742,9 @@ pub mod workflow {
                 match value {
                     "TYPE_UNSPECIFIED" => Self::Unspecified,
                     "KMS_ERROR" => Self::KmsError,
-                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -742,7 +768,8 @@ pub mod workflow {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.cloud.workflows.v1.Workflow.StateError.Type"))
+                    ".google.cloud.workflows.v1.Workflow.StateError.Type",
+                ))
             }
         }
     }
@@ -833,7 +860,9 @@ pub mod workflow {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Unavailable,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -845,7 +874,9 @@ pub mod workflow {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "UNAVAILABLE" => Self::Unavailable,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -870,7 +901,8 @@ pub mod workflow {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.workflows.v1.Workflow.State"))
+                ".google.cloud.workflows.v1.Workflow.State",
+            ))
         }
     }
 
@@ -967,7 +999,9 @@ pub mod workflow {
                 1 => Self::LogAllCalls,
                 2 => Self::LogErrorsOnly,
                 3 => Self::LogNone,
-                _ => Self::UnknownValue(call_log_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(call_log_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -980,7 +1014,9 @@ pub mod workflow {
                 "LOG_ALL_CALLS" => Self::LogAllCalls,
                 "LOG_ERRORS_ONLY" => Self::LogErrorsOnly,
                 "LOG_NONE" => Self::LogNone,
-                _ => Self::UnknownValue(call_log_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(call_log_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1006,7 +1042,8 @@ pub mod workflow {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CallLogLevel>::new(
-                ".google.cloud.workflows.v1.Workflow.CallLogLevel"))
+                ".google.cloud.workflows.v1.Workflow.CallLogLevel",
+            ))
         }
     }
 
@@ -1029,7 +1066,6 @@ pub mod workflow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowsRequest {
-
     /// Required. Project and location from which the workflows should be listed.
     /// Format: projects/{project}/locations/{location}
     pub parent: std::string::String,
@@ -1149,7 +1185,6 @@ impl wkt::message::Message for ListWorkflowsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowsResponse {
-
     /// The workflows that match the request.
     pub workflows: std::vec::Vec<crate::model::Workflow>,
 
@@ -1183,7 +1218,7 @@ impl ListWorkflowsResponse {
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workflow>
+        V: std::convert::Into<crate::model::Workflow>,
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
@@ -1212,7 +1247,7 @@ impl ListWorkflowsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1247,7 +1282,6 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowRequest {
-
     /// Required. Name of the workflow for which information should be retrieved.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     pub name: std::string::String,
@@ -1306,7 +1340,6 @@ impl wkt::message::Message for GetWorkflowRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowRequest {
-
     /// Required. Project and location in which the workflow should be created.
     /// Format:  projects/{project}/locations/{location}
     pub parent: std::string::String,
@@ -1353,7 +1386,8 @@ impl CreateWorkflowRequest {
     /// let x = CreateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
     /// ```
     pub fn set_workflow<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Workflow>
+    where
+        T: std::convert::Into<crate::model::Workflow>,
     {
         self.workflow = std::option::Option::Some(v.into());
         self
@@ -1369,7 +1403,8 @@ impl CreateWorkflowRequest {
     /// let x = CreateWorkflowRequest::new().set_or_clear_workflow(None::<Workflow>);
     /// ```
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Workflow>
+    where
+        T: std::convert::Into<crate::model::Workflow>,
     {
         self.workflow = v.map(|x| x.into());
         self
@@ -1402,7 +1437,6 @@ impl wkt::message::Message for CreateWorkflowRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowRequest {
-
     /// Required. Name of the workflow to be deleted.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     pub name: std::string::String,
@@ -1442,7 +1476,6 @@ impl wkt::message::Message for DeleteWorkflowRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowRequest {
-
     /// Required. Workflow to be updated.
     pub workflow: std::option::Option<crate::model::Workflow>,
 
@@ -1467,7 +1500,8 @@ impl UpdateWorkflowRequest {
     /// let x = UpdateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
     /// ```
     pub fn set_workflow<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Workflow>
+    where
+        T: std::convert::Into<crate::model::Workflow>,
     {
         self.workflow = std::option::Option::Some(v.into());
         self
@@ -1483,7 +1517,8 @@ impl UpdateWorkflowRequest {
     /// let x = UpdateWorkflowRequest::new().set_or_clear_workflow(None::<Workflow>);
     /// ```
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Workflow>
+    where
+        T: std::convert::Into<crate::model::Workflow>,
     {
         self.workflow = v.map(|x| x.into());
         self
@@ -1498,7 +1533,8 @@ impl UpdateWorkflowRequest {
     /// let x = UpdateWorkflowRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1514,7 +1550,8 @@ impl UpdateWorkflowRequest {
     /// let x = UpdateWorkflowRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1531,7 +1568,6 @@ impl wkt::message::Message for UpdateWorkflowRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1564,7 +1600,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1580,7 +1617,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1595,7 +1633,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1611,7 +1650,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1668,7 +1708,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowRevisionsRequest {
-
     /// Required. Workflow for which the revisions should be listed.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     pub name: std::string::String,
@@ -1741,7 +1780,6 @@ impl wkt::message::Message for ListWorkflowRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowRevisionsResponse {
-
     /// The revisions of the workflow, ordered in reverse chronological order.
     pub workflows: std::vec::Vec<crate::model::Workflow>,
 
@@ -1772,7 +1810,7 @@ impl ListWorkflowRevisionsResponse {
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workflow>
+        V: std::convert::Into<crate::model::Workflow>,
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
@@ -1873,7 +1911,9 @@ impl ExecutionHistoryLevel {
         match self {
             Self::Unspecified => std::option::Option::Some("EXECUTION_HISTORY_LEVEL_UNSPECIFIED"),
             Self::ExecutionHistoryBasic => std::option::Option::Some("EXECUTION_HISTORY_BASIC"),
-            Self::ExecutionHistoryDetailed => std::option::Option::Some("EXECUTION_HISTORY_DETAILED"),
+            Self::ExecutionHistoryDetailed => {
+                std::option::Option::Some("EXECUTION_HISTORY_DETAILED")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -1898,7 +1938,9 @@ impl std::convert::From<i32> for ExecutionHistoryLevel {
             0 => Self::Unspecified,
             1 => Self::ExecutionHistoryBasic,
             2 => Self::ExecutionHistoryDetailed,
-            _ => Self::UnknownValue(execution_history_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(execution_history_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -1910,7 +1952,9 @@ impl std::convert::From<&str> for ExecutionHistoryLevel {
             "EXECUTION_HISTORY_LEVEL_UNSPECIFIED" => Self::Unspecified,
             "EXECUTION_HISTORY_BASIC" => Self::ExecutionHistoryBasic,
             "EXECUTION_HISTORY_DETAILED" => Self::ExecutionHistoryDetailed,
-            _ => Self::UnknownValue(execution_history_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(execution_history_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -1935,6 +1979,7 @@ impl<'de> serde::de::Deserialize<'de> for ExecutionHistoryLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionHistoryLevel>::new(
-            ".google.cloud.workflows.v1.ExecutionHistoryLevel"))
+            ".google.cloud.workflows.v1.ExecutionHistoryLevel",
+        ))
     }
 }

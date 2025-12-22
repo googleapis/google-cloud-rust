@@ -38,10 +38,19 @@ impl std::fmt::Debug for super::VideoContext {
         let mut debug_struct = f.debug_struct("VideoContext");
         debug_struct.field("segments", &self.segments);
         debug_struct.field("label_detection_config", &self.label_detection_config);
-        debug_struct.field("shot_change_detection_config", &self.shot_change_detection_config);
-        debug_struct.field("explicit_content_detection_config", &self.explicit_content_detection_config);
+        debug_struct.field(
+            "shot_change_detection_config",
+            &self.shot_change_detection_config,
+        );
+        debug_struct.field(
+            "explicit_content_detection_config",
+            &self.explicit_content_detection_config,
+        );
         debug_struct.field("face_detection_config", &self.face_detection_config);
-        debug_struct.field("speech_transcription_config", &self.speech_transcription_config);
+        debug_struct.field(
+            "speech_transcription_config",
+            &self.speech_transcription_config,
+        );
         debug_struct.field("text_detection_config", &self.text_detection_config);
         debug_struct.field("person_detection_config", &self.person_detection_config);
         debug_struct.field("object_tracking_config", &self.object_tracking_config);
@@ -58,8 +67,14 @@ impl std::fmt::Debug for super::LabelDetectionConfig {
         debug_struct.field("label_detection_mode", &self.label_detection_mode);
         debug_struct.field("stationary_camera", &self.stationary_camera);
         debug_struct.field("model", &self.model);
-        debug_struct.field("frame_confidence_threshold", &self.frame_confidence_threshold);
-        debug_struct.field("video_confidence_threshold", &self.video_confidence_threshold);
+        debug_struct.field(
+            "frame_confidence_threshold",
+            &self.frame_confidence_threshold,
+        );
+        debug_struct.field(
+            "video_confidence_threshold",
+            &self.video_confidence_threshold,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -361,19 +376,34 @@ impl std::fmt::Debug for super::VideoAnnotationResults {
         debug_struct.field("input_uri", &self.input_uri);
         debug_struct.field("segment", &self.segment);
         debug_struct.field("segment_label_annotations", &self.segment_label_annotations);
-        debug_struct.field("segment_presence_label_annotations", &self.segment_presence_label_annotations);
+        debug_struct.field(
+            "segment_presence_label_annotations",
+            &self.segment_presence_label_annotations,
+        );
         debug_struct.field("shot_label_annotations", &self.shot_label_annotations);
-        debug_struct.field("shot_presence_label_annotations", &self.shot_presence_label_annotations);
+        debug_struct.field(
+            "shot_presence_label_annotations",
+            &self.shot_presence_label_annotations,
+        );
         debug_struct.field("frame_label_annotations", &self.frame_label_annotations);
         debug_struct.field("face_annotations", &self.face_annotations);
-        debug_struct.field("face_detection_annotations", &self.face_detection_annotations);
+        debug_struct.field(
+            "face_detection_annotations",
+            &self.face_detection_annotations,
+        );
         debug_struct.field("shot_annotations", &self.shot_annotations);
         debug_struct.field("explicit_annotation", &self.explicit_annotation);
         debug_struct.field("speech_transcriptions", &self.speech_transcriptions);
         debug_struct.field("text_annotations", &self.text_annotations);
         debug_struct.field("object_annotations", &self.object_annotations);
-        debug_struct.field("logo_recognition_annotations", &self.logo_recognition_annotations);
-        debug_struct.field("person_detection_annotations", &self.person_detection_annotations);
+        debug_struct.field(
+            "logo_recognition_annotations",
+            &self.logo_recognition_annotations,
+        );
+        debug_struct.field(
+            "person_detection_annotations",
+            &self.person_detection_annotations,
+        );
         debug_struct.field("error", &self.error);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -427,9 +457,15 @@ impl std::fmt::Debug for super::SpeechTranscriptionConfig {
         debug_struct.field("max_alternatives", &self.max_alternatives);
         debug_struct.field("filter_profanity", &self.filter_profanity);
         debug_struct.field("speech_contexts", &self.speech_contexts);
-        debug_struct.field("enable_automatic_punctuation", &self.enable_automatic_punctuation);
+        debug_struct.field(
+            "enable_automatic_punctuation",
+            &self.enable_automatic_punctuation,
+        );
         debug_struct.field("audio_tracks", &self.audio_tracks);
-        debug_struct.field("enable_speaker_diarization", &self.enable_speaker_diarization);
+        debug_struct.field(
+            "enable_speaker_diarization",
+            &self.enable_speaker_diarization,
+        );
         debug_struct.field("diarization_speaker_count", &self.diarization_speaker_count);
         debug_struct.field("enable_word_confidence", &self.enable_word_confidence);
         if !self._unknown_fields.is_empty() {

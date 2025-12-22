@@ -36,10 +36,16 @@ impl std::fmt::Debug for super::CalculateStatsResponse {
         debug_struct.field("average_turn_count", &self.average_turn_count);
         debug_struct.field("conversation_count", &self.conversation_count);
         debug_struct.field("smart_highlighter_matches", &self.smart_highlighter_matches);
-        debug_struct.field("custom_highlighter_matches", &self.custom_highlighter_matches);
+        debug_struct.field(
+            "custom_highlighter_matches",
+            &self.custom_highlighter_matches,
+        );
         debug_struct.field("issue_matches", &self.issue_matches);
         debug_struct.field("issue_matches_stats", &self.issue_matches_stats);
-        debug_struct.field("conversation_count_time_series", &self.conversation_count_time_series);
+        debug_struct.field(
+            "conversation_count_time_series",
+            &self.conversation_count_time_series,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -70,10 +76,6 @@ impl std::fmt::Debug for super::calculate_stats_response::time_series::Interval 
         debug_struct.finish()
     }
 }
-
-
-
-
 
 impl std::fmt::Debug for super::CreateAnalysisOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -258,7 +260,10 @@ impl std::fmt::Debug for super::IngestConversationsMetadata {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("request", &self.request);
         debug_struct.field("partial_errors", &self.partial_errors);
-        debug_struct.field("ingest_conversations_stats", &self.ingest_conversations_stats);
+        debug_struct.field(
+            "ingest_conversations_stats",
+            &self.ingest_conversations_stats,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -372,7 +377,10 @@ impl std::fmt::Debug for super::BulkAnalyzeConversationsMetadata {
         debug_struct.field("request", &self.request);
         debug_struct.field("completed_analyses_count", &self.completed_analyses_count);
         debug_struct.field("failed_analyses_count", &self.failed_analyses_count);
-        debug_struct.field("total_requested_analyses_count", &self.total_requested_analyses_count);
+        debug_struct.field(
+            "total_requested_analyses_count",
+            &self.total_requested_analyses_count,
+        );
         debug_struct.field("partial_errors", &self.partial_errors);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1222,15 +1230,33 @@ impl std::fmt::Debug for super::query_metrics_response::slice::data_point::Conve
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationMeasure");
         debug_struct.field("conversation_count", &self.conversation_count);
-        debug_struct.field("average_silence_percentage", &self.average_silence_percentage);
+        debug_struct.field(
+            "average_silence_percentage",
+            &self.average_silence_percentage,
+        );
         debug_struct.field("average_duration", &self.average_duration);
         debug_struct.field("average_turn_count", &self.average_turn_count);
-        debug_struct.field("average_agent_sentiment_score", &self.average_agent_sentiment_score);
-        debug_struct.field("average_client_sentiment_score", &self.average_client_sentiment_score);
-        debug_struct.field("average_customer_satisfaction_rating", &self.average_customer_satisfaction_rating);
-        debug_struct.field("average_qa_normalized_score", &self.average_qa_normalized_score);
+        debug_struct.field(
+            "average_agent_sentiment_score",
+            &self.average_agent_sentiment_score,
+        );
+        debug_struct.field(
+            "average_client_sentiment_score",
+            &self.average_client_sentiment_score,
+        );
+        debug_struct.field(
+            "average_customer_satisfaction_rating",
+            &self.average_customer_satisfaction_rating,
+        );
+        debug_struct.field(
+            "average_qa_normalized_score",
+            &self.average_qa_normalized_score,
+        );
         debug_struct.field("qa_tag_scores", &self.qa_tag_scores);
-        debug_struct.field("average_qa_question_normalized_score", &self.average_qa_question_normalized_score);
+        debug_struct.field(
+            "average_qa_question_normalized_score",
+            &self.average_qa_question_normalized_score,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1238,11 +1264,16 @@ impl std::fmt::Debug for super::query_metrics_response::slice::data_point::Conve
     }
 }
 
-impl std::fmt::Debug for super::query_metrics_response::slice::data_point::conversation_measure::QaTagScore {
+impl std::fmt::Debug
+    for super::query_metrics_response::slice::data_point::conversation_measure::QaTagScore
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QaTagScore");
         debug_struct.field("tag", &self.tag);
-        debug_struct.field("average_tag_normalized_score", &self.average_tag_normalized_score);
+        debug_struct.field(
+            "average_tag_normalized_score",
+            &self.average_tag_normalized_score,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1444,8 +1475,14 @@ impl std::fmt::Debug for super::TuneQaScorecardRevisionMetadata {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("request", &self.request);
-        debug_struct.field("qa_question_dataset_validation_results", &self.qa_question_dataset_validation_results);
-        debug_struct.field("qa_question_dataset_tuning_metrics", &self.qa_question_dataset_tuning_metrics);
+        debug_struct.field(
+            "qa_question_dataset_validation_results",
+            &self.qa_question_dataset_validation_results,
+        );
+        debug_struct.field(
+            "qa_question_dataset_tuning_metrics",
+            &self.qa_question_dataset_tuning_metrics,
+        );
         debug_struct.field("tuning_completion_ratio", &self.tuning_completion_ratio);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1454,12 +1491,20 @@ impl std::fmt::Debug for super::TuneQaScorecardRevisionMetadata {
     }
 }
 
-impl std::fmt::Debug for super::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult {
+impl std::fmt::Debug
+    for super::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QaQuestionDatasetValidationResult");
         debug_struct.field("question", &self.question);
-        debug_struct.field("dataset_validation_warnings", &self.dataset_validation_warnings);
-        debug_struct.field("valid_feedback_labels_count", &self.valid_feedback_labels_count);
+        debug_struct.field(
+            "dataset_validation_warnings",
+            &self.dataset_validation_warnings,
+        );
+        debug_struct.field(
+            "valid_feedback_labels_count",
+            &self.valid_feedback_labels_count,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1467,7 +1512,9 @@ impl std::fmt::Debug for super::tune_qa_scorecard_revision_metadata::QaQuestionD
     }
 }
 
-impl std::fmt::Debug for super::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics {
+impl std::fmt::Debug
+    for super::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QaQuestionDatasetTuningMetrics");
         debug_struct.field("question", &self.question);
@@ -1479,7 +1526,9 @@ impl std::fmt::Debug for super::tune_qa_scorecard_revision_metadata::QaQuestionD
     }
 }
 
-impl std::fmt::Debug for super::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics {
+impl std::fmt::Debug
+    for super::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metrics");
         debug_struct.field("accuracy", &self.accuracy);
@@ -1854,7 +1903,10 @@ impl std::fmt::Debug for super::conversation::CallMetadata {
 impl std::fmt::Debug for super::conversation::QualityMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QualityMetadata");
-        debug_struct.field("customer_satisfaction_rating", &self.customer_satisfaction_rating);
+        debug_struct.field(
+            "customer_satisfaction_rating",
+            &self.customer_satisfaction_rating,
+        );
         debug_struct.field("wait_duration", &self.wait_duration);
         debug_struct.field("menu_path", &self.menu_path);
         debug_struct.field("agent_info", &self.agent_info);
@@ -1901,7 +1953,10 @@ impl std::fmt::Debug for super::conversation::transcript::TranscriptSegment {
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("channel_tag", &self.channel_tag);
         debug_struct.field("segment_participant", &self.segment_participant);
-        debug_struct.field("dialogflow_segment_metadata", &self.dialogflow_segment_metadata);
+        debug_struct.field(
+            "dialogflow_segment_metadata",
+            &self.dialogflow_segment_metadata,
+        );
         debug_struct.field("sentiment", &self.sentiment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1924,18 +1979,21 @@ impl std::fmt::Debug for super::conversation::transcript::transcript_segment::Wo
     }
 }
 
-impl std::fmt::Debug for super::conversation::transcript::transcript_segment::DialogflowSegmentMetadata {
+impl std::fmt::Debug
+    for super::conversation::transcript::transcript_segment::DialogflowSegmentMetadata
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DialogflowSegmentMetadata");
-        debug_struct.field("smart_reply_allowlist_covered", &self.smart_reply_allowlist_covered);
+        debug_struct.field(
+            "smart_reply_allowlist_covered",
+            &self.smart_reply_allowlist_covered,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::Analysis {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2122,7 +2180,6 @@ impl std::fmt::Debug for super::Entity {
     }
 }
 
-
 impl std::fmt::Debug for super::Intent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Intent");
@@ -2259,7 +2316,10 @@ impl std::fmt::Debug for super::issue_model::InputDataConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputDataConfig");
         debug_struct.field("medium", &self.medium);
-        debug_struct.field("training_conversations_count", &self.training_conversations_count);
+        debug_struct.field(
+            "training_conversations_count",
+            &self.training_conversations_count,
+        );
         debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2287,8 +2347,14 @@ impl std::fmt::Debug for super::Issue {
 impl std::fmt::Debug for super::IssueModelLabelStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IssueModelLabelStats");
-        debug_struct.field("analyzed_conversations_count", &self.analyzed_conversations_count);
-        debug_struct.field("unclassified_conversations_count", &self.unclassified_conversations_count);
+        debug_struct.field(
+            "analyzed_conversations_count",
+            &self.analyzed_conversations_count,
+        );
+        debug_struct.field(
+            "unclassified_conversations_count",
+            &self.unclassified_conversations_count,
+        );
         debug_struct.field("issue_stats", &self.issue_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2301,7 +2367,10 @@ impl std::fmt::Debug for super::issue_model_label_stats::IssueStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IssueStats");
         debug_struct.field("issue", &self.issue);
-        debug_struct.field("labeled_conversations_count", &self.labeled_conversations_count);
+        debug_struct.field(
+            "labeled_conversations_count",
+            &self.labeled_conversations_count,
+        );
         debug_struct.field("display_name", &self.display_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2309,7 +2378,6 @@ impl std::fmt::Debug for super::issue_model_label_stats::IssueStats {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::PhraseMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2387,7 +2455,10 @@ impl std::fmt::Debug for super::Settings {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("conversation_ttl", &self.conversation_ttl);
-        debug_struct.field("pubsub_notification_settings", &self.pubsub_notification_settings);
+        debug_struct.field(
+            "pubsub_notification_settings",
+            &self.pubsub_notification_settings,
+        );
         debug_struct.field("analysis_config", &self.analysis_config);
         debug_struct.field("redaction_config", &self.redaction_config);
         debug_struct.field("speech_config", &self.speech_config);
@@ -2401,8 +2472,14 @@ impl std::fmt::Debug for super::Settings {
 impl std::fmt::Debug for super::settings::AnalysisConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalysisConfig");
-        debug_struct.field("runtime_integration_analysis_percentage", &self.runtime_integration_analysis_percentage);
-        debug_struct.field("upload_conversation_analysis_percentage", &self.upload_conversation_analysis_percentage);
+        debug_struct.field(
+            "runtime_integration_analysis_percentage",
+            &self.runtime_integration_analysis_percentage,
+        );
+        debug_struct.field(
+            "upload_conversation_analysis_percentage",
+            &self.upload_conversation_analysis_percentage,
+        );
         debug_struct.field("annotator_selector", &self.annotator_selector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2410,7 +2487,6 @@ impl std::fmt::Debug for super::settings::AnalysisConfig {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::AnalysisRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2600,7 +2676,10 @@ impl std::fmt::Debug for super::ConversationParticipant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationParticipant");
         debug_struct.field("dialogflow_participant", &self.dialogflow_participant);
-        debug_struct.field("obfuscated_external_user_id", &self.obfuscated_external_user_id);
+        debug_struct.field(
+            "obfuscated_external_user_id",
+            &self.obfuscated_external_user_id,
+        );
         debug_struct.field("role", &self.role);
         debug_struct.field("participant", &self.participant);
         if !self._unknown_fields.is_empty() {
@@ -2628,16 +2707,25 @@ impl std::fmt::Debug for super::View {
 impl std::fmt::Debug for super::AnnotatorSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatorSelector");
-        debug_struct.field("run_interruption_annotator", &self.run_interruption_annotator);
+        debug_struct.field(
+            "run_interruption_annotator",
+            &self.run_interruption_annotator,
+        );
         debug_struct.field("run_silence_annotator", &self.run_silence_annotator);
-        debug_struct.field("run_phrase_matcher_annotator", &self.run_phrase_matcher_annotator);
+        debug_struct.field(
+            "run_phrase_matcher_annotator",
+            &self.run_phrase_matcher_annotator,
+        );
         debug_struct.field("phrase_matchers", &self.phrase_matchers);
         debug_struct.field("run_sentiment_annotator", &self.run_sentiment_annotator);
         debug_struct.field("run_entity_annotator", &self.run_entity_annotator);
         debug_struct.field("run_intent_annotator", &self.run_intent_annotator);
         debug_struct.field("run_issue_model_annotator", &self.run_issue_model_annotator);
         debug_struct.field("issue_models", &self.issue_models);
-        debug_struct.field("run_summarization_annotator", &self.run_summarization_annotator);
+        debug_struct.field(
+            "run_summarization_annotator",
+            &self.run_summarization_annotator,
+        );
         debug_struct.field("summarization_config", &self.summarization_config);
         debug_struct.field("run_qa_annotator", &self.run_qa_annotator);
         debug_struct.field("qa_config", &self.qa_config);
@@ -2730,7 +2818,10 @@ impl std::fmt::Debug for super::qa_question::TuningMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TuningMetadata");
         debug_struct.field("total_valid_label_count", &self.total_valid_label_count);
-        debug_struct.field("dataset_validation_warnings", &self.dataset_validation_warnings);
+        debug_struct.field(
+            "dataset_validation_warnings",
+            &self.dataset_validation_warnings,
+        );
         debug_struct.field("tuning_error", &self.tuning_error);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

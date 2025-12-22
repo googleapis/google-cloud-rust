@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Grafeas](super::stub::Grafeas) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Grafeas<T>
-where T: super::stub::Grafeas + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Grafeas + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Grafeas<T>
-where T: super::stub::Grafeas + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Grafeas + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Grafeas for Grafeas<T>
-where T: super::stub::Grafeas + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Grafeas + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_occurrence(
         &self,
@@ -156,6 +162,4 @@ where T: super::stub::Grafeas + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
         self.inner.list_note_occurrences(req, options).await
     }
-
 }
-

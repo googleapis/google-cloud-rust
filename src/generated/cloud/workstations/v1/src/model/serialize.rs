@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::WorkstationCluster {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -90,9 +90,9 @@ impl serde::ser::Serialize for super::workstation_cluster::PrivateClusterConfig 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_private_endpoint) {
             state.serialize_entry("enablePrivateEndpoint", &self.enable_private_endpoint)?;
@@ -115,17 +115,15 @@ impl serde::ser::Serialize for super::workstation_cluster::PrivateClusterConfig 
     }
 }
 
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::WorkstationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -202,9 +200,9 @@ impl serde::ser::Serialize for super::workstation_config::Host {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.gce_instance() {
             state.serialize_entry("gceInstance", value)?;
@@ -224,9 +222,9 @@ impl serde::ser::Serialize for super::workstation_config::host::GceInstance {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.machine_type.is_empty() {
             state.serialize_entry("machineType", &self.machine_type)?;
@@ -265,16 +263,25 @@ impl serde::ser::Serialize for super::workstation_config::host::GceInstance {
             state.serialize_entry("pooledInstances", &__With(&self.pooled_instances))?;
         }
         if !wkt::internal::is_default(&self.disable_public_ip_addresses) {
-            state.serialize_entry("disablePublicIpAddresses", &self.disable_public_ip_addresses)?;
+            state.serialize_entry(
+                "disablePublicIpAddresses",
+                &self.disable_public_ip_addresses,
+            )?;
         }
         if !wkt::internal::is_default(&self.enable_nested_virtualization) {
-            state.serialize_entry("enableNestedVirtualization", &self.enable_nested_virtualization)?;
+            state.serialize_entry(
+                "enableNestedVirtualization",
+                &self.enable_nested_virtualization,
+            )?;
         }
         if self.shielded_instance_config.is_some() {
             state.serialize_entry("shieldedInstanceConfig", &self.shielded_instance_config)?;
         }
         if self.confidential_instance_config.is_some() {
-            state.serialize_entry("confidentialInstanceConfig", &self.confidential_instance_config)?;
+            state.serialize_entry(
+                "confidentialInstanceConfig",
+                &self.confidential_instance_config,
+            )?;
         }
         if !wkt::internal::is_default(&self.boot_disk_size_gb) {
             struct __With<'a>(&'a i32);
@@ -298,14 +305,16 @@ impl serde::ser::Serialize for super::workstation_config::host::GceInstance {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::workstation_config::host::gce_instance::GceShieldedInstanceConfig {
+impl serde::ser::Serialize
+    for super::workstation_config::host::gce_instance::GceShieldedInstanceConfig
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_secure_boot) {
             state.serialize_entry("enableSecureBoot", &self.enable_secure_boot)?;
@@ -314,7 +323,10 @@ impl serde::ser::Serialize for super::workstation_config::host::gce_instance::Gc
             state.serialize_entry("enableVtpm", &self.enable_vtpm)?;
         }
         if !wkt::internal::is_default(&self.enable_integrity_monitoring) {
-            state.serialize_entry("enableIntegrityMonitoring", &self.enable_integrity_monitoring)?;
+            state.serialize_entry(
+                "enableIntegrityMonitoring",
+                &self.enable_integrity_monitoring,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -326,17 +338,22 @@ impl serde::ser::Serialize for super::workstation_config::host::gce_instance::Gc
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::workstation_config::host::gce_instance::GceConfidentialInstanceConfig {
+impl serde::ser::Serialize
+    for super::workstation_config::host::gce_instance::GceConfidentialInstanceConfig
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_confidential_compute) {
-            state.serialize_entry("enableConfidentialCompute", &self.enable_confidential_compute)?;
+            state.serialize_entry(
+                "enableConfidentialCompute",
+                &self.enable_confidential_compute,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -353,9 +370,9 @@ impl serde::ser::Serialize for super::workstation_config::PersistentDirectory {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.gce_pd() {
             state.serialize_entry("gcePd", value)?;
@@ -373,14 +390,16 @@ impl serde::ser::Serialize for super::workstation_config::PersistentDirectory {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::workstation_config::persistent_directory::GceRegionalPersistentDisk {
+impl serde::ser::Serialize
+    for super::workstation_config::persistent_directory::GceRegionalPersistentDisk
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.size_gb) {
             struct __With<'a>(&'a i32);
@@ -421,9 +440,9 @@ impl serde::ser::Serialize for super::workstation_config::Container {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.image.is_empty() {
             state.serialize_entry("image", &self.image)?;
@@ -467,9 +486,9 @@ impl serde::ser::Serialize for super::workstation_config::CustomerEncryptionKey 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.kms_key.is_empty() {
             state.serialize_entry("kmsKey", &self.kms_key)?;
@@ -492,9 +511,9 @@ impl serde::ser::Serialize for super::workstation_config::ReadinessCheck {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.path.is_empty() {
             state.serialize_entry("path", &self.path)?;
@@ -520,17 +539,15 @@ impl serde::ser::Serialize for super::workstation_config::ReadinessCheck {
     }
 }
 
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Workstation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -580,17 +597,15 @@ impl serde::ser::Serialize for super::Workstation {
     }
 }
 
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GetWorkstationClusterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -610,9 +625,9 @@ impl serde::ser::Serialize for super::ListWorkstationClustersRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -647,9 +662,9 @@ impl serde::ser::Serialize for super::ListWorkstationClustersResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workstation_clusters.is_empty() {
             state.serialize_entry("workstationClusters", &self.workstation_clusters)?;
@@ -675,9 +690,9 @@ impl serde::ser::Serialize for super::CreateWorkstationClusterRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -706,9 +721,9 @@ impl serde::ser::Serialize for super::UpdateWorkstationClusterRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.workstation_cluster.is_some() {
             state.serialize_entry("workstationCluster", &self.workstation_cluster)?;
@@ -737,9 +752,9 @@ impl serde::ser::Serialize for super::DeleteWorkstationClusterRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -768,9 +783,9 @@ impl serde::ser::Serialize for super::GetWorkstationConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -790,9 +805,9 @@ impl serde::ser::Serialize for super::ListWorkstationConfigsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -827,9 +842,9 @@ impl serde::ser::Serialize for super::ListWorkstationConfigsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workstation_configs.is_empty() {
             state.serialize_entry("workstationConfigs", &self.workstation_configs)?;
@@ -855,9 +870,9 @@ impl serde::ser::Serialize for super::ListUsableWorkstationConfigsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -892,9 +907,9 @@ impl serde::ser::Serialize for super::ListUsableWorkstationConfigsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workstation_configs.is_empty() {
             state.serialize_entry("workstationConfigs", &self.workstation_configs)?;
@@ -920,9 +935,9 @@ impl serde::ser::Serialize for super::CreateWorkstationConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -951,9 +966,9 @@ impl serde::ser::Serialize for super::UpdateWorkstationConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.workstation_config.is_some() {
             state.serialize_entry("workstationConfig", &self.workstation_config)?;
@@ -982,9 +997,9 @@ impl serde::ser::Serialize for super::DeleteWorkstationConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1013,9 +1028,9 @@ impl serde::ser::Serialize for super::GetWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1035,9 +1050,9 @@ impl serde::ser::Serialize for super::ListWorkstationsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1072,9 +1087,9 @@ impl serde::ser::Serialize for super::ListWorkstationsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workstations.is_empty() {
             state.serialize_entry("workstations", &self.workstations)?;
@@ -1100,9 +1115,9 @@ impl serde::ser::Serialize for super::ListUsableWorkstationsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1137,9 +1152,9 @@ impl serde::ser::Serialize for super::ListUsableWorkstationsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workstations.is_empty() {
             state.serialize_entry("workstations", &self.workstations)?;
@@ -1165,9 +1180,9 @@ impl serde::ser::Serialize for super::CreateWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1196,9 +1211,9 @@ impl serde::ser::Serialize for super::UpdateWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.workstation.is_some() {
             state.serialize_entry("workstation", &self.workstation)?;
@@ -1227,9 +1242,9 @@ impl serde::ser::Serialize for super::DeleteWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1255,9 +1270,9 @@ impl serde::ser::Serialize for super::StartWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1283,9 +1298,9 @@ impl serde::ser::Serialize for super::StopWorkstationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1311,9 +1326,9 @@ impl serde::ser::Serialize for super::GenerateAccessTokenRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.expire_time() {
             state.serialize_entry("expireTime", value)?;
@@ -1339,9 +1354,9 @@ impl serde::ser::Serialize for super::GenerateAccessTokenResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.access_token.is_empty() {
             state.serialize_entry("accessToken", &self.access_token)?;
@@ -1364,9 +1379,9 @@ impl serde::ser::Serialize for super::OperationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;

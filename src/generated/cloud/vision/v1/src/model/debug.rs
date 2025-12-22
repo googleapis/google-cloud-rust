@@ -309,7 +309,10 @@ impl std::fmt::Debug for super::WebDetectionParams {
 impl std::fmt::Debug for super::TextDetectionParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextDetectionParams");
-        debug_struct.field("enable_text_detection_confidence_score", &self.enable_text_detection_confidence_score);
+        debug_struct.field(
+            "enable_text_detection_confidence_score",
+            &self.enable_text_detection_confidence_score,
+        );
         debug_struct.field("advanced_ocr_options", &self.advanced_ocr_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -366,11 +369,17 @@ impl std::fmt::Debug for super::AnnotateImageResponse {
         debug_struct.field("landmark_annotations", &self.landmark_annotations);
         debug_struct.field("logo_annotations", &self.logo_annotations);
         debug_struct.field("label_annotations", &self.label_annotations);
-        debug_struct.field("localized_object_annotations", &self.localized_object_annotations);
+        debug_struct.field(
+            "localized_object_annotations",
+            &self.localized_object_annotations,
+        );
         debug_struct.field("text_annotations", &self.text_annotations);
         debug_struct.field("full_text_annotation", &self.full_text_annotation);
         debug_struct.field("safe_search_annotation", &self.safe_search_annotation);
-        debug_struct.field("image_properties_annotation", &self.image_properties_annotation);
+        debug_struct.field(
+            "image_properties_annotation",
+            &self.image_properties_annotation,
+        );
         debug_struct.field("crop_hints_annotation", &self.crop_hints_annotation);
         debug_struct.field("web_detection", &self.web_detection);
         debug_struct.field("product_search_results", &self.product_search_results);
@@ -1177,7 +1186,10 @@ impl std::fmt::Debug for super::WebDetection {
         debug_struct.field("web_entities", &self.web_entities);
         debug_struct.field("full_matching_images", &self.full_matching_images);
         debug_struct.field("partial_matching_images", &self.partial_matching_images);
-        debug_struct.field("pages_with_matching_images", &self.pages_with_matching_images);
+        debug_struct.field(
+            "pages_with_matching_images",
+            &self.pages_with_matching_images,
+        );
         debug_struct.field("visually_similar_images", &self.visually_similar_images);
         debug_struct.field("best_guess_labels", &self.best_guess_labels);
         if !self._unknown_fields.is_empty() {

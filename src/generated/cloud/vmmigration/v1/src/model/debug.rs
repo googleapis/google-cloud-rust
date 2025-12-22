@@ -65,8 +65,14 @@ impl std::fmt::Debug for super::ReplicatingStep {
         let mut debug_struct = f.debug_struct("ReplicatingStep");
         debug_struct.field("total_bytes", &self.total_bytes);
         debug_struct.field("replicated_bytes", &self.replicated_bytes);
-        debug_struct.field("last_two_minutes_average_bytes_per_second", &self.last_two_minutes_average_bytes_per_second);
-        debug_struct.field("last_thirty_minutes_average_bytes_per_second", &self.last_thirty_minutes_average_bytes_per_second);
+        debug_struct.field(
+            "last_two_minutes_average_bytes_per_second",
+            &self.last_two_minutes_average_bytes_per_second,
+        );
+        debug_struct.field(
+            "last_thirty_minutes_average_bytes_per_second",
+            &self.last_thirty_minutes_average_bytes_per_second,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -139,11 +145,13 @@ impl std::fmt::Debug for super::migrating_vm::Expiration {
     }
 }
 
-
 impl std::fmt::Debug for super::CutoverForecast {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CutoverForecast");
-        debug_struct.field("estimated_cutover_job_duration", &self.estimated_cutover_job_duration);
+        debug_struct.field(
+            "estimated_cutover_job_duration",
+            &self.estimated_cutover_job_duration,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -346,7 +354,6 @@ impl std::fmt::Debug for super::Source {
     }
 }
 
-
 impl std::fmt::Debug for super::Encryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Encryption");
@@ -380,8 +387,14 @@ impl std::fmt::Debug for super::AwsSourceDetails {
         debug_struct.field("state", &self.state);
         debug_struct.field("error", &self.error);
         debug_struct.field("inventory_tag_list", &self.inventory_tag_list);
-        debug_struct.field("inventory_security_group_names", &self.inventory_security_group_names);
-        debug_struct.field("migration_resources_user_tags", &self.migration_resources_user_tags);
+        debug_struct.field(
+            "inventory_security_group_names",
+            &self.inventory_security_group_names,
+        );
+        debug_struct.field(
+            "migration_resources_user_tags",
+            &self.migration_resources_user_tags,
+        );
         debug_struct.field("public_ip", &self.public_ip);
         debug_struct.field("credentials_type", &self.credentials_type);
         if !self._unknown_fields.is_empty() {
@@ -416,7 +429,6 @@ impl std::fmt::Debug for super::aws_source_details::Tag {
     }
 }
 
-
 impl std::fmt::Debug for super::AzureSourceDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureSourceDetails");
@@ -424,7 +436,10 @@ impl std::fmt::Debug for super::AzureSourceDetails {
         debug_struct.field("azure_location", &self.azure_location);
         debug_struct.field("state", &self.state);
         debug_struct.field("error", &self.error);
-        debug_struct.field("migration_resources_user_tags", &self.migration_resources_user_tags);
+        debug_struct.field(
+            "migration_resources_user_tags",
+            &self.migration_resources_user_tags,
+        );
         debug_struct.field("resource_group_id", &self.resource_group_id);
         debug_struct.field("credentials_type", &self.credentials_type);
         if !self._unknown_fields.is_empty() {
@@ -447,7 +462,6 @@ impl std::fmt::Debug for super::azure_source_details::ClientSecretCredentials {
     }
 }
 
-
 impl std::fmt::Debug for super::DatacenterConnector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DatacenterConnector");
@@ -461,8 +475,14 @@ impl std::fmt::Debug for super::DatacenterConnector {
         debug_struct.field("state", &self.state);
         debug_struct.field("state_time", &self.state_time);
         debug_struct.field("error", &self.error);
-        debug_struct.field("appliance_infrastructure_version", &self.appliance_infrastructure_version);
-        debug_struct.field("appliance_software_version", &self.appliance_software_version);
+        debug_struct.field(
+            "appliance_infrastructure_version",
+            &self.appliance_infrastructure_version,
+        );
+        debug_struct.field(
+            "appliance_software_version",
+            &self.appliance_software_version,
+        );
         debug_struct.field("available_versions", &self.available_versions);
         debug_struct.field("upgrade_status", &self.upgrade_status);
         if !self._unknown_fields.is_empty() {
@@ -655,7 +675,6 @@ impl std::fmt::Debug for super::AwsVmDetails {
     }
 }
 
-
 impl std::fmt::Debug for super::AwsSecurityGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsSecurityGroup");
@@ -731,7 +750,6 @@ impl std::fmt::Debug for super::azure_vm_details::OSDescription {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::VmwareVmsDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -859,8 +877,14 @@ impl std::fmt::Debug for super::VmUtilizationMetrics {
         debug_struct.field("memory_average_percent", &self.memory_average_percent);
         debug_struct.field("disk_io_rate_max_kbps", &self.disk_io_rate_max_kbps);
         debug_struct.field("disk_io_rate_average_kbps", &self.disk_io_rate_average_kbps);
-        debug_struct.field("network_throughput_max_kbps", &self.network_throughput_max_kbps);
-        debug_struct.field("network_throughput_average_kbps", &self.network_throughput_average_kbps);
+        debug_struct.field(
+            "network_throughput_max_kbps",
+            &self.network_throughput_max_kbps,
+        );
+        debug_struct.field(
+            "network_throughput_average_kbps",
+            &self.network_throughput_average_kbps,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1040,7 +1064,10 @@ impl std::fmt::Debug for super::ComputeEngineTargetDefaults {
         debug_struct.field("compute_scheduling", &self.compute_scheduling);
         debug_struct.field("secure_boot", &self.secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         debug_struct.field("boot_option", &self.boot_option);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("additional_licenses", &self.additional_licenses);
@@ -1087,7 +1114,10 @@ impl std::fmt::Debug for super::ComputeEngineTargetDetails {
         debug_struct.field("compute_scheduling", &self.compute_scheduling);
         debug_struct.field("secure_boot", &self.secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         debug_struct.field("boot_option", &self.boot_option);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("additional_licenses", &self.additional_licenses);
@@ -1221,7 +1251,10 @@ impl std::fmt::Debug for super::DisksMigrationVmTargetDefaults {
         debug_struct.field("compute_scheduling", &self.compute_scheduling);
         debug_struct.field("secure_boot", &self.secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("additional_licenses", &self.additional_licenses);
         debug_struct.field("hostname", &self.hostname);
@@ -1981,7 +2014,10 @@ impl std::fmt::Debug for super::VmCapabilities {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmCapabilities");
         debug_struct.field("os_capabilities", &self.os_capabilities);
-        debug_struct.field("last_os_capabilities_update_time", &self.last_os_capabilities_update_time);
+        debug_struct.field(
+            "last_os_capabilities_update_time",
+            &self.last_os_capabilities_update_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2087,7 +2123,6 @@ impl std::fmt::Debug for super::DiskImageTargetDetails {
     }
 }
 
-
 impl std::fmt::Debug for super::MachineImageTargetDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineImageTargetDetails");
@@ -2096,7 +2131,10 @@ impl std::fmt::Debug for super::MachineImageTargetDetails {
         debug_struct.field("description", &self.description);
         debug_struct.field("single_region_storage", &self.single_region_storage);
         debug_struct.field("encryption", &self.encryption);
-        debug_struct.field("machine_image_parameters_overrides", &self.machine_image_parameters_overrides);
+        debug_struct.field(
+            "machine_image_parameters_overrides",
+            &self.machine_image_parameters_overrides,
+        );
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("additional_licenses", &self.additional_licenses);
         debug_struct.field("labels", &self.labels);
@@ -2110,7 +2148,6 @@ impl std::fmt::Debug for super::MachineImageTargetDetails {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ServiceAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2129,7 +2166,10 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
         let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
         debug_struct.field("secure_boot", &self.secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2340,7 +2380,6 @@ impl std::fmt::Debug for super::DiskMigrationJobTargetDetails {
     }
 }
 
-
 impl std::fmt::Debug for super::DiskMigrationStep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DiskMigrationStep");
@@ -2411,7 +2450,6 @@ impl std::fmt::Debug for super::AwsSourceDiskDetails {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CreateDiskMigrationJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

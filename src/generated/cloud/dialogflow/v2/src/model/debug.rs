@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::Agent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Agent");
@@ -40,7 +40,7 @@ impl std::fmt::Debug for super::Agent {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::GetAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAgentRequest");
@@ -52,7 +52,7 @@ impl std::fmt::Debug for super::GetAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::SetAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetAgentRequest");
@@ -65,7 +65,7 @@ impl std::fmt::Debug for super::SetAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::DeleteAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAgentRequest");
@@ -77,7 +77,7 @@ impl std::fmt::Debug for super::DeleteAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::SearchAgentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAgentsRequest");
@@ -91,7 +91,7 @@ impl std::fmt::Debug for super::SearchAgentsRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::SearchAgentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAgentsResponse");
@@ -104,7 +104,7 @@ impl std::fmt::Debug for super::SearchAgentsResponse {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::TrainAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainAgentRequest");
@@ -116,7 +116,7 @@ impl std::fmt::Debug for super::TrainAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ExportAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportAgentRequest");
@@ -129,7 +129,7 @@ impl std::fmt::Debug for super::ExportAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ExportAgentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportAgentResponse");
@@ -141,7 +141,7 @@ impl std::fmt::Debug for super::ExportAgentResponse {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ImportAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportAgentRequest");
@@ -154,7 +154,7 @@ impl std::fmt::Debug for super::ImportAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::RestoreAgentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestoreAgentRequest");
@@ -167,7 +167,7 @@ impl std::fmt::Debug for super::RestoreAgentRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::GetValidationResultRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetValidationResultRequest");
@@ -180,7 +180,7 @@ impl std::fmt::Debug for super::GetValidationResultRequest {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::AnswerRecord {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerRecord");
@@ -194,7 +194,7 @@ impl std::fmt::Debug for super::AnswerRecord {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::ListAnswerRecordsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAnswerRecordsRequest");
@@ -209,7 +209,7 @@ impl std::fmt::Debug for super::ListAnswerRecordsRequest {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::ListAnswerRecordsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAnswerRecordsResponse");
@@ -222,7 +222,7 @@ impl std::fmt::Debug for super::ListAnswerRecordsResponse {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::UpdateAnswerRecordRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAnswerRecordRequest");
@@ -235,7 +235,7 @@ impl std::fmt::Debug for super::UpdateAnswerRecordRequest {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::AnswerFeedback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerFeedback");
@@ -252,7 +252,7 @@ impl std::fmt::Debug for super::AnswerFeedback {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::AgentAssistantFeedback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AgentAssistantFeedback");
@@ -269,7 +269,7 @@ impl std::fmt::Debug for super::AgentAssistantFeedback {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::agent_assistant_feedback::SummarizationFeedback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationFeedback");
@@ -284,7 +284,7 @@ impl std::fmt::Debug for super::agent_assistant_feedback::SummarizationFeedback 
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::agent_assistant_feedback::KnowledgeSearchFeedback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeSearchFeedback");
@@ -297,7 +297,7 @@ impl std::fmt::Debug for super::agent_assistant_feedback::KnowledgeSearchFeedbac
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::agent_assistant_feedback::KnowledgeAssistFeedback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeAssistFeedback");
@@ -310,7 +310,7 @@ impl std::fmt::Debug for super::agent_assistant_feedback::KnowledgeAssistFeedbac
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::AgentAssistantRecord {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AgentAssistantRecord");
@@ -322,7 +322,7 @@ impl std::fmt::Debug for super::AgentAssistantRecord {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::SpeechContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechContext");
@@ -335,7 +335,7 @@ impl std::fmt::Debug for super::SpeechContext {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::SpeechWordInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechWordInfo");
@@ -350,7 +350,7 @@ impl std::fmt::Debug for super::SpeechWordInfo {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::InputAudioConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputAudioConfig");
@@ -363,10 +363,19 @@ impl std::fmt::Debug for super::InputAudioConfig {
         debug_struct.field("model", &self.model);
         debug_struct.field("model_variant", &self.model_variant);
         debug_struct.field("single_utterance", &self.single_utterance);
-        debug_struct.field("disable_no_speech_recognized_event", &self.disable_no_speech_recognized_event);
-        debug_struct.field("enable_automatic_punctuation", &self.enable_automatic_punctuation);
+        debug_struct.field(
+            "disable_no_speech_recognized_event",
+            &self.disable_no_speech_recognized_event,
+        );
+        debug_struct.field(
+            "enable_automatic_punctuation",
+            &self.enable_automatic_punctuation,
+        );
         debug_struct.field("phrase_sets", &self.phrase_sets);
-        debug_struct.field("opt_out_conformer_model_migration", &self.opt_out_conformer_model_migration);
+        debug_struct.field(
+            "opt_out_conformer_model_migration",
+            &self.opt_out_conformer_model_migration,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -374,7 +383,13 @@ impl std::fmt::Debug for super::InputAudioConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations",feature = "environments",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::VoiceSelectionParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceSelectionParams");
@@ -387,7 +402,13 @@ impl std::fmt::Debug for super::VoiceSelectionParams {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations",feature = "environments",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "environments",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::SynthesizeSpeechConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeSpeechConfig");
@@ -403,7 +424,7 @@ impl std::fmt::Debug for super::SynthesizeSpeechConfig {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::OutputAudioConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OutputAudioConfig");
@@ -417,7 +438,7 @@ impl std::fmt::Debug for super::OutputAudioConfig {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::TelephonyDtmfEvents {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TelephonyDtmfEvents");
@@ -429,7 +450,7 @@ impl std::fmt::Debug for super::TelephonyDtmfEvents {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::SpeechToTextConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechToTextConfig");
@@ -440,7 +461,10 @@ impl std::fmt::Debug for super::SpeechToTextConfig {
         debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("enable_word_info", &self.enable_word_info);
-        debug_struct.field("use_timeout_based_endpointing", &self.use_timeout_based_endpointing);
+        debug_struct.field(
+            "use_timeout_based_endpointing",
+            &self.use_timeout_based_endpointing,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -448,7 +472,13 @@ impl std::fmt::Debug for super::SpeechToTextConfig {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "contexts",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::Context {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Context");
@@ -462,7 +492,7 @@ impl std::fmt::Debug for super::Context {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::ListContextsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContextsRequest");
@@ -476,7 +506,7 @@ impl std::fmt::Debug for super::ListContextsRequest {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::ListContextsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContextsResponse");
@@ -489,7 +519,7 @@ impl std::fmt::Debug for super::ListContextsResponse {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::GetContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetContextRequest");
@@ -501,7 +531,7 @@ impl std::fmt::Debug for super::GetContextRequest {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::CreateContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateContextRequest");
@@ -514,7 +544,7 @@ impl std::fmt::Debug for super::CreateContextRequest {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::UpdateContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateContextRequest");
@@ -527,7 +557,7 @@ impl std::fmt::Debug for super::UpdateContextRequest {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::DeleteContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteContextRequest");
@@ -539,7 +569,7 @@ impl std::fmt::Debug for super::DeleteContextRequest {
     }
 }
 
-#[cfg(feature = "contexts" )]
+#[cfg(feature = "contexts")]
 impl std::fmt::Debug for super::DeleteAllContextsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAllContextsRequest");
@@ -551,7 +581,7 @@ impl std::fmt::Debug for super::DeleteAllContextsRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::Conversation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Conversation");
@@ -563,7 +593,10 @@ impl std::fmt::Debug for super::Conversation {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("conversation_stage", &self.conversation_stage);
         debug_struct.field("telephony_connection_info", &self.telephony_connection_info);
-        debug_struct.field("ingested_context_references", &self.ingested_context_references);
+        debug_struct.field(
+            "ingested_context_references",
+            &self.ingested_context_references,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -571,7 +604,7 @@ impl std::fmt::Debug for super::Conversation {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::conversation::TelephonyConnectionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TelephonyConnectionInfo");
@@ -586,7 +619,7 @@ impl std::fmt::Debug for super::conversation::TelephonyConnectionInfo {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::conversation::telephony_connection_info::SipHeader {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SipHeader");
@@ -599,7 +632,7 @@ impl std::fmt::Debug for super::conversation::telephony_connection_info::SipHead
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::conversation::telephony_connection_info::MimeContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MimeContent");
@@ -612,7 +645,7 @@ impl std::fmt::Debug for super::conversation::telephony_connection_info::MimeCon
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::conversation::ContextReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContextReference");
@@ -627,7 +660,7 @@ impl std::fmt::Debug for super::conversation::ContextReference {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::conversation::context_reference::ContextContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContextContent");
@@ -641,8 +674,7 @@ impl std::fmt::Debug for super::conversation::context_reference::ContextContent 
     }
 }
 
-
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::CreateConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationRequest");
@@ -656,7 +688,7 @@ impl std::fmt::Debug for super::CreateConversationRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::ListConversationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationsRequest");
@@ -671,7 +703,7 @@ impl std::fmt::Debug for super::ListConversationsRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::ListConversationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationsResponse");
@@ -684,7 +716,7 @@ impl std::fmt::Debug for super::ListConversationsResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GetConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationRequest");
@@ -696,7 +728,7 @@ impl std::fmt::Debug for super::GetConversationRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::CompleteConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompleteConversationRequest");
@@ -708,7 +740,7 @@ impl std::fmt::Debug for super::CompleteConversationRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::ListMessagesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMessagesRequest");
@@ -723,7 +755,7 @@ impl std::fmt::Debug for super::ListMessagesRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::ListMessagesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMessagesResponse");
@@ -736,7 +768,7 @@ impl std::fmt::Debug for super::ListMessagesResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::ConversationPhoneNumber {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationPhoneNumber");
@@ -749,7 +781,7 @@ impl std::fmt::Debug for super::ConversationPhoneNumber {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::IngestContextReferencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestContextReferencesRequest");
@@ -762,11 +794,14 @@ impl std::fmt::Debug for super::IngestContextReferencesRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::IngestContextReferencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestContextReferencesResponse");
-        debug_struct.field("ingested_context_references", &self.ingested_context_references);
+        debug_struct.field(
+            "ingested_context_references",
+            &self.ingested_context_references,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -774,7 +809,7 @@ impl std::fmt::Debug for super::IngestContextReferencesResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::SuggestConversationSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestConversationSummaryRequest");
@@ -789,7 +824,7 @@ impl std::fmt::Debug for super::SuggestConversationSummaryRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::SuggestConversationSummaryResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestConversationSummaryResponse");
@@ -803,7 +838,7 @@ impl std::fmt::Debug for super::SuggestConversationSummaryResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::suggest_conversation_summary_response::Summary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Summary");
@@ -818,7 +853,7 @@ impl std::fmt::Debug for super::suggest_conversation_summary_response::Summary {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GenerateStatelessSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateStatelessSummaryRequest");
@@ -833,7 +868,7 @@ impl std::fmt::Debug for super::GenerateStatelessSummaryRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::generate_stateless_summary_request::MinimalConversation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MinimalConversation");
@@ -846,7 +881,7 @@ impl std::fmt::Debug for super::generate_stateless_summary_request::MinimalConve
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GenerateStatelessSummaryResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateStatelessSummaryResponse");
@@ -860,7 +895,7 @@ impl std::fmt::Debug for super::GenerateStatelessSummaryResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::generate_stateless_summary_response::Summary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Summary");
@@ -874,7 +909,7 @@ impl std::fmt::Debug for super::generate_stateless_summary_response::Summary {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GenerateStatelessSuggestionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateStatelessSuggestionRequest");
@@ -890,8 +925,7 @@ impl std::fmt::Debug for super::GenerateStatelessSuggestionRequest {
     }
 }
 
-
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GenerateStatelessSuggestionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateStatelessSuggestionResponse");
@@ -903,7 +937,7 @@ impl std::fmt::Debug for super::GenerateStatelessSuggestionResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::SearchKnowledgeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchKnowledgeRequest");
@@ -924,7 +958,7 @@ impl std::fmt::Debug for super::SearchKnowledgeRequest {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::SearchConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchConfig");
@@ -937,7 +971,7 @@ impl std::fmt::Debug for super::search_knowledge_request::SearchConfig {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::search_config::BoostSpecs {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostSpecs");
@@ -950,7 +984,7 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::BoostSp
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_specs::BoostSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostSpec");
@@ -962,8 +996,10 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_s
     }
 }
 
-#[cfg(feature = "conversations" )]
-impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_specs::boost_spec::ConditionBoostSpec {
+#[cfg(feature = "conversations")]
+impl std::fmt::Debug
+    for super::search_knowledge_request::search_config::boost_specs::boost_spec::ConditionBoostSpec
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConditionBoostSpec");
         debug_struct.field("condition", &self.condition);
@@ -976,7 +1012,7 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_s
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::BoostControlSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostControlSpec");
@@ -991,7 +1027,7 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_s
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ControlPoint");
@@ -1004,7 +1040,7 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::boost_s
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_request::search_config::FilterSpecs {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FilterSpecs");
@@ -1017,7 +1053,7 @@ impl std::fmt::Debug for super::search_knowledge_request::search_config::FilterS
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::SearchKnowledgeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchKnowledgeResponse");
@@ -1030,7 +1066,7 @@ impl std::fmt::Debug for super::SearchKnowledgeResponse {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::SearchKnowledgeAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchKnowledgeAnswer");
@@ -1045,7 +1081,7 @@ impl std::fmt::Debug for super::SearchKnowledgeAnswer {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::search_knowledge_answer::AnswerSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerSource");
@@ -1060,7 +1096,7 @@ impl std::fmt::Debug for super::search_knowledge_answer::AnswerSource {
     }
 }
 
-#[cfg(feature = "conversations" )]
+#[cfg(feature = "conversations")]
 impl std::fmt::Debug for super::GenerateSuggestionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateSuggestionsRequest");
@@ -1074,7 +1110,7 @@ impl std::fmt::Debug for super::GenerateSuggestionsRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ConversationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationInfo");
@@ -1086,7 +1122,7 @@ impl std::fmt::Debug for super::ConversationInfo {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::InputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputConfig");
@@ -1098,7 +1134,7 @@ impl std::fmt::Debug for super::InputConfig {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ConversationDataset {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationDataset");
@@ -1118,7 +1154,7 @@ impl std::fmt::Debug for super::ConversationDataset {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::CreateConversationDatasetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationDatasetRequest");
@@ -1131,7 +1167,7 @@ impl std::fmt::Debug for super::CreateConversationDatasetRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::GetConversationDatasetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationDatasetRequest");
@@ -1143,7 +1179,7 @@ impl std::fmt::Debug for super::GetConversationDatasetRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ListConversationDatasetsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationDatasetsRequest");
@@ -1157,7 +1193,7 @@ impl std::fmt::Debug for super::ListConversationDatasetsRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ListConversationDatasetsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationDatasetsResponse");
@@ -1170,7 +1206,7 @@ impl std::fmt::Debug for super::ListConversationDatasetsResponse {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::DeleteConversationDatasetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationDatasetRequest");
@@ -1182,7 +1218,7 @@ impl std::fmt::Debug for super::DeleteConversationDatasetRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ImportConversationDataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportConversationDataRequest");
@@ -1195,7 +1231,7 @@ impl std::fmt::Debug for super::ImportConversationDataRequest {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ImportConversationDataOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportConversationDataOperationMetadata");
@@ -1209,7 +1245,7 @@ impl std::fmt::Debug for super::ImportConversationDataOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::ImportConversationDataOperationResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportConversationDataOperationResponse");
@@ -1222,7 +1258,7 @@ impl std::fmt::Debug for super::ImportConversationDataOperationResponse {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::CreateConversationDatasetOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationDatasetOperationMetadata");
@@ -1234,7 +1270,7 @@ impl std::fmt::Debug for super::CreateConversationDatasetOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-datasets" )]
+#[cfg(feature = "conversation-datasets")]
 impl std::fmt::Debug for super::DeleteConversationDatasetOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationDatasetOperationMetadata");
@@ -1245,7 +1281,27 @@ impl std::fmt::Debug for super::DeleteConversationDatasetOperationMetadata {
     }
 }
 
-#[cfg(all ( feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "conversations",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "session-entity-types",feature = "sessions",feature = "versions", ) )]
+#[cfg(all(
+    feature = "agents",
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "conversation-datasets",
+    feature = "conversation-models",
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "documents",
+    feature = "encryption-spec-service",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "fulfillments",
+    feature = "generators",
+    feature = "intents",
+    feature = "knowledge-bases",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "versions",
+))]
 impl std::fmt::Debug for super::ConversationEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationEvent");
@@ -1260,7 +1316,7 @@ impl std::fmt::Debug for super::ConversationEvent {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ConversationModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationModel");
@@ -1280,7 +1336,7 @@ impl std::fmt::Debug for super::ConversationModel {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ConversationModelEvaluation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationModelEvaluation");
@@ -1288,7 +1344,10 @@ impl std::fmt::Debug for super::ConversationModelEvaluation {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("evaluation_config", &self.evaluation_config);
         debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("raw_human_eval_template_csv", &self.raw_human_eval_template_csv);
+        debug_struct.field(
+            "raw_human_eval_template_csv",
+            &self.raw_human_eval_template_csv,
+        );
         debug_struct.field("metrics", &self.metrics);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1297,7 +1356,7 @@ impl std::fmt::Debug for super::ConversationModelEvaluation {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::EvaluationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EvaluationConfig");
@@ -1310,7 +1369,7 @@ impl std::fmt::Debug for super::EvaluationConfig {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::evaluation_config::SmartReplyConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmartReplyConfig");
@@ -1323,7 +1382,7 @@ impl std::fmt::Debug for super::evaluation_config::SmartReplyConfig {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::evaluation_config::SmartComposeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmartComposeConfig");
@@ -1336,7 +1395,7 @@ impl std::fmt::Debug for super::evaluation_config::SmartComposeConfig {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::InputDataset {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputDataset");
@@ -1348,7 +1407,7 @@ impl std::fmt::Debug for super::InputDataset {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ArticleSuggestionModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArticleSuggestionModelMetadata");
@@ -1360,7 +1419,7 @@ impl std::fmt::Debug for super::ArticleSuggestionModelMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::SmartReplyModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmartReplyModelMetadata");
@@ -1372,7 +1431,7 @@ impl std::fmt::Debug for super::SmartReplyModelMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::SmartReplyMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmartReplyMetrics");
@@ -1386,7 +1445,7 @@ impl std::fmt::Debug for super::SmartReplyMetrics {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::smart_reply_metrics::TopNMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TopNMetrics");
@@ -1399,7 +1458,7 @@ impl std::fmt::Debug for super::smart_reply_metrics::TopNMetrics {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::CreateConversationModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationModelRequest");
@@ -1412,7 +1471,7 @@ impl std::fmt::Debug for super::CreateConversationModelRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::GetConversationModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationModelRequest");
@@ -1424,7 +1483,7 @@ impl std::fmt::Debug for super::GetConversationModelRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ListConversationModelsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationModelsRequest");
@@ -1438,7 +1497,7 @@ impl std::fmt::Debug for super::ListConversationModelsRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ListConversationModelsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationModelsResponse");
@@ -1451,7 +1510,7 @@ impl std::fmt::Debug for super::ListConversationModelsResponse {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::DeleteConversationModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationModelRequest");
@@ -1463,7 +1522,7 @@ impl std::fmt::Debug for super::DeleteConversationModelRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::DeployConversationModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeployConversationModelRequest");
@@ -1475,7 +1534,7 @@ impl std::fmt::Debug for super::DeployConversationModelRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::UndeployConversationModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeployConversationModelRequest");
@@ -1487,7 +1546,7 @@ impl std::fmt::Debug for super::UndeployConversationModelRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::GetConversationModelEvaluationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationModelEvaluationRequest");
@@ -1499,7 +1558,7 @@ impl std::fmt::Debug for super::GetConversationModelEvaluationRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ListConversationModelEvaluationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationModelEvaluationsRequest");
@@ -1513,11 +1572,14 @@ impl std::fmt::Debug for super::ListConversationModelEvaluationsRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::ListConversationModelEvaluationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationModelEvaluationsResponse");
-        debug_struct.field("conversation_model_evaluations", &self.conversation_model_evaluations);
+        debug_struct.field(
+            "conversation_model_evaluations",
+            &self.conversation_model_evaluations,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1526,12 +1588,15 @@ impl std::fmt::Debug for super::ListConversationModelEvaluationsResponse {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::CreateConversationModelEvaluationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationModelEvaluationRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("conversation_model_evaluation", &self.conversation_model_evaluation);
+        debug_struct.field(
+            "conversation_model_evaluation",
+            &self.conversation_model_evaluation,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1539,7 +1604,7 @@ impl std::fmt::Debug for super::CreateConversationModelEvaluationRequest {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::CreateConversationModelOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationModelOperationMetadata");
@@ -1553,7 +1618,7 @@ impl std::fmt::Debug for super::CreateConversationModelOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::DeployConversationModelOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeployConversationModelOperationMetadata");
@@ -1566,7 +1631,7 @@ impl std::fmt::Debug for super::DeployConversationModelOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::UndeployConversationModelOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeployConversationModelOperationMetadata");
@@ -1579,7 +1644,7 @@ impl std::fmt::Debug for super::UndeployConversationModelOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::DeleteConversationModelOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationModelOperationMetadata");
@@ -1592,11 +1657,14 @@ impl std::fmt::Debug for super::DeleteConversationModelOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-models" )]
+#[cfg(feature = "conversation-models")]
 impl std::fmt::Debug for super::CreateConversationModelEvaluationOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationModelEvaluationOperationMetadata");
-        debug_struct.field("conversation_model_evaluation", &self.conversation_model_evaluation);
+        debug_struct.field(
+            "conversation_model_evaluation",
+            &self.conversation_model_evaluation,
+        );
         debug_struct.field("conversation_model", &self.conversation_model);
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
@@ -1607,7 +1675,7 @@ impl std::fmt::Debug for super::CreateConversationModelEvaluationOperationMetada
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::ConversationProfile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationProfile");
@@ -1616,12 +1684,24 @@ impl std::fmt::Debug for super::ConversationProfile {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("automated_agent_config", &self.automated_agent_config);
-        debug_struct.field("human_agent_assistant_config", &self.human_agent_assistant_config);
-        debug_struct.field("human_agent_handoff_config", &self.human_agent_handoff_config);
+        debug_struct.field(
+            "human_agent_assistant_config",
+            &self.human_agent_assistant_config,
+        );
+        debug_struct.field(
+            "human_agent_handoff_config",
+            &self.human_agent_handoff_config,
+        );
         debug_struct.field("notification_config", &self.notification_config);
         debug_struct.field("logging_config", &self.logging_config);
-        debug_struct.field("new_message_event_notification_config", &self.new_message_event_notification_config);
-        debug_struct.field("new_recognition_result_notification_config", &self.new_recognition_result_notification_config);
+        debug_struct.field(
+            "new_message_event_notification_config",
+            &self.new_message_event_notification_config,
+        );
+        debug_struct.field(
+            "new_recognition_result_notification_config",
+            &self.new_recognition_result_notification_config,
+        );
         debug_struct.field("stt_config", &self.stt_config);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("time_zone", &self.time_zone);
@@ -1634,7 +1714,7 @@ impl std::fmt::Debug for super::ConversationProfile {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::ListConversationProfilesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationProfilesRequest");
@@ -1648,7 +1728,7 @@ impl std::fmt::Debug for super::ListConversationProfilesRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::ListConversationProfilesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationProfilesResponse");
@@ -1661,7 +1741,7 @@ impl std::fmt::Debug for super::ListConversationProfilesResponse {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::GetConversationProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationProfileRequest");
@@ -1673,7 +1753,7 @@ impl std::fmt::Debug for super::GetConversationProfileRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::CreateConversationProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationProfileRequest");
@@ -1686,7 +1766,7 @@ impl std::fmt::Debug for super::CreateConversationProfileRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::UpdateConversationProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateConversationProfileRequest");
@@ -1699,7 +1779,7 @@ impl std::fmt::Debug for super::UpdateConversationProfileRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::DeleteConversationProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationProfileRequest");
@@ -1711,7 +1791,7 @@ impl std::fmt::Debug for super::DeleteConversationProfileRequest {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::AutomatedAgentConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomatedAgentConfig");
@@ -1724,13 +1804,19 @@ impl std::fmt::Debug for super::AutomatedAgentConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::HumanAgentAssistantConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HumanAgentAssistantConfig");
         debug_struct.field("notification_config", &self.notification_config);
-        debug_struct.field("human_agent_suggestion_config", &self.human_agent_suggestion_config);
-        debug_struct.field("end_user_suggestion_config", &self.end_user_suggestion_config);
+        debug_struct.field(
+            "human_agent_suggestion_config",
+            &self.human_agent_suggestion_config,
+        );
+        debug_struct.field(
+            "end_user_suggestion_config",
+            &self.end_user_suggestion_config,
+        );
         debug_struct.field("message_analysis_config", &self.message_analysis_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1739,7 +1825,7 @@ impl std::fmt::Debug for super::HumanAgentAssistantConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionTriggerSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionTriggerSettings");
@@ -1752,20 +1838,41 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionTriggerS
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionFeatureConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionFeatureConfig");
         debug_struct.field("suggestion_feature", &self.suggestion_feature);
-        debug_struct.field("enable_event_based_suggestion", &self.enable_event_based_suggestion);
-        debug_struct.field("disable_agent_query_logging", &self.disable_agent_query_logging);
-        debug_struct.field("enable_query_suggestion_when_no_answer", &self.enable_query_suggestion_when_no_answer);
-        debug_struct.field("enable_conversation_augmented_query", &self.enable_conversation_augmented_query);
-        debug_struct.field("enable_query_suggestion_only", &self.enable_query_suggestion_only);
-        debug_struct.field("suggestion_trigger_settings", &self.suggestion_trigger_settings);
+        debug_struct.field(
+            "enable_event_based_suggestion",
+            &self.enable_event_based_suggestion,
+        );
+        debug_struct.field(
+            "disable_agent_query_logging",
+            &self.disable_agent_query_logging,
+        );
+        debug_struct.field(
+            "enable_query_suggestion_when_no_answer",
+            &self.enable_query_suggestion_when_no_answer,
+        );
+        debug_struct.field(
+            "enable_conversation_augmented_query",
+            &self.enable_conversation_augmented_query,
+        );
+        debug_struct.field(
+            "enable_query_suggestion_only",
+            &self.enable_query_suggestion_only,
+        );
+        debug_struct.field(
+            "suggestion_trigger_settings",
+            &self.suggestion_trigger_settings,
+        );
         debug_struct.field("query_config", &self.query_config);
         debug_struct.field("conversation_model_config", &self.conversation_model_config);
-        debug_struct.field("conversation_process_config", &self.conversation_process_config);
+        debug_struct.field(
+            "conversation_process_config",
+            &self.conversation_process_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1773,14 +1880,20 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionFeatureC
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionConfig");
         debug_struct.field("feature_configs", &self.feature_configs);
-        debug_struct.field("group_suggestion_responses", &self.group_suggestion_responses);
+        debug_struct.field(
+            "group_suggestion_responses",
+            &self.group_suggestion_responses,
+        );
         debug_struct.field("generators", &self.generators);
-        debug_struct.field("disable_high_latency_features_sync_delivery", &self.disable_high_latency_features_sync_delivery);
+        debug_struct.field(
+            "disable_high_latency_features_sync_delivery",
+            &self.disable_high_latency_features_sync_delivery,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1788,7 +1901,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionQueryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionQueryConfig");
@@ -1805,8 +1918,10 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionQueryCon
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
-impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::KnowledgeBaseQuerySource {
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug
+    for super::human_agent_assistant_config::suggestion_query_config::KnowledgeBaseQuerySource
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeBaseQuerySource");
         debug_struct.field("knowledge_bases", &self.knowledge_bases);
@@ -1817,8 +1932,10 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
-impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource {
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug
+    for super::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentQuerySource");
         debug_struct.field("documents", &self.documents);
@@ -1829,8 +1946,10 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
-impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource {
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug
+    for super::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DialogflowQuerySource");
         debug_struct.field("agent", &self.agent);
@@ -1842,7 +1961,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::dialogflow_query_source::HumanAgentSideConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HumanAgentSideConfig");
@@ -1854,12 +1973,17 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
-impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings {
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug
+    for super::human_agent_assistant_config::suggestion_query_config::ContextFilterSettings
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContextFilterSettings");
         debug_struct.field("drop_handoff_messages", &self.drop_handoff_messages);
-        debug_struct.field("drop_virtual_agent_messages", &self.drop_virtual_agent_messages);
+        debug_struct.field(
+            "drop_virtual_agent_messages",
+            &self.drop_virtual_agent_messages,
+        );
         debug_struct.field("drop_ivr_messages", &self.drop_ivr_messages);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1868,7 +1992,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_config::Sections {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sections");
@@ -1880,7 +2004,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::suggestion_query_c
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::ConversationModelConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationModelConfig");
@@ -1893,7 +2017,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::ConversationModelC
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::ConversationProcessConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationProcessConfig");
@@ -1905,7 +2029,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::ConversationProces
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_assistant_config::MessageAnalysisConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageAnalysisConfig");
@@ -1918,7 +2042,7 @@ impl std::fmt::Debug for super::human_agent_assistant_config::MessageAnalysisCon
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::HumanAgentHandoffConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HumanAgentHandoffConfig");
@@ -1930,7 +2054,7 @@ impl std::fmt::Debug for super::HumanAgentHandoffConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_handoff_config::LivePersonConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LivePersonConfig");
@@ -1942,7 +2066,7 @@ impl std::fmt::Debug for super::human_agent_handoff_config::LivePersonConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::human_agent_handoff_config::SalesforceLiveAgentConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SalesforceLiveAgentConfig");
@@ -1957,7 +2081,7 @@ impl std::fmt::Debug for super::human_agent_handoff_config::SalesforceLiveAgentC
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::NotificationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationConfig");
@@ -1970,11 +2094,14 @@ impl std::fmt::Debug for super::NotificationConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::LoggingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LoggingConfig");
-        debug_struct.field("enable_stackdriver_logging", &self.enable_stackdriver_logging);
+        debug_struct.field(
+            "enable_stackdriver_logging",
+            &self.enable_stackdriver_logging,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1982,7 +2109,7 @@ impl std::fmt::Debug for super::LoggingConfig {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations", ) )]
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
 impl std::fmt::Debug for super::SuggestionFeature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionFeature");
@@ -1994,7 +2121,7 @@ impl std::fmt::Debug for super::SuggestionFeature {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::SetSuggestionFeatureConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetSuggestionFeatureConfigRequest");
@@ -2008,7 +2135,7 @@ impl std::fmt::Debug for super::SetSuggestionFeatureConfigRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::ClearSuggestionFeatureConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClearSuggestionFeatureConfigRequest");
@@ -2022,7 +2149,7 @@ impl std::fmt::Debug for super::ClearSuggestionFeatureConfigRequest {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::SetSuggestionFeatureConfigOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetSuggestionFeatureConfigOperationMetadata");
@@ -2037,7 +2164,7 @@ impl std::fmt::Debug for super::SetSuggestionFeatureConfigOperationMetadata {
     }
 }
 
-#[cfg(feature = "conversation-profiles" )]
+#[cfg(feature = "conversation-profiles")]
 impl std::fmt::Debug for super::ClearSuggestionFeatureConfigOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClearSuggestionFeatureConfigOperationMetadata");
@@ -2052,7 +2179,7 @@ impl std::fmt::Debug for super::ClearSuggestionFeatureConfigOperationMetadata {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::Document {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Document");
@@ -2072,7 +2199,7 @@ impl std::fmt::Debug for super::Document {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::document::ReloadStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReloadStatus");
@@ -2085,8 +2212,7 @@ impl std::fmt::Debug for super::document::ReloadStatus {
     }
 }
 
-
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::GetDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDocumentRequest");
@@ -2098,7 +2224,7 @@ impl std::fmt::Debug for super::GetDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ListDocumentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDocumentsRequest");
@@ -2113,7 +2239,7 @@ impl std::fmt::Debug for super::ListDocumentsRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ListDocumentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDocumentsResponse");
@@ -2126,7 +2252,7 @@ impl std::fmt::Debug for super::ListDocumentsResponse {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::CreateDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDocumentRequest");
@@ -2139,13 +2265,16 @@ impl std::fmt::Debug for super::CreateDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ImportDocumentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentsRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("document_template", &self.document_template);
-        debug_struct.field("import_gcs_custom_metadata", &self.import_gcs_custom_metadata);
+        debug_struct.field(
+            "import_gcs_custom_metadata",
+            &self.import_gcs_custom_metadata,
+        );
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2154,7 +2283,7 @@ impl std::fmt::Debug for super::ImportDocumentsRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ImportDocumentTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentTemplate");
@@ -2168,7 +2297,7 @@ impl std::fmt::Debug for super::ImportDocumentTemplate {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ImportDocumentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentsResponse");
@@ -2180,7 +2309,7 @@ impl std::fmt::Debug for super::ImportDocumentsResponse {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::DeleteDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDocumentRequest");
@@ -2192,7 +2321,7 @@ impl std::fmt::Debug for super::DeleteDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::UpdateDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDocumentRequest");
@@ -2205,13 +2334,19 @@ impl std::fmt::Debug for super::UpdateDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ReloadDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReloadDocumentRequest");
         debug_struct.field("name", &self.name);
-        debug_struct.field("import_gcs_custom_metadata", &self.import_gcs_custom_metadata);
-        debug_struct.field("smart_messaging_partial_update", &self.smart_messaging_partial_update);
+        debug_struct.field(
+            "import_gcs_custom_metadata",
+            &self.import_gcs_custom_metadata,
+        );
+        debug_struct.field(
+            "smart_messaging_partial_update",
+            &self.smart_messaging_partial_update,
+        );
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2220,13 +2355,16 @@ impl std::fmt::Debug for super::ReloadDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ExportDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportDocumentRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("export_full_content", &self.export_full_content);
-        debug_struct.field("smart_messaging_partial_update", &self.smart_messaging_partial_update);
+        debug_struct.field(
+            "smart_messaging_partial_update",
+            &self.smart_messaging_partial_update,
+        );
         debug_struct.field("destination", &self.destination);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2235,7 +2373,7 @@ impl std::fmt::Debug for super::ExportDocumentRequest {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::ExportOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportOperationMetadata");
@@ -2247,7 +2385,7 @@ impl std::fmt::Debug for super::ExportOperationMetadata {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::KnowledgeOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeOperationMetadata");
@@ -2261,7 +2399,7 @@ impl std::fmt::Debug for super::KnowledgeOperationMetadata {
     }
 }
 
-#[cfg(feature = "encryption-spec-service" )]
+#[cfg(feature = "encryption-spec-service")]
 impl std::fmt::Debug for super::GetEncryptionSpecRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEncryptionSpecRequest");
@@ -2273,7 +2411,7 @@ impl std::fmt::Debug for super::GetEncryptionSpecRequest {
     }
 }
 
-#[cfg(feature = "encryption-spec-service" )]
+#[cfg(feature = "encryption-spec-service")]
 impl std::fmt::Debug for super::EncryptionSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EncryptionSpec");
@@ -2286,7 +2424,7 @@ impl std::fmt::Debug for super::EncryptionSpec {
     }
 }
 
-#[cfg(feature = "encryption-spec-service" )]
+#[cfg(feature = "encryption-spec-service")]
 impl std::fmt::Debug for super::InitializeEncryptionSpecRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InitializeEncryptionSpecRequest");
@@ -2298,7 +2436,7 @@ impl std::fmt::Debug for super::InitializeEncryptionSpecRequest {
     }
 }
 
-#[cfg(feature = "encryption-spec-service" )]
+#[cfg(feature = "encryption-spec-service")]
 impl std::fmt::Debug for super::InitializeEncryptionSpecResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InitializeEncryptionSpecResponse");
@@ -2309,7 +2447,7 @@ impl std::fmt::Debug for super::InitializeEncryptionSpecResponse {
     }
 }
 
-#[cfg(feature = "encryption-spec-service" )]
+#[cfg(feature = "encryption-spec-service")]
 impl std::fmt::Debug for super::InitializeEncryptionSpecMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InitializeEncryptionSpecMetadata");
@@ -2321,7 +2459,12 @@ impl std::fmt::Debug for super::InitializeEncryptionSpecMetadata {
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "participants",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "entity-types",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::EntityType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntityType");
@@ -2338,7 +2481,12 @@ impl std::fmt::Debug for super::EntityType {
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "participants",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "entity-types",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::entity_type::Entity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entity");
@@ -2351,7 +2499,7 @@ impl std::fmt::Debug for super::entity_type::Entity {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::ListEntityTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEntityTypesRequest");
@@ -2366,7 +2514,7 @@ impl std::fmt::Debug for super::ListEntityTypesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::ListEntityTypesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEntityTypesResponse");
@@ -2379,7 +2527,7 @@ impl std::fmt::Debug for super::ListEntityTypesResponse {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::GetEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEntityTypeRequest");
@@ -2392,7 +2540,7 @@ impl std::fmt::Debug for super::GetEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::CreateEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEntityTypeRequest");
@@ -2406,7 +2554,7 @@ impl std::fmt::Debug for super::CreateEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::UpdateEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEntityTypeRequest");
@@ -2420,7 +2568,7 @@ impl std::fmt::Debug for super::UpdateEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::DeleteEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEntityTypeRequest");
@@ -2432,7 +2580,7 @@ impl std::fmt::Debug for super::DeleteEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchUpdateEntityTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateEntityTypesRequest");
@@ -2447,7 +2595,7 @@ impl std::fmt::Debug for super::BatchUpdateEntityTypesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchUpdateEntityTypesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateEntityTypesResponse");
@@ -2459,7 +2607,7 @@ impl std::fmt::Debug for super::BatchUpdateEntityTypesResponse {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchDeleteEntityTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchDeleteEntityTypesRequest");
@@ -2472,7 +2620,7 @@ impl std::fmt::Debug for super::BatchDeleteEntityTypesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchCreateEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateEntitiesRequest");
@@ -2486,7 +2634,7 @@ impl std::fmt::Debug for super::BatchCreateEntitiesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchUpdateEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateEntitiesRequest");
@@ -2501,7 +2649,7 @@ impl std::fmt::Debug for super::BatchUpdateEntitiesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::BatchDeleteEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchDeleteEntitiesRequest");
@@ -2515,7 +2663,7 @@ impl std::fmt::Debug for super::BatchDeleteEntitiesRequest {
     }
 }
 
-#[cfg(feature = "entity-types" )]
+#[cfg(feature = "entity-types")]
 impl std::fmt::Debug for super::EntityTypeBatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntityTypeBatch");
@@ -2527,7 +2675,7 @@ impl std::fmt::Debug for super::EntityTypeBatch {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::Environment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Environment");
@@ -2545,7 +2693,7 @@ impl std::fmt::Debug for super::Environment {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::TextToSpeechSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextToSpeechSettings");
@@ -2560,7 +2708,7 @@ impl std::fmt::Debug for super::TextToSpeechSettings {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::ListEnvironmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEnvironmentsRequest");
@@ -2574,7 +2722,7 @@ impl std::fmt::Debug for super::ListEnvironmentsRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::ListEnvironmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEnvironmentsResponse");
@@ -2587,7 +2735,7 @@ impl std::fmt::Debug for super::ListEnvironmentsResponse {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::GetEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
@@ -2599,7 +2747,7 @@ impl std::fmt::Debug for super::GetEnvironmentRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::CreateEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEnvironmentRequest");
@@ -2613,13 +2761,16 @@ impl std::fmt::Debug for super::CreateEnvironmentRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::UpdateEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEnvironmentRequest");
         debug_struct.field("environment", &self.environment);
         debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field("allow_load_to_draft_and_discard_changes", &self.allow_load_to_draft_and_discard_changes);
+        debug_struct.field(
+            "allow_load_to_draft_and_discard_changes",
+            &self.allow_load_to_draft_and_discard_changes,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2627,7 +2778,7 @@ impl std::fmt::Debug for super::UpdateEnvironmentRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::DeleteEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEnvironmentRequest");
@@ -2639,7 +2790,7 @@ impl std::fmt::Debug for super::DeleteEnvironmentRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::GetEnvironmentHistoryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEnvironmentHistoryRequest");
@@ -2653,7 +2804,7 @@ impl std::fmt::Debug for super::GetEnvironmentHistoryRequest {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::EnvironmentHistory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnvironmentHistory");
@@ -2667,7 +2818,7 @@ impl std::fmt::Debug for super::EnvironmentHistory {
     }
 }
 
-#[cfg(feature = "environments" )]
+#[cfg(feature = "environments")]
 impl std::fmt::Debug for super::environment_history::Entry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entry");
@@ -2681,7 +2832,7 @@ impl std::fmt::Debug for super::environment_history::Entry {
     }
 }
 
-#[cfg(any ( feature = "environments",feature = "fulfillments", ) )]
+#[cfg(any(feature = "environments", feature = "fulfillments",))]
 impl std::fmt::Debug for super::Fulfillment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fulfillment");
@@ -2697,7 +2848,7 @@ impl std::fmt::Debug for super::Fulfillment {
     }
 }
 
-#[cfg(any ( feature = "environments",feature = "fulfillments", ) )]
+#[cfg(any(feature = "environments", feature = "fulfillments",))]
 impl std::fmt::Debug for super::fulfillment::GenericWebService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenericWebService");
@@ -2713,7 +2864,7 @@ impl std::fmt::Debug for super::fulfillment::GenericWebService {
     }
 }
 
-#[cfg(any ( feature = "environments",feature = "fulfillments", ) )]
+#[cfg(any(feature = "environments", feature = "fulfillments",))]
 impl std::fmt::Debug for super::fulfillment::Feature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Feature");
@@ -2725,7 +2876,7 @@ impl std::fmt::Debug for super::fulfillment::Feature {
     }
 }
 
-#[cfg(feature = "fulfillments" )]
+#[cfg(feature = "fulfillments")]
 impl std::fmt::Debug for super::GetFulfillmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFulfillmentRequest");
@@ -2737,7 +2888,7 @@ impl std::fmt::Debug for super::GetFulfillmentRequest {
     }
 }
 
-#[cfg(feature = "fulfillments" )]
+#[cfg(feature = "fulfillments")]
 impl std::fmt::Debug for super::UpdateFulfillmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateFulfillmentRequest");
@@ -2750,7 +2901,7 @@ impl std::fmt::Debug for super::UpdateFulfillmentRequest {
     }
 }
 
-#[cfg(any ( feature = "conversation-datasets",feature = "documents", ) )]
+#[cfg(any(feature = "conversation-datasets", feature = "documents",))]
 impl std::fmt::Debug for super::GcsSources {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsSources");
@@ -2762,7 +2913,7 @@ impl std::fmt::Debug for super::GcsSources {
     }
 }
 
-#[cfg(feature = "documents" )]
+#[cfg(feature = "documents")]
 impl std::fmt::Debug for super::GcsDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsDestination");
@@ -2774,7 +2925,7 @@ impl std::fmt::Debug for super::GcsDestination {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::CreateGeneratorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateGeneratorRequest");
@@ -2788,7 +2939,7 @@ impl std::fmt::Debug for super::CreateGeneratorRequest {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::GetGeneratorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetGeneratorRequest");
@@ -2800,7 +2951,7 @@ impl std::fmt::Debug for super::GetGeneratorRequest {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::ListGeneratorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGeneratorsRequest");
@@ -2814,7 +2965,7 @@ impl std::fmt::Debug for super::ListGeneratorsRequest {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::ListGeneratorsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGeneratorsResponse");
@@ -2827,7 +2978,7 @@ impl std::fmt::Debug for super::ListGeneratorsResponse {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::DeleteGeneratorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteGeneratorRequest");
@@ -2839,7 +2990,7 @@ impl std::fmt::Debug for super::DeleteGeneratorRequest {
     }
 }
 
-#[cfg(feature = "generators" )]
+#[cfg(feature = "generators")]
 impl std::fmt::Debug for super::UpdateGeneratorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateGeneratorRequest");
@@ -2852,7 +3003,7 @@ impl std::fmt::Debug for super::UpdateGeneratorRequest {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::MessageEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageEntry");
@@ -2867,7 +3018,7 @@ impl std::fmt::Debug for super::MessageEntry {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::ConversationContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationContext");
@@ -2879,7 +3030,7 @@ impl std::fmt::Debug for super::ConversationContext {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::SummarizationSectionList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationSectionList");
@@ -2891,7 +3042,7 @@ impl std::fmt::Debug for super::SummarizationSectionList {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::FewShotExample {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FewShotExample");
@@ -2906,8 +3057,7 @@ impl std::fmt::Debug for super::FewShotExample {
     }
 }
 
-
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::InferenceParameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InferenceParameter");
@@ -2922,7 +3072,7 @@ impl std::fmt::Debug for super::InferenceParameter {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::SummarizationSection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationSection");
@@ -2936,7 +3086,7 @@ impl std::fmt::Debug for super::SummarizationSection {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::SummarizationContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarizationContext");
@@ -2951,7 +3101,7 @@ impl std::fmt::Debug for super::SummarizationContext {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::FreeFormContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FreeFormContext");
@@ -2963,7 +3113,7 @@ impl std::fmt::Debug for super::FreeFormContext {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators", ) )]
+#[cfg(any(feature = "conversations", feature = "generators",))]
 impl std::fmt::Debug for super::Generator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Generator");
@@ -2982,7 +3132,11 @@ impl std::fmt::Debug for super::Generator {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators",feature = "participants", ) )]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generators",
+    feature = "participants",
+))]
 impl std::fmt::Debug for super::FreeFormSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FreeFormSuggestion");
@@ -2994,7 +3148,11 @@ impl std::fmt::Debug for super::FreeFormSuggestion {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators",feature = "participants", ) )]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generators",
+    feature = "participants",
+))]
 impl std::fmt::Debug for super::SummarySuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarySuggestion");
@@ -3006,7 +3164,11 @@ impl std::fmt::Debug for super::SummarySuggestion {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators",feature = "participants", ) )]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generators",
+    feature = "participants",
+))]
 impl std::fmt::Debug for super::summary_suggestion::SummarySection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarySection");
@@ -3019,7 +3181,11 @@ impl std::fmt::Debug for super::summary_suggestion::SummarySection {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "generators",feature = "participants", ) )]
+#[cfg(any(
+    feature = "conversations",
+    feature = "generators",
+    feature = "participants",
+))]
 impl std::fmt::Debug for super::GeneratorSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeneratorSuggestion");
@@ -3031,7 +3197,27 @@ impl std::fmt::Debug for super::GeneratorSuggestion {
     }
 }
 
-#[cfg(all ( feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "conversations",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "session-entity-types",feature = "sessions",feature = "versions", ) )]
+#[cfg(all(
+    feature = "agents",
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "conversation-datasets",
+    feature = "conversation-models",
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "documents",
+    feature = "encryption-spec-service",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "fulfillments",
+    feature = "generators",
+    feature = "intents",
+    feature = "knowledge-bases",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "versions",
+))]
 impl std::fmt::Debug for super::HumanAgentAssistantEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HumanAgentAssistantEvent");
@@ -3045,7 +3231,12 @@ impl std::fmt::Debug for super::HumanAgentAssistantEvent {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::Intent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Intent");
@@ -3065,9 +3256,15 @@ impl std::fmt::Debug for super::Intent {
         debug_struct.field("reset_contexts", &self.reset_contexts);
         debug_struct.field("parameters", &self.parameters);
         debug_struct.field("messages", &self.messages);
-        debug_struct.field("default_response_platforms", &self.default_response_platforms);
+        debug_struct.field(
+            "default_response_platforms",
+            &self.default_response_platforms,
+        );
         debug_struct.field("root_followup_intent_name", &self.root_followup_intent_name);
-        debug_struct.field("parent_followup_intent_name", &self.parent_followup_intent_name);
+        debug_struct.field(
+            "parent_followup_intent_name",
+            &self.parent_followup_intent_name,
+        );
         debug_struct.field("followup_intent_info", &self.followup_intent_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3076,7 +3273,12 @@ impl std::fmt::Debug for super::Intent {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::TrainingPhrase {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainingPhrase");
@@ -3091,7 +3293,12 @@ impl std::fmt::Debug for super::intent::TrainingPhrase {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::training_phrase::Part {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Part");
@@ -3106,7 +3313,12 @@ impl std::fmt::Debug for super::intent::training_phrase::Part {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::Parameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Parameter");
@@ -3125,7 +3337,12 @@ impl std::fmt::Debug for super::intent::Parameter {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Message");
@@ -3138,7 +3355,12 @@ impl std::fmt::Debug for super::intent::Message {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::Text {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Text");
@@ -3150,7 +3372,12 @@ impl std::fmt::Debug for super::intent::message::Text {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::Image {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Image");
@@ -3163,7 +3390,12 @@ impl std::fmt::Debug for super::intent::message::Image {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::QuickReplies {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuickReplies");
@@ -3176,7 +3408,12 @@ impl std::fmt::Debug for super::intent::message::QuickReplies {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::Card {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Card");
@@ -3191,7 +3428,12 @@ impl std::fmt::Debug for super::intent::message::Card {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::card::Button {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Button");
@@ -3204,7 +3446,12 @@ impl std::fmt::Debug for super::intent::message::card::Button {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::SimpleResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SimpleResponse");
@@ -3218,7 +3465,12 @@ impl std::fmt::Debug for super::intent::message::SimpleResponse {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::SimpleResponses {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SimpleResponses");
@@ -3230,7 +3482,12 @@ impl std::fmt::Debug for super::intent::message::SimpleResponses {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::BasicCard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BasicCard");
@@ -3246,7 +3503,12 @@ impl std::fmt::Debug for super::intent::message::BasicCard {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::basic_card::Button {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Button");
@@ -3259,7 +3521,12 @@ impl std::fmt::Debug for super::intent::message::basic_card::Button {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::basic_card::button::OpenUriAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OpenUriAction");
@@ -3271,7 +3538,12 @@ impl std::fmt::Debug for super::intent::message::basic_card::button::OpenUriActi
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::Suggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Suggestion");
@@ -3283,7 +3555,12 @@ impl std::fmt::Debug for super::intent::message::Suggestion {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::Suggestions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Suggestions");
@@ -3295,7 +3572,12 @@ impl std::fmt::Debug for super::intent::message::Suggestions {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::LinkOutSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LinkOutSuggestion");
@@ -3308,7 +3590,12 @@ impl std::fmt::Debug for super::intent::message::LinkOutSuggestion {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::ListSelect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSelect");
@@ -3322,7 +3609,12 @@ impl std::fmt::Debug for super::intent::message::ListSelect {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::list_select::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
@@ -3337,7 +3629,12 @@ impl std::fmt::Debug for super::intent::message::list_select::Item {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::CarouselSelect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CarouselSelect");
@@ -3349,7 +3646,12 @@ impl std::fmt::Debug for super::intent::message::CarouselSelect {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::carousel_select::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
@@ -3364,7 +3666,12 @@ impl std::fmt::Debug for super::intent::message::carousel_select::Item {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::SelectItemInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SelectItemInfo");
@@ -3377,7 +3684,12 @@ impl std::fmt::Debug for super::intent::message::SelectItemInfo {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::MediaContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MediaContent");
@@ -3390,7 +3702,12 @@ impl std::fmt::Debug for super::intent::message::MediaContent {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::media_content::ResponseMediaObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResponseMediaObject");
@@ -3405,7 +3722,12 @@ impl std::fmt::Debug for super::intent::message::media_content::ResponseMediaObj
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::BrowseCarouselCard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BrowseCarouselCard");
@@ -3418,7 +3740,12 @@ impl std::fmt::Debug for super::intent::message::BrowseCarouselCard {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::browse_carousel_card::BrowseCarouselCardItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BrowseCarouselCardItem");
@@ -3434,8 +3761,15 @@ impl std::fmt::Debug for super::intent::message::browse_carousel_card::BrowseCar
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
-impl std::fmt::Debug for super::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction {
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
+impl std::fmt::Debug
+    for super::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OpenUrlAction");
         debug_struct.field("url", &self.url);
@@ -3447,7 +3781,12 @@ impl std::fmt::Debug for super::intent::message::browse_carousel_card::browse_ca
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::TableCard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableCard");
@@ -3464,7 +3803,12 @@ impl std::fmt::Debug for super::intent::message::TableCard {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::ColumnProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ColumnProperties");
@@ -3477,7 +3821,12 @@ impl std::fmt::Debug for super::intent::message::ColumnProperties {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::TableCardRow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableCardRow");
@@ -3490,7 +3839,12 @@ impl std::fmt::Debug for super::intent::message::TableCardRow {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::message::TableCardCell {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableCardCell");
@@ -3502,12 +3856,20 @@ impl std::fmt::Debug for super::intent::message::TableCardCell {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "intents",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "intents",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::intent::FollowupIntentInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FollowupIntentInfo");
         debug_struct.field("followup_intent_name", &self.followup_intent_name);
-        debug_struct.field("parent_followup_intent_name", &self.parent_followup_intent_name);
+        debug_struct.field(
+            "parent_followup_intent_name",
+            &self.parent_followup_intent_name,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3515,7 +3877,7 @@ impl std::fmt::Debug for super::intent::FollowupIntentInfo {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::ListIntentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIntentsRequest");
@@ -3531,7 +3893,7 @@ impl std::fmt::Debug for super::ListIntentsRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::ListIntentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIntentsResponse");
@@ -3544,7 +3906,7 @@ impl std::fmt::Debug for super::ListIntentsResponse {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::GetIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetIntentRequest");
@@ -3558,7 +3920,7 @@ impl std::fmt::Debug for super::GetIntentRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::CreateIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateIntentRequest");
@@ -3573,7 +3935,7 @@ impl std::fmt::Debug for super::CreateIntentRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::UpdateIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateIntentRequest");
@@ -3588,7 +3950,7 @@ impl std::fmt::Debug for super::UpdateIntentRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::DeleteIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteIntentRequest");
@@ -3600,7 +3962,7 @@ impl std::fmt::Debug for super::DeleteIntentRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::BatchUpdateIntentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateIntentsRequest");
@@ -3616,7 +3978,7 @@ impl std::fmt::Debug for super::BatchUpdateIntentsRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::BatchUpdateIntentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateIntentsResponse");
@@ -3628,7 +3990,7 @@ impl std::fmt::Debug for super::BatchUpdateIntentsResponse {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::BatchDeleteIntentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchDeleteIntentsRequest");
@@ -3641,7 +4003,7 @@ impl std::fmt::Debug for super::BatchDeleteIntentsRequest {
     }
 }
 
-#[cfg(feature = "intents" )]
+#[cfg(feature = "intents")]
 impl std::fmt::Debug for super::IntentBatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IntentBatch");
@@ -3653,7 +4015,7 @@ impl std::fmt::Debug for super::IntentBatch {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::KnowledgeBase {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeBase");
@@ -3667,7 +4029,7 @@ impl std::fmt::Debug for super::KnowledgeBase {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::ListKnowledgeBasesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKnowledgeBasesRequest");
@@ -3682,7 +4044,7 @@ impl std::fmt::Debug for super::ListKnowledgeBasesRequest {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::ListKnowledgeBasesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKnowledgeBasesResponse");
@@ -3695,7 +4057,7 @@ impl std::fmt::Debug for super::ListKnowledgeBasesResponse {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::GetKnowledgeBaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKnowledgeBaseRequest");
@@ -3707,7 +4069,7 @@ impl std::fmt::Debug for super::GetKnowledgeBaseRequest {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::CreateKnowledgeBaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKnowledgeBaseRequest");
@@ -3720,7 +4082,7 @@ impl std::fmt::Debug for super::CreateKnowledgeBaseRequest {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::DeleteKnowledgeBaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteKnowledgeBaseRequest");
@@ -3733,7 +4095,7 @@ impl std::fmt::Debug for super::DeleteKnowledgeBaseRequest {
     }
 }
 
-#[cfg(feature = "knowledge-bases" )]
+#[cfg(feature = "knowledge-bases")]
 impl std::fmt::Debug for super::UpdateKnowledgeBaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateKnowledgeBaseRequest");
@@ -3746,15 +4108,25 @@ impl std::fmt::Debug for super::UpdateKnowledgeBaseRequest {
     }
 }
 
-#[cfg(any ( feature = "conversation-profiles",feature = "conversations",feature = "participants", ) )]
+#[cfg(any(
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "participants",
+))]
 impl std::fmt::Debug for super::Participant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Participant");
         debug_struct.field("name", &self.name);
         debug_struct.field("role", &self.role);
         debug_struct.field("sip_recording_media_label", &self.sip_recording_media_label);
-        debug_struct.field("obfuscated_external_user_id", &self.obfuscated_external_user_id);
-        debug_struct.field("documents_metadata_filters", &self.documents_metadata_filters);
+        debug_struct.field(
+            "obfuscated_external_user_id",
+            &self.obfuscated_external_user_id,
+        );
+        debug_struct.field(
+            "documents_metadata_filters",
+            &self.documents_metadata_filters,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3762,8 +4134,7 @@ impl std::fmt::Debug for super::Participant {
     }
 }
 
-
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Message");
@@ -3783,7 +4154,7 @@ impl std::fmt::Debug for super::Message {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::CreateParticipantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateParticipantRequest");
@@ -3796,7 +4167,7 @@ impl std::fmt::Debug for super::CreateParticipantRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::GetParticipantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetParticipantRequest");
@@ -3808,7 +4179,7 @@ impl std::fmt::Debug for super::GetParticipantRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::ListParticipantsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParticipantsRequest");
@@ -3822,7 +4193,7 @@ impl std::fmt::Debug for super::ListParticipantsRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::ListParticipantsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParticipantsResponse");
@@ -3835,7 +4206,7 @@ impl std::fmt::Debug for super::ListParticipantsResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::UpdateParticipantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateParticipantRequest");
@@ -3848,7 +4219,7 @@ impl std::fmt::Debug for super::UpdateParticipantRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::AnalyzeContentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeContentRequest");
@@ -3866,7 +4237,7 @@ impl std::fmt::Debug for super::AnalyzeContentRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::DtmfParameters {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DtmfParameters");
@@ -3878,7 +4249,7 @@ impl std::fmt::Debug for super::DtmfParameters {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::AnalyzeContentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeContentResponse");
@@ -3886,8 +4257,14 @@ impl std::fmt::Debug for super::AnalyzeContentResponse {
         debug_struct.field("reply_audio", &self.reply_audio);
         debug_struct.field("automated_agent_reply", &self.automated_agent_reply);
         debug_struct.field("message", &self.message);
-        debug_struct.field("human_agent_suggestion_results", &self.human_agent_suggestion_results);
-        debug_struct.field("end_user_suggestion_results", &self.end_user_suggestion_results);
+        debug_struct.field(
+            "human_agent_suggestion_results",
+            &self.human_agent_suggestion_results,
+        );
+        debug_struct.field(
+            "end_user_suggestion_results",
+            &self.end_user_suggestion_results,
+        );
         debug_struct.field("dtmf_parameters", &self.dtmf_parameters);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3896,7 +4273,7 @@ impl std::fmt::Debug for super::AnalyzeContentResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::StreamingAnalyzeContentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingAnalyzeContentRequest");
@@ -3906,7 +4283,10 @@ impl std::fmt::Debug for super::StreamingAnalyzeContentRequest {
         debug_struct.field("assist_query_params", &self.assist_query_params);
         debug_struct.field("cx_parameters", &self.cx_parameters);
         debug_struct.field("enable_extended_streaming", &self.enable_extended_streaming);
-        debug_struct.field("enable_partial_automated_agent_reply", &self.enable_partial_automated_agent_reply);
+        debug_struct.field(
+            "enable_partial_automated_agent_reply",
+            &self.enable_partial_automated_agent_reply,
+        );
         debug_struct.field("enable_debugging_info", &self.enable_debugging_info);
         debug_struct.field("config", &self.config);
         debug_struct.field("input", &self.input);
@@ -3917,7 +4297,7 @@ impl std::fmt::Debug for super::StreamingAnalyzeContentRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::StreamingAnalyzeContentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingAnalyzeContentResponse");
@@ -3926,8 +4306,14 @@ impl std::fmt::Debug for super::StreamingAnalyzeContentResponse {
         debug_struct.field("reply_audio", &self.reply_audio);
         debug_struct.field("automated_agent_reply", &self.automated_agent_reply);
         debug_struct.field("message", &self.message);
-        debug_struct.field("human_agent_suggestion_results", &self.human_agent_suggestion_results);
-        debug_struct.field("end_user_suggestion_results", &self.end_user_suggestion_results);
+        debug_struct.field(
+            "human_agent_suggestion_results",
+            &self.human_agent_suggestion_results,
+        );
+        debug_struct.field(
+            "end_user_suggestion_results",
+            &self.end_user_suggestion_results,
+        );
         debug_struct.field("dtmf_parameters", &self.dtmf_parameters);
         debug_struct.field("debugging_info", &self.debugging_info);
         debug_struct.field("speech_model", &self.speech_model);
@@ -3938,7 +4324,7 @@ impl std::fmt::Debug for super::StreamingAnalyzeContentResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestArticlesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestArticlesRequest");
@@ -3953,7 +4339,7 @@ impl std::fmt::Debug for super::SuggestArticlesRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestArticlesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestArticlesResponse");
@@ -3967,7 +4353,7 @@ impl std::fmt::Debug for super::SuggestArticlesResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestFaqAnswersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestFaqAnswersRequest");
@@ -3982,7 +4368,7 @@ impl std::fmt::Debug for super::SuggestFaqAnswersRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestFaqAnswersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestFaqAnswersResponse");
@@ -3996,11 +4382,14 @@ impl std::fmt::Debug for super::SuggestFaqAnswersResponse {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::GenerateSuggestionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateSuggestionsResponse");
-        debug_struct.field("generator_suggestion_answers", &self.generator_suggestion_answers);
+        debug_struct.field(
+            "generator_suggestion_answers",
+            &self.generator_suggestion_answers,
+        );
         debug_struct.field("latest_message", &self.latest_message);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -4009,7 +4398,7 @@ impl std::fmt::Debug for super::GenerateSuggestionsResponse {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::generate_suggestions_response::GeneratorSuggestionAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeneratorSuggestionAnswer");
@@ -4023,7 +4412,7 @@ impl std::fmt::Debug for super::generate_suggestions_response::GeneratorSuggesti
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestSmartRepliesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestSmartRepliesRequest");
@@ -4038,7 +4427,7 @@ impl std::fmt::Debug for super::SuggestSmartRepliesRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestSmartRepliesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestSmartRepliesResponse");
@@ -4052,7 +4441,7 @@ impl std::fmt::Debug for super::SuggestSmartRepliesResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::AudioInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AudioInput");
@@ -4065,7 +4454,7 @@ impl std::fmt::Debug for super::AudioInput {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::OutputAudio {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OutputAudio");
@@ -4078,12 +4467,15 @@ impl std::fmt::Debug for super::OutputAudio {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::AutomatedAgentReply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomatedAgentReply");
         debug_struct.field("detect_intent_response", &self.detect_intent_response);
-        debug_struct.field("automated_agent_reply_type", &self.automated_agent_reply_type);
+        debug_struct.field(
+            "automated_agent_reply_type",
+            &self.automated_agent_reply_type,
+        );
         debug_struct.field("allow_cancellation", &self.allow_cancellation);
         debug_struct.field("cx_current_page", &self.cx_current_page);
         if !self._unknown_fields.is_empty() {
@@ -4093,7 +4485,7 @@ impl std::fmt::Debug for super::AutomatedAgentReply {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "participants", ) )]
+#[cfg(any(feature = "answer-records", feature = "participants",))]
 impl std::fmt::Debug for super::ArticleAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ArticleAnswer");
@@ -4110,7 +4502,7 @@ impl std::fmt::Debug for super::ArticleAnswer {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "participants", ) )]
+#[cfg(any(feature = "answer-records", feature = "participants",))]
 impl std::fmt::Debug for super::FaqAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaqAnswer");
@@ -4127,7 +4519,7 @@ impl std::fmt::Debug for super::FaqAnswer {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SmartReplyAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmartReplyAnswer");
@@ -4141,7 +4533,7 @@ impl std::fmt::Debug for super::SmartReplyAnswer {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::IntentSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IntentSuggestion");
@@ -4155,7 +4547,7 @@ impl std::fmt::Debug for super::IntentSuggestion {
     }
 }
 
-#[cfg(feature = "answer-records" )]
+#[cfg(feature = "answer-records")]
 impl std::fmt::Debug for super::DialogflowAssistAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DialogflowAssistAnswer");
@@ -4168,7 +4560,7 @@ impl std::fmt::Debug for super::DialogflowAssistAnswer {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionResult");
@@ -4180,7 +4572,7 @@ impl std::fmt::Debug for super::SuggestionResult {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::InputTextConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputTextConfig");
@@ -4192,7 +4584,7 @@ impl std::fmt::Debug for super::InputTextConfig {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::AnnotatedMessagePart {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedMessagePart");
@@ -4206,7 +4598,7 @@ impl std::fmt::Debug for super::AnnotatedMessagePart {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::MessageAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageAnnotation");
@@ -4219,7 +4611,7 @@ impl std::fmt::Debug for super::MessageAnnotation {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestionInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionInput");
@@ -4231,11 +4623,14 @@ impl std::fmt::Debug for super::SuggestionInput {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants", ) )]
+#[cfg(any(feature = "conversations", feature = "participants",))]
 impl std::fmt::Debug for super::AssistQueryParameters {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistQueryParameters");
-        debug_struct.field("documents_metadata_filters", &self.documents_metadata_filters);
+        debug_struct.field(
+            "documents_metadata_filters",
+            &self.documents_metadata_filters,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4243,7 +4638,7 @@ impl std::fmt::Debug for super::AssistQueryParameters {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestKnowledgeAssistRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestKnowledgeAssistRequest");
@@ -4258,7 +4653,7 @@ impl std::fmt::Debug for super::SuggestKnowledgeAssistRequest {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::SuggestKnowledgeAssistResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestKnowledgeAssistResponse");
@@ -4272,7 +4667,7 @@ impl std::fmt::Debug for super::SuggestKnowledgeAssistResponse {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::KnowledgeAssistAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeAssistAnswer");
@@ -4286,7 +4681,7 @@ impl std::fmt::Debug for super::KnowledgeAssistAnswer {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::knowledge_assist_answer::SuggestedQuery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestedQuery");
@@ -4298,7 +4693,7 @@ impl std::fmt::Debug for super::knowledge_assist_answer::SuggestedQuery {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::knowledge_assist_answer::KnowledgeAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeAnswer");
@@ -4311,7 +4706,7 @@ impl std::fmt::Debug for super::knowledge_assist_answer::KnowledgeAnswer {
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::FaqSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaqSource");
@@ -4323,7 +4718,7 @@ impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::FaqSo
     }
 }
 
-#[cfg(feature = "participants" )]
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::GenerativeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerativeSource");
@@ -4335,8 +4730,10 @@ impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::Gener
     }
 }
 
-#[cfg(feature = "participants" )]
-impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::generative_source::Snippet {
+#[cfg(feature = "participants")]
+impl std::fmt::Debug
+    for super::knowledge_assist_answer::knowledge_answer::generative_source::Snippet
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Snippet");
         debug_struct.field("uri", &self.uri);
@@ -4350,7 +4747,7 @@ impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::gener
     }
 }
 
-#[cfg(feature = "sessions" )]
+#[cfg(feature = "sessions")]
 impl std::fmt::Debug for super::DetectIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectIntentRequest");
@@ -4367,7 +4764,7 @@ impl std::fmt::Debug for super::DetectIntentRequest {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::DetectIntentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectIntentResponse");
@@ -4383,7 +4780,7 @@ impl std::fmt::Debug for super::DetectIntentResponse {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::QueryParameters {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryParameters");
@@ -4393,7 +4790,10 @@ impl std::fmt::Debug for super::QueryParameters {
         debug_struct.field("reset_contexts", &self.reset_contexts);
         debug_struct.field("session_entity_types", &self.session_entity_types);
         debug_struct.field("payload", &self.payload);
-        debug_struct.field("sentiment_analysis_request_config", &self.sentiment_analysis_request_config);
+        debug_struct.field(
+            "sentiment_analysis_request_config",
+            &self.sentiment_analysis_request_config,
+        );
         debug_struct.field("webhook_headers", &self.webhook_headers);
         debug_struct.field("platform", &self.platform);
         if !self._unknown_fields.is_empty() {
@@ -4403,7 +4803,7 @@ impl std::fmt::Debug for super::QueryParameters {
     }
 }
 
-#[cfg(feature = "sessions" )]
+#[cfg(feature = "sessions")]
 impl std::fmt::Debug for super::QueryInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryInput");
@@ -4415,16 +4815,26 @@ impl std::fmt::Debug for super::QueryInput {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::QueryResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryResult");
         debug_struct.field("query_text", &self.query_text);
         debug_struct.field("language_code", &self.language_code);
-        debug_struct.field("speech_recognition_confidence", &self.speech_recognition_confidence);
+        debug_struct.field(
+            "speech_recognition_confidence",
+            &self.speech_recognition_confidence,
+        );
         debug_struct.field("action", &self.action);
         debug_struct.field("parameters", &self.parameters);
-        debug_struct.field("all_required_params_present", &self.all_required_params_present);
+        debug_struct.field(
+            "all_required_params_present",
+            &self.all_required_params_present,
+        );
         debug_struct.field("cancels_slot_filling", &self.cancels_slot_filling);
         debug_struct.field("fulfillment_text", &self.fulfillment_text);
         debug_struct.field("fulfillment_messages", &self.fulfillment_messages);
@@ -4432,7 +4842,10 @@ impl std::fmt::Debug for super::QueryResult {
         debug_struct.field("webhook_payload", &self.webhook_payload);
         debug_struct.field("output_contexts", &self.output_contexts);
         debug_struct.field("intent", &self.intent);
-        debug_struct.field("intent_detection_confidence", &self.intent_detection_confidence);
+        debug_struct.field(
+            "intent_detection_confidence",
+            &self.intent_detection_confidence,
+        );
         debug_struct.field("diagnostic_info", &self.diagnostic_info);
         debug_struct.field("sentiment_analysis_result", &self.sentiment_analysis_result);
         if !self._unknown_fields.is_empty() {
@@ -4442,7 +4855,7 @@ impl std::fmt::Debug for super::QueryResult {
     }
 }
 
-#[cfg(feature = "sessions" )]
+#[cfg(feature = "sessions")]
 impl std::fmt::Debug for super::StreamingDetectIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingDetectIntentRequest");
@@ -4461,7 +4874,7 @@ impl std::fmt::Debug for super::StreamingDetectIntentRequest {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::CloudConversationDebuggingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudConversationDebuggingInfo");
@@ -4469,20 +4882,41 @@ impl std::fmt::Debug for super::CloudConversationDebuggingInfo {
         debug_struct.field("result_end_time_offset", &self.result_end_time_offset);
         debug_struct.field("first_audio_duration", &self.first_audio_duration);
         debug_struct.field("single_utterance", &self.single_utterance);
-        debug_struct.field("speech_partial_results_end_times", &self.speech_partial_results_end_times);
-        debug_struct.field("speech_final_results_end_times", &self.speech_final_results_end_times);
+        debug_struct.field(
+            "speech_partial_results_end_times",
+            &self.speech_partial_results_end_times,
+        );
+        debug_struct.field(
+            "speech_final_results_end_times",
+            &self.speech_final_results_end_times,
+        );
         debug_struct.field("partial_responses", &self.partial_responses);
-        debug_struct.field("speaker_id_passive_latency_ms_offset", &self.speaker_id_passive_latency_ms_offset);
+        debug_struct.field(
+            "speaker_id_passive_latency_ms_offset",
+            &self.speaker_id_passive_latency_ms_offset,
+        );
         debug_struct.field("bargein_event_triggered", &self.bargein_event_triggered);
         debug_struct.field("speech_single_utterance", &self.speech_single_utterance);
-        debug_struct.field("dtmf_partial_results_times", &self.dtmf_partial_results_times);
+        debug_struct.field(
+            "dtmf_partial_results_times",
+            &self.dtmf_partial_results_times,
+        );
         debug_struct.field("dtmf_final_results_times", &self.dtmf_final_results_times);
-        debug_struct.field("single_utterance_end_time_offset", &self.single_utterance_end_time_offset);
+        debug_struct.field(
+            "single_utterance_end_time_offset",
+            &self.single_utterance_end_time_offset,
+        );
         debug_struct.field("no_speech_timeout", &self.no_speech_timeout);
         debug_struct.field("endpointing_timeout", &self.endpointing_timeout);
         debug_struct.field("is_input_text", &self.is_input_text);
-        debug_struct.field("client_half_close_time_offset", &self.client_half_close_time_offset);
-        debug_struct.field("client_half_close_streaming_time_offset", &self.client_half_close_streaming_time_offset);
+        debug_struct.field(
+            "client_half_close_time_offset",
+            &self.client_half_close_time_offset,
+        );
+        debug_struct.field(
+            "client_half_close_streaming_time_offset",
+            &self.client_half_close_streaming_time_offset,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4490,7 +4924,7 @@ impl std::fmt::Debug for super::CloudConversationDebuggingInfo {
     }
 }
 
-#[cfg(feature = "sessions" )]
+#[cfg(feature = "sessions")]
 impl std::fmt::Debug for super::StreamingDetectIntentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingDetectIntentResponse");
@@ -4508,7 +4942,7 @@ impl std::fmt::Debug for super::StreamingDetectIntentResponse {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::StreamingRecognitionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognitionResult");
@@ -4526,7 +4960,11 @@ impl std::fmt::Debug for super::StreamingRecognitionResult {
     }
 }
 
-#[cfg(any ( feature = "conversations",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::TextInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextInput");
@@ -4539,7 +4977,7 @@ impl std::fmt::Debug for super::TextInput {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::EventInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EventInput");
@@ -4553,11 +4991,14 @@ impl std::fmt::Debug for super::EventInput {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "sessions", ) )]
+#[cfg(any(feature = "participants", feature = "sessions",))]
 impl std::fmt::Debug for super::SentimentAnalysisRequestConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SentimentAnalysisRequestConfig");
-        debug_struct.field("analyze_query_text_sentiment", &self.analyze_query_text_sentiment);
+        debug_struct.field(
+            "analyze_query_text_sentiment",
+            &self.analyze_query_text_sentiment,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4565,7 +5006,12 @@ impl std::fmt::Debug for super::SentimentAnalysisRequestConfig {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "conversations",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::SentimentAnalysisResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SentimentAnalysisResult");
@@ -4577,7 +5023,12 @@ impl std::fmt::Debug for super::SentimentAnalysisResult {
     }
 }
 
-#[cfg(any ( feature = "answer-records",feature = "conversations",feature = "participants",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "answer-records",
+    feature = "conversations",
+    feature = "participants",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::Sentiment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sentiment");
@@ -4590,7 +5041,11 @@ impl std::fmt::Debug for super::Sentiment {
     }
 }
 
-#[cfg(any ( feature = "participants",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(any(
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 impl std::fmt::Debug for super::SessionEntityType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionEntityType");
@@ -4604,7 +5059,7 @@ impl std::fmt::Debug for super::SessionEntityType {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::ListSessionEntityTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSessionEntityTypesRequest");
@@ -4618,7 +5073,7 @@ impl std::fmt::Debug for super::ListSessionEntityTypesRequest {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::ListSessionEntityTypesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSessionEntityTypesResponse");
@@ -4631,7 +5086,7 @@ impl std::fmt::Debug for super::ListSessionEntityTypesResponse {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::GetSessionEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSessionEntityTypeRequest");
@@ -4643,7 +5098,7 @@ impl std::fmt::Debug for super::GetSessionEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::CreateSessionEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSessionEntityTypeRequest");
@@ -4656,7 +5111,7 @@ impl std::fmt::Debug for super::CreateSessionEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::UpdateSessionEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSessionEntityTypeRequest");
@@ -4669,7 +5124,7 @@ impl std::fmt::Debug for super::UpdateSessionEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "session-entity-types" )]
+#[cfg(feature = "session-entity-types")]
 impl std::fmt::Debug for super::DeleteSessionEntityTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSessionEntityTypeRequest");
@@ -4681,7 +5136,7 @@ impl std::fmt::Debug for super::DeleteSessionEntityTypeRequest {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ValidationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidationError");
@@ -4695,7 +5150,7 @@ impl std::fmt::Debug for super::ValidationError {
     }
 }
 
-#[cfg(feature = "agents" )]
+#[cfg(feature = "agents")]
 impl std::fmt::Debug for super::ValidationResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidationResult");
@@ -4707,7 +5162,7 @@ impl std::fmt::Debug for super::ValidationResult {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::Version {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Version");
@@ -4723,7 +5178,7 @@ impl std::fmt::Debug for super::Version {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::ListVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVersionsRequest");
@@ -4737,7 +5192,7 @@ impl std::fmt::Debug for super::ListVersionsRequest {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::ListVersionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVersionsResponse");
@@ -4750,7 +5205,7 @@ impl std::fmt::Debug for super::ListVersionsResponse {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::GetVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVersionRequest");
@@ -4762,7 +5217,7 @@ impl std::fmt::Debug for super::GetVersionRequest {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::CreateVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateVersionRequest");
@@ -4775,7 +5230,7 @@ impl std::fmt::Debug for super::CreateVersionRequest {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::UpdateVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateVersionRequest");
@@ -4788,7 +5243,7 @@ impl std::fmt::Debug for super::UpdateVersionRequest {
     }
 }
 
-#[cfg(feature = "versions" )]
+#[cfg(feature = "versions")]
 impl std::fmt::Debug for super::DeleteVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteVersionRequest");
@@ -4800,14 +5255,37 @@ impl std::fmt::Debug for super::DeleteVersionRequest {
     }
 }
 
-#[cfg(all ( feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "conversations",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "session-entity-types",feature = "sessions",feature = "versions", ) )]
+#[cfg(all(
+    feature = "agents",
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "conversation-datasets",
+    feature = "conversation-models",
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "documents",
+    feature = "encryption-spec-service",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "fulfillments",
+    feature = "generators",
+    feature = "intents",
+    feature = "knowledge-bases",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "versions",
+))]
 impl std::fmt::Debug for super::WebhookRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WebhookRequest");
         debug_struct.field("session", &self.session);
         debug_struct.field("response_id", &self.response_id);
         debug_struct.field("query_result", &self.query_result);
-        debug_struct.field("original_detect_intent_request", &self.original_detect_intent_request);
+        debug_struct.field(
+            "original_detect_intent_request",
+            &self.original_detect_intent_request,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4815,7 +5293,27 @@ impl std::fmt::Debug for super::WebhookRequest {
     }
 }
 
-#[cfg(all ( feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "conversations",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "session-entity-types",feature = "sessions",feature = "versions", ) )]
+#[cfg(all(
+    feature = "agents",
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "conversation-datasets",
+    feature = "conversation-models",
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "documents",
+    feature = "encryption-spec-service",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "fulfillments",
+    feature = "generators",
+    feature = "intents",
+    feature = "knowledge-bases",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "versions",
+))]
 impl std::fmt::Debug for super::WebhookResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WebhookResponse");
@@ -4833,7 +5331,27 @@ impl std::fmt::Debug for super::WebhookResponse {
     }
 }
 
-#[cfg(all ( feature = "agents",feature = "answer-records",feature = "contexts",feature = "conversation-datasets",feature = "conversation-models",feature = "conversation-profiles",feature = "conversations",feature = "documents",feature = "encryption-spec-service",feature = "entity-types",feature = "environments",feature = "fulfillments",feature = "generators",feature = "intents",feature = "knowledge-bases",feature = "participants",feature = "session-entity-types",feature = "sessions",feature = "versions", ) )]
+#[cfg(all(
+    feature = "agents",
+    feature = "answer-records",
+    feature = "contexts",
+    feature = "conversation-datasets",
+    feature = "conversation-models",
+    feature = "conversation-profiles",
+    feature = "conversations",
+    feature = "documents",
+    feature = "encryption-spec-service",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "fulfillments",
+    feature = "generators",
+    feature = "intents",
+    feature = "knowledge-bases",
+    feature = "participants",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "versions",
+))]
 impl std::fmt::Debug for super::OriginalDetectIntentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OriginalDetectIntentRequest");

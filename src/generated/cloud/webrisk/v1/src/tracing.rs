@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [WebRiskService](super::stub::WebRiskService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct WebRiskService<T>
-where T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> WebRiskService<T>
-where T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::WebRiskService for WebRiskService<T>
-where T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn compute_threat_list_diff(
         &self,
@@ -112,7 +118,6 @@ where T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -127,4 +132,3 @@ where T: super::stub::WebRiskService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

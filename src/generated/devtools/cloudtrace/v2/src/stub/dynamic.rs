@@ -28,7 +28,6 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         req: crate::model::Span,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Span>>;
-
 }
 
 /// All implementations of [super::TraceService] also implement [TraceService].
@@ -51,5 +50,4 @@ impl<T: super::TraceService> TraceService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Span>> {
         T::create_span(self, req, options).await
     }
-
 }

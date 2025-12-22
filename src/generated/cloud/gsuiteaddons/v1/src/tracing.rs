@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [GSuiteAddOns](super::stub::GSuiteAddOns) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GSuiteAddOns<T>
-where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> GSuiteAddOns<T>
-where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GSuiteAddOns for GSuiteAddOns<T>
-where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_authorization(
         &self,
@@ -111,6 +117,4 @@ where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::InstallStatus>> {
         self.inner.get_install_status(req, options).await
     }
-
 }
-

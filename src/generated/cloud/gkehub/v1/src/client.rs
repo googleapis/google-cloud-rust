@@ -99,39 +99,51 @@ impl GkeHub {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::GkeHub + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::GkeHub + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GkeHub>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GkeHub>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GkeHub> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GkeHub> {
         super::transport::GkeHub::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GkeHub> {
-        Self::build_transport(conf).await.map(super::tracing::GkeHub::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GkeHub> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GkeHub::new)
     }
 
     /// Lists Memberships in a given project and location.
-    pub fn list_memberships(&self) -> super::builder::gke_hub::ListMemberships
-    {
+    pub fn list_memberships(&self) -> super::builder::gke_hub::ListMemberships {
         super::builder::gke_hub::ListMemberships::new(self.inner.clone())
     }
 
     /// Lists Features in a given project and location.
-    pub fn list_features(&self) -> super::builder::gke_hub::ListFeatures
-    {
+    pub fn list_features(&self) -> super::builder::gke_hub::ListFeatures {
         super::builder::gke_hub::ListFeatures::new(self.inner.clone())
     }
 
@@ -152,8 +164,7 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_membership(&self) -> super::builder::gke_hub::GetMembership
-    {
+    pub fn get_membership(&self) -> super::builder::gke_hub::GetMembership {
         super::builder::gke_hub::GetMembership::new(self.inner.clone())
     }
 
@@ -174,8 +185,7 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_feature(&self) -> super::builder::gke_hub::GetFeature
-    {
+    pub fn get_feature(&self) -> super::builder::gke_hub::GetFeature {
         super::builder::gke_hub::GetFeature::new(self.inner.clone())
     }
 
@@ -194,8 +204,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_membership(&self) -> super::builder::gke_hub::CreateMembership
-    {
+    pub fn create_membership(&self) -> super::builder::gke_hub::CreateMembership {
         super::builder::gke_hub::CreateMembership::new(self.inner.clone())
     }
 
@@ -210,8 +219,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_feature(&self) -> super::builder::gke_hub::CreateFeature
-    {
+    pub fn create_feature(&self) -> super::builder::gke_hub::CreateFeature {
         super::builder::gke_hub::CreateFeature::new(self.inner.clone())
     }
 
@@ -230,8 +238,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_membership(&self) -> super::builder::gke_hub::DeleteMembership
-    {
+    pub fn delete_membership(&self) -> super::builder::gke_hub::DeleteMembership {
         super::builder::gke_hub::DeleteMembership::new(self.inner.clone())
     }
 
@@ -246,8 +253,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_feature(&self) -> super::builder::gke_hub::DeleteFeature
-    {
+    pub fn delete_feature(&self) -> super::builder::gke_hub::DeleteFeature {
         super::builder::gke_hub::DeleteFeature::new(self.inner.clone())
     }
 
@@ -262,8 +268,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_membership(&self) -> super::builder::gke_hub::UpdateMembership
-    {
+    pub fn update_membership(&self) -> super::builder::gke_hub::UpdateMembership {
         super::builder::gke_hub::UpdateMembership::new(self.inner.clone())
     }
 
@@ -278,8 +283,7 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_feature(&self) -> super::builder::gke_hub::UpdateFeature
-    {
+    pub fn update_feature(&self) -> super::builder::gke_hub::UpdateFeature {
         super::builder::gke_hub::UpdateFeature::new(self.inner.clone())
     }
 
@@ -303,16 +307,14 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest
-    {
+    pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest {
         super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::gke_hub::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::gke_hub::ListOperations {
         super::builder::gke_hub::ListOperations::new(self.inner.clone())
     }
 
@@ -335,8 +337,7 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::gke_hub::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::gke_hub::GetOperation {
         super::builder::gke_hub::GetOperation::new(self.inner.clone())
     }
 
@@ -358,8 +359,7 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::gke_hub::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::gke_hub::DeleteOperation {
         super::builder::gke_hub::DeleteOperation::new(self.inner.clone())
     }
 
@@ -381,8 +381,7 @@ impl GkeHub {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::gke_hub::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::gke_hub::CancelOperation {
         super::builder::gke_hub::CancelOperation::new(self.inner.clone())
     }
 }

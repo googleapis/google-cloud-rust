@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -30,6 +29,7 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,7 +44,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlertPolicy {
-
     /// Identifier. Required if the policy exists. The resource name for this
     /// policy. The format is:
     ///
@@ -94,7 +93,7 @@ pub struct AlertPolicy {
     /// whereas Prometheus {rule group} is an unrestricted UTF-8 string.
     /// This means that they cannot be stored as-is in user labels, because
     /// they may contain characters that are not allowed in user-label values.
-    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A list of conditions for the policy. The conditions are combined by AND or
     /// OR according to the `combiner` field. If the combined conditions evaluate
@@ -197,7 +196,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_documentation(Documentation::default()/* use setters */);
     /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::alert_policy::Documentation>
+    where
+        T: std::convert::Into<crate::model::alert_policy::Documentation>,
     {
         self.documentation = std::option::Option::Some(v.into());
         self
@@ -213,7 +213,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_documentation(None::<Documentation>);
     /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::alert_policy::Documentation>
+    where
+        T: std::convert::Into<crate::model::alert_policy::Documentation>,
     {
         self.documentation = v.map(|x| x.into());
         self
@@ -255,7 +256,7 @@ impl AlertPolicy {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::alert_policy::Condition>
+        V: std::convert::Into<crate::model::alert_policy::Condition>,
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -272,7 +273,12 @@ impl AlertPolicy {
     /// let x1 = AlertPolicy::new().set_combiner(ConditionCombinerType::Or);
     /// let x2 = AlertPolicy::new().set_combiner(ConditionCombinerType::AndWithMatchingResource);
     /// ```
-    pub fn set_combiner<T: std::convert::Into<crate::model::alert_policy::ConditionCombinerType>>(mut self, v: T) -> Self {
+    pub fn set_combiner<
+        T: std::convert::Into<crate::model::alert_policy::ConditionCombinerType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.combiner = v.into();
         self
     }
@@ -286,7 +292,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_enabled(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -302,7 +309,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_enabled(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -317,7 +325,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_validity(Status::default()/* use setters */);
     /// ```
     pub fn set_validity<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.validity = std::option::Option::Some(v.into());
         self
@@ -333,7 +342,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_validity(None::<Status>);
     /// ```
     pub fn set_or_clear_validity<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.validity = v.map(|x| x.into());
         self
@@ -349,7 +359,7 @@ impl AlertPolicy {
     pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.notification_channels = v.into_iter().map(|i| i.into()).collect();
@@ -365,7 +375,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_creation_record(MutationRecord::default()/* use setters */);
     /// ```
     pub fn set_creation_record<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.creation_record = std::option::Option::Some(v.into());
         self
@@ -381,7 +392,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_creation_record(None::<MutationRecord>);
     /// ```
     pub fn set_or_clear_creation_record<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.creation_record = v.map(|x| x.into());
         self
@@ -396,7 +408,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_mutation_record(MutationRecord::default()/* use setters */);
     /// ```
     pub fn set_mutation_record<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.mutation_record = std::option::Option::Some(v.into());
         self
@@ -412,7 +425,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_mutation_record(None::<MutationRecord>);
     /// ```
     pub fn set_or_clear_mutation_record<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.mutation_record = v.map(|x| x.into());
         self
@@ -427,7 +441,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_alert_strategy(AlertStrategy::default()/* use setters */);
     /// ```
     pub fn set_alert_strategy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::alert_policy::AlertStrategy>
+    where
+        T: std::convert::Into<crate::model::alert_policy::AlertStrategy>,
     {
         self.alert_strategy = std::option::Option::Some(v.into());
         self
@@ -443,7 +458,8 @@ impl AlertPolicy {
     /// let x = AlertPolicy::new().set_or_clear_alert_strategy(None::<AlertStrategy>);
     /// ```
     pub fn set_or_clear_alert_strategy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::alert_policy::AlertStrategy>
+    where
+        T: std::convert::Into<crate::model::alert_policy::AlertStrategy>,
     {
         self.alert_strategy = v.map(|x| x.into());
         self
@@ -459,7 +475,10 @@ impl AlertPolicy {
     /// let x1 = AlertPolicy::new().set_severity(Severity::Error);
     /// let x2 = AlertPolicy::new().set_severity(Severity::Warning);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::alert_policy::Severity>>(mut self, v: T) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::alert_policy::Severity>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.severity = v.into();
         self
     }
@@ -476,13 +495,11 @@ pub mod alert_policy {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Documentation that is included in the notifications and incidents
     /// pertaining to this policy.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Documentation {
-
         /// The body of the documentation, interpreted according to `mime_type`.
         /// The content may not exceed 8,192 Unicode characters and may not exceed
         /// more than 10,240 bytes when encoded in UTF-8 format, whichever is
@@ -573,7 +590,7 @@ pub mod alert_policy {
         pub fn set_links<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::alert_policy::documentation::Link>
+            V: std::convert::Into<crate::model::alert_policy::documentation::Link>,
         {
             use std::iter::Iterator;
             self.links = v.into_iter().map(|i| i.into()).collect();
@@ -592,12 +609,10 @@ pub mod alert_policy {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Links to content such as playbooks, repositories, and other resources.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Link {
-
             /// A short display name for the link. The display name must not be empty
             /// or exceed 63 characters. Example: "playbook".
             pub display_name: std::string::String,
@@ -624,7 +639,10 @@ pub mod alert_policy {
             /// # use google_cloud_monitoring_v3::model::alert_policy::documentation::Link;
             /// let x = Link::new().set_display_name("example");
             /// ```
-            pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.display_name = v.into();
                 self
             }
@@ -655,7 +673,6 @@ pub mod alert_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Condition {
-
         /// Required if the condition exists. The unique resource name for this
         /// condition. Its format is:
         ///
@@ -723,7 +740,10 @@ pub mod alert_policy {
         /// # use google_cloud_monitoring_v3::model::alert_policy::Condition;
         /// let x = Condition::new().set_display_name("example");
         /// ```
-        pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.display_name = v.into();
             self
         }
@@ -740,8 +760,14 @@ pub mod alert_policy {
         /// let x = Condition::new().set_condition(Some(
         ///     google_cloud_monitoring_v3::model::alert_policy::condition::Condition::ConditionThreshold(MetricThreshold::default().into())));
         /// ```
-        pub fn set_condition<T: std::convert::Into<std::option::Option<crate::model::alert_policy::condition::Condition>>>(mut self, v: T) -> Self
-        {
+        pub fn set_condition<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::alert_policy::condition::Condition>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = v.into();
             self
         }
@@ -749,10 +775,16 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_threshold(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>> {
+        pub fn condition_threshold(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
+        > {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionThreshold(v) => std::option::Option::Some(v),
+                crate::model::alert_policy::condition::Condition::ConditionThreshold(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -775,11 +807,16 @@ pub mod alert_policy {
         /// assert!(x.condition_prometheus_query_language().is_none());
         /// assert!(x.condition_sql().is_none());
         /// ```
-        pub fn set_condition_threshold<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>>>(mut self, v: T) -> Self {
+        pub fn set_condition_threshold<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionThreshold(
-                    v.into()
-                )
+                crate::model::alert_policy::condition::Condition::ConditionThreshold(v.into()),
             );
             self
         }
@@ -787,10 +824,16 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionAbsent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_absent(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>> {
+        pub fn condition_absent(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
+        > {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionAbsent(v) => std::option::Option::Some(v),
+                crate::model::alert_policy::condition::Condition::ConditionAbsent(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -813,11 +856,16 @@ pub mod alert_policy {
         /// assert!(x.condition_prometheus_query_language().is_none());
         /// assert!(x.condition_sql().is_none());
         /// ```
-        pub fn set_condition_absent<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>>>(mut self, v: T) -> Self {
+        pub fn set_condition_absent<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionAbsent(
-                    v.into()
-                )
+                crate::model::alert_policy::condition::Condition::ConditionAbsent(v.into()),
             );
             self
         }
@@ -825,10 +873,15 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionMatchedLog`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_matched_log(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::LogMatch>> {
+        pub fn condition_matched_log(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>
+        {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v) => std::option::Option::Some(v),
+                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -851,11 +904,14 @@ pub mod alert_policy {
         /// assert!(x.condition_prometheus_query_language().is_none());
         /// assert!(x.condition_sql().is_none());
         /// ```
-        pub fn set_condition_matched_log<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>>(mut self, v: T) -> Self {
+        pub fn set_condition_matched_log<
+            T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(
-                    v.into()
-                )
+                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v.into()),
             );
             self
         }
@@ -863,7 +919,13 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionMonitoringQueryLanguage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_monitoring_query_language(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::MonitoringQueryLanguageCondition>> {
+        pub fn condition_monitoring_query_language(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
                 crate::model::alert_policy::condition::Condition::ConditionMonitoringQueryLanguage(v) => std::option::Option::Some(v),
@@ -889,11 +951,20 @@ pub mod alert_policy {
         /// assert!(x.condition_prometheus_query_language().is_none());
         /// assert!(x.condition_sql().is_none());
         /// ```
-        pub fn set_condition_monitoring_query_language<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::MonitoringQueryLanguageCondition>>>(mut self, v: T) -> Self {
+        pub fn set_condition_monitoring_query_language<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
                 crate::model::alert_policy::condition::Condition::ConditionMonitoringQueryLanguage(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -901,7 +972,13 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionPrometheusQueryLanguage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_prometheus_query_language(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::PrometheusQueryLanguageCondition>> {
+        pub fn condition_prometheus_query_language(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
                 crate::model::alert_policy::condition::Condition::ConditionPrometheusQueryLanguage(v) => std::option::Option::Some(v),
@@ -927,11 +1004,20 @@ pub mod alert_policy {
         /// assert!(x.condition_monitoring_query_language().is_none());
         /// assert!(x.condition_sql().is_none());
         /// ```
-        pub fn set_condition_prometheus_query_language<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::PrometheusQueryLanguageCondition>>>(mut self, v: T) -> Self {
+        pub fn set_condition_prometheus_query_language<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
                 crate::model::alert_policy::condition::Condition::ConditionPrometheusQueryLanguage(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -939,10 +1025,16 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionSql`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn condition_sql(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>> {
+        pub fn condition_sql(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
+        > {
             #[allow(unreachable_patterns)]
             self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionSql(v) => std::option::Option::Some(v),
+                crate::model::alert_policy::condition::Condition::ConditionSql(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -965,11 +1057,16 @@ pub mod alert_policy {
         /// assert!(x.condition_monitoring_query_language().is_none());
         /// assert!(x.condition_prometheus_query_language().is_none());
         /// ```
-        pub fn set_condition_sql<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>>>(mut self, v: T) -> Self {
+        pub fn set_condition_sql<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionSql(
-                    v.into()
-                )
+                crate::model::alert_policy::condition::Condition::ConditionSql(v.into()),
             );
             self
         }
@@ -986,13 +1083,11 @@ pub mod alert_policy {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Specifies how many time series must fail a predicate to trigger a
         /// condition. If not specified, then a `{count: 1}` trigger is used.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Trigger {
-
             /// A type of trigger.
             pub r#type: std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
 
@@ -1015,8 +1110,14 @@ pub mod alert_policy {
             /// use google_cloud_monitoring_v3::model::alert_policy::condition::trigger::Type;
             /// let x = Trigger::new().set_type(Some(Type::Count(42)));
             /// ```
-            pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::alert_policy::condition::trigger::Type>>>(mut self, v: T) -> Self
-            {
+            pub fn set_type<
+                T: std::convert::Into<
+                        std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.r#type = v.into();
                 self
             }
@@ -1027,7 +1128,9 @@ pub mod alert_policy {
             pub fn count(&self) -> std::option::Option<&i32> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::trigger::Type::Count(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::trigger::Type::Count(v) => {
+                        std::option::Option::Some(v)
+                    }
                     _ => std::option::Option::None,
                 })
             }
@@ -1047,9 +1150,7 @@ pub mod alert_policy {
             /// ```
             pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
-                    crate::model::alert_policy::condition::trigger::Type::Count(
-                        v.into()
-                    )
+                    crate::model::alert_policy::condition::trigger::Type::Count(v.into()),
                 );
                 self
             }
@@ -1060,7 +1161,9 @@ pub mod alert_policy {
             pub fn percent(&self) -> std::option::Option<&f64> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::trigger::Type::Percent(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::trigger::Type::Percent(v) => {
+                        std::option::Option::Some(v)
+                    }
                     _ => std::option::Option::None,
                 })
             }
@@ -1080,9 +1183,7 @@ pub mod alert_policy {
             /// ```
             pub fn set_percent<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.r#type = std::option::Option::Some(
-                    crate::model::alert_policy::condition::trigger::Type::Percent(
-                        v.into()
-                    )
+                    crate::model::alert_policy::condition::trigger::Type::Percent(v.into()),
                 );
                 self
             }
@@ -1098,7 +1199,6 @@ pub mod alert_policy {
         pub mod trigger {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// A type of trigger.
             #[derive(Clone, Debug, PartialEq)]
@@ -1118,7 +1218,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MetricThreshold {
-
             /// Required. A
             /// [filter](https://cloud.google.com/monitoring/api/v3/filters) that
             /// identifies which time series should be compared with the threshold.
@@ -1173,7 +1272,9 @@ pub mod alert_policy {
             /// the `forecast_horizon`. When this field is not set, the
             /// `MetricThreshold` tests the current value of the timeseries against the
             /// threshold.
-            pub forecast_options: std::option::Option<crate::model::alert_policy::condition::metric_threshold::ForecastOptions>,
+            pub forecast_options: std::option::Option<
+                crate::model::alert_policy::condition::metric_threshold::ForecastOptions,
+            >,
 
             /// The comparison to apply between the time series (indicated by `filter`
             /// and `aggregation`) and the threshold (indicated by `threshold_value`).
@@ -1209,7 +1310,8 @@ pub mod alert_policy {
             /// A condition control that determines how metric-threshold conditions
             /// are evaluated when data stops arriving. To use this control, the value
             /// of the `duration` field must be greater than or equal to 60 seconds.
-            pub evaluation_missing_data: crate::model::alert_policy::condition::EvaluationMissingData,
+            pub evaluation_missing_data:
+                crate::model::alert_policy::condition::EvaluationMissingData,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1246,7 +1348,7 @@ pub mod alert_policy {
             pub fn set_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>
+                V: std::convert::Into<crate::model::Aggregation>,
             {
                 use std::iter::Iterator;
                 self.aggregations = v.into_iter().map(|i| i.into()).collect();
@@ -1260,7 +1362,10 @@ pub mod alert_policy {
             /// # use google_cloud_monitoring_v3::model::alert_policy::condition::MetricThreshold;
             /// let x = MetricThreshold::new().set_denominator_filter("example");
             /// ```
-            pub fn set_denominator_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_denominator_filter<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.denominator_filter = v.into();
                 self
             }
@@ -1280,7 +1385,7 @@ pub mod alert_policy {
             pub fn set_denominator_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>
+                V: std::convert::Into<crate::model::Aggregation>,
             {
                 use std::iter::Iterator;
                 self.denominator_aggregations = v.into_iter().map(|i| i.into()).collect();
@@ -1296,7 +1401,10 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_forecast_options(ForecastOptions::default()/* use setters */);
             /// ```
             pub fn set_forecast_options<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::metric_threshold::ForecastOptions>
+            where
+                T: std::convert::Into<
+                        crate::model::alert_policy::condition::metric_threshold::ForecastOptions,
+                    >,
             {
                 self.forecast_options = std::option::Option::Some(v.into());
                 self
@@ -1312,7 +1420,10 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_or_clear_forecast_options(None::<ForecastOptions>);
             /// ```
             pub fn set_or_clear_forecast_options<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::metric_threshold::ForecastOptions>
+            where
+                T: std::convert::Into<
+                        crate::model::alert_policy::condition::metric_threshold::ForecastOptions,
+                    >,
             {
                 self.forecast_options = v.map(|x| x.into());
                 self
@@ -1328,7 +1439,10 @@ pub mod alert_policy {
             /// let x1 = MetricThreshold::new().set_comparison(ComparisonType::ComparisonGe);
             /// let x2 = MetricThreshold::new().set_comparison(ComparisonType::ComparisonLt);
             /// ```
-            pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(mut self, v: T) -> Self {
+            pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.comparison = v.into();
                 self
             }
@@ -1354,7 +1468,8 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_duration(Duration::default()/* use setters */);
             /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = std::option::Option::Some(v.into());
                 self
@@ -1370,7 +1485,8 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_or_clear_duration(None::<Duration>);
             /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = v.map(|x| x.into());
                 self
@@ -1385,7 +1501,8 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_trigger(Trigger::default()/* use setters */);
             /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = std::option::Option::Some(v.into());
                 self
@@ -1401,7 +1518,8 @@ pub mod alert_policy {
             /// let x = MetricThreshold::new().set_or_clear_trigger(None::<Trigger>);
             /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = v.map(|x| x.into());
                 self
@@ -1417,7 +1535,12 @@ pub mod alert_policy {
             /// let x1 = MetricThreshold::new().set_evaluation_missing_data(EvaluationMissingData::Active);
             /// let x2 = MetricThreshold::new().set_evaluation_missing_data(EvaluationMissingData::NoOp);
             /// ```
-            pub fn set_evaluation_missing_data<T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>>(mut self, v: T) -> Self {
+            pub fn set_evaluation_missing_data<
+                T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.evaluation_missing_data = v.into();
                 self
             }
@@ -1434,13 +1557,11 @@ pub mod alert_policy {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Options used when forecasting the time series and testing
             /// the predicted value against the threshold.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ForecastOptions {
-
                 /// Required. The length of time into the future to forecast whether a
                 /// time series will violate the threshold. If the predicted value is
                 /// found to violate the threshold, and the violation is observed in all
@@ -1466,7 +1587,8 @@ pub mod alert_policy {
                 /// let x = ForecastOptions::new().set_forecast_horizon(Duration::default()/* use setters */);
                 /// ```
                 pub fn set_forecast_horizon<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<wkt::Duration>
+                where
+                    T: std::convert::Into<wkt::Duration>,
                 {
                     self.forecast_horizon = std::option::Option::Some(v.into());
                     self
@@ -1482,7 +1604,8 @@ pub mod alert_policy {
                 /// let x = ForecastOptions::new().set_or_clear_forecast_horizon(None::<Duration>);
                 /// ```
                 pub fn set_or_clear_forecast_horizon<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<wkt::Duration>
+                where
+                    T: std::convert::Into<wkt::Duration>,
                 {
                     self.forecast_horizon = v.map(|x| x.into());
                     self
@@ -1504,7 +1627,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MetricAbsence {
-
             /// Required. A
             /// [filter](https://cloud.google.com/monitoring/api/v3/filters) that
             /// identifies which time series should be compared with the threshold.
@@ -1581,7 +1703,7 @@ pub mod alert_policy {
             pub fn set_aggregations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>
+                V: std::convert::Into<crate::model::Aggregation>,
             {
                 use std::iter::Iterator;
                 self.aggregations = v.into_iter().map(|i| i.into()).collect();
@@ -1597,7 +1719,8 @@ pub mod alert_policy {
             /// let x = MetricAbsence::new().set_duration(Duration::default()/* use setters */);
             /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = std::option::Option::Some(v.into());
                 self
@@ -1613,7 +1736,8 @@ pub mod alert_policy {
             /// let x = MetricAbsence::new().set_or_clear_duration(None::<Duration>);
             /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = v.map(|x| x.into());
                 self
@@ -1628,7 +1752,8 @@ pub mod alert_policy {
             /// let x = MetricAbsence::new().set_trigger(Trigger::default()/* use setters */);
             /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = std::option::Option::Some(v.into());
                 self
@@ -1644,7 +1769,8 @@ pub mod alert_policy {
             /// let x = MetricAbsence::new().set_or_clear_trigger(None::<Trigger>);
             /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = v.map(|x| x.into());
                 self
@@ -1664,7 +1790,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LogMatch {
-
             /// Required. A logs-based filter. See [Advanced Logs
             /// Queries](https://cloud.google.com/logging/docs/view/advanced-queries)
             /// for how this filter should be constructed.
@@ -1681,7 +1806,8 @@ pub mod alert_policy {
             /// Please see [the documentation on logs-based metric
             /// `valueExtractor`s](https://cloud.google.com/logging/docs/reference/v2/rest/v2/projects.metrics#LogMetric.FIELDS.value_extractor)
             /// for syntax and examples.
-            pub label_extractors: std::collections::HashMap<std::string::String,std::string::String>,
+            pub label_extractors:
+                std::collections::HashMap<std::string::String, std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1736,7 +1862,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MonitoringQueryLanguageCondition {
-
             /// [Monitoring Query Language](https://cloud.google.com/monitoring/mql)
             /// query that outputs a boolean stream.
             pub query: std::string::String,
@@ -1763,7 +1888,8 @@ pub mod alert_policy {
 
             /// A condition control that determines how metric-threshold conditions
             /// are evaluated when data stops arriving.
-            pub evaluation_missing_data: crate::model::alert_policy::condition::EvaluationMissingData,
+            pub evaluation_missing_data:
+                crate::model::alert_policy::condition::EvaluationMissingData,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1794,7 +1920,8 @@ pub mod alert_policy {
             /// let x = MonitoringQueryLanguageCondition::new().set_duration(Duration::default()/* use setters */);
             /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = std::option::Option::Some(v.into());
                 self
@@ -1810,7 +1937,8 @@ pub mod alert_policy {
             /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_duration(None::<Duration>);
             /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = v.map(|x| x.into());
                 self
@@ -1825,7 +1953,8 @@ pub mod alert_policy {
             /// let x = MonitoringQueryLanguageCondition::new().set_trigger(Trigger::default()/* use setters */);
             /// ```
             pub fn set_trigger<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = std::option::Option::Some(v.into());
                 self
@@ -1841,7 +1970,8 @@ pub mod alert_policy {
             /// let x = MonitoringQueryLanguageCondition::new().set_or_clear_trigger(None::<Trigger>);
             /// ```
             pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::alert_policy::condition::Trigger>
+            where
+                T: std::convert::Into<crate::model::alert_policy::condition::Trigger>,
             {
                 self.trigger = v.map(|x| x.into());
                 self
@@ -1857,7 +1987,12 @@ pub mod alert_policy {
             /// let x1 = MonitoringQueryLanguageCondition::new().set_evaluation_missing_data(EvaluationMissingData::Active);
             /// let x2 = MonitoringQueryLanguageCondition::new().set_evaluation_missing_data(EvaluationMissingData::NoOp);
             /// ```
-            pub fn set_evaluation_missing_data<T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>>(mut self, v: T) -> Self {
+            pub fn set_evaluation_missing_data<
+                T: std::convert::Into<crate::model::alert_policy::condition::EvaluationMissingData>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.evaluation_missing_data = v.into();
                 self
             }
@@ -1903,7 +2038,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PrometheusQueryLanguageCondition {
-
             /// Required. The PromQL expression to evaluate. Every evaluation cycle
             /// this expression is evaluated at the current time, and all resultant
             /// time series become pending/firing alerts. This field must not be empty.
@@ -1932,7 +2066,7 @@ pub mod alert_policy {
             /// variables](https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars).
             /// The only available variable names are the names of the labels in the
             /// PromQL result, including "__name__" and "value". "labels" may be empty.
-            pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+            pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
             /// Optional. The rule group name of this alert in the corresponding
             /// Prometheus configuration file.
@@ -2003,7 +2137,8 @@ pub mod alert_policy {
             /// let x = PrometheusQueryLanguageCondition::new().set_duration(Duration::default()/* use setters */);
             /// ```
             pub fn set_duration<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = std::option::Option::Some(v.into());
                 self
@@ -2019,7 +2154,8 @@ pub mod alert_policy {
             /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_duration(None::<Duration>);
             /// ```
             pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.duration = v.map(|x| x.into());
                 self
@@ -2034,7 +2170,8 @@ pub mod alert_policy {
             /// let x = PrometheusQueryLanguageCondition::new().set_evaluation_interval(Duration::default()/* use setters */);
             /// ```
             pub fn set_evaluation_interval<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.evaluation_interval = std::option::Option::Some(v.into());
                 self
@@ -2050,7 +2187,8 @@ pub mod alert_policy {
             /// let x = PrometheusQueryLanguageCondition::new().set_or_clear_evaluation_interval(None::<Duration>);
             /// ```
             pub fn set_or_clear_evaluation_interval<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.evaluation_interval = v.map(|x| x.into());
                 self
@@ -2084,7 +2222,10 @@ pub mod alert_policy {
             /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
             /// let x = PrometheusQueryLanguageCondition::new().set_rule_group("example");
             /// ```
-            pub fn set_rule_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_rule_group<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.rule_group = v.into();
                 self
             }
@@ -2096,7 +2237,10 @@ pub mod alert_policy {
             /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
             /// let x = PrometheusQueryLanguageCondition::new().set_alert_rule("example");
             /// ```
-            pub fn set_alert_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_alert_rule<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.alert_rule = v.into();
                 self
             }
@@ -2108,7 +2252,10 @@ pub mod alert_policy {
             /// # use google_cloud_monitoring_v3::model::alert_policy::condition::PrometheusQueryLanguageCondition;
             /// let x = PrometheusQueryLanguageCondition::new().set_disable_metric_validation(true);
             /// ```
-            pub fn set_disable_metric_validation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            pub fn set_disable_metric_validation<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.disable_metric_validation = v.into();
                 self
             }
@@ -2126,7 +2273,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SqlCondition {
-
             /// Required. The Log Analytics SQL query to run, as a string.  The query
             /// must conform to the required shape. Specifically, the query must not
             /// try to filter the input by time.  A filter will automatically be
@@ -2147,10 +2293,12 @@ pub mod alert_policy {
             pub query: std::string::String,
 
             /// The schedule indicates how often the query should be run.
-            pub schedule: std::option::Option<crate::model::alert_policy::condition::sql_condition::Schedule>,
+            pub schedule:
+                std::option::Option<crate::model::alert_policy::condition::sql_condition::Schedule>,
 
             /// The test to be run against the SQL result set.
-            pub evaluate: std::option::Option<crate::model::alert_policy::condition::sql_condition::Evaluate>,
+            pub evaluate:
+                std::option::Option<crate::model::alert_policy::condition::sql_condition::Evaluate>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -2184,8 +2332,16 @@ pub mod alert_policy {
             /// let x = SqlCondition::new().set_schedule(Some(
             ///     google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Schedule::Minutes(Minutes::default().into())));
             /// ```
-            pub fn set_schedule<T: std::convert::Into<std::option::Option<crate::model::alert_policy::condition::sql_condition::Schedule>>>(mut self, v: T) -> Self
-            {
+            pub fn set_schedule<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::alert_policy::condition::sql_condition::Schedule,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.schedule = v.into();
                 self
             }
@@ -2193,10 +2349,16 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Minutes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn minutes(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>> {
+            pub fn minutes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>,
+            > {
                 #[allow(unreachable_patterns)]
                 self.schedule.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Minutes(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Minutes(v) => {
+                        std::option::Option::Some(v)
+                    }
                     _ => std::option::Option::None,
                 })
             }
@@ -2216,11 +2378,20 @@ pub mod alert_policy {
             /// assert!(x.hourly().is_none());
             /// assert!(x.daily().is_none());
             /// ```
-            pub fn set_minutes<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>>>(mut self, v: T) -> Self {
+            pub fn set_minutes<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Minutes,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.schedule = std::option::Option::Some(
                     crate::model::alert_policy::condition::sql_condition::Schedule::Minutes(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -2228,10 +2399,16 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Hourly`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn hourly(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>> {
+            pub fn hourly(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
+            > {
                 #[allow(unreachable_patterns)]
                 self.schedule.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(v) => {
+                        std::option::Option::Some(v)
+                    }
                     _ => std::option::Option::None,
                 })
             }
@@ -2251,11 +2428,20 @@ pub mod alert_policy {
             /// assert!(x.minutes().is_none());
             /// assert!(x.daily().is_none());
             /// ```
-            pub fn set_hourly<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>>>(mut self, v: T) -> Self {
+            pub fn set_hourly<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Hourly,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.schedule = std::option::Option::Some(
                     crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -2263,10 +2449,16 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Daily`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn daily(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>> {
+            pub fn daily(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>,
+            > {
                 #[allow(unreachable_patterns)]
                 self.schedule.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v) => {
+                        std::option::Option::Some(v)
+                    }
                     _ => std::option::Option::None,
                 })
             }
@@ -2286,11 +2478,18 @@ pub mod alert_policy {
             /// assert!(x.minutes().is_none());
             /// assert!(x.hourly().is_none());
             /// ```
-            pub fn set_daily<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>>>(mut self, v: T) -> Self {
+            pub fn set_daily<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::Daily,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.schedule = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(
-                        v.into()
-                    )
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v.into()),
                 );
                 self
             }
@@ -2307,8 +2506,16 @@ pub mod alert_policy {
             /// let x = SqlCondition::new().set_evaluate(Some(
             ///     google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::Evaluate::RowCountTest(RowCountTest::default().into())));
             /// ```
-            pub fn set_evaluate<T: std::convert::Into<std::option::Option<crate::model::alert_policy::condition::sql_condition::Evaluate>>>(mut self, v: T) -> Self
-            {
+            pub fn set_evaluate<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::alert_policy::condition::sql_condition::Evaluate,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.evaluate = v.into();
                 self
             }
@@ -2316,7 +2523,13 @@ pub mod alert_policy {
             /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// if it holds a `RowCountTest`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn row_count_test(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::sql_condition::RowCountTest>> {
+            pub fn row_count_test(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::alert_policy::condition::sql_condition::RowCountTest,
+                >,
+            > {
                 #[allow(unreachable_patterns)]
                 self.evaluate.as_ref().and_then(|v| match v {
                     crate::model::alert_policy::condition::sql_condition::Evaluate::RowCountTest(v) => std::option::Option::Some(v),
@@ -2338,11 +2551,20 @@ pub mod alert_policy {
             /// assert!(x.row_count_test().is_some());
             /// assert!(x.boolean_test().is_none());
             /// ```
-            pub fn set_row_count_test<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::sql_condition::RowCountTest>>>(mut self, v: T) -> Self {
+            pub fn set_row_count_test<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::RowCountTest,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.evaluate = std::option::Option::Some(
                     crate::model::alert_policy::condition::sql_condition::Evaluate::RowCountTest(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -2350,10 +2572,16 @@ pub mod alert_policy {
             /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// if it holds a `BooleanTest`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn boolean_test(&self) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>> {
+            pub fn boolean_test(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>,
+            > {
                 #[allow(unreachable_patterns)]
                 self.evaluate.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(v) => std::option::Option::Some(v),
+                    crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(
+                        v,
+                    ) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
             }
@@ -2372,11 +2600,20 @@ pub mod alert_policy {
             /// assert!(x.boolean_test().is_some());
             /// assert!(x.row_count_test().is_none());
             /// ```
-            pub fn set_boolean_test<T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>>>(mut self, v: T) -> Self {
+            pub fn set_boolean_test<
+                T: std::convert::Into<
+                        std::boxed::Box<
+                            crate::model::alert_policy::condition::sql_condition::BooleanTest,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.evaluate = std::option::Option::Some(
                     crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(
-                        v.into()
-                    )
+                        v.into(),
+                    ),
                 );
                 self
             }
@@ -2393,12 +2630,10 @@ pub mod alert_policy {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Used to schedule the query to run every so many minutes.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Minutes {
-
                 /// Required. Number of minutes between runs. The interval must be
                 /// greater than or equal to 5 minutes and less than or equal to 1440
                 /// minutes.
@@ -2435,7 +2670,6 @@ pub mod alert_policy {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Hourly {
-
                 /// Required. The number of hours between runs. Must be greater than or
                 /// equal to 1 hour and less than or equal to 48 hours.
                 pub periodicity: i32,
@@ -2474,7 +2708,8 @@ pub mod alert_policy {
                 /// let x = Hourly::new().set_minute_offset(42);
                 /// ```
                 pub fn set_minute_offset<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<i32>
+                where
+                    T: std::convert::Into<i32>,
                 {
                     self.minute_offset = std::option::Option::Some(v.into());
                     self
@@ -2489,7 +2724,8 @@ pub mod alert_policy {
                 /// let x = Hourly::new().set_or_clear_minute_offset(None::<i32>);
                 /// ```
                 pub fn set_or_clear_minute_offset<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<i32>
+                where
+                    T: std::convert::Into<i32>,
                 {
                     self.minute_offset = v.map(|x| x.into());
                     self
@@ -2506,7 +2742,6 @@ pub mod alert_policy {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Daily {
-
                 /// Required. The number of days between runs. Must be greater than or
                 /// equal to 1 day and less than or equal to 31 days.
                 pub periodicity: i32,
@@ -2545,7 +2780,8 @@ pub mod alert_policy {
                 /// let x = Daily::new().set_execution_time(TimeOfDay::default()/* use setters */);
                 /// ```
                 pub fn set_execution_time<T>(mut self, v: T) -> Self
-                where T: std::convert::Into<gtype::model::TimeOfDay>
+                where
+                    T: std::convert::Into<gtype::model::TimeOfDay>,
                 {
                     self.execution_time = std::option::Option::Some(v.into());
                     self
@@ -2561,7 +2797,8 @@ pub mod alert_policy {
                 /// let x = Daily::new().set_or_clear_execution_time(None::<TimeOfDay>);
                 /// ```
                 pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
-                where T: std::convert::Into<gtype::model::TimeOfDay>
+                where
+                    T: std::convert::Into<gtype::model::TimeOfDay>,
                 {
                     self.execution_time = v.map(|x| x.into());
                     self
@@ -2579,7 +2816,6 @@ pub mod alert_policy {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct RowCountTest {
-
                 /// Required. The comparison to apply between the number of rows returned
                 /// by the query and the threshold.
                 pub comparison: crate::model::ComparisonType,
@@ -2605,7 +2841,10 @@ pub mod alert_policy {
                 /// let x1 = RowCountTest::new().set_comparison(ComparisonType::ComparisonGe);
                 /// let x2 = RowCountTest::new().set_comparison(ComparisonType::ComparisonLt);
                 /// ```
-                pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(mut self, v: T) -> Self {
+                pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.comparison = v.into();
                     self
                 }
@@ -2634,7 +2873,6 @@ pub mod alert_policy {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct BooleanTest {
-
                 /// Required. The name of the column containing the boolean value. If the
                 /// value in a row is NULL, that row is ignored.
                 pub column: std::string::String,
@@ -2654,7 +2892,10 @@ pub mod alert_policy {
                 /// # use google_cloud_monitoring_v3::model::alert_policy::condition::sql_condition::BooleanTest;
                 /// let x = BooleanTest::new().set_column("example");
                 /// ```
-                pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_column<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.column = v.into();
                     self
                 }
@@ -2671,9 +2912,13 @@ pub mod alert_policy {
             #[non_exhaustive]
             pub enum Schedule {
                 /// Schedule the query to execute every so many minutes.
-                Minutes(std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>),
+                Minutes(
+                    std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>,
+                ),
                 /// Schedule the query to execute every so many hours.
-                Hourly(std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>),
+                Hourly(
+                    std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
+                ),
                 /// Schedule the query to execute every so many days.
                 Daily(std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>),
             }
@@ -2683,9 +2928,17 @@ pub mod alert_policy {
             #[non_exhaustive]
             pub enum Evaluate {
                 /// Test the row count against a threshold.
-                RowCountTest(std::boxed::Box<crate::model::alert_policy::condition::sql_condition::RowCountTest>),
+                RowCountTest(
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::sql_condition::RowCountTest,
+                    >,
+                ),
                 /// Test the boolean value in the indicated column.
-                BooleanTest(std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>),
+                BooleanTest(
+                    std::boxed::Box<
+                        crate::model::alert_policy::condition::sql_condition::BooleanTest,
+                    >,
+                ),
             }
         }
 
@@ -2756,7 +3009,9 @@ pub mod alert_policy {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => std::option::Option::Some("EVALUATION_MISSING_DATA_UNSPECIFIED"),
+                    Self::Unspecified => {
+                        std::option::Option::Some("EVALUATION_MISSING_DATA_UNSPECIFIED")
+                    }
                     Self::Inactive => std::option::Option::Some("EVALUATION_MISSING_DATA_INACTIVE"),
                     Self::Active => std::option::Option::Some("EVALUATION_MISSING_DATA_ACTIVE"),
                     Self::NoOp => std::option::Option::Some("EVALUATION_MISSING_DATA_NO_OP"),
@@ -2773,7 +3028,10 @@ pub mod alert_policy {
         }
 
         impl std::fmt::Display for EvaluationMissingData {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2785,7 +3043,9 @@ pub mod alert_policy {
                     1 => Self::Inactive,
                     2 => Self::Active,
                     3 => Self::NoOp,
-                    _ => Self::UnknownValue(evaluation_missing_data::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(evaluation_missing_data::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -2798,7 +3058,9 @@ pub mod alert_policy {
                     "EVALUATION_MISSING_DATA_INACTIVE" => Self::Inactive,
                     "EVALUATION_MISSING_DATA_ACTIVE" => Self::Active,
                     "EVALUATION_MISSING_DATA_NO_OP" => Self::NoOp,
-                    _ => Self::UnknownValue(evaluation_missing_data::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(evaluation_missing_data::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -2823,8 +3085,11 @@ pub mod alert_policy {
             where
                 D: serde::Deserializer<'de>,
             {
-                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationMissingData>::new(
-                    ".google.monitoring.v3.AlertPolicy.Condition.EvaluationMissingData"))
+                deserializer.deserialize_any(
+                    wkt::internal::EnumVisitor::<EvaluationMissingData>::new(
+                        ".google.monitoring.v3.AlertPolicy.Condition.EvaluationMissingData",
+                    ),
+                )
             }
         }
 
@@ -2833,7 +3098,9 @@ pub mod alert_policy {
         #[non_exhaustive]
         pub enum Condition {
             /// A condition that compares a time series against a threshold.
-            ConditionThreshold(std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>),
+            ConditionThreshold(
+                std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
+            ),
             /// A condition that checks that a time series continues to
             /// receive new data points.
             ConditionAbsent(std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>),
@@ -2842,9 +3109,17 @@ pub mod alert_policy {
             ConditionMatchedLog(std::boxed::Box<crate::model::alert_policy::condition::LogMatch>),
             /// A condition that uses the Monitoring Query Language to define
             /// alerts.
-            ConditionMonitoringQueryLanguage(std::boxed::Box<crate::model::alert_policy::condition::MonitoringQueryLanguageCondition>),
+            ConditionMonitoringQueryLanguage(
+                std::boxed::Box<
+                    crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+                >,
+            ),
             /// A condition that uses the Prometheus query language to define alerts.
-            ConditionPrometheusQueryLanguage(std::boxed::Box<crate::model::alert_policy::condition::PrometheusQueryLanguageCondition>),
+            ConditionPrometheusQueryLanguage(
+                std::boxed::Box<
+                    crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+                >,
+            ),
             /// A condition that periodically evaluates a SQL query result.
             ConditionSql(std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>),
         }
@@ -2855,25 +3130,27 @@ pub mod alert_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AlertStrategy {
-
         /// Required for log-based alerting policies, i.e. policies with a `LogMatch`
         /// condition.
         ///
         /// This limit is not implemented for alerting policies that do not have
         /// a LogMatch condition.
-        pub notification_rate_limit: std::option::Option<crate::model::alert_policy::alert_strategy::NotificationRateLimit>,
+        pub notification_rate_limit:
+            std::option::Option<crate::model::alert_policy::alert_strategy::NotificationRateLimit>,
 
         /// For log-based alert policies, the notification prompts is always
         /// [OPENED]. For non log-based alert policies, the notification prompts can
         /// be [OPENED] or [OPENED, CLOSED].
-        pub notification_prompts: std::vec::Vec<crate::model::alert_policy::alert_strategy::NotificationPrompt>,
+        pub notification_prompts:
+            std::vec::Vec<crate::model::alert_policy::alert_strategy::NotificationPrompt>,
 
         /// If an alerting policy that was active has no data for this long, any open
         /// incidents will close
         pub auto_close: std::option::Option<wkt::Duration>,
 
         /// Control how notifications will be sent out, on a per-channel basis.
-        pub notification_channel_strategy: std::vec::Vec<crate::model::alert_policy::alert_strategy::NotificationChannelStrategy>,
+        pub notification_channel_strategy:
+            std::vec::Vec<crate::model::alert_policy::alert_strategy::NotificationChannelStrategy>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2892,7 +3169,10 @@ pub mod alert_policy {
         /// let x = AlertStrategy::new().set_notification_rate_limit(NotificationRateLimit::default()/* use setters */);
         /// ```
         pub fn set_notification_rate_limit<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::alert_policy::alert_strategy::NotificationRateLimit>
+        where
+            T: std::convert::Into<
+                    crate::model::alert_policy::alert_strategy::NotificationRateLimit,
+                >,
         {
             self.notification_rate_limit = std::option::Option::Some(v.into());
             self
@@ -2908,7 +3188,10 @@ pub mod alert_policy {
         /// let x = AlertStrategy::new().set_or_clear_notification_rate_limit(None::<NotificationRateLimit>);
         /// ```
         pub fn set_or_clear_notification_rate_limit<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::alert_policy::alert_strategy::NotificationRateLimit>
+        where
+            T: std::convert::Into<
+                    crate::model::alert_policy::alert_strategy::NotificationRateLimit,
+                >,
         {
             self.notification_rate_limit = v.map(|x| x.into());
             self
@@ -2928,7 +3211,7 @@ pub mod alert_policy {
         pub fn set_notification_prompts<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::alert_policy::alert_strategy::NotificationPrompt>
+            V: std::convert::Into<crate::model::alert_policy::alert_strategy::NotificationPrompt>,
         {
             use std::iter::Iterator;
             self.notification_prompts = v.into_iter().map(|i| i.into()).collect();
@@ -2944,7 +3227,8 @@ pub mod alert_policy {
         /// let x = AlertStrategy::new().set_auto_close(Duration::default()/* use setters */);
         /// ```
         pub fn set_auto_close<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.auto_close = std::option::Option::Some(v.into());
             self
@@ -2960,7 +3244,8 @@ pub mod alert_policy {
         /// let x = AlertStrategy::new().set_or_clear_auto_close(None::<Duration>);
         /// ```
         pub fn set_or_clear_auto_close<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.auto_close = v.map(|x| x.into());
             self
@@ -2981,7 +3266,9 @@ pub mod alert_policy {
         pub fn set_notification_channel_strategy<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::alert_policy::alert_strategy::NotificationChannelStrategy>
+            V: std::convert::Into<
+                    crate::model::alert_policy::alert_strategy::NotificationChannelStrategy,
+                >,
         {
             use std::iter::Iterator;
             self.notification_channel_strategy = v.into_iter().map(|i| i.into()).collect();
@@ -3000,13 +3287,11 @@ pub mod alert_policy {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Control over the rate of notifications sent to this alerting policy's
         /// notification channels.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NotificationRateLimit {
-
             /// Not more than one notification per `period`.
             pub period: std::option::Option<wkt::Duration>,
 
@@ -3027,7 +3312,8 @@ pub mod alert_policy {
             /// let x = NotificationRateLimit::new().set_period(Duration::default()/* use setters */);
             /// ```
             pub fn set_period<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.period = std::option::Option::Some(v.into());
                 self
@@ -3043,7 +3329,8 @@ pub mod alert_policy {
             /// let x = NotificationRateLimit::new().set_or_clear_period(None::<Duration>);
             /// ```
             pub fn set_or_clear_period<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.period = v.map(|x| x.into());
                 self
@@ -3061,7 +3348,6 @@ pub mod alert_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NotificationChannelStrategy {
-
             /// The full REST resource name for the notification channels that these
             /// settings apply to. Each of these correspond to the name field in one
             /// of the NotificationChannel objects referenced in the
@@ -3095,7 +3381,7 @@ pub mod alert_policy {
             pub fn set_notification_channel_names<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.notification_channel_names = v.into_iter().map(|i| i.into()).collect();
@@ -3111,7 +3397,8 @@ pub mod alert_policy {
             /// let x = NotificationChannelStrategy::new().set_renotify_interval(Duration::default()/* use setters */);
             /// ```
             pub fn set_renotify_interval<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.renotify_interval = std::option::Option::Some(v.into());
                 self
@@ -3127,7 +3414,8 @@ pub mod alert_policy {
             /// let x = NotificationChannelStrategy::new().set_or_clear_renotify_interval(None::<Duration>);
             /// ```
             pub fn set_or_clear_renotify_interval<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Duration>
+            where
+                T: std::convert::Into<wkt::Duration>,
             {
                 self.renotify_interval = v.map(|x| x.into());
                 self
@@ -3199,7 +3487,9 @@ pub mod alert_policy {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => std::option::Option::Some("NOTIFICATION_PROMPT_UNSPECIFIED"),
+                    Self::Unspecified => {
+                        std::option::Option::Some("NOTIFICATION_PROMPT_UNSPECIFIED")
+                    }
                     Self::Opened => std::option::Option::Some("OPENED"),
                     Self::Closed => std::option::Option::Some("CLOSED"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -3215,7 +3505,10 @@ pub mod alert_policy {
         }
 
         impl std::fmt::Display for NotificationPrompt {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -3226,7 +3519,9 @@ pub mod alert_policy {
                     0 => Self::Unspecified,
                     1 => Self::Opened,
                     3 => Self::Closed,
-                    _ => Self::UnknownValue(notification_prompt::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(notification_prompt::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -3238,7 +3533,9 @@ pub mod alert_policy {
                     "NOTIFICATION_PROMPT_UNSPECIFIED" => Self::Unspecified,
                     "OPENED" => Self::Opened,
                     "CLOSED" => Self::Closed,
-                    _ => Self::UnknownValue(notification_prompt::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(notification_prompt::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -3263,7 +3560,8 @@ pub mod alert_policy {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationPrompt>::new(
-                    ".google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationPrompt"))
+                    ".google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationPrompt",
+                ))
             }
         }
     }
@@ -3339,7 +3637,9 @@ pub mod alert_policy {
                 Self::CombineUnspecified => std::option::Option::Some("COMBINE_UNSPECIFIED"),
                 Self::And => std::option::Option::Some("AND"),
                 Self::Or => std::option::Option::Some("OR"),
-                Self::AndWithMatchingResource => std::option::Option::Some("AND_WITH_MATCHING_RESOURCE"),
+                Self::AndWithMatchingResource => {
+                    std::option::Option::Some("AND_WITH_MATCHING_RESOURCE")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3365,7 +3665,9 @@ pub mod alert_policy {
                 1 => Self::And,
                 2 => Self::Or,
                 3 => Self::AndWithMatchingResource,
-                _ => Self::UnknownValue(condition_combiner_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(condition_combiner_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3378,7 +3680,9 @@ pub mod alert_policy {
                 "AND" => Self::And,
                 "OR" => Self::Or,
                 "AND_WITH_MATCHING_RESOURCE" => Self::AndWithMatchingResource,
-                _ => Self::UnknownValue(condition_combiner_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(condition_combiner_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3404,7 +3708,8 @@ pub mod alert_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConditionCombinerType>::new(
-                ".google.monitoring.v3.AlertPolicy.ConditionCombinerType"))
+                ".google.monitoring.v3.AlertPolicy.ConditionCombinerType",
+            ))
         }
     }
 
@@ -3503,7 +3808,9 @@ pub mod alert_policy {
                 1 => Self::Critical,
                 2 => Self::Error,
                 3 => Self::Warning,
-                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3516,7 +3823,9 @@ pub mod alert_policy {
                 "CRITICAL" => Self::Critical,
                 "ERROR" => Self::Error,
                 "WARNING" => Self::Warning,
-                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3542,7 +3851,8 @@ pub mod alert_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.monitoring.v3.AlertPolicy.Severity"))
+                ".google.monitoring.v3.AlertPolicy.Severity",
+            ))
         }
     }
 }
@@ -3551,7 +3861,6 @@ pub mod alert_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAlertPolicyRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) in which
     /// to create the alerting policy. The format is:
@@ -3603,7 +3912,8 @@ impl CreateAlertPolicyRequest {
     /// let x = CreateAlertPolicyRequest::new().set_alert_policy(AlertPolicy::default()/* use setters */);
     /// ```
     pub fn set_alert_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AlertPolicy>
+    where
+        T: std::convert::Into<crate::model::AlertPolicy>,
     {
         self.alert_policy = std::option::Option::Some(v.into());
         self
@@ -3619,7 +3929,8 @@ impl CreateAlertPolicyRequest {
     /// let x = CreateAlertPolicyRequest::new().set_or_clear_alert_policy(None::<AlertPolicy>);
     /// ```
     pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AlertPolicy>
+    where
+        T: std::convert::Into<crate::model::AlertPolicy>,
     {
         self.alert_policy = v.map(|x| x.into());
         self
@@ -3636,7 +3947,6 @@ impl wkt::message::Message for CreateAlertPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAlertPolicyRequest {
-
     /// Required. The alerting policy to retrieve. The format is:
     ///
     /// ```norust
@@ -3675,7 +3985,6 @@ impl wkt::message::Message for GetAlertPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAlertPoliciesRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) whose
     /// alert policies are to be listed. The format is:
@@ -3796,7 +4105,6 @@ impl wkt::message::Message for ListAlertPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAlertPoliciesResponse {
-
     /// The returned alert policies.
     pub alert_policies: std::vec::Vec<crate::model::AlertPolicy>,
 
@@ -3832,7 +4140,7 @@ impl ListAlertPoliciesResponse {
     pub fn set_alert_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AlertPolicy>
+        V: std::convert::Into<crate::model::AlertPolicy>,
     {
         use std::iter::Iterator;
         self.alert_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3888,7 +4196,6 @@ impl gax::paginator::internal::PageableResponse for ListAlertPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAlertPolicyRequest {
-
     /// Optional. A list of alerting policy field names. If this field is not
     /// empty, each listed field in the existing alerting policy is set to the
     /// value of the corresponding field in the supplied policy (`alert_policy`),
@@ -3935,7 +4242,8 @@ impl UpdateAlertPolicyRequest {
     /// let x = UpdateAlertPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3951,7 +4259,8 @@ impl UpdateAlertPolicyRequest {
     /// let x = UpdateAlertPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3966,7 +4275,8 @@ impl UpdateAlertPolicyRequest {
     /// let x = UpdateAlertPolicyRequest::new().set_alert_policy(AlertPolicy::default()/* use setters */);
     /// ```
     pub fn set_alert_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AlertPolicy>
+    where
+        T: std::convert::Into<crate::model::AlertPolicy>,
     {
         self.alert_policy = std::option::Option::Some(v.into());
         self
@@ -3982,7 +4292,8 @@ impl UpdateAlertPolicyRequest {
     /// let x = UpdateAlertPolicyRequest::new().set_or_clear_alert_policy(None::<AlertPolicy>);
     /// ```
     pub fn set_or_clear_alert_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AlertPolicy>
+    where
+        T: std::convert::Into<crate::model::AlertPolicy>,
     {
         self.alert_policy = v.map(|x| x.into());
         self
@@ -3999,7 +4310,6 @@ impl wkt::message::Message for UpdateAlertPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAlertPolicyRequest {
-
     /// Required. The alerting policy to delete. The format is:
     ///
     /// ```norust
@@ -4042,7 +4352,6 @@ impl wkt::message::Message for DeleteAlertPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypedValue {
-
     /// The typed value field.
     pub value: std::option::Option<crate::model::typed_value::Value>,
 
@@ -4065,8 +4374,12 @@ impl TypedValue {
     /// use google_cloud_monitoring_v3::model::typed_value::Value;
     /// let x = TypedValue::new().set_value(Some(Value::BoolValue(true)));
     /// ```
-    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>>(mut self, v: T) -> Self
-    {
+    pub fn set_value<
+        T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.value = v.into();
         self
     }
@@ -4099,11 +4412,8 @@ impl TypedValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::BoolValue(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
         self
     }
 
@@ -4135,11 +4445,8 @@ impl TypedValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::Int64Value(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::typed_value::Value::Int64Value(v.into()));
         self
     }
 
@@ -4171,11 +4478,8 @@ impl TypedValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::DoubleValue(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::typed_value::Value::DoubleValue(v.into()));
         self
     }
 
@@ -4207,18 +4511,17 @@ impl TypedValue {
     /// assert!(x.distribution_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::StringValue(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
         self
     }
 
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `DistributionValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn distribution_value(&self) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
+    pub fn distribution_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
@@ -4243,11 +4546,14 @@ impl TypedValue {
     /// assert!(x.double_value().is_none());
     /// assert!(x.string_value().is_none());
     /// ```
-    pub fn set_distribution_value<T: std::convert::Into<std::boxed::Box<api::model::Distribution>>>(mut self, v: T) -> Self {
+    pub fn set_distribution_value<
+        T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::DistributionValue(
-                v.into()
-            )
+            crate::model::typed_value::Value::DistributionValue(v.into()),
         );
         self
     }
@@ -4263,7 +4569,6 @@ impl wkt::message::Message for TypedValue {
 pub mod typed_value {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The typed value field.
     #[derive(Clone, Debug, PartialEq)]
@@ -4325,7 +4630,6 @@ pub mod typed_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeInterval {
-
     /// Required. The end of the time interval.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
@@ -4351,7 +4655,8 @@ impl TimeInterval {
     /// let x = TimeInterval::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -4367,7 +4672,8 @@ impl TimeInterval {
     /// let x = TimeInterval::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -4382,7 +4688,8 @@ impl TimeInterval {
     /// let x = TimeInterval::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -4398,7 +4705,8 @@ impl TimeInterval {
     /// let x = TimeInterval::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -4440,7 +4748,6 @@ impl wkt::message::Message for TimeInterval {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Aggregation {
-
     /// The `alignment_period` specifies a time interval, in seconds, that is used
     /// to divide the data in all the
     /// [time series][google.monitoring.v3.TimeSeries] into consistent blocks of
@@ -4525,7 +4832,8 @@ impl Aggregation {
     /// let x = Aggregation::new().set_alignment_period(Duration::default()/* use setters */);
     /// ```
     pub fn set_alignment_period<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.alignment_period = std::option::Option::Some(v.into());
         self
@@ -4541,7 +4849,8 @@ impl Aggregation {
     /// let x = Aggregation::new().set_or_clear_alignment_period(None::<Duration>);
     /// ```
     pub fn set_or_clear_alignment_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.alignment_period = v.map(|x| x.into());
         self
@@ -4557,7 +4866,10 @@ impl Aggregation {
     /// let x1 = Aggregation::new().set_per_series_aligner(Aligner::AlignRate);
     /// let x2 = Aggregation::new().set_per_series_aligner(Aligner::AlignInterpolate);
     /// ```
-    pub fn set_per_series_aligner<T: std::convert::Into<crate::model::aggregation::Aligner>>(mut self, v: T) -> Self {
+    pub fn set_per_series_aligner<T: std::convert::Into<crate::model::aggregation::Aligner>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.per_series_aligner = v.into();
         self
     }
@@ -4572,7 +4884,10 @@ impl Aggregation {
     /// let x1 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMin);
     /// let x2 = Aggregation::new().set_cross_series_reducer(Reducer::ReduceMax);
     /// ```
-    pub fn set_cross_series_reducer<T: std::convert::Into<crate::model::aggregation::Reducer>>(mut self, v: T) -> Self {
+    pub fn set_cross_series_reducer<T: std::convert::Into<crate::model::aggregation::Reducer>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cross_series_reducer = v.into();
         self
     }
@@ -4587,7 +4902,7 @@ impl Aggregation {
     pub fn set_group_by_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.group_by_fields = v.into_iter().map(|i| i.into()).collect();
@@ -4605,7 +4920,6 @@ impl wkt::message::Message for Aggregation {
 pub mod aggregation {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The `Aligner` specifies the operation that will be applied to the data
     /// points in each alignment period in a time series. Except for
@@ -4875,7 +5189,9 @@ pub mod aggregation {
                 21 => Self::AlignPercentile05,
                 23 => Self::AlignPercentChange,
                 24 => Self::AlignCountFalse,
-                _ => Self::UnknownValue(aligner::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(aligner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4903,7 +5219,9 @@ pub mod aggregation {
                 "ALIGN_PERCENTILE_50" => Self::AlignPercentile50,
                 "ALIGN_PERCENTILE_05" => Self::AlignPercentile05,
                 "ALIGN_PERCENT_CHANGE" => Self::AlignPercentChange,
-                _ => Self::UnknownValue(aligner::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(aligner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4944,7 +5262,8 @@ pub mod aggregation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Aligner>::new(
-                ".google.monitoring.v3.Aggregation.Aligner"))
+                ".google.monitoring.v3.Aggregation.Aligner",
+            ))
         }
     }
 
@@ -5143,7 +5462,9 @@ pub mod aggregation {
                 11 => Self::ReducePercentile50,
                 12 => Self::ReducePercentile05,
                 15 => Self::ReduceCountFalse,
-                _ => Self::UnknownValue(reducer::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(reducer::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5166,7 +5487,9 @@ pub mod aggregation {
                 "REDUCE_PERCENTILE_95" => Self::ReducePercentile95,
                 "REDUCE_PERCENTILE_50" => Self::ReducePercentile50,
                 "REDUCE_PERCENTILE_05" => Self::ReducePercentile05,
-                _ => Self::UnknownValue(reducer::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(reducer::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5202,7 +5525,8 @@ pub mod aggregation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reducer>::new(
-                ".google.monitoring.v3.Aggregation.Reducer"))
+                ".google.monitoring.v3.Aggregation.Reducer",
+            ))
         }
     }
 }
@@ -5226,9 +5550,8 @@ pub mod aggregation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DroppedLabels {
-
     /// Map from label to its value, for all labels dropped in any aggregation.
-    pub label: std::collections::HashMap<std::string::String,std::string::String>,
+    pub label: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5295,7 +5618,6 @@ impl wkt::message::Message for DroppedLabels {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Group {
-
     /// Output only. The name of this group. The format is:
     ///
     /// ```norust
@@ -5406,7 +5728,6 @@ impl wkt::message::Message for Group {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) whose
     /// groups are to be listed. The format is:
@@ -5484,8 +5805,12 @@ impl ListGroupsRequest {
     /// use google_cloud_monitoring_v3::model::list_groups_request::Filter;
     /// let x = ListGroupsRequest::new().set_filter(Some(Filter::ChildrenOfGroup("example".to_string())));
     /// ```
-    pub fn set_filter<T: std::convert::Into<std::option::Option<crate::model::list_groups_request::Filter>>>(mut self, v: T) -> Self
-    {
+    pub fn set_filter<
+        T: std::convert::Into<std::option::Option<crate::model::list_groups_request::Filter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter = v.into();
         self
     }
@@ -5496,7 +5821,9 @@ impl ListGroupsRequest {
     pub fn children_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::list_groups_request::Filter::ChildrenOfGroup(v) => std::option::Option::Some(v),
+            crate::model::list_groups_request::Filter::ChildrenOfGroup(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5515,11 +5842,12 @@ impl ListGroupsRequest {
     /// assert!(x.ancestors_of_group().is_none());
     /// assert!(x.descendants_of_group().is_none());
     /// ```
-    pub fn set_children_of_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_children_of_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::ChildrenOfGroup(
-                v.into()
-            )
+            crate::model::list_groups_request::Filter::ChildrenOfGroup(v.into()),
         );
         self
     }
@@ -5530,7 +5858,9 @@ impl ListGroupsRequest {
     pub fn ancestors_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::list_groups_request::Filter::AncestorsOfGroup(v) => std::option::Option::Some(v),
+            crate::model::list_groups_request::Filter::AncestorsOfGroup(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5549,11 +5879,12 @@ impl ListGroupsRequest {
     /// assert!(x.children_of_group().is_none());
     /// assert!(x.descendants_of_group().is_none());
     /// ```
-    pub fn set_ancestors_of_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_ancestors_of_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::AncestorsOfGroup(
-                v.into()
-            )
+            crate::model::list_groups_request::Filter::AncestorsOfGroup(v.into()),
         );
         self
     }
@@ -5564,7 +5895,9 @@ impl ListGroupsRequest {
     pub fn descendants_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::list_groups_request::Filter::DescendantsOfGroup(v) => std::option::Option::Some(v),
+            crate::model::list_groups_request::Filter::DescendantsOfGroup(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5583,11 +5916,12 @@ impl ListGroupsRequest {
     /// assert!(x.children_of_group().is_none());
     /// assert!(x.ancestors_of_group().is_none());
     /// ```
-    pub fn set_descendants_of_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_descendants_of_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::DescendantsOfGroup(
-                v.into()
-            )
+            crate::model::list_groups_request::Filter::DescendantsOfGroup(v.into()),
         );
         self
     }
@@ -5603,7 +5937,6 @@ impl wkt::message::Message for ListGroupsRequest {
 pub mod list_groups_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// An optional filter consisting of a single group name.  The filters limit
     /// the groups returned based on their parent-child relationship with the
@@ -5648,7 +5981,6 @@ pub mod list_groups_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsResponse {
-
     /// The groups that match the specified filters.
     pub group: std::vec::Vec<crate::model::Group>,
 
@@ -5680,7 +6012,7 @@ impl ListGroupsResponse {
     pub fn set_group<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Group>
+        V: std::convert::Into<crate::model::Group>,
     {
         use std::iter::Iterator;
         self.group = v.into_iter().map(|i| i.into()).collect();
@@ -5724,7 +6056,6 @@ impl gax::paginator::internal::PageableResponse for ListGroupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGroupRequest {
-
     /// Required. The group to retrieve. The format is:
     ///
     /// ```norust
@@ -5763,7 +6094,6 @@ impl wkt::message::Message for GetGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGroupRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) in which
     /// to create the group. The format is:
@@ -5809,7 +6139,8 @@ impl CreateGroupRequest {
     /// let x = CreateGroupRequest::new().set_group(Group::default()/* use setters */);
     /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Group>
+    where
+        T: std::convert::Into<crate::model::Group>,
     {
         self.group = std::option::Option::Some(v.into());
         self
@@ -5825,7 +6156,8 @@ impl CreateGroupRequest {
     /// let x = CreateGroupRequest::new().set_or_clear_group(None::<Group>);
     /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Group>
+    where
+        T: std::convert::Into<crate::model::Group>,
     {
         self.group = v.map(|x| x.into());
         self
@@ -5854,7 +6186,6 @@ impl wkt::message::Message for CreateGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGroupRequest {
-
     /// Required. The new definition of the group.  All fields of the existing
     /// group, excepting `name`, are replaced with the corresponding fields of this
     /// group.
@@ -5880,7 +6211,8 @@ impl UpdateGroupRequest {
     /// let x = UpdateGroupRequest::new().set_group(Group::default()/* use setters */);
     /// ```
     pub fn set_group<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Group>
+    where
+        T: std::convert::Into<crate::model::Group>,
     {
         self.group = std::option::Option::Some(v.into());
         self
@@ -5896,7 +6228,8 @@ impl UpdateGroupRequest {
     /// let x = UpdateGroupRequest::new().set_or_clear_group(None::<Group>);
     /// ```
     pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Group>
+    where
+        T: std::convert::Into<crate::model::Group>,
     {
         self.group = v.map(|x| x.into());
         self
@@ -5926,7 +6259,6 @@ impl wkt::message::Message for UpdateGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGroupRequest {
-
     /// Required. The group to delete. The format is:
     ///
     /// ```norust
@@ -5982,7 +6314,6 @@ impl wkt::message::Message for DeleteGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupMembersRequest {
-
     /// Required. The group whose members are listed. The format is:
     ///
     /// ```norust
@@ -6081,7 +6412,8 @@ impl ListGroupMembersRequest {
     /// let x = ListGroupMembersRequest::new().set_interval(TimeInterval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -6097,7 +6429,8 @@ impl ListGroupMembersRequest {
     /// let x = ListGroupMembersRequest::new().set_or_clear_interval(None::<TimeInterval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -6114,7 +6447,6 @@ impl wkt::message::Message for ListGroupMembersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupMembersResponse {
-
     /// A set of monitored resources in the group.
     pub members: std::vec::Vec<api::model::MonitoredResource>,
 
@@ -6149,7 +6481,7 @@ impl ListGroupMembersResponse {
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResource>
+        V: std::convert::Into<api::model::MonitoredResource>,
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
@@ -6205,7 +6537,6 @@ impl gax::paginator::internal::PageableResponse for ListGroupMembersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Point {
-
     /// The time interval to which the data point applies.  For `GAUGE` metrics,
     /// the start time is optional, but if it is supplied, it must equal the
     /// end time.  For `DELTA` metrics, the start
@@ -6237,7 +6568,8 @@ impl Point {
     /// let x = Point::new().set_interval(TimeInterval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -6253,7 +6585,8 @@ impl Point {
     /// let x = Point::new().set_or_clear_interval(None::<TimeInterval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -6268,7 +6601,8 @@ impl Point {
     /// let x = Point::new().set_value(TypedValue::default()/* use setters */);
     /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TypedValue>
+    where
+        T: std::convert::Into<crate::model::TypedValue>,
     {
         self.value = std::option::Option::Some(v.into());
         self
@@ -6284,7 +6618,8 @@ impl Point {
     /// let x = Point::new().set_or_clear_value(None::<TypedValue>);
     /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TypedValue>
+    where
+        T: std::convert::Into<crate::model::TypedValue>,
     {
         self.value = v.map(|x| x.into());
         self
@@ -6304,7 +6639,6 @@ impl wkt::message::Message for Point {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeries {
-
     /// The associated metric. A fully-specified metric used to identify the time
     /// series.
     pub metric: std::option::Option<api::model::Metric>,
@@ -6380,7 +6714,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_metric(Metric::default()/* use setters */);
     /// ```
     pub fn set_metric<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::Metric>
+    where
+        T: std::convert::Into<api::model::Metric>,
     {
         self.metric = std::option::Option::Some(v.into());
         self
@@ -6396,7 +6731,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_or_clear_metric(None::<Metric>);
     /// ```
     pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::Metric>
+    where
+        T: std::convert::Into<api::model::Metric>,
     {
         self.metric = v.map(|x| x.into());
         self
@@ -6411,7 +6747,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_resource(MonitoredResource::default()/* use setters */);
     /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::MonitoredResource>
+    where
+        T: std::convert::Into<api::model::MonitoredResource>,
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -6427,7 +6764,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_or_clear_resource(None::<MonitoredResource>);
     /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::MonitoredResource>
+    where
+        T: std::convert::Into<api::model::MonitoredResource>,
     {
         self.resource = v.map(|x| x.into());
         self
@@ -6442,7 +6780,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_metadata(MonitoredResourceMetadata::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::MonitoredResourceMetadata>
+    where
+        T: std::convert::Into<api::model::MonitoredResourceMetadata>,
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -6458,7 +6797,8 @@ impl TimeSeries {
     /// let x = TimeSeries::new().set_or_clear_metadata(None::<MonitoredResourceMetadata>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::MonitoredResourceMetadata>
+    where
+        T: std::convert::Into<api::model::MonitoredResourceMetadata>,
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -6474,7 +6814,10 @@ impl TimeSeries {
     /// let x1 = TimeSeries::new().set_metric_kind(MetricKind::Delta);
     /// let x2 = TimeSeries::new().set_metric_kind(MetricKind::Cumulative);
     /// ```
-    pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(mut self, v: T) -> Self {
+    pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.metric_kind = v.into();
         self
     }
@@ -6489,7 +6832,10 @@ impl TimeSeries {
     /// let x1 = TimeSeries::new().set_value_type(ValueType::Int64);
     /// let x2 = TimeSeries::new().set_value_type(ValueType::Double);
     /// ```
-    pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(mut self, v: T) -> Self {
+    pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.value_type = v.into();
         self
     }
@@ -6509,7 +6855,7 @@ impl TimeSeries {
     pub fn set_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Point>
+        V: std::convert::Into<crate::model::Point>,
     {
         use std::iter::Iterator;
         self.points = v.into_iter().map(|i| i.into()).collect();
@@ -6551,7 +6897,6 @@ impl wkt::message::Message for TimeSeries {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesDescriptor {
-
     /// Descriptors for the labels.
     pub label_descriptors: std::vec::Vec<api::model::LabelDescriptor>,
 
@@ -6581,7 +6926,7 @@ impl TimeSeriesDescriptor {
     pub fn set_label_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::LabelDescriptor>
+        V: std::convert::Into<api::model::LabelDescriptor>,
     {
         use std::iter::Iterator;
         self.label_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -6603,7 +6948,7 @@ impl TimeSeriesDescriptor {
     pub fn set_point_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::time_series_descriptor::ValueDescriptor>
+        V: std::convert::Into<crate::model::time_series_descriptor::ValueDescriptor>,
     {
         use std::iter::Iterator;
         self.point_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -6622,12 +6967,10 @@ pub mod time_series_descriptor {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A descriptor for the value columns in a data point.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ValueDescriptor {
-
         /// The value key.
         pub key: std::string::String,
 
@@ -6673,7 +7016,10 @@ pub mod time_series_descriptor {
         /// let x1 = ValueDescriptor::new().set_value_type(ValueType::Int64);
         /// let x2 = ValueDescriptor::new().set_value_type(ValueType::Double);
         /// ```
-        pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(mut self, v: T) -> Self {
+        pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.value_type = v.into();
             self
         }
@@ -6688,7 +7034,10 @@ pub mod time_series_descriptor {
         /// let x1 = ValueDescriptor::new().set_metric_kind(MetricKind::Delta);
         /// let x2 = ValueDescriptor::new().set_metric_kind(MetricKind::Cumulative);
         /// ```
-        pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(mut self, v: T) -> Self {
+        pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.metric_kind = v.into();
             self
         }
@@ -6718,7 +7067,6 @@ pub mod time_series_descriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesData {
-
     /// The values of the labels in the time series identifier, given in the same
     /// order as the `label_descriptors` field of the TimeSeriesDescriptor
     /// associated with this object. Each value must have a value of the type
@@ -6751,7 +7099,7 @@ impl TimeSeriesData {
     pub fn set_label_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelValue>
+        V: std::convert::Into<crate::model::LabelValue>,
     {
         use std::iter::Iterator;
         self.label_values = v.into_iter().map(|i| i.into()).collect();
@@ -6773,7 +7121,7 @@ impl TimeSeriesData {
     pub fn set_point_data<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::time_series_data::PointData>
+        V: std::convert::Into<crate::model::time_series_data::PointData>,
     {
         use std::iter::Iterator;
         self.point_data = v.into_iter().map(|i| i.into()).collect();
@@ -6792,14 +7140,12 @@ pub mod time_series_data {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A point's value columns and time interval. Each point has one or more
     /// point values corresponding to the entries in `point_descriptors` field in
     /// the TimeSeriesDescriptor associated with this object.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PointData {
-
         /// The values that make up the point.
         pub values: std::vec::Vec<crate::model::TypedValue>,
 
@@ -6829,7 +7175,7 @@ pub mod time_series_data {
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::TypedValue>
+            V: std::convert::Into<crate::model::TypedValue>,
         {
             use std::iter::Iterator;
             self.values = v.into_iter().map(|i| i.into()).collect();
@@ -6845,7 +7191,8 @@ pub mod time_series_data {
         /// let x = PointData::new().set_time_interval(TimeInterval::default()/* use setters */);
         /// ```
         pub fn set_time_interval<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TimeInterval>
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
         {
             self.time_interval = std::option::Option::Some(v.into());
             self
@@ -6861,7 +7208,8 @@ pub mod time_series_data {
         /// let x = PointData::new().set_or_clear_time_interval(None::<TimeInterval>);
         /// ```
         pub fn set_or_clear_time_interval<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TimeInterval>
+        where
+            T: std::convert::Into<crate::model::TimeInterval>,
         {
             self.time_interval = v.map(|x| x.into());
             self
@@ -6879,7 +7227,6 @@ pub mod time_series_data {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelValue {
-
     /// The label value can be a bool, int64, or string.
     pub value: std::option::Option<crate::model::label_value::Value>,
 
@@ -6902,8 +7249,12 @@ impl LabelValue {
     /// use google_cloud_monitoring_v3::model::label_value::Value;
     /// let x = LabelValue::new().set_value(Some(Value::BoolValue(true)));
     /// ```
-    pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::label_value::Value>>>(mut self, v: T) -> Self
-    {
+    pub fn set_value<
+        T: std::convert::Into<std::option::Option<crate::model::label_value::Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.value = v.into();
         self
     }
@@ -6934,11 +7285,8 @@ impl LabelValue {
     /// assert!(x.string_value().is_none());
     /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::label_value::Value::BoolValue(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::label_value::Value::BoolValue(v.into()));
         self
     }
 
@@ -6968,11 +7316,8 @@ impl LabelValue {
     /// assert!(x.string_value().is_none());
     /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::label_value::Value::Int64Value(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::label_value::Value::Int64Value(v.into()));
         self
     }
 
@@ -7002,11 +7347,8 @@ impl LabelValue {
     /// assert!(x.int64_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::label_value::Value::StringValue(
-                v.into()
-            )
-        );
+        self.value =
+            std::option::Option::Some(crate::model::label_value::Value::StringValue(v.into()));
         self
     }
 }
@@ -7021,7 +7363,6 @@ impl wkt::message::Message for LabelValue {
 pub mod label_value {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The label value can be a bool, int64, or string.
     #[derive(Clone, Debug, PartialEq)]
@@ -7040,7 +7381,6 @@ pub mod label_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryError {
-
     /// The location of the time series query language text that this error applies
     /// to.
     pub locator: std::option::Option<crate::model::TextLocator>,
@@ -7065,7 +7405,8 @@ impl QueryError {
     /// let x = QueryError::new().set_locator(TextLocator::default()/* use setters */);
     /// ```
     pub fn set_locator<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TextLocator>
+    where
+        T: std::convert::Into<crate::model::TextLocator>,
     {
         self.locator = std::option::Option::Some(v.into());
         self
@@ -7081,7 +7422,8 @@ impl QueryError {
     /// let x = QueryError::new().set_or_clear_locator(None::<TextLocator>);
     /// ```
     pub fn set_or_clear_locator<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TextLocator>
+    where
+        T: std::convert::Into<crate::model::TextLocator>,
     {
         self.locator = v.map(|x| x.into());
         self
@@ -7129,7 +7471,6 @@ impl wkt::message::Message for QueryError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextLocator {
-
     /// The source of the text. The source may be a field in the request, in which
     /// case its format is the format of the
     /// google.rpc.BadRequest.FieldViolation.field field in
@@ -7188,7 +7529,8 @@ impl TextLocator {
     /// let x = TextLocator::new().set_start_position(Position::default()/* use setters */);
     /// ```
     pub fn set_start_position<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::text_locator::Position>
+    where
+        T: std::convert::Into<crate::model::text_locator::Position>,
     {
         self.start_position = std::option::Option::Some(v.into());
         self
@@ -7204,7 +7546,8 @@ impl TextLocator {
     /// let x = TextLocator::new().set_or_clear_start_position(None::<Position>);
     /// ```
     pub fn set_or_clear_start_position<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::text_locator::Position>
+    where
+        T: std::convert::Into<crate::model::text_locator::Position>,
     {
         self.start_position = v.map(|x| x.into());
         self
@@ -7219,7 +7562,8 @@ impl TextLocator {
     /// let x = TextLocator::new().set_end_position(Position::default()/* use setters */);
     /// ```
     pub fn set_end_position<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::text_locator::Position>
+    where
+        T: std::convert::Into<crate::model::text_locator::Position>,
     {
         self.end_position = std::option::Option::Some(v.into());
         self
@@ -7235,7 +7579,8 @@ impl TextLocator {
     /// let x = TextLocator::new().set_or_clear_end_position(None::<Position>);
     /// ```
     pub fn set_or_clear_end_position<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::text_locator::Position>
+    where
+        T: std::convert::Into<crate::model::text_locator::Position>,
     {
         self.end_position = v.map(|x| x.into());
         self
@@ -7246,10 +7591,11 @@ impl TextLocator {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_monitoring_v3::model::TextLocator;
-        /// let x = TextLocator::new().set_nested_locator(TextLocator::default()/* use setters */);
+    /// let x = TextLocator::new().set_nested_locator(TextLocator::default()/* use setters */);
     /// ```
     pub fn set_nested_locator<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TextLocator>
+    where
+        T: std::convert::Into<crate::model::TextLocator>,
     {
         self.nested_locator = std::option::Option::Some(std::boxed::Box::new(v.into()));
         self
@@ -7264,7 +7610,8 @@ impl TextLocator {
     /// let x = TextLocator::new().set_or_clear_nested_locator(None::<TextLocator>);
     /// ```
     pub fn set_or_clear_nested_locator<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TextLocator>
+    where
+        T: std::convert::Into<crate::model::TextLocator>,
     {
         self.nested_locator = v.map(|x| std::boxed::Box::new(x.into()));
         self
@@ -7294,12 +7641,10 @@ pub mod text_locator {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The position of a byte within the text.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Position {
-
         /// The line, starting with 1, where the byte is positioned.
         pub line: i32,
 
@@ -7351,7 +7696,6 @@ pub mod text_locator {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -7446,7 +7790,6 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsResponse {
-
     /// The monitored resource descriptors that are available to this project
     /// and that match `filter`, if present.
     pub resource_descriptors: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
@@ -7479,7 +7822,7 @@ impl ListMonitoredResourceDescriptorsResponse {
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResourceDescriptor>
+        V: std::convert::Into<api::model::MonitoredResourceDescriptor>,
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -7523,7 +7866,6 @@ impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescrip
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMonitoredResourceDescriptorRequest {
-
     /// Required. The monitored resource descriptor to get.  The format is:
     ///
     /// ```norust
@@ -7565,7 +7907,6 @@ impl wkt::message::Message for GetMonitoredResourceDescriptorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricDescriptorsRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -7690,7 +8031,6 @@ impl wkt::message::Message for ListMetricDescriptorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricDescriptorsResponse {
-
     /// The metric descriptors that are available to the project
     /// and that match the value of `filter`, if present.
     pub metric_descriptors: std::vec::Vec<api::model::MetricDescriptor>,
@@ -7723,7 +8063,7 @@ impl ListMetricDescriptorsResponse {
     pub fn set_metric_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MetricDescriptor>
+        V: std::convert::Into<api::model::MetricDescriptor>,
     {
         use std::iter::Iterator;
         self.metric_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -7767,7 +8107,6 @@ impl gax::paginator::internal::PageableResponse for ListMetricDescriptorsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricDescriptorRequest {
-
     /// Required. The metric descriptor on which to execute the request. The format
     /// is:
     ///
@@ -7810,7 +8149,6 @@ impl wkt::message::Message for GetMetricDescriptorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMetricDescriptorRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -7851,7 +8189,8 @@ impl CreateMetricDescriptorRequest {
     /// let x = CreateMetricDescriptorRequest::new().set_metric_descriptor(MetricDescriptor::default()/* use setters */);
     /// ```
     pub fn set_metric_descriptor<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::MetricDescriptor>
+    where
+        T: std::convert::Into<api::model::MetricDescriptor>,
     {
         self.metric_descriptor = std::option::Option::Some(v.into());
         self
@@ -7867,7 +8206,8 @@ impl CreateMetricDescriptorRequest {
     /// let x = CreateMetricDescriptorRequest::new().set_or_clear_metric_descriptor(None::<MetricDescriptor>);
     /// ```
     pub fn set_or_clear_metric_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::MetricDescriptor>
+    where
+        T: std::convert::Into<api::model::MetricDescriptor>,
     {
         self.metric_descriptor = v.map(|x| x.into());
         self
@@ -7884,7 +8224,6 @@ impl wkt::message::Message for CreateMetricDescriptorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMetricDescriptorRequest {
-
     /// Required. The metric descriptor on which to execute the request. The format
     /// is:
     ///
@@ -7927,7 +8266,6 @@ impl wkt::message::Message for DeleteMetricDescriptorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTimeSeriesRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name),
     /// organization or folder on which to execute the request. The format is:
@@ -8027,7 +8365,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_interval(TimeInterval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -8043,7 +8382,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_or_clear_interval(None::<TimeInterval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -8058,7 +8398,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_aggregation(Aggregation::default()/* use setters */);
     /// ```
     pub fn set_aggregation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Aggregation>
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
     {
         self.aggregation = std::option::Option::Some(v.into());
         self
@@ -8074,7 +8415,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_or_clear_aggregation(None::<Aggregation>);
     /// ```
     pub fn set_or_clear_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Aggregation>
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
     {
         self.aggregation = v.map(|x| x.into());
         self
@@ -8089,7 +8431,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_secondary_aggregation(Aggregation::default()/* use setters */);
     /// ```
     pub fn set_secondary_aggregation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Aggregation>
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
     {
         self.secondary_aggregation = std::option::Option::Some(v.into());
         self
@@ -8105,7 +8448,8 @@ impl ListTimeSeriesRequest {
     /// let x = ListTimeSeriesRequest::new().set_or_clear_secondary_aggregation(None::<Aggregation>);
     /// ```
     pub fn set_or_clear_secondary_aggregation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Aggregation>
+    where
+        T: std::convert::Into<crate::model::Aggregation>,
     {
         self.secondary_aggregation = v.map(|x| x.into());
         self
@@ -8131,7 +8475,12 @@ impl ListTimeSeriesRequest {
     /// use google_cloud_monitoring_v3::model::list_time_series_request::TimeSeriesView;
     /// let x0 = ListTimeSeriesRequest::new().set_view(TimeSeriesView::Headers);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::list_time_series_request::TimeSeriesView>>(mut self, v: T) -> Self {
+    pub fn set_view<
+        T: std::convert::Into<crate::model::list_time_series_request::TimeSeriesView>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -8171,7 +8520,6 @@ impl wkt::message::Message for ListTimeSeriesRequest {
 pub mod list_time_series_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Controls which fields are returned by `ListTimeSeries*`.
     ///
@@ -8256,7 +8604,9 @@ pub mod list_time_series_request {
             match value {
                 0 => Self::Full,
                 1 => Self::Headers,
-                _ => Self::UnknownValue(time_series_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(time_series_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -8267,7 +8617,9 @@ pub mod list_time_series_request {
             match value {
                 "FULL" => Self::Full,
                 "HEADERS" => Self::Headers,
-                _ => Self::UnknownValue(time_series_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(time_series_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -8291,7 +8643,8 @@ pub mod list_time_series_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TimeSeriesView>::new(
-                ".google.monitoring.v3.ListTimeSeriesRequest.TimeSeriesView"))
+                ".google.monitoring.v3.ListTimeSeriesRequest.TimeSeriesView",
+            ))
         }
     }
 }
@@ -8300,7 +8653,6 @@ pub mod list_time_series_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTimeSeriesResponse {
-
     /// One or more time series that match the filter included in the request.
     pub time_series: std::vec::Vec<crate::model::TimeSeries>,
 
@@ -8344,7 +8696,7 @@ impl ListTimeSeriesResponse {
     pub fn set_time_series<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeSeries>
+        V: std::convert::Into<crate::model::TimeSeries>,
     {
         use std::iter::Iterator;
         self.time_series = v.into_iter().map(|i| i.into()).collect();
@@ -8378,7 +8730,7 @@ impl ListTimeSeriesResponse {
     pub fn set_execution_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>
+        V: std::convert::Into<rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.execution_errors = v.into_iter().map(|i| i.into()).collect();
@@ -8422,7 +8774,6 @@ impl gax::paginator::internal::PageableResponse for ListTimeSeriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -8476,7 +8827,7 @@ impl CreateTimeSeriesRequest {
     pub fn set_time_series<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeSeries>
+        V: std::convert::Into<crate::model::TimeSeries>,
     {
         use std::iter::Iterator;
         self.time_series = v.into_iter().map(|i| i.into()).collect();
@@ -8494,7 +8845,6 @@ impl wkt::message::Message for CreateTimeSeriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesError {
-
     /// DEPRECATED. Time series ID that resulted in the `status` error.
     #[deprecated]
     pub time_series: std::option::Option<crate::model::TimeSeries>,
@@ -8521,7 +8871,8 @@ impl CreateTimeSeriesError {
     /// ```
     #[deprecated]
     pub fn set_time_series<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeSeries>
+    where
+        T: std::convert::Into<crate::model::TimeSeries>,
     {
         self.time_series = std::option::Option::Some(v.into());
         self
@@ -8538,7 +8889,8 @@ impl CreateTimeSeriesError {
     /// ```
     #[deprecated]
     pub fn set_or_clear_time_series<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeSeries>
+    where
+        T: std::convert::Into<crate::model::TimeSeries>,
     {
         self.time_series = v.map(|x| x.into());
         self
@@ -8554,7 +8906,8 @@ impl CreateTimeSeriesError {
     /// ```
     #[deprecated]
     pub fn set_status<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -8571,7 +8924,8 @@ impl CreateTimeSeriesError {
     /// ```
     #[deprecated]
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<rpc::model::Status>
+    where
+        T: std::convert::Into<rpc::model::Status>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -8588,7 +8942,6 @@ impl wkt::message::Message for CreateTimeSeriesError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesSummary {
-
     /// The number of points in the request.
     pub total_point_count: i32,
 
@@ -8645,7 +8998,7 @@ impl CreateTimeSeriesSummary {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::create_time_series_summary::Error>
+        V: std::convert::Into<crate::model::create_time_series_summary::Error>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -8664,12 +9017,10 @@ pub mod create_time_series_summary {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Detailed information about an error category.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Error {
-
         /// The status of the requested write operation.
         pub status: std::option::Option<rpc::model::Status>,
 
@@ -8693,7 +9044,8 @@ pub mod create_time_series_summary {
         /// let x = Error::new().set_status(Status::default()/* use setters */);
         /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -8709,7 +9061,8 @@ pub mod create_time_series_summary {
         /// let x = Error::new().set_or_clear_status(None::<Status>);
         /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.status = v.map(|x| x.into());
             self
@@ -8742,7 +9095,6 @@ pub mod create_time_series_summary {
 #[non_exhaustive]
 #[deprecated]
 pub struct QueryTimeSeriesRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -8835,7 +9187,6 @@ impl wkt::message::Message for QueryTimeSeriesRequest {
 #[non_exhaustive]
 #[deprecated]
 pub struct QueryTimeSeriesResponse {
-
     /// The descriptor for the time series data.
     pub time_series_descriptor: std::option::Option<crate::model::TimeSeriesDescriptor>,
 
@@ -8869,7 +9220,8 @@ impl QueryTimeSeriesResponse {
     /// let x = QueryTimeSeriesResponse::new().set_time_series_descriptor(TimeSeriesDescriptor::default()/* use setters */);
     /// ```
     pub fn set_time_series_descriptor<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeSeriesDescriptor>
+    where
+        T: std::convert::Into<crate::model::TimeSeriesDescriptor>,
     {
         self.time_series_descriptor = std::option::Option::Some(v.into());
         self
@@ -8885,7 +9237,8 @@ impl QueryTimeSeriesResponse {
     /// let x = QueryTimeSeriesResponse::new().set_or_clear_time_series_descriptor(None::<TimeSeriesDescriptor>);
     /// ```
     pub fn set_or_clear_time_series_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeSeriesDescriptor>
+    where
+        T: std::convert::Into<crate::model::TimeSeriesDescriptor>,
     {
         self.time_series_descriptor = v.map(|x| x.into());
         self
@@ -8906,7 +9259,7 @@ impl QueryTimeSeriesResponse {
     pub fn set_time_series_data<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeSeriesData>
+        V: std::convert::Into<crate::model::TimeSeriesData>,
     {
         use std::iter::Iterator;
         self.time_series_data = v.into_iter().map(|i| i.into()).collect();
@@ -8940,7 +9293,7 @@ impl QueryTimeSeriesResponse {
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>
+        V: std::convert::Into<rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.partial_errors = v.into_iter().map(|i| i.into()).collect();
@@ -8972,7 +9325,6 @@ impl gax::paginator::internal::PageableResponse for QueryTimeSeriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryErrorList {
-
     /// Errors in parsing the time series query language text. The number of errors
     /// in the response may be limited.
     pub errors: std::vec::Vec<crate::model::QueryError>,
@@ -9003,7 +9355,7 @@ impl QueryErrorList {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QueryError>
+        V: std::convert::Into<crate::model::QueryError>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -9033,7 +9385,6 @@ impl wkt::message::Message for QueryErrorList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MutationRecord {
-
     /// When the change occurred.
     pub mutate_time: std::option::Option<wkt::Timestamp>,
 
@@ -9057,7 +9408,8 @@ impl MutationRecord {
     /// let x = MutationRecord::new().set_mutate_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_mutate_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.mutate_time = std::option::Option::Some(v.into());
         self
@@ -9073,7 +9425,8 @@ impl MutationRecord {
     /// let x = MutationRecord::new().set_or_clear_mutate_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_mutate_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.mutate_time = v.map(|x| x.into());
         self
@@ -9104,7 +9457,6 @@ impl wkt::message::Message for MutationRecord {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationChannelDescriptor {
-
     /// The full REST resource name for this descriptor. The format is:
     ///
     /// ```norust
@@ -9214,7 +9566,7 @@ impl NotificationChannelDescriptor {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::LabelDescriptor>
+        V: std::convert::Into<api::model::LabelDescriptor>,
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -9236,7 +9588,7 @@ impl NotificationChannelDescriptor {
     pub fn set_supported_tiers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceTier>
+        V: std::convert::Into<crate::model::ServiceTier>,
     {
         use std::iter::Iterator;
         self.supported_tiers = v.into_iter().map(|i| i.into()).collect();
@@ -9253,7 +9605,10 @@ impl NotificationChannelDescriptor {
     /// let x1 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::Prelaunch);
     /// let x2 = NotificationChannelDescriptor::new().set_launch_stage(LaunchStage::EarlyAccess);
     /// ```
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -9273,7 +9628,6 @@ impl wkt::message::Message for NotificationChannelDescriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationChannel {
-
     /// The type of the notification channel. This field matches the
     /// value of the
     /// [NotificationChannelDescriptor.type][google.monitoring.v3.NotificationChannelDescriptor.type]
@@ -9308,7 +9662,7 @@ pub struct NotificationChannel {
     /// of the `NotificationChannelDescriptor` corresponding to the `type` field.
     ///
     /// [google.monitoring.v3.NotificationChannelDescriptor.labels]: crate::model::NotificationChannelDescriptor::labels
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// User-supplied key/value data that does not need to conform to
     /// the corresponding `NotificationChannelDescriptor`'s schema, unlike
@@ -9319,7 +9673,7 @@ pub struct NotificationChannel {
     /// 63 Unicode characters or 128 bytes, whichever is smaller. Labels and
     /// values can contain only lowercase letters, numerals, underscores, and
     /// dashes. Keys must begin with a letter.
-    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Indicates whether this channel has been verified or not. On a
     /// [`ListNotificationChannels`][google.monitoring.v3.NotificationChannelService.ListNotificationChannels]
@@ -9468,7 +9822,12 @@ impl NotificationChannel {
     /// let x0 = NotificationChannel::new().set_verification_status(VerificationStatus::Unverified);
     /// let x1 = NotificationChannel::new().set_verification_status(VerificationStatus::Verified);
     /// ```
-    pub fn set_verification_status<T: std::convert::Into<crate::model::notification_channel::VerificationStatus>>(mut self, v: T) -> Self {
+    pub fn set_verification_status<
+        T: std::convert::Into<crate::model::notification_channel::VerificationStatus>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.verification_status = v.into();
         self
     }
@@ -9482,7 +9841,8 @@ impl NotificationChannel {
     /// let x = NotificationChannel::new().set_enabled(BoolValue::default()/* use setters */);
     /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -9498,7 +9858,8 @@ impl NotificationChannel {
     /// let x = NotificationChannel::new().set_or_clear_enabled(None::<BoolValue>);
     /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -9513,7 +9874,8 @@ impl NotificationChannel {
     /// let x = NotificationChannel::new().set_creation_record(MutationRecord::default()/* use setters */);
     /// ```
     pub fn set_creation_record<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.creation_record = std::option::Option::Some(v.into());
         self
@@ -9529,7 +9891,8 @@ impl NotificationChannel {
     /// let x = NotificationChannel::new().set_or_clear_creation_record(None::<MutationRecord>);
     /// ```
     pub fn set_or_clear_creation_record<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MutationRecord>
+    where
+        T: std::convert::Into<crate::model::MutationRecord>,
     {
         self.creation_record = v.map(|x| x.into());
         self
@@ -9550,7 +9913,7 @@ impl NotificationChannel {
     pub fn set_mutation_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MutationRecord>
+        V: std::convert::Into<crate::model::MutationRecord>,
     {
         use std::iter::Iterator;
         self.mutation_records = v.into_iter().map(|i| i.into()).collect();
@@ -9568,7 +9931,6 @@ impl wkt::message::Message for NotificationChannel {
 pub mod notification_channel {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Indicates whether the channel has been verified or not. It is illegal
     /// to specify this field in a
@@ -9671,7 +10033,9 @@ pub mod notification_channel {
                 0 => Self::Unspecified,
                 1 => Self::Unverified,
                 2 => Self::Verified,
-                _ => Self::UnknownValue(verification_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(verification_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9683,7 +10047,9 @@ pub mod notification_channel {
                 "VERIFICATION_STATUS_UNSPECIFIED" => Self::Unspecified,
                 "UNVERIFIED" => Self::Unverified,
                 "VERIFIED" => Self::Verified,
-                _ => Self::UnknownValue(verification_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(verification_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9708,7 +10074,8 @@ pub mod notification_channel {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VerificationStatus>::new(
-                ".google.monitoring.v3.NotificationChannel.VerificationStatus"))
+                ".google.monitoring.v3.NotificationChannel.VerificationStatus",
+            ))
         }
     }
 }
@@ -9717,7 +10084,6 @@ pub mod notification_channel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelDescriptorsRequest {
-
     /// Required. The REST resource name of the parent from which to retrieve
     /// the notification channel descriptors. The expected syntax is:
     ///
@@ -9800,7 +10166,6 @@ impl wkt::message::Message for ListNotificationChannelDescriptorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelDescriptorsResponse {
-
     /// The monitored resource descriptors supported for the specified
     /// project, optionally filtered.
     pub channel_descriptors: std::vec::Vec<crate::model::NotificationChannelDescriptor>,
@@ -9834,7 +10199,7 @@ impl ListNotificationChannelDescriptorsResponse {
     pub fn set_channel_descriptors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationChannelDescriptor>
+        V: std::convert::Into<crate::model::NotificationChannelDescriptor>,
     {
         use std::iter::Iterator;
         self.channel_descriptors = v.into_iter().map(|i| i.into()).collect();
@@ -9878,7 +10243,6 @@ impl gax::paginator::internal::PageableResponse for ListNotificationChannelDescr
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelDescriptorRequest {
-
     /// Required. The channel type for which to execute the request. The format is:
     ///
     /// ```norust
@@ -9917,7 +10281,6 @@ impl wkt::message::Message for GetNotificationChannelDescriptorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNotificationChannelRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -9964,7 +10327,8 @@ impl CreateNotificationChannelRequest {
     /// let x = CreateNotificationChannelRequest::new().set_notification_channel(NotificationChannel::default()/* use setters */);
     /// ```
     pub fn set_notification_channel<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::NotificationChannel>
+    where
+        T: std::convert::Into<crate::model::NotificationChannel>,
     {
         self.notification_channel = std::option::Option::Some(v.into());
         self
@@ -9980,7 +10344,8 @@ impl CreateNotificationChannelRequest {
     /// let x = CreateNotificationChannelRequest::new().set_or_clear_notification_channel(None::<NotificationChannel>);
     /// ```
     pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::NotificationChannel>
+    where
+        T: std::convert::Into<crate::model::NotificationChannel>,
     {
         self.notification_channel = v.map(|x| x.into());
         self
@@ -9997,7 +10362,6 @@ impl wkt::message::Message for CreateNotificationChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelsRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
     /// to execute the request. The format is:
@@ -10120,7 +10484,6 @@ impl wkt::message::Message for ListNotificationChannelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelsResponse {
-
     /// The notification channels defined for the specified project.
     pub notification_channels: std::vec::Vec<crate::model::NotificationChannel>,
 
@@ -10157,7 +10520,7 @@ impl ListNotificationChannelsResponse {
     pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationChannel>
+        V: std::convert::Into<crate::model::NotificationChannel>,
     {
         use std::iter::Iterator;
         self.notification_channels = v.into_iter().map(|i| i.into()).collect();
@@ -10213,7 +10576,6 @@ impl gax::paginator::internal::PageableResponse for ListNotificationChannelsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelRequest {
-
     /// Required. The channel for which to execute the request. The format is:
     ///
     /// ```norust
@@ -10252,7 +10614,6 @@ impl wkt::message::Message for GetNotificationChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNotificationChannelRequest {
-
     /// Optional. The fields to update.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -10279,7 +10640,8 @@ impl UpdateNotificationChannelRequest {
     /// let x = UpdateNotificationChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10295,7 +10657,8 @@ impl UpdateNotificationChannelRequest {
     /// let x = UpdateNotificationChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10310,7 +10673,8 @@ impl UpdateNotificationChannelRequest {
     /// let x = UpdateNotificationChannelRequest::new().set_notification_channel(NotificationChannel::default()/* use setters */);
     /// ```
     pub fn set_notification_channel<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::NotificationChannel>
+    where
+        T: std::convert::Into<crate::model::NotificationChannel>,
     {
         self.notification_channel = std::option::Option::Some(v.into());
         self
@@ -10326,7 +10690,8 @@ impl UpdateNotificationChannelRequest {
     /// let x = UpdateNotificationChannelRequest::new().set_or_clear_notification_channel(None::<NotificationChannel>);
     /// ```
     pub fn set_or_clear_notification_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::NotificationChannel>
+    where
+        T: std::convert::Into<crate::model::NotificationChannel>,
     {
         self.notification_channel = v.map(|x| x.into());
         self
@@ -10343,7 +10708,6 @@ impl wkt::message::Message for UpdateNotificationChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNotificationChannelRequest {
-
     /// Required. The channel for which to execute the request. The format is:
     ///
     /// ```norust
@@ -10400,7 +10764,6 @@ impl wkt::message::Message for DeleteNotificationChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SendNotificationChannelVerificationCodeRequest {
-
     /// Required. The notification channel to which to send a verification code.
     pub name: std::string::String,
 
@@ -10435,7 +10798,6 @@ impl wkt::message::Message for SendNotificationChannelVerificationCodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelVerificationCodeRequest {
-
     /// Required. The notification channel for which a verification code is to be
     /// generated and retrieved. This must name a channel that is already verified;
     /// if the specified channel is not verified, the request will fail.
@@ -10481,7 +10843,8 @@ impl GetNotificationChannelVerificationCodeRequest {
     /// let x = GetNotificationChannelVerificationCodeRequest::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -10497,7 +10860,8 @@ impl GetNotificationChannelVerificationCodeRequest {
     /// let x = GetNotificationChannelVerificationCodeRequest::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -10514,7 +10878,6 @@ impl wkt::message::Message for GetNotificationChannelVerificationCodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelVerificationCodeResponse {
-
     /// The verification code, which may be used to verify other channels
     /// that have an equivalent identity (i.e. other channels of the same
     /// type with the same fingerprint such as other email channels with
@@ -10555,7 +10918,8 @@ impl GetNotificationChannelVerificationCodeResponse {
     /// let x = GetNotificationChannelVerificationCodeResponse::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -10571,7 +10935,8 @@ impl GetNotificationChannelVerificationCodeResponse {
     /// let x = GetNotificationChannelVerificationCodeResponse::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -10588,7 +10953,6 @@ impl wkt::message::Message for GetNotificationChannelVerificationCodeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyNotificationChannelRequest {
-
     /// Required. The notification channel to verify.
     pub name: std::string::String,
 
@@ -10648,7 +11012,6 @@ impl wkt::message::Message for VerifyNotificationChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
-
     /// Identifier. Resource name for this Service. The format is:
     ///
     /// ```norust
@@ -10674,7 +11037,7 @@ pub struct Service {
     /// length of 63 characters, and must be less than 128 bytes in size. Up to 64
     /// label entries may be stored. For labels which do not have a semantic value,
     /// the empty string may be supplied for the label value.
-    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// REQUIRED. Service-identifying atoms specifying the underlying service.
     pub identifier: std::option::Option<crate::model::service::Identifier>,
@@ -10720,7 +11083,8 @@ impl Service {
     /// let x = Service::new().set_basic_service(BasicService::default()/* use setters */);
     /// ```
     pub fn set_basic_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::service::BasicService>
+    where
+        T: std::convert::Into<crate::model::service::BasicService>,
     {
         self.basic_service = std::option::Option::Some(v.into());
         self
@@ -10736,7 +11100,8 @@ impl Service {
     /// let x = Service::new().set_or_clear_basic_service(None::<BasicService>);
     /// ```
     pub fn set_or_clear_basic_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::service::BasicService>
+    where
+        T: std::convert::Into<crate::model::service::BasicService>,
     {
         self.basic_service = v.map(|x| x.into());
         self
@@ -10751,7 +11116,8 @@ impl Service {
     /// let x = Service::new().set_telemetry(Telemetry::default()/* use setters */);
     /// ```
     pub fn set_telemetry<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::service::Telemetry>
+    where
+        T: std::convert::Into<crate::model::service::Telemetry>,
     {
         self.telemetry = std::option::Option::Some(v.into());
         self
@@ -10767,7 +11133,8 @@ impl Service {
     /// let x = Service::new().set_or_clear_telemetry(None::<Telemetry>);
     /// ```
     pub fn set_or_clear_telemetry<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::service::Telemetry>
+    where
+        T: std::convert::Into<crate::model::service::Telemetry>,
     {
         self.telemetry = v.map(|x| x.into());
         self
@@ -10806,8 +11173,12 @@ impl Service {
     /// let x = Service::new().set_identifier(Some(
     ///     google_cloud_monitoring_v3::model::service::Identifier::Custom(Custom::default().into())));
     /// ```
-    pub fn set_identifier<T: std::convert::Into<std::option::Option<crate::model::service::Identifier>>>(mut self, v: T) -> Self
-    {
+    pub fn set_identifier<
+        T: std::convert::Into<std::option::Option<crate::model::service::Identifier>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.identifier = v.into();
         self
     }
@@ -10845,19 +11216,21 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::service::Custom>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::Custom(
-                v.into()
-            )
-        );
+    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::service::Custom>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::Custom(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `AppEngine`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn app_engine(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::AppEngine>> {
+    pub fn app_engine(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::AppEngine>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::AppEngine(v) => std::option::Option::Some(v),
@@ -10887,19 +11260,23 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_app_engine<T: std::convert::Into<std::boxed::Box<crate::model::service::AppEngine>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::AppEngine(
-                v.into()
-            )
-        );
+    pub fn set_app_engine<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::AppEngine>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::AppEngine(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `CloudEndpoints`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_endpoints(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudEndpoints>> {
+    pub fn cloud_endpoints(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudEndpoints>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::CloudEndpoints(v) => std::option::Option::Some(v),
@@ -10929,19 +11306,23 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_cloud_endpoints<T: std::convert::Into<std::boxed::Box<crate::model::service::CloudEndpoints>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::CloudEndpoints(
-                v.into()
-            )
-        );
+    pub fn set_cloud_endpoints<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::CloudEndpoints>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::CloudEndpoints(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `ClusterIstio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cluster_istio(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::ClusterIstio>> {
+    pub fn cluster_istio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::ClusterIstio>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::ClusterIstio(v) => std::option::Option::Some(v),
@@ -10971,19 +11352,23 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_cluster_istio<T: std::convert::Into<std::boxed::Box<crate::model::service::ClusterIstio>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::ClusterIstio(
-                v.into()
-            )
-        );
+    pub fn set_cluster_istio<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::ClusterIstio>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::ClusterIstio(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `MeshIstio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mesh_istio(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::MeshIstio>> {
+    pub fn mesh_istio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::MeshIstio>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::MeshIstio(v) => std::option::Option::Some(v),
@@ -11013,22 +11398,28 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_mesh_istio<T: std::convert::Into<std::boxed::Box<crate::model::service::MeshIstio>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::MeshIstio(
-                v.into()
-            )
-        );
+    pub fn set_mesh_istio<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::MeshIstio>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::MeshIstio(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `IstioCanonicalService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn istio_canonical_service(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::IstioCanonicalService>> {
+    pub fn istio_canonical_service(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::IstioCanonicalService>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::IstioCanonicalService(v) => std::option::Option::Some(v),
+            crate::model::service::Identifier::IstioCanonicalService(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -11055,11 +11446,14 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_istio_canonical_service<T: std::convert::Into<std::boxed::Box<crate::model::service::IstioCanonicalService>>>(mut self, v: T) -> Self {
+    pub fn set_istio_canonical_service<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::IstioCanonicalService>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::IstioCanonicalService(
-                v.into()
-            )
+            crate::model::service::Identifier::IstioCanonicalService(v.into()),
         );
         self
     }
@@ -11067,7 +11461,9 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudRun>> {
+    pub fn cloud_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudRun>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::CloudRun(v) => std::option::Option::Some(v),
@@ -11097,19 +11493,23 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::service::CloudRun>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::CloudRun(
-                v.into()
-            )
-        );
+    pub fn set_cloud_run<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::CloudRun>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::CloudRun(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeNamespace`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gke_namespace(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeNamespace>> {
+    pub fn gke_namespace(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeNamespace>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::GkeNamespace(v) => std::option::Option::Some(v),
@@ -11139,19 +11539,23 @@ impl Service {
     /// assert!(x.gke_workload().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_gke_namespace<T: std::convert::Into<std::boxed::Box<crate::model::service::GkeNamespace>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::GkeNamespace(
-                v.into()
-            )
-        );
+    pub fn set_gke_namespace<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeNamespace>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::GkeNamespace(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeWorkload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gke_workload(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeWorkload>> {
+    pub fn gke_workload(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeWorkload>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::GkeWorkload(v) => std::option::Option::Some(v),
@@ -11181,19 +11585,23 @@ impl Service {
     /// assert!(x.gke_namespace().is_none());
     /// assert!(x.gke_service().is_none());
     /// ```
-    pub fn set_gke_workload<T: std::convert::Into<std::boxed::Box<crate::model::service::GkeWorkload>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::GkeWorkload(
-                v.into()
-            )
-        );
+    pub fn set_gke_workload<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeWorkload>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::GkeWorkload(v.into()));
         self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gke_service(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeService>> {
+    pub fn gke_service(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeService>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::GkeService(v) => std::option::Option::Some(v),
@@ -11223,12 +11631,14 @@ impl Service {
     /// assert!(x.gke_namespace().is_none());
     /// assert!(x.gke_workload().is_none());
     /// ```
-    pub fn set_gke_service<T: std::convert::Into<std::boxed::Box<crate::model::service::GkeService>>>(mut self, v: T) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::GkeService(
-                v.into()
-            )
-        );
+    pub fn set_gke_service<
+        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeService>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier =
+            std::option::Option::Some(crate::model::service::Identifier::GkeService(v.into()));
         self
     }
 }
@@ -11244,14 +11654,12 @@ pub mod service {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Use a custom service to designate a service that you want to monitor
     /// when none of the other service types (like App Engine, Cloud Run, or
     /// a GKE type) matches your intended service.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Custom {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -11271,7 +11679,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppEngine {
-
         /// The ID of the App Engine module underlying this service. Corresponds to
         /// the `module_id` resource label in the [`gae_app` monitored
         /// resource](https://cloud.google.com/monitoring/api/resources#tag_gae_app).
@@ -11308,7 +11715,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudEndpoints {
-
         /// The name of the Cloud Endpoints service underlying this service.
         /// Corresponds to the `service` resource label in the [`api` monitored
         /// resource](https://cloud.google.com/monitoring/api/resources#tag_api).
@@ -11347,7 +11753,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterIstio {
-
         /// The location of the Kubernetes cluster in which this Istio service is
         /// defined. Corresponds to the `location` resource label in `k8s_cluster`
         /// resources.
@@ -11393,7 +11798,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
         /// let x = ClusterIstio::new().set_cluster_name("example");
         /// ```
-        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cluster_name = v.into();
             self
         }
@@ -11405,7 +11813,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
         /// let x = ClusterIstio::new().set_service_namespace("example");
         /// ```
-        pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_namespace = v.into();
             self
         }
@@ -11417,7 +11828,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::ClusterIstio;
         /// let x = ClusterIstio::new().set_service_name("example");
         /// ```
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_name = v.into();
             self
         }
@@ -11434,7 +11848,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MeshIstio {
-
         /// Identifier for the mesh in which this Istio service is defined.
         /// Corresponds to the `mesh_uid` metric label in Istio metrics.
         pub mesh_uid: std::string::String,
@@ -11474,7 +11887,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::MeshIstio;
         /// let x = MeshIstio::new().set_service_namespace("example");
         /// ```
-        pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_namespace<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_namespace = v.into();
             self
         }
@@ -11486,7 +11902,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::MeshIstio;
         /// let x = MeshIstio::new().set_service_name("example");
         /// ```
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_name = v.into();
             self
         }
@@ -11503,7 +11922,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IstioCanonicalService {
-
         /// Identifier for the Istio mesh in which this canonical service is defined.
         /// Corresponds to the `mesh_uid` metric label in
         /// [Istio metrics](https://cloud.google.com/monitoring/api/metrics_istio).
@@ -11548,7 +11966,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
         /// let x = IstioCanonicalService::new().set_canonical_service_namespace("example");
         /// ```
-        pub fn set_canonical_service_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_canonical_service_namespace<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.canonical_service_namespace = v.into();
             self
         }
@@ -11560,7 +11981,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::IstioCanonicalService;
         /// let x = IstioCanonicalService::new().set_canonical_service("example");
         /// ```
-        pub fn set_canonical_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_canonical_service<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.canonical_service = v.into();
             self
         }
@@ -11576,7 +12000,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudRun {
-
         /// The name of the Cloud Run service. Corresponds to the `service_name`
         /// resource label in the [`cloud_run_revision` monitored
         /// resource](https://cloud.google.com/monitoring/api/resources#tag_cloud_run_revision).
@@ -11602,7 +12025,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::CloudRun;
         /// let x = CloudRun::new().set_service_name("example");
         /// ```
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_name = v.into();
             self
         }
@@ -11632,7 +12058,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNamespace {
-
         /// Output only. The project this resource lives in. For legacy services
         /// migrated from the `Custom` type, this may be a distinct project from the
         /// one parenting the service itself.
@@ -11686,7 +12111,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
         /// let x = GkeNamespace::new().set_cluster_name("example");
         /// ```
-        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cluster_name = v.into();
             self
         }
@@ -11698,7 +12126,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeNamespace;
         /// let x = GkeNamespace::new().set_namespace_name("example");
         /// ```
-        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.namespace_name = v.into();
             self
         }
@@ -11716,7 +12147,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeWorkload {
-
         /// Output only. The project this resource lives in. For legacy services
         /// migrated from the `Custom` type, this may be a distinct project from the
         /// one parenting the service itself.
@@ -11776,7 +12206,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
         /// let x = GkeWorkload::new().set_cluster_name("example");
         /// ```
-        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cluster_name = v.into();
             self
         }
@@ -11788,7 +12221,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
         /// let x = GkeWorkload::new().set_namespace_name("example");
         /// ```
-        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.namespace_name = v.into();
             self
         }
@@ -11800,7 +12236,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
         /// let x = GkeWorkload::new().set_top_level_controller_type("example");
         /// ```
-        pub fn set_top_level_controller_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_top_level_controller_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.top_level_controller_type = v.into();
             self
         }
@@ -11812,7 +12251,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeWorkload;
         /// let x = GkeWorkload::new().set_top_level_controller_name("example");
         /// ```
-        pub fn set_top_level_controller_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_top_level_controller_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.top_level_controller_name = v.into();
             self
         }
@@ -11833,7 +12275,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeService {
-
         /// Output only. The project this resource lives in. For legacy services
         /// migrated from the `Custom` type, this may be a distinct project from the
         /// one parenting the service itself.
@@ -11890,7 +12331,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeService;
         /// let x = GkeService::new().set_cluster_name("example");
         /// ```
-        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.cluster_name = v.into();
             self
         }
@@ -11902,7 +12346,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeService;
         /// let x = GkeService::new().set_namespace_name("example");
         /// ```
-        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_namespace_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.namespace_name = v.into();
             self
         }
@@ -11914,7 +12361,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::GkeService;
         /// let x = GkeService::new().set_service_name("example");
         /// ```
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_name = v.into();
             self
         }
@@ -11932,7 +12382,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BasicService {
-
         /// The type of service that this basic service defines, e.g.
         /// APP_ENGINE service type.
         /// Documentation and valid values
@@ -11943,7 +12392,7 @@ pub mod service {
         /// is used for SLO reporting of this `Service`.
         /// Documentation and valid values for given service types
         /// [here](https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/api/api-structures#basic-svc-w-basic-sli).
-        pub service_labels: std::collections::HashMap<std::string::String,std::string::String>,
+        pub service_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -11960,7 +12409,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::BasicService;
         /// let x = BasicService::new().set_service_type("example");
         /// ```
-        pub fn set_service_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_service_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.service_type = v.into();
             self
         }
@@ -11997,7 +12449,6 @@ pub mod service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Telemetry {
-
         /// The full name of the resource that defines this service. Formatted as
         /// described in <https://cloud.google.com/apis/design/resource_names>.
         pub resource_name: std::string::String,
@@ -12017,7 +12468,10 @@ pub mod service {
         /// # use google_cloud_monitoring_v3::model::service::Telemetry;
         /// let x = Telemetry::new().set_resource_name("example");
         /// ```
-        pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_resource_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.resource_name = v.into();
             self
         }
@@ -12067,7 +12521,6 @@ pub mod service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceLevelObjective {
-
     /// Identifier. Resource name for this `ServiceLevelObjective`. The format is:
     ///
     /// ```norust
@@ -12093,7 +12546,7 @@ pub struct ServiceLevelObjective {
     /// maximum length of 63 characters, and must be less than 128 bytes in size.
     /// Up to 64 label entries may be stored. For labels which do not have a
     /// semantic value, the empty string may be supplied for the label value.
-    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The time period over which the objective will be evaluated.
     pub period: std::option::Option<crate::model::service_level_objective::Period>,
@@ -12139,7 +12592,8 @@ impl ServiceLevelObjective {
     /// let x = ServiceLevelObjective::new().set_service_level_indicator(ServiceLevelIndicator::default()/* use setters */);
     /// ```
     pub fn set_service_level_indicator<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelIndicator>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelIndicator>,
     {
         self.service_level_indicator = std::option::Option::Some(v.into());
         self
@@ -12155,7 +12609,8 @@ impl ServiceLevelObjective {
     /// let x = ServiceLevelObjective::new().set_or_clear_service_level_indicator(None::<ServiceLevelIndicator>);
     /// ```
     pub fn set_or_clear_service_level_indicator<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelIndicator>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelIndicator>,
     {
         self.service_level_indicator = v.map(|x| x.into());
         self
@@ -12210,8 +12665,12 @@ impl ServiceLevelObjective {
     /// let x2 = ServiceLevelObjective::new().set_period(Some(
     ///     google_cloud_monitoring_v3::model::service_level_objective::Period::CalendarPeriod(CalendarPeriod::Fortnight)));
     /// ```
-    pub fn set_period<T: std::convert::Into<std::option::Option<crate::model::service_level_objective::Period>>>(mut self, v: T) -> Self
-    {
+    pub fn set_period<
+        T: std::convert::Into<std::option::Option<crate::model::service_level_objective::Period>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.period = v.into();
         self
     }
@@ -12222,7 +12681,9 @@ impl ServiceLevelObjective {
     pub fn rolling_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
-            crate::model::service_level_objective::Period::RollingPeriod(v) => std::option::Option::Some(v),
+            crate::model::service_level_objective::Period::RollingPeriod(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -12241,11 +12702,12 @@ impl ServiceLevelObjective {
     /// assert!(x.rolling_period().is_some());
     /// assert!(x.calendar_period().is_none());
     /// ```
-    pub fn set_rolling_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_rolling_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.period = std::option::Option::Some(
-            crate::model::service_level_objective::Period::RollingPeriod(
-                v.into()
-            )
+            crate::model::service_level_objective::Period::RollingPeriod(v.into()),
         );
         self
     }
@@ -12256,7 +12718,9 @@ impl ServiceLevelObjective {
     pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
-            crate::model::service_level_objective::Period::CalendarPeriod(v) => std::option::Option::Some(v),
+            crate::model::service_level_objective::Period::CalendarPeriod(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -12281,11 +12745,12 @@ impl ServiceLevelObjective {
     /// assert!(x2.calendar_period().is_some());
     /// assert!(x2.rolling_period().is_none());
     /// ```
-    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(mut self, v: T) -> Self {
+    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.period = std::option::Option::Some(
-            crate::model::service_level_objective::Period::CalendarPeriod(
-                v.into()
-            )
+            crate::model::service_level_objective::Period::CalendarPeriod(v.into()),
         );
         self
     }
@@ -12301,7 +12766,6 @@ impl wkt::message::Message for ServiceLevelObjective {
 pub mod service_level_objective {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// `ServiceLevelObjective.View` determines what form of
     /// `ServiceLevelObjective` is returned from `GetServiceLevelObjective`,
@@ -12396,7 +12860,9 @@ pub mod service_level_objective {
                 0 => Self::Unspecified,
                 1 => Self::Explicit,
                 2 => Self::Full,
-                _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -12408,7 +12874,9 @@ pub mod service_level_objective {
                 "VIEW_UNSPECIFIED" => Self::Unspecified,
                 "FULL" => Self::Full,
                 "EXPLICIT" => Self::Explicit,
-                _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -12433,7 +12901,8 @@ pub mod service_level_objective {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<View>::new(
-                ".google.monitoring.v3.ServiceLevelObjective.View"))
+                ".google.monitoring.v3.ServiceLevelObjective.View",
+            ))
         }
     }
 
@@ -12467,7 +12936,6 @@ pub mod service_level_objective {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceLevelIndicator {
-
     /// Service level indicators can be grouped by whether the "unit" of service
     /// being measured is based on counts of good requests or on counts of good
     /// time windows
@@ -12493,8 +12961,12 @@ impl ServiceLevelIndicator {
     /// let x = ServiceLevelIndicator::new().set_type(Some(
     ///     google_cloud_monitoring_v3::model::service_level_indicator::Type::BasicSli(BasicSli::default().into())));
     /// ```
-    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::service_level_indicator::Type>>>(mut self, v: T) -> Self
-    {
+    pub fn set_type<
+        T: std::convert::Into<std::option::Option<crate::model::service_level_indicator::Type>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -12505,7 +12977,9 @@ impl ServiceLevelIndicator {
     pub fn basic_sli(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::service_level_indicator::Type::BasicSli(v) => std::option::Option::Some(v),
+            crate::model::service_level_indicator::Type::BasicSli(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -12525,11 +12999,12 @@ impl ServiceLevelIndicator {
     /// assert!(x.request_based().is_none());
     /// assert!(x.windows_based().is_none());
     /// ```
-    pub fn set_basic_sli<T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>>(mut self, v: T) -> Self {
+    pub fn set_basic_sli<T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::BasicSli(
-                v.into()
-            )
+            crate::model::service_level_indicator::Type::BasicSli(v.into()),
         );
         self
     }
@@ -12537,10 +13012,14 @@ impl ServiceLevelIndicator {
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `RequestBased`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn request_based(&self) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
+    pub fn request_based(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::service_level_indicator::Type::RequestBased(v) => std::option::Option::Some(v),
+            crate::model::service_level_indicator::Type::RequestBased(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -12560,11 +13039,14 @@ impl ServiceLevelIndicator {
     /// assert!(x.basic_sli().is_none());
     /// assert!(x.windows_based().is_none());
     /// ```
-    pub fn set_request_based<T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>>(mut self, v: T) -> Self {
+    pub fn set_request_based<
+        T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::RequestBased(
-                v.into()
-            )
+            crate::model::service_level_indicator::Type::RequestBased(v.into()),
         );
         self
     }
@@ -12572,10 +13054,14 @@ impl ServiceLevelIndicator {
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `WindowsBased`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn windows_based(&self) -> std::option::Option<&std::boxed::Box<crate::model::WindowsBasedSli>> {
+    pub fn windows_based(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WindowsBasedSli>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
-            crate::model::service_level_indicator::Type::WindowsBased(v) => std::option::Option::Some(v),
+            crate::model::service_level_indicator::Type::WindowsBased(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -12595,11 +13081,14 @@ impl ServiceLevelIndicator {
     /// assert!(x.basic_sli().is_none());
     /// assert!(x.request_based().is_none());
     /// ```
-    pub fn set_windows_based<T: std::convert::Into<std::boxed::Box<crate::model::WindowsBasedSli>>>(mut self, v: T) -> Self {
+    pub fn set_windows_based<
+        T: std::convert::Into<std::boxed::Box<crate::model::WindowsBasedSli>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::WindowsBased(
-                v.into()
-            )
+            crate::model::service_level_indicator::Type::WindowsBased(v.into()),
         );
         self
     }
@@ -12615,7 +13104,6 @@ impl wkt::message::Message for ServiceLevelIndicator {
 pub mod service_level_indicator {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Service level indicators can be grouped by whether the "unit" of service
     /// being measured is based on counts of good requests or on counts of good
@@ -12641,7 +13129,6 @@ pub mod service_level_indicator {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicSli {
-
     /// OPTIONAL: The set of RPCs to which this SLI is relevant. Telemetry from
     /// other methods will not be used to calculate performance for this SLI. If
     /// omitted, this SLI applies to all the Service's methods. For service types
@@ -12684,7 +13171,7 @@ impl BasicSli {
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.method = v.into_iter().map(|i| i.into()).collect();
@@ -12701,7 +13188,7 @@ impl BasicSli {
     pub fn set_location<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.location = v.into_iter().map(|i| i.into()).collect();
@@ -12718,7 +13205,7 @@ impl BasicSli {
     pub fn set_version<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.version = v.into_iter().map(|i| i.into()).collect();
@@ -12737,8 +13224,12 @@ impl BasicSli {
     /// let x = BasicSli::new().set_sli_criteria(Some(
     ///     google_cloud_monitoring_v3::model::basic_sli::SliCriteria::Availability(AvailabilityCriteria::default().into())));
     /// ```
-    pub fn set_sli_criteria<T: std::convert::Into<std::option::Option<crate::model::basic_sli::SliCriteria>>>(mut self, v: T) -> Self
-    {
+    pub fn set_sli_criteria<
+        T: std::convert::Into<std::option::Option<crate::model::basic_sli::SliCriteria>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.sli_criteria = v.into();
         self
     }
@@ -12746,7 +13237,9 @@ impl BasicSli {
     /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// if it holds a `Availability`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn availability(&self) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>> {
+    pub fn availability(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>> {
         #[allow(unreachable_patterns)]
         self.sli_criteria.as_ref().and_then(|v| match v {
             crate::model::basic_sli::SliCriteria::Availability(v) => std::option::Option::Some(v),
@@ -12768,19 +13261,23 @@ impl BasicSli {
     /// assert!(x.availability().is_some());
     /// assert!(x.latency().is_none());
     /// ```
-    pub fn set_availability<T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>>>(mut self, v: T) -> Self {
-        self.sli_criteria = std::option::Option::Some(
-            crate::model::basic_sli::SliCriteria::Availability(
-                v.into()
-            )
-        );
+    pub fn set_availability<
+        T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sli_criteria =
+            std::option::Option::Some(crate::model::basic_sli::SliCriteria::Availability(v.into()));
         self
     }
 
     /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// if it holds a `Latency`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn latency(&self) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::LatencyCriteria>> {
+    pub fn latency(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::LatencyCriteria>> {
         #[allow(unreachable_patterns)]
         self.sli_criteria.as_ref().and_then(|v| match v {
             crate::model::basic_sli::SliCriteria::Latency(v) => std::option::Option::Some(v),
@@ -12802,12 +13299,14 @@ impl BasicSli {
     /// assert!(x.latency().is_some());
     /// assert!(x.availability().is_none());
     /// ```
-    pub fn set_latency<T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::LatencyCriteria>>>(mut self, v: T) -> Self {
-        self.sli_criteria = std::option::Option::Some(
-            crate::model::basic_sli::SliCriteria::Latency(
-                v.into()
-            )
-        );
+    pub fn set_latency<
+        T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::LatencyCriteria>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.sli_criteria =
+            std::option::Option::Some(crate::model::basic_sli::SliCriteria::Latency(v.into()));
         self
     }
 }
@@ -12823,12 +13322,10 @@ pub mod basic_sli {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Future parameters for the availability SLI.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvailabilityCriteria {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -12848,7 +13345,6 @@ pub mod basic_sli {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LatencyCriteria {
-
         /// Good service is defined to be the count of requests made to this service
         /// that return in no more than `threshold`.
         pub threshold: std::option::Option<wkt::Duration>,
@@ -12870,7 +13366,8 @@ pub mod basic_sli {
         /// let x = LatencyCriteria::new().set_threshold(Duration::default()/* use setters */);
         /// ```
         pub fn set_threshold<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.threshold = std::option::Option::Some(v.into());
             self
@@ -12886,7 +13383,8 @@ pub mod basic_sli {
         /// let x = LatencyCriteria::new().set_or_clear_threshold(None::<Duration>);
         /// ```
         pub fn set_or_clear_threshold<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.threshold = v.map(|x| x.into());
             self
@@ -12916,7 +13414,6 @@ pub mod basic_sli {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Range {
-
     /// Range minimum.
     pub min: f64,
 
@@ -12967,7 +13464,6 @@ impl wkt::message::Message for Range {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestBasedSli {
-
     /// The means to compute a ratio of `good_service` to `total_service`.
     pub method: std::option::Option<crate::model::request_based_sli::Method>,
 
@@ -12991,8 +13487,12 @@ impl RequestBasedSli {
     /// let x = RequestBasedSli::new().set_method(Some(
     ///     google_cloud_monitoring_v3::model::request_based_sli::Method::GoodTotalRatio(TimeSeriesRatio::default().into())));
     /// ```
-    pub fn set_method<T: std::convert::Into<std::option::Option<crate::model::request_based_sli::Method>>>(mut self, v: T) -> Self
-    {
+    pub fn set_method<
+        T: std::convert::Into<std::option::Option<crate::model::request_based_sli::Method>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.method = v.into();
         self
     }
@@ -13000,10 +13500,14 @@ impl RequestBasedSli {
     /// The value of [method][crate::model::RequestBasedSli::method]
     /// if it holds a `GoodTotalRatio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn good_total_ratio(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesRatio>> {
+    pub fn good_total_ratio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesRatio>> {
         #[allow(unreachable_patterns)]
         self.method.as_ref().and_then(|v| match v {
-            crate::model::request_based_sli::Method::GoodTotalRatio(v) => std::option::Option::Some(v),
+            crate::model::request_based_sli::Method::GoodTotalRatio(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13022,11 +13526,14 @@ impl RequestBasedSli {
     /// assert!(x.good_total_ratio().is_some());
     /// assert!(x.distribution_cut().is_none());
     /// ```
-    pub fn set_good_total_ratio<T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesRatio>>>(mut self, v: T) -> Self {
+    pub fn set_good_total_ratio<
+        T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesRatio>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.method = std::option::Option::Some(
-            crate::model::request_based_sli::Method::GoodTotalRatio(
-                v.into()
-            )
+            crate::model::request_based_sli::Method::GoodTotalRatio(v.into()),
         );
         self
     }
@@ -13034,10 +13541,14 @@ impl RequestBasedSli {
     /// The value of [method][crate::model::RequestBasedSli::method]
     /// if it holds a `DistributionCut`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn distribution_cut(&self) -> std::option::Option<&std::boxed::Box<crate::model::DistributionCut>> {
+    pub fn distribution_cut(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DistributionCut>> {
         #[allow(unreachable_patterns)]
         self.method.as_ref().and_then(|v| match v {
-            crate::model::request_based_sli::Method::DistributionCut(v) => std::option::Option::Some(v),
+            crate::model::request_based_sli::Method::DistributionCut(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13056,11 +13567,14 @@ impl RequestBasedSli {
     /// assert!(x.distribution_cut().is_some());
     /// assert!(x.good_total_ratio().is_none());
     /// ```
-    pub fn set_distribution_cut<T: std::convert::Into<std::boxed::Box<crate::model::DistributionCut>>>(mut self, v: T) -> Self {
+    pub fn set_distribution_cut<
+        T: std::convert::Into<std::boxed::Box<crate::model::DistributionCut>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.method = std::option::Option::Some(
-            crate::model::request_based_sli::Method::DistributionCut(
-                v.into()
-            )
+            crate::model::request_based_sli::Method::DistributionCut(v.into()),
         );
         self
     }
@@ -13076,7 +13590,6 @@ impl wkt::message::Message for RequestBasedSli {
 pub mod request_based_sli {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The means to compute a ratio of `good_service` to `total_service`.
     #[derive(Clone, Debug, PartialEq)]
@@ -13102,7 +13615,6 @@ pub mod request_based_sli {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesRatio {
-
     /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
     /// specifying a `TimeSeries` quantifying good service provided. Must have
     /// `ValueType = DOUBLE` or `ValueType = INT64` and must have `MetricKind =
@@ -13137,7 +13649,10 @@ impl TimeSeriesRatio {
     /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
     /// let x = TimeSeriesRatio::new().set_good_service_filter("example");
     /// ```
-    pub fn set_good_service_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_good_service_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.good_service_filter = v.into();
         self
     }
@@ -13149,7 +13664,10 @@ impl TimeSeriesRatio {
     /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
     /// let x = TimeSeriesRatio::new().set_bad_service_filter("example");
     /// ```
-    pub fn set_bad_service_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_bad_service_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.bad_service_filter = v.into();
         self
     }
@@ -13161,7 +13679,10 @@ impl TimeSeriesRatio {
     /// # use google_cloud_monitoring_v3::model::TimeSeriesRatio;
     /// let x = TimeSeriesRatio::new().set_total_service_filter("example");
     /// ```
-    pub fn set_total_service_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_total_service_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.total_service_filter = v.into();
         self
     }
@@ -13181,7 +13702,6 @@ impl wkt::message::Message for TimeSeriesRatio {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DistributionCut {
-
     /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
     /// specifying a `TimeSeries` aggregating values. Must have `ValueType =
     /// DISTRIBUTION` and `MetricKind = DELTA` or `MetricKind = CUMULATIVE`.
@@ -13206,7 +13726,10 @@ impl DistributionCut {
     /// # use google_cloud_monitoring_v3::model::DistributionCut;
     /// let x = DistributionCut::new().set_distribution_filter("example");
     /// ```
-    pub fn set_distribution_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_distribution_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.distribution_filter = v.into();
         self
     }
@@ -13220,7 +13743,8 @@ impl DistributionCut {
     /// let x = DistributionCut::new().set_range(Range::default()/* use setters */);
     /// ```
     pub fn set_range<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Range>
+    where
+        T: std::convert::Into<crate::model::Range>,
     {
         self.range = std::option::Option::Some(v.into());
         self
@@ -13236,7 +13760,8 @@ impl DistributionCut {
     /// let x = DistributionCut::new().set_or_clear_range(None::<Range>);
     /// ```
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Range>
+    where
+        T: std::convert::Into<crate::model::Range>,
     {
         self.range = v.map(|x| x.into());
         self
@@ -13255,7 +13780,6 @@ impl wkt::message::Message for DistributionCut {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WindowsBasedSli {
-
     /// Duration over which window quality is evaluated. Must be an integer
     /// fraction of a day and at least `60s`.
     pub window_period: std::option::Option<wkt::Duration>,
@@ -13280,7 +13804,8 @@ impl WindowsBasedSli {
     /// let x = WindowsBasedSli::new().set_window_period(Duration::default()/* use setters */);
     /// ```
     pub fn set_window_period<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.window_period = std::option::Option::Some(v.into());
         self
@@ -13296,7 +13821,8 @@ impl WindowsBasedSli {
     /// let x = WindowsBasedSli::new().set_or_clear_window_period(None::<Duration>);
     /// ```
     pub fn set_or_clear_window_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.window_period = v.map(|x| x.into());
         self
@@ -13313,8 +13839,12 @@ impl WindowsBasedSli {
     /// use google_cloud_monitoring_v3::model::windows_based_sli::WindowCriterion;
     /// let x = WindowsBasedSli::new().set_window_criterion(Some(WindowCriterion::GoodBadMetricFilter("example".to_string())));
     /// ```
-    pub fn set_window_criterion<T: std::convert::Into<std::option::Option<crate::model::windows_based_sli::WindowCriterion>>>(mut self, v: T) -> Self
-    {
+    pub fn set_window_criterion<
+        T: std::convert::Into<std::option::Option<crate::model::windows_based_sli::WindowCriterion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.window_criterion = v.into();
         self
     }
@@ -13325,7 +13855,9 @@ impl WindowsBasedSli {
     pub fn good_bad_metric_filter(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v) => std::option::Option::Some(v),
+            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13345,11 +13877,12 @@ impl WindowsBasedSli {
     /// assert!(x.metric_mean_in_range().is_none());
     /// assert!(x.metric_sum_in_range().is_none());
     /// ```
-    pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(
-                v.into()
-            )
+            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v.into()),
         );
         self
     }
@@ -13357,10 +13890,15 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `GoodTotalRatioThreshold`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn good_total_ratio_threshold(&self) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>> {
+    pub fn good_total_ratio_threshold(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>
+    {
         #[allow(unreachable_patterns)]
         self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::GoodTotalRatioThreshold(v) => std::option::Option::Some(v),
+            crate::model::windows_based_sli::WindowCriterion::GoodTotalRatioThreshold(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13381,11 +13919,14 @@ impl WindowsBasedSli {
     /// assert!(x.metric_mean_in_range().is_none());
     /// assert!(x.metric_sum_in_range().is_none());
     /// ```
-    pub fn set_good_total_ratio_threshold<T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>>(mut self, v: T) -> Self {
+    pub fn set_good_total_ratio_threshold<
+        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::GoodTotalRatioThreshold(
-                v.into()
-            )
+            crate::model::windows_based_sli::WindowCriterion::GoodTotalRatioThreshold(v.into()),
         );
         self
     }
@@ -13393,10 +13934,14 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `MetricMeanInRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn metric_mean_in_range(&self) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
+    pub fn metric_mean_in_range(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
         #[allow(unreachable_patterns)]
         self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v) => std::option::Option::Some(v),
+            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13417,11 +13962,14 @@ impl WindowsBasedSli {
     /// assert!(x.good_total_ratio_threshold().is_none());
     /// assert!(x.metric_sum_in_range().is_none());
     /// ```
-    pub fn set_metric_mean_in_range<T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>>(mut self, v: T) -> Self {
+    pub fn set_metric_mean_in_range<
+        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(
-                v.into()
-            )
+            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v.into()),
         );
         self
     }
@@ -13429,10 +13977,14 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `MetricSumInRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn metric_sum_in_range(&self) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
+    pub fn metric_sum_in_range(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
         #[allow(unreachable_patterns)]
         self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v) => std::option::Option::Some(v),
+            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -13453,11 +14005,14 @@ impl WindowsBasedSli {
     /// assert!(x.good_total_ratio_threshold().is_none());
     /// assert!(x.metric_mean_in_range().is_none());
     /// ```
-    pub fn set_metric_sum_in_range<T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>>(mut self, v: T) -> Self {
+    pub fn set_metric_sum_in_range<
+        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(
-                v.into()
-            )
+            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v.into()),
         );
         self
     }
@@ -13474,19 +14029,18 @@ pub mod windows_based_sli {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A `PerformanceThreshold` is used when each window is good when that window
     /// has a sufficiently high `performance`.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceThreshold {
-
         /// If window `performance >= threshold`, the window is counted as good.
         pub threshold: f64,
 
         /// The means, either a request-based SLI or a basic SLI, by which to compute
         /// performance over a window.
-        pub r#type: std::option::Option<crate::model::windows_based_sli::performance_threshold::Type>,
+        pub r#type:
+            std::option::Option<crate::model::windows_based_sli::performance_threshold::Type>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -13520,8 +14074,16 @@ pub mod windows_based_sli {
         /// let x = PerformanceThreshold::new().set_type(Some(
         ///     google_cloud_monitoring_v3::model::windows_based_sli::performance_threshold::Type::Performance(RequestBasedSli::default().into())));
         /// ```
-        pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::windows_based_sli::performance_threshold::Type>>>(mut self, v: T) -> Self
-        {
+        pub fn set_type<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::windows_based_sli::performance_threshold::Type,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = v.into();
             self
         }
@@ -13529,10 +14091,14 @@ pub mod windows_based_sli {
         /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// if it holds a `Performance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn performance(&self) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
+        pub fn performance(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
             #[allow(unreachable_patterns)]
             self.r#type.as_ref().and_then(|v| match v {
-                crate::model::windows_based_sli::performance_threshold::Type::Performance(v) => std::option::Option::Some(v),
+                crate::model::windows_based_sli::performance_threshold::Type::Performance(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -13551,11 +14117,14 @@ pub mod windows_based_sli {
         /// assert!(x.performance().is_some());
         /// assert!(x.basic_sli_performance().is_none());
         /// ```
-        pub fn set_performance<T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>>(mut self, v: T) -> Self {
+        pub fn set_performance<
+            T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = std::option::Option::Some(
-                crate::model::windows_based_sli::performance_threshold::Type::Performance(
-                    v.into()
-                )
+                crate::model::windows_based_sli::performance_threshold::Type::Performance(v.into()),
             );
             self
         }
@@ -13563,7 +14132,9 @@ pub mod windows_based_sli {
         /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// if it holds a `BasicSliPerformance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn basic_sli_performance(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
+        pub fn basic_sli_performance(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
             #[allow(unreachable_patterns)]
             self.r#type.as_ref().and_then(|v| match v {
                 crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(v) => std::option::Option::Some(v),
@@ -13585,11 +14156,16 @@ pub mod windows_based_sli {
         /// assert!(x.basic_sli_performance().is_some());
         /// assert!(x.performance().is_none());
         /// ```
-        pub fn set_basic_sli_performance<T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>>(mut self, v: T) -> Self {
+        pub fn set_basic_sli_performance<
+            T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = std::option::Option::Some(
                 crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -13605,7 +14181,6 @@ pub mod windows_based_sli {
     pub mod performance_threshold {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The means, either a request-based SLI or a basic SLI, by which to compute
         /// performance over a window.
@@ -13626,7 +14201,6 @@ pub mod windows_based_sli {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MetricRange {
-
         /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
         /// specifying the `TimeSeries` to use for evaluating window quality.
         pub time_series: std::string::String,
@@ -13664,7 +14238,8 @@ pub mod windows_based_sli {
         /// let x = MetricRange::new().set_range(Range::default()/* use setters */);
         /// ```
         pub fn set_range<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Range>
+        where
+            T: std::convert::Into<crate::model::Range>,
         {
             self.range = std::option::Option::Some(v.into());
             self
@@ -13680,7 +14255,8 @@ pub mod windows_based_sli {
         /// let x = MetricRange::new().set_or_clear_range(None::<Range>);
         /// ```
         pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Range>
+        where
+            T: std::convert::Into<crate::model::Range>,
         {
             self.range = v.map(|x| x.into());
             self
@@ -13702,7 +14278,9 @@ pub mod windows_based_sli {
         /// any `true` values appear in the window.
         GoodBadMetricFilter(std::string::String),
         /// A window is good if its `performance` is high enough.
-        GoodTotalRatioThreshold(std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>),
+        GoodTotalRatioThreshold(
+            std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>,
+        ),
         /// A window is good if the metric's value is in a good range, averaged
         /// across returned streams.
         MetricMeanInRange(std::boxed::Box<crate::model::windows_based_sli::MetricRange>),
@@ -13716,7 +14294,6 @@ pub mod windows_based_sli {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
-
     /// Required. Resource
     /// [name](https://cloud.google.com/monitoring/api/v3#project_name) of the
     /// parent Metrics Scope. The format is:
@@ -13774,7 +14351,8 @@ impl CreateServiceRequest {
     /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Service>
+    where
+        T: std::convert::Into<crate::model::Service>,
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -13790,7 +14368,8 @@ impl CreateServiceRequest {
     /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Service>
+    where
+        T: std::convert::Into<crate::model::Service>,
     {
         self.service = v.map(|x| x.into());
         self
@@ -13807,7 +14386,6 @@ impl wkt::message::Message for CreateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
-
     /// Required. Resource name of the `Service`. The format is:
     ///
     /// ```norust
@@ -13846,7 +14424,6 @@ impl wkt::message::Message for GetServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
-
     /// Required. Resource name of the parent containing the listed services,
     /// either a [project](https://cloud.google.com/monitoring/api/v3#project_name)
     /// or a Monitoring Metrics Scope. The formats are:
@@ -13953,7 +14530,6 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
-
     /// The `Service`s matching the specified filter.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -13985,7 +14561,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>
+        V: std::convert::Into<crate::model::Service>,
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -14029,7 +14605,6 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
-
     /// Required. The `Service` to draw updates from.
     /// The given `name` specifies the resource to update.
     pub service: std::option::Option<crate::model::Service>,
@@ -14054,7 +14629,8 @@ impl UpdateServiceRequest {
     /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Service>
+    where
+        T: std::convert::Into<crate::model::Service>,
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -14070,7 +14646,8 @@ impl UpdateServiceRequest {
     /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Service>
+    where
+        T: std::convert::Into<crate::model::Service>,
     {
         self.service = v.map(|x| x.into());
         self
@@ -14085,7 +14662,8 @@ impl UpdateServiceRequest {
     /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -14101,7 +14679,8 @@ impl UpdateServiceRequest {
     /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -14118,7 +14697,6 @@ impl wkt::message::Message for UpdateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
-
     /// Required. Resource name of the `Service` to delete. The format is:
     ///
     /// ```norust
@@ -14157,7 +14735,6 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceLevelObjectiveRequest {
-
     /// Required. Resource name of the parent `Service`. The format is:
     ///
     /// ```norust
@@ -14202,7 +14779,10 @@ impl CreateServiceLevelObjectiveRequest {
     /// # use google_cloud_monitoring_v3::model::CreateServiceLevelObjectiveRequest;
     /// let x = CreateServiceLevelObjectiveRequest::new().set_service_level_objective_id("example");
     /// ```
-    pub fn set_service_level_objective_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_level_objective_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_level_objective_id = v.into();
         self
     }
@@ -14216,7 +14796,8 @@ impl CreateServiceLevelObjectiveRequest {
     /// let x = CreateServiceLevelObjectiveRequest::new().set_service_level_objective(ServiceLevelObjective::default()/* use setters */);
     /// ```
     pub fn set_service_level_objective<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelObjective>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelObjective>,
     {
         self.service_level_objective = std::option::Option::Some(v.into());
         self
@@ -14232,7 +14813,8 @@ impl CreateServiceLevelObjectiveRequest {
     /// let x = CreateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(None::<ServiceLevelObjective>);
     /// ```
     pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelObjective>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelObjective>,
     {
         self.service_level_objective = v.map(|x| x.into());
         self
@@ -14249,7 +14831,6 @@ impl wkt::message::Message for CreateServiceLevelObjectiveRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceLevelObjectiveRequest {
-
     /// Required. Resource name of the `ServiceLevelObjective` to get. The format
     /// is:
     ///
@@ -14293,7 +14874,10 @@ impl GetServiceLevelObjectiveRequest {
     /// let x0 = GetServiceLevelObjectiveRequest::new().set_view(View::Full);
     /// let x1 = GetServiceLevelObjectiveRequest::new().set_view(View::Explicit);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -14309,7 +14893,6 @@ impl wkt::message::Message for GetServiceLevelObjectiveRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLevelObjectivesRequest {
-
     /// Required. Resource name of the parent containing the listed SLOs, either a
     /// project or a Monitoring Metrics Scope. The formats are:
     ///
@@ -14402,7 +14985,10 @@ impl ListServiceLevelObjectivesRequest {
     /// let x0 = ListServiceLevelObjectivesRequest::new().set_view(View::Full);
     /// let x1 = ListServiceLevelObjectivesRequest::new().set_view(View::Explicit);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::service_level_objective::View>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -14418,7 +15004,6 @@ impl wkt::message::Message for ListServiceLevelObjectivesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLevelObjectivesResponse {
-
     /// The `ServiceLevelObjective`s matching the specified filter.
     pub service_level_objectives: std::vec::Vec<crate::model::ServiceLevelObjective>,
 
@@ -14450,7 +15035,7 @@ impl ListServiceLevelObjectivesResponse {
     pub fn set_service_level_objectives<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceLevelObjective>
+        V: std::convert::Into<crate::model::ServiceLevelObjective>,
     {
         use std::iter::Iterator;
         self.service_level_objectives = v.into_iter().map(|i| i.into()).collect();
@@ -14494,7 +15079,6 @@ impl gax::paginator::internal::PageableResponse for ListServiceLevelObjectivesRe
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceLevelObjectiveRequest {
-
     /// Required. The `ServiceLevelObjective` to draw updates from.
     /// The given `name` specifies the resource to update.
     pub service_level_objective: std::option::Option<crate::model::ServiceLevelObjective>,
@@ -14519,7 +15103,8 @@ impl UpdateServiceLevelObjectiveRequest {
     /// let x = UpdateServiceLevelObjectiveRequest::new().set_service_level_objective(ServiceLevelObjective::default()/* use setters */);
     /// ```
     pub fn set_service_level_objective<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelObjective>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelObjective>,
     {
         self.service_level_objective = std::option::Option::Some(v.into());
         self
@@ -14535,7 +15120,8 @@ impl UpdateServiceLevelObjectiveRequest {
     /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_service_level_objective(None::<ServiceLevelObjective>);
     /// ```
     pub fn set_or_clear_service_level_objective<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ServiceLevelObjective>
+    where
+        T: std::convert::Into<crate::model::ServiceLevelObjective>,
     {
         self.service_level_objective = v.map(|x| x.into());
         self
@@ -14550,7 +15136,8 @@ impl UpdateServiceLevelObjectiveRequest {
     /// let x = UpdateServiceLevelObjectiveRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -14566,7 +15153,8 @@ impl UpdateServiceLevelObjectiveRequest {
     /// let x = UpdateServiceLevelObjectiveRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -14583,7 +15171,6 @@ impl wkt::message::Message for UpdateServiceLevelObjectiveRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceLevelObjectiveRequest {
-
     /// Required. Resource name of the `ServiceLevelObjective` to delete. The
     /// format is:
     ///
@@ -14626,7 +15213,6 @@ impl wkt::message::Message for DeleteServiceLevelObjectiveRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Snooze {
-
     /// Required. Identifier. The name of the `Snooze`. The format is:
     ///
     /// ```norust
@@ -14680,7 +15266,8 @@ impl Snooze {
     /// let x = Snooze::new().set_criteria(Criteria::default()/* use setters */);
     /// ```
     pub fn set_criteria<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::snooze::Criteria>
+    where
+        T: std::convert::Into<crate::model::snooze::Criteria>,
     {
         self.criteria = std::option::Option::Some(v.into());
         self
@@ -14696,7 +15283,8 @@ impl Snooze {
     /// let x = Snooze::new().set_or_clear_criteria(None::<Criteria>);
     /// ```
     pub fn set_or_clear_criteria<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::snooze::Criteria>
+    where
+        T: std::convert::Into<crate::model::snooze::Criteria>,
     {
         self.criteria = v.map(|x| x.into());
         self
@@ -14711,7 +15299,8 @@ impl Snooze {
     /// let x = Snooze::new().set_interval(TimeInterval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -14727,7 +15316,8 @@ impl Snooze {
     /// let x = Snooze::new().set_or_clear_interval(None::<TimeInterval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimeInterval>
+    where
+        T: std::convert::Into<crate::model::TimeInterval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -14757,14 +15347,12 @@ pub mod snooze {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Criteria specific to the `AlertPolicy`s that this `Snooze` applies to. The
     /// `Snooze` will suppress alerts that come from one of the `AlertPolicy`s
     /// whose names are supplied.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Criteria {
-
         /// The specific `AlertPolicy` names for the alert that should be snoozed.
         /// The format is:
         ///
@@ -14814,7 +15402,7 @@ pub mod snooze {
         pub fn set_policies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.policies = v.into_iter().map(|i| i.into()).collect();
@@ -14846,7 +15434,6 @@ pub mod snooze {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnoozeRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) in which
     /// a `Snooze` should be created. The format is:
@@ -14889,7 +15476,8 @@ impl CreateSnoozeRequest {
     /// let x = CreateSnoozeRequest::new().set_snooze(Snooze::default()/* use setters */);
     /// ```
     pub fn set_snooze<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Snooze>
+    where
+        T: std::convert::Into<crate::model::Snooze>,
     {
         self.snooze = std::option::Option::Some(v.into());
         self
@@ -14905,7 +15493,8 @@ impl CreateSnoozeRequest {
     /// let x = CreateSnoozeRequest::new().set_or_clear_snooze(None::<Snooze>);
     /// ```
     pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Snooze>
+    where
+        T: std::convert::Into<crate::model::Snooze>,
     {
         self.snooze = v.map(|x| x.into());
         self
@@ -14923,7 +15512,6 @@ impl wkt::message::Message for CreateSnoozeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnoozesRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) whose
     /// `Snooze`s should be listed. The format is:
@@ -15026,7 +15614,6 @@ impl wkt::message::Message for ListSnoozesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnoozesResponse {
-
     /// `Snooze`s matching this list call.
     pub snoozes: std::vec::Vec<crate::model::Snooze>,
 
@@ -15057,7 +15644,7 @@ impl ListSnoozesResponse {
     pub fn set_snoozes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Snooze>
+        V: std::convert::Into<crate::model::Snooze>,
     {
         use std::iter::Iterator;
         self.snoozes = v.into_iter().map(|i| i.into()).collect();
@@ -15102,7 +15689,6 @@ impl gax::paginator::internal::PageableResponse for ListSnoozesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnoozeRequest {
-
     /// Required. The ID of the `Snooze` to retrieve. The format is:
     ///
     /// ```norust
@@ -15153,7 +15739,6 @@ impl wkt::message::Message for GetSnoozeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSnoozeRequest {
-
     /// Required. The `Snooze` to update. Must have the name field present.
     pub snooze: std::option::Option<crate::model::Snooze>,
 
@@ -15198,7 +15783,8 @@ impl UpdateSnoozeRequest {
     /// let x = UpdateSnoozeRequest::new().set_snooze(Snooze::default()/* use setters */);
     /// ```
     pub fn set_snooze<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Snooze>
+    where
+        T: std::convert::Into<crate::model::Snooze>,
     {
         self.snooze = std::option::Option::Some(v.into());
         self
@@ -15214,7 +15800,8 @@ impl UpdateSnoozeRequest {
     /// let x = UpdateSnoozeRequest::new().set_or_clear_snooze(None::<Snooze>);
     /// ```
     pub fn set_or_clear_snooze<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Snooze>
+    where
+        T: std::convert::Into<crate::model::Snooze>,
     {
         self.snooze = v.map(|x| x.into());
         self
@@ -15229,7 +15816,8 @@ impl UpdateSnoozeRequest {
     /// let x = UpdateSnoozeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -15245,7 +15833,8 @@ impl UpdateSnoozeRequest {
     /// let x = UpdateSnoozeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -15273,7 +15862,6 @@ impl wkt::message::Message for UpdateSnoozeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpanContext {
-
     /// The resource name of the span. The format is:
     ///
     /// ```norust
@@ -15320,7 +15908,6 @@ impl wkt::message::Message for SpanContext {
 #[non_exhaustive]
 #[deprecated]
 pub struct InternalChecker {
-
     /// A unique resource name for this InternalChecker. The format is:
     ///
     /// ```norust
@@ -15428,7 +16015,10 @@ impl InternalChecker {
     /// let x0 = InternalChecker::new().set_state(State::Creating);
     /// let x1 = InternalChecker::new().set_state(State::Running);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::internal_checker::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::internal_checker::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -15444,7 +16034,6 @@ impl wkt::message::Message for InternalChecker {
 pub mod internal_checker {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Operational states for an internal checker.
     ///
@@ -15542,7 +16131,9 @@ pub mod internal_checker {
                 0 => Self::Unspecified,
                 1 => Self::Creating,
                 2 => Self::Running,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -15554,7 +16145,9 @@ pub mod internal_checker {
                 "UNSPECIFIED" => Self::Unspecified,
                 "CREATING" => Self::Creating,
                 "RUNNING" => Self::Running,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -15579,7 +16172,8 @@ pub mod internal_checker {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.monitoring.v3.InternalChecker.State"))
+                ".google.monitoring.v3.InternalChecker.State",
+            ))
         }
     }
 }
@@ -15588,7 +16182,6 @@ pub mod internal_checker {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyntheticMonitorTarget {
-
     /// Specifies a Synthetic Monitor's execution stack.
     pub target: std::option::Option<crate::model::synthetic_monitor_target::Target>,
 
@@ -15612,8 +16205,12 @@ impl SyntheticMonitorTarget {
     /// let x = SyntheticMonitorTarget::new().set_target(Some(
     ///     google_cloud_monitoring_v3::model::synthetic_monitor_target::Target::CloudFunctionV2(CloudFunctionV2Target::default().into())));
     /// ```
-    pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::synthetic_monitor_target::Target>>>(mut self, v: T) -> Self
-    {
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::synthetic_monitor_target::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = v.into();
         self
     }
@@ -15621,10 +16218,16 @@ impl SyntheticMonitorTarget {
     /// The value of [target][crate::model::SyntheticMonitorTarget::target]
     /// if it holds a `CloudFunctionV2`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_function_v2(&self) -> std::option::Option<&std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>> {
+    pub fn cloud_function_v2(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
+    > {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
-            crate::model::synthetic_monitor_target::Target::CloudFunctionV2(v) => std::option::Option::Some(v),
+            crate::model::synthetic_monitor_target::Target::CloudFunctionV2(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -15642,11 +16245,16 @@ impl SyntheticMonitorTarget {
     /// let x = SyntheticMonitorTarget::new().set_cloud_function_v2(CloudFunctionV2Target::default()/* use setters */);
     /// assert!(x.cloud_function_v2().is_some());
     /// ```
-    pub fn set_cloud_function_v2<T: std::convert::Into<std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>>>(mut self, v: T) -> Self {
+    pub fn set_cloud_function_v2<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = std::option::Option::Some(
-            crate::model::synthetic_monitor_target::Target::CloudFunctionV2(
-                v.into()
-            )
+            crate::model::synthetic_monitor_target::Target::CloudFunctionV2(v.into()),
         );
         self
     }
@@ -15663,12 +16271,10 @@ pub mod synthetic_monitor_target {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A Synthetic Monitor deployed to a Cloud Functions V2 instance.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudFunctionV2Target {
-
         /// Required. Fully qualified GCFv2 resource name
         /// i.e. `projects/{project}/locations/{location}/functions/{function}`
         /// Required.
@@ -15709,7 +16315,8 @@ pub mod synthetic_monitor_target {
         /// let x = CloudFunctionV2Target::new().set_cloud_run_revision(MonitoredResource::default()/* use setters */);
         /// ```
         pub fn set_cloud_run_revision<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<api::model::MonitoredResource>
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
         {
             self.cloud_run_revision = std::option::Option::Some(v.into());
             self
@@ -15725,7 +16332,8 @@ pub mod synthetic_monitor_target {
         /// let x = CloudFunctionV2Target::new().set_or_clear_cloud_run_revision(None::<MonitoredResource>);
         /// ```
         pub fn set_or_clear_cloud_run_revision<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<api::model::MonitoredResource>
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
         {
             self.cloud_run_revision = v.map(|x| x.into());
             self
@@ -15743,7 +16351,9 @@ pub mod synthetic_monitor_target {
     #[non_exhaustive]
     pub enum Target {
         /// Target a Synthetic Monitor GCFv2 instance.
-        CloudFunctionV2(std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>),
+        CloudFunctionV2(
+            std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
+        ),
     }
 }
 
@@ -15752,7 +16362,6 @@ pub mod synthetic_monitor_target {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UptimeCheckConfig {
-
     /// Identifier. A unique resource name for this Uptime check configuration. The
     /// format is:
     ///
@@ -15821,13 +16430,14 @@ pub struct UptimeCheckConfig {
     /// 63 Unicode characters or 128 bytes, whichever is smaller. Labels and
     /// values can contain only lowercase letters, numerals, underscores, and
     /// dashes. Keys must begin with a letter.
-    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The resource the check is checking. Required.
     pub resource: std::option::Option<crate::model::uptime_check_config::Resource>,
 
     /// The type of Uptime check request.
-    pub check_request_type: std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
+    pub check_request_type:
+        std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15870,7 +16480,8 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_period(Duration::default()/* use setters */);
     /// ```
     pub fn set_period<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.period = std::option::Option::Some(v.into());
         self
@@ -15886,7 +16497,8 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_or_clear_period(None::<Duration>);
     /// ```
     pub fn set_or_clear_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.period = v.map(|x| x.into());
         self
@@ -15901,7 +16513,8 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_timeout(Duration::default()/* use setters */);
     /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -15917,7 +16530,8 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_or_clear_timeout(None::<Duration>);
     /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -15938,7 +16552,7 @@ impl UptimeCheckConfig {
     pub fn set_content_matchers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::uptime_check_config::ContentMatcher>
+        V: std::convert::Into<crate::model::uptime_check_config::ContentMatcher>,
     {
         use std::iter::Iterator;
         self.content_matchers = v.into_iter().map(|i| i.into()).collect();
@@ -15954,7 +16568,12 @@ impl UptimeCheckConfig {
     /// let x0 = UptimeCheckConfig::new().set_checker_type(CheckerType::StaticIpCheckers);
     /// let x1 = UptimeCheckConfig::new().set_checker_type(CheckerType::VpcCheckers);
     /// ```
-    pub fn set_checker_type<T: std::convert::Into<crate::model::uptime_check_config::CheckerType>>(mut self, v: T) -> Self {
+    pub fn set_checker_type<
+        T: std::convert::Into<crate::model::uptime_check_config::CheckerType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.checker_type = v.into();
         self
     }
@@ -15974,7 +16593,7 @@ impl UptimeCheckConfig {
     pub fn set_selected_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UptimeCheckRegion>
+        V: std::convert::Into<crate::model::UptimeCheckRegion>,
     {
         use std::iter::Iterator;
         self.selected_regions = v.into_iter().map(|i| i.into()).collect();
@@ -16010,7 +16629,7 @@ impl UptimeCheckConfig {
     pub fn set_internal_checkers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InternalChecker>
+        V: std::convert::Into<crate::model::InternalChecker>,
     {
         use std::iter::Iterator;
         self.internal_checkers = v.into_iter().map(|i| i.into()).collect();
@@ -16050,8 +16669,12 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_resource(Some(
     ///     google_cloud_monitoring_v3::model::uptime_check_config::Resource::MonitoredResource(MonitoredResource::default().into())));
     /// ```
-    pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::Resource>>>(mut self, v: T) -> Self
-    {
+    pub fn set_resource<
+        T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::Resource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource = v.into();
         self
     }
@@ -16059,10 +16682,14 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `MonitoredResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn monitored_resource(&self) -> std::option::Option<&std::boxed::Box<api::model::MonitoredResource>> {
+    pub fn monitored_resource(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<api::model::MonitoredResource>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::Resource::MonitoredResource(v) => std::option::Option::Some(v),
+            crate::model::uptime_check_config::Resource::MonitoredResource(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -16082,11 +16709,14 @@ impl UptimeCheckConfig {
     /// assert!(x.resource_group().is_none());
     /// assert!(x.synthetic_monitor().is_none());
     /// ```
-    pub fn set_monitored_resource<T: std::convert::Into<std::boxed::Box<api::model::MonitoredResource>>>(mut self, v: T) -> Self {
+    pub fn set_monitored_resource<
+        T: std::convert::Into<std::boxed::Box<api::model::MonitoredResource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::MonitoredResource(
-                v.into()
-            )
+            crate::model::uptime_check_config::Resource::MonitoredResource(v.into()),
         );
         self
     }
@@ -16094,10 +16724,15 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `ResourceGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn resource_group(&self) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>> {
+    pub fn resource_group(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>
+    {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::Resource::ResourceGroup(v) => std::option::Option::Some(v),
+            crate::model::uptime_check_config::Resource::ResourceGroup(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -16117,11 +16752,14 @@ impl UptimeCheckConfig {
     /// assert!(x.monitored_resource().is_none());
     /// assert!(x.synthetic_monitor().is_none());
     /// ```
-    pub fn set_resource_group<T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>>(mut self, v: T) -> Self {
+    pub fn set_resource_group<
+        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::ResourceGroup(
-                v.into()
-            )
+            crate::model::uptime_check_config::Resource::ResourceGroup(v.into()),
         );
         self
     }
@@ -16129,10 +16767,14 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `SyntheticMonitor`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn synthetic_monitor(&self) -> std::option::Option<&std::boxed::Box<crate::model::SyntheticMonitorTarget>> {
+    pub fn synthetic_monitor(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SyntheticMonitorTarget>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::Resource::SyntheticMonitor(v) => std::option::Option::Some(v),
+            crate::model::uptime_check_config::Resource::SyntheticMonitor(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -16152,11 +16794,14 @@ impl UptimeCheckConfig {
     /// assert!(x.monitored_resource().is_none());
     /// assert!(x.resource_group().is_none());
     /// ```
-    pub fn set_synthetic_monitor<T: std::convert::Into<std::boxed::Box<crate::model::SyntheticMonitorTarget>>>(mut self, v: T) -> Self {
+    pub fn set_synthetic_monitor<
+        T: std::convert::Into<std::boxed::Box<crate::model::SyntheticMonitorTarget>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::SyntheticMonitor(
-                v.into()
-            )
+            crate::model::uptime_check_config::Resource::SyntheticMonitor(v.into()),
         );
         self
     }
@@ -16173,8 +16818,14 @@ impl UptimeCheckConfig {
     /// let x = UptimeCheckConfig::new().set_check_request_type(Some(
     ///     google_cloud_monitoring_v3::model::uptime_check_config::CheckRequestType::HttpCheck(HttpCheck::default().into())));
     /// ```
-    pub fn set_check_request_type<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::CheckRequestType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_check_request_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.check_request_type = v.into();
         self
     }
@@ -16182,10 +16833,14 @@ impl UptimeCheckConfig {
     /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// if it holds a `HttpCheck`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn http_check(&self) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::HttpCheck>> {
+    pub fn http_check(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::HttpCheck>> {
         #[allow(unreachable_patterns)]
         self.check_request_type.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::CheckRequestType::HttpCheck(v) => std::option::Option::Some(v),
+            crate::model::uptime_check_config::CheckRequestType::HttpCheck(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -16204,11 +16859,14 @@ impl UptimeCheckConfig {
     /// assert!(x.http_check().is_some());
     /// assert!(x.tcp_check().is_none());
     /// ```
-    pub fn set_http_check<T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::HttpCheck>>>(mut self, v: T) -> Self {
+    pub fn set_http_check<
+        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::HttpCheck>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.check_request_type = std::option::Option::Some(
-            crate::model::uptime_check_config::CheckRequestType::HttpCheck(
-                v.into()
-            )
+            crate::model::uptime_check_config::CheckRequestType::HttpCheck(v.into()),
         );
         self
     }
@@ -16216,10 +16874,14 @@ impl UptimeCheckConfig {
     /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// if it holds a `TcpCheck`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn tcp_check(&self) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::TcpCheck>> {
+    pub fn tcp_check(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::TcpCheck>> {
         #[allow(unreachable_patterns)]
         self.check_request_type.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v) => std::option::Option::Some(v),
+            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -16238,11 +16900,14 @@ impl UptimeCheckConfig {
     /// assert!(x.tcp_check().is_some());
     /// assert!(x.http_check().is_none());
     /// ```
-    pub fn set_tcp_check<T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::TcpCheck>>>(mut self, v: T) -> Self {
+    pub fn set_tcp_check<
+        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::TcpCheck>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.check_request_type = std::option::Option::Some(
-            crate::model::uptime_check_config::CheckRequestType::TcpCheck(
-                v.into()
-            )
+            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v.into()),
         );
         self
     }
@@ -16259,13 +16924,11 @@ pub mod uptime_check_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// The resource submessage for group checks. It can be used instead of a
     /// monitored resource, when multiple resources are being monitored.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceGroup {
-
         /// The group of resources being monitored. Should be only the `[GROUP_ID]`,
         /// and not the full-path
         /// `projects/[PROJECT_ID_OR_NUMBER]/groups/[GROUP_ID]`.
@@ -16303,7 +16966,10 @@ pub mod uptime_check_config {
         /// let x0 = ResourceGroup::new().set_resource_type(GroupResourceType::Instance);
         /// let x1 = ResourceGroup::new().set_resource_type(GroupResourceType::AwsElbLoadBalancer);
         /// ```
-        pub fn set_resource_type<T: std::convert::Into<crate::model::GroupResourceType>>(mut self, v: T) -> Self {
+        pub fn set_resource_type<T: std::convert::Into<crate::model::GroupResourceType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.resource_type = v.into();
             self
         }
@@ -16321,7 +16987,6 @@ pub mod uptime_check_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PingConfig {
-
         /// Number of ICMP pings. A maximum of 3 ICMP pings is currently supported.
         pub pings_count: i32,
 
@@ -16356,7 +17021,6 @@ pub mod uptime_check_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HttpCheck {
-
         /// The HTTP request method to use for the check. If set to
         /// `METHOD_UNSPECIFIED` then `request_method` defaults to `GET`.
         pub request_method: crate::model::uptime_check_config::http_check::RequestMethod,
@@ -16380,7 +17044,8 @@ pub mod uptime_check_config {
         /// The authentication information. Optional when creating an HTTP check;
         /// defaults to empty.
         /// Do not set both `auth_method` and `auth_info`.
-        pub auth_info: std::option::Option<crate::model::uptime_check_config::http_check::BasicAuthentication>,
+        pub auth_info:
+            std::option::Option<crate::model::uptime_check_config::http_check::BasicAuthentication>,
 
         /// Boolean specifying whether to encrypt the header information.
         /// Encryption should be specified for any headers related to authentication
@@ -16398,7 +17063,7 @@ pub mod uptime_check_config {
         /// Entering two separate headers with the same key in a Create call will
         /// cause the first to be overwritten by the second.
         /// The maximum number of headers allowed is 100.
-        pub headers: std::collections::HashMap<std::string::String,std::string::String>,
+        pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The content type header to use for the check. The following
         /// configurations result in errors:
@@ -16440,7 +17105,8 @@ pub mod uptime_check_config {
         /// If present, the check will only pass if the HTTP response status code is
         /// in this set of status codes. If empty, the HTTP status code will only
         /// pass if the HTTP status code is 200-299.
-        pub accepted_response_status_codes: std::vec::Vec<crate::model::uptime_check_config::http_check::ResponseStatusCode>,
+        pub accepted_response_status_codes:
+            std::vec::Vec<crate::model::uptime_check_config::http_check::ResponseStatusCode>,
 
         /// Contains information needed to add pings to an HTTP check.
         pub ping_config: std::option::Option<crate::model::uptime_check_config::PingConfig>,
@@ -16448,7 +17114,8 @@ pub mod uptime_check_config {
         /// This field is optional and should be set only by users interested in
         /// an authenticated uptime check.
         /// Do not set both `auth_method` and `auth_info`.
-        pub auth_method: std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
+        pub auth_method:
+            std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -16467,7 +17134,12 @@ pub mod uptime_check_config {
         /// let x0 = HttpCheck::new().set_request_method(RequestMethod::Get);
         /// let x1 = HttpCheck::new().set_request_method(RequestMethod::Post);
         /// ```
-        pub fn set_request_method<T: std::convert::Into<crate::model::uptime_check_config::http_check::RequestMethod>>(mut self, v: T) -> Self {
+        pub fn set_request_method<
+            T: std::convert::Into<crate::model::uptime_check_config::http_check::RequestMethod>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.request_method = v.into();
             self
         }
@@ -16517,7 +17189,10 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_auth_info(BasicAuthentication::default()/* use setters */);
         /// ```
         pub fn set_auth_info<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::http_check::BasicAuthentication>
+        where
+            T: std::convert::Into<
+                    crate::model::uptime_check_config::http_check::BasicAuthentication,
+                >,
         {
             self.auth_info = std::option::Option::Some(v.into());
             self
@@ -16533,7 +17208,10 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_or_clear_auth_info(None::<BasicAuthentication>);
         /// ```
         pub fn set_or_clear_auth_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::http_check::BasicAuthentication>
+        where
+            T: std::convert::Into<
+                    crate::model::uptime_check_config::http_check::BasicAuthentication,
+                >,
         {
             self.auth_info = v.map(|x| x.into());
             self
@@ -16581,7 +17259,12 @@ pub mod uptime_check_config {
         /// let x0 = HttpCheck::new().set_content_type(ContentType::UrlEncoded);
         /// let x1 = HttpCheck::new().set_content_type(ContentType::UserProvided);
         /// ```
-        pub fn set_content_type<T: std::convert::Into<crate::model::uptime_check_config::http_check::ContentType>>(mut self, v: T) -> Self {
+        pub fn set_content_type<
+            T: std::convert::Into<crate::model::uptime_check_config::http_check::ContentType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.content_type = v.into();
             self
         }
@@ -16593,7 +17276,10 @@ pub mod uptime_check_config {
         /// # use google_cloud_monitoring_v3::model::uptime_check_config::HttpCheck;
         /// let x = HttpCheck::new().set_custom_content_type("example");
         /// ```
-        pub fn set_custom_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_custom_content_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.custom_content_type = v.into();
             self
         }
@@ -16637,7 +17323,9 @@ pub mod uptime_check_config {
         pub fn set_accepted_response_status_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::uptime_check_config::http_check::ResponseStatusCode>
+            V: std::convert::Into<
+                    crate::model::uptime_check_config::http_check::ResponseStatusCode,
+                >,
         {
             use std::iter::Iterator;
             self.accepted_response_status_codes = v.into_iter().map(|i| i.into()).collect();
@@ -16653,7 +17341,8 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_ping_config(PingConfig::default()/* use setters */);
         /// ```
         pub fn set_ping_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::PingConfig>
+        where
+            T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
         {
             self.ping_config = std::option::Option::Some(v.into());
             self
@@ -16669,7 +17358,8 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_or_clear_ping_config(None::<PingConfig>);
         /// ```
         pub fn set_or_clear_ping_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::PingConfig>
+        where
+            T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
         {
             self.ping_config = v.map(|x| x.into());
             self
@@ -16687,8 +17377,14 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_auth_method(Some(
         ///     google_cloud_monitoring_v3::model::uptime_check_config::http_check::AuthMethod::ServiceAgentAuthentication(ServiceAgentAuthentication::default().into())));
         /// ```
-        pub fn set_auth_method<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>>>(mut self, v: T) -> Self
-        {
+        pub fn set_auth_method<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.auth_method = v.into();
             self
         }
@@ -16696,7 +17392,13 @@ pub mod uptime_check_config {
         /// The value of [auth_method][crate::model::uptime_check_config::HttpCheck::auth_method]
         /// if it holds a `ServiceAgentAuthentication`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn service_agent_authentication(&self) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::http_check::ServiceAgentAuthentication>> {
+        pub fn service_agent_authentication(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.auth_method.as_ref().and_then(|v| match v {
                 crate::model::uptime_check_config::http_check::AuthMethod::ServiceAgentAuthentication(v) => std::option::Option::Some(v),
@@ -16717,7 +17419,16 @@ pub mod uptime_check_config {
         /// let x = HttpCheck::new().set_service_agent_authentication(ServiceAgentAuthentication::default()/* use setters */);
         /// assert!(x.service_agent_authentication().is_some());
         /// ```
-        pub fn set_service_agent_authentication<T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::http_check::ServiceAgentAuthentication>>>(mut self, v: T) -> Self {
+        pub fn set_service_agent_authentication<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.auth_method = std::option::Option::Some(
                 crate::model::uptime_check_config::http_check::AuthMethod::ServiceAgentAuthentication(
                     v.into()
@@ -16738,7 +17449,6 @@ pub mod uptime_check_config {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// The authentication parameters to provide to the specified resource or
         /// URL that requires a username and password. Currently, only
         /// [Basic HTTP authentication](https://tools.ietf.org/html/rfc7617) is
@@ -16746,7 +17456,6 @@ pub mod uptime_check_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BasicAuthentication {
-
             /// The username to use when authenticating with the HTTP server.
             pub username: std::string::String,
 
@@ -16768,7 +17477,10 @@ pub mod uptime_check_config {
             /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
             /// let x = BasicAuthentication::new().set_username("example");
             /// ```
-            pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_username<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.username = v.into();
                 self
             }
@@ -16780,7 +17492,10 @@ pub mod uptime_check_config {
             /// # use google_cloud_monitoring_v3::model::uptime_check_config::http_check::BasicAuthentication;
             /// let x = BasicAuthentication::new().set_password("example");
             /// ```
-            pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_password<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.password = v.into();
                 self
             }
@@ -16797,9 +17512,10 @@ pub mod uptime_check_config {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ResponseStatusCode {
-
             /// Either a specific value or a class of status codes.
-            pub status_code: std::option::Option<crate::model::uptime_check_config::http_check::response_status_code::StatusCode>,
+            pub status_code: std::option::Option<
+                crate::model::uptime_check_config::http_check::response_status_code::StatusCode,
+            >,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -16862,7 +17578,11 @@ pub mod uptime_check_config {
             /// The value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
             /// if it holds a `StatusClass`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn status_class(&self) -> std::option::Option<&crate::model::uptime_check_config::http_check::response_status_code::StatusClass> {
+            pub fn status_class(
+                &self,
+            ) -> std::option::Option<
+                &crate::model::uptime_check_config::http_check::response_status_code::StatusClass,
+            > {
                 #[allow(unreachable_patterns)]
                 self.status_code.as_ref().and_then(|v| match v {
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(v) => std::option::Option::Some(v),
@@ -16890,7 +17610,7 @@ pub mod uptime_check_config {
             /// assert!(x2.status_class().is_some());
             /// assert!(x2.status_value().is_none());
             /// ```
-            pub fn set_status_class<T: std::convert::Into<crate::model::uptime_check_config::http_check::response_status_code::StatusClass>>(mut self, v: T) -> Self {
+            pub fn set_status_class<T: std::convert::Into<crate::model::uptime_check_config::http_check::response_status_code::StatusClass>>(mut self, v: T) -> Self{
                 self.status_code = std::option::Option::Some(
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(
                         v.into()
@@ -16910,7 +17630,6 @@ pub mod uptime_check_config {
         pub mod response_status_code {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// An HTTP status code class.
             ///
@@ -17003,7 +17722,10 @@ pub mod uptime_check_config {
             }
 
             impl std::fmt::Display for StatusClass {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -17018,7 +17740,9 @@ pub mod uptime_check_config {
                         400 => Self::StatusClass4Xx,
                         500 => Self::StatusClass5Xx,
                         1000 => Self::Any,
-                        _ => Self::UnknownValue(status_class::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(status_class::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -17034,7 +17758,9 @@ pub mod uptime_check_config {
                         "STATUS_CLASS_4XX" => Self::StatusClass4Xx,
                         "STATUS_CLASS_5XX" => Self::StatusClass5Xx,
                         "STATUS_CLASS_ANY" => Self::Any,
-                        _ => Self::UnknownValue(status_class::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(status_class::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -17107,7 +17833,7 @@ pub mod uptime_check_config {
             /// use google_cloud_monitoring_v3::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType;
             /// let x0 = ServiceAgentAuthentication::new().set_type(ServiceAgentAuthenticationType::OidcToken);
             /// ```
-            pub fn set_type<T: std::convert::Into<crate::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType>>(mut self, v: T) -> Self {
+            pub fn set_type<T: std::convert::Into<crate::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType>>(mut self, v: T) -> Self{
                 self.r#type = v.into();
                 self
             }
@@ -17123,7 +17849,6 @@ pub mod uptime_check_config {
         pub mod service_agent_authentication {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Type of authentication.
             ///
@@ -17181,7 +17906,9 @@ pub mod uptime_check_config {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED"),
+                        Self::Unspecified => std::option::Option::Some(
+                            "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED",
+                        ),
                         Self::OidcToken => std::option::Option::Some("OIDC_TOKEN"),
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -17196,7 +17923,10 @@ pub mod uptime_check_config {
             }
 
             impl std::fmt::Display for ServiceAgentAuthenticationType {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -17206,7 +17936,9 @@ pub mod uptime_check_config {
                     match value {
                         0 => Self::Unspecified,
                         1 => Self::OidcToken,
-                        _ => Self::UnknownValue(service_agent_authentication_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(service_agent_authentication_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -17217,7 +17949,9 @@ pub mod uptime_check_config {
                     match value {
                         "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
                         "OIDC_TOKEN" => Self::OidcToken,
-                        _ => Self::UnknownValue(service_agent_authentication_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(service_agent_authentication_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -17321,7 +18055,10 @@ pub mod uptime_check_config {
         }
 
         impl std::fmt::Display for RequestMethod {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -17332,7 +18069,9 @@ pub mod uptime_check_config {
                     0 => Self::MethodUnspecified,
                     1 => Self::Get,
                     2 => Self::Post,
-                    _ => Self::UnknownValue(request_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(request_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -17344,7 +18083,9 @@ pub mod uptime_check_config {
                     "METHOD_UNSPECIFIED" => Self::MethodUnspecified,
                     "GET" => Self::Get,
                     "POST" => Self::Post,
-                    _ => Self::UnknownValue(request_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(request_method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -17369,7 +18110,8 @@ pub mod uptime_check_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<RequestMethod>::new(
-                    ".google.monitoring.v3.UptimeCheckConfig.HttpCheck.RequestMethod"))
+                    ".google.monitoring.v3.UptimeCheckConfig.HttpCheck.RequestMethod",
+                ))
             }
         }
 
@@ -17451,7 +18193,10 @@ pub mod uptime_check_config {
         }
 
         impl std::fmt::Display for ContentType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -17462,7 +18207,9 @@ pub mod uptime_check_config {
                     0 => Self::TypeUnspecified,
                     1 => Self::UrlEncoded,
                     2 => Self::UserProvided,
-                    _ => Self::UnknownValue(content_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(content_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -17474,7 +18221,9 @@ pub mod uptime_check_config {
                     "TYPE_UNSPECIFIED" => Self::TypeUnspecified,
                     "URL_ENCODED" => Self::UrlEncoded,
                     "USER_PROVIDED" => Self::UserProvided,
-                    _ => Self::UnknownValue(content_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(content_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -17499,7 +18248,8 @@ pub mod uptime_check_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContentType>::new(
-                    ".google.monitoring.v3.UptimeCheckConfig.HttpCheck.ContentType"))
+                    ".google.monitoring.v3.UptimeCheckConfig.HttpCheck.ContentType",
+                ))
             }
         }
 
@@ -17512,7 +18262,11 @@ pub mod uptime_check_config {
             /// If specified, Uptime will generate and attach an OIDC JWT token for the
             /// Monitoring service agent service account as an `Authorization` header
             /// in the HTTP request when probing.
-            ServiceAgentAuthentication(std::boxed::Box<crate::model::uptime_check_config::http_check::ServiceAgentAuthentication>),
+            ServiceAgentAuthentication(
+                std::boxed::Box<
+                    crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
+                >,
+            ),
         }
     }
 
@@ -17520,7 +18274,6 @@ pub mod uptime_check_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TcpCheck {
-
         /// The TCP port on the server against which to run the check. Will be
         /// combined with host (specified within the `monitored_resource`) to
         /// construct the full URL. Required.
@@ -17558,7 +18311,8 @@ pub mod uptime_check_config {
         /// let x = TcpCheck::new().set_ping_config(PingConfig::default()/* use setters */);
         /// ```
         pub fn set_ping_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::PingConfig>
+        where
+            T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
         {
             self.ping_config = std::option::Option::Some(v.into());
             self
@@ -17574,7 +18328,8 @@ pub mod uptime_check_config {
         /// let x = TcpCheck::new().set_or_clear_ping_config(None::<PingConfig>);
         /// ```
         pub fn set_or_clear_ping_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::uptime_check_config::PingConfig>
+        where
+            T: std::convert::Into<crate::model::uptime_check_config::PingConfig>,
         {
             self.ping_config = v.map(|x| x.into());
             self
@@ -17595,7 +18350,6 @@ pub mod uptime_check_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ContentMatcher {
-
         /// String, regex or JSON content to match. Maximum 1024 bytes. An empty
         /// `content` string indicates no content matching is to be performed.
         pub content: std::string::String,
@@ -17607,7 +18361,9 @@ pub mod uptime_check_config {
         /// Certain `ContentMatcherOption` types require additional information.
         /// `MATCHES_JSON_PATH` or `NOT_MATCHES_JSON_PATH` require a
         /// `JsonPathMatcher`; not used for other options.
-        pub additional_matcher_info: std::option::Option<crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo>,
+        pub additional_matcher_info: std::option::Option<
+            crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -17639,7 +18395,14 @@ pub mod uptime_check_config {
         /// let x1 = ContentMatcher::new().set_matcher(ContentMatcherOption::NotContainsString);
         /// let x2 = ContentMatcher::new().set_matcher(ContentMatcherOption::MatchesRegex);
         /// ```
-        pub fn set_matcher<T: std::convert::Into<crate::model::uptime_check_config::content_matcher::ContentMatcherOption>>(mut self, v: T) -> Self {
+        pub fn set_matcher<
+            T: std::convert::Into<
+                    crate::model::uptime_check_config::content_matcher::ContentMatcherOption,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.matcher = v.into();
             self
         }
@@ -17656,8 +18419,16 @@ pub mod uptime_check_config {
         /// let x = ContentMatcher::new().set_additional_matcher_info(Some(
         ///     google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(JsonPathMatcher::default().into())));
         /// ```
-        pub fn set_additional_matcher_info<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo>>>(mut self, v: T) -> Self
-        {
+        pub fn set_additional_matcher_info<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.additional_matcher_info = v.into();
             self
         }
@@ -17665,7 +18436,11 @@ pub mod uptime_check_config {
         /// The value of [additional_matcher_info][crate::model::uptime_check_config::ContentMatcher::additional_matcher_info]
         /// if it holds a `JsonPathMatcher`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn json_path_matcher(&self) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::content_matcher::JsonPathMatcher>> {
+        pub fn json_path_matcher(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::uptime_check_config::content_matcher::JsonPathMatcher>,
+        > {
             #[allow(unreachable_patterns)]
             self.additional_matcher_info.as_ref().and_then(|v| match v {
                 crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(v) => std::option::Option::Some(v),
@@ -17686,7 +18461,16 @@ pub mod uptime_check_config {
         /// let x = ContentMatcher::new().set_json_path_matcher(JsonPathMatcher::default()/* use setters */);
         /// assert!(x.json_path_matcher().is_some());
         /// ```
-        pub fn set_json_path_matcher<T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::content_matcher::JsonPathMatcher>>>(mut self, v: T) -> Self {
+        pub fn set_json_path_matcher<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::uptime_check_config::content_matcher::JsonPathMatcher,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.additional_matcher_info = std::option::Option::Some(
                 crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(
                     v.into()
@@ -17706,7 +18490,6 @@ pub mod uptime_check_config {
     pub mod content_matcher {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Information needed to perform a JSONPath content match.
         /// Used for `ContentMatcherOption::MATCHES_JSON_PATH` and
@@ -17738,7 +18521,10 @@ pub mod uptime_check_config {
             /// # use google_cloud_monitoring_v3::model::uptime_check_config::content_matcher::JsonPathMatcher;
             /// let x = JsonPathMatcher::new().set_json_path("example");
             /// ```
-            pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_json_path<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.json_path = v.into();
                 self
             }
@@ -17752,7 +18538,7 @@ pub mod uptime_check_config {
             /// let x0 = JsonPathMatcher::new().set_json_matcher(JsonPathMatcherOption::ExactMatch);
             /// let x1 = JsonPathMatcher::new().set_json_matcher(JsonPathMatcherOption::RegexMatch);
             /// ```
-            pub fn set_json_matcher<T: std::convert::Into<crate::model::uptime_check_config::content_matcher::json_path_matcher::JsonPathMatcherOption>>(mut self, v: T) -> Self {
+            pub fn set_json_matcher<T: std::convert::Into<crate::model::uptime_check_config::content_matcher::json_path_matcher::JsonPathMatcherOption>>(mut self, v: T) -> Self{
                 self.json_matcher = v.into();
                 self
             }
@@ -17768,7 +18554,6 @@ pub mod uptime_check_config {
         pub mod json_path_matcher {
             #[allow(unused_imports)]
             use super::*;
-
 
             /// Options to perform JSONPath content matching.
             ///
@@ -17833,7 +18618,9 @@ pub mod uptime_check_config {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => std::option::Option::Some("JSON_PATH_MATCHER_OPTION_UNSPECIFIED"),
+                        Self::Unspecified => {
+                            std::option::Option::Some("JSON_PATH_MATCHER_OPTION_UNSPECIFIED")
+                        }
                         Self::ExactMatch => std::option::Option::Some("EXACT_MATCH"),
                         Self::RegexMatch => std::option::Option::Some("REGEX_MATCH"),
                         Self::UnknownValue(u) => u.0.name(),
@@ -17849,7 +18636,10 @@ pub mod uptime_check_config {
             }
 
             impl std::fmt::Display for JsonPathMatcherOption {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -17860,7 +18650,9 @@ pub mod uptime_check_config {
                         0 => Self::Unspecified,
                         1 => Self::ExactMatch,
                         2 => Self::RegexMatch,
-                        _ => Self::UnknownValue(json_path_matcher_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(json_path_matcher_option::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -17872,7 +18664,9 @@ pub mod uptime_check_config {
                         "JSON_PATH_MATCHER_OPTION_UNSPECIFIED" => Self::Unspecified,
                         "EXACT_MATCH" => Self::ExactMatch,
                         "REGEX_MATCH" => Self::RegexMatch,
-                        _ => Self::UnknownValue(json_path_matcher_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(json_path_matcher_option::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -17988,7 +18782,9 @@ pub mod uptime_check_config {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => std::option::Option::Some("CONTENT_MATCHER_OPTION_UNSPECIFIED"),
+                    Self::Unspecified => {
+                        std::option::Option::Some("CONTENT_MATCHER_OPTION_UNSPECIFIED")
+                    }
                     Self::ContainsString => std::option::Option::Some("CONTAINS_STRING"),
                     Self::NotContainsString => std::option::Option::Some("NOT_CONTAINS_STRING"),
                     Self::MatchesRegex => std::option::Option::Some("MATCHES_REGEX"),
@@ -18008,7 +18804,10 @@ pub mod uptime_check_config {
         }
 
         impl std::fmt::Display for ContentMatcherOption {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -18023,7 +18822,9 @@ pub mod uptime_check_config {
                     4 => Self::NotMatchesRegex,
                     5 => Self::MatchesJsonPath,
                     6 => Self::NotMatchesJsonPath,
-                    _ => Self::UnknownValue(content_matcher_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(content_matcher_option::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -18039,7 +18840,9 @@ pub mod uptime_check_config {
                     "NOT_MATCHES_REGEX" => Self::NotMatchesRegex,
                     "MATCHES_JSON_PATH" => Self::MatchesJsonPath,
                     "NOT_MATCHES_JSON_PATH" => Self::NotMatchesJsonPath,
-                    _ => Self::UnknownValue(content_matcher_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(content_matcher_option::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -18079,7 +18882,11 @@ pub mod uptime_check_config {
         #[non_exhaustive]
         pub enum AdditionalMatcherInfo {
             /// Matcher information for `MATCHES_JSON_PATH` and `NOT_MATCHES_JSON_PATH`
-            JsonPathMatcher(std::boxed::Box<crate::model::uptime_check_config::content_matcher::JsonPathMatcher>),
+            JsonPathMatcher(
+                std::boxed::Box<
+                    crate::model::uptime_check_config::content_matcher::JsonPathMatcher,
+                >,
+            ),
         }
     }
 
@@ -18174,7 +18981,9 @@ pub mod uptime_check_config {
                 0 => Self::Unspecified,
                 1 => Self::StaticIpCheckers,
                 3 => Self::VpcCheckers,
-                _ => Self::UnknownValue(checker_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(checker_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -18186,7 +18995,9 @@ pub mod uptime_check_config {
                 "CHECKER_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "STATIC_IP_CHECKERS" => Self::StaticIpCheckers,
                 "VPC_CHECKERS" => Self::VpcCheckers,
-                _ => Self::UnknownValue(checker_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(checker_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -18211,7 +19022,8 @@ pub mod uptime_check_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CheckerType>::new(
-                ".google.monitoring.v3.UptimeCheckConfig.CheckerType"))
+                ".google.monitoring.v3.UptimeCheckConfig.CheckerType",
+            ))
         }
     }
 
@@ -18254,7 +19066,6 @@ pub mod uptime_check_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UptimeCheckIp {
-
     /// A broad region category in which the IP address is located.
     pub region: crate::model::UptimeCheckRegion,
 
@@ -18288,7 +19099,10 @@ impl UptimeCheckIp {
     /// let x1 = UptimeCheckIp::new().set_region(UptimeCheckRegion::Europe);
     /// let x2 = UptimeCheckIp::new().set_region(UptimeCheckRegion::SouthAmerica);
     /// ```
-    pub fn set_region<T: std::convert::Into<crate::model::UptimeCheckRegion>>(mut self, v: T) -> Self {
+    pub fn set_region<T: std::convert::Into<crate::model::UptimeCheckRegion>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.region = v.into();
         self
     }
@@ -18328,7 +19142,6 @@ impl wkt::message::Message for UptimeCheckIp {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckConfigsRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) whose
     /// Uptime check configurations are listed. The format is:
@@ -18423,7 +19236,6 @@ impl wkt::message::Message for ListUptimeCheckConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckConfigsResponse {
-
     /// The returned Uptime check configurations.
     pub uptime_check_configs: std::vec::Vec<crate::model::UptimeCheckConfig>,
 
@@ -18461,7 +19273,7 @@ impl ListUptimeCheckConfigsResponse {
     pub fn set_uptime_check_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UptimeCheckConfig>
+        V: std::convert::Into<crate::model::UptimeCheckConfig>,
     {
         use std::iter::Iterator;
         self.uptime_check_configs = v.into_iter().map(|i| i.into()).collect();
@@ -18517,7 +19329,6 @@ impl gax::paginator::internal::PageableResponse for ListUptimeCheckConfigsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUptimeCheckConfigRequest {
-
     /// Required. The Uptime check configuration to retrieve. The format is:
     ///
     /// ```norust
@@ -18556,7 +19367,6 @@ impl wkt::message::Message for GetUptimeCheckConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUptimeCheckConfigRequest {
-
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) in which
     /// to create the Uptime check. The format is:
@@ -18598,7 +19408,8 @@ impl CreateUptimeCheckConfigRequest {
     /// let x = CreateUptimeCheckConfigRequest::new().set_uptime_check_config(UptimeCheckConfig::default()/* use setters */);
     /// ```
     pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::UptimeCheckConfig>
+    where
+        T: std::convert::Into<crate::model::UptimeCheckConfig>,
     {
         self.uptime_check_config = std::option::Option::Some(v.into());
         self
@@ -18614,7 +19425,8 @@ impl CreateUptimeCheckConfigRequest {
     /// let x = CreateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(None::<UptimeCheckConfig>);
     /// ```
     pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::UptimeCheckConfig>
+    where
+        T: std::convert::Into<crate::model::UptimeCheckConfig>,
     {
         self.uptime_check_config = v.map(|x| x.into());
         self
@@ -18631,7 +19443,6 @@ impl wkt::message::Message for CreateUptimeCheckConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUptimeCheckConfigRequest {
-
     /// Optional. If present, only the listed fields in the current Uptime check
     /// configuration are updated with values from the new configuration. If this
     /// field is empty, then the current configuration is completely replaced with
@@ -18668,7 +19479,8 @@ impl UpdateUptimeCheckConfigRequest {
     /// let x = UpdateUptimeCheckConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -18684,7 +19496,8 @@ impl UpdateUptimeCheckConfigRequest {
     /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -18699,7 +19512,8 @@ impl UpdateUptimeCheckConfigRequest {
     /// let x = UpdateUptimeCheckConfigRequest::new().set_uptime_check_config(UptimeCheckConfig::default()/* use setters */);
     /// ```
     pub fn set_uptime_check_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::UptimeCheckConfig>
+    where
+        T: std::convert::Into<crate::model::UptimeCheckConfig>,
     {
         self.uptime_check_config = std::option::Option::Some(v.into());
         self
@@ -18715,7 +19529,8 @@ impl UpdateUptimeCheckConfigRequest {
     /// let x = UpdateUptimeCheckConfigRequest::new().set_or_clear_uptime_check_config(None::<UptimeCheckConfig>);
     /// ```
     pub fn set_or_clear_uptime_check_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::UptimeCheckConfig>
+    where
+        T: std::convert::Into<crate::model::UptimeCheckConfig>,
     {
         self.uptime_check_config = v.map(|x| x.into());
         self
@@ -18732,7 +19547,6 @@ impl wkt::message::Message for UpdateUptimeCheckConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUptimeCheckConfigRequest {
-
     /// Required. The Uptime check configuration to delete. The format is:
     ///
     /// ```norust
@@ -18771,7 +19585,6 @@ impl wkt::message::Message for DeleteUptimeCheckConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckIpsRequest {
-
     /// The maximum number of results to return in a single response. The server
     /// may further constrain the maximum number of results returned in a single
     /// page. If the page_size is <=0, the server will decide the number of results
@@ -18828,7 +19641,6 @@ impl wkt::message::Message for ListUptimeCheckIpsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckIpsResponse {
-
     /// The returned list of IP addresses (including region and location) that the
     /// checkers run from.
     pub uptime_check_ips: std::vec::Vec<crate::model::UptimeCheckIp>,
@@ -18864,7 +19676,7 @@ impl ListUptimeCheckIpsResponse {
     pub fn set_uptime_check_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UptimeCheckIp>
+        V: std::convert::Into<crate::model::UptimeCheckIp>,
     {
         use std::iter::Iterator;
         self.uptime_check_ips = v.into_iter().map(|i| i.into()).collect();
@@ -19011,7 +19823,9 @@ impl std::convert::From<i32> for ComparisonType {
             4 => Self::ComparisonLe,
             5 => Self::ComparisonEq,
             6 => Self::ComparisonNe,
-            _ => Self::UnknownValue(comparison_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(comparison_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -19027,7 +19841,9 @@ impl std::convert::From<&str> for ComparisonType {
             "COMPARISON_LE" => Self::ComparisonLe,
             "COMPARISON_EQ" => Self::ComparisonEq,
             "COMPARISON_NE" => Self::ComparisonNe,
-            _ => Self::UnknownValue(comparison_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(comparison_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -19056,7 +19872,8 @@ impl<'de> serde::de::Deserialize<'de> for ComparisonType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ComparisonType>::new(
-            ".google.monitoring.v3.ComparisonType"))
+            ".google.monitoring.v3.ComparisonType",
+        ))
     }
 }
 
@@ -19159,7 +19976,9 @@ impl std::convert::From<i32> for ServiceTier {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Premium,
-            _ => Self::UnknownValue(service_tier::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(service_tier::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -19171,7 +19990,9 @@ impl std::convert::From<&str> for ServiceTier {
             "SERVICE_TIER_UNSPECIFIED" => Self::Unspecified,
             "SERVICE_TIER_BASIC" => Self::Basic,
             "SERVICE_TIER_PREMIUM" => Self::Premium,
-            _ => Self::UnknownValue(service_tier::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(service_tier::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -19196,7 +20017,8 @@ impl<'de> serde::de::Deserialize<'de> for ServiceTier {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceTier>::new(
-            ".google.monitoring.v3.ServiceTier"))
+            ".google.monitoring.v3.ServiceTier",
+        ))
     }
 }
 
@@ -19317,7 +20139,9 @@ impl std::convert::From<i32> for UptimeCheckRegion {
             5 => Self::UsaOregon,
             6 => Self::UsaIowa,
             7 => Self::UsaVirginia,
-            _ => Self::UnknownValue(uptime_check_region::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(uptime_check_region::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -19334,7 +20158,9 @@ impl std::convert::From<&str> for UptimeCheckRegion {
             "USA_OREGON" => Self::UsaOregon,
             "USA_IOWA" => Self::UsaIowa,
             "USA_VIRGINIA" => Self::UsaVirginia,
-            _ => Self::UnknownValue(uptime_check_region::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(uptime_check_region::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -19364,7 +20190,8 @@ impl<'de> serde::de::Deserialize<'de> for UptimeCheckRegion {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<UptimeCheckRegion>::new(
-            ".google.monitoring.v3.UptimeCheckRegion"))
+            ".google.monitoring.v3.UptimeCheckRegion",
+        ))
     }
 }
 
@@ -19459,7 +20286,9 @@ impl std::convert::From<i32> for GroupResourceType {
             0 => Self::ResourceTypeUnspecified,
             1 => Self::Instance,
             2 => Self::AwsElbLoadBalancer,
-            _ => Self::UnknownValue(group_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(group_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -19471,7 +20300,9 @@ impl std::convert::From<&str> for GroupResourceType {
             "RESOURCE_TYPE_UNSPECIFIED" => Self::ResourceTypeUnspecified,
             "INSTANCE" => Self::Instance,
             "AWS_ELB_LOAD_BALANCER" => Self::AwsElbLoadBalancer,
-            _ => Self::UnknownValue(group_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(group_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -19496,6 +20327,7 @@ impl<'de> serde::de::Deserialize<'de> for GroupResourceType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<GroupResourceType>::new(
-            ".google.monitoring.v3.GroupResourceType"))
+            ".google.monitoring.v3.GroupResourceType",
+        ))
     }
 }

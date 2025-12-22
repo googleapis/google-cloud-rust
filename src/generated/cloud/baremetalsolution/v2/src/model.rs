@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,6 +29,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -86,7 +85,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -102,7 +102,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -117,7 +118,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -133,7 +135,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -210,7 +213,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -230,7 +232,6 @@ impl wkt::message::Message for ResetInstanceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-
     /// Immutable. The resource name of this `Instance`.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -260,7 +261,7 @@ pub struct Instance {
     pub hyperthreading_enabled: bool,
 
     /// Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. List of LUNs associated with this server.
     pub luns: std::vec::Vec<crate::model::Lun>,
@@ -349,7 +350,8 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -365,7 +367,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -380,7 +383,8 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -396,7 +400,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -477,7 +482,7 @@ impl Instance {
     pub fn set_luns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Lun>
+        V: std::convert::Into<crate::model::Lun>,
     {
         use std::iter::Iterator;
         self.luns = v.into_iter().map(|i| i.into()).collect();
@@ -499,7 +504,7 @@ impl Instance {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>
+        V: std::convert::Into<crate::model::Volume>,
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -521,7 +526,7 @@ impl Instance {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Network>
+        V: std::convert::Into<crate::model::Network>,
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -535,7 +540,10 @@ impl Instance {
     /// # use google_cloud_baremetalsolution_v2::model::Instance;
     /// let x = Instance::new().set_interactive_serial_console_enabled(true);
     /// ```
-    pub fn set_interactive_serial_console_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_interactive_serial_console_enabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.interactive_serial_console_enabled = v.into();
         self
     }
@@ -571,7 +579,10 @@ impl Instance {
     /// # use google_cloud_baremetalsolution_v2::model::Instance;
     /// let x = Instance::new().set_network_template("example");
     /// ```
-    pub fn set_network_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_network_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.network_template = v.into();
         self
     }
@@ -591,7 +602,7 @@ impl Instance {
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogicalInterface>
+        V: std::convert::Into<crate::model::LogicalInterface>,
     {
         use std::iter::Iterator;
         self.logical_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -619,7 +630,10 @@ impl Instance {
     /// let x0 = Instance::new().set_workload_profile(WorkloadProfile::Generic);
     /// let x1 = Instance::new().set_workload_profile(WorkloadProfile::Hana);
     /// ```
-    pub fn set_workload_profile<T: std::convert::Into<crate::model::WorkloadProfile>>(mut self, v: T) -> Self {
+    pub fn set_workload_profile<T: std::convert::Into<crate::model::WorkloadProfile>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.workload_profile = v.into();
         self
     }
@@ -631,7 +645,10 @@ impl Instance {
     /// # use google_cloud_baremetalsolution_v2::model::Instance;
     /// let x = Instance::new().set_firmware_version("example");
     /// ```
-    pub fn set_firmware_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_firmware_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.firmware_version = v.into();
         self
     }
@@ -647,7 +664,6 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states for this server.
     ///
@@ -760,7 +776,9 @@ pub mod instance {
                 5 => Self::Starting,
                 6 => Self::Stopping,
                 7 => Self::Shutdown,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -777,7 +795,9 @@ pub mod instance {
                 "STARTING" => Self::Starting,
                 "STOPPING" => Self::Stopping,
                 "SHUTDOWN" => Self::Shutdown,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -807,7 +827,8 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.Instance.State"))
+                ".google.cloud.baremetalsolution.v2.Instance.State",
+            ))
         }
     }
 }
@@ -816,7 +837,6 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -851,7 +871,6 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
-
     /// Required. Parent value for ListInstancesRequest.
     pub parent: std::string::String,
 
@@ -932,7 +951,6 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
-
     /// The list of servers.
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -965,7 +983,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>
+        V: std::convert::Into<crate::model::Instance>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -994,7 +1012,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1026,7 +1044,6 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
-
     /// Required. The server to update.
     ///
     /// The `name` field is used to identify the instance to update.
@@ -1057,7 +1074,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -1073,7 +1091,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = v.map(|x| x.into());
         self
@@ -1088,7 +1107,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1104,7 +1124,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1121,7 +1142,6 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameInstanceRequest {
-
     /// Required. The `name` field is used to identify the instance.
     /// Format: projects/{project}/locations/{location}/instances/{instance}
     pub name: std::string::String,
@@ -1172,7 +1192,6 @@ impl wkt::message::Message for RenameInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1207,7 +1226,6 @@ impl wkt::message::Message for ResetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1242,7 +1260,6 @@ impl wkt::message::Message for StartInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1262,7 +1279,6 @@ impl wkt::message::Message for StartInstanceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1297,7 +1313,6 @@ impl wkt::message::Message for StopInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1317,7 +1332,6 @@ impl wkt::message::Message for StopInstanceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableInteractiveSerialConsoleRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1352,7 +1366,6 @@ impl wkt::message::Message for EnableInteractiveSerialConsoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableInteractiveSerialConsoleResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1372,7 +1385,6 @@ impl wkt::message::Message for EnableInteractiveSerialConsoleResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableInteractiveSerialConsoleRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1407,7 +1419,6 @@ impl wkt::message::Message for DisableInteractiveSerialConsoleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableInteractiveSerialConsoleResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1427,7 +1438,6 @@ impl wkt::message::Message for DisableInteractiveSerialConsoleResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachLunRequest {
-
     /// Required. Name of the instance.
     pub instance: std::string::String,
 
@@ -1492,7 +1502,6 @@ impl wkt::message::Message for DetachLunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerNetworkTemplate {
-
     /// Output only. Template's unique name. The full resource name follows the
     /// pattern:
     /// `projects/{project}/locations/{location}/serverNetworkTemplate/{server_network_template}`
@@ -1536,7 +1545,7 @@ impl ServerNetworkTemplate {
     pub fn set_applicable_instance_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.applicable_instance_types = v.into_iter().map(|i| i.into()).collect();
@@ -1558,7 +1567,7 @@ impl ServerNetworkTemplate {
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::server_network_template::LogicalInterface>
+        V: std::convert::Into<crate::model::server_network_template::LogicalInterface>,
     {
         use std::iter::Iterator;
         self.logical_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -1577,12 +1586,10 @@ pub mod server_network_template {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Logical interface.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogicalInterface {
-
         /// Interface name.
         /// This is not a globally unique identifier.
         /// Name is unique only inside the ServerNetworkTemplate. This is of syntax
@@ -1625,7 +1632,14 @@ pub mod server_network_template {
         /// let x0 = LogicalInterface::new().set_type(InterfaceType::Bond);
         /// let x1 = LogicalInterface::new().set_type(InterfaceType::Nic);
         /// ```
-        pub fn set_type<T: std::convert::Into<crate::model::server_network_template::logical_interface::InterfaceType>>(mut self, v: T) -> Self {
+        pub fn set_type<
+            T: std::convert::Into<
+                    crate::model::server_network_template::logical_interface::InterfaceType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.r#type = v.into();
             self
         }
@@ -1653,7 +1667,6 @@ pub mod server_network_template {
     pub mod logical_interface {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Interface type.
         ///
@@ -1730,7 +1743,10 @@ pub mod server_network_template {
         }
 
         impl std::fmt::Display for InterfaceType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1741,7 +1757,9 @@ pub mod server_network_template {
                     0 => Self::Unspecified,
                     1 => Self::Bond,
                     2 => Self::Nic,
-                    _ => Self::UnknownValue(interface_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(interface_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -1753,7 +1771,9 @@ pub mod server_network_template {
                     "INTERFACE_TYPE_UNSPECIFIED" => Self::Unspecified,
                     "BOND" => Self::Bond,
                     "NIC" => Self::Nic,
-                    _ => Self::UnknownValue(interface_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(interface_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -1788,7 +1808,6 @@ pub mod server_network_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Lun {
-
     /// Output only. The name of the LUN.
     pub name: std::string::String,
 
@@ -1894,7 +1913,10 @@ impl Lun {
     /// use google_cloud_baremetalsolution_v2::model::lun::MultiprotocolType;
     /// let x0 = Lun::new().set_multiprotocol_type(MultiprotocolType::Linux);
     /// ```
-    pub fn set_multiprotocol_type<T: std::convert::Into<crate::model::lun::MultiprotocolType>>(mut self, v: T) -> Self {
+    pub fn set_multiprotocol_type<T: std::convert::Into<crate::model::lun::MultiprotocolType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.multiprotocol_type = v.into();
         self
     }
@@ -1944,7 +1966,10 @@ impl Lun {
     /// let x0 = Lun::new().set_storage_type(StorageType::Ssd);
     /// let x1 = Lun::new().set_storage_type(StorageType::Hdd);
     /// ```
-    pub fn set_storage_type<T: std::convert::Into<crate::model::lun::StorageType>>(mut self, v: T) -> Self {
+    pub fn set_storage_type<T: std::convert::Into<crate::model::lun::StorageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.storage_type = v.into();
         self
     }
@@ -1970,7 +1995,8 @@ impl Lun {
     /// let x = Lun::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -1986,7 +2012,8 @@ impl Lun {
     /// let x = Lun::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -2002,7 +2029,7 @@ impl Lun {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -2020,7 +2047,6 @@ impl wkt::message::Message for Lun {
 pub mod lun {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states for the LUN.
     ///
@@ -2123,7 +2149,9 @@ pub mod lun {
                 3 => Self::Ready,
                 4 => Self::Deleting,
                 5 => Self::CoolOff,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2138,7 +2166,9 @@ pub mod lun {
                 "READY" => Self::Ready,
                 "DELETING" => Self::Deleting,
                 "COOL_OFF" => Self::CoolOff,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2166,7 +2196,8 @@ pub mod lun {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.Lun.State"))
+                ".google.cloud.baremetalsolution.v2.Lun.State",
+            ))
         }
     }
 
@@ -2251,7 +2282,9 @@ pub mod lun {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Linux,
-                _ => Self::UnknownValue(multiprotocol_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(multiprotocol_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2262,7 +2295,9 @@ pub mod lun {
             match value {
                 "MULTIPROTOCOL_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "LINUX" => Self::Linux,
-                _ => Self::UnknownValue(multiprotocol_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(multiprotocol_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2286,7 +2321,8 @@ pub mod lun {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MultiprotocolType>::new(
-                ".google.cloud.baremetalsolution.v2.Lun.MultiprotocolType"))
+                ".google.cloud.baremetalsolution.v2.Lun.MultiprotocolType",
+            ))
         }
     }
 
@@ -2376,7 +2412,9 @@ pub mod lun {
                 0 => Self::Unspecified,
                 1 => Self::Ssd,
                 2 => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2388,7 +2426,9 @@ pub mod lun {
                 "STORAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SSD" => Self::Ssd,
                 "HDD" => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2413,7 +2453,8 @@ pub mod lun {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageType>::new(
-                ".google.cloud.baremetalsolution.v2.Lun.StorageType"))
+                ".google.cloud.baremetalsolution.v2.Lun.StorageType",
+            ))
         }
     }
 }
@@ -2422,7 +2463,6 @@ pub mod lun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLunRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -2457,7 +2497,6 @@ impl wkt::message::Message for GetLunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLunsRequest {
-
     /// Required. Parent value for ListLunsRequest.
     pub parent: std::string::String,
 
@@ -2523,7 +2562,6 @@ impl wkt::message::Message for ListLunsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLunsResponse {
-
     /// The list of luns.
     pub luns: std::vec::Vec<crate::model::Lun>,
 
@@ -2556,7 +2594,7 @@ impl ListLunsResponse {
     pub fn set_luns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Lun>
+        V: std::convert::Into<crate::model::Lun>,
     {
         use std::iter::Iterator;
         self.luns = v.into_iter().map(|i| i.into()).collect();
@@ -2585,7 +2623,7 @@ impl ListLunsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2617,7 +2655,6 @@ impl gax::paginator::internal::PageableResponse for ListLunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvictLunRequest {
-
     /// Required. The name of the lun.
     pub name: std::string::String,
 
@@ -2652,7 +2689,6 @@ impl wkt::message::Message for EvictLunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Network {
-
     /// Output only. The resource name of this `Network`.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -2685,7 +2721,7 @@ pub struct Network {
     pub vrf: std::option::Option<crate::model::Vrf>,
 
     /// Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// IP range for reserved for services (e.g. NFS).
     pub services_cidr: std::string::String,
@@ -2775,7 +2811,7 @@ impl Network {
     pub fn set_mac_address<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.mac_address = v.into_iter().map(|i| i.into()).collect();
@@ -2830,7 +2866,8 @@ impl Network {
     /// let x = Network::new().set_vrf(Vrf::default()/* use setters */);
     /// ```
     pub fn set_vrf<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Vrf>
+    where
+        T: std::convert::Into<crate::model::Vrf>,
     {
         self.vrf = std::option::Option::Some(v.into());
         self
@@ -2846,7 +2883,8 @@ impl Network {
     /// let x = Network::new().set_or_clear_vrf(None::<Vrf>);
     /// ```
     pub fn set_or_clear_vrf<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Vrf>
+    where
+        T: std::convert::Into<crate::model::Vrf>,
     {
         self.vrf = v.map(|x| x.into());
         self
@@ -2900,7 +2938,7 @@ impl Network {
     pub fn set_reservations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkAddressReservation>
+        V: std::convert::Into<crate::model::NetworkAddressReservation>,
     {
         use std::iter::Iterator;
         self.reservations = v.into_iter().map(|i| i.into()).collect();
@@ -2934,7 +2972,7 @@ impl Network {
     pub fn set_mount_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkMountPoint>
+        V: std::convert::Into<crate::model::NetworkMountPoint>,
     {
         use std::iter::Iterator;
         self.mount_points = v.into_iter().map(|i| i.into()).collect();
@@ -2976,7 +3014,6 @@ impl wkt::message::Message for Network {
 pub mod network {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Network type.
     ///
@@ -3064,7 +3101,9 @@ pub mod network {
                 0 => Self::Unspecified,
                 1 => Self::Client,
                 2 => Self::Private,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3076,7 +3115,9 @@ pub mod network {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CLIENT" => Self::Client,
                 "PRIVATE" => Self::Private,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3101,7 +3142,8 @@ pub mod network {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.baremetalsolution.v2.Network.Type"))
+                ".google.cloud.baremetalsolution.v2.Network.Type",
+            ))
         }
     }
 
@@ -3201,7 +3243,9 @@ pub mod network {
                 2 => Self::Provisioned,
                 3 => Self::Deprovisioning,
                 4 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3215,7 +3259,9 @@ pub mod network {
                 "PROVISIONED" => Self::Provisioned,
                 "DEPROVISIONING" => Self::Deprovisioning,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3242,7 +3288,8 @@ pub mod network {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.Network.State"))
+                ".google.cloud.baremetalsolution.v2.Network.State",
+            ))
         }
     }
 }
@@ -3251,7 +3298,6 @@ pub mod network {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkAddressReservation {
-
     /// The first address of this reservation block.
     /// Must be specified as a single IPv4 address, e.g. 10.1.2.2.
     pub start_address: std::string::String,
@@ -3320,7 +3366,6 @@ impl wkt::message::Message for NetworkAddressReservation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vrf {
-
     /// The name of the VRF.
     pub name: std::string::String,
 
@@ -3379,7 +3424,8 @@ impl Vrf {
     /// let x = Vrf::new().set_qos_policy(QosPolicy::default()/* use setters */);
     /// ```
     pub fn set_qos_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::vrf::QosPolicy>
+    where
+        T: std::convert::Into<crate::model::vrf::QosPolicy>,
     {
         self.qos_policy = std::option::Option::Some(v.into());
         self
@@ -3395,7 +3441,8 @@ impl Vrf {
     /// let x = Vrf::new().set_or_clear_qos_policy(None::<QosPolicy>);
     /// ```
     pub fn set_or_clear_qos_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::vrf::QosPolicy>
+    where
+        T: std::convert::Into<crate::model::vrf::QosPolicy>,
     {
         self.qos_policy = v.map(|x| x.into());
         self
@@ -3416,7 +3463,7 @@ impl Vrf {
     pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vrf::VlanAttachment>
+        V: std::convert::Into<crate::model::vrf::VlanAttachment>,
     {
         use std::iter::Iterator;
         self.vlan_attachments = v.into_iter().map(|i| i.into()).collect();
@@ -3435,12 +3482,10 @@ pub mod vrf {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// QOS policy parameters.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QosPolicy {
-
         /// The bandwidth permitted by the QOS policy, in gbps.
         pub bandwidth_gbps: f64,
 
@@ -3475,7 +3520,6 @@ pub mod vrf {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VlanAttachment {
-
         /// The peer vlan ID of the attachment.
         pub peer_vlan_id: i64,
 
@@ -3564,7 +3608,8 @@ pub mod vrf {
         /// let x = VlanAttachment::new().set_qos_policy(QosPolicy::default()/* use setters */);
         /// ```
         pub fn set_qos_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::vrf::QosPolicy>
+        where
+            T: std::convert::Into<crate::model::vrf::QosPolicy>,
         {
             self.qos_policy = std::option::Option::Some(v.into());
             self
@@ -3580,7 +3625,8 @@ pub mod vrf {
         /// let x = VlanAttachment::new().set_or_clear_qos_policy(None::<QosPolicy>);
         /// ```
         pub fn set_or_clear_qos_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::vrf::QosPolicy>
+        where
+            T: std::convert::Into<crate::model::vrf::QosPolicy>,
         {
             self.qos_policy = v.map(|x| x.into());
             self
@@ -3605,7 +3651,10 @@ pub mod vrf {
         /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
         /// let x = VlanAttachment::new().set_interconnect_attachment("example");
         /// ```
-        pub fn set_interconnect_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_interconnect_attachment<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.interconnect_attachment = v.into();
             self
         }
@@ -3703,7 +3752,9 @@ pub mod vrf {
                 0 => Self::Unspecified,
                 1 => Self::Provisioning,
                 2 => Self::Provisioned,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3715,7 +3766,9 @@ pub mod vrf {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "PROVISIONING" => Self::Provisioning,
                 "PROVISIONED" => Self::Provisioned,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3740,7 +3793,8 @@ pub mod vrf {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.VRF.State"))
+                ".google.cloud.baremetalsolution.v2.VRF.State",
+            ))
         }
     }
 }
@@ -3752,9 +3806,9 @@ pub mod vrf {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogicalInterface {
-
     /// List of logical network interfaces within a logical interface.
-    pub logical_network_interfaces: std::vec::Vec<crate::model::logical_interface::LogicalNetworkInterface>,
+    pub logical_network_interfaces:
+        std::vec::Vec<crate::model::logical_interface::LogicalNetworkInterface>,
 
     /// Interface name. This is of syntax \<bond\><bond_mode> or \<nic\> and
     /// forms part of the network template name.
@@ -3788,7 +3842,7 @@ impl LogicalInterface {
     pub fn set_logical_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logical_interface::LogicalNetworkInterface>
+        V: std::convert::Into<crate::model::logical_interface::LogicalNetworkInterface>,
     {
         use std::iter::Iterator;
         self.logical_network_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -3832,12 +3886,10 @@ pub mod logical_interface {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Each logical network interface is effectively a network and IP pair.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogicalNetworkInterface {
-
         /// Name of the network
         pub network: std::string::String,
 
@@ -3907,7 +3959,10 @@ pub mod logical_interface {
         /// let x0 = LogicalNetworkInterface::new().set_network_type(Type::Client);
         /// let x1 = LogicalNetworkInterface::new().set_network_type(Type::Private);
         /// ```
-        pub fn set_network_type<T: std::convert::Into<crate::model::network::Type>>(mut self, v: T) -> Self {
+        pub fn set_network_type<T: std::convert::Into<crate::model::network::Type>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.network_type = v.into();
             self
         }
@@ -3936,7 +3991,6 @@ pub mod logical_interface {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -3971,7 +4025,6 @@ impl wkt::message::Message for GetNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksRequest {
-
     /// Required. Parent value for ListNetworksRequest.
     pub parent: std::string::String,
 
@@ -4052,7 +4105,6 @@ impl wkt::message::Message for ListNetworksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksResponse {
-
     /// The list of networks.
     pub networks: std::vec::Vec<crate::model::Network>,
 
@@ -4085,7 +4137,7 @@ impl ListNetworksResponse {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Network>
+        V: std::convert::Into<crate::model::Network>,
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -4114,7 +4166,7 @@ impl ListNetworksResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4146,7 +4198,6 @@ impl gax::paginator::internal::PageableResponse for ListNetworksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkRequest {
-
     /// Required. The network to update.
     ///
     /// The `name` field is used to identify the instance to update.
@@ -4175,7 +4226,8 @@ impl UpdateNetworkRequest {
     /// let x = UpdateNetworkRequest::new().set_network(Network::default()/* use setters */);
     /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Network>
+    where
+        T: std::convert::Into<crate::model::Network>,
     {
         self.network = std::option::Option::Some(v.into());
         self
@@ -4191,7 +4243,8 @@ impl UpdateNetworkRequest {
     /// let x = UpdateNetworkRequest::new().set_or_clear_network(None::<Network>);
     /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Network>
+    where
+        T: std::convert::Into<crate::model::Network>,
     {
         self.network = v.map(|x| x.into());
         self
@@ -4206,7 +4259,8 @@ impl UpdateNetworkRequest {
     /// let x = UpdateNetworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4222,7 +4276,8 @@ impl UpdateNetworkRequest {
     /// let x = UpdateNetworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4239,7 +4294,6 @@ impl wkt::message::Message for UpdateNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkUsage {
-
     /// Network.
     pub network: std::option::Option<crate::model::Network>,
 
@@ -4263,7 +4317,8 @@ impl NetworkUsage {
     /// let x = NetworkUsage::new().set_network(Network::default()/* use setters */);
     /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Network>
+    where
+        T: std::convert::Into<crate::model::Network>,
     {
         self.network = std::option::Option::Some(v.into());
         self
@@ -4279,7 +4334,8 @@ impl NetworkUsage {
     /// let x = NetworkUsage::new().set_or_clear_network(None::<Network>);
     /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Network>
+    where
+        T: std::convert::Into<crate::model::Network>,
     {
         self.network = v.map(|x| x.into());
         self
@@ -4295,7 +4351,7 @@ impl NetworkUsage {
     pub fn set_used_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.used_ips = v.into_iter().map(|i| i.into()).collect();
@@ -4313,7 +4369,6 @@ impl wkt::message::Message for NetworkUsage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkUsageRequest {
-
     /// Required. Parent value (project and location).
     pub location: std::string::String,
 
@@ -4348,7 +4403,6 @@ impl wkt::message::Message for ListNetworkUsageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkUsageResponse {
-
     /// Networks with IPs.
     pub networks: std::vec::Vec<crate::model::NetworkUsage>,
 
@@ -4375,7 +4429,7 @@ impl ListNetworkUsageResponse {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkUsage>
+        V: std::convert::Into<crate::model::NetworkUsage>,
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -4393,7 +4447,6 @@ impl wkt::message::Message for ListNetworkUsageResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkMountPoint {
-
     /// Instance to attach network to.
     pub instance: std::string::String,
 
@@ -4433,7 +4486,10 @@ impl NetworkMountPoint {
     /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
     /// let x = NetworkMountPoint::new().set_logical_interface("example");
     /// ```
-    pub fn set_logical_interface<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_logical_interface<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.logical_interface = v.into();
         self
     }
@@ -4473,7 +4529,6 @@ impl wkt::message::Message for NetworkMountPoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameNetworkRequest {
-
     /// Required. The `name` field is used to identify the network.
     /// Format: projects/{project}/locations/{location}/networks/{network}
     pub name: std::string::String,
@@ -4524,7 +4579,6 @@ impl wkt::message::Message for RenameNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NfsShare {
-
     /// Immutable. The name of the NFS share.
     pub name: std::string::String,
 
@@ -4547,7 +4601,7 @@ pub struct NfsShare {
     pub allowed_clients: std::vec::Vec<crate::model::nfs_share::AllowedClient>,
 
     /// Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The requested size, in GiB.
     pub requested_size_gib: i64,
@@ -4609,7 +4663,10 @@ impl NfsShare {
     /// let x1 = NfsShare::new().set_state(State::Creating);
     /// let x2 = NfsShare::new().set_state(State::Updating);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::nfs_share::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::nfs_share::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -4641,7 +4698,7 @@ impl NfsShare {
     pub fn set_allowed_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::nfs_share::AllowedClient>
+        V: std::convert::Into<crate::model::nfs_share::AllowedClient>,
     {
         use std::iter::Iterator;
         self.allowed_clients = v.into_iter().map(|i| i.into()).collect();
@@ -4690,7 +4747,10 @@ impl NfsShare {
     /// let x0 = NfsShare::new().set_storage_type(StorageType::Ssd);
     /// let x1 = NfsShare::new().set_storage_type(StorageType::Hdd);
     /// ```
-    pub fn set_storage_type<T: std::convert::Into<crate::model::nfs_share::StorageType>>(mut self, v: T) -> Self {
+    pub fn set_storage_type<T: std::convert::Into<crate::model::nfs_share::StorageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.storage_type = v.into();
         self
     }
@@ -4707,12 +4767,10 @@ pub mod nfs_share {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Represents an 'access point' for the share.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedClient {
-
         /// The network the access point sits on.
         pub network: std::string::String,
 
@@ -4781,7 +4839,10 @@ pub mod nfs_share {
         /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
         /// let x = AllowedClient::new().set_allowed_clients_cidr("example");
         /// ```
-        pub fn set_allowed_clients_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_allowed_clients_cidr<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.allowed_clients_cidr = v.into();
             self
         }
@@ -4795,7 +4856,12 @@ pub mod nfs_share {
         /// let x0 = AllowedClient::new().set_mount_permissions(MountPermissions::Read);
         /// let x1 = AllowedClient::new().set_mount_permissions(MountPermissions::ReadWrite);
         /// ```
-        pub fn set_mount_permissions<T: std::convert::Into<crate::model::nfs_share::MountPermissions>>(mut self, v: T) -> Self {
+        pub fn set_mount_permissions<
+            T: std::convert::Into<crate::model::nfs_share::MountPermissions>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.mount_permissions = v.into();
             self
         }
@@ -4951,7 +5017,9 @@ pub mod nfs_share {
                 2 => Self::Creating,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4965,7 +5033,9 @@ pub mod nfs_share {
                 "CREATING" => Self::Creating,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4992,7 +5062,8 @@ pub mod nfs_share {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.NfsShare.State"))
+                ".google.cloud.baremetalsolution.v2.NfsShare.State",
+            ))
         }
     }
 
@@ -5082,7 +5153,9 @@ pub mod nfs_share {
                 0 => Self::Unspecified,
                 1 => Self::Read,
                 2 => Self::ReadWrite,
-                _ => Self::UnknownValue(mount_permissions::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(mount_permissions::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5094,7 +5167,9 @@ pub mod nfs_share {
                 "MOUNT_PERMISSIONS_UNSPECIFIED" => Self::Unspecified,
                 "READ" => Self::Read,
                 "READ_WRITE" => Self::ReadWrite,
-                _ => Self::UnknownValue(mount_permissions::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(mount_permissions::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5119,7 +5194,8 @@ pub mod nfs_share {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MountPermissions>::new(
-                ".google.cloud.baremetalsolution.v2.NfsShare.MountPermissions"))
+                ".google.cloud.baremetalsolution.v2.NfsShare.MountPermissions",
+            ))
         }
     }
 
@@ -5209,7 +5285,9 @@ pub mod nfs_share {
                 0 => Self::Unspecified,
                 1 => Self::Ssd,
                 2 => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5221,7 +5299,9 @@ pub mod nfs_share {
                 "STORAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SSD" => Self::Ssd,
                 "HDD" => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5246,7 +5326,8 @@ pub mod nfs_share {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageType>::new(
-                ".google.cloud.baremetalsolution.v2.NfsShare.StorageType"))
+                ".google.cloud.baremetalsolution.v2.NfsShare.StorageType",
+            ))
         }
     }
 }
@@ -5255,7 +5336,6 @@ pub mod nfs_share {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNfsShareRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -5290,7 +5370,6 @@ impl wkt::message::Message for GetNfsShareRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNfsSharesRequest {
-
     /// Required. Parent value for ListNfsSharesRequest.
     pub parent: std::string::String,
 
@@ -5371,7 +5450,6 @@ impl wkt::message::Message for ListNfsSharesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNfsSharesResponse {
-
     /// The list of NFS shares.
     pub nfs_shares: std::vec::Vec<crate::model::NfsShare>,
 
@@ -5404,7 +5482,7 @@ impl ListNfsSharesResponse {
     pub fn set_nfs_shares<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NfsShare>
+        V: std::convert::Into<crate::model::NfsShare>,
     {
         use std::iter::Iterator;
         self.nfs_shares = v.into_iter().map(|i| i.into()).collect();
@@ -5433,7 +5511,7 @@ impl ListNfsSharesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5465,7 +5543,6 @@ impl gax::paginator::internal::PageableResponse for ListNfsSharesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNfsShareRequest {
-
     /// Required. The NFS share to update.
     ///
     /// The `name` field is used to identify the NFS share to update.
@@ -5495,7 +5572,8 @@ impl UpdateNfsShareRequest {
     /// let x = UpdateNfsShareRequest::new().set_nfs_share(NfsShare::default()/* use setters */);
     /// ```
     pub fn set_nfs_share<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::NfsShare>
+    where
+        T: std::convert::Into<crate::model::NfsShare>,
     {
         self.nfs_share = std::option::Option::Some(v.into());
         self
@@ -5511,7 +5589,8 @@ impl UpdateNfsShareRequest {
     /// let x = UpdateNfsShareRequest::new().set_or_clear_nfs_share(None::<NfsShare>);
     /// ```
     pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::NfsShare>
+    where
+        T: std::convert::Into<crate::model::NfsShare>,
     {
         self.nfs_share = v.map(|x| x.into());
         self
@@ -5526,7 +5605,8 @@ impl UpdateNfsShareRequest {
     /// let x = UpdateNfsShareRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5542,7 +5622,8 @@ impl UpdateNfsShareRequest {
     /// let x = UpdateNfsShareRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5559,7 +5640,6 @@ impl wkt::message::Message for UpdateNfsShareRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameNfsShareRequest {
-
     /// Required. The `name` field is used to identify the nfsshare.
     /// Format: projects/{project}/locations/{location}/nfsshares/{nfsshare}
     pub name: std::string::String,
@@ -5610,7 +5690,6 @@ impl wkt::message::Message for RenameNfsShareRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNfsShareRequest {
-
     /// Required. The parent project and location.
     pub parent: std::string::String,
 
@@ -5646,7 +5725,8 @@ impl CreateNfsShareRequest {
     /// let x = CreateNfsShareRequest::new().set_nfs_share(NfsShare::default()/* use setters */);
     /// ```
     pub fn set_nfs_share<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::NfsShare>
+    where
+        T: std::convert::Into<crate::model::NfsShare>,
     {
         self.nfs_share = std::option::Option::Some(v.into());
         self
@@ -5662,7 +5742,8 @@ impl CreateNfsShareRequest {
     /// let x = CreateNfsShareRequest::new().set_or_clear_nfs_share(None::<NfsShare>);
     /// ```
     pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::NfsShare>
+    where
+        T: std::convert::Into<crate::model::NfsShare>,
     {
         self.nfs_share = v.map(|x| x.into());
         self
@@ -5679,7 +5760,6 @@ impl wkt::message::Message for CreateNfsShareRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNfsShareRequest {
-
     /// Required. The name of the NFS share to delete.
     pub name: std::string::String,
 
@@ -5714,7 +5794,6 @@ impl wkt::message::Message for DeleteNfsShareRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSImage {
-
     /// Output only. OS Image's unique name.
     pub name: std::string::String,
 
@@ -5786,7 +5865,7 @@ impl OSImage {
     pub fn set_applicable_instance_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.applicable_instance_types = v.into_iter().map(|i| i.into()).collect();
@@ -5803,7 +5882,7 @@ impl OSImage {
     pub fn set_supported_network_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.supported_network_templates = v.into_iter().map(|i| i.into()).collect();
@@ -5821,7 +5900,6 @@ impl wkt::message::Message for OSImage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSImagesRequest {
-
     /// Required. Parent value for ListProvisioningQuotasRequest.
     pub parent: std::string::String,
 
@@ -5889,7 +5967,6 @@ impl wkt::message::Message for ListOSImagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSImagesResponse {
-
     /// The OS images available.
     pub os_images: std::vec::Vec<crate::model::OSImage>,
 
@@ -5920,7 +5997,7 @@ impl ListOSImagesResponse {
     pub fn set_os_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OSImage>
+        V: std::convert::Into<crate::model::OSImage>,
     {
         use std::iter::Iterator;
         self.os_images = v.into_iter().map(|i| i.into()).collect();
@@ -5964,7 +6041,6 @@ impl gax::paginator::internal::PageableResponse for ListOSImagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProvisioningConfig {
-
     /// Output only. The system-generated name of the provisioning config. This
     /// follows the UUID format.
     pub name: std::string::String,
@@ -6047,7 +6123,7 @@ impl ProvisioningConfig {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstanceConfig>
+        V: std::convert::Into<crate::model::InstanceConfig>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -6069,7 +6145,7 @@ impl ProvisioningConfig {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>
+        V: std::convert::Into<crate::model::NetworkConfig>,
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -6091,7 +6167,7 @@ impl ProvisioningConfig {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeConfig>
+        V: std::convert::Into<crate::model::VolumeConfig>,
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -6117,7 +6193,10 @@ impl ProvisioningConfig {
     /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
     /// let x = ProvisioningConfig::new().set_handover_service_account("example");
     /// ```
-    pub fn set_handover_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_handover_service_account<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.handover_service_account = v.into();
         self
     }
@@ -6145,7 +6224,10 @@ impl ProvisioningConfig {
     /// let x1 = ProvisioningConfig::new().set_state(State::Submitted);
     /// let x2 = ProvisioningConfig::new().set_state(State::Provisioning);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::provisioning_config::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::provisioning_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -6171,7 +6253,8 @@ impl ProvisioningConfig {
     /// let x = ProvisioningConfig::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6187,7 +6270,8 @@ impl ProvisioningConfig {
     /// let x = ProvisioningConfig::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6200,7 +6284,10 @@ impl ProvisioningConfig {
     /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
     /// let x = ProvisioningConfig::new().set_cloud_console_uri("example");
     /// ```
-    pub fn set_cloud_console_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_cloud_console_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cloud_console_uri = v.into();
         self
     }
@@ -6252,7 +6339,6 @@ impl wkt::message::Message for ProvisioningConfig {
 pub mod provisioning_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states for this ProvisioningConfig.
     ///
@@ -6368,7 +6454,9 @@ pub mod provisioning_config {
                 5 => Self::Validated,
                 6 => Self::Cancelled,
                 7 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6385,7 +6473,9 @@ pub mod provisioning_config {
                 "VALIDATED" => Self::Validated,
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6415,7 +6505,8 @@ pub mod provisioning_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.ProvisioningConfig.State"))
+                ".google.cloud.baremetalsolution.v2.ProvisioningConfig.State",
+            ))
         }
     }
 }
@@ -6424,7 +6515,6 @@ pub mod provisioning_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitProvisioningConfigRequest {
-
     /// Required. The parent project and location containing the
     /// ProvisioningConfig.
     pub parent: std::string::String,
@@ -6465,7 +6555,8 @@ impl SubmitProvisioningConfigRequest {
     /// let x = SubmitProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
     /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = std::option::Option::Some(v.into());
         self
@@ -6481,7 +6572,8 @@ impl SubmitProvisioningConfigRequest {
     /// let x = SubmitProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
     /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = v.map(|x| x.into());
         self
@@ -6510,7 +6602,6 @@ impl wkt::message::Message for SubmitProvisioningConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitProvisioningConfigResponse {
-
     /// The submitted provisioning config.
     pub provisioning_config: std::option::Option<crate::model::ProvisioningConfig>,
 
@@ -6531,7 +6622,8 @@ impl SubmitProvisioningConfigResponse {
     /// let x = SubmitProvisioningConfigResponse::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
     /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = std::option::Option::Some(v.into());
         self
@@ -6547,7 +6639,8 @@ impl SubmitProvisioningConfigResponse {
     /// let x = SubmitProvisioningConfigResponse::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
     /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = v.map(|x| x.into());
         self
@@ -6564,7 +6657,6 @@ impl wkt::message::Message for SubmitProvisioningConfigResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProvisioningQuota {
-
     /// Output only. The name of the provisioning quota.
     pub name: std::string::String,
 
@@ -6616,7 +6708,10 @@ impl ProvisioningQuota {
     /// let x1 = ProvisioningQuota::new().set_asset_type(AssetType::Storage);
     /// let x2 = ProvisioningQuota::new().set_asset_type(AssetType::Network);
     /// ```
-    pub fn set_asset_type<T: std::convert::Into<crate::model::provisioning_quota::AssetType>>(mut self, v: T) -> Self {
+    pub fn set_asset_type<T: std::convert::Into<crate::model::provisioning_quota::AssetType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.asset_type = v.into();
         self
     }
@@ -6669,8 +6764,12 @@ impl ProvisioningQuota {
     /// let x = ProvisioningQuota::new().set_quota(Some(
     ///     google_cloud_baremetalsolution_v2::model::provisioning_quota::Quota::InstanceQuota(InstanceQuota::default().into())));
     /// ```
-    pub fn set_quota<T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Quota>>>(mut self, v: T) -> Self
-    {
+    pub fn set_quota<
+        T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Quota>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.quota = v.into();
         self
     }
@@ -6678,10 +6777,14 @@ impl ProvisioningQuota {
     /// The value of [quota][crate::model::ProvisioningQuota::quota]
     /// if it holds a `InstanceQuota`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn instance_quota(&self) -> std::option::Option<&std::boxed::Box<crate::model::InstanceQuota>> {
+    pub fn instance_quota(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InstanceQuota>> {
         #[allow(unreachable_patterns)]
         self.quota.as_ref().and_then(|v| match v {
-            crate::model::provisioning_quota::Quota::InstanceQuota(v) => std::option::Option::Some(v),
+            crate::model::provisioning_quota::Quota::InstanceQuota(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6699,11 +6802,14 @@ impl ProvisioningQuota {
     /// let x = ProvisioningQuota::new().set_instance_quota(InstanceQuota::default()/* use setters */);
     /// assert!(x.instance_quota().is_some());
     /// ```
-    pub fn set_instance_quota<T: std::convert::Into<std::boxed::Box<crate::model::InstanceQuota>>>(mut self, v: T) -> Self {
+    pub fn set_instance_quota<
+        T: std::convert::Into<std::boxed::Box<crate::model::InstanceQuota>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.quota = std::option::Option::Some(
-            crate::model::provisioning_quota::Quota::InstanceQuota(
-                v.into()
-            )
+            crate::model::provisioning_quota::Quota::InstanceQuota(v.into()),
         );
         self
     }
@@ -6719,8 +6825,12 @@ impl ProvisioningQuota {
     /// use google_cloud_baremetalsolution_v2::model::provisioning_quota::Availability;
     /// let x = ProvisioningQuota::new().set_availability(Some(Availability::ServerCount(42)));
     /// ```
-    pub fn set_availability<T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Availability>>>(mut self, v: T) -> Self
-    {
+    pub fn set_availability<
+        T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Availability>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.availability = v.into();
         self
     }
@@ -6731,7 +6841,9 @@ impl ProvisioningQuota {
     pub fn server_count(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
-            crate::model::provisioning_quota::Availability::ServerCount(v) => std::option::Option::Some(v),
+            crate::model::provisioning_quota::Availability::ServerCount(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6752,9 +6864,7 @@ impl ProvisioningQuota {
     /// ```
     pub fn set_server_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::ServerCount(
-                v.into()
-            )
+            crate::model::provisioning_quota::Availability::ServerCount(v.into()),
         );
         self
     }
@@ -6765,7 +6875,9 @@ impl ProvisioningQuota {
     pub fn network_bandwidth(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
-            crate::model::provisioning_quota::Availability::NetworkBandwidth(v) => std::option::Option::Some(v),
+            crate::model::provisioning_quota::Availability::NetworkBandwidth(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6786,9 +6898,7 @@ impl ProvisioningQuota {
     /// ```
     pub fn set_network_bandwidth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::NetworkBandwidth(
-                v.into()
-            )
+            crate::model::provisioning_quota::Availability::NetworkBandwidth(v.into()),
         );
         self
     }
@@ -6799,7 +6909,9 @@ impl ProvisioningQuota {
     pub fn storage_gib(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
-            crate::model::provisioning_quota::Availability::StorageGib(v) => std::option::Option::Some(v),
+            crate::model::provisioning_quota::Availability::StorageGib(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -6820,9 +6932,7 @@ impl ProvisioningQuota {
     /// ```
     pub fn set_storage_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::StorageGib(
-                v.into()
-            )
+            crate::model::provisioning_quota::Availability::StorageGib(v.into()),
         );
         self
     }
@@ -6838,7 +6948,6 @@ impl wkt::message::Message for ProvisioningQuota {
 pub mod provisioning_quota {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The available asset types for intake.
     ///
@@ -6931,7 +7040,9 @@ pub mod provisioning_quota {
                 1 => Self::Server,
                 2 => Self::Storage,
                 3 => Self::Network,
-                _ => Self::UnknownValue(asset_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(asset_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6944,7 +7055,9 @@ pub mod provisioning_quota {
                 "ASSET_TYPE_SERVER" => Self::Server,
                 "ASSET_TYPE_STORAGE" => Self::Storage,
                 "ASSET_TYPE_NETWORK" => Self::Network,
-                _ => Self::UnknownValue(asset_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(asset_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6970,7 +7083,8 @@ pub mod provisioning_quota {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AssetType>::new(
-                ".google.cloud.baremetalsolution.v2.ProvisioningQuota.AssetType"))
+                ".google.cloud.baremetalsolution.v2.ProvisioningQuota.AssetType",
+            ))
         }
     }
 
@@ -6999,7 +7113,6 @@ pub mod provisioning_quota {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvisioningQuotasRequest {
-
     /// Required. Parent value for ListProvisioningQuotasRequest.
     pub parent: std::string::String,
 
@@ -7067,7 +7180,6 @@ impl wkt::message::Message for ListProvisioningQuotasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvisioningQuotasResponse {
-
     /// The provisioning quotas registered in this project.
     pub provisioning_quotas: std::vec::Vec<crate::model::ProvisioningQuota>,
 
@@ -7098,7 +7210,7 @@ impl ListProvisioningQuotasResponse {
     pub fn set_provisioning_quotas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProvisioningQuota>
+        V: std::convert::Into<crate::model::ProvisioningQuota>,
     {
         use std::iter::Iterator;
         self.provisioning_quotas = v.into_iter().map(|i| i.into()).collect();
@@ -7142,7 +7254,6 @@ impl gax::paginator::internal::PageableResponse for ListProvisioningQuotasRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceConfig {
-
     /// Output only. The name of the instance config.
     pub name: std::string::String,
 
@@ -7272,7 +7383,8 @@ impl InstanceConfig {
     /// ```
     #[deprecated]
     pub fn set_client_network<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::instance_config::NetworkAddress>
+    where
+        T: std::convert::Into<crate::model::instance_config::NetworkAddress>,
     {
         self.client_network = std::option::Option::Some(v.into());
         self
@@ -7289,7 +7401,8 @@ impl InstanceConfig {
     /// ```
     #[deprecated]
     pub fn set_or_clear_client_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::instance_config::NetworkAddress>
+    where
+        T: std::convert::Into<crate::model::instance_config::NetworkAddress>,
     {
         self.client_network = v.map(|x| x.into());
         self
@@ -7305,7 +7418,8 @@ impl InstanceConfig {
     /// ```
     #[deprecated]
     pub fn set_private_network<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::instance_config::NetworkAddress>
+    where
+        T: std::convert::Into<crate::model::instance_config::NetworkAddress>,
     {
         self.private_network = std::option::Option::Some(v.into());
         self
@@ -7322,7 +7436,8 @@ impl InstanceConfig {
     /// ```
     #[deprecated]
     pub fn set_or_clear_private_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::instance_config::NetworkAddress>
+    where
+        T: std::convert::Into<crate::model::instance_config::NetworkAddress>,
     {
         self.private_network = v.map(|x| x.into());
         self
@@ -7361,7 +7476,12 @@ impl InstanceConfig {
     /// let x0 = InstanceConfig::new().set_network_config(NetworkConfig::SingleVlan);
     /// let x1 = InstanceConfig::new().set_network_config(NetworkConfig::MultiVlan);
     /// ```
-    pub fn set_network_config<T: std::convert::Into<crate::model::instance_config::NetworkConfig>>(mut self, v: T) -> Self {
+    pub fn set_network_config<
+        T: std::convert::Into<crate::model::instance_config::NetworkConfig>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.network_config = v.into();
         self
     }
@@ -7373,7 +7493,10 @@ impl InstanceConfig {
     /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
     /// let x = InstanceConfig::new().set_network_template("example");
     /// ```
-    pub fn set_network_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_network_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.network_template = v.into();
         self
     }
@@ -7393,7 +7516,7 @@ impl InstanceConfig {
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogicalInterface>
+        V: std::convert::Into<crate::model::LogicalInterface>,
     {
         use std::iter::Iterator;
         self.logical_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -7410,7 +7533,7 @@ impl InstanceConfig {
     pub fn set_ssh_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.ssh_key_names = v.into_iter().map(|i| i.into()).collect();
@@ -7429,12 +7552,10 @@ pub mod instance_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A network.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkAddress {
-
         /// Id of the network to use, within the same ProvisioningConfig request.
         pub network_id: std::string::String,
 
@@ -7483,7 +7604,10 @@ pub mod instance_config {
         /// # use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
         /// let x = NetworkAddress::new().set_existing_network_id("example");
         /// ```
-        pub fn set_existing_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_existing_network_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.existing_network_id = v.into();
             self
         }
@@ -7555,7 +7679,9 @@ pub mod instance_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::NetworkconfigUnspecified => std::option::Option::Some("NETWORKCONFIG_UNSPECIFIED"),
+                Self::NetworkconfigUnspecified => {
+                    std::option::Option::Some("NETWORKCONFIG_UNSPECIFIED")
+                }
                 Self::SingleVlan => std::option::Option::Some("SINGLE_VLAN"),
                 Self::MultiVlan => std::option::Option::Some("MULTI_VLAN"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -7582,7 +7708,9 @@ pub mod instance_config {
                 0 => Self::NetworkconfigUnspecified,
                 1 => Self::SingleVlan,
                 2 => Self::MultiVlan,
-                _ => Self::UnknownValue(network_config::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(network_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -7594,7 +7722,9 @@ pub mod instance_config {
                 "NETWORKCONFIG_UNSPECIFIED" => Self::NetworkconfigUnspecified,
                 "SINGLE_VLAN" => Self::SingleVlan,
                 "MULTI_VLAN" => Self::MultiVlan,
-                _ => Self::UnknownValue(network_config::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(network_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -7619,7 +7749,8 @@ pub mod instance_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkConfig>::new(
-                ".google.cloud.baremetalsolution.v2.InstanceConfig.NetworkConfig"))
+                ".google.cloud.baremetalsolution.v2.InstanceConfig.NetworkConfig",
+            ))
         }
     }
 }
@@ -7628,7 +7759,6 @@ pub mod instance_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeConfig {
-
     /// Output only. The name of the volume config.
     pub name: std::string::String,
 
@@ -7723,7 +7853,10 @@ impl VolumeConfig {
     /// let x0 = VolumeConfig::new().set_type(Type::Flash);
     /// let x1 = VolumeConfig::new().set_type(Type::Disk);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::volume_config::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::volume_config::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -7737,7 +7870,10 @@ impl VolumeConfig {
     /// let x0 = VolumeConfig::new().set_protocol(Protocol::Fc);
     /// let x1 = VolumeConfig::new().set_protocol(Protocol::Nfs);
     /// ```
-    pub fn set_protocol<T: std::convert::Into<crate::model::volume_config::Protocol>>(mut self, v: T) -> Self {
+    pub fn set_protocol<T: std::convert::Into<crate::model::volume_config::Protocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.protocol = v.into();
         self
     }
@@ -7769,7 +7905,7 @@ impl VolumeConfig {
     pub fn set_lun_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::volume_config::LunRange>
+        V: std::convert::Into<crate::model::volume_config::LunRange>,
     {
         use std::iter::Iterator;
         self.lun_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -7786,7 +7922,7 @@ impl VolumeConfig {
     pub fn set_machine_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.machine_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7808,7 +7944,7 @@ impl VolumeConfig {
     pub fn set_nfs_exports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::volume_config::NfsExport>
+        V: std::convert::Into<crate::model::volume_config::NfsExport>,
     {
         use std::iter::Iterator;
         self.nfs_exports = v.into_iter().map(|i| i.into()).collect();
@@ -7849,7 +7985,10 @@ impl VolumeConfig {
     /// let x1 = VolumeConfig::new().set_performance_tier(VolumePerformanceTier::Assigned);
     /// let x2 = VolumeConfig::new().set_performance_tier(VolumePerformanceTier::Ht);
     /// ```
-    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(mut self, v: T) -> Self {
+    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.performance_tier = v.into();
         self
     }
@@ -7866,12 +8005,10 @@ pub mod volume_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A LUN(Logical Unit Number) range.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LunRange {
-
         /// Number of LUNs to create.
         pub quantity: i32,
 
@@ -7921,7 +8058,6 @@ pub mod volume_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NfsExport {
-
         /// Network to use to publish the export.
         pub network_id: std::string::String,
 
@@ -7971,7 +8107,12 @@ pub mod volume_config {
         /// let x0 = NfsExport::new().set_permissions(Permissions::ReadOnly);
         /// let x1 = NfsExport::new().set_permissions(Permissions::ReadWrite);
         /// ```
-        pub fn set_permissions<T: std::convert::Into<crate::model::volume_config::nfs_export::Permissions>>(mut self, v: T) -> Self {
+        pub fn set_permissions<
+            T: std::convert::Into<crate::model::volume_config::nfs_export::Permissions>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.permissions = v.into();
             self
         }
@@ -8023,8 +8164,14 @@ pub mod volume_config {
         /// use google_cloud_baremetalsolution_v2::model::volume_config::nfs_export::Client;
         /// let x = NfsExport::new().set_client(Some(Client::MachineId("example".to_string())));
         /// ```
-        pub fn set_client<T: std::convert::Into<std::option::Option<crate::model::volume_config::nfs_export::Client>>>(mut self, v: T) -> Self
-        {
+        pub fn set_client<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::volume_config::nfs_export::Client>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.client = v.into();
             self
         }
@@ -8035,7 +8182,9 @@ pub mod volume_config {
         pub fn machine_id(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.client.as_ref().and_then(|v| match v {
-                crate::model::volume_config::nfs_export::Client::MachineId(v) => std::option::Option::Some(v),
+                crate::model::volume_config::nfs_export::Client::MachineId(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -8055,9 +8204,7 @@ pub mod volume_config {
         /// ```
         pub fn set_machine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client = std::option::Option::Some(
-                crate::model::volume_config::nfs_export::Client::MachineId(
-                    v.into()
-                )
+                crate::model::volume_config::nfs_export::Client::MachineId(v.into()),
             );
             self
         }
@@ -8068,7 +8215,9 @@ pub mod volume_config {
         pub fn cidr(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.client.as_ref().and_then(|v| match v {
-                crate::model::volume_config::nfs_export::Client::Cidr(v) => std::option::Option::Some(v),
+                crate::model::volume_config::nfs_export::Client::Cidr(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -8088,9 +8237,7 @@ pub mod volume_config {
         /// ```
         pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client = std::option::Option::Some(
-                crate::model::volume_config::nfs_export::Client::Cidr(
-                    v.into()
-                )
+                crate::model::volume_config::nfs_export::Client::Cidr(v.into()),
             );
             self
         }
@@ -8106,7 +8253,6 @@ pub mod volume_config {
     pub mod nfs_export {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// Permissions that can granted for an export.
         ///
@@ -8183,7 +8329,10 @@ pub mod volume_config {
         }
 
         impl std::fmt::Display for Permissions {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -8194,7 +8343,9 @@ pub mod volume_config {
                     0 => Self::Unspecified,
                     1 => Self::ReadOnly,
                     2 => Self::ReadWrite,
-                    _ => Self::UnknownValue(permissions::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(permissions::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -8206,7 +8357,9 @@ pub mod volume_config {
                     "PERMISSIONS_UNSPECIFIED" => Self::Unspecified,
                     "READ_ONLY" => Self::ReadOnly,
                     "READ_WRITE" => Self::ReadWrite,
-                    _ => Self::UnknownValue(permissions::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(permissions::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -8231,7 +8384,8 @@ pub mod volume_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Permissions>::new(
-                    ".google.cloud.baremetalsolution.v2.VolumeConfig.NfsExport.Permissions"))
+                    ".google.cloud.baremetalsolution.v2.VolumeConfig.NfsExport.Permissions",
+                ))
             }
         }
 
@@ -8333,7 +8487,9 @@ pub mod volume_config {
                 0 => Self::Unspecified,
                 1 => Self::Flash,
                 2 => Self::Disk,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -8345,7 +8501,9 @@ pub mod volume_config {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "FLASH" => Self::Flash,
                 "DISK" => Self::Disk,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -8370,7 +8528,8 @@ pub mod volume_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.baremetalsolution.v2.VolumeConfig.Type"))
+                ".google.cloud.baremetalsolution.v2.VolumeConfig.Type",
+            ))
         }
     }
 
@@ -8460,7 +8619,9 @@ pub mod volume_config {
                 0 => Self::Unspecified,
                 1 => Self::Fc,
                 2 => Self::Nfs,
-                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -8472,7 +8633,9 @@ pub mod volume_config {
                 "PROTOCOL_UNSPECIFIED" => Self::Unspecified,
                 "PROTOCOL_FC" => Self::Fc,
                 "PROTOCOL_NFS" => Self::Nfs,
-                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -8497,7 +8660,8 @@ pub mod volume_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Protocol>::new(
-                ".google.cloud.baremetalsolution.v2.VolumeConfig.Protocol"))
+                ".google.cloud.baremetalsolution.v2.VolumeConfig.Protocol",
+            ))
         }
     }
 }
@@ -8506,7 +8670,6 @@ pub mod volume_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
-
     /// Output only. The name of the network config.
     pub name: std::string::String,
 
@@ -8585,7 +8748,10 @@ impl NetworkConfig {
     /// let x0 = NetworkConfig::new().set_type(Type::Client);
     /// let x1 = NetworkConfig::new().set_type(Type::Private);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::network_config::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::network_config::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -8600,7 +8766,10 @@ impl NetworkConfig {
     /// let x1 = NetworkConfig::new().set_bandwidth(Bandwidth::Bw2Gbps);
     /// let x2 = NetworkConfig::new().set_bandwidth(Bandwidth::Bw5Gbps);
     /// ```
-    pub fn set_bandwidth<T: std::convert::Into<crate::model::network_config::Bandwidth>>(mut self, v: T) -> Self {
+    pub fn set_bandwidth<T: std::convert::Into<crate::model::network_config::Bandwidth>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.bandwidth = v.into();
         self
     }
@@ -8620,7 +8789,7 @@ impl NetworkConfig {
     pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::network_config::IntakeVlanAttachment>
+        V: std::convert::Into<crate::model::network_config::IntakeVlanAttachment>,
     {
         use std::iter::Iterator;
         self.vlan_attachments = v.into_iter().map(|i| i.into()).collect();
@@ -8649,7 +8818,10 @@ impl NetworkConfig {
     /// let x1 = NetworkConfig::new().set_service_cidr(ServiceCidr::High26);
     /// let x2 = NetworkConfig::new().set_service_cidr(ServiceCidr::High27);
     /// ```
-    pub fn set_service_cidr<T: std::convert::Into<crate::model::network_config::ServiceCidr>>(mut self, v: T) -> Self {
+    pub fn set_service_cidr<T: std::convert::Into<crate::model::network_config::ServiceCidr>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_cidr = v.into();
         self
     }
@@ -8714,12 +8886,10 @@ pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A GCP vlan attachment.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntakeVlanAttachment {
-
         /// Identifier of the VLAN attachment.
         pub id: std::string::String,
 
@@ -8851,7 +9021,9 @@ pub mod network_config {
                 0 => Self::Unspecified,
                 1 => Self::Client,
                 2 => Self::Private,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -8863,7 +9035,9 @@ pub mod network_config {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CLIENT" => Self::Client,
                 "PRIVATE" => Self::Private,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -8888,7 +9062,8 @@ pub mod network_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.baremetalsolution.v2.NetworkConfig.Type"))
+                ".google.cloud.baremetalsolution.v2.NetworkConfig.Type",
+            ))
         }
     }
 
@@ -8988,7 +9163,9 @@ pub mod network_config {
                 2 => Self::Bw2Gbps,
                 3 => Self::Bw5Gbps,
                 4 => Self::Bw10Gbps,
-                _ => Self::UnknownValue(bandwidth::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(bandwidth::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9002,7 +9179,9 @@ pub mod network_config {
                 "BW_2_GBPS" => Self::Bw2Gbps,
                 "BW_5_GBPS" => Self::Bw5Gbps,
                 "BW_10_GBPS" => Self::Bw10Gbps,
-                _ => Self::UnknownValue(bandwidth::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(bandwidth::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9029,7 +9208,8 @@ pub mod network_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Bandwidth>::new(
-                ".google.cloud.baremetalsolution.v2.NetworkConfig.Bandwidth"))
+                ".google.cloud.baremetalsolution.v2.NetworkConfig.Bandwidth",
+            ))
         }
     }
 
@@ -9129,7 +9309,9 @@ pub mod network_config {
                 2 => Self::High26,
                 3 => Self::High27,
                 4 => Self::High28,
-                _ => Self::UnknownValue(service_cidr::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(service_cidr::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -9143,7 +9325,9 @@ pub mod network_config {
                 "HIGH_26" => Self::High26,
                 "HIGH_27" => Self::High27,
                 "HIGH_28" => Self::High28,
-                _ => Self::UnknownValue(service_cidr::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(service_cidr::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -9170,7 +9354,8 @@ pub mod network_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceCidr>::new(
-                ".google.cloud.baremetalsolution.v2.NetworkConfig.ServiceCidr"))
+                ".google.cloud.baremetalsolution.v2.NetworkConfig.ServiceCidr",
+            ))
         }
     }
 }
@@ -9179,7 +9364,6 @@ pub mod network_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceQuota {
-
     /// Output only. The name of the instance quota.
     pub name: std::string::String,
 
@@ -9278,7 +9462,6 @@ impl wkt::message::Message for InstanceQuota {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProvisioningConfigRequest {
-
     /// Required. Name of the ProvisioningConfig.
     pub name: std::string::String,
 
@@ -9313,7 +9496,6 @@ impl wkt::message::Message for GetProvisioningConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProvisioningConfigRequest {
-
     /// Required. The parent project and location containing the
     /// ProvisioningConfig.
     pub parent: std::string::String,
@@ -9354,7 +9536,8 @@ impl CreateProvisioningConfigRequest {
     /// let x = CreateProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
     /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = std::option::Option::Some(v.into());
         self
@@ -9370,7 +9553,8 @@ impl CreateProvisioningConfigRequest {
     /// let x = CreateProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
     /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = v.map(|x| x.into());
         self
@@ -9399,7 +9583,6 @@ impl wkt::message::Message for CreateProvisioningConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProvisioningConfigRequest {
-
     /// Required. The ProvisioningConfig to update.
     pub provisioning_config: std::option::Option<crate::model::ProvisioningConfig>,
 
@@ -9427,7 +9610,8 @@ impl UpdateProvisioningConfigRequest {
     /// let x = UpdateProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
     /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = std::option::Option::Some(v.into());
         self
@@ -9443,7 +9627,8 @@ impl UpdateProvisioningConfigRequest {
     /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
     /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ProvisioningConfig>
+    where
+        T: std::convert::Into<crate::model::ProvisioningConfig>,
     {
         self.provisioning_config = v.map(|x| x.into());
         self
@@ -9458,7 +9643,8 @@ impl UpdateProvisioningConfigRequest {
     /// let x = UpdateProvisioningConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -9474,7 +9660,8 @@ impl UpdateProvisioningConfigRequest {
     /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -9503,7 +9690,6 @@ impl wkt::message::Message for UpdateProvisioningConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SSHKey {
-
     /// Output only. The name of this SSH key.
     /// Currently, the only valid value for the location is "global".
     pub name: std::string::String,
@@ -9554,7 +9740,6 @@ impl wkt::message::Message for SSHKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSSHKeysRequest {
-
     /// Required. The parent containing the SSH keys.
     /// Currently, the only valid value for the location is "global".
     pub parent: std::string::String,
@@ -9620,7 +9805,6 @@ impl wkt::message::Message for ListSSHKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSSHKeysResponse {
-
     /// The SSH keys registered in the project.
     pub ssh_keys: std::vec::Vec<crate::model::SSHKey>,
 
@@ -9651,7 +9835,7 @@ impl ListSSHKeysResponse {
     pub fn set_ssh_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SSHKey>
+        V: std::convert::Into<crate::model::SSHKey>,
     {
         use std::iter::Iterator;
         self.ssh_keys = v.into_iter().map(|i| i.into()).collect();
@@ -9695,7 +9879,6 @@ impl gax::paginator::internal::PageableResponse for ListSSHKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSSHKeyRequest {
-
     /// Required. The parent containing the SSH keys.
     pub parent: std::string::String,
 
@@ -9738,7 +9921,8 @@ impl CreateSSHKeyRequest {
     /// let x = CreateSSHKeyRequest::new().set_ssh_key(SSHKey::default()/* use setters */);
     /// ```
     pub fn set_ssh_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SSHKey>
+    where
+        T: std::convert::Into<crate::model::SSHKey>,
     {
         self.ssh_key = std::option::Option::Some(v.into());
         self
@@ -9754,7 +9938,8 @@ impl CreateSSHKeyRequest {
     /// let x = CreateSSHKeyRequest::new().set_or_clear_ssh_key(None::<SSHKey>);
     /// ```
     pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SSHKey>
+    where
+        T: std::convert::Into<crate::model::SSHKey>,
     {
         self.ssh_key = v.map(|x| x.into());
         self
@@ -9783,7 +9968,6 @@ impl wkt::message::Message for CreateSSHKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSSHKeyRequest {
-
     /// Required. The name of the SSH key to delete.
     /// Currently, the only valid value for the location is "global".
     pub name: std::string::String,
@@ -9819,7 +10003,6 @@ impl wkt::message::Message for DeleteSSHKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Volume {
-
     /// Output only. The resource name of this `Volume`.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -9863,13 +10046,14 @@ pub struct Volume {
     pub remaining_space_gib: i64,
 
     /// Details about snapshot space reservation and usage on the storage volume.
-    pub snapshot_reservation_detail: std::option::Option<crate::model::volume::SnapshotReservationDetail>,
+    pub snapshot_reservation_detail:
+        std::option::Option<crate::model::volume::SnapshotReservationDetail>,
 
     /// The behavior to use when snapshot reserved space is full.
     pub snapshot_auto_delete_behavior: crate::model::volume::SnapshotAutoDeleteBehavior,
 
     /// Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Whether snapshots are enabled.
     pub snapshot_enabled: bool,
@@ -9949,7 +10133,10 @@ impl Volume {
     /// let x0 = Volume::new().set_storage_type(StorageType::Ssd);
     /// let x1 = Volume::new().set_storage_type(StorageType::Hdd);
     /// ```
-    pub fn set_storage_type<T: std::convert::Into<crate::model::volume::StorageType>>(mut self, v: T) -> Self {
+    pub fn set_storage_type<T: std::convert::Into<crate::model::volume::StorageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.storage_type = v.into();
         self
     }
@@ -10062,7 +10249,8 @@ impl Volume {
     /// let x = Volume::new().set_snapshot_reservation_detail(SnapshotReservationDetail::default()/* use setters */);
     /// ```
     pub fn set_snapshot_reservation_detail<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>
+    where
+        T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>,
     {
         self.snapshot_reservation_detail = std::option::Option::Some(v.into());
         self
@@ -10078,7 +10266,8 @@ impl Volume {
     /// let x = Volume::new().set_or_clear_snapshot_reservation_detail(None::<SnapshotReservationDetail>);
     /// ```
     pub fn set_or_clear_snapshot_reservation_detail<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>
+    where
+        T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>,
     {
         self.snapshot_reservation_detail = v.map(|x| x.into());
         self
@@ -10094,7 +10283,12 @@ impl Volume {
     /// let x1 = Volume::new().set_snapshot_auto_delete_behavior(SnapshotAutoDeleteBehavior::OldestFirst);
     /// let x2 = Volume::new().set_snapshot_auto_delete_behavior(SnapshotAutoDeleteBehavior::NewestFirst);
     /// ```
-    pub fn set_snapshot_auto_delete_behavior<T: std::convert::Into<crate::model::volume::SnapshotAutoDeleteBehavior>>(mut self, v: T) -> Self {
+    pub fn set_snapshot_auto_delete_behavior<
+        T: std::convert::Into<crate::model::volume::SnapshotAutoDeleteBehavior>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.snapshot_auto_delete_behavior = v.into();
         self
     }
@@ -10153,7 +10347,10 @@ impl Volume {
     /// let x0 = Volume::new().set_protocol(Protocol::FibreChannel);
     /// let x1 = Volume::new().set_protocol(Protocol::Nfs);
     /// ```
-    pub fn set_protocol<T: std::convert::Into<crate::model::volume::Protocol>>(mut self, v: T) -> Self {
+    pub fn set_protocol<T: std::convert::Into<crate::model::volume::Protocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.protocol = v.into();
         self
     }
@@ -10180,7 +10377,10 @@ impl Volume {
     /// let x1 = Volume::new().set_performance_tier(VolumePerformanceTier::Assigned);
     /// let x2 = Volume::new().set_performance_tier(VolumePerformanceTier::Ht);
     /// ```
-    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(mut self, v: T) -> Self {
+    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.performance_tier = v.into();
         self
     }
@@ -10206,7 +10406,10 @@ impl Volume {
     /// let x0 = Volume::new().set_workload_profile(WorkloadProfile::Generic);
     /// let x1 = Volume::new().set_workload_profile(WorkloadProfile::Hana);
     /// ```
-    pub fn set_workload_profile<T: std::convert::Into<crate::model::volume::WorkloadProfile>>(mut self, v: T) -> Self {
+    pub fn set_workload_profile<T: std::convert::Into<crate::model::volume::WorkloadProfile>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.workload_profile = v.into();
         self
     }
@@ -10220,7 +10423,8 @@ impl Volume {
     /// let x = Volume::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -10236,7 +10440,8 @@ impl Volume {
     /// let x = Volume::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -10252,7 +10457,7 @@ impl Volume {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -10283,12 +10488,10 @@ pub mod volume {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Details about snapshot space reservation and usage on the storage volume.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SnapshotReservationDetail {
-
         /// The space on this storage volume reserved for snapshots, shown in GiB.
         pub reserved_space_gib: i64,
 
@@ -10348,7 +10551,10 @@ pub mod volume {
         /// # use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
         /// let x = SnapshotReservationDetail::new().set_reserved_space_remaining_gib(42);
         /// ```
-        pub fn set_reserved_space_remaining_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        pub fn set_reserved_space_remaining_gib<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.reserved_space_remaining_gib = v.into();
             self
         }
@@ -10458,7 +10664,9 @@ pub mod volume {
                 0 => Self::Unspecified,
                 1 => Self::Ssd,
                 2 => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10470,7 +10678,9 @@ pub mod volume {
                 "STORAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SSD" => Self::Ssd,
                 "HDD" => Self::Hdd,
-                _ => Self::UnknownValue(storage_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10495,7 +10705,8 @@ pub mod volume {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageType>::new(
-                ".google.cloud.baremetalsolution.v2.Volume.StorageType"))
+                ".google.cloud.baremetalsolution.v2.Volume.StorageType",
+            ))
         }
     }
 
@@ -10601,7 +10812,9 @@ pub mod volume {
                 3 => Self::Deleting,
                 4 => Self::Updating,
                 5 => Self::CoolOff,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10616,7 +10829,9 @@ pub mod volume {
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
                 "COOL_OFF" => Self::CoolOff,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10644,7 +10859,8 @@ pub mod volume {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.baremetalsolution.v2.Volume.State"))
+                ".google.cloud.baremetalsolution.v2.Volume.State",
+            ))
         }
     }
 
@@ -10712,7 +10928,9 @@ pub mod volume {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED")
+                }
                 Self::Disabled => std::option::Option::Some("DISABLED"),
                 Self::OldestFirst => std::option::Option::Some("OLDEST_FIRST"),
                 Self::NewestFirst => std::option::Option::Some("NEWEST_FIRST"),
@@ -10741,7 +10959,9 @@ pub mod volume {
                 1 => Self::Disabled,
                 2 => Self::OldestFirst,
                 3 => Self::NewestFirst,
-                _ => Self::UnknownValue(snapshot_auto_delete_behavior::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(snapshot_auto_delete_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10754,7 +10974,9 @@ pub mod volume {
                 "DISABLED" => Self::Disabled,
                 "OLDEST_FIRST" => Self::OldestFirst,
                 "NEWEST_FIRST" => Self::NewestFirst,
-                _ => Self::UnknownValue(snapshot_auto_delete_behavior::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(snapshot_auto_delete_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10779,8 +11001,11 @@ pub mod volume {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SnapshotAutoDeleteBehavior>::new(
-                ".google.cloud.baremetalsolution.v2.Volume.SnapshotAutoDeleteBehavior"))
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<SnapshotAutoDeleteBehavior>::new(
+                    ".google.cloud.baremetalsolution.v2.Volume.SnapshotAutoDeleteBehavior",
+                ),
+            )
         }
     }
 
@@ -10871,7 +11096,9 @@ pub mod volume {
                 0 => Self::Unspecified,
                 1 => Self::FibreChannel,
                 2 => Self::Nfs,
-                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -10883,7 +11110,9 @@ pub mod volume {
                 "PROTOCOL_UNSPECIFIED" => Self::Unspecified,
                 "FIBRE_CHANNEL" => Self::FibreChannel,
                 "NFS" => Self::Nfs,
-                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -10908,7 +11137,8 @@ pub mod volume {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Protocol>::new(
-                ".google.cloud.baremetalsolution.v2.Volume.Protocol"))
+                ".google.cloud.baremetalsolution.v2.Volume.Protocol",
+            ))
         }
     }
 
@@ -10998,7 +11228,9 @@ pub mod volume {
                 0 => Self::Unspecified,
                 1 => Self::Generic,
                 2 => Self::Hana,
-                _ => Self::UnknownValue(workload_profile::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(workload_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11010,7 +11242,9 @@ pub mod volume {
                 "WORKLOAD_PROFILE_UNSPECIFIED" => Self::Unspecified,
                 "GENERIC" => Self::Generic,
                 "HANA" => Self::Hana,
-                _ => Self::UnknownValue(workload_profile::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(workload_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11035,7 +11269,8 @@ pub mod volume {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<WorkloadProfile>::new(
-                ".google.cloud.baremetalsolution.v2.Volume.WorkloadProfile"))
+                ".google.cloud.baremetalsolution.v2.Volume.WorkloadProfile",
+            ))
         }
     }
 }
@@ -11044,7 +11279,6 @@ pub mod volume {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeRequest {
-
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -11079,7 +11313,6 @@ impl wkt::message::Message for GetVolumeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumesRequest {
-
     /// Required. Parent value for ListVolumesRequest.
     pub parent: std::string::String,
 
@@ -11160,7 +11393,6 @@ impl wkt::message::Message for ListVolumesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumesResponse {
-
     /// The list of storage volumes.
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
@@ -11193,7 +11425,7 @@ impl ListVolumesResponse {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>
+        V: std::convert::Into<crate::model::Volume>,
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -11222,7 +11454,7 @@ impl ListVolumesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -11254,7 +11486,6 @@ impl gax::paginator::internal::PageableResponse for ListVolumesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVolumeRequest {
-
     /// Required. The volume to update.
     ///
     /// The `name` field is used to identify the volume to update.
@@ -11283,7 +11514,8 @@ impl UpdateVolumeRequest {
     /// let x = UpdateVolumeRequest::new().set_volume(Volume::default()/* use setters */);
     /// ```
     pub fn set_volume<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Volume>
+    where
+        T: std::convert::Into<crate::model::Volume>,
     {
         self.volume = std::option::Option::Some(v.into());
         self
@@ -11299,7 +11531,8 @@ impl UpdateVolumeRequest {
     /// let x = UpdateVolumeRequest::new().set_or_clear_volume(None::<Volume>);
     /// ```
     pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Volume>
+    where
+        T: std::convert::Into<crate::model::Volume>,
     {
         self.volume = v.map(|x| x.into());
         self
@@ -11314,7 +11547,8 @@ impl UpdateVolumeRequest {
     /// let x = UpdateVolumeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -11330,7 +11564,8 @@ impl UpdateVolumeRequest {
     /// let x = UpdateVolumeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -11347,7 +11582,6 @@ impl wkt::message::Message for UpdateVolumeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameVolumeRequest {
-
     /// Required. The `name` field is used to identify the volume.
     /// Format: projects/{project}/locations/{location}/volumes/{volume}
     pub name: std::string::String,
@@ -11398,7 +11632,6 @@ impl wkt::message::Message for RenameVolumeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvictVolumeRequest {
-
     /// Required. The name of the Volume.
     pub name: std::string::String,
 
@@ -11433,7 +11666,6 @@ impl wkt::message::Message for EvictVolumeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResizeVolumeRequest {
-
     /// Required. Volume to resize.
     pub volume: std::string::String,
 
@@ -11483,7 +11715,6 @@ impl wkt::message::Message for ResizeVolumeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeSnapshot {
-
     /// The name of the snapshot.
     pub name: std::string::String,
 
@@ -11556,7 +11787,8 @@ impl VolumeSnapshot {
     /// let x = VolumeSnapshot::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11572,7 +11804,8 @@ impl VolumeSnapshot {
     /// let x = VolumeSnapshot::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11599,7 +11832,10 @@ impl VolumeSnapshot {
     /// let x0 = VolumeSnapshot::new().set_type(SnapshotType::AdHoc);
     /// let x1 = VolumeSnapshot::new().set_type(SnapshotType::Scheduled);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::volume_snapshot::SnapshotType>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::volume_snapshot::SnapshotType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -11615,7 +11851,6 @@ impl wkt::message::Message for VolumeSnapshot {
 pub mod volume_snapshot {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Represents the type of a snapshot.
     ///
@@ -11703,7 +11938,9 @@ pub mod volume_snapshot {
                 0 => Self::Unspecified,
                 1 => Self::AdHoc,
                 2 => Self::Scheduled,
-                _ => Self::UnknownValue(snapshot_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(snapshot_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -11715,7 +11952,9 @@ pub mod volume_snapshot {
                 "SNAPSHOT_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "AD_HOC" => Self::AdHoc,
                 "SCHEDULED" => Self::Scheduled,
-                _ => Self::UnknownValue(snapshot_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(snapshot_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -11740,7 +11979,8 @@ pub mod volume_snapshot {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SnapshotType>::new(
-                ".google.cloud.baremetalsolution.v2.VolumeSnapshot.SnapshotType"))
+                ".google.cloud.baremetalsolution.v2.VolumeSnapshot.SnapshotType",
+            ))
         }
     }
 }
@@ -11749,7 +11989,6 @@ pub mod volume_snapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeSnapshotRequest {
-
     /// Required. The name of the snapshot.
     pub name: std::string::String,
 
@@ -11784,7 +12023,6 @@ impl wkt::message::Message for GetVolumeSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeSnapshotsRequest {
-
     /// Required. Parent value for ListVolumesRequest.
     pub parent: std::string::String,
 
@@ -11850,7 +12088,6 @@ impl wkt::message::Message for ListVolumeSnapshotsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeSnapshotsResponse {
-
     /// The list of snapshots.
     pub volume_snapshots: std::vec::Vec<crate::model::VolumeSnapshot>,
 
@@ -11883,7 +12120,7 @@ impl ListVolumeSnapshotsResponse {
     pub fn set_volume_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeSnapshot>
+        V: std::convert::Into<crate::model::VolumeSnapshot>,
     {
         use std::iter::Iterator;
         self.volume_snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -11912,7 +12149,7 @@ impl ListVolumeSnapshotsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -11944,7 +12181,6 @@ impl gax::paginator::internal::PageableResponse for ListVolumeSnapshotsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVolumeSnapshotRequest {
-
     /// Required. The name of the snapshot to delete.
     pub name: std::string::String,
 
@@ -11979,7 +12215,6 @@ impl wkt::message::Message for DeleteVolumeSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVolumeSnapshotRequest {
-
     /// Required. The volume to snapshot.
     pub parent: std::string::String,
 
@@ -12015,7 +12250,8 @@ impl CreateVolumeSnapshotRequest {
     /// let x = CreateVolumeSnapshotRequest::new().set_volume_snapshot(VolumeSnapshot::default()/* use setters */);
     /// ```
     pub fn set_volume_snapshot<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::VolumeSnapshot>
+    where
+        T: std::convert::Into<crate::model::VolumeSnapshot>,
     {
         self.volume_snapshot = std::option::Option::Some(v.into());
         self
@@ -12031,7 +12267,8 @@ impl CreateVolumeSnapshotRequest {
     /// let x = CreateVolumeSnapshotRequest::new().set_or_clear_volume_snapshot(None::<VolumeSnapshot>);
     /// ```
     pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::VolumeSnapshot>
+    where
+        T: std::convert::Into<crate::model::VolumeSnapshot>,
     {
         self.volume_snapshot = v.map(|x| x.into());
         self
@@ -12048,7 +12285,6 @@ impl wkt::message::Message for CreateVolumeSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreVolumeSnapshotRequest {
-
     /// Required. Name of the snapshot which will be used to restore its parent
     /// volume.
     pub volume_snapshot: std::string::String,
@@ -12171,7 +12407,9 @@ impl std::convert::From<i32> for VolumePerformanceTier {
             1 => Self::Shared,
             2 => Self::Assigned,
             3 => Self::Ht,
-            _ => Self::UnknownValue(volume_performance_tier::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(volume_performance_tier::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -12184,7 +12422,9 @@ impl std::convert::From<&str> for VolumePerformanceTier {
             "VOLUME_PERFORMANCE_TIER_SHARED" => Self::Shared,
             "VOLUME_PERFORMANCE_TIER_ASSIGNED" => Self::Assigned,
             "VOLUME_PERFORMANCE_TIER_HT" => Self::Ht,
-            _ => Self::UnknownValue(volume_performance_tier::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(volume_performance_tier::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -12210,7 +12450,8 @@ impl<'de> serde::de::Deserialize<'de> for VolumePerformanceTier {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumePerformanceTier>::new(
-            ".google.cloud.baremetalsolution.v2.VolumePerformanceTier"))
+            ".google.cloud.baremetalsolution.v2.VolumePerformanceTier",
+        ))
     }
 }
 
@@ -12300,7 +12541,9 @@ impl std::convert::From<i32> for WorkloadProfile {
             0 => Self::Unspecified,
             1 => Self::Generic,
             2 => Self::Hana,
-            _ => Self::UnknownValue(workload_profile::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(workload_profile::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -12312,7 +12555,9 @@ impl std::convert::From<&str> for WorkloadProfile {
             "WORKLOAD_PROFILE_UNSPECIFIED" => Self::Unspecified,
             "WORKLOAD_PROFILE_GENERIC" => Self::Generic,
             "WORKLOAD_PROFILE_HANA" => Self::Hana,
-            _ => Self::UnknownValue(workload_profile::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(workload_profile::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -12337,6 +12582,7 @@ impl<'de> serde::de::Deserialize<'de> for WorkloadProfile {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<WorkloadProfile>::new(
-            ".google.cloud.baremetalsolution.v2.WorkloadProfile"))
+            ".google.cloud.baremetalsolution.v2.WorkloadProfile",
+        ))
     }
 }

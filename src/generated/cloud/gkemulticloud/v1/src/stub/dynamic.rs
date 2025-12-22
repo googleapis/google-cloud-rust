@@ -63,13 +63,17 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+    >;
 
     async fn generate_attached_cluster_agent_token(
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -177,7 +181,9 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+    > {
         T::generate_attached_cluster_install_manifest(self, req, options).await
     }
 
@@ -186,7 +192,9 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+    > {
         T::generate_attached_cluster_agent_token(self, req, options).await
     }
 
@@ -428,7 +436,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
         &self,
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>>
+    {
         T::generate_aws_cluster_agent_token(self, req, options).await
     }
 
@@ -814,7 +823,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
         &self,
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>>
+    {
         T::generate_azure_cluster_agent_token(self, req, options).await
     }
 
@@ -823,7 +833,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
         &self,
         req: crate::model::GenerateAzureAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>>
+    {
         T::generate_azure_access_token(self, req, options).await
     }
 

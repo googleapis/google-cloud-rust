@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [DatastoreAdmin](super::stub::DatastoreAdmin) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DatastoreAdmin<T>
-where T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DatastoreAdmin<T>
-where T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DatastoreAdmin for DatastoreAdmin<T>
-where T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn export_entities(
         &self,
@@ -121,7 +127,6 @@ where T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -136,4 +141,3 @@ where T: super::stub::DatastoreAdmin + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

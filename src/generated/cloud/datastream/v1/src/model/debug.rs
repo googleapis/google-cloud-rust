@@ -498,7 +498,10 @@ impl std::fmt::Debug for super::OracleProfile {
         debug_struct.field("connection_attributes", &self.connection_attributes);
         debug_struct.field("oracle_ssl_config", &self.oracle_ssl_config);
         debug_struct.field("oracle_asm_config", &self.oracle_asm_config);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -516,7 +519,10 @@ impl std::fmt::Debug for super::OracleAsmConfig {
         debug_struct.field("asm_service", &self.asm_service);
         debug_struct.field("connection_attributes", &self.connection_attributes);
         debug_struct.field("oracle_ssl_config", &self.oracle_ssl_config);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -532,7 +538,10 @@ impl std::fmt::Debug for super::MysqlProfile {
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
         debug_struct.field("ssl_config", &self.ssl_config);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -548,7 +557,10 @@ impl std::fmt::Debug for super::PostgresqlProfile {
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
         debug_struct.field("database", &self.database);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         debug_struct.field("ssl_config", &self.ssl_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -565,7 +577,10 @@ impl std::fmt::Debug for super::SqlServerProfile {
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
         debug_struct.field("database", &self.database);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -591,8 +606,14 @@ impl std::fmt::Debug for super::salesforce_profile::UserCredentials {
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
         debug_struct.field("security_token", &self.security_token);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
-        debug_struct.field("secret_manager_stored_security_token", &self.secret_manager_stored_security_token);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
+        debug_struct.field(
+            "secret_manager_stored_security_token",
+            &self.secret_manager_stored_security_token,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -605,7 +626,10 @@ impl std::fmt::Debug for super::salesforce_profile::Oauth2ClientCredentials {
         let mut debug_struct = f.debug_struct("Oauth2ClientCredentials");
         debug_struct.field("client_id", &self.client_id);
         debug_struct.field("client_secret", &self.client_secret);
-        debug_struct.field("secret_manager_stored_client_secret", &self.secret_manager_stored_client_secret);
+        debug_struct.field(
+            "secret_manager_stored_client_secret",
+            &self.secret_manager_stored_client_secret,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -620,7 +644,10 @@ impl std::fmt::Debug for super::MongodbProfile {
         debug_struct.field("replica_set", &self.replica_set);
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
-        debug_struct.field("secret_manager_stored_password", &self.secret_manager_stored_password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
         debug_struct.field("ssl_config", &self.ssl_config);
         debug_struct.field("mongodb_connection_format", &self.mongodb_connection_format);
         if !self._unknown_fields.is_empty() {
@@ -753,7 +780,6 @@ impl std::fmt::Debug for super::PrivateConnection {
     }
 }
 
-
 impl std::fmt::Debug for super::PrivateConnectivity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateConnectivity");
@@ -791,7 +817,10 @@ impl std::fmt::Debug for super::MongodbSslConfig {
         debug_struct.field("client_certificate_set", &self.client_certificate_set);
         debug_struct.field("ca_certificate", &self.ca_certificate);
         debug_struct.field("ca_certificate_set", &self.ca_certificate_set);
-        debug_struct.field("secret_manager_stored_client_key", &self.secret_manager_stored_client_key);
+        debug_struct.field(
+            "secret_manager_stored_client_key",
+            &self.secret_manager_stored_client_key,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -820,7 +849,10 @@ impl std::fmt::Debug for super::OracleSslConfig {
         let mut debug_struct = f.debug_struct("OracleSslConfig");
         debug_struct.field("ca_certificate", &self.ca_certificate);
         debug_struct.field("ca_certificate_set", &self.ca_certificate_set);
-        debug_struct.field("server_certificate_distinguished_name", &self.server_certificate_distinguished_name);
+        debug_struct.field(
+            "server_certificate_distinguished_name",
+            &self.server_certificate_distinguished_name,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -843,7 +875,10 @@ impl std::fmt::Debug for super::postgresql_ssl_config::ServerVerification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServerVerification");
         debug_struct.field("ca_certificate", &self.ca_certificate);
-        debug_struct.field("server_certificate_hostname", &self.server_certificate_hostname);
+        debug_struct.field(
+            "server_certificate_hostname",
+            &self.server_certificate_hostname,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -857,7 +892,10 @@ impl std::fmt::Debug for super::postgresql_ssl_config::ServerAndClientVerificati
         debug_struct.field("client_certificate", &self.client_certificate);
         debug_struct.field("client_key", &self.client_key);
         debug_struct.field("ca_certificate", &self.ca_certificate);
-        debug_struct.field("server_certificate_hostname", &self.server_certificate_hostname);
+        debug_struct.field(
+            "server_certificate_hostname",
+            &self.server_certificate_hostname,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -883,7 +921,6 @@ impl std::fmt::Debug for super::ConnectionProfile {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::OracleColumn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -945,7 +982,10 @@ impl std::fmt::Debug for super::OracleSourceConfig {
         debug_struct.field("include_objects", &self.include_objects);
         debug_struct.field("exclude_objects", &self.exclude_objects);
         debug_struct.field("max_concurrent_cdc_tasks", &self.max_concurrent_cdc_tasks);
-        debug_struct.field("max_concurrent_backfill_tasks", &self.max_concurrent_backfill_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
         debug_struct.field("large_objects_handling", &self.large_objects_handling);
         debug_struct.field("cdc_method", &self.cdc_method);
         if !self._unknown_fields.is_empty() {
@@ -1078,7 +1118,10 @@ impl std::fmt::Debug for super::PostgresqlSourceConfig {
         debug_struct.field("exclude_objects", &self.exclude_objects);
         debug_struct.field("replication_slot", &self.replication_slot);
         debug_struct.field("publication", &self.publication);
-        debug_struct.field("max_concurrent_backfill_tasks", &self.max_concurrent_backfill_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1145,7 +1188,10 @@ impl std::fmt::Debug for super::SqlServerSourceConfig {
         debug_struct.field("include_objects", &self.include_objects);
         debug_struct.field("exclude_objects", &self.exclude_objects);
         debug_struct.field("max_concurrent_cdc_tasks", &self.max_concurrent_cdc_tasks);
-        debug_struct.field("max_concurrent_backfill_tasks", &self.max_concurrent_backfill_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
         debug_struct.field("cdc_method", &self.cdc_method);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1234,7 +1280,10 @@ impl std::fmt::Debug for super::MysqlSourceConfig {
         debug_struct.field("include_objects", &self.include_objects);
         debug_struct.field("exclude_objects", &self.exclude_objects);
         debug_struct.field("max_concurrent_cdc_tasks", &self.max_concurrent_cdc_tasks);
-        debug_struct.field("max_concurrent_backfill_tasks", &self.max_concurrent_backfill_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
         debug_struct.field("cdc_method", &self.cdc_method);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1317,7 +1366,10 @@ impl std::fmt::Debug for super::MongodbSourceConfig {
         let mut debug_struct = f.debug_struct("MongodbSourceConfig");
         debug_struct.field("include_objects", &self.include_objects);
         debug_struct.field("exclude_objects", &self.exclude_objects);
-        debug_struct.field("max_concurrent_backfill_tasks", &self.max_concurrent_backfill_tasks);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1456,7 +1508,9 @@ impl std::fmt::Debug for super::big_query_destination_config::SourceHierarchyDat
     }
 }
 
-impl std::fmt::Debug for super::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate {
+impl std::fmt::Debug
+    for super::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DatasetTemplate");
         debug_struct.field("location", &self.location);
@@ -1507,7 +1561,10 @@ impl std::fmt::Debug for super::big_query_destination_config::Merge {
 impl std::fmt::Debug for super::DestinationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestinationConfig");
-        debug_struct.field("destination_connection_profile", &self.destination_connection_profile);
+        debug_struct.field(
+            "destination_connection_profile",
+            &self.destination_connection_profile,
+        );
         debug_struct.field("destination_stream_config", &self.destination_stream_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1528,7 +1585,10 @@ impl std::fmt::Debug for super::Stream {
         debug_struct.field("destination_config", &self.destination_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("errors", &self.errors);
-        debug_struct.field("customer_managed_encryption_key", &self.customer_managed_encryption_key);
+        debug_struct.field(
+            "customer_managed_encryption_key",
+            &self.customer_managed_encryption_key,
+        );
         debug_struct.field("last_recovery_time", &self.last_recovery_time);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
@@ -1560,7 +1620,6 @@ impl std::fmt::Debug for super::stream::BackfillNoneStrategy {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::StreamObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1729,7 +1788,6 @@ impl std::fmt::Debug for super::ValidationMessage {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CdcStrategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

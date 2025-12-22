@@ -80,28 +80,42 @@ impl Domains {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Domains + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Domains + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Domains>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Domains>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Domains> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Domains> {
         super::transport::Domains::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Domains> {
-        Self::build_transport(conf).await.map(super::tracing::Domains::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Domains> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Domains::new)
     }
 
     /// Searches for available domain names similar to the provided query.
@@ -125,8 +139,7 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn search_domains(&self) -> super::builder::domains::SearchDomains
-    {
+    pub fn search_domains(&self) -> super::builder::domains::SearchDomains {
         super::builder::domains::SearchDomains::new(self.inner.clone())
     }
 
@@ -148,8 +161,9 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn retrieve_register_parameters(&self) -> super::builder::domains::RetrieveRegisterParameters
-    {
+    pub fn retrieve_register_parameters(
+        &self,
+    ) -> super::builder::domains::RetrieveRegisterParameters {
         super::builder::domains::RetrieveRegisterParameters::new(self.inner.clone())
     }
 
@@ -176,8 +190,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn register_domain(&self) -> super::builder::domains::RegisterDomain
-    {
+    pub fn register_domain(&self) -> super::builder::domains::RegisterDomain {
         super::builder::domains::RegisterDomain::new(self.inner.clone())
     }
 
@@ -202,8 +215,9 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn retrieve_transfer_parameters(&self) -> super::builder::domains::RetrieveTransferParameters
-    {
+    pub fn retrieve_transfer_parameters(
+        &self,
+    ) -> super::builder::domains::RetrieveTransferParameters {
         super::builder::domains::RetrieveTransferParameters::new(self.inner.clone())
     }
 
@@ -237,14 +251,12 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn transfer_domain(&self) -> super::builder::domains::TransferDomain
-    {
+    pub fn transfer_domain(&self) -> super::builder::domains::TransferDomain {
         super::builder::domains::TransferDomain::new(self.inner.clone())
     }
 
     /// Lists the `Registration` resources in a project.
-    pub fn list_registrations(&self) -> super::builder::domains::ListRegistrations
-    {
+    pub fn list_registrations(&self) -> super::builder::domains::ListRegistrations {
         super::builder::domains::ListRegistrations::new(self.inner.clone())
     }
 
@@ -265,8 +277,7 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_registration(&self) -> super::builder::domains::GetRegistration
-    {
+    pub fn get_registration(&self) -> super::builder::domains::GetRegistration {
         super::builder::domains::GetRegistration::new(self.inner.clone())
     }
 
@@ -286,8 +297,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_registration(&self) -> super::builder::domains::UpdateRegistration
-    {
+    pub fn update_registration(&self) -> super::builder::domains::UpdateRegistration {
         super::builder::domains::UpdateRegistration::new(self.inner.clone())
     }
 
@@ -302,8 +312,9 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn configure_management_settings(&self) -> super::builder::domains::ConfigureManagementSettings
-    {
+    pub fn configure_management_settings(
+        &self,
+    ) -> super::builder::domains::ConfigureManagementSettings {
         super::builder::domains::ConfigureManagementSettings::new(self.inner.clone())
     }
 
@@ -318,8 +329,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn configure_dns_settings(&self) -> super::builder::domains::ConfigureDnsSettings
-    {
+    pub fn configure_dns_settings(&self) -> super::builder::domains::ConfigureDnsSettings {
         super::builder::domains::ConfigureDnsSettings::new(self.inner.clone())
     }
 
@@ -335,8 +345,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn configure_contact_settings(&self) -> super::builder::domains::ConfigureContactSettings
-    {
+    pub fn configure_contact_settings(&self) -> super::builder::domains::ConfigureContactSettings {
         super::builder::domains::ConfigureContactSettings::new(self.inner.clone())
     }
 
@@ -359,8 +368,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_registration(&self) -> super::builder::domains::ExportRegistration
-    {
+    pub fn export_registration(&self) -> super::builder::domains::ExportRegistration {
         super::builder::domains::ExportRegistration::new(self.inner.clone())
     }
 
@@ -393,8 +401,7 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_registration(&self) -> super::builder::domains::DeleteRegistration
-    {
+    pub fn delete_registration(&self) -> super::builder::domains::DeleteRegistration {
         super::builder::domains::DeleteRegistration::new(self.inner.clone())
     }
 
@@ -419,8 +426,9 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn retrieve_authorization_code(&self) -> super::builder::domains::RetrieveAuthorizationCode
-    {
+    pub fn retrieve_authorization_code(
+        &self,
+    ) -> super::builder::domains::RetrieveAuthorizationCode {
         super::builder::domains::RetrieveAuthorizationCode::new(self.inner.clone())
     }
 
@@ -444,16 +452,14 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn reset_authorization_code(&self) -> super::builder::domains::ResetAuthorizationCode
-    {
+    pub fn reset_authorization_code(&self) -> super::builder::domains::ResetAuthorizationCode {
         super::builder::domains::ResetAuthorizationCode::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::domains::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::domains::ListOperations {
         super::builder::domains::ListOperations::new(self.inner.clone())
     }
 
@@ -476,8 +482,7 @@ impl Domains {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::domains::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::domains::GetOperation {
         super::builder::domains::GetOperation::new(self.inner.clone())
     }
 }

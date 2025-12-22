@@ -201,7 +201,6 @@ impl std::fmt::Debug for super::Domain {
     }
 }
 
-
 impl std::fmt::Debug for super::Trust {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Trust");

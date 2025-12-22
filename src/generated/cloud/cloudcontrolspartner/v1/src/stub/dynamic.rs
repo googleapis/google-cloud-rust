@@ -82,7 +82,6 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteCustomerRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::CloudControlsPartnerCore] also implement [CloudControlsPartnerCore].
@@ -147,7 +146,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>>
+    {
         T::list_access_approval_requests(self, req, options).await
     }
 
@@ -186,7 +186,6 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_customer(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::CloudControlsPartnerMonitoring].
@@ -203,7 +202,6 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
         req: crate::model::GetViolationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Violation>>;
-
 }
 
 /// All implementations of [super::CloudControlsPartnerMonitoring] also implement [CloudControlsPartnerMonitoring].
@@ -226,5 +224,4 @@ impl<T: super::CloudControlsPartnerMonitoring> CloudControlsPartnerMonitoring fo
     ) -> crate::Result<gax::response::Response<crate::model::Violation>> {
         T::get_violation(self, req, options).await
     }
-
 }

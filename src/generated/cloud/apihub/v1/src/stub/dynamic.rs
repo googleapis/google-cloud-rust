@@ -280,7 +280,6 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ApiHub] also implement [ApiHub].
@@ -681,7 +680,6 @@ impl<T: super::ApiHub> ApiHub for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ApiHubDependencies].
@@ -752,7 +750,6 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ApiHubDependencies] also implement [ApiHubDependencies].
@@ -856,7 +853,6 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ApiHubCollect].
@@ -1064,7 +1060,6 @@ pub trait ApiHubCurate: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ApiHubCurate] also implement [ApiHubCurate].
@@ -1168,7 +1163,6 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ApiHubDiscovery].
@@ -1233,7 +1227,6 @@ pub trait ApiHubDiscovery: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ApiHubDiscovery] also implement [ApiHubDiscovery].
@@ -1244,7 +1237,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
         &self,
         req: crate::model::ListDiscoveredApiObservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>>
+    {
         T::list_discovered_api_observations(self, req, options).await
     }
 
@@ -1262,7 +1256,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
         &self,
         req: crate::model::ListDiscoveredApiOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>>
+    {
         T::list_discovered_api_operations(self, req, options).await
     }
 
@@ -1328,7 +1323,6 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::HostProjectRegistrationService].
@@ -1387,7 +1381,6 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::HostProjectRegistrationService] also implement [HostProjectRegistrationService].
@@ -1416,7 +1409,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
         &self,
         req: crate::model::ListHostProjectRegistrationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>>
+    {
         T::list_host_project_registrations(self, req, options).await
     }
 
@@ -1473,7 +1467,6 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::LintingService].
@@ -1538,7 +1531,6 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::LintingService] also implement [LintingService].
@@ -1633,7 +1625,6 @@ impl<T: super::LintingService> LintingService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ApiHubPlugin].
@@ -2218,7 +2209,6 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::RuntimeProjectAttachmentService] also implement [RuntimeProjectAttachmentService].
@@ -2247,7 +2237,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
         &self,
         req: crate::model::ListRuntimeProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>>
+    {
         T::list_runtime_project_attachments(self, req, options).await
     }
 
@@ -2265,7 +2256,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
         &self,
         req: crate::model::LookupRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>>
+    {
         T::lookup_runtime_project_attachment(self, req, options).await
     }
 
@@ -2322,5 +2314,4 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }

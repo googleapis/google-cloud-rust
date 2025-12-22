@@ -39,7 +39,10 @@ pub mod speech {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Speech;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,7 +57,9 @@ pub mod speech {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
+    where
+        R: std::default::Default,
+    {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self {
                 stub,
@@ -87,13 +92,14 @@ pub mod speech {
 
     impl CreateRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateRecognizerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateRecognizerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -111,16 +117,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_recognizer][crate::client::Speech::create_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_recognizer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_recognizer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_recognizer`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -152,7 +160,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_recognizer<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Recognizer>
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
         {
             self.0.request.recognizer = std::option::Option::Some(v.into());
             self
@@ -162,7 +171,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Recognizer>
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
         {
             self.0.request.recognizer = v.map(|x| x.into());
             self
@@ -222,9 +232,7 @@ pub mod speech {
 
     impl ListRecognizers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -241,11 +249,17 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRecognizersResponse> {
-            (*self.0.stub).list_recognizers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_recognizers(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRecognizersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListRecognizersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -257,7 +271,10 @@ pub mod speech {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRecognizersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRecognizersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -318,9 +335,7 @@ pub mod speech {
 
     impl GetRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -337,7 +352,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Recognizer> {
-            (*self.0.stub).get_recognizer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_recognizer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecognizerRequest::name].
@@ -379,13 +397,14 @@ pub mod speech {
 
     impl UpdateRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateRecognizerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateRecognizerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -403,16 +422,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_recognizer][crate::client::Speech::update_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_recognizer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_recognizer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_recognizer`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -444,7 +465,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_recognizer<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Recognizer>
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
         {
             self.0.request.recognizer = std::option::Option::Some(v.into());
             self
@@ -454,7 +476,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Recognizer>
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
         {
             self.0.request.recognizer = v.map(|x| x.into());
             self
@@ -462,7 +485,8 @@ pub mod speech {
 
         /// Sets the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -470,7 +494,8 @@ pub mod speech {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -513,13 +538,14 @@ pub mod speech {
 
     impl DeleteRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteRecognizerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteRecognizerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -537,16 +563,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_recognizer][crate::client::Speech::delete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_recognizer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_recognizer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_recognizer`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -631,13 +659,14 @@ pub mod speech {
 
     impl UndeleteRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeleteRecognizerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeleteRecognizerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -655,16 +684,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_recognizer][crate::client::Speech::undelete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).undelete_recognizer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .undelete_recognizer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_recognizer`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -742,9 +773,7 @@ pub mod speech {
 
     impl Recognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -761,7 +790,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RecognizeResponse> {
-            (*self.0.stub).recognize(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .recognize(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [recognizer][crate::model::RecognizeRequest::recognizer].
@@ -774,7 +806,8 @@ pub mod speech {
 
         /// Sets the value of [config][crate::model::RecognizeRequest::config].
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RecognitionConfig>
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -782,7 +815,8 @@ pub mod speech {
 
         /// Sets or clears the value of [config][crate::model::RecognizeRequest::config].
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RecognitionConfig>
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -790,7 +824,8 @@ pub mod speech {
 
         /// Sets the value of [config_mask][crate::model::RecognizeRequest::config_mask].
         pub fn set_config_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.config_mask = std::option::Option::Some(v.into());
             self
@@ -798,7 +833,8 @@ pub mod speech {
 
         /// Sets or clears the value of [config_mask][crate::model::RecognizeRequest::config_mask].
         pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.config_mask = v.map(|x| x.into());
             self
@@ -808,7 +844,10 @@ pub mod speech {
         ///
         /// Note that all the setters affecting `audio_source` are
         /// mutually exclusive.
-        pub fn set_audio_source<T: Into<Option<crate::model::recognize_request::AudioSource>>>(mut self, v: T) ->Self {
+        pub fn set_audio_source<T: Into<Option<crate::model::recognize_request::AudioSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.audio_source = v.into();
             self
         }
@@ -864,9 +903,7 @@ pub mod speech {
 
     impl BatchRecognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -888,16 +925,21 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_recognize][crate::client::Speech::batch_recognize].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).batch_recognize(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_recognize(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_recognize`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BatchRecognizeResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -935,7 +977,8 @@ pub mod speech {
 
         /// Sets the value of [config][crate::model::BatchRecognizeRequest::config].
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RecognitionConfig>
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -943,7 +986,8 @@ pub mod speech {
 
         /// Sets or clears the value of [config][crate::model::BatchRecognizeRequest::config].
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RecognitionConfig>
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -951,7 +995,8 @@ pub mod speech {
 
         /// Sets the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
         pub fn set_config_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.config_mask = std::option::Option::Some(v.into());
             self
@@ -959,7 +1004,8 @@ pub mod speech {
 
         /// Sets or clears the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
         pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.config_mask = v.map(|x| x.into());
             self
@@ -969,7 +1015,7 @@ pub mod speech {
         pub fn set_files<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>
+            V: std::convert::Into<crate::model::BatchRecognizeFileMetadata>,
         {
             use std::iter::Iterator;
             self.0.request.files = v.into_iter().map(|i| i.into()).collect();
@@ -978,22 +1024,32 @@ pub mod speech {
 
         /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
         pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RecognitionOutputConfig>
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
         {
             self.0.request.recognition_output_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
-        pub fn set_or_clear_recognition_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RecognitionOutputConfig>
+        pub fn set_or_clear_recognition_output_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
         {
             self.0.request.recognition_output_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [processing_strategy][crate::model::BatchRecognizeRequest::processing_strategy].
-        pub fn set_processing_strategy<T: Into<crate::model::batch_recognize_request::ProcessingStrategy>>(mut self, v: T) -> Self {
+        pub fn set_processing_strategy<
+            T: Into<crate::model::batch_recognize_request::ProcessingStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.processing_strategy = v.into();
             self
         }
@@ -1028,9 +1084,7 @@ pub mod speech {
 
     impl GetConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1047,7 +1101,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Config> {
-            (*self.0.stub).get_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
@@ -1088,9 +1145,7 @@ pub mod speech {
 
     impl UpdateConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1107,14 +1162,18 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Config> {
-            (*self.0.stub).update_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
         ///
         /// This is a **required** field for requests.
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Config>
+        where
+            T: std::convert::Into<crate::model::Config>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -1124,7 +1183,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Config>
+        where
+            T: std::convert::Into<crate::model::Config>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -1132,7 +1192,8 @@ pub mod speech {
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1140,7 +1201,8 @@ pub mod speech {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1177,13 +1239,14 @@ pub mod speech {
 
     impl CreateCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCustomClassRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCustomClassRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1201,16 +1264,20 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_custom_class][crate::client::Speech::create_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_custom_class(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_custom_class(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_custom_class`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1242,7 +1309,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_custom_class<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CustomClass>
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
         {
             self.0.request.custom_class = std::option::Option::Some(v.into());
             self
@@ -1252,7 +1320,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CustomClass>
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
         {
             self.0.request.custom_class = v.map(|x| x.into());
             self
@@ -1312,13 +1381,14 @@ pub mod speech {
 
     impl ListCustomClasses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCustomClassesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCustomClassesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1331,11 +1401,17 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCustomClassesResponse> {
-            (*self.0.stub).list_custom_classes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_custom_classes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCustomClassesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListCustomClassesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1347,7 +1423,10 @@ pub mod speech {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomClassesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomClassesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1408,9 +1487,7 @@ pub mod speech {
 
     impl GetCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1427,7 +1504,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CustomClass> {
-            (*self.0.stub).get_custom_class(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_custom_class(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomClassRequest::name].
@@ -1469,13 +1549,14 @@ pub mod speech {
 
     impl UpdateCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCustomClassRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCustomClassRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1493,16 +1574,20 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_custom_class][crate::client::Speech::update_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_custom_class(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_custom_class(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_custom_class`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1534,7 +1619,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_custom_class<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CustomClass>
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
         {
             self.0.request.custom_class = std::option::Option::Some(v.into());
             self
@@ -1544,7 +1630,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CustomClass>
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
         {
             self.0.request.custom_class = v.map(|x| x.into());
             self
@@ -1552,7 +1639,8 @@ pub mod speech {
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1560,7 +1648,8 @@ pub mod speech {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1603,13 +1692,14 @@ pub mod speech {
 
     impl DeleteCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCustomClassRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCustomClassRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1627,16 +1717,20 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_custom_class][crate::client::Speech::delete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_custom_class(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_custom_class(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_class`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1721,13 +1815,14 @@ pub mod speech {
 
     impl UndeleteCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeleteCustomClassRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeleteCustomClassRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1745,16 +1840,20 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_custom_class][crate::client::Speech::undelete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).undelete_custom_class(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .undelete_custom_class(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_custom_class`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1833,9 +1932,7 @@ pub mod speech {
 
     impl CreatePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1857,16 +1954,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_phrase_set][crate::client::Speech::create_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_phrase_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_phrase_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_phrase_set`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1898,7 +1997,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_phrase_set<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PhraseSet>
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
         {
             self.0.request.phrase_set = std::option::Option::Some(v.into());
             self
@@ -1908,7 +2008,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PhraseSet>
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
         {
             self.0.request.phrase_set = v.map(|x| x.into());
             self
@@ -1968,9 +2069,7 @@ pub mod speech {
 
     impl ListPhraseSets {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1987,11 +2086,17 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPhraseSetsResponse> {
-            (*self.0.stub).list_phrase_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_phrase_sets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPhraseSetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPhraseSetsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2003,7 +2108,10 @@ pub mod speech {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPhraseSetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPhraseSetsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2064,9 +2172,7 @@ pub mod speech {
 
     impl GetPhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2083,7 +2189,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PhraseSet> {
-            (*self.0.stub).get_phrase_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_phrase_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPhraseSetRequest::name].
@@ -2125,9 +2234,7 @@ pub mod speech {
 
     impl UpdatePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2149,16 +2256,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_phrase_set][crate::client::Speech::update_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_phrase_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_phrase_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_phrase_set`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2190,7 +2299,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_phrase_set<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PhraseSet>
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
         {
             self.0.request.phrase_set = std::option::Option::Some(v.into());
             self
@@ -2200,7 +2310,8 @@ pub mod speech {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PhraseSet>
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
         {
             self.0.request.phrase_set = v.map(|x| x.into());
             self
@@ -2208,7 +2319,8 @@ pub mod speech {
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2216,7 +2328,8 @@ pub mod speech {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2259,9 +2372,7 @@ pub mod speech {
 
     impl DeletePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2283,16 +2394,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_phrase_set][crate::client::Speech::delete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_phrase_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_phrase_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_phrase_set`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2377,13 +2490,14 @@ pub mod speech {
 
     impl UndeletePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeletePhraseSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeletePhraseSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2401,16 +2515,18 @@ pub mod speech {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_phrase_set][crate::client::Speech::undelete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).undelete_phrase_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .undelete_phrase_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_phrase_set`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2492,13 +2608,14 @@ pub mod speech {
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2511,11 +2628,17 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2527,7 +2650,10 @@ pub mod speech {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2586,9 +2712,7 @@ pub mod speech {
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2605,7 +2729,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2648,13 +2775,14 @@ pub mod speech {
 
     impl ListOperations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2667,11 +2795,17 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2683,7 +2817,12 @@ pub mod speech {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2748,13 +2887,14 @@ pub mod speech {
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2767,7 +2907,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2806,13 +2949,14 @@ pub mod speech {
 
     impl DeleteOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2825,7 +2969,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2864,13 +3011,14 @@ pub mod speech {
 
     impl CancelOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2883,7 +3031,10 @@ pub mod speech {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2899,5 +3050,4 @@ pub mod speech {
             &mut self.0.options
         }
     }
-
 }

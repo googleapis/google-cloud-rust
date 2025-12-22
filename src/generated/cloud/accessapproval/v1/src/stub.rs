@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AccessApproval: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::AccessApproval::list_approval_requests].
     fn list_approval_requests(
         &self,
         _req: crate::model::ListApprovalRequestsMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +54,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetApprovalRequestMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +65,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ApproveApprovalRequestMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -71,7 +76,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DismissApprovalRequestMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +87,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::InvalidateApprovalRequestMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApprovalRequest>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +98,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAccessApprovalSettingsMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,7 +109,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAccessApprovalSettingsMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -116,8 +129,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAccessApprovalServiceAccountMessage,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

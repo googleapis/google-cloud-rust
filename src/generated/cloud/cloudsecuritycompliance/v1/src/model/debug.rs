@@ -49,7 +49,10 @@ impl std::fmt::Debug for super::ReportSummary {
         debug_struct.field("total_count", &self.total_count);
         debug_struct.field("compliant_count", &self.compliant_count);
         debug_struct.field("violation_count", &self.violation_count);
-        debug_struct.field("manual_review_needed_count", &self.manual_review_needed_count);
+        debug_struct.field(
+            "manual_review_needed_count",
+            &self.manual_review_needed_count,
+        );
         debug_struct.field("error_count", &self.error_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -101,13 +104,22 @@ impl std::fmt::Debug for super::FrameworkAudit {
         debug_struct.field("framework_audit_id", &self.framework_audit_id);
         debug_struct.field("compliance_framework", &self.compliance_framework);
         debug_struct.field("scope", &self.scope);
-        debug_struct.field("framework_audit_destination", &self.framework_audit_destination);
+        debug_struct.field(
+            "framework_audit_destination",
+            &self.framework_audit_destination,
+        );
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("finish_time", &self.finish_time);
         debug_struct.field("compliance_state", &self.compliance_state);
         debug_struct.field("report_summary", &self.report_summary);
-        debug_struct.field("cloud_control_group_audit_details", &self.cloud_control_group_audit_details);
-        debug_struct.field("cloud_control_audit_details", &self.cloud_control_audit_details);
+        debug_struct.field(
+            "cloud_control_group_audit_details",
+            &self.cloud_control_group_audit_details,
+        );
+        debug_struct.field(
+            "cloud_control_audit_details",
+            &self.cloud_control_audit_details,
+        );
         debug_struct.field("operation_id", &self.operation_id);
         debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
@@ -161,10 +173,22 @@ impl std::fmt::Debug for super::CloudControlGroupAuditDetails {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
         debug_struct.field("responsibility_type", &self.responsibility_type);
-        debug_struct.field("google_responsibility_description", &self.google_responsibility_description);
-        debug_struct.field("google_responsibility_implementation", &self.google_responsibility_implementation);
-        debug_struct.field("customer_responsibility_description", &self.customer_responsibility_description);
-        debug_struct.field("customer_responsibility_implementation", &self.customer_responsibility_implementation);
+        debug_struct.field(
+            "google_responsibility_description",
+            &self.google_responsibility_description,
+        );
+        debug_struct.field(
+            "google_responsibility_implementation",
+            &self.google_responsibility_implementation,
+        );
+        debug_struct.field(
+            "customer_responsibility_description",
+            &self.customer_responsibility_description,
+        );
+        debug_struct.field(
+            "customer_responsibility_implementation",
+            &self.customer_responsibility_implementation,
+        );
         debug_struct.field("compliance_state", &self.compliance_state);
         debug_struct.field("control_id", &self.control_id);
         debug_struct.field("control_family", &self.control_family);
@@ -313,8 +337,14 @@ impl std::fmt::Debug for super::Framework {
         debug_struct.field("cloud_control_details", &self.cloud_control_details);
         debug_struct.field("category", &self.category);
         debug_struct.field("supported_cloud_providers", &self.supported_cloud_providers);
-        debug_struct.field("supported_target_resource_types", &self.supported_target_resource_types);
-        debug_struct.field("supported_enforcement_modes", &self.supported_enforcement_modes);
+        debug_struct.field(
+            "supported_target_resource_types",
+            &self.supported_target_resource_types,
+        );
+        debug_struct.field(
+            "supported_enforcement_modes",
+            &self.supported_enforcement_modes,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -366,7 +396,10 @@ impl std::fmt::Debug for super::CloudControl {
         debug_struct.field("major_revision_id", &self.major_revision_id);
         debug_struct.field("description", &self.description);
         debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("supported_enforcement_modes", &self.supported_enforcement_modes);
+        debug_struct.field(
+            "supported_enforcement_modes",
+            &self.supported_enforcement_modes,
+        );
         debug_struct.field("parameter_spec", &self.parameter_spec);
         debug_struct.field("rules", &self.rules);
         debug_struct.field("severity", &self.severity);
@@ -376,7 +409,10 @@ impl std::fmt::Debug for super::CloudControl {
         debug_struct.field("remediation_steps", &self.remediation_steps);
         debug_struct.field("categories", &self.categories);
         debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("supported_target_resource_types", &self.supported_target_resource_types);
+        debug_struct.field(
+            "supported_target_resource_types",
+            &self.supported_target_resource_types,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -717,8 +753,14 @@ impl std::fmt::Debug for super::FrameworkDeployment {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field("target_resource_display_name", &self.target_resource_display_name);
-        debug_struct.field("cloud_control_deployment_references", &self.cloud_control_deployment_references);
+        debug_struct.field(
+            "target_resource_display_name",
+            &self.target_resource_display_name,
+        );
+        debug_struct.field(
+            "cloud_control_deployment_references",
+            &self.cloud_control_deployment_references,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -738,9 +780,18 @@ impl std::fmt::Debug for super::CloudControlDeployment {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field("parameter_substituted_cloud_control", &self.parameter_substituted_cloud_control);
-        debug_struct.field("framework_deployment_references", &self.framework_deployment_references);
-        debug_struct.field("target_resource_display_name", &self.target_resource_display_name);
+        debug_struct.field(
+            "parameter_substituted_cloud_control",
+            &self.parameter_substituted_cloud_control,
+        );
+        debug_struct.field(
+            "framework_deployment_references",
+            &self.framework_deployment_references,
+        );
+        debug_struct.field(
+            "target_resource_display_name",
+            &self.target_resource_display_name,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -949,7 +1000,10 @@ impl std::fmt::Debug for super::ListFrameworkComplianceSummariesRequest {
 impl std::fmt::Debug for super::ListFrameworkComplianceSummariesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFrameworkComplianceSummariesResponse");
-        debug_struct.field("framework_compliance_summaries", &self.framework_compliance_summaries);
+        debug_struct.field(
+            "framework_compliance_summaries",
+            &self.framework_compliance_summaries,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -964,7 +1018,10 @@ impl std::fmt::Debug for super::FrameworkComplianceReport {
         debug_struct.field("framework", &self.framework);
         debug_struct.field("framework_description", &self.framework_description);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("control_assessment_details", &self.control_assessment_details);
+        debug_struct.field(
+            "control_assessment_details",
+            &self.control_assessment_details,
+        );
         debug_struct.field("framework_type", &self.framework_type);
         debug_struct.field("supported_cloud_providers", &self.supported_cloud_providers);
         debug_struct.field("framework_categories", &self.framework_categories);
@@ -1037,7 +1094,10 @@ impl std::fmt::Debug for super::ListControlComplianceSummariesRequest {
 impl std::fmt::Debug for super::ListControlComplianceSummariesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListControlComplianceSummariesResponse");
-        debug_struct.field("control_compliance_summaries", &self.control_compliance_summaries);
+        debug_struct.field(
+            "control_compliance_summaries",
+            &self.control_compliance_summaries,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1062,7 +1122,10 @@ impl std::fmt::Debug for super::AggregateFrameworkComplianceReportRequest {
 impl std::fmt::Debug for super::AggregateFrameworkComplianceReportResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AggregateFrameworkComplianceReportResponse");
-        debug_struct.field("aggregated_compliance_reports", &self.aggregated_compliance_reports);
+        debug_struct.field(
+            "aggregated_compliance_reports",
+            &self.aggregated_compliance_reports,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1088,7 +1151,10 @@ impl std::fmt::Debug for super::FrameworkComplianceSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrameworkComplianceSummary");
         debug_struct.field("framework", &self.framework);
-        debug_struct.field("control_assessment_details", &self.control_assessment_details);
+        debug_struct.field(
+            "control_assessment_details",
+            &self.control_assessment_details,
+        );
         debug_struct.field("framework_type", &self.framework_type);
         debug_struct.field("supported_cloud_providers", &self.supported_cloud_providers);
         debug_struct.field("framework_categories", &self.framework_categories);
@@ -1132,7 +1198,10 @@ impl std::fmt::Debug for super::ControlComplianceSummary {
         debug_struct.field("compliance_frameworks", &self.compliance_frameworks);
         debug_struct.field("similar_controls", &self.similar_controls);
         debug_struct.field("cloud_control_reports", &self.cloud_control_reports);
-        debug_struct.field("control_responsibility_type", &self.control_responsibility_type);
+        debug_struct.field(
+            "control_responsibility_type",
+            &self.control_responsibility_type,
+        );
         debug_struct.field("is_fake_control", &self.is_fake_control);
         debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
@@ -1158,7 +1227,10 @@ impl std::fmt::Debug for super::CloudControlReport {
         debug_struct.field("cloud_control_deployment", &self.cloud_control_deployment);
         debug_struct.field("major_revision_id", &self.major_revision_id);
         debug_struct.field("minor_revision_id", &self.minor_revision_id);
-        debug_struct.field("framework_major_revision_ids", &self.framework_major_revision_ids);
+        debug_struct.field(
+            "framework_major_revision_ids",
+            &self.framework_major_revision_ids,
+        );
         debug_struct.field("assessment_details", &self.assessment_details);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1170,7 +1242,10 @@ impl std::fmt::Debug for super::CloudControlReport {
 impl std::fmt::Debug for super::ManualCloudControlAssessmentDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManualCloudControlAssessmentDetails");
-        debug_struct.field("manual_cloud_control_guide", &self.manual_cloud_control_guide);
+        debug_struct.field(
+            "manual_cloud_control_guide",
+            &self.manual_cloud_control_guide,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1205,7 +1280,10 @@ impl std::fmt::Debug for super::SimilarControls {
 impl std::fmt::Debug for super::AggregatedComplianceReport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AggregatedComplianceReport");
-        debug_struct.field("control_assessment_details", &self.control_assessment_details);
+        debug_struct.field(
+            "control_assessment_details",
+            &self.control_assessment_details,
+        );
         debug_struct.field("report_time", &self.report_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1218,7 +1296,10 @@ impl std::fmt::Debug for super::TargetResourceDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetResourceDetails");
         debug_struct.field("framework_deployment", &self.framework_deployment);
-        debug_struct.field("target_resource_display_name", &self.target_resource_display_name);
+        debug_struct.field(
+            "target_resource_display_name",
+            &self.target_resource_display_name,
+        );
         debug_struct.field("target_resource", &self.target_resource);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);

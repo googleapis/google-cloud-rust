@@ -288,7 +288,8 @@ impl<T: super::TelcoAutomation> TelcoAutomation for T {
         &self,
         req: crate::model::ListOrchestrationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>>
+    {
         T::list_orchestration_clusters(self, req, options).await
     }
 
@@ -441,7 +442,8 @@ impl<T: super::TelcoAutomation> TelcoAutomation for T {
         &self,
         req: crate::model::SearchBlueprintRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>>
+    {
         T::search_blueprint_revisions(self, req, options).await
     }
 
@@ -450,7 +452,8 @@ impl<T: super::TelcoAutomation> TelcoAutomation for T {
         &self,
         req: crate::model::SearchDeploymentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>>
+    {
         T::search_deployment_revisions(self, req, options).await
     }
 
@@ -540,7 +543,8 @@ impl<T: super::TelcoAutomation> TelcoAutomation for T {
         &self,
         req: crate::model::DiscardDeploymentChangesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>>
+    {
         T::discard_deployment_changes(self, req, options).await
     }
 

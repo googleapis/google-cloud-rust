@@ -21,7 +21,9 @@ pub trait Audit: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GenerateFrameworkAuditScopeReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>,
+    >;
 
     async fn create_framework_audit(
         &self,
@@ -96,7 +98,9 @@ impl<T: super::Audit> Audit for T {
         &self,
         req: crate::model::GenerateFrameworkAuditScopeReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>,
+    > {
         T::generate_framework_audit_scope_report(self, req, options).await
     }
 
@@ -246,7 +250,6 @@ pub trait CmEnrollmentService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::CmEnrollmentService] also implement [CmEnrollmentService].
@@ -266,7 +269,8 @@ impl<T: super::CmEnrollmentService> CmEnrollmentService for T {
         &self,
         req: crate::model::CalculateEffectiveCmEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateEffectiveCmEnrollmentResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::CalculateEffectiveCmEnrollmentResponse>>
+    {
         T::calculate_effective_cm_enrollment(self, req, options).await
     }
 
@@ -323,7 +327,6 @@ impl<T: super::CmEnrollmentService> CmEnrollmentService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::Config].
@@ -424,7 +427,6 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::Config] also implement [Config].
@@ -573,7 +575,6 @@ impl<T: super::Config> Config for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::Deployment].
@@ -697,7 +698,8 @@ impl<T: super::Deployment> Deployment for T {
         &self,
         req: crate::model::ListFrameworkDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFrameworkDeploymentsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFrameworkDeploymentsResponse>>
+    {
         T::list_framework_deployments(self, req, options).await
     }
 
@@ -715,7 +717,8 @@ impl<T: super::Deployment> Deployment for T {
         &self,
         req: crate::model::ListCloudControlDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudControlDeploymentsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCloudControlDeploymentsResponse>>
+    {
         T::list_cloud_control_deployments(self, req, options).await
     }
 
@@ -795,7 +798,9 @@ pub trait Monitoring: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListFrameworkComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>,
+    >;
 
     async fn list_finding_summaries(
         &self,
@@ -819,7 +824,9 @@ pub trait Monitoring: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AggregateFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>,
+    >;
 
     async fn list_locations(
         &self,
@@ -856,7 +863,6 @@ pub trait Monitoring: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::Monitoring] also implement [Monitoring].
@@ -867,7 +873,9 @@ impl<T: super::Monitoring> Monitoring for T {
         &self,
         req: crate::model::ListFrameworkComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>,
+    > {
         T::list_framework_compliance_summaries(self, req, options).await
     }
 
@@ -894,7 +902,8 @@ impl<T: super::Monitoring> Monitoring for T {
         &self,
         req: crate::model::ListControlComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListControlComplianceSummariesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListControlComplianceSummariesResponse>>
+    {
         T::list_control_compliance_summaries(self, req, options).await
     }
 
@@ -903,7 +912,9 @@ impl<T: super::Monitoring> Monitoring for T {
         &self,
         req: crate::model::AggregateFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>,
+    > {
         T::aggregate_framework_compliance_report(self, req, options).await
     }
 
@@ -960,5 +971,4 @@ impl<T: super::Monitoring> Monitoring for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }

@@ -71,7 +71,10 @@ impl std::fmt::Debug for super::VideoClassificationPredictionParams {
         debug_struct.field("max_predictions", &self.max_predictions);
         debug_struct.field("segment_classification", &self.segment_classification);
         debug_struct.field("shot_classification", &self.shot_classification);
-        debug_struct.field("one_sec_interval_classification", &self.one_sec_interval_classification);
+        debug_struct.field(
+            "one_sec_interval_classification",
+            &self.one_sec_interval_classification,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

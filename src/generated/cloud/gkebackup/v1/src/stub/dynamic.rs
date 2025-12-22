@@ -666,7 +666,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
         &self,
         req: crate::model::GetBackupIndexDownloadUrlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>>
+    {
         T::get_backup_index_download_url(self, req, options).await
     }
 

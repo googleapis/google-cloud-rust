@@ -22,7 +22,10 @@ impl std::fmt::Debug for super::DeleteBucketRequest {
         let mut debug_struct = f.debug_struct("DeleteBucketRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35,7 +38,10 @@ impl std::fmt::Debug for super::GetBucketRequest {
         let mut debug_struct = f.debug_struct("GetBucketRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("read_mask", &self.read_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -51,7 +57,10 @@ impl std::fmt::Debug for super::CreateBucketRequest {
         debug_struct.field("bucket", &self.bucket);
         debug_struct.field("bucket_id", &self.bucket_id);
         debug_struct.field("predefined_acl", &self.predefined_acl);
-        debug_struct.field("predefined_default_object_acl", &self.predefined_default_object_acl);
+        debug_struct.field(
+            "predefined_default_object_acl",
+            &self.predefined_default_object_acl,
+        );
         debug_struct.field("enable_object_retention", &self.enable_object_retention);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -106,9 +115,15 @@ impl std::fmt::Debug for super::UpdateBucketRequest {
         let mut debug_struct = f.debug_struct("UpdateBucketRequest");
         debug_struct.field("bucket", &self.bucket);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("predefined_acl", &self.predefined_acl);
-        debug_struct.field("predefined_default_object_acl", &self.predefined_default_object_acl);
+        debug_struct.field(
+            "predefined_default_object_acl",
+            &self.predefined_default_object_acl,
+        );
         debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -122,11 +137,17 @@ impl std::fmt::Debug for super::ComposeObjectRequest {
         let mut debug_struct = f.debug_struct("ComposeObjectRequest");
         debug_struct.field("destination", &self.destination);
         debug_struct.field("source_objects", &self.source_objects);
-        debug_struct.field("destination_predefined_acl", &self.destination_predefined_acl);
+        debug_struct.field(
+            "destination_predefined_acl",
+            &self.destination_predefined_acl,
+        );
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
         debug_struct.field("kms_key", &self.kms_key);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         debug_struct.field("object_checksums", &self.object_checksums);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -168,8 +189,14 @@ impl std::fmt::Debug for super::DeleteObjectRequest {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -187,9 +214,15 @@ impl std::fmt::Debug for super::RestoreObjectRequest {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("copy_source_acl", &self.copy_source_acl);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -208,8 +241,14 @@ impl std::fmt::Debug for super::ReadObjectRequest {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         debug_struct.field("read_mask", &self.read_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -228,8 +267,14 @@ impl std::fmt::Debug for super::GetObjectRequest {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         debug_struct.field("read_mask", &self.read_mask);
         debug_struct.field("restore_token", &self.restore_token);
         if !self._unknown_fields.is_empty() {
@@ -247,7 +292,10 @@ impl std::fmt::Debug for super::WriteObjectSpec {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("object_size", &self.object_size);
         debug_struct.field("appendable", &self.appendable);
         if !self._unknown_fields.is_empty() {
@@ -264,14 +312,20 @@ impl std::fmt::Debug for super::ListObjectsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("delimiter", &self.delimiter);
-        debug_struct.field("include_trailing_delimiter", &self.include_trailing_delimiter);
+        debug_struct.field(
+            "include_trailing_delimiter",
+            &self.include_trailing_delimiter,
+        );
         debug_struct.field("prefix", &self.prefix);
         debug_struct.field("versions", &self.versions);
         debug_struct.field("read_mask", &self.read_mask);
         debug_struct.field("lexicographic_start", &self.lexicographic_start);
         debug_struct.field("lexicographic_end", &self.lexicographic_end);
         debug_struct.field("soft_deleted", &self.soft_deleted);
-        debug_struct.field("include_folders_as_prefixes", &self.include_folders_as_prefixes);
+        debug_struct.field(
+            "include_folders_as_prefixes",
+            &self.include_folders_as_prefixes,
+        );
         debug_struct.field("match_glob", &self.match_glob);
         debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
@@ -292,20 +346,53 @@ impl std::fmt::Debug for super::RewriteObjectRequest {
         debug_struct.field("source_object", &self.source_object);
         debug_struct.field("source_generation", &self.source_generation);
         debug_struct.field("rewrite_token", &self.rewrite_token);
-        debug_struct.field("destination_predefined_acl", &self.destination_predefined_acl);
+        debug_struct.field(
+            "destination_predefined_acl",
+            &self.destination_predefined_acl,
+        );
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
-        debug_struct.field("if_source_generation_match", &self.if_source_generation_match);
-        debug_struct.field("if_source_generation_not_match", &self.if_source_generation_not_match);
-        debug_struct.field("if_source_metageneration_match", &self.if_source_metageneration_match);
-        debug_struct.field("if_source_metageneration_not_match", &self.if_source_metageneration_not_match);
-        debug_struct.field("max_bytes_rewritten_per_call", &self.max_bytes_rewritten_per_call);
-        debug_struct.field("copy_source_encryption_algorithm", &self.copy_source_encryption_algorithm);
-        debug_struct.field("copy_source_encryption_key_bytes", &self.copy_source_encryption_key_bytes);
-        debug_struct.field("copy_source_encryption_key_sha256_bytes", &self.copy_source_encryption_key_sha256_bytes);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "if_source_generation_match",
+            &self.if_source_generation_match,
+        );
+        debug_struct.field(
+            "if_source_generation_not_match",
+            &self.if_source_generation_not_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_match",
+            &self.if_source_metageneration_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_not_match",
+            &self.if_source_metageneration_not_match,
+        );
+        debug_struct.field(
+            "max_bytes_rewritten_per_call",
+            &self.max_bytes_rewritten_per_call,
+        );
+        debug_struct.field(
+            "copy_source_encryption_algorithm",
+            &self.copy_source_encryption_algorithm,
+        );
+        debug_struct.field(
+            "copy_source_encryption_key_bytes",
+            &self.copy_source_encryption_key_bytes,
+        );
+        debug_struct.field(
+            "copy_source_encryption_key_sha256_bytes",
+            &self.copy_source_encryption_key_sha256_bytes,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
         debug_struct.field("object_checksums", &self.object_checksums);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -335,14 +422,29 @@ impl std::fmt::Debug for super::MoveObjectRequest {
         debug_struct.field("bucket", &self.bucket);
         debug_struct.field("source_object", &self.source_object);
         debug_struct.field("destination_object", &self.destination_object);
-        debug_struct.field("if_source_generation_match", &self.if_source_generation_match);
-        debug_struct.field("if_source_generation_not_match", &self.if_source_generation_not_match);
-        debug_struct.field("if_source_metageneration_match", &self.if_source_metageneration_match);
-        debug_struct.field("if_source_metageneration_not_match", &self.if_source_metageneration_not_match);
+        debug_struct.field(
+            "if_source_generation_match",
+            &self.if_source_generation_match,
+        );
+        debug_struct.field(
+            "if_source_generation_not_match",
+            &self.if_source_generation_not_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_match",
+            &self.if_source_metageneration_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_not_match",
+            &self.if_source_metageneration_not_match,
+        );
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -357,11 +459,20 @@ impl std::fmt::Debug for super::UpdateObjectRequest {
         debug_struct.field("if_generation_match", &self.if_generation_match);
         debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("predefined_acl", &self.predefined_acl);
         debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field("common_object_request_params", &self.common_object_request_params);
-        debug_struct.field("override_unlocked_retention", &self.override_unlocked_retention);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field(
+            "override_unlocked_retention",
+            &self.override_unlocked_retention,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -374,7 +485,10 @@ impl std::fmt::Debug for super::CommonObjectRequestParams {
         let mut debug_struct = f.debug_struct("CommonObjectRequestParams");
         debug_struct.field("encryption_algorithm", &self.encryption_algorithm);
         debug_struct.field("encryption_key_bytes", &self.encryption_key_bytes);
-        debug_struct.field("encryption_key_sha256_bytes", &self.encryption_key_sha256_bytes);
+        debug_struct.field(
+            "encryption_key_sha256_bytes",
+            &self.encryption_key_sha256_bytes,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -453,9 +567,18 @@ impl std::fmt::Debug for super::bucket::Encryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Encryption");
         debug_struct.field("default_kms_key", &self.default_kms_key);
-        debug_struct.field("google_managed_encryption_enforcement_config", &self.google_managed_encryption_enforcement_config);
-        debug_struct.field("customer_managed_encryption_enforcement_config", &self.customer_managed_encryption_enforcement_config);
-        debug_struct.field("customer_supplied_encryption_enforcement_config", &self.customer_supplied_encryption_enforcement_config);
+        debug_struct.field(
+            "google_managed_encryption_enforcement_config",
+            &self.google_managed_encryption_enforcement_config,
+        );
+        debug_struct.field(
+            "customer_managed_encryption_enforcement_config",
+            &self.customer_managed_encryption_enforcement_config,
+        );
+        debug_struct.field(
+            "customer_supplied_encryption_enforcement_config",
+            &self.customer_supplied_encryption_enforcement_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -502,7 +625,10 @@ impl std::fmt::Debug for super::bucket::encryption::CustomerSuppliedEncryptionEn
 impl std::fmt::Debug for super::bucket::IamConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IamConfig");
-        debug_struct.field("uniform_bucket_level_access", &self.uniform_bucket_level_access);
+        debug_struct.field(
+            "uniform_bucket_level_access",
+            &self.uniform_bucket_level_access,
+        );
         debug_struct.field("public_access_prevention", &self.public_access_prevention);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -568,7 +694,10 @@ impl std::fmt::Debug for super::bucket::lifecycle::rule::Condition {
         debug_struct.field("matches_storage_class", &self.matches_storage_class);
         debug_struct.field("days_since_custom_time", &self.days_since_custom_time);
         debug_struct.field("custom_time_before", &self.custom_time_before);
-        debug_struct.field("days_since_noncurrent_time", &self.days_since_noncurrent_time);
+        debug_struct.field(
+            "days_since_noncurrent_time",
+            &self.days_since_noncurrent_time,
+        );
         debug_struct.field("noncurrent_time_before", &self.noncurrent_time_before);
         debug_struct.field("matches_prefix", &self.matches_prefix);
         debug_struct.field("matches_suffix", &self.matches_suffix);
@@ -667,7 +796,10 @@ impl std::fmt::Debug for super::bucket::Autoclass {
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("toggle_time", &self.toggle_time);
         debug_struct.field("terminal_storage_class", &self.terminal_storage_class);
-        debug_struct.field("terminal_storage_class_update_time", &self.terminal_storage_class_update_time);
+        debug_struct.field(
+            "terminal_storage_class_update_time",
+            &self.terminal_storage_class_update_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -682,7 +814,10 @@ impl std::fmt::Debug for super::bucket::IpFilter {
         debug_struct.field("public_network_source", &self.public_network_source);
         debug_struct.field("vpc_network_sources", &self.vpc_network_sources);
         debug_struct.field("allow_cross_org_vpcs", &self.allow_cross_org_vpcs);
-        debug_struct.field("allow_all_service_agent_access", &self.allow_all_service_agent_access);
+        debug_struct.field(
+            "allow_all_service_agent_access",
+            &self.allow_all_service_agent_access,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -723,7 +858,6 @@ impl std::fmt::Debug for super::bucket::HierarchicalNamespace {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::BucketAccessControl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -846,7 +980,6 @@ impl std::fmt::Debug for super::object::Retention {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ObjectAccessControl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

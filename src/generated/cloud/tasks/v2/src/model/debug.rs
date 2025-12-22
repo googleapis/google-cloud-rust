@@ -200,12 +200,18 @@ impl std::fmt::Debug for super::Queue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Queue");
         debug_struct.field("name", &self.name);
-        debug_struct.field("app_engine_routing_override", &self.app_engine_routing_override);
+        debug_struct.field(
+            "app_engine_routing_override",
+            &self.app_engine_routing_override,
+        );
         debug_struct.field("rate_limits", &self.rate_limits);
         debug_struct.field("retry_config", &self.retry_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("purge_time", &self.purge_time);
-        debug_struct.field("stackdriver_logging_config", &self.stackdriver_logging_config);
+        debug_struct.field(
+            "stackdriver_logging_config",
+            &self.stackdriver_logging_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -266,7 +272,6 @@ impl std::fmt::Debug for super::HttpRequest {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::AppEngineHttpRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

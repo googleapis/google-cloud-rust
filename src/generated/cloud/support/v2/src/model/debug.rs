@@ -80,7 +80,10 @@ impl std::fmt::Debug for super::Case {
         debug_struct.field("description", &self.description);
         debug_struct.field("classification", &self.classification);
         debug_struct.field("time_zone", &self.time_zone);
-        debug_struct.field("subscriber_email_addresses", &self.subscriber_email_addresses);
+        debug_struct.field(
+            "subscriber_email_addresses",
+            &self.subscriber_email_addresses,
+        );
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);

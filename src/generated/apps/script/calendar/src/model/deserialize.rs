@@ -57,8 +57,12 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarAddOnManifest {
                             "homepage_trigger" => Ok(__FieldTag::__homepage_trigger),
                             "conferenceSolution" => Ok(__FieldTag::__conference_solution),
                             "conference_solution" => Ok(__FieldTag::__conference_solution),
-                            "createSettingsUrlFunction" => Ok(__FieldTag::__create_settings_url_function),
-                            "create_settings_url_function" => Ok(__FieldTag::__create_settings_url_function),
+                            "createSettingsUrlFunction" => {
+                                Ok(__FieldTag::__create_settings_url_function)
+                            }
+                            "create_settings_url_function" => {
+                                Ok(__FieldTag::__create_settings_url_function)
+                            }
                             "eventOpenTrigger" => Ok(__FieldTag::__event_open_trigger),
                             "event_open_trigger" => Ok(__FieldTag::__event_open_trigger),
                             "eventUpdateTrigger" => Ok(__FieldTag::__event_update_trigger),
@@ -82,9 +86,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarAddOnManifest {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -92,47 +96,70 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarAddOnManifest {
                     match tag {
                         __FieldTag::__homepage_trigger => {
                             if !fields.insert(__FieldTag::__homepage_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for homepage_trigger"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for homepage_trigger",
+                                ));
                             }
-                            result.homepage_trigger = map.next_value::<std::option::Option<apps_script_type::model::HomepageExtensionPoint>>()?
-                                ;
-                        },
+                            result.homepage_trigger = map.next_value::<std::option::Option<
+                                apps_script_type::model::HomepageExtensionPoint,
+                            >>()?;
+                        }
                         __FieldTag::__conference_solution => {
                             if !fields.insert(__FieldTag::__conference_solution) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for conference_solution"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conference_solution",
+                                ));
                             }
-                            result.conference_solution = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ConferenceSolution>>>()?.unwrap_or_default();
-                        },
+                            result.conference_solution = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ConferenceSolution>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__create_settings_url_function => {
                             if !fields.insert(__FieldTag::__create_settings_url_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for create_settings_url_function"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_settings_url_function",
+                                ));
                             }
-                            result.create_settings_url_function = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.create_settings_url_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__event_open_trigger => {
                             if !fields.insert(__FieldTag::__event_open_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for event_open_trigger"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for event_open_trigger",
+                                ));
                             }
                             result.event_open_trigger = map.next_value::<std::option::Option<crate::model::CalendarExtensionPoint>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::__event_update_trigger => {
                             if !fields.insert(__FieldTag::__event_update_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for event_update_trigger"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for event_update_trigger",
+                                ));
                             }
                             result.event_update_trigger = map.next_value::<std::option::Option<crate::model::CalendarExtensionPoint>>()?
                                 ;
-                        },
+                        }
                         __FieldTag::__current_event_access => {
                             if !fields.insert(__FieldTag::__current_event_access) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for current_event_access"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for current_event_access",
+                                ));
                             }
-                            result.current_event_access = map.next_value::<std::option::Option<crate::model::calendar_add_on_manifest::EventAccess>>()?.unwrap_or_default();
-                        },
+                            result.current_event_access = map
+                                .next_value::<std::option::Option<
+                                    crate::model::calendar_add_on_manifest::EventAccess,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -199,9 +226,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ConferenceSolution {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -209,32 +236,48 @@ impl<'de> serde::de::Deserialize<'de> for super::ConferenceSolution {
                     match tag {
                         __FieldTag::__on_create_function => {
                             if !fields.insert(__FieldTag::__on_create_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for on_create_function"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for on_create_function",
+                                ));
                             }
-                            result.on_create_function = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.on_create_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__id => {
                             if !fields.insert(__FieldTag::__id) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for id"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for id",
+                                ));
                             }
-                            result.id = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for name"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
                             }
-                            result.name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__logo_url => {
                             if !fields.insert(__FieldTag::__logo_url) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for logo_url"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for logo_url",
+                                ));
                             }
-                            result.logo_url = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.logo_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)
@@ -294,9 +337,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarExtensionPoint {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -304,14 +347,18 @@ impl<'de> serde::de::Deserialize<'de> for super::CalendarExtensionPoint {
                     match tag {
                         __FieldTag::__run_function => {
                             if !fields.insert(__FieldTag::__run_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for run_function"));
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for run_function",
+                                ));
                             }
-                            result.run_function = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
-                        },
+                            result.run_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
-                        },
+                        }
                     }
                 }
                 std::result::Result::Ok(result)

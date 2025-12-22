@@ -35,7 +35,10 @@ impl std::fmt::Debug for super::ListCertificateIssuanceConfigsRequest {
 impl std::fmt::Debug for super::ListCertificateIssuanceConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCertificateIssuanceConfigsResponse");
-        debug_struct.field("certificate_issuance_configs", &self.certificate_issuance_configs);
+        debug_struct.field(
+            "certificate_issuance_configs",
+            &self.certificate_issuance_configs,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -60,8 +63,14 @@ impl std::fmt::Debug for super::CreateCertificateIssuanceConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCertificateIssuanceConfigRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("certificate_issuance_config_id", &self.certificate_issuance_config_id);
-        debug_struct.field("certificate_issuance_config", &self.certificate_issuance_config);
+        debug_struct.field(
+            "certificate_issuance_config_id",
+            &self.certificate_issuance_config_id,
+        );
+        debug_struct.field(
+            "certificate_issuance_config",
+            &self.certificate_issuance_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -88,9 +97,15 @@ impl std::fmt::Debug for super::CertificateIssuanceConfig {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("description", &self.description);
-        debug_struct.field("certificate_authority_config", &self.certificate_authority_config);
+        debug_struct.field(
+            "certificate_authority_config",
+            &self.certificate_authority_config,
+        );
         debug_struct.field("lifetime", &self.lifetime);
-        debug_struct.field("rotation_window_percentage", &self.rotation_window_percentage);
+        debug_struct.field(
+            "rotation_window_percentage",
+            &self.rotation_window_percentage,
+        );
         debug_struct.field("key_algorithm", &self.key_algorithm);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -120,7 +135,6 @@ impl std::fmt::Debug for super::certificate_issuance_config::certificate_authori
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListCertificatesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -479,7 +493,10 @@ impl std::fmt::Debug for super::certificate::ManagedCertificate {
         debug_struct.field("issuance_config", &self.issuance_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("provisioning_issue", &self.provisioning_issue);
-        debug_struct.field("authorization_attempt_info", &self.authorization_attempt_info);
+        debug_struct.field(
+            "authorization_attempt_info",
+            &self.authorization_attempt_info,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -512,7 +529,6 @@ impl std::fmt::Debug for super::certificate::managed_certificate::AuthorizationA
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CertificateMap {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -554,7 +570,6 @@ impl std::fmt::Debug for super::certificate_map::gclb_target::IpConfig {
     }
 }
 
-
 impl std::fmt::Debug for super::CertificateMapEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateMapEntry");
@@ -572,7 +587,6 @@ impl std::fmt::Debug for super::CertificateMapEntry {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::DnsAuthorization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -604,7 +618,6 @@ impl std::fmt::Debug for super::dns_authorization::DnsResourceRecord {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListTrustConfigsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -732,4 +745,3 @@ impl std::fmt::Debug for super::trust_config::TrustStore {
         debug_struct.finish()
     }
 }
-

@@ -29,7 +29,10 @@ impl std::fmt::Debug for super::CertificateAuthority {
         debug_struct.field("tier", &self.tier);
         debug_struct.field("state", &self.state);
         debug_struct.field("pem_ca_certificates", &self.pem_ca_certificates);
-        debug_struct.field("ca_certificate_descriptions", &self.ca_certificate_descriptions);
+        debug_struct.field(
+            "ca_certificate_descriptions",
+            &self.ca_certificate_descriptions,
+        );
         debug_struct.field("gcs_bucket", &self.gcs_bucket);
         debug_struct.field("access_urls", &self.access_urls);
         debug_struct.field("create_time", &self.create_time);
@@ -73,7 +76,10 @@ impl std::fmt::Debug for super::certificate_authority::KeyVersionSpec {
 impl std::fmt::Debug for super::certificate_authority::UserDefinedAccessUrls {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserDefinedAccessUrls");
-        debug_struct.field("aia_issuing_certificate_urls", &self.aia_issuing_certificate_urls);
+        debug_struct.field(
+            "aia_issuing_certificate_urls",
+            &self.aia_issuing_certificate_urls,
+        );
         debug_struct.field("crl_access_urls", &self.crl_access_urls);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -81,7 +87,6 @@ impl std::fmt::Debug for super::certificate_authority::UserDefinedAccessUrls {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CaPool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -166,14 +171,16 @@ impl std::fmt::Debug for super::ca_pool::issuance_policy::IssuanceModes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IssuanceModes");
         debug_struct.field("allow_csr_based_issuance", &self.allow_csr_based_issuance);
-        debug_struct.field("allow_config_based_issuance", &self.allow_config_based_issuance);
+        debug_struct.field(
+            "allow_config_based_issuance",
+            &self.allow_config_based_issuance,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CertificateRevocationList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -208,12 +215,14 @@ impl std::fmt::Debug for super::certificate_revocation_list::RevokedCertificate 
     }
 }
 
-
 impl std::fmt::Debug for super::Certificate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Certificate");
         debug_struct.field("name", &self.name);
-        debug_struct.field("issuer_certificate_authority", &self.issuer_certificate_authority);
+        debug_struct.field(
+            "issuer_certificate_authority",
+            &self.issuer_certificate_authority,
+        );
         debug_struct.field("lifetime", &self.lifetime);
         debug_struct.field("certificate_template", &self.certificate_template);
         debug_struct.field("subject_mode", &self.subject_mode);
@@ -243,7 +252,6 @@ impl std::fmt::Debug for super::certificate::RevocationDetails {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CertificateTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -391,7 +399,10 @@ impl std::fmt::Debug for super::CertificateDescription {
         debug_struct.field("subject_key_id", &self.subject_key_id);
         debug_struct.field("authority_key_id", &self.authority_key_id);
         debug_struct.field("crl_distribution_points", &self.crl_distribution_points);
-        debug_struct.field("aia_issuing_certificate_urls", &self.aia_issuing_certificate_urls);
+        debug_struct.field(
+            "aia_issuing_certificate_urls",
+            &self.aia_issuing_certificate_urls,
+        );
         debug_struct.field("cert_fingerprint", &self.cert_fingerprint);
         debug_struct.field("tbs_certificate_digest", &self.tbs_certificate_digest);
         if !self._unknown_fields.is_empty() {
@@ -468,7 +479,10 @@ impl std::fmt::Debug for super::KeyUsage {
         let mut debug_struct = f.debug_struct("KeyUsage");
         debug_struct.field("base_key_usage", &self.base_key_usage);
         debug_struct.field("extended_key_usage", &self.extended_key_usage);
-        debug_struct.field("unknown_extended_key_usages", &self.unknown_extended_key_usages);
+        debug_struct.field(
+            "unknown_extended_key_usages",
+            &self.unknown_extended_key_usages,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -573,7 +587,10 @@ impl std::fmt::Debug for super::CertificateIdentityConstraints {
         let mut debug_struct = f.debug_struct("CertificateIdentityConstraints");
         debug_struct.field("cel_expression", &self.cel_expression);
         debug_struct.field("allow_subject_passthrough", &self.allow_subject_passthrough);
-        debug_struct.field("allow_subject_alt_names_passthrough", &self.allow_subject_alt_names_passthrough);
+        debug_struct.field(
+            "allow_subject_alt_names_passthrough",
+            &self.allow_subject_alt_names_passthrough,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -601,7 +618,10 @@ impl std::fmt::Debug for super::CreateCertificateRequest {
         debug_struct.field("certificate", &self.certificate);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-        debug_struct.field("issuing_certificate_authority_id", &self.issuing_certificate_authority_id);
+        debug_struct.field(
+            "issuing_certificate_authority_id",
+            &self.issuing_certificate_authority_id,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -707,7 +727,10 @@ impl std::fmt::Debug for super::DisableCertificateAuthorityRequest {
         let mut debug_struct = f.debug_struct("DisableCertificateAuthorityRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("ignore_dependent_resources", &self.ignore_dependent_resources);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -805,9 +828,15 @@ impl std::fmt::Debug for super::DeleteCertificateAuthorityRequest {
         let mut debug_struct = f.debug_struct("DeleteCertificateAuthorityRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("ignore_active_certificates", &self.ignore_active_certificates);
+        debug_struct.field(
+            "ignore_active_certificates",
+            &self.ignore_active_certificates,
+        );
         debug_struct.field("skip_grace_period", &self.skip_grace_period);
-        debug_struct.field("ignore_dependent_resources", &self.ignore_dependent_resources);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -860,7 +889,10 @@ impl std::fmt::Debug for super::DeleteCaPoolRequest {
         let mut debug_struct = f.debug_struct("DeleteCaPoolRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("ignore_dependent_resources", &self.ignore_dependent_resources);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -970,7 +1002,10 @@ impl std::fmt::Debug for super::ListCertificateRevocationListsRequest {
 impl std::fmt::Debug for super::ListCertificateRevocationListsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCertificateRevocationListsResponse");
-        debug_struct.field("certificate_revocation_lists", &self.certificate_revocation_lists);
+        debug_struct.field(
+            "certificate_revocation_lists",
+            &self.certificate_revocation_lists,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -983,7 +1018,10 @@ impl std::fmt::Debug for super::ListCertificateRevocationListsResponse {
 impl std::fmt::Debug for super::UpdateCertificateRevocationListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCertificateRevocationListRequest");
-        debug_struct.field("certificate_revocation_list", &self.certificate_revocation_list);
+        debug_struct.field(
+            "certificate_revocation_list",
+            &self.certificate_revocation_list,
+        );
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {

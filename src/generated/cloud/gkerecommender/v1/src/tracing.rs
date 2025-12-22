@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [GkeInferenceQuickstart](super::stub::GkeInferenceQuickstart) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GkeInferenceQuickstart<T>
-where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> GkeInferenceQuickstart<T>
-where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart<T>
-where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn fetch_models(
         &self,
@@ -84,6 +90,4 @@ where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
         self.inner.fetch_benchmarking_data(req, options).await
     }
-
 }
-

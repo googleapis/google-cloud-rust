@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,6 +27,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,7 +39,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessApprovalRequest {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/accessApprovalRequests/{access_approval_request}`
     pub name: std::string::String,
@@ -83,7 +82,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_request_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.request_time = std::option::Option::Some(v.into());
         self
@@ -99,7 +99,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_or_clear_request_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.request_time = v.map(|x| x.into());
         self
@@ -114,7 +115,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_requested_reason(AccessReason::default()/* use setters */);
     /// ```
     pub fn set_requested_reason<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AccessReason>
+    where
+        T: std::convert::Into<crate::model::AccessReason>,
     {
         self.requested_reason = std::option::Option::Some(v.into());
         self
@@ -130,7 +132,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_or_clear_requested_reason(None::<AccessReason>);
     /// ```
     pub fn set_or_clear_requested_reason<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AccessReason>
+    where
+        T: std::convert::Into<crate::model::AccessReason>,
     {
         self.requested_reason = v.map(|x| x.into());
         self
@@ -145,7 +148,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_requested_expiration_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_requested_expiration_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.requested_expiration_time = std::option::Option::Some(v.into());
         self
@@ -161,7 +165,8 @@ impl AccessApprovalRequest {
     /// let x = AccessApprovalRequest::new().set_or_clear_requested_expiration_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_requested_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.requested_expiration_time = v.map(|x| x.into());
         self
@@ -178,7 +183,6 @@ impl wkt::message::Message for AccessApprovalRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessApprovalRequestsRequest {
-
     /// Required. Parent resource
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
@@ -279,7 +283,6 @@ impl wkt::message::Message for ListAccessApprovalRequestsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessApprovalRequestsResponse {
-
     /// List of access approval requests
     pub access_approval_requests: std::vec::Vec<crate::model::AccessApprovalRequest>,
 
@@ -313,7 +316,7 @@ impl ListAccessApprovalRequestsResponse {
     pub fn set_access_approval_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AccessApprovalRequest>
+        V: std::convert::Into<crate::model::AccessApprovalRequest>,
     {
         use std::iter::Iterator;
         self.access_approval_requests = v.into_iter().map(|i| i.into()).collect();
@@ -342,7 +345,7 @@ impl ListAccessApprovalRequestsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -374,7 +377,6 @@ impl gax::paginator::internal::PageableResponse for ListAccessApprovalRequestsRe
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessReason {
-
     /// Type of access justification.
     pub r#type: crate::model::access_reason::Type,
 
@@ -399,7 +401,10 @@ impl AccessReason {
     /// let x1 = AccessReason::new().set_type(Type::GoogleInitiatedService);
     /// let x2 = AccessReason::new().set_type(Type::GoogleInitiatedReview);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -427,7 +432,6 @@ impl wkt::message::Message for AccessReason {
 pub mod access_reason {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Type of access justification.
     ///
@@ -519,11 +523,19 @@ pub mod access_reason {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
-                Self::CustomerInitiatedSupport => std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT"),
-                Self::GoogleInitiatedService => std::option::Option::Some("GOOGLE_INITIATED_SERVICE"),
+                Self::CustomerInitiatedSupport => {
+                    std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT")
+                }
+                Self::GoogleInitiatedService => {
+                    std::option::Option::Some("GOOGLE_INITIATED_SERVICE")
+                }
                 Self::GoogleInitiatedReview => std::option::Option::Some("GOOGLE_INITIATED_REVIEW"),
-                Self::ThirdPartyDataRequest => std::option::Option::Some("THIRD_PARTY_DATA_REQUEST"),
-                Self::GoogleResponseToProductionAlert => std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
+                Self::ThirdPartyDataRequest => {
+                    std::option::Option::Some("THIRD_PARTY_DATA_REQUEST")
+                }
+                Self::GoogleResponseToProductionAlert => {
+                    std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT")
+                }
                 Self::CloudInitiatedAccess => std::option::Option::Some("CLOUD_INITIATED_ACCESS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -553,7 +565,9 @@ pub mod access_reason {
                 4 => Self::ThirdPartyDataRequest,
                 5 => Self::GoogleResponseToProductionAlert,
                 6 => Self::CloudInitiatedAccess,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -569,7 +583,9 @@ pub mod access_reason {
                 "THIRD_PARTY_DATA_REQUEST" => Self::ThirdPartyDataRequest,
                 "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => Self::GoogleResponseToProductionAlert,
                 "CLOUD_INITIATED_ACCESS" => Self::CloudInitiatedAccess,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -598,7 +614,8 @@ pub mod access_reason {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.cloudcontrolspartner.v1.AccessReason.Type"))
+                ".google.cloud.cloudcontrolspartner.v1.AccessReason.Type",
+            ))
         }
     }
 }
@@ -607,7 +624,6 @@ pub mod access_reason {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -650,7 +666,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -666,7 +683,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -681,7 +699,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -697,7 +716,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -776,7 +796,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workload {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     pub name: std::string::String,
@@ -846,7 +865,8 @@ impl Workload {
     /// let x = Workload::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -862,7 +882,8 @@ impl Workload {
     /// let x = Workload::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -889,7 +910,8 @@ impl Workload {
     /// let x = Workload::new().set_workload_onboarding_state(WorkloadOnboardingState::default()/* use setters */);
     /// ```
     pub fn set_workload_onboarding_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::WorkloadOnboardingState>
+    where
+        T: std::convert::Into<crate::model::WorkloadOnboardingState>,
     {
         self.workload_onboarding_state = std::option::Option::Some(v.into());
         self
@@ -905,7 +927,8 @@ impl Workload {
     /// let x = Workload::new().set_or_clear_workload_onboarding_state(None::<WorkloadOnboardingState>);
     /// ```
     pub fn set_or_clear_workload_onboarding_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::WorkloadOnboardingState>
+    where
+        T: std::convert::Into<crate::model::WorkloadOnboardingState>,
     {
         self.workload_onboarding_state = v.map(|x| x.into());
         self
@@ -930,7 +953,10 @@ impl Workload {
     /// # use google_cloud_cloudcontrolspartner_v1::model::Workload;
     /// let x = Workload::new().set_key_management_project_id("example");
     /// ```
-    pub fn set_key_management_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_key_management_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.key_management_project_id = v.into();
         self
     }
@@ -957,7 +983,10 @@ impl Workload {
     /// let x1 = Workload::new().set_partner(Partner::SovereignControlsByTSystems);
     /// let x2 = Workload::new().set_partner(Partner::SovereignControlsBySiaMinsait);
     /// ```
-    pub fn set_partner<T: std::convert::Into<crate::model::workload::Partner>>(mut self, v: T) -> Self {
+    pub fn set_partner<T: std::convert::Into<crate::model::workload::Partner>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.partner = v.into();
         self
     }
@@ -973,7 +1002,6 @@ impl wkt::message::Message for Workload {
 pub mod workload {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Supported Assured Workloads Partners.
     ///
@@ -1048,12 +1076,24 @@ pub mod workload {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("PARTNER_UNSPECIFIED"),
-                Self::LocalControlsByS3Ns => std::option::Option::Some("PARTNER_LOCAL_CONTROLS_BY_S3NS"),
-                Self::SovereignControlsByTSystems => std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_T_SYSTEMS"),
-                Self::SovereignControlsBySiaMinsait => std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_SIA_MINSAIT"),
-                Self::SovereignControlsByPsn => std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_PSN"),
-                Self::SovereignControlsByCntxt => std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT"),
-                Self::SovereignControlsByCntxtNoEkm => std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM"),
+                Self::LocalControlsByS3Ns => {
+                    std::option::Option::Some("PARTNER_LOCAL_CONTROLS_BY_S3NS")
+                }
+                Self::SovereignControlsByTSystems => {
+                    std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_T_SYSTEMS")
+                }
+                Self::SovereignControlsBySiaMinsait => {
+                    std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_SIA_MINSAIT")
+                }
+                Self::SovereignControlsByPsn => {
+                    std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_PSN")
+                }
+                Self::SovereignControlsByCntxt => {
+                    std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT")
+                }
+                Self::SovereignControlsByCntxtNoEkm => {
+                    std::option::Option::Some("PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1082,7 +1122,9 @@ pub mod workload {
                 4 => Self::SovereignControlsByPsn,
                 6 => Self::SovereignControlsByCntxt,
                 7 => Self::SovereignControlsByCntxtNoEkm,
-                _ => Self::UnknownValue(partner::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(partner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1098,7 +1140,9 @@ pub mod workload {
                 "PARTNER_SOVEREIGN_CONTROLS_BY_PSN" => Self::SovereignControlsByPsn,
                 "PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT" => Self::SovereignControlsByCntxt,
                 "PARTNER_SOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM" => Self::SovereignControlsByCntxtNoEkm,
-                _ => Self::UnknownValue(partner::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(partner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1127,7 +1171,8 @@ pub mod workload {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Partner>::new(
-                ".google.cloud.cloudcontrolspartner.v1.Workload.Partner"))
+                ".google.cloud.cloudcontrolspartner.v1.Workload.Partner",
+            ))
         }
     }
 }
@@ -1136,7 +1181,6 @@ pub mod workload {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsRequest {
-
     /// Required. Parent resource
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
@@ -1235,7 +1279,6 @@ impl wkt::message::Message for ListWorkloadsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsResponse {
-
     /// List of customer workloads
     pub workloads: std::vec::Vec<crate::model::Workload>,
 
@@ -1269,7 +1312,7 @@ impl ListWorkloadsResponse {
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workload>
+        V: std::convert::Into<crate::model::Workload>,
     {
         use std::iter::Iterator;
         self.workloads = v.into_iter().map(|i| i.into()).collect();
@@ -1298,7 +1341,7 @@ impl ListWorkloadsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1330,7 +1373,6 @@ impl gax::paginator::internal::PageableResponse for ListWorkloadsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkloadRequest {
-
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     pub name: std::string::String,
@@ -1366,7 +1408,6 @@ impl wkt::message::Message for GetWorkloadRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadOnboardingState {
-
     /// List of workload onboarding steps.
     pub onboarding_steps: std::vec::Vec<crate::model::WorkloadOnboardingStep>,
 
@@ -1393,7 +1434,7 @@ impl WorkloadOnboardingState {
     pub fn set_onboarding_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkloadOnboardingStep>
+        V: std::convert::Into<crate::model::WorkloadOnboardingStep>,
     {
         use std::iter::Iterator;
         self.onboarding_steps = v.into_iter().map(|i| i.into()).collect();
@@ -1411,7 +1452,6 @@ impl wkt::message::Message for WorkloadOnboardingState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadOnboardingStep {
-
     /// The onboarding step.
     pub step: crate::model::workload_onboarding_step::Step,
 
@@ -1441,7 +1481,10 @@ impl WorkloadOnboardingStep {
     /// let x0 = WorkloadOnboardingStep::new().set_step(Step::EkmProvisioned);
     /// let x1 = WorkloadOnboardingStep::new().set_step(Step::SignedAccessApprovalConfigured);
     /// ```
-    pub fn set_step<T: std::convert::Into<crate::model::workload_onboarding_step::Step>>(mut self, v: T) -> Self {
+    pub fn set_step<T: std::convert::Into<crate::model::workload_onboarding_step::Step>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.step = v.into();
         self
     }
@@ -1455,7 +1498,8 @@ impl WorkloadOnboardingStep {
     /// let x = WorkloadOnboardingStep::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1471,7 +1515,8 @@ impl WorkloadOnboardingStep {
     /// let x = WorkloadOnboardingStep::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1486,7 +1531,8 @@ impl WorkloadOnboardingStep {
     /// let x = WorkloadOnboardingStep::new().set_completion_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_completion_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.completion_time = std::option::Option::Some(v.into());
         self
@@ -1502,7 +1548,8 @@ impl WorkloadOnboardingStep {
     /// let x = WorkloadOnboardingStep::new().set_or_clear_completion_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.completion_time = v.map(|x| x.into());
         self
@@ -1518,7 +1565,10 @@ impl WorkloadOnboardingStep {
     /// let x1 = WorkloadOnboardingStep::new().set_completion_state(CompletionState::Succeeded);
     /// let x2 = WorkloadOnboardingStep::new().set_completion_state(CompletionState::Failed);
     /// ```
-    pub fn set_completion_state<T: std::convert::Into<crate::model::CompletionState>>(mut self, v: T) -> Self {
+    pub fn set_completion_state<T: std::convert::Into<crate::model::CompletionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.completion_state = v.into();
         self
     }
@@ -1534,7 +1584,6 @@ impl wkt::message::Message for WorkloadOnboardingStep {
 pub mod workload_onboarding_step {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Enum for possible onboarding steps.
     ///
@@ -1597,7 +1646,9 @@ pub mod workload_onboarding_step {
             match self {
                 Self::Unspecified => std::option::Option::Some("STEP_UNSPECIFIED"),
                 Self::EkmProvisioned => std::option::Option::Some("EKM_PROVISIONED"),
-                Self::SignedAccessApprovalConfigured => std::option::Option::Some("SIGNED_ACCESS_APPROVAL_CONFIGURED"),
+                Self::SignedAccessApprovalConfigured => {
+                    std::option::Option::Some("SIGNED_ACCESS_APPROVAL_CONFIGURED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1622,7 +1673,9 @@ pub mod workload_onboarding_step {
                 0 => Self::Unspecified,
                 1 => Self::EkmProvisioned,
                 2 => Self::SignedAccessApprovalConfigured,
-                _ => Self::UnknownValue(step::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1634,7 +1687,9 @@ pub mod workload_onboarding_step {
                 "STEP_UNSPECIFIED" => Self::Unspecified,
                 "EKM_PROVISIONED" => Self::EkmProvisioned,
                 "SIGNED_ACCESS_APPROVAL_CONFIGURED" => Self::SignedAccessApprovalConfigured,
-                _ => Self::UnknownValue(step::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1659,7 +1714,8 @@ pub mod workload_onboarding_step {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Step>::new(
-                ".google.cloud.cloudcontrolspartner.v1.WorkloadOnboardingStep.Step"))
+                ".google.cloud.cloudcontrolspartner.v1.WorkloadOnboardingStep.Step",
+            ))
         }
     }
 }
@@ -1668,7 +1724,6 @@ pub mod workload_onboarding_step {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Customer {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
     pub name: std::string::String,
@@ -1727,7 +1782,8 @@ impl Customer {
     /// let x = Customer::new().set_customer_onboarding_state(CustomerOnboardingState::default()/* use setters */);
     /// ```
     pub fn set_customer_onboarding_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerOnboardingState>
+    where
+        T: std::convert::Into<crate::model::CustomerOnboardingState>,
     {
         self.customer_onboarding_state = std::option::Option::Some(v.into());
         self
@@ -1743,7 +1799,8 @@ impl Customer {
     /// let x = Customer::new().set_or_clear_customer_onboarding_state(None::<CustomerOnboardingState>);
     /// ```
     pub fn set_or_clear_customer_onboarding_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerOnboardingState>
+    where
+        T: std::convert::Into<crate::model::CustomerOnboardingState>,
     {
         self.customer_onboarding_state = v.map(|x| x.into());
         self
@@ -1768,7 +1825,10 @@ impl Customer {
     /// # use google_cloud_cloudcontrolspartner_v1::model::Customer;
     /// let x = Customer::new().set_organization_domain("example");
     /// ```
-    pub fn set_organization_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_organization_domain<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.organization_domain = v.into();
         self
     }
@@ -1784,7 +1844,6 @@ impl wkt::message::Message for Customer {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomersRequest {
-
     /// Required. Parent resource
     /// Format: `organizations/{organization}/locations/{location}`
     pub parent: std::string::String,
@@ -1882,7 +1941,6 @@ impl wkt::message::Message for ListCustomersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomersResponse {
-
     /// List of customers
     pub customers: std::vec::Vec<crate::model::Customer>,
 
@@ -1916,7 +1974,7 @@ impl ListCustomersResponse {
     pub fn set_customers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Customer>
+        V: std::convert::Into<crate::model::Customer>,
     {
         use std::iter::Iterator;
         self.customers = v.into_iter().map(|i| i.into()).collect();
@@ -1945,7 +2003,7 @@ impl ListCustomersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1977,7 +2035,6 @@ impl gax::paginator::internal::PageableResponse for ListCustomersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCustomerRequest {
-
     /// Required. Parent resource
     /// Format: `organizations/{organization}/locations/{location}`
     pub parent: std::string::String,
@@ -2019,7 +2076,8 @@ impl CreateCustomerRequest {
     /// let x = CreateCustomerRequest::new().set_customer(Customer::default()/* use setters */);
     /// ```
     pub fn set_customer<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Customer>
+    where
+        T: std::convert::Into<crate::model::Customer>,
     {
         self.customer = std::option::Option::Some(v.into());
         self
@@ -2035,7 +2093,8 @@ impl CreateCustomerRequest {
     /// let x = CreateCustomerRequest::new().set_or_clear_customer(None::<Customer>);
     /// ```
     pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Customer>
+    where
+        T: std::convert::Into<crate::model::Customer>,
     {
         self.customer = v.map(|x| x.into());
         self
@@ -2064,7 +2123,6 @@ impl wkt::message::Message for CreateCustomerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCustomerRequest {
-
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
     pub name: std::string::String,
@@ -2100,7 +2158,6 @@ impl wkt::message::Message for GetCustomerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerOnboardingState {
-
     /// List of customer onboarding steps
     pub onboarding_steps: std::vec::Vec<crate::model::CustomerOnboardingStep>,
 
@@ -2127,7 +2184,7 @@ impl CustomerOnboardingState {
     pub fn set_onboarding_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomerOnboardingStep>
+        V: std::convert::Into<crate::model::CustomerOnboardingStep>,
     {
         use std::iter::Iterator;
         self.onboarding_steps = v.into_iter().map(|i| i.into()).collect();
@@ -2145,7 +2202,6 @@ impl wkt::message::Message for CustomerOnboardingState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerOnboardingStep {
-
     /// The onboarding step
     pub step: crate::model::customer_onboarding_step::Step,
 
@@ -2175,7 +2231,10 @@ impl CustomerOnboardingStep {
     /// let x0 = CustomerOnboardingStep::new().set_step(Step::KajEnrollment);
     /// let x1 = CustomerOnboardingStep::new().set_step(Step::CustomerEnvironment);
     /// ```
-    pub fn set_step<T: std::convert::Into<crate::model::customer_onboarding_step::Step>>(mut self, v: T) -> Self {
+    pub fn set_step<T: std::convert::Into<crate::model::customer_onboarding_step::Step>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.step = v.into();
         self
     }
@@ -2189,7 +2248,8 @@ impl CustomerOnboardingStep {
     /// let x = CustomerOnboardingStep::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2205,7 +2265,8 @@ impl CustomerOnboardingStep {
     /// let x = CustomerOnboardingStep::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2220,7 +2281,8 @@ impl CustomerOnboardingStep {
     /// let x = CustomerOnboardingStep::new().set_completion_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_completion_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.completion_time = std::option::Option::Some(v.into());
         self
@@ -2236,7 +2298,8 @@ impl CustomerOnboardingStep {
     /// let x = CustomerOnboardingStep::new().set_or_clear_completion_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.completion_time = v.map(|x| x.into());
         self
@@ -2252,7 +2315,10 @@ impl CustomerOnboardingStep {
     /// let x1 = CustomerOnboardingStep::new().set_completion_state(CompletionState::Succeeded);
     /// let x2 = CustomerOnboardingStep::new().set_completion_state(CompletionState::Failed);
     /// ```
-    pub fn set_completion_state<T: std::convert::Into<crate::model::CompletionState>>(mut self, v: T) -> Self {
+    pub fn set_completion_state<T: std::convert::Into<crate::model::CompletionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.completion_state = v.into();
         self
     }
@@ -2268,7 +2334,6 @@ impl wkt::message::Message for CustomerOnboardingStep {
 pub mod customer_onboarding_step {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Enum for possible onboarding steps
     ///
@@ -2356,7 +2421,9 @@ pub mod customer_onboarding_step {
                 0 => Self::Unspecified,
                 1 => Self::KajEnrollment,
                 2 => Self::CustomerEnvironment,
-                _ => Self::UnknownValue(step::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2368,7 +2435,9 @@ pub mod customer_onboarding_step {
                 "STEP_UNSPECIFIED" => Self::Unspecified,
                 "KAJ_ENROLLMENT" => Self::KajEnrollment,
                 "CUSTOMER_ENVIRONMENT" => Self::CustomerEnvironment,
-                _ => Self::UnknownValue(step::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2393,7 +2462,8 @@ pub mod customer_onboarding_step {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Step>::new(
-                ".google.cloud.cloudcontrolspartner.v1.CustomerOnboardingStep.Step"))
+                ".google.cloud.cloudcontrolspartner.v1.CustomerOnboardingStep.Step",
+            ))
         }
     }
 }
@@ -2402,7 +2472,6 @@ pub mod customer_onboarding_step {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCustomerRequest {
-
     /// Required. The customer to update
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
@@ -2428,7 +2497,8 @@ impl UpdateCustomerRequest {
     /// let x = UpdateCustomerRequest::new().set_customer(Customer::default()/* use setters */);
     /// ```
     pub fn set_customer<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Customer>
+    where
+        T: std::convert::Into<crate::model::Customer>,
     {
         self.customer = std::option::Option::Some(v.into());
         self
@@ -2444,7 +2514,8 @@ impl UpdateCustomerRequest {
     /// let x = UpdateCustomerRequest::new().set_or_clear_customer(None::<Customer>);
     /// ```
     pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Customer>
+    where
+        T: std::convert::Into<crate::model::Customer>,
     {
         self.customer = v.map(|x| x.into());
         self
@@ -2459,7 +2530,8 @@ impl UpdateCustomerRequest {
     /// let x = UpdateCustomerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2475,7 +2547,8 @@ impl UpdateCustomerRequest {
     /// let x = UpdateCustomerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2492,7 +2565,6 @@ impl wkt::message::Message for UpdateCustomerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCustomerRequest {
-
     /// Required. name of the resource to be deleted
     /// format: name=organizations/*/locations/*/customers/*
     pub name: std::string::String,
@@ -2528,7 +2600,6 @@ impl wkt::message::Message for DeleteCustomerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConnections {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/ekmConnections`
     pub name: std::string::String,
@@ -2571,7 +2642,7 @@ impl EkmConnections {
     pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EkmConnection>
+        V: std::convert::Into<crate::model::EkmConnection>,
     {
         use std::iter::Iterator;
         self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
@@ -2589,7 +2660,6 @@ impl wkt::message::Message for EkmConnections {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEkmConnectionsRequest {
-
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/ekmConnections`
     pub name: std::string::String,
@@ -2625,7 +2695,6 @@ impl wkt::message::Message for GetEkmConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConnection {
-
     /// Resource name of the EKM connection in the format:
     /// projects/{project}/locations/{location}/ekmConnections/{ekm_connection}
     pub connection_name: std::string::String,
@@ -2666,7 +2735,12 @@ impl EkmConnection {
     /// let x1 = EkmConnection::new().set_connection_state(ConnectionState::NotAvailable);
     /// let x2 = EkmConnection::new().set_connection_state(ConnectionState::Error);
     /// ```
-    pub fn set_connection_state<T: std::convert::Into<crate::model::ekm_connection::ConnectionState>>(mut self, v: T) -> Self {
+    pub fn set_connection_state<
+        T: std::convert::Into<crate::model::ekm_connection::ConnectionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.connection_state = v.into();
         self
     }
@@ -2680,7 +2754,8 @@ impl EkmConnection {
     /// let x = EkmConnection::new().set_connection_error(ConnectionError::default()/* use setters */);
     /// ```
     pub fn set_connection_error<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ekm_connection::ConnectionError>
+    where
+        T: std::convert::Into<crate::model::ekm_connection::ConnectionError>,
     {
         self.connection_error = std::option::Option::Some(v.into());
         self
@@ -2696,7 +2771,8 @@ impl EkmConnection {
     /// let x = EkmConnection::new().set_or_clear_connection_error(None::<ConnectionError>);
     /// ```
     pub fn set_or_clear_connection_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ekm_connection::ConnectionError>
+    where
+        T: std::convert::Into<crate::model::ekm_connection::ConnectionError>,
     {
         self.connection_error = v.map(|x| x.into());
         self
@@ -2714,13 +2790,11 @@ pub mod ekm_connection {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Information around the error that occurred if the connection state is
     /// anything other than available or unspecified
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConnectionError {
-
         /// The error domain for the error
         pub error_domain: std::string::String,
 
@@ -2742,7 +2816,10 @@ pub mod ekm_connection {
         /// # use google_cloud_cloudcontrolspartner_v1::model::ekm_connection::ConnectionError;
         /// let x = ConnectionError::new().set_error_domain("example");
         /// ```
-        pub fn set_error_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_error_domain<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.error_domain = v.into();
             self
         }
@@ -2754,7 +2831,10 @@ pub mod ekm_connection {
         /// # use google_cloud_cloudcontrolspartner_v1::model::ekm_connection::ConnectionError;
         /// let x = ConnectionError::new().set_error_message("example");
         /// ```
-        pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_error_message<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.error_message = v.into();
             self
         }
@@ -2862,7 +2942,9 @@ pub mod ekm_connection {
                 2 => Self::NotAvailable,
                 3 => Self::Error,
                 4 => Self::PermissionDenied,
-                _ => Self::UnknownValue(connection_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(connection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2876,7 +2958,9 @@ pub mod ekm_connection {
                 "NOT_AVAILABLE" => Self::NotAvailable,
                 "ERROR" => Self::Error,
                 "PERMISSION_DENIED" => Self::PermissionDenied,
-                _ => Self::UnknownValue(connection_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(connection_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2903,7 +2987,8 @@ pub mod ekm_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectionState>::new(
-                ".google.cloud.cloudcontrolspartner.v1.EkmConnection.ConnectionState"))
+                ".google.cloud.cloudcontrolspartner.v1.EkmConnection.ConnectionState",
+            ))
         }
     }
 }
@@ -2912,7 +2997,6 @@ pub mod ekm_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartnerPermissions {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/partnerPermissions`
     pub name: std::string::String,
@@ -2955,7 +3039,7 @@ impl PartnerPermissions {
     pub fn set_partner_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::partner_permissions::Permission>
+        V: std::convert::Into<crate::model::partner_permissions::Permission>,
     {
         use std::iter::Iterator;
         self.partner_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2973,7 +3057,6 @@ impl wkt::message::Message for PartnerPermissions {
 pub mod partner_permissions {
     #[allow(unused_imports)]
     use super::*;
-
 
     ///
     /// # Working with unknown values
@@ -3043,11 +3126,21 @@ pub mod partner_permissions {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("PERMISSION_UNSPECIFIED"),
-                Self::AccessTransparencyAndEmergencyAccessLogs => std::option::Option::Some("ACCESS_TRANSPARENCY_AND_EMERGENCY_ACCESS_LOGS"),
-                Self::AssuredWorkloadsMonitoring => std::option::Option::Some("ASSURED_WORKLOADS_MONITORING"),
-                Self::AccessApprovalRequests => std::option::Option::Some("ACCESS_APPROVAL_REQUESTS"),
-                Self::AssuredWorkloadsEkmConnectionStatus => std::option::Option::Some("ASSURED_WORKLOADS_EKM_CONNECTION_STATUS"),
-                Self::AccessTransparencyLogsSupportCaseViewer => std::option::Option::Some("ACCESS_TRANSPARENCY_LOGS_SUPPORT_CASE_VIEWER"),
+                Self::AccessTransparencyAndEmergencyAccessLogs => {
+                    std::option::Option::Some("ACCESS_TRANSPARENCY_AND_EMERGENCY_ACCESS_LOGS")
+                }
+                Self::AssuredWorkloadsMonitoring => {
+                    std::option::Option::Some("ASSURED_WORKLOADS_MONITORING")
+                }
+                Self::AccessApprovalRequests => {
+                    std::option::Option::Some("ACCESS_APPROVAL_REQUESTS")
+                }
+                Self::AssuredWorkloadsEkmConnectionStatus => {
+                    std::option::Option::Some("ASSURED_WORKLOADS_EKM_CONNECTION_STATUS")
+                }
+                Self::AccessTransparencyLogsSupportCaseViewer => {
+                    std::option::Option::Some("ACCESS_TRANSPARENCY_LOGS_SUPPORT_CASE_VIEWER")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3075,7 +3168,9 @@ pub mod partner_permissions {
                 3 => Self::AccessApprovalRequests,
                 4 => Self::AssuredWorkloadsEkmConnectionStatus,
                 5 => Self::AccessTransparencyLogsSupportCaseViewer,
-                _ => Self::UnknownValue(permission::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(permission::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3085,12 +3180,20 @@ pub mod partner_permissions {
             use std::string::ToString;
             match value {
                 "PERMISSION_UNSPECIFIED" => Self::Unspecified,
-                "ACCESS_TRANSPARENCY_AND_EMERGENCY_ACCESS_LOGS" => Self::AccessTransparencyAndEmergencyAccessLogs,
+                "ACCESS_TRANSPARENCY_AND_EMERGENCY_ACCESS_LOGS" => {
+                    Self::AccessTransparencyAndEmergencyAccessLogs
+                }
                 "ASSURED_WORKLOADS_MONITORING" => Self::AssuredWorkloadsMonitoring,
                 "ACCESS_APPROVAL_REQUESTS" => Self::AccessApprovalRequests,
-                "ASSURED_WORKLOADS_EKM_CONNECTION_STATUS" => Self::AssuredWorkloadsEkmConnectionStatus,
-                "ACCESS_TRANSPARENCY_LOGS_SUPPORT_CASE_VIEWER" => Self::AccessTransparencyLogsSupportCaseViewer,
-                _ => Self::UnknownValue(permission::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                "ASSURED_WORKLOADS_EKM_CONNECTION_STATUS" => {
+                    Self::AssuredWorkloadsEkmConnectionStatus
+                }
+                "ACCESS_TRANSPARENCY_LOGS_SUPPORT_CASE_VIEWER" => {
+                    Self::AccessTransparencyLogsSupportCaseViewer
+                }
+                _ => Self::UnknownValue(permission::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3118,7 +3221,8 @@ pub mod partner_permissions {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Permission>::new(
-                ".google.cloud.cloudcontrolspartner.v1.PartnerPermissions.Permission"))
+                ".google.cloud.cloudcontrolspartner.v1.PartnerPermissions.Permission",
+            ))
         }
     }
 }
@@ -3127,7 +3231,6 @@ pub mod partner_permissions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPartnerPermissionsRequest {
-
     /// Required. Name of the resource to get in the format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/partnerPermissions`
     pub name: std::string::String,
@@ -3163,7 +3266,6 @@ impl wkt::message::Message for GetPartnerPermissionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Partner {
-
     /// Identifier. The resource name of the partner.
     /// Format: `organizations/{organization}/locations/{location}/partner`
     /// Example: "organizations/123456/locations/us-central1/partner"
@@ -3225,7 +3327,7 @@ impl Partner {
     pub fn set_skus<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Sku>
+        V: std::convert::Into<crate::model::Sku>,
     {
         use std::iter::Iterator;
         self.skus = v.into_iter().map(|i| i.into()).collect();
@@ -3247,7 +3349,7 @@ impl Partner {
     pub fn set_ekm_solutions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EkmMetadata>
+        V: std::convert::Into<crate::model::EkmMetadata>,
     {
         use std::iter::Iterator;
         self.ekm_solutions = v.into_iter().map(|i| i.into()).collect();
@@ -3264,7 +3366,7 @@ impl Partner {
     pub fn set_operated_cloud_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.operated_cloud_regions = v.into_iter().map(|i| i.into()).collect();
@@ -3278,7 +3380,10 @@ impl Partner {
     /// # use google_cloud_cloudcontrolspartner_v1::model::Partner;
     /// let x = Partner::new().set_partner_project_id("example");
     /// ```
-    pub fn set_partner_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_partner_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.partner_project_id = v.into();
         self
     }
@@ -3292,7 +3397,8 @@ impl Partner {
     /// let x = Partner::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3308,7 +3414,8 @@ impl Partner {
     /// let x = Partner::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3323,7 +3430,8 @@ impl Partner {
     /// let x = Partner::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3339,7 +3447,8 @@ impl Partner {
     /// let x = Partner::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3356,7 +3465,6 @@ impl wkt::message::Message for Partner {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPartnerRequest {
-
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/partner`
     pub name: std::string::String,
@@ -3392,7 +3500,6 @@ impl wkt::message::Message for GetPartnerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sku {
-
     /// Argentum product SKU, that is associated with the partner offerings to
     /// customers used by Syntro for billing purposes. SKUs can represent resold
     /// Google products or support services.
@@ -3446,7 +3553,6 @@ impl wkt::message::Message for Sku {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmMetadata {
-
     /// The Cloud EKM partner.
     pub ekm_solution: crate::model::ekm_metadata::EkmSolution,
 
@@ -3472,7 +3578,10 @@ impl EkmMetadata {
     /// let x1 = EkmMetadata::new().set_ekm_solution(EkmSolution::Futurex);
     /// let x2 = EkmMetadata::new().set_ekm_solution(EkmSolution::Thales);
     /// ```
-    pub fn set_ekm_solution<T: std::convert::Into<crate::model::ekm_metadata::EkmSolution>>(mut self, v: T) -> Self {
+    pub fn set_ekm_solution<T: std::convert::Into<crate::model::ekm_metadata::EkmSolution>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.ekm_solution = v.into();
         self
     }
@@ -3484,7 +3593,10 @@ impl EkmMetadata {
     /// # use google_cloud_cloudcontrolspartner_v1::model::EkmMetadata;
     /// let x = EkmMetadata::new().set_ekm_endpoint_uri("example");
     /// ```
-    pub fn set_ekm_endpoint_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_ekm_endpoint_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.ekm_endpoint_uri = v.into();
         self
     }
@@ -3500,7 +3612,6 @@ impl wkt::message::Message for EkmMetadata {
 pub mod ekm_metadata {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Represents Google Cloud supported external key management partners
     /// [Google Cloud EKM partners
@@ -3601,7 +3712,9 @@ pub mod ekm_metadata {
                 2 => Self::Futurex,
                 3 => Self::Thales,
                 4 => Self::Virtru,
-                _ => Self::UnknownValue(ekm_solution::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(ekm_solution::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3615,7 +3728,9 @@ pub mod ekm_metadata {
                 "FUTUREX" => Self::Futurex,
                 "THALES" => Self::Thales,
                 "VIRTRU" => Self::Virtru,
-                _ => Self::UnknownValue(ekm_solution::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(ekm_solution::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3642,7 +3757,8 @@ pub mod ekm_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EkmSolution>::new(
-                ".google.cloud.cloudcontrolspartner.v1.EkmMetadata.EkmSolution"))
+                ".google.cloud.cloudcontrolspartner.v1.EkmMetadata.EkmSolution",
+            ))
         }
     }
 }
@@ -3651,7 +3767,6 @@ pub mod ekm_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Violation {
-
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/violations/{violation}`
     pub name: std::string::String,
@@ -3731,7 +3846,8 @@ impl Violation {
     /// let x = Violation::new().set_begin_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_begin_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.begin_time = std::option::Option::Some(v.into());
         self
@@ -3747,7 +3863,8 @@ impl Violation {
     /// let x = Violation::new().set_or_clear_begin_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.begin_time = v.map(|x| x.into());
         self
@@ -3762,7 +3879,8 @@ impl Violation {
     /// let x = Violation::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3778,7 +3896,8 @@ impl Violation {
     /// let x = Violation::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3793,7 +3912,8 @@ impl Violation {
     /// let x = Violation::new().set_resolve_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_resolve_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.resolve_time = std::option::Option::Some(v.into());
         self
@@ -3809,7 +3929,8 @@ impl Violation {
     /// let x = Violation::new().set_or_clear_resolve_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_resolve_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.resolve_time = v.map(|x| x.into());
         self
@@ -3837,7 +3958,10 @@ impl Violation {
     /// let x1 = Violation::new().set_state(State::Unresolved);
     /// let x2 = Violation::new().set_state(State::Exception);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::violation::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::violation::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -3849,7 +3973,10 @@ impl Violation {
     /// # use google_cloud_cloudcontrolspartner_v1::model::Violation;
     /// let x = Violation::new().set_non_compliant_org_policy("example");
     /// ```
-    pub fn set_non_compliant_org_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_non_compliant_org_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.non_compliant_org_policy = v.into();
         self
     }
@@ -3875,7 +4002,8 @@ impl Violation {
     /// let x = Violation::new().set_remediation(Remediation::default()/* use setters */);
     /// ```
     pub fn set_remediation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::violation::Remediation>
+    where
+        T: std::convert::Into<crate::model::violation::Remediation>,
     {
         self.remediation = std::option::Option::Some(v.into());
         self
@@ -3891,7 +4019,8 @@ impl Violation {
     /// let x = Violation::new().set_or_clear_remediation(None::<Remediation>);
     /// ```
     pub fn set_or_clear_remediation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::violation::Remediation>
+    where
+        T: std::convert::Into<crate::model::violation::Remediation>,
     {
         self.remediation = v.map(|x| x.into());
         self
@@ -3909,13 +4038,11 @@ pub mod violation {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Represents remediation guidance to resolve compliance violation for
     /// AssuredWorkload
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Remediation {
-
         /// Required. Remediation instructions to resolve violations
         pub instructions: std::option::Option<crate::model::violation::remediation::Instructions>,
 
@@ -3945,7 +4072,8 @@ pub mod violation {
         /// let x = Remediation::new().set_instructions(Instructions::default()/* use setters */);
         /// ```
         pub fn set_instructions<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::violation::remediation::Instructions>
+        where
+            T: std::convert::Into<crate::model::violation::remediation::Instructions>,
         {
             self.instructions = std::option::Option::Some(v.into());
             self
@@ -3961,7 +4089,8 @@ pub mod violation {
         /// let x = Remediation::new().set_or_clear_instructions(None::<Instructions>);
         /// ```
         pub fn set_or_clear_instructions<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::violation::remediation::Instructions>
+        where
+            T: std::convert::Into<crate::model::violation::remediation::Instructions>,
         {
             self.instructions = v.map(|x| x.into());
             self
@@ -3977,7 +4106,7 @@ pub mod violation {
         pub fn set_compliant_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.compliant_values = v.into_iter().map(|i| i.into()).collect();
@@ -3994,7 +4123,12 @@ pub mod violation {
         /// let x1 = Remediation::new().set_remediation_type(RemediationType::RemediationListAllowedValuesOrgPolicyViolation);
         /// let x2 = Remediation::new().set_remediation_type(RemediationType::RemediationListDeniedValuesOrgPolicyViolation);
         /// ```
-        pub fn set_remediation_type<T: std::convert::Into<crate::model::violation::remediation::RemediationType>>(mut self, v: T) -> Self {
+        pub fn set_remediation_type<
+            T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.remediation_type = v.into();
             self
         }
@@ -4011,17 +4145,17 @@ pub mod violation {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Instructions to remediate violation
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Instructions {
-
             /// Remediation instructions to resolve violation via gcloud cli
-            pub gcloud_instructions: std::option::Option<crate::model::violation::remediation::instructions::Gcloud>,
+            pub gcloud_instructions:
+                std::option::Option<crate::model::violation::remediation::instructions::Gcloud>,
 
             /// Remediation instructions to resolve violation via cloud console
-            pub console_instructions: std::option::Option<crate::model::violation::remediation::instructions::Console>,
+            pub console_instructions:
+                std::option::Option<crate::model::violation::remediation::instructions::Console>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -4040,7 +4174,8 @@ pub mod violation {
             /// let x = Instructions::new().set_gcloud_instructions(Gcloud::default()/* use setters */);
             /// ```
             pub fn set_gcloud_instructions<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>
+            where
+                T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>,
             {
                 self.gcloud_instructions = std::option::Option::Some(v.into());
                 self
@@ -4056,7 +4191,8 @@ pub mod violation {
             /// let x = Instructions::new().set_or_clear_gcloud_instructions(None::<Gcloud>);
             /// ```
             pub fn set_or_clear_gcloud_instructions<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>
+            where
+                T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>,
             {
                 self.gcloud_instructions = v.map(|x| x.into());
                 self
@@ -4071,7 +4207,8 @@ pub mod violation {
             /// let x = Instructions::new().set_console_instructions(Console::default()/* use setters */);
             /// ```
             pub fn set_console_instructions<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::violation::remediation::instructions::Console>
+            where
+                T: std::convert::Into<crate::model::violation::remediation::instructions::Console>,
             {
                 self.console_instructions = std::option::Option::Some(v.into());
                 self
@@ -4087,7 +4224,8 @@ pub mod violation {
             /// let x = Instructions::new().set_or_clear_console_instructions(None::<Console>);
             /// ```
             pub fn set_or_clear_console_instructions<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::violation::remediation::instructions::Console>
+            where
+                T: std::convert::Into<crate::model::violation::remediation::instructions::Console>,
             {
                 self.console_instructions = v.map(|x| x.into());
                 self
@@ -4105,12 +4243,10 @@ pub mod violation {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Remediation instructions to resolve violation via gcloud cli
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Gcloud {
-
                 /// Gcloud command to resolve violation
                 pub gcloud_commands: std::vec::Vec<std::string::String>,
 
@@ -4138,7 +4274,7 @@ pub mod violation {
                 pub fn set_gcloud_commands<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.gcloud_commands = v.into_iter().map(|i| i.into()).collect();
@@ -4155,7 +4291,7 @@ pub mod violation {
                 pub fn set_steps<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.steps = v.into_iter().map(|i| i.into()).collect();
@@ -4172,7 +4308,7 @@ pub mod violation {
                 pub fn set_additional_links<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.additional_links = v.into_iter().map(|i| i.into()).collect();
@@ -4190,7 +4326,6 @@ pub mod violation {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Console {
-
                 /// Link to console page where violations can be resolved
                 pub console_uris: std::vec::Vec<std::string::String>,
 
@@ -4218,7 +4353,7 @@ pub mod violation {
                 pub fn set_console_uris<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.console_uris = v.into_iter().map(|i| i.into()).collect();
@@ -4235,7 +4370,7 @@ pub mod violation {
                 pub fn set_steps<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.steps = v.into_iter().map(|i| i.into()).collect();
@@ -4252,7 +4387,7 @@ pub mod violation {
                 pub fn set_additional_links<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>
+                    V: std::convert::Into<std::string::String>,
                 {
                     use std::iter::Iterator;
                     self.additional_links = v.into_iter().map(|i| i.into()).collect();
@@ -4326,9 +4461,15 @@ pub mod violation {
                 match self {
                     Self::Unspecified => std::option::Option::Some(0),
                     Self::RemediationBooleanOrgPolicyViolation => std::option::Option::Some(1),
-                    Self::RemediationListAllowedValuesOrgPolicyViolation => std::option::Option::Some(2),
-                    Self::RemediationListDeniedValuesOrgPolicyViolation => std::option::Option::Some(3),
-                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => std::option::Option::Some(4),
+                    Self::RemediationListAllowedValuesOrgPolicyViolation => {
+                        std::option::Option::Some(2)
+                    }
+                    Self::RemediationListDeniedValuesOrgPolicyViolation => {
+                        std::option::Option::Some(3)
+                    }
+                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => {
+                        std::option::Option::Some(4)
+                    }
                     Self::RemediationResourceViolation => std::option::Option::Some(5),
                     Self::UnknownValue(u) => u.0.value(),
                 }
@@ -4341,11 +4482,27 @@ pub mod violation {
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::Unspecified => std::option::Option::Some("REMEDIATION_TYPE_UNSPECIFIED"),
-                    Self::RemediationBooleanOrgPolicyViolation => std::option::Option::Some("REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION"),
-                    Self::RemediationListAllowedValuesOrgPolicyViolation => std::option::Option::Some("REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION"),
-                    Self::RemediationListDeniedValuesOrgPolicyViolation => std::option::Option::Some("REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION"),
-                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => std::option::Option::Some("REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION"),
-                    Self::RemediationResourceViolation => std::option::Option::Some("REMEDIATION_RESOURCE_VIOLATION"),
+                    Self::RemediationBooleanOrgPolicyViolation => {
+                        std::option::Option::Some("REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION")
+                    }
+                    Self::RemediationListAllowedValuesOrgPolicyViolation => {
+                        std::option::Option::Some(
+                            "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION",
+                        )
+                    }
+                    Self::RemediationListDeniedValuesOrgPolicyViolation => {
+                        std::option::Option::Some(
+                            "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION",
+                        )
+                    }
+                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => {
+                        std::option::Option::Some(
+                            "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION",
+                        )
+                    }
+                    Self::RemediationResourceViolation => {
+                        std::option::Option::Some("REMEDIATION_RESOURCE_VIOLATION")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -4359,7 +4516,10 @@ pub mod violation {
         }
 
         impl std::fmt::Display for RemediationType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -4373,7 +4533,9 @@ pub mod violation {
                     3 => Self::RemediationListDeniedValuesOrgPolicyViolation,
                     4 => Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation,
                     5 => Self::RemediationResourceViolation,
-                    _ => Self::UnknownValue(remediation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(remediation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -4383,12 +4545,22 @@ pub mod violation {
                 use std::string::ToString;
                 match value {
                     "REMEDIATION_TYPE_UNSPECIFIED" => Self::Unspecified,
-                    "REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION" => Self::RemediationBooleanOrgPolicyViolation,
-                    "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION" => Self::RemediationListAllowedValuesOrgPolicyViolation,
-                    "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION" => Self::RemediationListDeniedValuesOrgPolicyViolation,
-                    "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION" => Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation,
+                    "REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION" => {
+                        Self::RemediationBooleanOrgPolicyViolation
+                    }
+                    "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION" => {
+                        Self::RemediationListAllowedValuesOrgPolicyViolation
+                    }
+                    "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION" => {
+                        Self::RemediationListDeniedValuesOrgPolicyViolation
+                    }
+                    "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION" => {
+                        Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation
+                    }
                     "REMEDIATION_RESOURCE_VIOLATION" => Self::RemediationResourceViolation,
-                    _ => Self::UnknownValue(remediation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(remediation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -4401,9 +4573,15 @@ pub mod violation {
                 match self {
                     Self::Unspecified => serializer.serialize_i32(0),
                     Self::RemediationBooleanOrgPolicyViolation => serializer.serialize_i32(1),
-                    Self::RemediationListAllowedValuesOrgPolicyViolation => serializer.serialize_i32(2),
-                    Self::RemediationListDeniedValuesOrgPolicyViolation => serializer.serialize_i32(3),
-                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => serializer.serialize_i32(4),
+                    Self::RemediationListAllowedValuesOrgPolicyViolation => {
+                        serializer.serialize_i32(2)
+                    }
+                    Self::RemediationListDeniedValuesOrgPolicyViolation => {
+                        serializer.serialize_i32(3)
+                    }
+                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => {
+                        serializer.serialize_i32(4)
+                    }
                     Self::RemediationResourceViolation => serializer.serialize_i32(5),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
@@ -4416,7 +4594,8 @@ pub mod violation {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<RemediationType>::new(
-                    ".google.cloud.cloudcontrolspartner.v1.Violation.Remediation.RemediationType"))
+                    ".google.cloud.cloudcontrolspartner.v1.Violation.Remediation.RemediationType",
+                ))
             }
         }
     }
@@ -4512,7 +4691,9 @@ pub mod violation {
                 1 => Self::Resolved,
                 2 => Self::Unresolved,
                 3 => Self::Exception,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4525,7 +4706,9 @@ pub mod violation {
                 "RESOLVED" => Self::Resolved,
                 "UNRESOLVED" => Self::Unresolved,
                 "EXCEPTION" => Self::Exception,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4551,7 +4734,8 @@ pub mod violation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.cloudcontrolspartner.v1.Violation.State"))
+                ".google.cloud.cloudcontrolspartner.v1.Violation.State",
+            ))
         }
     }
 }
@@ -4560,7 +4744,6 @@ pub mod violation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViolationsRequest {
-
     /// Required. Parent resource
     /// Format
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
@@ -4662,7 +4845,8 @@ impl ListViolationsRequest {
     /// let x = ListViolationsRequest::new().set_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.interval = std::option::Option::Some(v.into());
         self
@@ -4678,7 +4862,8 @@ impl ListViolationsRequest {
     /// let x = ListViolationsRequest::new().set_or_clear_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.interval = v.map(|x| x.into());
         self
@@ -4695,7 +4880,6 @@ impl wkt::message::Message for ListViolationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViolationsResponse {
-
     /// List of violation
     pub violations: std::vec::Vec<crate::model::Violation>,
 
@@ -4730,7 +4914,7 @@ impl ListViolationsResponse {
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Violation>
+        V: std::convert::Into<crate::model::Violation>,
     {
         use std::iter::Iterator;
         self.violations = v.into_iter().map(|i| i.into()).collect();
@@ -4759,7 +4943,7 @@ impl ListViolationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4791,7 +4975,6 @@ impl gax::paginator::internal::PageableResponse for ListViolationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetViolationRequest {
-
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/violations/{violation}`
     pub name: std::string::String,
@@ -4919,7 +5102,9 @@ impl std::convert::From<i32> for CompletionState {
             2 => Self::Succeeded,
             3 => Self::Failed,
             4 => Self::NotApplicable,
-            _ => Self::UnknownValue(completion_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(completion_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -4933,7 +5118,9 @@ impl std::convert::From<&str> for CompletionState {
             "SUCCEEDED" => Self::Succeeded,
             "FAILED" => Self::Failed,
             "NOT_APPLICABLE" => Self::NotApplicable,
-            _ => Self::UnknownValue(completion_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(completion_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -4960,6 +5147,7 @@ impl<'de> serde::de::Deserialize<'de> for CompletionState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompletionState>::new(
-            ".google.cloud.cloudcontrolspartner.v1.CompletionState"))
+            ".google.cloud.cloudcontrolspartner.v1.CompletionState",
+        ))
     }
 }

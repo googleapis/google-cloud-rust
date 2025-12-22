@@ -129,7 +129,10 @@ impl std::fmt::Debug for super::FailoverIcebergCatalogRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("primary_replica", &self.primary_replica);
         debug_struct.field("validate_only", &self.validate_only);
-        debug_struct.field("conditional_failover_replication_time", &self.conditional_failover_replication_time);
+        debug_struct.field(
+            "conditional_failover_replication_time",
+            &self.conditional_failover_replication_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

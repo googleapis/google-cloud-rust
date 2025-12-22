@@ -72,7 +72,9 @@ impl CaseAttachmentService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::case_attachment_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::case_attachment_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::case_attachment_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,33 +82,47 @@ impl CaseAttachmentService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CaseAttachmentService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CaseAttachmentService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
         super::transport::CaseAttachmentService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
-        Self::build_transport(conf).await.map(super::tracing::CaseAttachmentService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CaseAttachmentService::new)
     }
 
     /// List all the attachments associated with a support case.
-    pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments
-    {
+    pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments {
         super::builder::case_attachment_service::ListAttachments::new(self.inner.clone())
     }
 }
@@ -175,28 +191,42 @@ impl CaseService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CaseService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CaseService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CaseService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
         super::transport::CaseService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CaseService> {
-        Self::build_transport(conf).await.map(super::tracing::CaseService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CaseService::new)
     }
 
     /// Retrieve a case.
@@ -216,8 +246,7 @@ impl CaseService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_case(&self) -> super::builder::case_service::GetCase
-    {
+    pub fn get_case(&self) -> super::builder::case_service::GetCase {
         super::builder::case_service::GetCase::new(self.inner.clone())
     }
 
@@ -226,14 +255,12 @@ impl CaseService {
     /// For example, listing cases under an organization only returns the cases
     /// that are directly parented by that organization. To retrieve cases
     /// under an organization and its projects, use `cases.search`.
-    pub fn list_cases(&self) -> super::builder::case_service::ListCases
-    {
+    pub fn list_cases(&self) -> super::builder::case_service::ListCases {
         super::builder::case_service::ListCases::new(self.inner.clone())
     }
 
     /// Search for cases using a query.
-    pub fn search_cases(&self) -> super::builder::case_service::SearchCases
-    {
+    pub fn search_cases(&self) -> super::builder::case_service::SearchCases {
         super::builder::case_service::SearchCases::new(self.inner.clone())
     }
 
@@ -258,8 +285,7 @@ impl CaseService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_case(&self) -> super::builder::case_service::CreateCase
-    {
+    pub fn create_case(&self) -> super::builder::case_service::CreateCase {
         super::builder::case_service::CreateCase::new(self.inner.clone())
     }
 
@@ -280,8 +306,7 @@ impl CaseService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_case(&self) -> super::builder::case_service::UpdateCase
-    {
+    pub fn update_case(&self) -> super::builder::case_service::UpdateCase {
         super::builder::case_service::UpdateCase::new(self.inner.clone())
     }
 
@@ -308,8 +333,7 @@ impl CaseService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase
-    {
+    pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase {
         super::builder::case_service::EscalateCase::new(self.inner.clone())
     }
 
@@ -330,8 +354,7 @@ impl CaseService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn close_case(&self) -> super::builder::case_service::CloseCase
-    {
+    pub fn close_case(&self) -> super::builder::case_service::CloseCase {
         super::builder::case_service::CloseCase::new(self.inner.clone())
     }
 
@@ -345,8 +368,9 @@ impl CaseService {
     /// months. When a classification is deactivated, this endpoint immediately
     /// stops returning it. After six months, `case.create` requests using the
     /// classification will fail.
-    pub fn search_case_classifications(&self) -> super::builder::case_service::SearchCaseClassifications
-    {
+    pub fn search_case_classifications(
+        &self,
+    ) -> super::builder::case_service::SearchCaseClassifications {
         super::builder::case_service::SearchCaseClassifications::new(self.inner.clone())
     }
 }
@@ -415,33 +439,46 @@ impl CommentService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CommentService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CommentService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CommentService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
         super::transport::CommentService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CommentService> {
-        Self::build_transport(conf).await.map(super::tracing::CommentService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CommentService::new)
     }
 
     /// List all the comments associated with a case.
-    pub fn list_comments(&self) -> super::builder::comment_service::ListComments
-    {
+    pub fn list_comments(&self) -> super::builder::comment_service::ListComments {
         super::builder::comment_service::ListComments::new(self.inner.clone())
     }
 
@@ -464,8 +501,7 @@ impl CommentService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_comment(&self) -> super::builder::comment_service::CreateComment
-    {
+    pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
     }
 }

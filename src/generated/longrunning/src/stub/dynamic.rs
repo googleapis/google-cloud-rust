@@ -40,7 +40,6 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::Operations] also implement [Operations].
@@ -81,5 +80,4 @@ impl<T: super::Operations> Operations for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }

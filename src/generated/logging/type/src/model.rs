@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -34,7 +34,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
-
     /// The request method. Examples: `"GET"`, `"HEAD"`, `"PUT"`, `"POST"`.
     pub request_method: std::string::String,
 
@@ -223,7 +222,8 @@ impl HttpRequest {
     /// let x = HttpRequest::new().set_latency(Duration::default()/* use setters */);
     /// ```
     pub fn set_latency<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.latency = std::option::Option::Some(v.into());
         self
@@ -239,7 +239,8 @@ impl HttpRequest {
     /// let x = HttpRequest::new().set_or_clear_latency(None::<Duration>);
     /// ```
     pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.latency = v.map(|x| x.into());
         self
@@ -276,7 +277,10 @@ impl HttpRequest {
     /// # use google_cloud_logging_type::model::HttpRequest;
     /// let x = HttpRequest::new().set_cache_validated_with_origin_server(true);
     /// ```
-    pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cache_validated_with_origin_server = v.into();
         self
     }
@@ -445,7 +449,9 @@ impl std::convert::From<i32> for LogSeverity {
             600 => Self::Critical,
             700 => Self::Alert,
             800 => Self::Emergency,
-            _ => Self::UnknownValue(log_severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(log_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -463,7 +469,9 @@ impl std::convert::From<&str> for LogSeverity {
             "CRITICAL" => Self::Critical,
             "ALERT" => Self::Alert,
             "EMERGENCY" => Self::Emergency,
-            _ => Self::UnknownValue(log_severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(log_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -494,6 +502,7 @@ impl<'de> serde::de::Deserialize<'de> for LogSeverity {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogSeverity>::new(
-            ".google.logging.type.LogSeverity"))
+            ".google.logging.type.LogSeverity",
+        ))
     }
 }

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [TraceService](super::stub::TraceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TraceService for TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_traces(
         &self,
@@ -57,6 +63,4 @@ where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.patch_traces(req, options).await
     }
-
 }
-

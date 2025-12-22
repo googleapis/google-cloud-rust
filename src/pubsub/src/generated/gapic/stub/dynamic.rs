@@ -64,7 +64,6 @@ pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
         req: crate::model::DetachSubscriptionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>;
-
 }
 
 /// All implementations of [super::TopicAdmin] also implement [TopicAdmin].
@@ -141,7 +140,6 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     ) -> crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>> {
         T::detach_subscription(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SubscriptionAdmin].
@@ -218,7 +216,6 @@ pub trait SubscriptionAdmin: std::fmt::Debug + Send + Sync {
         req: crate::model::SeekRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>>;
-
 }
 
 /// All implementations of [super::SubscriptionAdmin] also implement [SubscriptionAdmin].
@@ -331,7 +328,6 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>> {
         T::seek(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SchemaService].
@@ -414,7 +410,6 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
-
 }
 
 /// All implementations of [super::SchemaService] also implement [SchemaService].
@@ -536,5 +531,4 @@ impl<T: super::SchemaService> SchemaService for T {
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
-
 }

@@ -72,4 +72,3 @@ pub(crate) mod info {
         };
     }
 }
-

@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,7 +40,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Process {
-
     /// Immutable. The resource name of the lineage process. Format:
     /// `projects/{project}/locations/{location}/processes/{process}`.
     /// Can be specified or auto-assigned.
@@ -58,7 +57,7 @@ pub struct Process {
     /// process).
     ///
     /// Up to 100 attributes are allowed.
-    pub attributes: std::collections::HashMap<std::string::String,wkt::Value>,
+    pub attributes: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Optional. The origin of this process and its runs and lineage events.
     pub origin: std::option::Option<crate::model::Origin>,
@@ -126,7 +125,8 @@ impl Process {
     /// let x = Process::new().set_origin(Origin::default()/* use setters */);
     /// ```
     pub fn set_origin<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Origin>
+    where
+        T: std::convert::Into<crate::model::Origin>,
     {
         self.origin = std::option::Option::Some(v.into());
         self
@@ -142,7 +142,8 @@ impl Process {
     /// let x = Process::new().set_or_clear_origin(None::<Origin>);
     /// ```
     pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Origin>
+    where
+        T: std::convert::Into<crate::model::Origin>,
     {
         self.origin = v.map(|x| x.into());
         self
@@ -160,7 +161,6 @@ impl wkt::message::Message for Process {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Run {
-
     /// Immutable. The resource name of the run. Format:
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}`.
     /// Can be specified or auto-assigned.
@@ -177,7 +177,7 @@ pub struct Run {
     /// non-semantic management (classifying, describing or labeling the run).
     ///
     /// Up to 100 attributes are allowed.
-    pub attributes: std::collections::HashMap<std::string::String,wkt::Value>,
+    pub attributes: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Required. The timestamp of the start of the run.
     pub start_time: std::option::Option<wkt::Timestamp>,
@@ -251,7 +251,8 @@ impl Run {
     /// let x = Run::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -267,7 +268,8 @@ impl Run {
     /// let x = Run::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -282,7 +284,8 @@ impl Run {
     /// let x = Run::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -298,7 +301,8 @@ impl Run {
     /// let x = Run::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -330,7 +334,6 @@ impl wkt::message::Message for Run {
 pub mod run {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The current state of the run.
     ///
@@ -429,7 +432,9 @@ pub mod run {
                 2 => Self::Completed,
                 3 => Self::Failed,
                 4 => Self::Aborted,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -443,7 +448,9 @@ pub mod run {
                 "COMPLETED" => Self::Completed,
                 "FAILED" => Self::Failed,
                 "ABORTED" => Self::Aborted,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -470,7 +477,8 @@ pub mod run {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datacatalog.lineage.v1.Run.State"))
+                ".google.cloud.datacatalog.lineage.v1.Run.State",
+            ))
         }
     }
 }
@@ -480,7 +488,6 @@ pub mod run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineageEvent {
-
     /// Immutable. The resource name of the lineage event.
     /// Format:
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}/lineageEvents/{lineage_event}`.
@@ -537,7 +544,7 @@ impl LineageEvent {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventLink>
+        V: std::convert::Into<crate::model::EventLink>,
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -553,7 +560,8 @@ impl LineageEvent {
     /// let x = LineageEvent::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -569,7 +577,8 @@ impl LineageEvent {
     /// let x = LineageEvent::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -584,7 +593,8 @@ impl LineageEvent {
     /// let x = LineageEvent::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -600,7 +610,8 @@ impl LineageEvent {
     /// let x = LineageEvent::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -617,7 +628,6 @@ impl wkt::message::Message for LineageEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventLink {
-
     /// Required. Reference to the source entity
     pub source: std::option::Option<crate::model::EntityReference>,
 
@@ -641,7 +651,8 @@ impl EventLink {
     /// let x = EventLink::new().set_source(EntityReference::default()/* use setters */);
     /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -657,7 +668,8 @@ impl EventLink {
     /// let x = EventLink::new().set_or_clear_source(None::<EntityReference>);
     /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.source = v.map(|x| x.into());
         self
@@ -672,7 +684,8 @@ impl EventLink {
     /// let x = EventLink::new().set_target(EntityReference::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -688,7 +701,8 @@ impl EventLink {
     /// let x = EventLink::new().set_or_clear_target(None::<EntityReference>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.target = v.map(|x| x.into());
         self
@@ -705,7 +719,6 @@ impl wkt::message::Message for EventLink {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityReference {
-
     /// Required. [Fully Qualified Name
     /// (FQN)](https://cloud.google.com/data-catalog/docs/fully-qualified-names)
     /// of the entity.
@@ -726,7 +739,10 @@ impl EntityReference {
     /// # use google_cloud_datacatalog_lineage_v1::model::EntityReference;
     /// let x = EntityReference::new().set_fully_qualified_name("example");
     /// ```
-    pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.fully_qualified_name = v.into();
         self
     }
@@ -742,7 +758,6 @@ impl wkt::message::Message for EntityReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The current operation state.
     pub state: crate::model::operation_metadata::State,
 
@@ -782,7 +797,10 @@ impl OperationMetadata {
     /// let x1 = OperationMetadata::new().set_state(State::Running);
     /// let x2 = OperationMetadata::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -796,7 +814,10 @@ impl OperationMetadata {
     /// let x0 = OperationMetadata::new().set_operation_type(Type::Delete);
     /// let x1 = OperationMetadata::new().set_operation_type(Type::Create);
     /// ```
-    pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(mut self, v: T) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.operation_type = v.into();
         self
     }
@@ -834,7 +855,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -850,7 +872,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -865,7 +888,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -881,7 +905,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -898,7 +923,6 @@ impl wkt::message::Message for OperationMetadata {
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// An enum with the state of the operation.
     ///
@@ -996,7 +1020,9 @@ pub mod operation_metadata {
                 2 => Self::Running,
                 3 => Self::Succeeded,
                 4 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1010,7 +1036,9 @@ pub mod operation_metadata {
                 "RUNNING" => Self::Running,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1037,7 +1065,8 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.datacatalog.lineage.v1.OperationMetadata.State"))
+                ".google.cloud.datacatalog.lineage.v1.OperationMetadata.State",
+            ))
         }
     }
 
@@ -1127,7 +1156,9 @@ pub mod operation_metadata {
                 0 => Self::Unspecified,
                 1 => Self::Delete,
                 2 => Self::Create,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1139,7 +1170,9 @@ pub mod operation_metadata {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "DELETE" => Self::Delete,
                 "CREATE" => Self::Create,
-                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1164,7 +1197,8 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.datacatalog.lineage.v1.OperationMetadata.Type"))
+                ".google.cloud.datacatalog.lineage.v1.OperationMetadata.Type",
+            ))
         }
     }
 }
@@ -1174,7 +1208,6 @@ pub mod operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventRequest {
-
     /// Required. The name of the project and its location that should own the
     /// process, run, and lineage event.
     pub parent: std::string::String,
@@ -1217,7 +1250,8 @@ impl ProcessOpenLineageRunEventRequest {
     /// let x = ProcessOpenLineageRunEventRequest::new().set_open_lineage(Struct::default()/* use setters */);
     /// ```
     pub fn set_open_lineage<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.open_lineage = std::option::Option::Some(v.into());
         self
@@ -1233,7 +1267,8 @@ impl ProcessOpenLineageRunEventRequest {
     /// let x = ProcessOpenLineageRunEventRequest::new().set_or_clear_open_lineage(None::<Struct>);
     /// ```
     pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.open_lineage = v.map(|x| x.into());
         self
@@ -1263,7 +1298,6 @@ impl wkt::message::Message for ProcessOpenLineageRunEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventResponse {
-
     /// Created process name.
     /// Format: `projects/{project}/locations/{location}/processes/{process}`.
     pub process: std::string::String,
@@ -1320,7 +1354,7 @@ impl ProcessOpenLineageRunEventResponse {
     pub fn set_lineage_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.lineage_events = v.into_iter().map(|i| i.into()).collect();
@@ -1339,7 +1373,6 @@ impl wkt::message::Message for ProcessOpenLineageRunEventResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProcessRequest {
-
     /// Required. The name of the project and its location that should own the
     /// process.
     pub parent: std::string::String,
@@ -1381,7 +1414,8 @@ impl CreateProcessRequest {
     /// let x = CreateProcessRequest::new().set_process(Process::default()/* use setters */);
     /// ```
     pub fn set_process<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Process>
+    where
+        T: std::convert::Into<crate::model::Process>,
     {
         self.process = std::option::Option::Some(v.into());
         self
@@ -1397,7 +1431,8 @@ impl CreateProcessRequest {
     /// let x = CreateProcessRequest::new().set_or_clear_process(None::<Process>);
     /// ```
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Process>
+    where
+        T: std::convert::Into<crate::model::Process>,
     {
         self.process = v.map(|x| x.into());
         self
@@ -1427,7 +1462,6 @@ impl wkt::message::Message for CreateProcessRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProcessRequest {
-
     /// Required. The lineage process to update.
     ///
     /// The process's `name` field is used to identify the process to update.
@@ -1457,7 +1491,8 @@ impl UpdateProcessRequest {
     /// let x = UpdateProcessRequest::new().set_process(Process::default()/* use setters */);
     /// ```
     pub fn set_process<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Process>
+    where
+        T: std::convert::Into<crate::model::Process>,
     {
         self.process = std::option::Option::Some(v.into());
         self
@@ -1473,7 +1508,8 @@ impl UpdateProcessRequest {
     /// let x = UpdateProcessRequest::new().set_or_clear_process(None::<Process>);
     /// ```
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Process>
+    where
+        T: std::convert::Into<crate::model::Process>,
     {
         self.process = v.map(|x| x.into());
         self
@@ -1488,7 +1524,8 @@ impl UpdateProcessRequest {
     /// let x = UpdateProcessRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1504,7 +1541,8 @@ impl UpdateProcessRequest {
     /// let x = UpdateProcessRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1534,7 +1572,6 @@ impl wkt::message::Message for UpdateProcessRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessRequest {
-
     /// Required. The name of the process to get.
     pub name: std::string::String,
 
@@ -1570,7 +1607,6 @@ impl wkt::message::Message for GetProcessRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesRequest {
-
     /// Required. The name of the project and its location that owns this
     /// collection of processes.
     pub parent: std::string::String,
@@ -1644,7 +1680,6 @@ impl wkt::message::Message for ListProcessesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesResponse {
-
     /// The processes from the specified project and location.
     pub processes: std::vec::Vec<crate::model::Process>,
 
@@ -1675,7 +1710,7 @@ impl ListProcessesResponse {
     pub fn set_processes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Process>
+        V: std::convert::Into<crate::model::Process>,
     {
         use std::iter::Iterator;
         self.processes = v.into_iter().map(|i| i.into()).collect();
@@ -1720,7 +1755,6 @@ impl gax::paginator::internal::PageableResponse for ListProcessesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessRequest {
-
     /// Required. The name of the process to delete.
     pub name: std::string::String,
 
@@ -1772,7 +1806,6 @@ impl wkt::message::Message for DeleteProcessRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRunRequest {
-
     /// Required. The name of the process that should own the run.
     pub parent: std::string::String,
 
@@ -1813,7 +1846,8 @@ impl CreateRunRequest {
     /// let x = CreateRunRequest::new().set_run(Run::default()/* use setters */);
     /// ```
     pub fn set_run<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Run>
+    where
+        T: std::convert::Into<crate::model::Run>,
     {
         self.run = std::option::Option::Some(v.into());
         self
@@ -1829,7 +1863,8 @@ impl CreateRunRequest {
     /// let x = CreateRunRequest::new().set_or_clear_run(None::<Run>);
     /// ```
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Run>
+    where
+        T: std::convert::Into<crate::model::Run>,
     {
         self.run = v.map(|x| x.into());
         self
@@ -1859,7 +1894,6 @@ impl wkt::message::Message for CreateRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRunRequest {
-
     /// Required. The lineage run to update.
     ///
     /// The run's `name` field is used to identify the run to update.
@@ -1892,7 +1926,8 @@ impl UpdateRunRequest {
     /// let x = UpdateRunRequest::new().set_run(Run::default()/* use setters */);
     /// ```
     pub fn set_run<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Run>
+    where
+        T: std::convert::Into<crate::model::Run>,
     {
         self.run = std::option::Option::Some(v.into());
         self
@@ -1908,7 +1943,8 @@ impl UpdateRunRequest {
     /// let x = UpdateRunRequest::new().set_or_clear_run(None::<Run>);
     /// ```
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Run>
+    where
+        T: std::convert::Into<crate::model::Run>,
     {
         self.run = v.map(|x| x.into());
         self
@@ -1923,7 +1959,8 @@ impl UpdateRunRequest {
     /// let x = UpdateRunRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1939,7 +1976,8 @@ impl UpdateRunRequest {
     /// let x = UpdateRunRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1969,7 +2007,6 @@ impl wkt::message::Message for UpdateRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRunRequest {
-
     /// Required. The name of the run to get.
     pub name: std::string::String,
 
@@ -2005,7 +2042,6 @@ impl wkt::message::Message for GetRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsRequest {
-
     /// Required. The name of process that owns this collection of runs.
     pub parent: std::string::String,
 
@@ -2078,7 +2114,6 @@ impl wkt::message::Message for ListRunsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsResponse {
-
     /// The runs from the specified project and location.
     pub runs: std::vec::Vec<crate::model::Run>,
 
@@ -2109,7 +2144,7 @@ impl ListRunsResponse {
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Run>
+        V: std::convert::Into<crate::model::Run>,
     {
         use std::iter::Iterator;
         self.runs = v.into_iter().map(|i| i.into()).collect();
@@ -2154,7 +2189,6 @@ impl gax::paginator::internal::PageableResponse for ListRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRunRequest {
-
     /// Required. The name of the run to delete.
     pub name: std::string::String,
 
@@ -2206,7 +2240,6 @@ impl wkt::message::Message for DeleteRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLineageEventRequest {
-
     /// Required. The name of the run that should own the lineage event.
     pub parent: std::string::String,
 
@@ -2247,7 +2280,8 @@ impl CreateLineageEventRequest {
     /// let x = CreateLineageEventRequest::new().set_lineage_event(LineageEvent::default()/* use setters */);
     /// ```
     pub fn set_lineage_event<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LineageEvent>
+    where
+        T: std::convert::Into<crate::model::LineageEvent>,
     {
         self.lineage_event = std::option::Option::Some(v.into());
         self
@@ -2263,7 +2297,8 @@ impl CreateLineageEventRequest {
     /// let x = CreateLineageEventRequest::new().set_or_clear_lineage_event(None::<LineageEvent>);
     /// ```
     pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LineageEvent>
+    where
+        T: std::convert::Into<crate::model::LineageEvent>,
     {
         self.lineage_event = v.map(|x| x.into());
         self
@@ -2293,7 +2328,6 @@ impl wkt::message::Message for CreateLineageEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLineageEventRequest {
-
     /// Required. The name of the lineage event to get.
     pub name: std::string::String,
 
@@ -2329,7 +2363,6 @@ impl wkt::message::Message for GetLineageEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsRequest {
-
     /// Required. The name of the run that owns the collection of lineage events to
     /// get.
     pub parent: std::string::String,
@@ -2404,7 +2437,6 @@ impl wkt::message::Message for ListLineageEventsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsResponse {
-
     /// Lineage events from the specified project and location.
     pub lineage_events: std::vec::Vec<crate::model::LineageEvent>,
 
@@ -2435,7 +2467,7 @@ impl ListLineageEventsResponse {
     pub fn set_lineage_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineageEvent>
+        V: std::convert::Into<crate::model::LineageEvent>,
     {
         use std::iter::Iterator;
         self.lineage_events = v.into_iter().map(|i| i.into()).collect();
@@ -2480,7 +2512,6 @@ impl gax::paginator::internal::PageableResponse for ListLineageEventsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLineageEventRequest {
-
     /// Required. The name of the lineage event to delete.
     pub name: std::string::String,
 
@@ -2534,7 +2565,6 @@ impl wkt::message::Message for DeleteLineageEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLinksRequest {
-
     /// Required. The project and location you want search in.
     pub parent: std::string::String,
 
@@ -2612,8 +2642,12 @@ impl SearchLinksRequest {
     /// let x = SearchLinksRequest::new().set_criteria(Some(
     ///     google_cloud_datacatalog_lineage_v1::model::search_links_request::Criteria::Source(EntityReference::default().into())));
     /// ```
-    pub fn set_criteria<T: std::convert::Into<std::option::Option<crate::model::search_links_request::Criteria>>>(mut self, v: T) -> Self
-    {
+    pub fn set_criteria<
+        T: std::convert::Into<std::option::Option<crate::model::search_links_request::Criteria>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.criteria = v.into();
         self
     }
@@ -2643,11 +2677,12 @@ impl SearchLinksRequest {
     /// assert!(x.source().is_some());
     /// assert!(x.target().is_none());
     /// ```
-    pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(mut self, v: T) -> Self {
+    pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.criteria = std::option::Option::Some(
-            crate::model::search_links_request::Criteria::Source(
-                v.into()
-            )
+            crate::model::search_links_request::Criteria::Source(v.into()),
         );
         self
     }
@@ -2677,11 +2712,12 @@ impl SearchLinksRequest {
     /// assert!(x.target().is_some());
     /// assert!(x.source().is_none());
     /// ```
-    pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(mut self, v: T) -> Self {
+    pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.criteria = std::option::Option::Some(
-            crate::model::search_links_request::Criteria::Target(
-                v.into()
-            )
+            crate::model::search_links_request::Criteria::Target(v.into()),
         );
         self
     }
@@ -2697,7 +2733,6 @@ impl wkt::message::Message for SearchLinksRequest {
 pub mod search_links_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The asset for which you want to retrieve links.
     #[derive(Clone, Debug, PartialEq)]
@@ -2719,7 +2754,6 @@ pub mod search_links_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLinksResponse {
-
     /// The list of links for a given asset. Can be empty if the asset has no
     /// relations of requested type (source or target).
     pub links: std::vec::Vec<crate::model::Link>,
@@ -2751,7 +2785,7 @@ impl SearchLinksResponse {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Link>
+        V: std::convert::Into<crate::model::Link>,
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -2799,7 +2833,6 @@ impl gax::paginator::internal::PageableResponse for SearchLinksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Link {
-
     /// Output only. Immutable. The name of the link. Format:
     /// `projects/{project}/locations/{location}/links/{link}`.
     pub name: std::string::String,
@@ -2845,7 +2878,8 @@ impl Link {
     /// let x = Link::new().set_source(EntityReference::default()/* use setters */);
     /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -2861,7 +2895,8 @@ impl Link {
     /// let x = Link::new().set_or_clear_source(None::<EntityReference>);
     /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.source = v.map(|x| x.into());
         self
@@ -2876,7 +2911,8 @@ impl Link {
     /// let x = Link::new().set_target(EntityReference::default()/* use setters */);
     /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -2892,7 +2928,8 @@ impl Link {
     /// let x = Link::new().set_or_clear_target(None::<EntityReference>);
     /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EntityReference>
+    where
+        T: std::convert::Into<crate::model::EntityReference>,
     {
         self.target = v.map(|x| x.into());
         self
@@ -2907,7 +2944,8 @@ impl Link {
     /// let x = Link::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2923,7 +2961,8 @@ impl Link {
     /// let x = Link::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2938,7 +2977,8 @@ impl Link {
     /// let x = Link::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2954,7 +2994,8 @@ impl Link {
     /// let x = Link::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2974,7 +3015,6 @@ impl wkt::message::Message for Link {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchSearchLinkProcessesRequest {
-
     /// Required. The project and location where you want to search.
     pub parent: std::string::String,
 
@@ -3029,7 +3069,7 @@ impl BatchSearchLinkProcessesRequest {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -3074,7 +3114,6 @@ impl wkt::message::Message for BatchSearchLinkProcessesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchSearchLinkProcessesResponse {
-
     /// An array of processes associated with the specified links.
     pub process_links: std::vec::Vec<crate::model::ProcessLinks>,
 
@@ -3105,7 +3144,7 @@ impl BatchSearchLinkProcessesResponse {
     pub fn set_process_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessLinks>
+        V: std::convert::Into<crate::model::ProcessLinks>,
     {
         use std::iter::Iterator;
         self.process_links = v.into_iter().map(|i| i.into()).collect();
@@ -3149,7 +3188,6 @@ impl gax::paginator::internal::PageableResponse for BatchSearchLinkProcessesResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessLinks {
-
     /// The process name in the format of
     /// `projects/{project}/locations/{location}/processes/{process}`.
     pub process: std::string::String,
@@ -3197,7 +3235,7 @@ impl ProcessLinks {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessLinkInfo>
+        V: std::convert::Into<crate::model::ProcessLinkInfo>,
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -3215,7 +3253,6 @@ impl wkt::message::Message for ProcessLinks {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessLinkInfo {
-
     /// The name of the link in the format of
     /// `projects/{project}/locations/{location}/links/{link}`.
     pub link: std::string::String,
@@ -3255,7 +3292,8 @@ impl ProcessLinkInfo {
     /// let x = ProcessLinkInfo::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3271,7 +3309,8 @@ impl ProcessLinkInfo {
     /// let x = ProcessLinkInfo::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3286,7 +3325,8 @@ impl ProcessLinkInfo {
     /// let x = ProcessLinkInfo::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3302,7 +3342,8 @@ impl ProcessLinkInfo {
     /// let x = ProcessLinkInfo::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3319,7 +3360,6 @@ impl wkt::message::Message for ProcessLinkInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Origin {
-
     /// Type of the source.
     ///
     /// Use of a source_type other than `CUSTOM` for process creation
@@ -3356,7 +3396,10 @@ impl Origin {
     /// let x1 = Origin::new().set_source_type(SourceType::Bigquery);
     /// let x2 = Origin::new().set_source_type(SourceType::DataFusion);
     /// ```
-    pub fn set_source_type<T: std::convert::Into<crate::model::origin::SourceType>>(mut self, v: T) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::origin::SourceType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.source_type = v.into();
         self
     }
@@ -3384,7 +3427,6 @@ impl wkt::message::Message for Origin {
 pub mod origin {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Type of the source of a process.
     ///
@@ -3492,7 +3534,9 @@ pub mod origin {
                 4 => Self::Composer,
                 5 => Self::LookerStudio,
                 6 => Self::Dataproc,
-                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3508,7 +3552,9 @@ pub mod origin {
                 "COMPOSER" => Self::Composer,
                 "LOOKER_STUDIO" => Self::LookerStudio,
                 "DATAPROC" => Self::Dataproc,
-                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3537,7 +3583,8 @@ pub mod origin {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceType>::new(
-                ".google.cloud.datacatalog.lineage.v1.Origin.SourceType"))
+                ".google.cloud.datacatalog.lineage.v1.Origin.SourceType",
+            ))
         }
     }
 }

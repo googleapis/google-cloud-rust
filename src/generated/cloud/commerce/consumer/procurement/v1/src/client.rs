@@ -72,7 +72,9 @@ impl LicenseManagementService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::license_management_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::license_management_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::license_management_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,44 @@ impl LicenseManagementService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::LicenseManagementService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::LicenseManagementService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseManagementService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::LicenseManagementService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
         super::transport::LicenseManagementService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
-        Self::build_transport(conf).await.map(super::tracing::LicenseManagementService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::LicenseManagementService::new)
     }
 
     /// Gets the license pool.
@@ -121,8 +139,7 @@ impl LicenseManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool
-    {
+    pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool {
         super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
     }
 
@@ -143,8 +160,9 @@ impl LicenseManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_license_pool(&self) -> super::builder::license_management_service::UpdateLicensePool
-    {
+    pub fn update_license_pool(
+        &self,
+    ) -> super::builder::license_management_service::UpdateLicensePool {
         super::builder::license_management_service::UpdateLicensePool::new(self.inner.clone())
     }
 
@@ -165,8 +183,7 @@ impl LicenseManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn assign(&self) -> super::builder::license_management_service::Assign
-    {
+    pub fn assign(&self) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
     }
 
@@ -187,14 +204,14 @@ impl LicenseManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn unassign(&self) -> super::builder::license_management_service::Unassign
-    {
+    pub fn unassign(&self) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
     }
 
     /// Enumerates all users assigned a license.
-    pub fn enumerate_licensed_users(&self) -> super::builder::license_management_service::EnumerateLicensedUsers
-    {
+    pub fn enumerate_licensed_users(
+        &self,
+    ) -> super::builder::license_management_service::EnumerateLicensedUsers {
         super::builder::license_management_service::EnumerateLicensedUsers::new(self.inner.clone())
     }
 
@@ -217,8 +234,7 @@ impl LicenseManagementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -288,7 +304,9 @@ impl ConsumerProcurementService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::consumer_procurement_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::consumer_procurement_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::consumer_procurement_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -296,28 +314,44 @@ impl ConsumerProcurementService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ConsumerProcurementService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ConsumerProcurementService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConsumerProcurementService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
         super::transport::ConsumerProcurementService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
-        Self::build_transport(conf).await.map(super::tracing::ConsumerProcurementService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ConsumerProcurementService::new)
     }
 
     /// Creates a new [Order][google.cloud.commerce.consumer.procurement.v1.Order].
@@ -342,8 +376,7 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn place_order(&self) -> super::builder::consumer_procurement_service::PlaceOrder
-    {
+    pub fn place_order(&self) -> super::builder::consumer_procurement_service::PlaceOrder {
         super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
     }
 
@@ -367,8 +400,7 @@ impl ConsumerProcurementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder
-    {
+    pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder {
         super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
     }
 
@@ -377,8 +409,7 @@ impl ConsumerProcurementService {
     /// resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
-    pub fn list_orders(&self) -> super::builder::consumer_procurement_service::ListOrders
-    {
+    pub fn list_orders(&self) -> super::builder::consumer_procurement_service::ListOrders {
         super::builder::consumer_procurement_service::ListOrders::new(self.inner.clone())
     }
 
@@ -396,8 +427,7 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn modify_order(&self) -> super::builder::consumer_procurement_service::ModifyOrder
-    {
+    pub fn modify_order(&self) -> super::builder::consumer_procurement_service::ModifyOrder {
         super::builder::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
     }
 
@@ -416,8 +446,7 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_order(&self) -> super::builder::consumer_procurement_service::CancelOrder
-    {
+    pub fn cancel_order(&self) -> super::builder::consumer_procurement_service::CancelOrder {
         super::builder::consumer_procurement_service::CancelOrder::new(self.inner.clone())
     }
 
@@ -440,8 +469,7 @@ impl ConsumerProcurementService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
     }
 }

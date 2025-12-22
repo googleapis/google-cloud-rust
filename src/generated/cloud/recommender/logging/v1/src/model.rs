@@ -17,12 +17,12 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate recommender;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -33,7 +33,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActionLog {
-
     /// Required. User that executed this action. Eg, foo@gmail.com
     pub actor: std::string::String,
 
@@ -41,7 +40,7 @@ pub struct ActionLog {
     pub state: recommender::model::recommendation_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
-    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the recommendation which was acted on. Eg, :
     /// 'projects/123/locations/global/recommenders/roleReco/recommendations/r1'
@@ -77,7 +76,12 @@ impl ActionLog {
     /// let x1 = ActionLog::new().set_state(State::Claimed);
     /// let x2 = ActionLog::new().set_state(State::Succeeded);
     /// ```
-    pub fn set_state<T: std::convert::Into<recommender::model::recommendation_state_info::State>>(mut self, v: T) -> Self {
+    pub fn set_state<
+        T: std::convert::Into<recommender::model::recommendation_state_info::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -110,7 +114,10 @@ impl ActionLog {
     /// # use google_cloud_recommender_logging_v1::model::ActionLog;
     /// let x = ActionLog::new().set_recommendation_name("example");
     /// ```
-    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.recommendation_name = v.into();
         self
     }
@@ -126,7 +133,6 @@ impl wkt::message::Message for ActionLog {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightActionLog {
-
     /// Required. User that executed this action. Eg, foo@gmail.com
     pub actor: std::string::String,
 
@@ -134,7 +140,7 @@ pub struct InsightActionLog {
     pub state: recommender::model::insight_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
-    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the insight which was acted on. Eg, :
     /// 'projects/123/locations/global/insightTypes/roleInsight/insights/i1'
@@ -170,7 +176,10 @@ impl InsightActionLog {
     /// let x1 = InsightActionLog::new().set_state(State::Accepted);
     /// let x2 = InsightActionLog::new().set_state(State::Dismissed);
     /// ```
-    pub fn set_state<T: std::convert::Into<recommender::model::insight_state_info::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<recommender::model::insight_state_info::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }

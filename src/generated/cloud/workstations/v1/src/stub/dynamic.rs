@@ -261,7 +261,8 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>>
+    {
         T::list_usable_workstation_configs(self, req, options).await
     }
 

@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,6 +27,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -54,7 +54,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Constraint {
-
     /// Immutable. The resource name of the constraint. Must be in one of
     /// the following forms:
     ///
@@ -147,7 +146,12 @@ impl Constraint {
     /// let x0 = Constraint::new().set_constraint_default(ConstraintDefault::Allow);
     /// let x1 = Constraint::new().set_constraint_default(ConstraintDefault::Deny);
     /// ```
-    pub fn set_constraint_default<T: std::convert::Into<crate::model::constraint::ConstraintDefault>>(mut self, v: T) -> Self {
+    pub fn set_constraint_default<
+        T: std::convert::Into<crate::model::constraint::ConstraintDefault>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.constraint_default = v.into();
         self
     }
@@ -171,7 +175,10 @@ impl Constraint {
     /// # use google_cloud_orgpolicy_v2::model::Constraint;
     /// let x = Constraint::new().set_equivalent_constraint("example");
     /// ```
-    pub fn set_equivalent_constraint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_equivalent_constraint<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.equivalent_constraint = v.into();
         self
     }
@@ -200,8 +207,12 @@ impl Constraint {
     /// let x = Constraint::new().set_constraint_type(Some(
     ///     google_cloud_orgpolicy_v2::model::constraint::ConstraintType::ListConstraint(ListConstraint::default().into())));
     /// ```
-    pub fn set_constraint_type<T: std::convert::Into<std::option::Option<crate::model::constraint::ConstraintType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_constraint_type<
+        T: std::convert::Into<std::option::Option<crate::model::constraint::ConstraintType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.constraint_type = v.into();
         self
     }
@@ -209,10 +220,14 @@ impl Constraint {
     /// The value of [constraint_type][crate::model::Constraint::constraint_type]
     /// if it holds a `ListConstraint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn list_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::constraint::ListConstraint>> {
+    pub fn list_constraint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::ListConstraint>> {
         #[allow(unreachable_patterns)]
         self.constraint_type.as_ref().and_then(|v| match v {
-            crate::model::constraint::ConstraintType::ListConstraint(v) => std::option::Option::Some(v),
+            crate::model::constraint::ConstraintType::ListConstraint(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -231,11 +246,14 @@ impl Constraint {
     /// assert!(x.list_constraint().is_some());
     /// assert!(x.boolean_constraint().is_none());
     /// ```
-    pub fn set_list_constraint<T: std::convert::Into<std::boxed::Box<crate::model::constraint::ListConstraint>>>(mut self, v: T) -> Self {
+    pub fn set_list_constraint<
+        T: std::convert::Into<std::boxed::Box<crate::model::constraint::ListConstraint>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.constraint_type = std::option::Option::Some(
-            crate::model::constraint::ConstraintType::ListConstraint(
-                v.into()
-            )
+            crate::model::constraint::ConstraintType::ListConstraint(v.into()),
         );
         self
     }
@@ -243,10 +261,14 @@ impl Constraint {
     /// The value of [constraint_type][crate::model::Constraint::constraint_type]
     /// if it holds a `BooleanConstraint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn boolean_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
+    pub fn boolean_constraint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
         #[allow(unreachable_patterns)]
         self.constraint_type.as_ref().and_then(|v| match v {
-            crate::model::constraint::ConstraintType::BooleanConstraint(v) => std::option::Option::Some(v),
+            crate::model::constraint::ConstraintType::BooleanConstraint(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -265,11 +287,14 @@ impl Constraint {
     /// assert!(x.boolean_constraint().is_some());
     /// assert!(x.list_constraint().is_none());
     /// ```
-    pub fn set_boolean_constraint<T: std::convert::Into<std::boxed::Box<crate::model::constraint::BooleanConstraint>>>(mut self, v: T) -> Self {
+    pub fn set_boolean_constraint<
+        T: std::convert::Into<std::boxed::Box<crate::model::constraint::BooleanConstraint>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.constraint_type = std::option::Option::Some(
-            crate::model::constraint::ConstraintType::BooleanConstraint(
-                v.into()
-            )
+            crate::model::constraint::ConstraintType::BooleanConstraint(v.into()),
         );
         self
     }
@@ -286,7 +311,6 @@ pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A constraint type that allows or disallows a list of string values, which
     /// are configured in the
     /// [`PolicyRule`][google.cloud.orgpolicy.v2.PolicySpec.PolicyRule].
@@ -295,7 +319,6 @@ pub mod constraint {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListConstraint {
-
         /// Indicates whether values grouped into categories can be used in
         /// `Policy.allowed_values` and `Policy.denied_values`. For example,
         /// `"in:Python"` would match any value in the 'Python' group.
@@ -350,7 +373,6 @@ pub mod constraint {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomConstraintDefinition {
-
         /// The resource instance type on which this policy applies. Format will be
         /// of the form : `<service name>/<type>` Example:
         ///
@@ -358,7 +380,8 @@ pub mod constraint {
         pub resource_types: std::vec::Vec<std::string::String>,
 
         /// All the operations being applied for this constraint.
-        pub method_types: std::vec::Vec<crate::model::constraint::custom_constraint_definition::MethodType>,
+        pub method_types:
+            std::vec::Vec<crate::model::constraint::custom_constraint_definition::MethodType>,
 
         /// Org policy condition/expression. For example:
         /// `resource.instanceName.matches("[production|test]_.*_(\d)+")` or,
@@ -376,7 +399,10 @@ pub mod constraint {
         /// the parameter.
         ///
         /// [google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter]: crate::model::constraint::custom_constraint_definition::Parameter
-        pub parameters: std::collections::HashMap<std::string::String,crate::model::constraint::custom_constraint_definition::Parameter>,
+        pub parameters: std::collections::HashMap<
+            std::string::String,
+            crate::model::constraint::custom_constraint_definition::Parameter,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -396,7 +422,7 @@ pub mod constraint {
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -418,7 +444,9 @@ pub mod constraint {
         pub fn set_method_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::constraint::custom_constraint_definition::MethodType>
+            V: std::convert::Into<
+                    crate::model::constraint::custom_constraint_definition::MethodType,
+                >,
         {
             use std::iter::Iterator;
             self.method_types = v.into_iter().map(|i| i.into()).collect();
@@ -446,7 +474,12 @@ pub mod constraint {
         /// let x0 = CustomConstraintDefinition::new().set_action_type(ActionType::Allow);
         /// let x1 = CustomConstraintDefinition::new().set_action_type(ActionType::Deny);
         /// ```
-        pub fn set_action_type<T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>>(mut self, v: T) -> Self {
+        pub fn set_action_type<
+            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.action_type = v.into();
             self
         }
@@ -466,7 +499,9 @@ pub mod constraint {
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
             K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<crate::model::constraint::custom_constraint_definition::Parameter>,
+            V: std::convert::Into<
+                    crate::model::constraint::custom_constraint_definition::Parameter,
+                >,
         {
             use std::iter::Iterator;
             self.parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -485,12 +520,10 @@ pub mod constraint {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Defines a parameter structure.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Parameter {
-
             /// Type of the parameter.
             pub r#type: crate::model::constraint::custom_constraint_definition::parameter::Type,
 
@@ -504,7 +537,9 @@ pub mod constraint {
 
             /// Defines subproperties primarily used by the UI to display user-friendly
             /// information.
-            pub metadata: std::option::Option<crate::model::constraint::custom_constraint_definition::parameter::Metadata>,
+            pub metadata: std::option::Option<
+                crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+            >,
 
             /// Determines the parameter's value structure.
             /// For example, `LIST<STRING>` can be specified by defining `type: LIST`,
@@ -529,7 +564,14 @@ pub mod constraint {
             /// let x1 = Parameter::new().set_type(Type::String);
             /// let x2 = Parameter::new().set_type(Type::Boolean);
             /// ```
-            pub fn set_type<T: std::convert::Into<crate::model::constraint::custom_constraint_definition::parameter::Type>>(mut self, v: T) -> Self {
+            pub fn set_type<
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Type,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.r#type = v.into();
                 self
             }
@@ -543,7 +585,8 @@ pub mod constraint {
             /// let x = Parameter::new().set_default_value(Value::default()/* use setters */);
             /// ```
             pub fn set_default_value<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<wkt::Value>
+            where
+                T: std::convert::Into<wkt::Value>,
             {
                 self.default_value = std::option::Option::Some(v.into());
                 self
@@ -559,7 +602,8 @@ pub mod constraint {
             /// let x = Parameter::new().set_or_clear_default_value(None::<Value>);
             /// ```
             pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<wkt::Value>
+            where
+                T: std::convert::Into<wkt::Value>,
             {
                 self.default_value = v.map(|x| x.into());
                 self
@@ -572,7 +616,10 @@ pub mod constraint {
             /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
             /// let x = Parameter::new().set_valid_values_expr("example");
             /// ```
-            pub fn set_valid_values_expr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            pub fn set_valid_values_expr<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.valid_values_expr = v.into();
                 self
             }
@@ -586,7 +633,10 @@ pub mod constraint {
             /// let x = Parameter::new().set_metadata(Metadata::default()/* use setters */);
             /// ```
             pub fn set_metadata<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::constraint::custom_constraint_definition::parameter::Metadata>
+            where
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+                    >,
             {
                 self.metadata = std::option::Option::Some(v.into());
                 self
@@ -602,7 +652,10 @@ pub mod constraint {
             /// let x = Parameter::new().set_or_clear_metadata(None::<Metadata>);
             /// ```
             pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::constraint::custom_constraint_definition::parameter::Metadata>
+            where
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+                    >,
             {
                 self.metadata = v.map(|x| x.into());
                 self
@@ -618,7 +671,14 @@ pub mod constraint {
             /// let x1 = Parameter::new().set_item(Type::String);
             /// let x2 = Parameter::new().set_item(Type::Boolean);
             /// ```
-            pub fn set_item<T: std::convert::Into<crate::model::constraint::custom_constraint_definition::parameter::Type>>(mut self, v: T) -> Self {
+            pub fn set_item<
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Type,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.item = v.into();
                 self
             }
@@ -635,12 +695,10 @@ pub mod constraint {
             #[allow(unused_imports)]
             use super::*;
 
-
             /// Defines Metadata structure.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Metadata {
-
                 /// Detailed description of what this `parameter` is and use of it.
                 /// Mutable.
                 pub description: std::string::String,
@@ -660,7 +718,10 @@ pub mod constraint {
                 /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Metadata;
                 /// let x = Metadata::new().set_description("example");
                 /// ```
-                pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                pub fn set_description<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
                     self.description = v.into();
                     self
                 }
@@ -752,7 +813,10 @@ pub mod constraint {
             }
 
             impl std::fmt::Display for Type {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -764,7 +828,9 @@ pub mod constraint {
                         1 => Self::List,
                         2 => Self::String,
                         3 => Self::Boolean,
-                        _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
                     }
                 }
             }
@@ -777,7 +843,9 @@ pub mod constraint {
                         "LIST" => Self::List,
                         "STRING" => Self::String,
                         "BOOLEAN" => Self::Boolean,
-                        _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
                     }
                 }
             }
@@ -903,7 +971,10 @@ pub mod constraint {
         }
 
         impl std::fmt::Display for MethodType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -917,7 +988,9 @@ pub mod constraint {
                     3 => Self::Delete,
                     4 => Self::RemoveGrant,
                     5 => Self::GovernTags,
-                    _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(method_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -932,7 +1005,9 @@ pub mod constraint {
                     "DELETE" => Self::Delete,
                     "REMOVE_GRANT" => Self::RemoveGrant,
                     "GOVERN_TAGS" => Self::GovernTags,
-                    _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(method_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -960,7 +1035,8 @@ pub mod constraint {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
-                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.MethodType"))
+                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.MethodType",
+                ))
             }
         }
 
@@ -1040,7 +1116,10 @@ pub mod constraint {
         }
 
         impl std::fmt::Display for ActionType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1051,7 +1130,9 @@ pub mod constraint {
                     0 => Self::Unspecified,
                     1 => Self::Allow,
                     2 => Self::Deny,
-                    _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(action_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -1063,7 +1144,9 @@ pub mod constraint {
                     "ACTION_TYPE_UNSPECIFIED" => Self::Unspecified,
                     "ALLOW" => Self::Allow,
                     "DENY" => Self::Deny,
-                    _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(action_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -1088,7 +1171,8 @@ pub mod constraint {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
-                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.ActionType"))
+                    ".google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.ActionType",
+                ))
             }
         }
     }
@@ -1103,9 +1187,9 @@ pub mod constraint {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BooleanConstraint {
-
         /// Custom constraint definition. Defines this as a managed constraint.
-        pub custom_constraint_definition: std::option::Option<crate::model::constraint::CustomConstraintDefinition>,
+        pub custom_constraint_definition:
+            std::option::Option<crate::model::constraint::CustomConstraintDefinition>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1124,7 +1208,8 @@ pub mod constraint {
         /// let x = BooleanConstraint::new().set_custom_constraint_definition(CustomConstraintDefinition::default()/* use setters */);
         /// ```
         pub fn set_custom_constraint_definition<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>
+        where
+            T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
         {
             self.custom_constraint_definition = std::option::Option::Some(v.into());
             self
@@ -1139,8 +1224,12 @@ pub mod constraint {
         /// let x = BooleanConstraint::new().set_or_clear_custom_constraint_definition(Some(CustomConstraintDefinition::default()/* use setters */));
         /// let x = BooleanConstraint::new().set_or_clear_custom_constraint_definition(None::<CustomConstraintDefinition>);
         /// ```
-        pub fn set_or_clear_custom_constraint_definition<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>
+        pub fn set_or_clear_custom_constraint_definition<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
         {
             self.custom_constraint_definition = v.map(|x| x.into());
             self
@@ -1245,7 +1334,9 @@ pub mod constraint {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(constraint_default::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(constraint_default::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1257,7 +1348,9 @@ pub mod constraint {
                 "CONSTRAINT_DEFAULT_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(constraint_default::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(constraint_default::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1282,7 +1375,8 @@ pub mod constraint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConstraintDefault>::new(
-                ".google.cloud.orgpolicy.v2.Constraint.ConstraintDefault"))
+                ".google.cloud.orgpolicy.v2.Constraint.ConstraintDefault",
+            ))
         }
     }
 
@@ -1308,7 +1402,6 @@ pub mod constraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomConstraint {
-
     /// Immutable. Name of the constraint. This is unique within the organization.
     /// Format of the name should be
     ///
@@ -1383,7 +1476,7 @@ impl CustomConstraint {
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -1405,7 +1498,7 @@ impl CustomConstraint {
     pub fn set_method_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::custom_constraint::MethodType>
+        V: std::convert::Into<crate::model::custom_constraint::MethodType>,
     {
         use std::iter::Iterator;
         self.method_types = v.into_iter().map(|i| i.into()).collect();
@@ -1433,7 +1526,10 @@ impl CustomConstraint {
     /// let x0 = CustomConstraint::new().set_action_type(ActionType::Allow);
     /// let x1 = CustomConstraint::new().set_action_type(ActionType::Deny);
     /// ```
-    pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(mut self, v: T) -> Self {
+    pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.action_type = v.into();
         self
     }
@@ -1471,7 +1567,8 @@ impl CustomConstraint {
     /// let x = CustomConstraint::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1487,7 +1584,8 @@ impl CustomConstraint {
     /// let x = CustomConstraint::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1504,7 +1602,6 @@ impl wkt::message::Message for CustomConstraint {
 pub mod custom_constraint {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The operation for which this constraint will be applied. To apply this
     /// constraint only when creating new resources, the `method_types` should be
@@ -1615,7 +1712,9 @@ pub mod custom_constraint {
                 3 => Self::Delete,
                 4 => Self::RemoveGrant,
                 5 => Self::GovernTags,
-                _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1630,7 +1729,9 @@ pub mod custom_constraint {
                 "DELETE" => Self::Delete,
                 "REMOVE_GRANT" => Self::RemoveGrant,
                 "GOVERN_TAGS" => Self::GovernTags,
-                _ => Self::UnknownValue(method_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(method_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1658,7 +1759,8 @@ pub mod custom_constraint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MethodType>::new(
-                ".google.cloud.orgpolicy.v2.CustomConstraint.MethodType"))
+                ".google.cloud.orgpolicy.v2.CustomConstraint.MethodType",
+            ))
         }
     }
 
@@ -1749,7 +1851,9 @@ pub mod custom_constraint {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(action_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1761,7 +1865,9 @@ pub mod custom_constraint {
                 "ACTION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(action_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(action_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1786,7 +1892,8 @@ pub mod custom_constraint {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActionType>::new(
-                ".google.cloud.orgpolicy.v2.CustomConstraint.ActionType"))
+                ".google.cloud.orgpolicy.v2.CustomConstraint.ActionType",
+            ))
         }
     }
 }
@@ -1796,7 +1903,6 @@ pub mod custom_constraint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
-
     /// Immutable. The resource name of the policy. Must be one of the following
     /// forms, where `constraint_name` is the name of the constraint which this
     /// policy configures:
@@ -1859,7 +1965,8 @@ impl Policy {
     /// let x = Policy::new().set_spec(PolicySpec::default()/* use setters */);
     /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.spec = std::option::Option::Some(v.into());
         self
@@ -1875,7 +1982,8 @@ impl Policy {
     /// let x = Policy::new().set_or_clear_spec(None::<PolicySpec>);
     /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.spec = v.map(|x| x.into());
         self
@@ -1891,7 +1999,8 @@ impl Policy {
     /// ```
     #[deprecated]
     pub fn set_alternate<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AlternatePolicySpec>
+    where
+        T: std::convert::Into<crate::model::AlternatePolicySpec>,
     {
         self.alternate = std::option::Option::Some(v.into());
         self
@@ -1908,7 +2017,8 @@ impl Policy {
     /// ```
     #[deprecated]
     pub fn set_or_clear_alternate<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AlternatePolicySpec>
+    where
+        T: std::convert::Into<crate::model::AlternatePolicySpec>,
     {
         self.alternate = v.map(|x| x.into());
         self
@@ -1923,7 +2033,8 @@ impl Policy {
     /// let x = Policy::new().set_dry_run_spec(PolicySpec::default()/* use setters */);
     /// ```
     pub fn set_dry_run_spec<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.dry_run_spec = std::option::Option::Some(v.into());
         self
@@ -1939,7 +2050,8 @@ impl Policy {
     /// let x = Policy::new().set_or_clear_dry_run_spec(None::<PolicySpec>);
     /// ```
     pub fn set_or_clear_dry_run_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.dry_run_spec = v.map(|x| x.into());
         self
@@ -1969,7 +2081,6 @@ impl wkt::message::Message for Policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlternatePolicySpec {
-
     /// Reference to the launch that will be used while audit logging and to
     /// control the launch.
     /// Should be set only in the alternate policy.
@@ -2007,7 +2118,8 @@ impl AlternatePolicySpec {
     /// let x = AlternatePolicySpec::new().set_spec(PolicySpec::default()/* use setters */);
     /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.spec = std::option::Option::Some(v.into());
         self
@@ -2023,7 +2135,8 @@ impl AlternatePolicySpec {
     /// let x = AlternatePolicySpec::new().set_or_clear_spec(None::<PolicySpec>);
     /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PolicySpec>
+    where
+        T: std::convert::Into<crate::model::PolicySpec>,
     {
         self.spec = v.map(|x| x.into());
         self
@@ -2041,7 +2154,6 @@ impl wkt::message::Message for AlternatePolicySpec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicySpec {
-
     /// An opaque tag indicating the current version of the policySpec, used for
     /// concurrency control.
     ///
@@ -2115,7 +2227,8 @@ impl PolicySpec {
     /// let x = PolicySpec::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2131,7 +2244,8 @@ impl PolicySpec {
     /// let x = PolicySpec::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2152,7 +2266,7 @@ impl PolicySpec {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::policy_spec::PolicyRule>
+        V: std::convert::Into<crate::model::policy_spec::PolicyRule>,
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -2195,12 +2309,10 @@ pub mod policy_spec {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A rule used to express this policy.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PolicyRule {
-
         /// A condition which determines whether this rule is used
         /// in the evaluation of the policy. When set, the `expression` field in
         /// the `Expr' must include from 1 to 10 subexpressions, joined by the "||"
@@ -2244,7 +2356,8 @@ pub mod policy_spec {
         /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
         /// ```
         pub fn set_condition<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<gtype::model::Expr>
+        where
+            T: std::convert::Into<gtype::model::Expr>,
         {
             self.condition = std::option::Option::Some(v.into());
             self
@@ -2260,7 +2373,8 @@ pub mod policy_spec {
         /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
         /// ```
         pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<gtype::model::Expr>
+        where
+            T: std::convert::Into<gtype::model::Expr>,
         {
             self.condition = v.map(|x| x.into());
             self
@@ -2275,7 +2389,8 @@ pub mod policy_spec {
         /// let x = PolicyRule::new().set_parameters(Struct::default()/* use setters */);
         /// ```
         pub fn set_parameters<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.parameters = std::option::Option::Some(v.into());
             self
@@ -2291,7 +2406,8 @@ pub mod policy_spec {
         /// let x = PolicyRule::new().set_or_clear_parameters(None::<Struct>);
         /// ```
         pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Struct>
+        where
+            T: std::convert::Into<wkt::Struct>,
         {
             self.parameters = v.map(|x| x.into());
             self
@@ -2308,8 +2424,12 @@ pub mod policy_spec {
         /// use google_cloud_orgpolicy_v2::model::policy_spec::policy_rule::Kind;
         /// let x = PolicyRule::new().set_kind(Some(Kind::AllowAll(true)));
         /// ```
-        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_spec::policy_rule::Kind>>>(mut self, v: T) -> Self
-        {
+        pub fn set_kind<
+            T: std::convert::Into<std::option::Option<crate::model::policy_spec::policy_rule::Kind>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.kind = v.into();
             self
         }
@@ -2317,10 +2437,16 @@ pub mod policy_spec {
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `Values`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn values(&self) -> std::option::Option<&std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>> {
+        pub fn values(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
+        > {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::Values(v) => std::option::Option::Some(v),
+                crate::model::policy_spec::policy_rule::Kind::Values(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -2341,11 +2467,16 @@ pub mod policy_spec {
         /// assert!(x.deny_all().is_none());
         /// assert!(x.enforce().is_none());
         /// ```
-        pub fn set_values<T: std::convert::Into<std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>>>(mut self, v: T) -> Self {
+        pub fn set_values<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::Values(
-                    v.into()
-                )
+                crate::model::policy_spec::policy_rule::Kind::Values(v.into()),
             );
             self
         }
@@ -2356,7 +2487,9 @@ pub mod policy_spec {
         pub fn allow_all(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => std::option::Option::Some(v),
+                crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -2378,9 +2511,7 @@ pub mod policy_spec {
         /// ```
         pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::AllowAll(
-                    v.into()
-                )
+                crate::model::policy_spec::policy_rule::Kind::AllowAll(v.into()),
             );
             self
         }
@@ -2391,7 +2522,9 @@ pub mod policy_spec {
         pub fn deny_all(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => std::option::Option::Some(v),
+                crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -2413,9 +2546,7 @@ pub mod policy_spec {
         /// ```
         pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::DenyAll(
-                    v.into()
-                )
+                crate::model::policy_spec::policy_rule::Kind::DenyAll(v.into()),
             );
             self
         }
@@ -2426,7 +2557,9 @@ pub mod policy_spec {
         pub fn enforce(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => std::option::Option::Some(v),
+                crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -2448,9 +2581,7 @@ pub mod policy_spec {
         /// ```
         pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::Enforce(
-                    v.into()
-                )
+                crate::model::policy_spec::policy_rule::Kind::Enforce(v.into()),
             );
             self
         }
@@ -2466,7 +2597,6 @@ pub mod policy_spec {
     pub mod policy_rule {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// A message that holds specific allowed and denied values.
         /// This message can define specific values and subtrees of the Resource
@@ -2488,7 +2618,6 @@ pub mod policy_spec {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct StringValues {
-
             /// List of values allowed at this resource.
             pub allowed_values: std::vec::Vec<std::string::String>,
 
@@ -2513,7 +2642,7 @@ pub mod policy_spec {
             pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.allowed_values = v.into_iter().map(|i| i.into()).collect();
@@ -2530,7 +2659,7 @@ pub mod policy_spec {
             pub fn set_denied_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>
+                V: std::convert::Into<std::string::String>,
             {
                 use std::iter::Iterator;
                 self.denied_values = v.into_iter().map(|i| i.into()).collect();
@@ -2569,7 +2698,6 @@ pub mod policy_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConstraintsRequest {
-
     /// Required. The Google Cloud resource that parents the constraint. Must be in
     /// one of the following forms:
     ///
@@ -2644,7 +2772,6 @@ impl wkt::message::Message for ListConstraintsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConstraintsResponse {
-
     /// The collection of constraints that are available on the targeted resource.
     pub constraints: std::vec::Vec<crate::model::Constraint>,
 
@@ -2674,7 +2801,7 @@ impl ListConstraintsResponse {
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Constraint>
+        V: std::convert::Into<crate::model::Constraint>,
     {
         use std::iter::Iterator;
         self.constraints = v.into_iter().map(|i| i.into()).collect();
@@ -2719,7 +2846,6 @@ impl gax::paginator::internal::PageableResponse for ListConstraintsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesRequest {
-
     /// Required. The target Google Cloud resource that parents the set of
     /// constraints and policies that will be returned from this call. Must be in
     /// one of the following forms:
@@ -2796,7 +2922,6 @@ impl wkt::message::Message for ListPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesResponse {
-
     /// All policies that exist on the resource. It will be empty if no
     /// policies are set.
     pub policies: std::vec::Vec<crate::model::Policy>,
@@ -2828,7 +2953,7 @@ impl ListPoliciesResponse {
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Policy>
+        V: std::convert::Into<crate::model::Policy>,
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
@@ -2873,7 +2998,6 @@ impl gax::paginator::internal::PageableResponse for ListPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
-
     /// Required. Resource name of the policy. See
     /// [Policy][google.cloud.orgpolicy.v2.Policy] for naming requirements.
     ///
@@ -2912,7 +3036,6 @@ impl wkt::message::Message for GetPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEffectivePolicyRequest {
-
     /// Required. The effective policy to compute. See
     /// [Policy][google.cloud.orgpolicy.v2.Policy] for naming requirements.
     ///
@@ -2951,7 +3074,6 @@ impl wkt::message::Message for GetEffectivePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyRequest {
-
     /// Required. The Google Cloud resource that will parent the new policy. Must
     /// be in one of the following forms:
     ///
@@ -2993,7 +3115,8 @@ impl CreatePolicyRequest {
     /// let x = CreatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -3009,7 +3132,8 @@ impl CreatePolicyRequest {
     /// let x = CreatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -3027,7 +3151,6 @@ impl wkt::message::Message for CreatePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
-
     /// Required. Policy to update.
     pub policy: std::option::Option<crate::model::Policy>,
 
@@ -3053,7 +3176,8 @@ impl UpdatePolicyRequest {
     /// let x = UpdatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -3069,7 +3193,8 @@ impl UpdatePolicyRequest {
     /// let x = UpdatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -3084,7 +3209,8 @@ impl UpdatePolicyRequest {
     /// let x = UpdatePolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3100,7 +3226,8 @@ impl UpdatePolicyRequest {
     /// let x = UpdatePolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3118,7 +3245,6 @@ impl wkt::message::Message for UpdatePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyRequest {
-
     /// Required. Name of the policy to delete.
     /// See the policy entry for naming rules.
     pub name: std::string::String,
@@ -3172,7 +3298,6 @@ impl wkt::message::Message for DeletePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCustomConstraintRequest {
-
     /// Required. Must be in the following form:
     ///
     /// * `organizations/{organization_id}`
@@ -3210,7 +3335,8 @@ impl CreateCustomConstraintRequest {
     /// let x = CreateCustomConstraintRequest::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
     /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomConstraint>
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
     {
         self.custom_constraint = std::option::Option::Some(v.into());
         self
@@ -3226,7 +3352,8 @@ impl CreateCustomConstraintRequest {
     /// let x = CreateCustomConstraintRequest::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
     /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomConstraint>
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
     {
         self.custom_constraint = v.map(|x| x.into());
         self
@@ -3244,7 +3371,6 @@ impl wkt::message::Message for CreateCustomConstraintRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCustomConstraintRequest {
-
     /// Required. Resource name of the custom or managed constraint. See the custom
     /// constraint entry for naming requirements.
     pub name: std::string::String,
@@ -3281,7 +3407,6 @@ impl wkt::message::Message for GetCustomConstraintRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomConstraintsRequest {
-
     /// Required. The target Google Cloud resource that parents the set of custom
     /// constraints that will be returned from this call. Must be in one of the
     /// following forms:
@@ -3356,7 +3481,6 @@ impl wkt::message::Message for ListCustomConstraintsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomConstraintsResponse {
-
     /// All custom and managed constraints that exist on the organization resource.
     /// It will be empty if no custom constraints are set.
     pub custom_constraints: std::vec::Vec<crate::model::CustomConstraint>,
@@ -3388,7 +3512,7 @@ impl ListCustomConstraintsResponse {
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CustomConstraint>
+        V: std::convert::Into<crate::model::CustomConstraint>,
     {
         use std::iter::Iterator;
         self.custom_constraints = v.into_iter().map(|i| i.into()).collect();
@@ -3433,7 +3557,6 @@ impl gax::paginator::internal::PageableResponse for ListCustomConstraintsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCustomConstraintRequest {
-
     /// Required. `CustomConstraint` to update.
     pub custom_constraint: std::option::Option<crate::model::CustomConstraint>,
 
@@ -3454,7 +3577,8 @@ impl UpdateCustomConstraintRequest {
     /// let x = UpdateCustomConstraintRequest::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
     /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomConstraint>
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
     {
         self.custom_constraint = std::option::Option::Some(v.into());
         self
@@ -3470,7 +3594,8 @@ impl UpdateCustomConstraintRequest {
     /// let x = UpdateCustomConstraintRequest::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
     /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomConstraint>
+    where
+        T: std::convert::Into<crate::model::CustomConstraint>,
     {
         self.custom_constraint = v.map(|x| x.into());
         self
@@ -3488,7 +3613,6 @@ impl wkt::message::Message for UpdateCustomConstraintRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCustomConstraintRequest {
-
     /// Required. Name of the custom constraint to delete.
     /// See the custom constraint entry for naming rules.
     pub name: std::string::String,

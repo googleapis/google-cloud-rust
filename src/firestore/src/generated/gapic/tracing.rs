@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Firestore](super::stub::Firestore) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Firestore<T>
-where T: super::stub::Firestore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Firestore<T>
-where T: super::stub::Firestore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Firestore for Firestore<T>
-where T: super::stub::Firestore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_document(
         &self,
@@ -129,6 +135,4 @@ where T: super::stub::Firestore + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.create_document(req, options).await
     }
-
 }
-

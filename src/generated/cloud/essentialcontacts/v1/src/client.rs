@@ -72,7 +72,9 @@ impl EssentialContactsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::essential_contacts_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::essential_contacts_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::essential_contacts_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -80,28 +82,44 @@ impl EssentialContactsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::EssentialContactsService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::EssentialContactsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EssentialContactsService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::EssentialContactsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
         super::transport::EssentialContactsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
-        Self::build_transport(conf).await.map(super::tracing::EssentialContactsService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::EssentialContactsService::new)
     }
 
     /// Adds a new contact for a resource.
@@ -121,8 +139,7 @@ impl EssentialContactsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_contact(&self) -> super::builder::essential_contacts_service::CreateContact
-    {
+    pub fn create_contact(&self) -> super::builder::essential_contacts_service::CreateContact {
         super::builder::essential_contacts_service::CreateContact::new(self.inner.clone())
     }
 
@@ -144,14 +161,12 @@ impl EssentialContactsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_contact(&self) -> super::builder::essential_contacts_service::UpdateContact
-    {
+    pub fn update_contact(&self) -> super::builder::essential_contacts_service::UpdateContact {
         super::builder::essential_contacts_service::UpdateContact::new(self.inner.clone())
     }
 
     /// Lists the contacts that have been set on a resource.
-    pub fn list_contacts(&self) -> super::builder::essential_contacts_service::ListContacts
-    {
+    pub fn list_contacts(&self) -> super::builder::essential_contacts_service::ListContacts {
         super::builder::essential_contacts_service::ListContacts::new(self.inner.clone())
     }
 
@@ -172,8 +187,7 @@ impl EssentialContactsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_contact(&self) -> super::builder::essential_contacts_service::GetContact
-    {
+    pub fn get_contact(&self) -> super::builder::essential_contacts_service::GetContact {
         super::builder::essential_contacts_service::GetContact::new(self.inner.clone())
     }
 
@@ -193,16 +207,14 @@ impl EssentialContactsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_contact(&self) -> super::builder::essential_contacts_service::DeleteContact
-    {
+    pub fn delete_contact(&self) -> super::builder::essential_contacts_service::DeleteContact {
         super::builder::essential_contacts_service::DeleteContact::new(self.inner.clone())
     }
 
     /// Lists all contacts for the resource that are subscribed to the
     /// specified notification categories, including contacts inherited from
     /// any parent resources.
-    pub fn compute_contacts(&self) -> super::builder::essential_contacts_service::ComputeContacts
-    {
+    pub fn compute_contacts(&self) -> super::builder::essential_contacts_service::ComputeContacts {
         super::builder::essential_contacts_service::ComputeContacts::new(self.inner.clone())
     }
 
@@ -223,8 +235,7 @@ impl EssentialContactsService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn send_test_message(&self) -> super::builder::essential_contacts_service::SendTestMessage
-    {
+    pub fn send_test_message(&self) -> super::builder::essential_contacts_service::SendTestMessage {
         super::builder::essential_contacts_service::SendTestMessage::new(self.inner.clone())
     }
 }

@@ -96,28 +96,42 @@ impl CloudRedis {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudRedis + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudRedis + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudRedis>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudRedis>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudRedis> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudRedis> {
         super::transport::CloudRedis::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudRedis> {
-        Self::build_transport(conf).await.map(super::tracing::CloudRedis::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudRedis> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudRedis::new)
     }
 
     /// Lists all Redis instances owned by a project in either the specified
@@ -129,8 +143,7 @@ impl CloudRedis {
     ///
     /// If `location_id` is specified as `-` (wildcard), then all regions
     /// available to the project are queried, and the results are aggregated.
-    pub fn list_instances(&self) -> super::builder::cloud_redis::ListInstances
-    {
+    pub fn list_instances(&self) -> super::builder::cloud_redis::ListInstances {
         super::builder::cloud_redis::ListInstances::new(self.inner.clone())
     }
 
@@ -151,8 +164,7 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance(&self) -> super::builder::cloud_redis::GetInstance
-    {
+    pub fn get_instance(&self) -> super::builder::cloud_redis::GetInstance {
         super::builder::cloud_redis::GetInstance::new(self.inner.clone())
     }
 
@@ -175,8 +187,7 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance_auth_string(&self) -> super::builder::cloud_redis::GetInstanceAuthString
-    {
+    pub fn get_instance_auth_string(&self) -> super::builder::cloud_redis::GetInstanceAuthString {
         super::builder::cloud_redis::GetInstanceAuthString::new(self.inner.clone())
     }
 
@@ -202,8 +213,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::cloud_redis::CreateInstance
-    {
+    pub fn create_instance(&self) -> super::builder::cloud_redis::CreateInstance {
         super::builder::cloud_redis::CreateInstance::new(self.inner.clone())
     }
 
@@ -222,8 +232,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::cloud_redis::UpdateInstance
-    {
+    pub fn update_instance(&self) -> super::builder::cloud_redis::UpdateInstance {
         super::builder::cloud_redis::UpdateInstance::new(self.inner.clone())
     }
 
@@ -239,8 +248,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_instance(&self) -> super::builder::cloud_redis::UpgradeInstance
-    {
+    pub fn upgrade_instance(&self) -> super::builder::cloud_redis::UpgradeInstance {
         super::builder::cloud_redis::UpgradeInstance::new(self.inner.clone())
     }
 
@@ -262,8 +270,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_instance(&self) -> super::builder::cloud_redis::ImportInstance
-    {
+    pub fn import_instance(&self) -> super::builder::cloud_redis::ImportInstance {
         super::builder::cloud_redis::ImportInstance::new(self.inner.clone())
     }
 
@@ -283,8 +290,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_instance(&self) -> super::builder::cloud_redis::ExportInstance
-    {
+    pub fn export_instance(&self) -> super::builder::cloud_redis::ExportInstance {
         super::builder::cloud_redis::ExportInstance::new(self.inner.clone())
     }
 
@@ -300,8 +306,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn failover_instance(&self) -> super::builder::cloud_redis::FailoverInstance
-    {
+    pub fn failover_instance(&self) -> super::builder::cloud_redis::FailoverInstance {
         super::builder::cloud_redis::FailoverInstance::new(self.inner.clone())
     }
 
@@ -317,8 +322,7 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::cloud_redis::DeleteInstance
-    {
+    pub fn delete_instance(&self) -> super::builder::cloud_redis::DeleteInstance {
         super::builder::cloud_redis::DeleteInstance::new(self.inner.clone())
     }
 
@@ -334,14 +338,12 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reschedule_maintenance(&self) -> super::builder::cloud_redis::RescheduleMaintenance
-    {
+    pub fn reschedule_maintenance(&self) -> super::builder::cloud_redis::RescheduleMaintenance {
         super::builder::cloud_redis::RescheduleMaintenance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_redis::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::cloud_redis::ListLocations {
         super::builder::cloud_redis::ListLocations::new(self.inner.clone())
     }
 
@@ -362,16 +364,14 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::cloud_redis::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::cloud_redis::GetLocation {
         super::builder::cloud_redis::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::cloud_redis::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::cloud_redis::ListOperations {
         super::builder::cloud_redis::ListOperations::new(self.inner.clone())
     }
 
@@ -394,8 +394,7 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::cloud_redis::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::cloud_redis::GetOperation {
         super::builder::cloud_redis::GetOperation::new(self.inner.clone())
     }
 
@@ -417,8 +416,7 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::cloud_redis::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::cloud_redis::DeleteOperation {
         super::builder::cloud_redis::DeleteOperation::new(self.inner.clone())
     }
 
@@ -440,8 +438,7 @@ impl CloudRedis {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::cloud_redis::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::cloud_redis::CancelOperation {
         super::builder::cloud_redis::CancelOperation::new(self.inner.clone())
     }
 }

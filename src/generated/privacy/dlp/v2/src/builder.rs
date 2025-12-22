@@ -39,7 +39,10 @@ pub mod dlp_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DlpService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod dlp_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod dlp_service {
     pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
 
     impl InspectContent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InspectContentResponse> {
-            (*self.0.stub).inspect_content(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .inspect_content(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::InspectContentRequest::parent].
@@ -116,7 +126,8 @@ pub mod dlp_service {
 
         /// Sets the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
         pub fn set_inspect_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = std::option::Option::Some(v.into());
             self
@@ -124,7 +135,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
         pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = v.map(|x| x.into());
             self
@@ -132,7 +144,8 @@ pub mod dlp_service {
 
         /// Sets the value of [item][crate::model::InspectContentRequest::item].
         pub fn set_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = std::option::Option::Some(v.into());
             self
@@ -140,7 +153,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [item][crate::model::InspectContentRequest::item].
         pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = v.map(|x| x.into());
             self
@@ -187,10 +201,10 @@ pub mod dlp_service {
     pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
 
     impl RedactImage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -207,7 +221,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::RedactImageResponse> {
-            (*self.0.stub).redact_image(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .redact_image(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RedactImageRequest::parent].
@@ -224,7 +241,8 @@ pub mod dlp_service {
 
         /// Sets the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
         pub fn set_inspect_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = std::option::Option::Some(v.into());
             self
@@ -232,7 +250,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
         pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = v.map(|x| x.into());
             self
@@ -242,7 +261,7 @@ pub mod dlp_service {
         pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>
+            V: std::convert::Into<crate::model::redact_image_request::ImageRedactionConfig>,
         {
             use std::iter::Iterator;
             self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
@@ -257,7 +276,8 @@ pub mod dlp_service {
 
         /// Sets the value of [byte_item][crate::model::RedactImageRequest::byte_item].
         pub fn set_byte_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ByteContentItem>
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
         {
             self.0.request.byte_item = std::option::Option::Some(v.into());
             self
@@ -265,7 +285,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [byte_item][crate::model::RedactImageRequest::byte_item].
         pub fn set_or_clear_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ByteContentItem>
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
         {
             self.0.request.byte_item = v.map(|x| x.into());
             self
@@ -312,14 +333,17 @@ pub mod dlp_service {
     pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
 
     impl DeidentifyContent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeidentifyContentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeidentifyContentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -332,7 +356,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeidentifyContentResponse> {
-            (*self.0.stub).deidentify_content(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .deidentify_content(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DeidentifyContentRequest::parent].
@@ -343,7 +370,8 @@ pub mod dlp_service {
 
         /// Sets the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
         pub fn set_deidentify_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyConfig>
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
             self.0.request.deidentify_config = std::option::Option::Some(v.into());
             self
@@ -351,7 +379,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
         pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyConfig>
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
             self.0.request.deidentify_config = v.map(|x| x.into());
             self
@@ -359,7 +388,8 @@ pub mod dlp_service {
 
         /// Sets the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
         pub fn set_inspect_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = std::option::Option::Some(v.into());
             self
@@ -367,7 +397,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
         pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = v.map(|x| x.into());
             self
@@ -375,7 +406,8 @@ pub mod dlp_service {
 
         /// Sets the value of [item][crate::model::DeidentifyContentRequest::item].
         pub fn set_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = std::option::Option::Some(v.into());
             self
@@ -383,7 +415,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [item][crate::model::DeidentifyContentRequest::item].
         pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = v.map(|x| x.into());
             self
@@ -436,14 +469,17 @@ pub mod dlp_service {
     pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
 
     impl ReidentifyContent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReidentifyContentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ReidentifyContentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -456,7 +492,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReidentifyContentResponse> {
-            (*self.0.stub).reidentify_content(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reidentify_content(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReidentifyContentRequest::parent].
@@ -469,7 +508,8 @@ pub mod dlp_service {
 
         /// Sets the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
         pub fn set_reidentify_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyConfig>
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
             self.0.request.reidentify_config = std::option::Option::Some(v.into());
             self
@@ -477,7 +517,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
         pub fn set_or_clear_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyConfig>
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
         {
             self.0.request.reidentify_config = v.map(|x| x.into());
             self
@@ -485,7 +526,8 @@ pub mod dlp_service {
 
         /// Sets the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
         pub fn set_inspect_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = std::option::Option::Some(v.into());
             self
@@ -493,7 +535,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
         pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectConfig>
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
         {
             self.0.request.inspect_config = v.map(|x| x.into());
             self
@@ -501,7 +544,8 @@ pub mod dlp_service {
 
         /// Sets the value of [item][crate::model::ReidentifyContentRequest::item].
         pub fn set_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = std::option::Option::Some(v.into());
             self
@@ -509,7 +553,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [item][crate::model::ReidentifyContentRequest::item].
         pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ContentItem>
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
         {
             self.0.request.item = v.map(|x| x.into());
             self
@@ -562,10 +607,10 @@ pub mod dlp_service {
     pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
 
     impl ListInfoTypes {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -582,7 +627,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInfoTypesResponse> {
-            (*self.0.stub).list_info_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_info_types(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListInfoTypesRequest::parent].
@@ -638,14 +686,17 @@ pub mod dlp_service {
     pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
 
     impl CreateInspectTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateInspectTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateInspectTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -658,7 +709,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InspectTemplate> {
-            (*self.0.stub).create_inspect_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_inspect_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateInspectTemplateRequest::parent].
@@ -673,7 +727,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_inspect_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectTemplate>
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
         {
             self.0.request.inspect_template = std::option::Option::Some(v.into());
             self
@@ -683,7 +738,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectTemplate>
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
         {
             self.0.request.inspect_template = v.map(|x| x.into());
             self
@@ -730,14 +786,17 @@ pub mod dlp_service {
     pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
 
     impl UpdateInspectTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateInspectTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateInspectTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -750,7 +809,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InspectTemplate> {
-            (*self.0.stub).update_inspect_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_inspect_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateInspectTemplateRequest::name].
@@ -763,7 +825,8 @@ pub mod dlp_service {
 
         /// Sets the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
         pub fn set_inspect_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InspectTemplate>
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
         {
             self.0.request.inspect_template = std::option::Option::Some(v.into());
             self
@@ -771,7 +834,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
         pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InspectTemplate>
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
         {
             self.0.request.inspect_template = v.map(|x| x.into());
             self
@@ -779,7 +843,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -787,7 +852,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -822,14 +888,17 @@ pub mod dlp_service {
     pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
 
     impl GetInspectTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetInspectTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetInspectTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -842,7 +911,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InspectTemplate> {
-            (*self.0.stub).get_inspect_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_inspect_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInspectTemplateRequest::name].
@@ -886,14 +958,17 @@ pub mod dlp_service {
     pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
 
     impl ListInspectTemplates {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListInspectTemplatesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListInspectTemplatesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -906,11 +981,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInspectTemplatesResponse> {
-            (*self.0.stub).list_inspect_templates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_inspect_templates(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -922,7 +1003,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInspectTemplatesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInspectTemplatesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -988,14 +1074,17 @@ pub mod dlp_service {
     pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
 
     impl DeleteInspectTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteInspectTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteInspectTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1008,7 +1097,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_inspect_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_inspect_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInspectTemplateRequest::name].
@@ -1045,17 +1137,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeidentifyTemplate(RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>);
+    pub struct CreateDeidentifyTemplate(
+        RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>,
+    );
 
     impl CreateDeidentifyTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDeidentifyTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDeidentifyTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1068,7 +1165,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeidentifyTemplate> {
-            (*self.0.stub).create_deidentify_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_deidentify_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeidentifyTemplateRequest::parent].
@@ -1083,7 +1183,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_deidentify_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyTemplate>
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
             self.0.request.deidentify_template = std::option::Option::Some(v.into());
             self
@@ -1093,7 +1194,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyTemplate>
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
             self.0.request.deidentify_template = v.map(|x| x.into());
             self
@@ -1137,17 +1239,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDeidentifyTemplate(RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>);
+    pub struct UpdateDeidentifyTemplate(
+        RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>,
+    );
 
     impl UpdateDeidentifyTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDeidentifyTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDeidentifyTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1160,7 +1267,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeidentifyTemplate> {
-            (*self.0.stub).update_deidentify_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_deidentify_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateDeidentifyTemplateRequest::name].
@@ -1173,7 +1283,8 @@ pub mod dlp_service {
 
         /// Sets the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
         pub fn set_deidentify_template<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyTemplate>
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
             self.0.request.deidentify_template = std::option::Option::Some(v.into());
             self
@@ -1181,7 +1292,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
         pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DeidentifyTemplate>
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
         {
             self.0.request.deidentify_template = v.map(|x| x.into());
             self
@@ -1189,7 +1301,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1197,7 +1310,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1232,14 +1346,17 @@ pub mod dlp_service {
     pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
 
     impl GetDeidentifyTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDeidentifyTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDeidentifyTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1252,7 +1369,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeidentifyTemplate> {
-            (*self.0.stub).get_deidentify_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_deidentify_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeidentifyTemplateRequest::name].
@@ -1293,17 +1413,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeidentifyTemplates(RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>);
+    pub struct ListDeidentifyTemplates(
+        RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>,
+    );
 
     impl ListDeidentifyTemplates {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDeidentifyTemplatesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDeidentifyTemplatesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1316,11 +1441,19 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDeidentifyTemplatesResponse> {
-            (*self.0.stub).list_deidentify_templates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_deidentify_templates(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDeidentifyTemplatesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListDeidentifyTemplatesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1332,7 +1465,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDeidentifyTemplatesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeidentifyTemplatesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1395,17 +1533,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDeidentifyTemplate(RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>);
+    pub struct DeleteDeidentifyTemplate(
+        RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>,
+    );
 
     impl DeleteDeidentifyTemplate {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDeidentifyTemplateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDeidentifyTemplateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1418,7 +1561,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_deidentify_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_deidentify_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeidentifyTemplateRequest::name].
@@ -1458,14 +1604,17 @@ pub mod dlp_service {
     pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
     impl CreateJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateJobTriggerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateJobTriggerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1478,7 +1627,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::JobTrigger> {
-            (*self.0.stub).create_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTriggerRequest::parent].
@@ -1493,7 +1645,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_job_trigger<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::JobTrigger>
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
         {
             self.0.request.job_trigger = std::option::Option::Some(v.into());
             self
@@ -1503,7 +1656,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::JobTrigger>
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
         {
             self.0.request.job_trigger = v.map(|x| x.into());
             self
@@ -1550,14 +1704,17 @@ pub mod dlp_service {
     pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
     impl UpdateJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateJobTriggerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateJobTriggerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1570,7 +1727,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::JobTrigger> {
-            (*self.0.stub).update_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateJobTriggerRequest::name].
@@ -1583,7 +1743,8 @@ pub mod dlp_service {
 
         /// Sets the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
         pub fn set_job_trigger<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::JobTrigger>
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
         {
             self.0.request.job_trigger = std::option::Option::Some(v.into());
             self
@@ -1591,7 +1752,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
         pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::JobTrigger>
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
         {
             self.0.request.job_trigger = v.map(|x| x.into());
             self
@@ -1599,7 +1761,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1607,7 +1770,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1639,17 +1803,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct HybridInspectJobTrigger(RequestBuilder<crate::model::HybridInspectJobTriggerRequest>);
+    pub struct HybridInspectJobTrigger(
+        RequestBuilder<crate::model::HybridInspectJobTriggerRequest>,
+    );
 
     impl HybridInspectJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::HybridInspectJobTriggerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::HybridInspectJobTriggerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1662,7 +1831,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HybridInspectResponse> {
-            (*self.0.stub).hybrid_inspect_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .hybrid_inspect_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::HybridInspectJobTriggerRequest::name].
@@ -1675,7 +1847,8 @@ pub mod dlp_service {
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
         pub fn set_hybrid_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::HybridContentItem>
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
         {
             self.0.request.hybrid_item = std::option::Option::Some(v.into());
             self
@@ -1683,7 +1856,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
         pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::HybridContentItem>
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
         {
             self.0.request.hybrid_item = v.map(|x| x.into());
             self
@@ -1718,10 +1892,10 @@ pub mod dlp_service {
     pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
 
     impl GetJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1738,7 +1912,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::JobTrigger> {
-            (*self.0.stub).get_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobTriggerRequest::name].
@@ -1782,10 +1959,10 @@ pub mod dlp_service {
     pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
 
     impl ListJobTriggers {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1802,11 +1979,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListJobTriggersResponse> {
-            (*self.0.stub).list_job_triggers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_job_triggers(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1818,7 +2001,10 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTriggersResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTriggersResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1896,14 +2082,17 @@ pub mod dlp_service {
     pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
     impl DeleteJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteJobTriggerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteJobTriggerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1916,7 +2105,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTriggerRequest::name].
@@ -1956,14 +2148,17 @@ pub mod dlp_service {
     pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
 
     impl ActivateJobTrigger {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ActivateJobTriggerRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ActivateJobTriggerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1976,7 +2171,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DlpJob> {
-            (*self.0.stub).activate_job_trigger(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .activate_job_trigger(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ActivateJobTriggerRequest::name].
@@ -2016,14 +2214,17 @@ pub mod dlp_service {
     pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
 
     impl CreateDiscoveryConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDiscoveryConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDiscoveryConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2036,7 +2237,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiscoveryConfig> {
-            (*self.0.stub).create_discovery_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_discovery_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDiscoveryConfigRequest::parent].
@@ -2051,7 +2255,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_discovery_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DiscoveryConfig>
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
             self.0.request.discovery_config = std::option::Option::Some(v.into());
             self
@@ -2061,7 +2266,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DiscoveryConfig>
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
             self.0.request.discovery_config = v.map(|x| x.into());
             self
@@ -2102,14 +2308,17 @@ pub mod dlp_service {
     pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
 
     impl UpdateDiscoveryConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDiscoveryConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDiscoveryConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2122,7 +2331,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiscoveryConfig> {
-            (*self.0.stub).update_discovery_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_discovery_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateDiscoveryConfigRequest::name].
@@ -2137,7 +2349,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_discovery_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DiscoveryConfig>
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
             self.0.request.discovery_config = std::option::Option::Some(v.into());
             self
@@ -2147,7 +2360,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DiscoveryConfig>
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
         {
             self.0.request.discovery_config = v.map(|x| x.into());
             self
@@ -2155,7 +2369,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2163,7 +2378,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2198,14 +2414,17 @@ pub mod dlp_service {
     pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
 
     impl GetDiscoveryConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDiscoveryConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDiscoveryConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2218,7 +2437,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DiscoveryConfig> {
-            (*self.0.stub).get_discovery_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_discovery_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveryConfigRequest::name].
@@ -2262,14 +2484,17 @@ pub mod dlp_service {
     pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
 
     impl ListDiscoveryConfigs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDiscoveryConfigsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDiscoveryConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2282,11 +2507,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDiscoveryConfigsResponse> {
-            (*self.0.stub).list_discovery_configs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_discovery_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2298,7 +2529,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDiscoveryConfigsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2358,14 +2594,17 @@ pub mod dlp_service {
     pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
 
     impl DeleteDiscoveryConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteDiscoveryConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteDiscoveryConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2378,7 +2617,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_discovery_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_discovery_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDiscoveryConfigRequest::name].
@@ -2418,10 +2660,10 @@ pub mod dlp_service {
     pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
 
     impl CreateDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2438,7 +2680,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DlpJob> {
-            (*self.0.stub).create_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDlpJobRequest::parent].
@@ -2465,7 +2710,10 @@ pub mod dlp_service {
         ///
         /// Note that all the setters affecting `job` are
         /// mutually exclusive.
-        pub fn set_job<T: Into<Option<crate::model::create_dlp_job_request::Job>>>(mut self, v: T) ->Self {
+        pub fn set_job<T: Into<Option<crate::model::create_dlp_job_request::Job>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.job = v.into();
             self
         }
@@ -2475,7 +2723,12 @@ pub mod dlp_service {
         ///
         /// Note that all the setters affecting `job` are
         /// mutually exclusive.
-        pub fn set_inspect_job<T: std::convert::Into<std::boxed::Box<crate::model::InspectJobConfig>>>(mut self, v: T) -> Self {
+        pub fn set_inspect_job<
+            T: std::convert::Into<std::boxed::Box<crate::model::InspectJobConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_inspect_job(v);
             self
         }
@@ -2485,7 +2738,12 @@ pub mod dlp_service {
         ///
         /// Note that all the setters affecting `job` are
         /// mutually exclusive.
-        pub fn set_risk_job<T: std::convert::Into<std::boxed::Box<crate::model::RiskAnalysisJobConfig>>>(mut self, v: T) -> Self {
+        pub fn set_risk_job<
+            T: std::convert::Into<std::boxed::Box<crate::model::RiskAnalysisJobConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_risk_job(v);
             self
         }
@@ -2523,10 +2781,10 @@ pub mod dlp_service {
     pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
 
     impl ListDlpJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2543,11 +2801,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDlpJobsResponse> {
-            (*self.0.stub).list_dlp_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_dlp_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2559,7 +2823,10 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDlpJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDlpJobsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2637,10 +2904,10 @@ pub mod dlp_service {
     pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
 
     impl GetDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2657,7 +2924,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DlpJob> {
-            (*self.0.stub).get_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDlpJobRequest::name].
@@ -2697,10 +2967,10 @@ pub mod dlp_service {
     pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
     impl DeleteDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2717,7 +2987,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDlpJobRequest::name].
@@ -2757,10 +3030,10 @@ pub mod dlp_service {
     pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
 
     impl CancelDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2777,7 +3050,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelDlpJobRequest::name].
@@ -2817,14 +3093,17 @@ pub mod dlp_service {
     pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
 
     impl CreateStoredInfoType {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateStoredInfoTypeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateStoredInfoTypeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2837,7 +3116,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StoredInfoType> {
-            (*self.0.stub).create_stored_info_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_stored_info_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateStoredInfoTypeRequest::parent].
@@ -2852,7 +3134,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::StoredInfoTypeConfig>
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -2862,7 +3145,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::StoredInfoTypeConfig>
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -2909,14 +3193,17 @@ pub mod dlp_service {
     pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
 
     impl UpdateStoredInfoType {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateStoredInfoTypeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateStoredInfoTypeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2929,7 +3216,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StoredInfoType> {
-            (*self.0.stub).update_stored_info_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_stored_info_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateStoredInfoTypeRequest::name].
@@ -2942,7 +3232,8 @@ pub mod dlp_service {
 
         /// Sets the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
         pub fn set_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::StoredInfoTypeConfig>
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
             self.0.request.config = std::option::Option::Some(v.into());
             self
@@ -2950,7 +3241,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
         pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::StoredInfoTypeConfig>
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
         {
             self.0.request.config = v.map(|x| x.into());
             self
@@ -2958,7 +3250,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2966,7 +3259,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3001,14 +3295,17 @@ pub mod dlp_service {
     pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
     impl GetStoredInfoType {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetStoredInfoTypeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetStoredInfoTypeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3021,7 +3318,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StoredInfoType> {
-            (*self.0.stub).get_stored_info_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_stored_info_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStoredInfoTypeRequest::name].
@@ -3065,14 +3365,17 @@ pub mod dlp_service {
     pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
 
     impl ListStoredInfoTypes {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListStoredInfoTypesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListStoredInfoTypesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3085,11 +3388,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListStoredInfoTypesResponse> {
-            (*self.0.stub).list_stored_info_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_stored_info_types(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3101,7 +3410,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListStoredInfoTypesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3167,14 +3481,17 @@ pub mod dlp_service {
     pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
 
     impl DeleteStoredInfoType {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteStoredInfoTypeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteStoredInfoTypeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3187,7 +3504,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_stored_info_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_stored_info_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteStoredInfoTypeRequest::name].
@@ -3228,17 +3548,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProjectDataProfiles(RequestBuilder<crate::model::ListProjectDataProfilesRequest>);
+    pub struct ListProjectDataProfiles(
+        RequestBuilder<crate::model::ListProjectDataProfilesRequest>,
+    );
 
     impl ListProjectDataProfiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProjectDataProfilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProjectDataProfilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3251,11 +3576,19 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProjectDataProfilesResponse> {
-            (*self.0.stub).list_project_data_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_project_data_profiles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProjectDataProfilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListProjectDataProfilesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3267,7 +3600,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProjectDataProfilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProjectDataProfilesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3337,14 +3675,17 @@ pub mod dlp_service {
     pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
 
     impl ListTableDataProfiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTableDataProfilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTableDataProfilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3357,11 +3698,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTableDataProfilesResponse> {
-            (*self.0.stub).list_table_data_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_table_data_profiles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3373,7 +3720,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTableDataProfilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTableDataProfilesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3443,14 +3795,17 @@ pub mod dlp_service {
     pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
 
     impl ListColumnDataProfiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListColumnDataProfilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListColumnDataProfilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3463,11 +3818,19 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListColumnDataProfilesResponse> {
-            (*self.0.stub).list_column_data_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_column_data_profiles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListColumnDataProfilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListColumnDataProfilesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3479,7 +3842,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListColumnDataProfilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListColumnDataProfilesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3545,14 +3913,17 @@ pub mod dlp_service {
     pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
 
     impl GetProjectDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProjectDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProjectDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3565,7 +3936,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProjectDataProfile> {
-            (*self.0.stub).get_project_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_project_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectDataProfileRequest::name].
@@ -3606,17 +3980,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFileStoreDataProfiles(RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>);
+    pub struct ListFileStoreDataProfiles(
+        RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>,
+    );
 
     impl ListFileStoreDataProfiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListFileStoreDataProfilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListFileStoreDataProfilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3629,11 +4008,19 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFileStoreDataProfilesResponse> {
-            (*self.0.stub).list_file_store_data_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_file_store_data_profiles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFileStoreDataProfilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListFileStoreDataProfilesResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3645,7 +4032,12 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFileStoreDataProfilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListFileStoreDataProfilesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3708,17 +4100,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFileStoreDataProfile(RequestBuilder<crate::model::GetFileStoreDataProfileRequest>);
+    pub struct GetFileStoreDataProfile(
+        RequestBuilder<crate::model::GetFileStoreDataProfileRequest>,
+    );
 
     impl GetFileStoreDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetFileStoreDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetFileStoreDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3731,7 +4128,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FileStoreDataProfile> {
-            (*self.0.stub).get_file_store_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_file_store_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFileStoreDataProfileRequest::name].
@@ -3768,17 +4168,22 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFileStoreDataProfile(RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>);
+    pub struct DeleteFileStoreDataProfile(
+        RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>,
+    );
 
     impl DeleteFileStoreDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteFileStoreDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteFileStoreDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3791,7 +4196,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_file_store_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_file_store_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFileStoreDataProfileRequest::name].
@@ -3831,14 +4239,17 @@ pub mod dlp_service {
     pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
 
     impl GetTableDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetTableDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetTableDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3851,7 +4262,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TableDataProfile> {
-            (*self.0.stub).get_table_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_table_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTableDataProfileRequest::name].
@@ -3891,14 +4305,17 @@ pub mod dlp_service {
     pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
 
     impl GetColumnDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetColumnDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetColumnDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3911,7 +4328,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ColumnDataProfile> {
-            (*self.0.stub).get_column_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_column_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetColumnDataProfileRequest::name].
@@ -3951,14 +4371,17 @@ pub mod dlp_service {
     pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
 
     impl DeleteTableDataProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteTableDataProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteTableDataProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3971,7 +4394,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_table_data_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_table_data_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTableDataProfileRequest::name].
@@ -4011,14 +4437,17 @@ pub mod dlp_service {
     pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
 
     impl HybridInspectDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::HybridInspectDlpJobRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::HybridInspectDlpJobRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4031,7 +4460,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HybridInspectResponse> {
-            (*self.0.stub).hybrid_inspect_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .hybrid_inspect_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::HybridInspectDlpJobRequest::name].
@@ -4044,7 +4476,8 @@ pub mod dlp_service {
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
         pub fn set_hybrid_item<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::HybridContentItem>
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
         {
             self.0.request.hybrid_item = std::option::Option::Some(v.into());
             self
@@ -4052,7 +4485,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
         pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::HybridContentItem>
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
         {
             self.0.request.hybrid_item = v.map(|x| x.into());
             self
@@ -4087,10 +4521,10 @@ pub mod dlp_service {
     pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
 
     impl FinishDlpJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4107,7 +4541,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).finish_dlp_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .finish_dlp_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FinishDlpJobRequest::name].
@@ -4147,14 +4584,17 @@ pub mod dlp_service {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateConnectionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateConnectionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4167,7 +4607,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connection> {
-            (*self.0.stub).create_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_connection(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -4182,7 +4625,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_connection<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Connection>
+        where
+            T: std::convert::Into<crate::model::Connection>,
         {
             self.0.request.connection = std::option::Option::Some(v.into());
             self
@@ -4192,7 +4636,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Connection>
+        where
+            T: std::convert::Into<crate::model::Connection>,
         {
             self.0.request.connection = v.map(|x| x.into());
             self
@@ -4227,10 +4672,10 @@ pub mod dlp_service {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4247,7 +4692,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connection> {
-            (*self.0.stub).get_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_connection(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -4291,10 +4739,10 @@ pub mod dlp_service {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4311,11 +4759,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConnectionsResponse> {
-            (*self.0.stub).list_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_connections(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4327,7 +4781,10 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4391,14 +4848,17 @@ pub mod dlp_service {
     pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
 
     impl SearchConnections {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchConnectionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchConnectionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4411,11 +4871,17 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchConnectionsResponse> {
-            (*self.0.stub).search_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_connections(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4427,7 +4893,10 @@ pub mod dlp_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchConnectionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchConnectionsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4487,14 +4956,17 @@ pub mod dlp_service {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteConnectionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteConnectionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4507,7 +4979,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_connection(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
@@ -4547,14 +5022,17 @@ pub mod dlp_service {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateConnectionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateConnectionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4567,7 +5045,10 @@ pub mod dlp_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Connection> {
-            (*self.0.stub).update_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_connection(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
@@ -4582,7 +5063,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_connection<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Connection>
+        where
+            T: std::convert::Into<crate::model::Connection>,
         {
             self.0.request.connection = std::option::Option::Some(v.into());
             self
@@ -4592,7 +5074,8 @@ pub mod dlp_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Connection>
+        where
+            T: std::convert::Into<crate::model::Connection>,
         {
             self.0.request.connection = v.map(|x| x.into());
             self
@@ -4600,7 +5083,8 @@ pub mod dlp_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4608,7 +5092,8 @@ pub mod dlp_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4621,5 +5106,4 @@ pub mod dlp_service {
             &mut self.0.options
         }
     }
-
 }

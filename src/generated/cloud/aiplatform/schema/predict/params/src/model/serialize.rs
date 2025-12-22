@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::ImageClassificationPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::ImageObjectDetectionPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);
@@ -109,9 +109,9 @@ impl serde::ser::Serialize for super::ImageSegmentationPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);
@@ -140,9 +140,9 @@ impl serde::ser::Serialize for super::VideoActionRecognitionPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);
@@ -183,9 +183,9 @@ impl serde::ser::Serialize for super::VideoClassificationPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);
@@ -218,7 +218,10 @@ impl serde::ser::Serialize for super::VideoClassificationPredictionParams {
             state.serialize_entry("shotClassification", &self.shot_classification)?;
         }
         if !wkt::internal::is_default(&self.one_sec_interval_classification) {
-            state.serialize_entry("oneSecIntervalClassification", &self.one_sec_interval_classification)?;
+            state.serialize_entry(
+                "oneSecIntervalClassification",
+                &self.one_sec_interval_classification,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -235,9 +238,9 @@ impl serde::ser::Serialize for super::VideoObjectTrackingPredictionParams {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.confidence_threshold) {
             struct __With<'a>(&'a f32);

@@ -90,34 +90,47 @@ impl Operations {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Operations + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Operations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Operations>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Operations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Operations> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Operations> {
         super::transport::Operations::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Operations> {
-        Self::build_transport(conf).await.map(super::tracing::Operations::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Operations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Operations::new)
     }
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(&self) -> super::builder::operations::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::operations::ListOperations {
         super::builder::operations::ListOperations::new(self.inner.clone())
     }
 
@@ -140,8 +153,7 @@ impl Operations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::operations::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::operations::GetOperation {
         super::builder::operations::GetOperation::new(self.inner.clone())
     }
 
@@ -164,8 +176,7 @@ impl Operations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::operations::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::operations::DeleteOperation {
         super::builder::operations::DeleteOperation::new(self.inner.clone())
     }
 
@@ -199,8 +210,7 @@ impl Operations {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::operations::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::operations::CancelOperation {
         super::builder::operations::CancelOperation::new(self.inner.clone())
     }
 }

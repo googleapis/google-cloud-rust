@@ -39,7 +39,10 @@ pub mod service_health {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceHealth;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod service_health {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod service_health {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEventsResponse> {
-            (*self.0.stub).list_events(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_events(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod service_health {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -191,10 +207,10 @@ pub mod service_health {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -211,7 +227,10 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Event> {
-            (*self.0.stub).get_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
@@ -255,14 +274,17 @@ pub mod service_health {
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
     impl ListOrganizationEvents {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOrganizationEventsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOrganizationEventsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -275,11 +297,19 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOrganizationEventsResponse> {
-            (*self.0.stub).list_organization_events(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_organization_events(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOrganizationEventsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOrganizationEventsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -291,7 +321,12 @@ pub mod service_health {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOrganizationEventsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrganizationEventsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -357,14 +392,17 @@ pub mod service_health {
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
     impl GetOrganizationEvent {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOrganizationEventRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOrganizationEventRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -377,7 +415,10 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OrganizationEvent> {
-            (*self.0.stub).get_organization_event(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_organization_event(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationEventRequest::name].
@@ -418,17 +459,22 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOrganizationImpacts(RequestBuilder<crate::model::ListOrganizationImpactsRequest>);
+    pub struct ListOrganizationImpacts(
+        RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
+    );
 
     impl ListOrganizationImpacts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOrganizationImpactsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOrganizationImpactsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -441,11 +487,19 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOrganizationImpactsResponse> {
-            (*self.0.stub).list_organization_impacts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_organization_impacts(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOrganizationImpactsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOrganizationImpactsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -457,7 +511,12 @@ pub mod service_health {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOrganizationImpactsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrganizationImpactsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -517,14 +576,17 @@ pub mod service_health {
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
     impl GetOrganizationImpact {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOrganizationImpactRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOrganizationImpactRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -537,7 +599,10 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OrganizationImpact> {
-            (*self.0.stub).get_organization_impact(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_organization_impact(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationImpactRequest::name].
@@ -581,14 +646,17 @@ pub mod service_health {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -601,11 +669,17 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -617,7 +691,10 @@ pub mod service_health {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -675,10 +752,10 @@ pub mod service_health {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -695,7 +772,10 @@ pub mod service_health {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -711,5 +791,4 @@ pub mod service_health {
             &mut self.0.options
         }
     }
-
 }

@@ -1336,7 +1336,6 @@ pub trait ContentService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ContentService] also implement [ContentService].
@@ -1467,7 +1466,6 @@ impl<T: super::ContentService> ContentService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::DataTaxonomyService].
@@ -1708,7 +1706,8 @@ impl<T: super::DataTaxonomyService> DataTaxonomyService for T {
         &self,
         req: crate::model::ListDataAttributeBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataAttributeBindingsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataAttributeBindingsResponse>>
+    {
         T::list_data_attribute_bindings(self, req, options).await
     }
 
@@ -2064,7 +2063,8 @@ impl<T: super::DataScanService> DataScanService for T {
         &self,
         req: crate::model::GenerateDataQualityRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateDataQualityRulesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateDataQualityRulesResponse>>
+    {
         T::generate_data_quality_rules(self, req, options).await
     }
 
@@ -2274,7 +2274,6 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::MetadataService] also implement [MetadataService].
@@ -2441,7 +2440,6 @@ impl<T: super::MetadataService> MetadataService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::DataplexService].

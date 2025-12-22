@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,6 +30,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,7 +42,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnosticConfig {
-
     /// Required. User Cloud Storage bucket location (REQUIRED).
     /// Must be formatted with path prefix (`gs://$GCS_BUCKET`).
     ///
@@ -154,7 +153,6 @@ impl wkt::message::Message for DiagnosticConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
-
     /// Optional. Event report time.
     pub report_time: std::option::Option<wkt::Timestamp>,
 
@@ -162,7 +160,7 @@ pub struct Event {
     pub r#type: crate::model::event::EventType,
 
     /// Optional. Event details. This field is used to pass event information.
-    pub details: std::collections::HashMap<std::string::String,std::string::String>,
+    pub details: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -181,7 +179,8 @@ impl Event {
     /// let x = Event::new().set_report_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_report_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.report_time = std::option::Option::Some(v.into());
         self
@@ -197,7 +196,8 @@ impl Event {
     /// let x = Event::new().set_or_clear_report_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.report_time = v.map(|x| x.into());
         self
@@ -250,7 +250,6 @@ impl wkt::message::Message for Event {
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The definition of the event types.
     ///
@@ -361,7 +360,9 @@ pub mod event {
                 3 => Self::Health,
                 4 => Self::Maintenance,
                 5 => Self::MetadataChange,
-                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -376,7 +377,9 @@ pub mod event {
                 "HEALTH" => Self::Health,
                 "MAINTENANCE" => Self::Maintenance,
                 "METADATA_CHANGE" => Self::MetadataChange,
-                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -404,7 +407,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
-                ".google.cloud.notebooks.v2.Event.EventType"))
+                ".google.cloud.notebooks.v2.Event.EventType",
+            ))
         }
     }
 }
@@ -413,7 +417,6 @@ pub mod event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkInterface {
-
     /// Optional. The name of the VPC that this VM instance is in.
     /// Format:
     /// `projects/{project_id}/global/networks/{network_id}`
@@ -469,7 +472,10 @@ impl NetworkInterface {
     /// let x0 = NetworkInterface::new().set_nic_type(NicType::VirtioNet);
     /// let x1 = NetworkInterface::new().set_nic_type(NicType::Gvnic);
     /// ```
-    pub fn set_nic_type<T: std::convert::Into<crate::model::network_interface::NicType>>(mut self, v: T) -> Self {
+    pub fn set_nic_type<T: std::convert::Into<crate::model::network_interface::NicType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.nic_type = v.into();
         self
     }
@@ -485,7 +491,6 @@ impl wkt::message::Message for NetworkInterface {
 pub mod network_interface {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The type of vNIC driver.
     /// Default should be NIC_TYPE_UNSPECIFIED.
@@ -574,7 +579,9 @@ pub mod network_interface {
                 0 => Self::Unspecified,
                 1 => Self::VirtioNet,
                 2 => Self::Gvnic,
-                _ => Self::UnknownValue(nic_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(nic_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -586,7 +593,9 @@ pub mod network_interface {
                 "NIC_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "VIRTIO_NET" => Self::VirtioNet,
                 "GVNIC" => Self::Gvnic,
-                _ => Self::UnknownValue(nic_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(nic_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -611,7 +620,8 @@ pub mod network_interface {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NicType>::new(
-                ".google.cloud.notebooks.v2.NetworkInterface.NicType"))
+                ".google.cloud.notebooks.v2.NetworkInterface.NicType",
+            ))
         }
     }
 }
@@ -621,7 +631,6 @@ pub mod network_interface {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmImage {
-
     /// Required. The name of the Google Cloud project that this VM image belongs
     /// to. Format: `{project_id}`
     pub project: std::string::String,
@@ -660,8 +669,10 @@ impl VmImage {
     /// use google_cloud_notebooks_v2::model::vm_image::Image;
     /// let x = VmImage::new().set_image(Some(Image::Name("example".to_string())));
     /// ```
-    pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::vm_image::Image>>>(mut self, v: T) -> Self
-    {
+    pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::vm_image::Image>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.image = v.into();
         self
     }
@@ -691,11 +702,7 @@ impl VmImage {
     /// assert!(x.family().is_none());
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(
-            crate::model::vm_image::Image::Name(
-                v.into()
-            )
-        );
+        self.image = std::option::Option::Some(crate::model::vm_image::Image::Name(v.into()));
         self
     }
 
@@ -724,11 +731,7 @@ impl VmImage {
     /// assert!(x.name().is_none());
     /// ```
     pub fn set_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(
-            crate::model::vm_image::Image::Family(
-                v.into()
-            )
-        );
+        self.image = std::option::Option::Some(crate::model::vm_image::Image::Family(v.into()));
         self
     }
 }
@@ -743,7 +746,6 @@ impl wkt::message::Message for VmImage {
 pub mod vm_image {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The reference to an external Compute Engine VM image.
     #[derive(Clone, Debug, PartialEq)]
@@ -762,7 +764,6 @@ pub mod vm_image {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContainerImage {
-
     /// Required. The path to the container image repository. For example:
     /// `gcr.io/{project_id}/{image_name}`
     pub repository: std::string::String,
@@ -819,7 +820,6 @@ impl wkt::message::Message for ContainerImage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
-
     /// Optional. Type of this accelerator.
     pub r#type: crate::model::accelerator_config::AcceleratorType,
 
@@ -844,7 +844,10 @@ impl AcceleratorConfig {
     /// let x1 = AcceleratorConfig::new().set_type(AcceleratorType::NvidiaTeslaV100);
     /// let x2 = AcceleratorConfig::new().set_type(AcceleratorType::NvidiaTeslaP4);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::AcceleratorType>>(mut self, v: T) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::AcceleratorType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#type = v.into();
         self
     }
@@ -872,7 +875,6 @@ impl wkt::message::Message for AcceleratorConfig {
 pub mod accelerator_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Definition of the types of hardware accelerators that can be used on
     /// this instance.
@@ -1001,7 +1003,9 @@ pub mod accelerator_config {
                 11 => Self::NvidiaTeslaA100,
                 12 => Self::NvidiaA10080Gb,
                 13 => Self::NvidiaL4,
-                _ => Self::UnknownValue(accelerator_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(accelerator_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1021,7 +1025,9 @@ pub mod accelerator_config {
                 "NVIDIA_TESLA_T4_VWS" => Self::NvidiaTeslaT4Vws,
                 "NVIDIA_TESLA_P100_VWS" => Self::NvidiaTeslaP100Vws,
                 "NVIDIA_TESLA_P4_VWS" => Self::NvidiaTeslaP4Vws,
-                _ => Self::UnknownValue(accelerator_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(accelerator_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1054,7 +1060,8 @@ pub mod accelerator_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AcceleratorType>::new(
-                ".google.cloud.notebooks.v2.AcceleratorConfig.AcceleratorType"))
+                ".google.cloud.notebooks.v2.AcceleratorConfig.AcceleratorType",
+            ))
         }
     }
 }
@@ -1066,7 +1073,6 @@ pub mod accelerator_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
-
     /// Optional. Defines whether the VM instance has Secure Boot enabled.
     ///
     /// Secure Boot helps ensure that the system only runs authentic software by
@@ -1141,7 +1147,6 @@ impl wkt::message::Message for ShieldedInstanceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GPUDriverConfig {
-
     /// Optional. Whether the end user authorizes Google Cloud to install GPU
     /// driver on this VM instance. If this field is empty or set to false, the GPU
     /// driver won't be installed. Only applicable to instances with GPUs.
@@ -1179,7 +1184,10 @@ impl GPUDriverConfig {
     /// # use google_cloud_notebooks_v2::model::GPUDriverConfig;
     /// let x = GPUDriverConfig::new().set_custom_gpu_driver_path("example");
     /// ```
-    pub fn set_custom_gpu_driver_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_custom_gpu_driver_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.custom_gpu_driver_path = v.into();
         self
     }
@@ -1195,7 +1203,6 @@ impl wkt::message::Message for GPUDriverConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataDisk {
-
     /// Optional. The size of the disk in GB attached to this VM instance, up to a
     /// maximum of 64000 GB (64 TB). If not specified, this defaults to 100.
     pub disk_size_gb: i64,
@@ -1258,7 +1265,10 @@ impl DataDisk {
     /// let x0 = DataDisk::new().set_disk_encryption(DiskEncryption::Gmek);
     /// let x1 = DataDisk::new().set_disk_encryption(DiskEncryption::Cmek);
     /// ```
-    pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(mut self, v: T) -> Self {
+    pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.disk_encryption = v.into();
         self
     }
@@ -1286,7 +1296,6 @@ impl wkt::message::Message for DataDisk {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BootDisk {
-
     /// Optional. The size of the boot disk in GB attached to this instance, up to
     /// a maximum of 64000 GB (64 TB). If not specified, this defaults to the
     /// recommended value of 150GB.
@@ -1350,7 +1359,10 @@ impl BootDisk {
     /// let x0 = BootDisk::new().set_disk_encryption(DiskEncryption::Gmek);
     /// let x1 = BootDisk::new().set_disk_encryption(DiskEncryption::Cmek);
     /// ```
-    pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(mut self, v: T) -> Self {
+    pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.disk_encryption = v.into();
         self
     }
@@ -1378,7 +1390,6 @@ impl wkt::message::Message for BootDisk {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
-
     /// Optional. Email address of the service account.
     pub email: std::string::String,
 
@@ -1416,7 +1427,7 @@ impl ServiceAccount {
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.scopes = v.into_iter().map(|i| i.into()).collect();
@@ -1435,7 +1446,6 @@ impl wkt::message::Message for ServiceAccount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GceSetup {
-
     /// Optional. The machine type of the VM instance.
     /// <https://cloud.google.com/compute/docs/machine-resource>
     pub machine_type: std::string::String,
@@ -1475,7 +1485,7 @@ pub struct GceSetup {
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Optional. Custom metadata to apply to this instance.
-    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Flag to enable ip forwarding or not, default false/off.
     /// <https://cloud.google.com/vpc/docs/using-routes#canipforward>
@@ -1522,7 +1532,7 @@ impl GceSetup {
     pub fn set_accelerator_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>
+        V: std::convert::Into<crate::model::AcceleratorConfig>,
     {
         use std::iter::Iterator;
         self.accelerator_configs = v.into_iter().map(|i| i.into()).collect();
@@ -1544,7 +1554,7 @@ impl GceSetup {
     pub fn set_service_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ServiceAccount>
+        V: std::convert::Into<crate::model::ServiceAccount>,
     {
         use std::iter::Iterator;
         self.service_accounts = v.into_iter().map(|i| i.into()).collect();
@@ -1560,7 +1570,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_boot_disk(BootDisk::default()/* use setters */);
     /// ```
     pub fn set_boot_disk<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::BootDisk>
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
     {
         self.boot_disk = std::option::Option::Some(v.into());
         self
@@ -1576,7 +1587,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_or_clear_boot_disk(None::<BootDisk>);
     /// ```
     pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::BootDisk>
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
     {
         self.boot_disk = v.map(|x| x.into());
         self
@@ -1597,7 +1609,7 @@ impl GceSetup {
     pub fn set_data_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataDisk>
+        V: std::convert::Into<crate::model::DataDisk>,
     {
         use std::iter::Iterator;
         self.data_disks = v.into_iter().map(|i| i.into()).collect();
@@ -1613,7 +1625,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
     /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
     {
         self.shielded_instance_config = std::option::Option::Some(v.into());
         self
@@ -1629,7 +1642,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
     /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
+    where
+        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
     {
         self.shielded_instance_config = v.map(|x| x.into());
         self
@@ -1650,7 +1664,7 @@ impl GceSetup {
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkInterface>
+        V: std::convert::Into<crate::model::NetworkInterface>,
     {
         use std::iter::Iterator;
         self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -1679,7 +1693,7 @@ impl GceSetup {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -1728,7 +1742,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_gpu_driver_config(GPUDriverConfig::default()/* use setters */);
     /// ```
     pub fn set_gpu_driver_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::GPUDriverConfig>
+    where
+        T: std::convert::Into<crate::model::GPUDriverConfig>,
     {
         self.gpu_driver_config = std::option::Option::Some(v.into());
         self
@@ -1744,7 +1759,8 @@ impl GceSetup {
     /// let x = GceSetup::new().set_or_clear_gpu_driver_config(None::<GPUDriverConfig>);
     /// ```
     pub fn set_or_clear_gpu_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::GPUDriverConfig>
+    where
+        T: std::convert::Into<crate::model::GPUDriverConfig>,
     {
         self.gpu_driver_config = v.map(|x| x.into());
         self
@@ -1762,8 +1778,10 @@ impl GceSetup {
     /// let x = GceSetup::new().set_image(Some(
     ///     google_cloud_notebooks_v2::model::gce_setup::Image::VmImage(VmImage::default().into())));
     /// ```
-    pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::gce_setup::Image>>>(mut self, v: T) -> Self
-    {
+    pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::gce_setup::Image>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.image = v.into();
         self
     }
@@ -1793,19 +1811,20 @@ impl GceSetup {
     /// assert!(x.vm_image().is_some());
     /// assert!(x.container_image().is_none());
     /// ```
-    pub fn set_vm_image<T: std::convert::Into<std::boxed::Box<crate::model::VmImage>>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(
-            crate::model::gce_setup::Image::VmImage(
-                v.into()
-            )
-        );
+    pub fn set_vm_image<T: std::convert::Into<std::boxed::Box<crate::model::VmImage>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image = std::option::Option::Some(crate::model::gce_setup::Image::VmImage(v.into()));
         self
     }
 
     /// The value of [image][crate::model::GceSetup::image]
     /// if it holds a `ContainerImage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn container_image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ContainerImage>> {
+    pub fn container_image(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ContainerImage>> {
         #[allow(unreachable_patterns)]
         self.image.as_ref().and_then(|v| match v {
             crate::model::gce_setup::Image::ContainerImage(v) => std::option::Option::Some(v),
@@ -1827,12 +1846,14 @@ impl GceSetup {
     /// assert!(x.container_image().is_some());
     /// assert!(x.vm_image().is_none());
     /// ```
-    pub fn set_container_image<T: std::convert::Into<std::boxed::Box<crate::model::ContainerImage>>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(
-            crate::model::gce_setup::Image::ContainerImage(
-                v.into()
-            )
-        );
+    pub fn set_container_image<
+        T: std::convert::Into<std::boxed::Box<crate::model::ContainerImage>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image =
+            std::option::Option::Some(crate::model::gce_setup::Image::ContainerImage(v.into()));
         self
     }
 }
@@ -1847,7 +1868,6 @@ impl wkt::message::Message for GceSetup {
 pub mod gce_setup {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Type of the image; can be one of VM image, or container image.
     #[derive(Clone, Debug, PartialEq)]
@@ -1864,7 +1884,6 @@ pub mod gce_setup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeHistoryEntry {
-
     /// Optional. The snapshot of the boot disk of this notebook instance before
     /// upgrade.
     pub snapshot: std::string::String,
@@ -1971,7 +1990,10 @@ impl UpgradeHistoryEntry {
     /// let x1 = UpgradeHistoryEntry::new().set_state(State::Succeeded);
     /// let x2 = UpgradeHistoryEntry::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::upgrade_history_entry::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::upgrade_history_entry::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -1985,7 +2007,8 @@ impl UpgradeHistoryEntry {
     /// let x = UpgradeHistoryEntry::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2001,7 +2024,8 @@ impl UpgradeHistoryEntry {
     /// let x = UpgradeHistoryEntry::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2016,7 +2040,10 @@ impl UpgradeHistoryEntry {
     /// let x0 = UpgradeHistoryEntry::new().set_action(Action::Upgrade);
     /// let x1 = UpgradeHistoryEntry::new().set_action(Action::Rollback);
     /// ```
-    pub fn set_action<T: std::convert::Into<crate::model::upgrade_history_entry::Action>>(mut self, v: T) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::upgrade_history_entry::Action>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.action = v.into();
         self
     }
@@ -2044,7 +2071,6 @@ impl wkt::message::Message for UpgradeHistoryEntry {
 pub mod upgrade_history_entry {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The definition of the states of this upgrade history entry.
     ///
@@ -2137,7 +2163,9 @@ pub mod upgrade_history_entry {
                 1 => Self::Started,
                 2 => Self::Succeeded,
                 3 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2150,7 +2178,9 @@ pub mod upgrade_history_entry {
                 "STARTED" => Self::Started,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2176,7 +2206,8 @@ pub mod upgrade_history_entry {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.notebooks.v2.UpgradeHistoryEntry.State"))
+                ".google.cloud.notebooks.v2.UpgradeHistoryEntry.State",
+            ))
         }
     }
 
@@ -2266,7 +2297,9 @@ pub mod upgrade_history_entry {
                 0 => Self::Unspecified,
                 1 => Self::Upgrade,
                 2 => Self::Rollback,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2278,7 +2311,9 @@ pub mod upgrade_history_entry {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "UPGRADE" => Self::Upgrade,
                 "ROLLBACK" => Self::Rollback,
-                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2303,7 +2338,8 @@ pub mod upgrade_history_entry {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.cloud.notebooks.v2.UpgradeHistoryEntry.Action"))
+                ".google.cloud.notebooks.v2.UpgradeHistoryEntry.Action",
+            ))
         }
     }
 }
@@ -2312,7 +2348,6 @@ pub mod upgrade_history_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-
     /// Output only. The name of this notebook instance. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -2357,7 +2392,7 @@ pub struct Instance {
     ///   "updated": "2020-10-18 09:40:03.573409"
     /// }
     /// ```
-    pub health_info: std::collections::HashMap<std::string::String,std::string::String>,
+    pub health_info: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Instance creation time.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -2370,7 +2405,7 @@ pub struct Instance {
 
     /// Optional. Labels to apply to this instance.
     /// These can be later modified by the UpdateInstance method.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Setup for the Notebook instance.
     pub infrastructure: std::option::Option<crate::model::instance::Infrastructure>,
@@ -2417,7 +2452,7 @@ impl Instance {
     pub fn set_instance_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.instance_owners = v.into_iter().map(|i| i.into()).collect();
@@ -2466,7 +2501,7 @@ impl Instance {
     pub fn set_upgrade_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UpgradeHistoryEntry>
+        V: std::convert::Into<crate::model::UpgradeHistoryEntry>,
     {
         use std::iter::Iterator;
         self.upgrade_history = v.into_iter().map(|i| i.into()).collect();
@@ -2495,7 +2530,10 @@ impl Instance {
     /// let x1 = Instance::new().set_health_state(HealthState::Unhealthy);
     /// let x2 = Instance::new().set_health_state(HealthState::AgentNotInstalled);
     /// ```
-    pub fn set_health_state<T: std::convert::Into<crate::model::HealthState>>(mut self, v: T) -> Self {
+    pub fn set_health_state<T: std::convert::Into<crate::model::HealthState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.health_state = v.into();
         self
     }
@@ -2530,7 +2568,8 @@ impl Instance {
     /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2546,7 +2585,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2561,7 +2601,8 @@ impl Instance {
     /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2577,7 +2618,8 @@ impl Instance {
     /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2628,8 +2670,12 @@ impl Instance {
     /// let x = Instance::new().set_infrastructure(Some(
     ///     google_cloud_notebooks_v2::model::instance::Infrastructure::GceSetup(GceSetup::default().into())));
     /// ```
-    pub fn set_infrastructure<T: std::convert::Into<std::option::Option<crate::model::instance::Infrastructure>>>(mut self, v: T) -> Self
-    {
+    pub fn set_infrastructure<
+        T: std::convert::Into<std::option::Option<crate::model::instance::Infrastructure>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.infrastructure = v.into();
         self
     }
@@ -2658,12 +2704,12 @@ impl Instance {
     /// let x = Instance::new().set_gce_setup(GceSetup::default()/* use setters */);
     /// assert!(x.gce_setup().is_some());
     /// ```
-    pub fn set_gce_setup<T: std::convert::Into<std::boxed::Box<crate::model::GceSetup>>>(mut self, v: T) -> Self {
-        self.infrastructure = std::option::Option::Some(
-            crate::model::instance::Infrastructure::GceSetup(
-                v.into()
-            )
-        );
+    pub fn set_gce_setup<T: std::convert::Into<std::boxed::Box<crate::model::GceSetup>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.infrastructure =
+            std::option::Option::Some(crate::model::instance::Infrastructure::GceSetup(v.into()));
         self
     }
 }
@@ -2679,7 +2725,6 @@ pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Setup for the Notebook instance.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2694,7 +2739,6 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2742,7 +2786,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2758,7 +2803,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2773,7 +2819,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2789,7 +2836,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2878,7 +2926,6 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
-
     /// Required. Format:
     /// `parent=projects/{project_id}/locations/{location}`
     pub parent: std::string::String,
@@ -2976,7 +3023,6 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
-
     /// A list of returned instances.
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -3012,7 +3058,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>
+        V: std::convert::Into<crate::model::Instance>,
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -3041,7 +3087,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3073,7 +3119,6 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3109,7 +3154,6 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
-
     /// Required. Format:
     /// `parent=projects/{project_id}/locations/{location}`
     pub parent: std::string::String,
@@ -3164,7 +3208,8 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -3180,7 +3225,8 @@ impl CreateInstanceRequest {
     /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = v.map(|x| x.into());
         self
@@ -3209,7 +3255,6 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
-
     /// Required. A representation of an instance.
     pub instance: std::option::Option<crate::model::Instance>,
 
@@ -3236,7 +3281,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
     /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -3252,7 +3298,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
     /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Instance>
+    where
+        T: std::convert::Into<crate::model::Instance>,
     {
         self.instance = v.map(|x| x.into());
         self
@@ -3267,7 +3314,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3283,7 +3331,8 @@ impl UpdateInstanceRequest {
     /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3312,7 +3361,6 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3363,7 +3411,6 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3399,7 +3446,6 @@ impl wkt::message::Message for StartInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3435,7 +3481,6 @@ impl wkt::message::Message for StopInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3471,7 +3516,6 @@ impl wkt::message::Message for ResetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckInstanceUpgradabilityRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub notebook_instance: std::string::String,
@@ -3491,7 +3535,10 @@ impl CheckInstanceUpgradabilityRequest {
     /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityRequest;
     /// let x = CheckInstanceUpgradabilityRequest::new().set_notebook_instance("example");
     /// ```
-    pub fn set_notebook_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_notebook_instance<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.notebook_instance = v.into();
         self
     }
@@ -3507,7 +3554,6 @@ impl wkt::message::Message for CheckInstanceUpgradabilityRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckInstanceUpgradabilityResponse {
-
     /// If an instance is upgradeable.
     pub upgradeable: bool,
 
@@ -3590,7 +3636,6 @@ impl wkt::message::Message for CheckInstanceUpgradabilityResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3626,7 +3671,6 @@ impl wkt::message::Message for UpgradeInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3693,7 +3737,6 @@ impl wkt::message::Message for RollbackInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseInstanceRequest {
-
     /// Required. Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3733,7 +3776,8 @@ impl DiagnoseInstanceRequest {
     /// let x = DiagnoseInstanceRequest::new().set_diagnostic_config(DiagnosticConfig::default()/* use setters */);
     /// ```
     pub fn set_diagnostic_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DiagnosticConfig>
+    where
+        T: std::convert::Into<crate::model::DiagnosticConfig>,
     {
         self.diagnostic_config = std::option::Option::Some(v.into());
         self
@@ -3749,7 +3793,8 @@ impl DiagnoseInstanceRequest {
     /// let x = DiagnoseInstanceRequest::new().set_or_clear_diagnostic_config(None::<DiagnosticConfig>);
     /// ```
     pub fn set_or_clear_diagnostic_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DiagnosticConfig>
+    where
+        T: std::convert::Into<crate::model::DiagnosticConfig>,
     {
         self.diagnostic_config = v.map(|x| x.into());
         self
@@ -3860,7 +3905,9 @@ impl std::convert::From<i32> for DiskEncryption {
             0 => Self::Unspecified,
             1 => Self::Gmek,
             2 => Self::Cmek,
-            _ => Self::UnknownValue(disk_encryption::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(disk_encryption::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3872,7 +3919,9 @@ impl std::convert::From<&str> for DiskEncryption {
             "DISK_ENCRYPTION_UNSPECIFIED" => Self::Unspecified,
             "GMEK" => Self::Gmek,
             "CMEK" => Self::Cmek,
-            _ => Self::UnknownValue(disk_encryption::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(disk_encryption::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3897,7 +3946,8 @@ impl<'de> serde::de::Deserialize<'de> for DiskEncryption {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiskEncryption>::new(
-            ".google.cloud.notebooks.v2.DiskEncryption"))
+            ".google.cloud.notebooks.v2.DiskEncryption",
+        ))
     }
 }
 
@@ -3997,7 +4047,9 @@ impl std::convert::From<i32> for DiskType {
             2 => Self::PdSsd,
             3 => Self::PdBalanced,
             4 => Self::PdExtreme,
-            _ => Self::UnknownValue(disk_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(disk_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -4011,7 +4063,9 @@ impl std::convert::From<&str> for DiskType {
             "PD_SSD" => Self::PdSsd,
             "PD_BALANCED" => Self::PdBalanced,
             "PD_EXTREME" => Self::PdExtreme,
-            _ => Self::UnknownValue(disk_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(disk_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -4038,7 +4092,8 @@ impl<'de> serde::de::Deserialize<'de> for DiskType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiskType>::new(
-            ".google.cloud.notebooks.v2.DiskType"))
+            ".google.cloud.notebooks.v2.DiskType",
+        ))
     }
 }
 
@@ -4169,7 +4224,9 @@ impl std::convert::From<i32> for State {
             8 => Self::Initializing,
             9 => Self::Suspending,
             10 => Self::Suspended,
-            _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -4189,7 +4246,9 @@ impl std::convert::From<&str> for State {
             "INITIALIZING" => Self::Initializing,
             "SUSPENDING" => Self::Suspending,
             "SUSPENDED" => Self::Suspended,
-            _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -4222,7 +4281,8 @@ impl<'de> serde::de::Deserialize<'de> for State {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-            ".google.cloud.notebooks.v2.State"))
+            ".google.cloud.notebooks.v2.State",
+        ))
     }
 }
 
@@ -4328,7 +4388,9 @@ impl std::convert::From<i32> for HealthState {
             2 => Self::Unhealthy,
             3 => Self::AgentNotInstalled,
             4 => Self::AgentNotRunning,
-            _ => Self::UnknownValue(health_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(health_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -4342,7 +4404,9 @@ impl std::convert::From<&str> for HealthState {
             "UNHEALTHY" => Self::Unhealthy,
             "AGENT_NOT_INSTALLED" => Self::AgentNotInstalled,
             "AGENT_NOT_RUNNING" => Self::AgentNotRunning,
-            _ => Self::UnknownValue(health_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(health_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -4369,6 +4433,7 @@ impl<'de> serde::de::Deserialize<'de> for HealthState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HealthState>::new(
-            ".google.cloud.notebooks.v2.HealthState"))
+            ".google.cloud.notebooks.v2.HealthState",
+        ))
     }
 }

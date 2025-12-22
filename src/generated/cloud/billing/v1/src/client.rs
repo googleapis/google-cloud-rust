@@ -81,28 +81,42 @@ impl CloudBilling {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudBilling + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudBilling + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
         super::transport::CloudBilling::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
-        Self::build_transport(conf).await.map(super::tracing::CloudBilling::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudBilling::new)
     }
 
     /// Gets information about a billing account. The current authenticated user
@@ -125,16 +139,14 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_billing_account(&self) -> super::builder::cloud_billing::GetBillingAccount
-    {
+    pub fn get_billing_account(&self) -> super::builder::cloud_billing::GetBillingAccount {
         super::builder::cloud_billing::GetBillingAccount::new(self.inner.clone())
     }
 
     /// Lists the billing accounts that the current authenticated user has
     /// permission to
     /// [view](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn list_billing_accounts(&self) -> super::builder::cloud_billing::ListBillingAccounts
-    {
+    pub fn list_billing_accounts(&self) -> super::builder::cloud_billing::ListBillingAccounts {
         super::builder::cloud_billing::ListBillingAccounts::new(self.inner.clone())
     }
 
@@ -160,8 +172,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_billing_account(&self) -> super::builder::cloud_billing::UpdateBillingAccount
-    {
+    pub fn update_billing_account(&self) -> super::builder::cloud_billing::UpdateBillingAccount {
         super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
     }
 
@@ -196,8 +207,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_billing_account(&self) -> super::builder::cloud_billing::CreateBillingAccount
-    {
+    pub fn create_billing_account(&self) -> super::builder::cloud_billing::CreateBillingAccount {
         super::builder::cloud_billing::CreateBillingAccount::new(self.inner.clone())
     }
 
@@ -205,8 +215,9 @@ impl CloudBilling {
     /// authenticated user must have the `billing.resourceAssociations.list` IAM
     /// permission, which is often given to billing account
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn list_project_billing_info(&self) -> super::builder::cloud_billing::ListProjectBillingInfo
-    {
+    pub fn list_project_billing_info(
+        &self,
+    ) -> super::builder::cloud_billing::ListProjectBillingInfo {
         super::builder::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
     }
 
@@ -231,8 +242,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_project_billing_info(&self) -> super::builder::cloud_billing::GetProjectBillingInfo
-    {
+    pub fn get_project_billing_info(&self) -> super::builder::cloud_billing::GetProjectBillingInfo {
         super::builder::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
     }
 
@@ -284,8 +294,9 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_project_billing_info(&self) -> super::builder::cloud_billing::UpdateProjectBillingInfo
-    {
+    pub fn update_project_billing_info(
+        &self,
+    ) -> super::builder::cloud_billing::UpdateProjectBillingInfo {
         super::builder::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
     }
 
@@ -309,8 +320,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::cloud_billing::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_billing::GetIamPolicy {
         super::builder::cloud_billing::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -335,8 +345,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::cloud_billing::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_billing::SetIamPolicy {
         super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -359,8 +368,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::cloud_billing::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_billing::TestIamPermissions {
         super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -381,8 +389,7 @@ impl CloudBilling {
     ///     Ok(())
     /// }
     /// ```
-    pub fn move_billing_account(&self) -> super::builder::cloud_billing::MoveBillingAccount
-    {
+    pub fn move_billing_account(&self) -> super::builder::cloud_billing::MoveBillingAccount {
         super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
     }
 }
@@ -453,39 +460,51 @@ impl CloudCatalog {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudCatalog + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudCatalog + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
         super::transport::CloudCatalog::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
-        Self::build_transport(conf).await.map(super::tracing::CloudCatalog::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudCatalog::new)
     }
 
     /// Lists all public cloud services.
-    pub fn list_services(&self) -> super::builder::cloud_catalog::ListServices
-    {
+    pub fn list_services(&self) -> super::builder::cloud_catalog::ListServices {
         super::builder::cloud_catalog::ListServices::new(self.inner.clone())
     }
 
     /// Lists all publicly available SKUs for a given cloud service.
-    pub fn list_skus(&self) -> super::builder::cloud_catalog::ListSkus
-    {
+    pub fn list_skus(&self) -> super::builder::cloud_catalog::ListSkus {
         super::builder::cloud_catalog::ListSkus::new(self.inner.clone())
     }
 }

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::Challenge {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -57,9 +57,9 @@ impl serde::ser::Serialize for super::CreateChallengeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -82,9 +82,9 @@ impl serde::ser::Serialize for super::VerifyAttestationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.td_ccel() {
             state.serialize_entry("tdCcel", value)?;
@@ -125,9 +125,9 @@ impl serde::ser::Serialize for super::TdxCcelAttestation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ccel_acpi_table.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -192,9 +192,9 @@ impl serde::ser::Serialize for super::SevSnpAttestation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.report.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -235,9 +235,9 @@ impl serde::ser::Serialize for super::VerifyAttestationResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.oidc_claims_token.is_empty() {
             state.serialize_entry("oidcClaimsToken", &self.oidc_claims_token)?;
@@ -260,9 +260,9 @@ impl serde::ser::Serialize for super::GcpCredentials {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service_account_id_tokens.is_empty() {
             state.serialize_entry("serviceAccountIdTokens", &self.service_account_id_tokens)?;
@@ -282,9 +282,9 @@ impl serde::ser::Serialize for super::TokenOptions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.aws_principal_tags_options() {
             state.serialize_entry("awsPrincipalTagsOptions", value)?;
@@ -313,9 +313,9 @@ impl serde::ser::Serialize for super::AwsPrincipalTagsOptions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.allowed_principal_tags.is_some() {
             state.serialize_entry("allowedPrincipalTags", &self.allowed_principal_tags)?;
@@ -335,9 +335,9 @@ impl serde::ser::Serialize for super::aws_principal_tags_options::AllowedPrincip
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.container_image_signatures.is_some() {
             state.serialize_entry("containerImageSignatures", &self.container_image_signatures)?;
@@ -352,14 +352,16 @@ impl serde::ser::Serialize for super::aws_principal_tags_options::AllowedPrincip
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures {
+impl serde::ser::Serialize
+    for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key_ids.is_empty() {
             state.serialize_entry("keyIds", &self.key_ids)?;
@@ -379,9 +381,9 @@ impl serde::ser::Serialize for super::TpmAttestation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.quotes.is_empty() {
             state.serialize_entry("quotes", &self.quotes)?;
@@ -429,7 +431,9 @@ impl serde::ser::Serialize for super::TpmAttestation {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("certChain", &__With(&self.cert_chain))?;
@@ -449,9 +453,9 @@ impl serde::ser::Serialize for super::tpm_attestation::Quote {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.hash_algo) {
             struct __With<'a>(&'a i32);
@@ -466,13 +470,15 @@ impl serde::ser::Serialize for super::tpm_attestation::Quote {
             state.serialize_entry("hashAlgo", &__With(&self.hash_algo))?;
         }
         if !self.pcr_values.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,::bytes::Bytes>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, ::bytes::Bytes>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, serde_with::base64::Base64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("pcrValues", &__With(&self.pcr_values))?;
@@ -516,9 +522,9 @@ impl serde::ser::Serialize for super::ConfidentialSpaceInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.signed_entities.is_empty() {
             state.serialize_entry("signedEntities", &self.signed_entities)?;
@@ -538,9 +544,9 @@ impl serde::ser::Serialize for super::SignedEntity {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.container_image_signatures.is_empty() {
             state.serialize_entry("containerImageSignatures", &self.container_image_signatures)?;
@@ -560,9 +566,9 @@ impl serde::ser::Serialize for super::ContainerImageSignature {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.payload.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -618,9 +624,9 @@ impl serde::ser::Serialize for super::VerifyConfidentialSpaceRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.td_ccel() {
             state.serialize_entry("tdCcel", value)?;
@@ -658,9 +664,9 @@ impl serde::ser::Serialize for super::verify_confidential_space_request::Confide
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.aws_principal_tags_options() {
             state.serialize_entry("awsPrincipalTagsOptions", value)?;
@@ -692,9 +698,9 @@ impl serde::ser::Serialize for super::GceShieldedIdentity {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ak_cert.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -715,7 +721,9 @@ impl serde::ser::Serialize for super::GceShieldedIdentity {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("akCertChain", &__With(&self.ak_cert_chain))?;
@@ -735,9 +743,9 @@ impl serde::ser::Serialize for super::VerifyConfidentialSpaceResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attestation_token.is_empty() {
             state.serialize_entry("attestationToken", &self.attestation_token)?;
@@ -760,9 +768,9 @@ impl serde::ser::Serialize for super::VerifyConfidentialGkeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.tpm_attestation() {
             state.serialize_entry("tpmAttestation", value)?;
@@ -785,9 +793,9 @@ impl serde::ser::Serialize for super::VerifyConfidentialGkeResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attestation_token.is_empty() {
             state.serialize_entry("attestationToken", &self.attestation_token)?;

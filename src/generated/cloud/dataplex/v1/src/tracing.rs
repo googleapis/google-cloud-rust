@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [BusinessGlossaryService](super::stub::BusinessGlossaryService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BusinessGlossaryService<T>
-where T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> BusinessGlossaryService<T>
-where T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BusinessGlossaryService for BusinessGlossaryService<T>
-where T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_glossary(
         &self,
@@ -247,7 +253,6 @@ where T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -266,19 +271,25 @@ where T: super::stub::BusinessGlossaryService + std::fmt::Debug + Send + Sync {
 /// Implements a [CatalogService](super::stub::CatalogService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CatalogService<T>
-where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CatalogService<T>
-where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CatalogService for CatalogService<T>
-where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CatalogService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_entry_type(
         &self,
@@ -621,7 +632,6 @@ where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -640,19 +650,25 @@ where T: super::stub::CatalogService + std::fmt::Debug + Send + Sync {
 /// Implements a [CmekService](super::stub::CmekService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CmekService<T>
-where T: super::stub::CmekService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmekService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CmekService<T>
-where T: super::stub::CmekService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmekService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CmekService for CmekService<T>
-where T: super::stub::CmekService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmekService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_encryption_config(
         &self,
@@ -779,7 +795,6 @@ where T: super::stub::CmekService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -798,19 +813,25 @@ where T: super::stub::CmekService + std::fmt::Debug + Send + Sync {
 /// Implements a [ContentService](super::stub::ContentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ContentService<T>
-where T: super::stub::ContentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ContentService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ContentService<T>
-where T: super::stub::ContentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ContentService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ContentService for ContentService<T>
-where T: super::stub::ContentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ContentService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_content(
         &self,
@@ -936,25 +957,30 @@ where T: super::stub::ContentService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [DataTaxonomyService](super::stub::DataTaxonomyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataTaxonomyService<T>
-where T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataTaxonomyService<T>
-where T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataTaxonomyService for DataTaxonomyService<T>
-where T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_data_taxonomy(
         &self,
@@ -1171,7 +1197,6 @@ where T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1190,19 +1215,25 @@ where T: super::stub::DataTaxonomyService + std::fmt::Debug + Send + Sync {
 /// Implements a [DataScanService](super::stub::DataScanService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataScanService<T>
-where T: super::stub::DataScanService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataScanService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataScanService<T>
-where T: super::stub::DataScanService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataScanService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataScanService for DataScanService<T>
-where T: super::stub::DataScanService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataScanService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_data_scan(
         &self,
@@ -1365,7 +1396,6 @@ where T: super::stub::DataScanService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1384,19 +1414,25 @@ where T: super::stub::DataScanService + std::fmt::Debug + Send + Sync {
 /// Implements a [MetadataService](super::stub::MetadataService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MetadataService<T>
-where T: super::stub::MetadataService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetadataService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> MetadataService<T>
-where T: super::stub::MetadataService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetadataService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MetadataService for MetadataService<T>
-where T: super::stub::MetadataService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetadataService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_entity(
         &self,
@@ -1558,25 +1594,30 @@ where T: super::stub::MetadataService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [DataplexService](super::stub::DataplexService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataplexService<T>
-where T: super::stub::DataplexService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataplexService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataplexService<T>
-where T: super::stub::DataplexService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataplexService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataplexService for DataplexService<T>
-where T: super::stub::DataplexService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataplexService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_lake(
         &self,
@@ -1955,7 +1996,6 @@ where T: super::stub::DataplexService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1970,4 +2010,3 @@ where T: super::stub::DataplexService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

@@ -52,8 +52,14 @@ impl std::fmt::Debug for super::MaintenanceSummary {
         debug_struct.field("title", &self.title);
         debug_struct.field("description", &self.description);
         debug_struct.field("category", &self.category);
-        debug_struct.field("maintenance_scheduled_start_time", &self.maintenance_scheduled_start_time);
-        debug_struct.field("maintenance_scheduled_end_time", &self.maintenance_scheduled_end_time);
+        debug_struct.field(
+            "maintenance_scheduled_start_time",
+            &self.maintenance_scheduled_start_time,
+        );
+        debug_struct.field(
+            "maintenance_scheduled_end_time",
+            &self.maintenance_scheduled_end_time,
+        );
         debug_struct.field("maintenance_start_time", &self.maintenance_start_time);
         debug_struct.field("maintenance_end_time", &self.maintenance_end_time);
         debug_struct.field("user_controllable", &self.user_controllable);
@@ -102,8 +108,14 @@ impl std::fmt::Debug for super::ResourceMaintenance {
         debug_struct.field("maintenance_start_time", &self.maintenance_start_time);
         debug_struct.field("maintenance_end_time", &self.maintenance_end_time);
         debug_struct.field("maintenance_cancel_time", &self.maintenance_cancel_time);
-        debug_struct.field("maintenance_scheduled_start_time", &self.maintenance_scheduled_start_time);
-        debug_struct.field("maintenance_scheduled_end_time", &self.maintenance_scheduled_end_time);
+        debug_struct.field(
+            "maintenance_scheduled_start_time",
+            &self.maintenance_scheduled_start_time,
+        );
+        debug_struct.field(
+            "maintenance_scheduled_end_time",
+            &self.maintenance_scheduled_end_time,
+        );
         debug_struct.field("user_controllable", &self.user_controllable);
         debug_struct.field("controls", &self.controls);
         debug_struct.field("labels", &self.labels);
@@ -143,8 +155,6 @@ impl std::fmt::Debug for super::resource_maintenance::Maintenance {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::MaintenanceControl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -135,7 +135,10 @@ impl std::fmt::Debug for super::Recognizer {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("model", &self.model);
         debug_struct.field("language_codes", &self.language_codes);
-        debug_struct.field("default_recognition_config", &self.default_recognition_config);
+        debug_struct.field(
+            "default_recognition_config",
+            &self.default_recognition_config,
+        );
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
@@ -152,7 +155,6 @@ impl std::fmt::Debug for super::Recognizer {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::AutoDetectDecodingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -195,7 +197,10 @@ impl std::fmt::Debug for super::RecognitionFeatures {
         debug_struct.field("profanity_filter", &self.profanity_filter);
         debug_struct.field("enable_word_time_offsets", &self.enable_word_time_offsets);
         debug_struct.field("enable_word_confidence", &self.enable_word_confidence);
-        debug_struct.field("enable_automatic_punctuation", &self.enable_automatic_punctuation);
+        debug_struct.field(
+            "enable_automatic_punctuation",
+            &self.enable_automatic_punctuation,
+        );
         debug_struct.field("enable_spoken_punctuation", &self.enable_spoken_punctuation);
         debug_struct.field("enable_spoken_emojis", &self.enable_spoken_emojis);
         debug_struct.field("multi_channel_mode", &self.multi_channel_mode);
@@ -379,7 +384,10 @@ impl std::fmt::Debug for super::RecognizeResponse {
 impl std::fmt::Debug for super::StreamingRecognitionFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognitionFeatures");
-        debug_struct.field("enable_voice_activity_events", &self.enable_voice_activity_events);
+        debug_struct.field(
+            "enable_voice_activity_events",
+            &self.enable_voice_activity_events,
+        );
         debug_struct.field("interim_results", &self.interim_results);
         debug_struct.field("voice_activity_timeout", &self.voice_activity_timeout);
         if !self._unknown_fields.is_empty() {
@@ -721,7 +729,6 @@ impl std::fmt::Debug for super::custom_class::ClassItem {
     }
 }
 
-
 impl std::fmt::Debug for super::PhraseSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PhraseSet");
@@ -758,7 +765,6 @@ impl std::fmt::Debug for super::phrase_set::Phrase {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CreateCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

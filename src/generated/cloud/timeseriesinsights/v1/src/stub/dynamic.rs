@@ -58,7 +58,6 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>;
-
 }
 
 /// All implementations of [super::TimeseriesInsightsController] also implement [TimeseriesInsightsController].
@@ -126,5 +125,4 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
     ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         T::evaluate_timeseries(self, req, options).await
     }
-
 }

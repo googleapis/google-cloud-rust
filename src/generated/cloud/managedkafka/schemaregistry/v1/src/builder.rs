@@ -39,7 +39,10 @@ pub mod managed_schema_registry {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ManagedSchemaRegistry;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod managed_schema_registry {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod managed_schema_registry {
     pub struct GetSchemaRegistry(RequestBuilder<crate::model::GetSchemaRegistryRequest>);
 
     impl GetSchemaRegistry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetSchemaRegistryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetSchemaRegistryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaRegistry> {
-            (*self.0.stub).get_schema_registry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_schema_registry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRegistryRequest::name].
@@ -145,14 +158,17 @@ pub mod managed_schema_registry {
     pub struct ListSchemaRegistries(RequestBuilder<crate::model::ListSchemaRegistriesRequest>);
 
     impl ListSchemaRegistries {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSchemaRegistriesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSchemaRegistriesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -165,7 +181,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSchemaRegistriesResponse> {
-            (*self.0.stub).list_schema_registries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_schema_registries(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaRegistriesRequest::parent].
@@ -205,14 +224,17 @@ pub mod managed_schema_registry {
     pub struct CreateSchemaRegistry(RequestBuilder<crate::model::CreateSchemaRegistryRequest>);
 
     impl CreateSchemaRegistry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSchemaRegistryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSchemaRegistryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -225,7 +247,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaRegistry> {
-            (*self.0.stub).create_schema_registry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_schema_registry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaRegistryRequest::parent].
@@ -248,7 +273,8 @@ pub mod managed_schema_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_schema_registry<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SchemaRegistry>
+        where
+            T: std::convert::Into<crate::model::SchemaRegistry>,
         {
             self.0.request.schema_registry = std::option::Option::Some(v.into());
             self
@@ -258,7 +284,8 @@ pub mod managed_schema_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_schema_registry<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SchemaRegistry>
+        where
+            T: std::convert::Into<crate::model::SchemaRegistry>,
         {
             self.0.request.schema_registry = v.map(|x| x.into());
             self
@@ -293,14 +320,17 @@ pub mod managed_schema_registry {
     pub struct DeleteSchemaRegistry(RequestBuilder<crate::model::DeleteSchemaRegistryRequest>);
 
     impl DeleteSchemaRegistry {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSchemaRegistryRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSchemaRegistryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -313,7 +343,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_schema_registry(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_schema_registry(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRegistryRequest::name].
@@ -353,10 +386,10 @@ pub mod managed_schema_registry {
     pub struct GetContext(RequestBuilder<crate::model::GetContextRequest>);
 
     impl GetContext {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -373,7 +406,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Context> {
-            (*self.0.stub).get_context(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_context(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetContextRequest::name].
@@ -413,10 +449,10 @@ pub mod managed_schema_registry {
     pub struct ListContexts(RequestBuilder<crate::model::ListContextsRequest>);
 
     impl ListContexts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -433,7 +469,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_contexts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_contexts(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListContextsRequest::parent].
@@ -473,10 +512,10 @@ pub mod managed_schema_registry {
     pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -493,7 +532,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).get_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -506,7 +548,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [subject][crate::model::GetSchemaRequest::subject].
         pub fn set_subject<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = std::option::Option::Some(v.into());
             self
@@ -514,7 +557,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [subject][crate::model::GetSchemaRequest::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = v.map(|x| x.into());
             self
@@ -549,10 +593,10 @@ pub mod managed_schema_registry {
     pub struct GetRawSchema(RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetRawSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -569,7 +613,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).get_raw_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_raw_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -582,7 +629,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [subject][crate::model::GetSchemaRequest::subject].
         pub fn set_subject<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = std::option::Option::Some(v.into());
             self
@@ -590,7 +638,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [subject][crate::model::GetSchemaRequest::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = v.map(|x| x.into());
             self
@@ -625,14 +674,17 @@ pub mod managed_schema_registry {
     pub struct ListSchemaVersions(RequestBuilder<crate::model::ListSchemaVersionsRequest>);
 
     impl ListSchemaVersions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSchemaVersionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSchemaVersionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -645,7 +697,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_schema_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_schema_versions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaVersionsRequest::parent].
@@ -658,7 +713,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [subject][crate::model::ListSchemaVersionsRequest::subject].
         pub fn set_subject<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = std::option::Option::Some(v.into());
             self
@@ -666,7 +722,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [subject][crate::model::ListSchemaVersionsRequest::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = v.map(|x| x.into());
             self
@@ -674,7 +731,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::ListSchemaVersionsRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -682,7 +740,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::ListSchemaVersionsRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -717,10 +776,10 @@ pub mod managed_schema_registry {
     pub struct ListSchemaTypes(RequestBuilder<crate::model::ListSchemaTypesRequest>);
 
     impl ListSchemaTypes {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -737,7 +796,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_schema_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_schema_types(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaTypesRequest::parent].
@@ -777,10 +839,10 @@ pub mod managed_schema_registry {
     pub struct ListSubjects(RequestBuilder<crate::model::ListSubjectsRequest>);
 
     impl ListSubjects {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -797,7 +859,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_subjects(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_subjects(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSubjectsRequest::parent].
@@ -810,7 +875,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [subject_prefix][crate::model::ListSubjectsRequest::subject_prefix].
         pub fn set_subject_prefix<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject_prefix = std::option::Option::Some(v.into());
             self
@@ -818,7 +884,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [subject_prefix][crate::model::ListSubjectsRequest::subject_prefix].
         pub fn set_or_clear_subject_prefix<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject_prefix = v.map(|x| x.into());
             self
@@ -826,7 +893,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::ListSubjectsRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -834,7 +902,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::ListSubjectsRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -869,14 +938,17 @@ pub mod managed_schema_registry {
     pub struct ListSubjectsBySchemaId(RequestBuilder<crate::model::ListSubjectsBySchemaIdRequest>);
 
     impl ListSubjectsBySchemaId {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSubjectsBySchemaIdRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSubjectsBySchemaIdRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -889,7 +961,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_subjects_by_schema_id(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_subjects_by_schema_id(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSubjectsBySchemaIdRequest::parent].
@@ -902,7 +977,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [subject][crate::model::ListSubjectsBySchemaIdRequest::subject].
         pub fn set_subject<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = std::option::Option::Some(v.into());
             self
@@ -910,7 +986,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [subject][crate::model::ListSubjectsBySchemaIdRequest::subject].
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.0.request.subject = v.map(|x| x.into());
             self
@@ -918,7 +995,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::ListSubjectsBySchemaIdRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -926,7 +1004,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::ListSubjectsBySchemaIdRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -961,10 +1040,10 @@ pub mod managed_schema_registry {
     pub struct DeleteSubject(RequestBuilder<crate::model::DeleteSubjectRequest>);
 
     impl DeleteSubject {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -981,7 +1060,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).delete_subject(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_subject(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSubjectRequest::name].
@@ -994,7 +1076,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [permanent][crate::model::DeleteSubjectRequest::permanent].
         pub fn set_permanent<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.permanent = std::option::Option::Some(v.into());
             self
@@ -1002,7 +1085,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [permanent][crate::model::DeleteSubjectRequest::permanent].
         pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.permanent = v.map(|x| x.into());
             self
@@ -1037,10 +1121,10 @@ pub mod managed_schema_registry {
     pub struct LookupVersion(RequestBuilder<crate::model::LookupVersionRequest>);
 
     impl LookupVersion {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1057,7 +1141,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaVersion> {
-            (*self.0.stub).lookup_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .lookup_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupVersionRequest::parent].
@@ -1070,7 +1157,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [schema_type][crate::model::LookupVersionRequest::schema_type].
         pub fn set_schema_type<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = std::option::Option::Some(v.into());
             self
@@ -1078,7 +1166,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [schema_type][crate::model::LookupVersionRequest::schema_type].
         pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = v.map(|x| x.into());
             self
@@ -1096,7 +1185,7 @@ pub mod managed_schema_registry {
         pub fn set_references<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::schema::SchemaReference>
+            V: std::convert::Into<crate::model::schema::SchemaReference>,
         {
             use std::iter::Iterator;
             self.0.request.references = v.into_iter().map(|i| i.into()).collect();
@@ -1105,7 +1194,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [normalize][crate::model::LookupVersionRequest::normalize].
         pub fn set_normalize<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = std::option::Option::Some(v.into());
             self
@@ -1113,7 +1203,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [normalize][crate::model::LookupVersionRequest::normalize].
         pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = v.map(|x| x.into());
             self
@@ -1121,7 +1212,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::LookupVersionRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -1129,7 +1221,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::LookupVersionRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -1164,10 +1257,10 @@ pub mod managed_schema_registry {
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1184,7 +1277,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaVersion> {
-            (*self.0.stub).get_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -1197,7 +1293,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::GetVersionRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -1205,7 +1302,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::GetVersionRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -1240,10 +1338,10 @@ pub mod managed_schema_registry {
     pub struct GetRawSchemaVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetRawSchemaVersion {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1260,7 +1358,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).get_raw_schema_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_raw_schema_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -1273,7 +1374,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::GetVersionRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -1281,7 +1383,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::GetVersionRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -1316,10 +1419,10 @@ pub mod managed_schema_registry {
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1336,7 +1439,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_versions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
@@ -1349,7 +1455,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [deleted][crate::model::ListVersionsRequest::deleted].
         pub fn set_deleted<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = std::option::Option::Some(v.into());
             self
@@ -1357,7 +1464,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [deleted][crate::model::ListVersionsRequest::deleted].
         pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.deleted = v.map(|x| x.into());
             self
@@ -1392,10 +1500,10 @@ pub mod managed_schema_registry {
     pub struct CreateVersion(RequestBuilder<crate::model::CreateVersionRequest>);
 
     impl CreateVersion {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1412,7 +1520,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CreateVersionResponse> {
-            (*self.0.stub).create_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
@@ -1425,7 +1536,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
         pub fn set_version<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.version = std::option::Option::Some(v.into());
             self
@@ -1433,7 +1545,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
         pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.version = v.map(|x| x.into());
             self
@@ -1441,7 +1554,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [id][crate::model::CreateVersionRequest::id].
         pub fn set_id<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.id = std::option::Option::Some(v.into());
             self
@@ -1449,7 +1563,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [id][crate::model::CreateVersionRequest::id].
         pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.id = v.map(|x| x.into());
             self
@@ -1457,7 +1572,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [schema_type][crate::model::CreateVersionRequest::schema_type].
         pub fn set_schema_type<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = std::option::Option::Some(v.into());
             self
@@ -1465,7 +1581,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [schema_type][crate::model::CreateVersionRequest::schema_type].
         pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = v.map(|x| x.into());
             self
@@ -1483,7 +1600,7 @@ pub mod managed_schema_registry {
         pub fn set_references<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::schema::SchemaReference>
+            V: std::convert::Into<crate::model::schema::SchemaReference>,
         {
             use std::iter::Iterator;
             self.0.request.references = v.into_iter().map(|i| i.into()).collect();
@@ -1492,7 +1609,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [normalize][crate::model::CreateVersionRequest::normalize].
         pub fn set_normalize<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = std::option::Option::Some(v.into());
             self
@@ -1500,7 +1618,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [normalize][crate::model::CreateVersionRequest::normalize].
         pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = v.map(|x| x.into());
             self
@@ -1535,10 +1654,10 @@ pub mod managed_schema_registry {
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1555,7 +1674,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).delete_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
@@ -1568,7 +1690,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [permanent][crate::model::DeleteVersionRequest::permanent].
         pub fn set_permanent<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.permanent = std::option::Option::Some(v.into());
             self
@@ -1576,7 +1699,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [permanent][crate::model::DeleteVersionRequest::permanent].
         pub fn set_or_clear_permanent<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.permanent = v.map(|x| x.into());
             self
@@ -1611,14 +1735,17 @@ pub mod managed_schema_registry {
     pub struct ListReferencedSchemas(RequestBuilder<crate::model::ListReferencedSchemasRequest>);
 
     impl ListReferencedSchemas {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReferencedSchemasRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReferencedSchemasRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1631,7 +1758,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<api::model::HttpBody> {
-            (*self.0.stub).list_referenced_schemas(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_referenced_schemas(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListReferencedSchemasRequest::parent].
@@ -1671,14 +1801,17 @@ pub mod managed_schema_registry {
     pub struct CheckCompatibility(RequestBuilder<crate::model::CheckCompatibilityRequest>);
 
     impl CheckCompatibility {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CheckCompatibilityRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CheckCompatibilityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1691,7 +1824,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckCompatibilityResponse> {
-            (*self.0.stub).check_compatibility(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .check_compatibility(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckCompatibilityRequest::name].
@@ -1704,7 +1840,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [schema_type][crate::model::CheckCompatibilityRequest::schema_type].
         pub fn set_schema_type<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = std::option::Option::Some(v.into());
             self
@@ -1712,7 +1849,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [schema_type][crate::model::CheckCompatibilityRequest::schema_type].
         pub fn set_or_clear_schema_type<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::schema::SchemaType>
+        where
+            T: std::convert::Into<crate::model::schema::SchemaType>,
         {
             self.0.request.schema_type = v.map(|x| x.into());
             self
@@ -1730,7 +1868,7 @@ pub mod managed_schema_registry {
         pub fn set_references<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::schema::SchemaReference>
+            V: std::convert::Into<crate::model::schema::SchemaReference>,
         {
             use std::iter::Iterator;
             self.0.request.references = v.into_iter().map(|i| i.into()).collect();
@@ -1739,7 +1877,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [verbose][crate::model::CheckCompatibilityRequest::verbose].
         pub fn set_verbose<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.verbose = std::option::Option::Some(v.into());
             self
@@ -1747,7 +1886,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [verbose][crate::model::CheckCompatibilityRequest::verbose].
         pub fn set_or_clear_verbose<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.verbose = v.map(|x| x.into());
             self
@@ -1782,10 +1922,10 @@ pub mod managed_schema_registry {
     pub struct GetSchemaConfig(RequestBuilder<crate::model::GetSchemaConfigRequest>);
 
     impl GetSchemaConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1802,7 +1942,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaConfig> {
-            (*self.0.stub).get_schema_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_schema_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaConfigRequest::name].
@@ -1815,7 +1958,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [default_to_global][crate::model::GetSchemaConfigRequest::default_to_global].
         pub fn set_default_to_global<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.default_to_global = std::option::Option::Some(v.into());
             self
@@ -1823,7 +1967,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [default_to_global][crate::model::GetSchemaConfigRequest::default_to_global].
         pub fn set_or_clear_default_to_global<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.default_to_global = v.map(|x| x.into());
             self
@@ -1858,14 +2003,17 @@ pub mod managed_schema_registry {
     pub struct UpdateSchemaConfig(RequestBuilder<crate::model::UpdateSchemaConfigRequest>);
 
     impl UpdateSchemaConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSchemaConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSchemaConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1878,7 +2026,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaConfig> {
-            (*self.0.stub).update_schema_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_schema_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSchemaConfigRequest::name].
@@ -1893,7 +2044,8 @@ pub mod managed_schema_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_compatibility<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+        where
+            T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
         {
             self.0.request.compatibility = std::option::Option::Some(v.into());
             self
@@ -1903,7 +2055,8 @@ pub mod managed_schema_registry {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_compatibility<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::schema_config::CompatibilityType>
+        where
+            T: std::convert::Into<crate::model::schema_config::CompatibilityType>,
         {
             self.0.request.compatibility = v.map(|x| x.into());
             self
@@ -1911,7 +2064,8 @@ pub mod managed_schema_registry {
 
         /// Sets the value of [normalize][crate::model::UpdateSchemaConfigRequest::normalize].
         pub fn set_normalize<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = std::option::Option::Some(v.into());
             self
@@ -1919,7 +2073,8 @@ pub mod managed_schema_registry {
 
         /// Sets or clears the value of [normalize][crate::model::UpdateSchemaConfigRequest::normalize].
         pub fn set_or_clear_normalize<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<bool>
+        where
+            T: std::convert::Into<bool>,
         {
             self.0.request.normalize = v.map(|x| x.into());
             self
@@ -1954,14 +2109,17 @@ pub mod managed_schema_registry {
     pub struct DeleteSchemaConfig(RequestBuilder<crate::model::DeleteSchemaConfigRequest>);
 
     impl DeleteSchemaConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSchemaConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSchemaConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1974,7 +2132,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaConfig> {
-            (*self.0.stub).delete_schema_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_schema_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaConfigRequest::name].
@@ -2014,10 +2175,10 @@ pub mod managed_schema_registry {
     pub struct GetSchemaMode(RequestBuilder<crate::model::GetSchemaModeRequest>);
 
     impl GetSchemaMode {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2034,7 +2195,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaMode> {
-            (*self.0.stub).get_schema_mode(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_schema_mode(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaModeRequest::name].
@@ -2074,14 +2238,17 @@ pub mod managed_schema_registry {
     pub struct UpdateSchemaMode(RequestBuilder<crate::model::UpdateSchemaModeRequest>);
 
     impl UpdateSchemaMode {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSchemaModeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSchemaModeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2094,7 +2261,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaMode> {
-            (*self.0.stub).update_schema_mode(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_schema_mode(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSchemaModeRequest::name].
@@ -2142,14 +2312,17 @@ pub mod managed_schema_registry {
     pub struct DeleteSchemaMode(RequestBuilder<crate::model::DeleteSchemaModeRequest>);
 
     impl DeleteSchemaMode {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSchemaModeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSchemaModeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2162,7 +2335,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SchemaMode> {
-            (*self.0.stub).delete_schema_mode(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_schema_mode(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaModeRequest::name].
@@ -2206,14 +2382,17 @@ pub mod managed_schema_registry {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2226,11 +2405,17 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2242,7 +2427,10 @@ pub mod managed_schema_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2300,10 +2488,10 @@ pub mod managed_schema_registry {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2320,7 +2508,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2362,14 +2553,17 @@ pub mod managed_schema_registry {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2382,11 +2576,17 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2398,7 +2598,12 @@ pub mod managed_schema_registry {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2462,14 +2667,17 @@ pub mod managed_schema_registry {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2482,7 +2690,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2520,14 +2731,17 @@ pub mod managed_schema_registry {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2540,7 +2754,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2578,14 +2795,17 @@ pub mod managed_schema_registry {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2598,7 +2818,10 @@ pub mod managed_schema_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2614,5 +2837,4 @@ pub mod managed_schema_registry {
             &mut self.0.options
         }
     }
-
 }

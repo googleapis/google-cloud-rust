@@ -23,15 +23,18 @@ impl serde::ser::Serialize for super::DocsAddOnManifest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.homepage_trigger.is_some() {
             state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
         }
         if self.on_file_scope_granted_trigger.is_some() {
-            state.serialize_entry("onFileScopeGrantedTrigger", &self.on_file_scope_granted_trigger)?;
+            state.serialize_entry(
+                "onFileScopeGrantedTrigger",
+                &self.on_file_scope_granted_trigger,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -48,9 +51,9 @@ impl serde::ser::Serialize for super::DocsExtensionPoint {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.run_function.is_empty() {
             state.serialize_entry("runFunction", &self.run_function)?;

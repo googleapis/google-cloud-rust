@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [AlertPolicyService](super::stub::AlertPolicyService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AlertPolicyService<T>
-where T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> AlertPolicyService<T>
-where T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AlertPolicyService for AlertPolicyService<T>
-where T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_alert_policies(
         &self,
@@ -75,25 +81,30 @@ where T: super::stub::AlertPolicyService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
         self.inner.update_alert_policy(req, options).await
     }
-
 }
 
 /// Implements a [GroupService](super::stub::GroupService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GroupService<T>
-where T: super::stub::GroupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GroupService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> GroupService<T>
-where T: super::stub::GroupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GroupService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GroupService for GroupService<T>
-where T: super::stub::GroupService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::GroupService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_groups(
         &self,
@@ -147,32 +158,40 @@ where T: super::stub::GroupService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ListGroupMembersResponse>> {
         self.inner.list_group_members(req, options).await
     }
-
 }
 
 /// Implements a [MetricService](super::stub::MetricService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MetricService<T>
-where T: super::stub::MetricService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetricService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> MetricService<T>
-where T: super::stub::MetricService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetricService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MetricService for MetricService<T>
-where T: super::stub::MetricService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MetricService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_monitored_resource_descriptors(
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>> {
-        self.inner.list_monitored_resource_descriptors(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>
+    {
+        self.inner
+            .list_monitored_resource_descriptors(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -181,7 +200,9 @@ where T: super::stub::MetricService + std::fmt::Debug + Send + Sync {
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
-        self.inner.get_monitored_resource_descriptor(req, options).await
+        self.inner
+            .get_monitored_resource_descriptor(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -246,32 +267,40 @@ where T: super::stub::MetricService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.create_service_time_series(req, options).await
     }
-
 }
 
 /// Implements a [NotificationChannelService](super::stub::NotificationChannelService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NotificationChannelService<T>
-where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> NotificationChannelService<T>
-where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NotificationChannelService for NotificationChannelService<T>
-where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_notification_channel_descriptors(
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>> {
-        self.inner.list_notification_channel_descriptors(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>>
+    {
+        self.inner
+            .list_notification_channel_descriptors(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -280,7 +309,9 @@ where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync
         req: crate::model::GetNotificationChannelDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannelDescriptor>> {
-        self.inner.get_notification_channel_descriptor(req, options).await
+        self.inner
+            .get_notification_channel_descriptor(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -334,7 +365,9 @@ where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner.send_notification_channel_verification_code(req, options).await
+        self.inner
+            .send_notification_channel_verification_code(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -342,8 +375,11 @@ where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>> {
-        self.inner.get_notification_channel_verification_code(req, options).await
+    ) -> Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>>
+    {
+        self.inner
+            .get_notification_channel_verification_code(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -354,25 +390,30 @@ where T: super::stub::NotificationChannelService + std::fmt::Debug + Send + Sync
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         self.inner.verify_notification_channel(req, options).await
     }
-
 }
 
 /// Implements a [QueryService](super::stub::QueryService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct QueryService<T>
-where T: super::stub::QueryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::QueryService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> QueryService<T>
-where T: super::stub::QueryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::QueryService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::QueryService for QueryService<T>
-where T: super::stub::QueryService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::QueryService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn query_time_series(
         &self,
@@ -381,25 +422,30 @@ where T: super::stub::QueryService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>> {
         self.inner.query_time_series(req, options).await
     }
-
 }
 
 /// Implements a [ServiceMonitoringService](super::stub::ServiceMonitoringService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ServiceMonitoringService<T>
-where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ServiceMonitoringService<T>
-where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ServiceMonitoringService for ServiceMonitoringService<T>
-where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_service(
         &self,
@@ -451,7 +497,9 @@ where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
         req: crate::model::CreateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
-        self.inner.create_service_level_objective(req, options).await
+        self.inner
+            .create_service_level_objective(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -478,7 +526,9 @@ where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
-        self.inner.update_service_level_objective(req, options).await
+        self.inner
+            .update_service_level_objective(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -487,27 +537,34 @@ where T: super::stub::ServiceMonitoringService + std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner.delete_service_level_objective(req, options).await
+        self.inner
+            .delete_service_level_objective(req, options)
+            .await
     }
-
 }
 
 /// Implements a [SnoozeService](super::stub::SnoozeService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SnoozeService<T>
-where T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SnoozeService<T>
-where T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SnoozeService for SnoozeService<T>
-where T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_snooze(
         &self,
@@ -543,25 +600,30 @@ where T: super::stub::SnoozeService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Snooze>> {
         self.inner.update_snooze(req, options).await
     }
-
 }
 
 /// Implements a [UptimeCheckService](super::stub::UptimeCheckService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct UptimeCheckService<T>
-where T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> UptimeCheckService<T>
-where T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::UptimeCheckService for UptimeCheckService<T>
-where T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_uptime_check_configs(
         &self,
@@ -615,6 +677,4 @@ where T: super::stub::UptimeCheckService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>> {
         self.inner.list_uptime_check_ips(req, options).await
     }
-
 }
-

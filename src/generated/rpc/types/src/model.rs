@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -59,7 +59,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorInfo {
-
     /// The reason of the error. This is a constant value that identifies the
     /// proximate cause of the error. Error reasons are unique within a particular
     /// domain of errors. This should be at most 63 characters and match a
@@ -84,7 +83,7 @@ pub struct ErrorInfo {
     /// `{"instanceLimit": "100/request"}`, should be returned as,
     /// `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
     /// instances that can be created in a single (batch) request.
-    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -162,7 +161,6 @@ impl wkt::message::Message for ErrorInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryInfo {
-
     /// Clients should wait at least this long between retrying the same request.
     pub retry_delay: std::option::Option<wkt::Duration>,
 
@@ -183,7 +181,8 @@ impl RetryInfo {
     /// let x = RetryInfo::new().set_retry_delay(Duration::default()/* use setters */);
     /// ```
     pub fn set_retry_delay<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.retry_delay = std::option::Option::Some(v.into());
         self
@@ -199,7 +198,8 @@ impl RetryInfo {
     /// let x = RetryInfo::new().set_or_clear_retry_delay(None::<Duration>);
     /// ```
     pub fn set_or_clear_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.retry_delay = v.map(|x| x.into());
         self
@@ -216,7 +216,6 @@ impl wkt::message::Message for RetryInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DebugInfo {
-
     /// The stack trace entries indicating where the error occurred.
     pub stack_entries: std::vec::Vec<std::string::String>,
 
@@ -241,7 +240,7 @@ impl DebugInfo {
     pub fn set_stack_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.stack_entries = v.into_iter().map(|i| i.into()).collect();
@@ -281,7 +280,6 @@ impl wkt::message::Message for DebugInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaFailure {
-
     /// Describes all quota violations.
     pub violations: std::vec::Vec<crate::model::quota_failure::Violation>,
 
@@ -308,7 +306,7 @@ impl QuotaFailure {
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::quota_failure::Violation>
+        V: std::convert::Into<crate::model::quota_failure::Violation>,
     {
         use std::iter::Iterator;
         self.violations = v.into_iter().map(|i| i.into()).collect();
@@ -327,13 +325,11 @@ pub mod quota_failure {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A message type used to describe a single quota violation.  For example, a
     /// daily quota or a custom quota that was exceeded.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Violation {
-
         /// The subject on which the quota check failed.
         /// For example, "clientip:\<ip address of client\>" or "project:\<Google
         /// developer project id\>".
@@ -394,7 +390,7 @@ pub mod quota_failure {
         ///
         /// When a quota is enforced globally, the quota_dimensions would always be
         /// empty.
-        pub quota_dimensions: std::collections::HashMap<std::string::String,std::string::String>,
+        pub quota_dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The enforced quota value at the time of the `QuotaFailure`.
         ///
@@ -464,7 +460,10 @@ pub mod quota_failure {
         /// # use google_cloud_rpc::model::quota_failure::Violation;
         /// let x = Violation::new().set_quota_metric("example");
         /// ```
-        pub fn set_quota_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_quota_metric<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.quota_metric = v.into();
             self
         }
@@ -522,7 +521,8 @@ pub mod quota_failure {
         /// let x = Violation::new().set_future_quota_value(42);
         /// ```
         pub fn set_future_quota_value<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i64>
+        where
+            T: std::convert::Into<i64>,
         {
             self.future_quota_value = std::option::Option::Some(v.into());
             self
@@ -537,7 +537,8 @@ pub mod quota_failure {
         /// let x = Violation::new().set_or_clear_future_quota_value(None::<i32>);
         /// ```
         pub fn set_or_clear_future_quota_value<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i64>
+        where
+            T: std::convert::Into<i64>,
         {
             self.future_quota_value = v.map(|x| x.into());
             self
@@ -559,7 +560,6 @@ pub mod quota_failure {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreconditionFailure {
-
     /// Describes all precondition violations.
     pub violations: std::vec::Vec<crate::model::precondition_failure::Violation>,
 
@@ -586,7 +586,7 @@ impl PreconditionFailure {
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::precondition_failure::Violation>
+        V: std::convert::Into<crate::model::precondition_failure::Violation>,
     {
         use std::iter::Iterator;
         self.violations = v.into_iter().map(|i| i.into()).collect();
@@ -605,12 +605,10 @@ pub mod precondition_failure {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A message type used to describe a single precondition failure.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Violation {
-
         /// The type of PreconditionFailure. We recommend using a service-specific
         /// enum type to define the supported precondition violation subjects. For
         /// example, "TOS" for "Terms of Service violation".
@@ -684,7 +682,6 @@ pub mod precondition_failure {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BadRequest {
-
     /// Describes all violations in a client request.
     pub field_violations: std::vec::Vec<crate::model::bad_request::FieldViolation>,
 
@@ -711,7 +708,7 @@ impl BadRequest {
     pub fn set_field_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::bad_request::FieldViolation>
+        V: std::convert::Into<crate::model::bad_request::FieldViolation>,
     {
         use std::iter::Iterator;
         self.field_violations = v.into_iter().map(|i| i.into()).collect();
@@ -730,12 +727,10 @@ pub mod bad_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A message type used to describe a single bad request field.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldViolation {
-
         /// A path that leads to a field in the request body. The value will be a
         /// sequence of dot-separated identifiers that identify a protocol buffer
         /// field.
@@ -845,7 +840,8 @@ pub mod bad_request {
         /// let x = FieldViolation::new().set_localized_message(LocalizedMessage::default()/* use setters */);
         /// ```
         pub fn set_localized_message<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::LocalizedMessage>
+        where
+            T: std::convert::Into<crate::model::LocalizedMessage>,
         {
             self.localized_message = std::option::Option::Some(v.into());
             self
@@ -861,7 +857,8 @@ pub mod bad_request {
         /// let x = FieldViolation::new().set_or_clear_localized_message(None::<LocalizedMessage>);
         /// ```
         pub fn set_or_clear_localized_message<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::LocalizedMessage>
+        where
+            T: std::convert::Into<crate::model::LocalizedMessage>,
         {
             self.localized_message = v.map(|x| x.into());
             self
@@ -880,7 +877,6 @@ pub mod bad_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestInfo {
-
     /// An opaque string that should only be interpreted by the service generating
     /// it. For example, it can be used to identify requests in the service's logs.
     pub request_id: std::string::String,
@@ -932,7 +928,6 @@ impl wkt::message::Message for RequestInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
-
     /// A name for the type of resource being accessed, e.g. "sql table",
     /// "cloud storage bucket", "file", "Google calendar"; or the type URL
     /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
@@ -1027,7 +1022,6 @@ impl wkt::message::Message for ResourceInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Help {
-
     /// URL(s) pointing to additional information on handling the current error.
     pub links: std::vec::Vec<crate::model::help::Link>,
 
@@ -1054,7 +1048,7 @@ impl Help {
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::help::Link>
+        V: std::convert::Into<crate::model::help::Link>,
     {
         use std::iter::Iterator;
         self.links = v.into_iter().map(|i| i.into()).collect();
@@ -1073,12 +1067,10 @@ pub mod help {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Describes a URL link.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
-
         /// Describes what the link offers.
         pub description: std::string::String,
 
@@ -1130,7 +1122,6 @@ pub mod help {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalizedMessage {
-
     /// The locale used following the specification defined at
     /// <https://www.rfc-editor.org/rfc/bcp/bcp47.txt>.
     /// Examples are: "en-US", "fr-CH", "es-MX"
@@ -1182,7 +1173,6 @@ impl wkt::message::Message for LocalizedMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
-
     /// The HTTP request method.
     pub method: std::string::String,
 
@@ -1243,7 +1233,7 @@ impl HttpRequest {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HttpHeader>
+        V: std::convert::Into<crate::model::HttpHeader>,
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -1273,7 +1263,6 @@ impl wkt::message::Message for HttpRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpResponse {
-
     /// The HTTP status code, such as 200 or 404.
     pub status: i32,
 
@@ -1334,7 +1323,7 @@ impl HttpResponse {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HttpHeader>
+        V: std::convert::Into<crate::model::HttpHeader>,
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -1364,7 +1353,6 @@ impl wkt::message::Message for HttpResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpHeader {
-
     /// The HTTP header key. It is case insensitive.
     pub key: std::string::String,
 
@@ -1420,7 +1408,6 @@ impl wkt::message::Message for HttpHeader {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Status {
-
     /// The status code, which should be an enum value of
     /// [google.rpc.Code][google.rpc.Code].
     ///
@@ -1486,7 +1473,7 @@ impl Status {
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>
+        V: std::convert::Into<wkt::Any>,
     {
         use std::iter::Iterator;
         self.details = v.into_iter().map(|i| i.into()).collect();
@@ -1764,7 +1751,9 @@ impl std::convert::From<i32> for Code {
             14 => Self::Unavailable,
             15 => Self::DataLoss,
             16 => Self::Unauthenticated,
-            _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(code::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -1790,7 +1779,9 @@ impl std::convert::From<&str> for Code {
             "INTERNAL" => Self::Internal,
             "UNAVAILABLE" => Self::Unavailable,
             "DATA_LOSS" => Self::DataLoss,
-            _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(
+                value.to_string(),
+            ))),
         }
     }
 }
@@ -1828,7 +1819,6 @@ impl<'de> serde::de::Deserialize<'de> for Code {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
-            ".google.rpc.Code"))
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(".google.rpc.Code"))
     }
 }

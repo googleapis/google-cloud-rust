@@ -84,7 +84,9 @@ impl ArtifactRegistry {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::artifact_registry::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::artifact_registry::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::artifact_registry::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -92,33 +94,47 @@ impl ArtifactRegistry {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ArtifactRegistry + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ArtifactRegistry + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ArtifactRegistry>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ArtifactRegistry>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
         super::transport::ArtifactRegistry::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
-        Self::build_transport(conf).await.map(super::tracing::ArtifactRegistry::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ArtifactRegistry::new)
     }
 
     /// Lists docker images.
-    pub fn list_docker_images(&self) -> super::builder::artifact_registry::ListDockerImages
-    {
+    pub fn list_docker_images(&self) -> super::builder::artifact_registry::ListDockerImages {
         super::builder::artifact_registry::ListDockerImages::new(self.inner.clone())
     }
 
@@ -139,14 +155,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_docker_image(&self) -> super::builder::artifact_registry::GetDockerImage
-    {
+    pub fn get_docker_image(&self) -> super::builder::artifact_registry::GetDockerImage {
         super::builder::artifact_registry::GetDockerImage::new(self.inner.clone())
     }
 
     /// Lists maven artifacts.
-    pub fn list_maven_artifacts(&self) -> super::builder::artifact_registry::ListMavenArtifacts
-    {
+    pub fn list_maven_artifacts(&self) -> super::builder::artifact_registry::ListMavenArtifacts {
         super::builder::artifact_registry::ListMavenArtifacts::new(self.inner.clone())
     }
 
@@ -167,14 +181,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_maven_artifact(&self) -> super::builder::artifact_registry::GetMavenArtifact
-    {
+    pub fn get_maven_artifact(&self) -> super::builder::artifact_registry::GetMavenArtifact {
         super::builder::artifact_registry::GetMavenArtifact::new(self.inner.clone())
     }
 
     /// Lists npm packages.
-    pub fn list_npm_packages(&self) -> super::builder::artifact_registry::ListNpmPackages
-    {
+    pub fn list_npm_packages(&self) -> super::builder::artifact_registry::ListNpmPackages {
         super::builder::artifact_registry::ListNpmPackages::new(self.inner.clone())
     }
 
@@ -195,14 +207,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_npm_package(&self) -> super::builder::artifact_registry::GetNpmPackage
-    {
+    pub fn get_npm_package(&self) -> super::builder::artifact_registry::GetNpmPackage {
         super::builder::artifact_registry::GetNpmPackage::new(self.inner.clone())
     }
 
     /// Lists python packages.
-    pub fn list_python_packages(&self) -> super::builder::artifact_registry::ListPythonPackages
-    {
+    pub fn list_python_packages(&self) -> super::builder::artifact_registry::ListPythonPackages {
         super::builder::artifact_registry::ListPythonPackages::new(self.inner.clone())
     }
 
@@ -223,8 +233,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_python_package(&self) -> super::builder::artifact_registry::GetPythonPackage
-    {
+    pub fn get_python_package(&self) -> super::builder::artifact_registry::GetPythonPackage {
         super::builder::artifact_registry::GetPythonPackage::new(self.inner.clone())
     }
 
@@ -242,8 +251,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_apt_artifacts(&self) -> super::builder::artifact_registry::ImportAptArtifacts
-    {
+    pub fn import_apt_artifacts(&self) -> super::builder::artifact_registry::ImportAptArtifacts {
         super::builder::artifact_registry::ImportAptArtifacts::new(self.inner.clone())
     }
 
@@ -261,14 +269,12 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_yum_artifacts(&self) -> super::builder::artifact_registry::ImportYumArtifacts
-    {
+    pub fn import_yum_artifacts(&self) -> super::builder::artifact_registry::ImportYumArtifacts {
         super::builder::artifact_registry::ImportYumArtifacts::new(self.inner.clone())
     }
 
     /// Lists repositories.
-    pub fn list_repositories(&self) -> super::builder::artifact_registry::ListRepositories
-    {
+    pub fn list_repositories(&self) -> super::builder::artifact_registry::ListRepositories {
         super::builder::artifact_registry::ListRepositories::new(self.inner.clone())
     }
 
@@ -289,8 +295,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_repository(&self) -> super::builder::artifact_registry::GetRepository
-    {
+    pub fn get_repository(&self) -> super::builder::artifact_registry::GetRepository {
         super::builder::artifact_registry::GetRepository::new(self.inner.clone())
     }
 
@@ -306,8 +311,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_repository(&self) -> super::builder::artifact_registry::CreateRepository
-    {
+    pub fn create_repository(&self) -> super::builder::artifact_registry::CreateRepository {
         super::builder::artifact_registry::CreateRepository::new(self.inner.clone())
     }
 
@@ -328,8 +332,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_repository(&self) -> super::builder::artifact_registry::UpdateRepository
-    {
+    pub fn update_repository(&self) -> super::builder::artifact_registry::UpdateRepository {
         super::builder::artifact_registry::UpdateRepository::new(self.inner.clone())
     }
 
@@ -346,14 +349,12 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_repository(&self) -> super::builder::artifact_registry::DeleteRepository
-    {
+    pub fn delete_repository(&self) -> super::builder::artifact_registry::DeleteRepository {
         super::builder::artifact_registry::DeleteRepository::new(self.inner.clone())
     }
 
     /// Lists packages.
-    pub fn list_packages(&self) -> super::builder::artifact_registry::ListPackages
-    {
+    pub fn list_packages(&self) -> super::builder::artifact_registry::ListPackages {
         super::builder::artifact_registry::ListPackages::new(self.inner.clone())
     }
 
@@ -374,8 +375,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_package(&self) -> super::builder::artifact_registry::GetPackage
-    {
+    pub fn get_package(&self) -> super::builder::artifact_registry::GetPackage {
         super::builder::artifact_registry::GetPackage::new(self.inner.clone())
     }
 
@@ -391,14 +391,12 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_package(&self) -> super::builder::artifact_registry::DeletePackage
-    {
+    pub fn delete_package(&self) -> super::builder::artifact_registry::DeletePackage {
         super::builder::artifact_registry::DeletePackage::new(self.inner.clone())
     }
 
     /// Lists versions.
-    pub fn list_versions(&self) -> super::builder::artifact_registry::ListVersions
-    {
+    pub fn list_versions(&self) -> super::builder::artifact_registry::ListVersions {
         super::builder::artifact_registry::ListVersions::new(self.inner.clone())
     }
 
@@ -419,8 +417,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_version(&self) -> super::builder::artifact_registry::GetVersion
-    {
+    pub fn get_version(&self) -> super::builder::artifact_registry::GetVersion {
         super::builder::artifact_registry::GetVersion::new(self.inner.clone())
     }
 
@@ -436,8 +433,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_version(&self) -> super::builder::artifact_registry::DeleteVersion
-    {
+    pub fn delete_version(&self) -> super::builder::artifact_registry::DeleteVersion {
         super::builder::artifact_registry::DeleteVersion::new(self.inner.clone())
     }
 
@@ -453,8 +449,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_versions(&self) -> super::builder::artifact_registry::BatchDeleteVersions
-    {
+    pub fn batch_delete_versions(&self) -> super::builder::artifact_registry::BatchDeleteVersions {
         super::builder::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
     }
 
@@ -475,14 +470,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_version(&self) -> super::builder::artifact_registry::UpdateVersion
-    {
+    pub fn update_version(&self) -> super::builder::artifact_registry::UpdateVersion {
         super::builder::artifact_registry::UpdateVersion::new(self.inner.clone())
     }
 
     /// Lists files.
-    pub fn list_files(&self) -> super::builder::artifact_registry::ListFiles
-    {
+    pub fn list_files(&self) -> super::builder::artifact_registry::ListFiles {
         super::builder::artifact_registry::ListFiles::new(self.inner.clone())
     }
 
@@ -503,8 +496,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_file(&self) -> super::builder::artifact_registry::GetFile
-    {
+    pub fn get_file(&self) -> super::builder::artifact_registry::GetFile {
         super::builder::artifact_registry::GetFile::new(self.inner.clone())
     }
 
@@ -521,8 +513,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_file(&self) -> super::builder::artifact_registry::DeleteFile
-    {
+    pub fn delete_file(&self) -> super::builder::artifact_registry::DeleteFile {
         super::builder::artifact_registry::DeleteFile::new(self.inner.clone())
     }
 
@@ -543,14 +534,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_file(&self) -> super::builder::artifact_registry::UpdateFile
-    {
+    pub fn update_file(&self) -> super::builder::artifact_registry::UpdateFile {
         super::builder::artifact_registry::UpdateFile::new(self.inner.clone())
     }
 
     /// Lists tags.
-    pub fn list_tags(&self) -> super::builder::artifact_registry::ListTags
-    {
+    pub fn list_tags(&self) -> super::builder::artifact_registry::ListTags {
         super::builder::artifact_registry::ListTags::new(self.inner.clone())
     }
 
@@ -571,8 +560,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_tag(&self) -> super::builder::artifact_registry::GetTag
-    {
+    pub fn get_tag(&self) -> super::builder::artifact_registry::GetTag {
         super::builder::artifact_registry::GetTag::new(self.inner.clone())
     }
 
@@ -593,8 +581,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_tag(&self) -> super::builder::artifact_registry::CreateTag
-    {
+    pub fn create_tag(&self) -> super::builder::artifact_registry::CreateTag {
         super::builder::artifact_registry::CreateTag::new(self.inner.clone())
     }
 
@@ -615,8 +602,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_tag(&self) -> super::builder::artifact_registry::UpdateTag
-    {
+    pub fn update_tag(&self) -> super::builder::artifact_registry::UpdateTag {
         super::builder::artifact_registry::UpdateTag::new(self.inner.clone())
     }
 
@@ -636,8 +622,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_tag(&self) -> super::builder::artifact_registry::DeleteTag
-    {
+    pub fn delete_tag(&self) -> super::builder::artifact_registry::DeleteTag {
         super::builder::artifact_registry::DeleteTag::new(self.inner.clone())
     }
 
@@ -658,14 +643,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_rule(&self) -> super::builder::artifact_registry::CreateRule
-    {
+    pub fn create_rule(&self) -> super::builder::artifact_registry::CreateRule {
         super::builder::artifact_registry::CreateRule::new(self.inner.clone())
     }
 
     /// Lists rules.
-    pub fn list_rules(&self) -> super::builder::artifact_registry::ListRules
-    {
+    pub fn list_rules(&self) -> super::builder::artifact_registry::ListRules {
         super::builder::artifact_registry::ListRules::new(self.inner.clone())
     }
 
@@ -686,8 +669,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_rule(&self) -> super::builder::artifact_registry::GetRule
-    {
+    pub fn get_rule(&self) -> super::builder::artifact_registry::GetRule {
         super::builder::artifact_registry::GetRule::new(self.inner.clone())
     }
 
@@ -708,8 +690,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_rule(&self) -> super::builder::artifact_registry::UpdateRule
-    {
+    pub fn update_rule(&self) -> super::builder::artifact_registry::UpdateRule {
         super::builder::artifact_registry::UpdateRule::new(self.inner.clone())
     }
 
@@ -729,8 +710,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_rule(&self) -> super::builder::artifact_registry::DeleteRule
-    {
+    pub fn delete_rule(&self) -> super::builder::artifact_registry::DeleteRule {
         super::builder::artifact_registry::DeleteRule::new(self.inner.clone())
     }
 
@@ -751,8 +731,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::artifact_registry::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::artifact_registry::SetIamPolicy {
         super::builder::artifact_registry::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -773,8 +752,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::artifact_registry::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::artifact_registry::GetIamPolicy {
         super::builder::artifact_registry::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -795,8 +773,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::artifact_registry::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::artifact_registry::TestIamPermissions {
         super::builder::artifact_registry::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -817,8 +794,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_project_settings(&self) -> super::builder::artifact_registry::GetProjectSettings
-    {
+    pub fn get_project_settings(&self) -> super::builder::artifact_registry::GetProjectSettings {
         super::builder::artifact_registry::GetProjectSettings::new(self.inner.clone())
     }
 
@@ -839,8 +815,9 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_project_settings(&self) -> super::builder::artifact_registry::UpdateProjectSettings
-    {
+    pub fn update_project_settings(
+        &self,
+    ) -> super::builder::artifact_registry::UpdateProjectSettings {
         super::builder::artifact_registry::UpdateProjectSettings::new(self.inner.clone())
     }
 
@@ -861,8 +838,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_vpcsc_config(&self) -> super::builder::artifact_registry::GetVPCSCConfig
-    {
+    pub fn get_vpcsc_config(&self) -> super::builder::artifact_registry::GetVPCSCConfig {
         super::builder::artifact_registry::GetVPCSCConfig::new(self.inner.clone())
     }
 
@@ -883,8 +859,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_vpcsc_config(&self) -> super::builder::artifact_registry::UpdateVPCSCConfig
-    {
+    pub fn update_vpcsc_config(&self) -> super::builder::artifact_registry::UpdateVPCSCConfig {
         super::builder::artifact_registry::UpdateVPCSCConfig::new(self.inner.clone())
     }
 
@@ -905,14 +880,12 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_package(&self) -> super::builder::artifact_registry::UpdatePackage
-    {
+    pub fn update_package(&self) -> super::builder::artifact_registry::UpdatePackage {
         super::builder::artifact_registry::UpdatePackage::new(self.inner.clone())
     }
 
     /// Lists attachments.
-    pub fn list_attachments(&self) -> super::builder::artifact_registry::ListAttachments
-    {
+    pub fn list_attachments(&self) -> super::builder::artifact_registry::ListAttachments {
         super::builder::artifact_registry::ListAttachments::new(self.inner.clone())
     }
 
@@ -933,8 +906,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_attachment(&self) -> super::builder::artifact_registry::GetAttachment
-    {
+    pub fn get_attachment(&self) -> super::builder::artifact_registry::GetAttachment {
         super::builder::artifact_registry::GetAttachment::new(self.inner.clone())
     }
 
@@ -950,8 +922,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_attachment(&self) -> super::builder::artifact_registry::CreateAttachment
-    {
+    pub fn create_attachment(&self) -> super::builder::artifact_registry::CreateAttachment {
         super::builder::artifact_registry::CreateAttachment::new(self.inner.clone())
     }
 
@@ -968,8 +939,7 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_attachment(&self) -> super::builder::artifact_registry::DeleteAttachment
-    {
+    pub fn delete_attachment(&self) -> super::builder::artifact_registry::DeleteAttachment {
         super::builder::artifact_registry::DeleteAttachment::new(self.inner.clone())
     }
 
@@ -984,14 +954,12 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_artifact(&self) -> super::builder::artifact_registry::ExportArtifact
-    {
+    pub fn export_artifact(&self) -> super::builder::artifact_registry::ExportArtifact {
         super::builder::artifact_registry::ExportArtifact::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::artifact_registry::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::artifact_registry::ListLocations {
         super::builder::artifact_registry::ListLocations::new(self.inner.clone())
     }
 
@@ -1012,8 +980,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::artifact_registry::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::artifact_registry::GetLocation {
         super::builder::artifact_registry::GetLocation::new(self.inner.clone())
     }
 
@@ -1036,8 +1003,7 @@ impl ArtifactRegistry {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::artifact_registry::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::artifact_registry::GetOperation {
         super::builder::artifact_registry::GetOperation::new(self.inner.clone())
     }
 }

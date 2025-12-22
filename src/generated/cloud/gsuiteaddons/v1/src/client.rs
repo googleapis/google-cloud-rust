@@ -107,28 +107,42 @@ impl GSuiteAddOns {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::GSuiteAddOns + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::GSuiteAddOns + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GSuiteAddOns>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GSuiteAddOns>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
         super::transport::GSuiteAddOns::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
-        Self::build_transport(conf).await.map(super::tracing::GSuiteAddOns::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GSuiteAddOns> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GSuiteAddOns::new)
     }
 
     /// Gets the authorization information for deployments in a given project.
@@ -148,8 +162,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_authorization(&self) -> super::builder::g_suite_add_ons::GetAuthorization
-    {
+    pub fn get_authorization(&self) -> super::builder::g_suite_add_ons::GetAuthorization {
         super::builder::g_suite_add_ons::GetAuthorization::new(self.inner.clone())
     }
 
@@ -170,8 +183,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_deployment(&self) -> super::builder::g_suite_add_ons::CreateDeployment
-    {
+    pub fn create_deployment(&self) -> super::builder::g_suite_add_ons::CreateDeployment {
         super::builder::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
     }
 
@@ -192,8 +204,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn replace_deployment(&self) -> super::builder::g_suite_add_ons::ReplaceDeployment
-    {
+    pub fn replace_deployment(&self) -> super::builder::g_suite_add_ons::ReplaceDeployment {
         super::builder::g_suite_add_ons::ReplaceDeployment::new(self.inner.clone())
     }
 
@@ -214,14 +225,12 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_deployment(&self) -> super::builder::g_suite_add_ons::GetDeployment
-    {
+    pub fn get_deployment(&self) -> super::builder::g_suite_add_ons::GetDeployment {
         super::builder::g_suite_add_ons::GetDeployment::new(self.inner.clone())
     }
 
     /// Lists all deployments in a particular project.
-    pub fn list_deployments(&self) -> super::builder::g_suite_add_ons::ListDeployments
-    {
+    pub fn list_deployments(&self) -> super::builder::g_suite_add_ons::ListDeployments {
         super::builder::g_suite_add_ons::ListDeployments::new(self.inner.clone())
     }
 
@@ -241,8 +250,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_deployment(&self) -> super::builder::g_suite_add_ons::DeleteDeployment
-    {
+    pub fn delete_deployment(&self) -> super::builder::g_suite_add_ons::DeleteDeployment {
         super::builder::g_suite_add_ons::DeleteDeployment::new(self.inner.clone())
     }
 
@@ -264,8 +272,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn install_deployment(&self) -> super::builder::g_suite_add_ons::InstallDeployment
-    {
+    pub fn install_deployment(&self) -> super::builder::g_suite_add_ons::InstallDeployment {
         super::builder::g_suite_add_ons::InstallDeployment::new(self.inner.clone())
     }
 
@@ -287,8 +294,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn uninstall_deployment(&self) -> super::builder::g_suite_add_ons::UninstallDeployment
-    {
+    pub fn uninstall_deployment(&self) -> super::builder::g_suite_add_ons::UninstallDeployment {
         super::builder::g_suite_add_ons::UninstallDeployment::new(self.inner.clone())
     }
 
@@ -309,8 +315,7 @@ impl GSuiteAddOns {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_install_status(&self) -> super::builder::g_suite_add_ons::GetInstallStatus
-    {
+    pub fn get_install_status(&self) -> super::builder::g_suite_add_ons::GetInstallStatus {
         super::builder::g_suite_add_ons::GetInstallStatus::new(self.inner.clone())
     }
 }

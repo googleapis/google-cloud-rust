@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,6 +26,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,7 +38,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsRequest {
-
     /// Required. The Fleet membership resource.
     pub name: std::string::String,
 
@@ -116,7 +115,10 @@ impl GenerateCredentialsRequest {
     /// # use google_cloud_gkeconnect_gateway_v1::model::GenerateCredentialsRequest;
     /// let x = GenerateCredentialsRequest::new().set_kubernetes_namespace("example");
     /// ```
-    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kubernetes_namespace = v.into();
         self
     }
@@ -129,7 +131,12 @@ impl GenerateCredentialsRequest {
     /// use google_cloud_gkeconnect_gateway_v1::model::generate_credentials_request::OperatingSystem;
     /// let x0 = GenerateCredentialsRequest::new().set_operating_system(OperatingSystem::Windows);
     /// ```
-    pub fn set_operating_system<T: std::convert::Into<crate::model::generate_credentials_request::OperatingSystem>>(mut self, v: T) -> Self {
+    pub fn set_operating_system<
+        T: std::convert::Into<crate::model::generate_credentials_request::OperatingSystem>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.operating_system = v.into();
         self
     }
@@ -145,7 +152,6 @@ impl wkt::message::Message for GenerateCredentialsRequest {
 pub mod generate_credentials_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Operating systems requiring specialized kubeconfigs.
     ///
@@ -230,7 +236,9 @@ pub mod generate_credentials_request {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Windows,
-                _ => Self::UnknownValue(operating_system::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(operating_system::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -241,7 +249,9 @@ pub mod generate_credentials_request {
             match value {
                 "OPERATING_SYSTEM_UNSPECIFIED" => Self::Unspecified,
                 "OPERATING_SYSTEM_WINDOWS" => Self::Windows,
-                _ => Self::UnknownValue(operating_system::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(operating_system::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -265,7 +275,8 @@ pub mod generate_credentials_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperatingSystem>::new(
-                ".google.cloud.gkeconnect.gateway.v1.GenerateCredentialsRequest.OperatingSystem"))
+                ".google.cloud.gkeconnect.gateway.v1.GenerateCredentialsRequest.OperatingSystem",
+            ))
         }
     }
 }
@@ -274,7 +285,6 @@ pub mod generate_credentials_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsResponse {
-
     /// A full YAML kubeconfig in serialized format.
     pub kubeconfig: ::bytes::Bytes,
 

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [ClusterManager](super::stub::ClusterManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ClusterManager<T>
-where T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ClusterManager<T>
-where T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ClusterManager for ClusterManager<T>
-where T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_clusters(
         &self,
@@ -354,6 +360,4 @@ where T: super::stub::ClusterManager + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
         self.inner.fetch_node_pool_upgrade_info(req, options).await
     }
-
 }
-

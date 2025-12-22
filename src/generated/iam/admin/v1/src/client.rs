@@ -108,35 +108,48 @@ impl Iam {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Iam + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Iam + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Iam>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Iam>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Iam> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Iam> {
         super::transport::Iam::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Iam> {
-        Self::build_transport(conf).await.map(super::tracing::Iam::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Iam> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Iam::new)
     }
 
     /// Lists every [ServiceAccount][google.iam.admin.v1.ServiceAccount] that belongs to a specific project.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn list_service_accounts(&self) -> super::builder::iam::ListServiceAccounts
-    {
+    pub fn list_service_accounts(&self) -> super::builder::iam::ListServiceAccounts {
         super::builder::iam::ListServiceAccounts::new(self.inner.clone())
     }
 
@@ -159,8 +172,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_service_account(&self) -> super::builder::iam::GetServiceAccount
-    {
+    pub fn get_service_account(&self) -> super::builder::iam::GetServiceAccount {
         super::builder::iam::GetServiceAccount::new(self.inner.clone())
     }
 
@@ -183,8 +195,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_service_account(&self) -> super::builder::iam::CreateServiceAccount
-    {
+    pub fn create_service_account(&self) -> super::builder::iam::CreateServiceAccount {
         super::builder::iam::CreateServiceAccount::new(self.inner.clone())
     }
 
@@ -213,8 +224,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_service_account(&self) -> super::builder::iam::UpdateServiceAccount
-    {
+    pub fn update_service_account(&self) -> super::builder::iam::UpdateServiceAccount {
         super::builder::iam::UpdateServiceAccount::new(self.inner.clone())
     }
 
@@ -237,8 +247,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn patch_service_account(&self) -> super::builder::iam::PatchServiceAccount
-    {
+    pub fn patch_service_account(&self) -> super::builder::iam::PatchServiceAccount {
         super::builder::iam::PatchServiceAccount::new(self.inner.clone())
     }
 
@@ -275,8 +284,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_service_account(&self) -> super::builder::iam::DeleteServiceAccount
-    {
+    pub fn delete_service_account(&self) -> super::builder::iam::DeleteServiceAccount {
         super::builder::iam::DeleteServiceAccount::new(self.inner.clone())
     }
 
@@ -306,8 +314,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn undelete_service_account(&self) -> super::builder::iam::UndeleteServiceAccount
-    {
+    pub fn undelete_service_account(&self) -> super::builder::iam::UndeleteServiceAccount {
         super::builder::iam::UndeleteServiceAccount::new(self.inner.clone())
     }
 
@@ -337,8 +344,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn enable_service_account(&self) -> super::builder::iam::EnableServiceAccount
-    {
+    pub fn enable_service_account(&self) -> super::builder::iam::EnableServiceAccount {
         super::builder::iam::EnableServiceAccount::new(self.inner.clone())
     }
 
@@ -377,8 +383,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn disable_service_account(&self) -> super::builder::iam::DisableServiceAccount
-    {
+    pub fn disable_service_account(&self) -> super::builder::iam::DisableServiceAccount {
         super::builder::iam::DisableServiceAccount::new(self.inner.clone())
     }
 
@@ -401,8 +406,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_service_account_keys(&self) -> super::builder::iam::ListServiceAccountKeys
-    {
+    pub fn list_service_account_keys(&self) -> super::builder::iam::ListServiceAccountKeys {
         super::builder::iam::ListServiceAccountKeys::new(self.inner.clone())
     }
 
@@ -425,8 +429,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_service_account_key(&self) -> super::builder::iam::GetServiceAccountKey
-    {
+    pub fn get_service_account_key(&self) -> super::builder::iam::GetServiceAccountKey {
         super::builder::iam::GetServiceAccountKey::new(self.inner.clone())
     }
 
@@ -449,8 +452,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_service_account_key(&self) -> super::builder::iam::CreateServiceAccountKey
-    {
+    pub fn create_service_account_key(&self) -> super::builder::iam::CreateServiceAccountKey {
         super::builder::iam::CreateServiceAccountKey::new(self.inner.clone())
     }
 
@@ -477,8 +479,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn upload_service_account_key(&self) -> super::builder::iam::UploadServiceAccountKey
-    {
+    pub fn upload_service_account_key(&self) -> super::builder::iam::UploadServiceAccountKey {
         super::builder::iam::UploadServiceAccountKey::new(self.inner.clone())
     }
 
@@ -502,8 +503,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_service_account_key(&self) -> super::builder::iam::DeleteServiceAccountKey
-    {
+    pub fn delete_service_account_key(&self) -> super::builder::iam::DeleteServiceAccountKey {
         super::builder::iam::DeleteServiceAccountKey::new(self.inner.clone())
     }
 
@@ -527,8 +527,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn disable_service_account_key(&self) -> super::builder::iam::DisableServiceAccountKey
-    {
+    pub fn disable_service_account_key(&self) -> super::builder::iam::DisableServiceAccountKey {
         super::builder::iam::DisableServiceAccountKey::new(self.inner.clone())
     }
 
@@ -550,8 +549,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn enable_service_account_key(&self) -> super::builder::iam::EnableServiceAccountKey
-    {
+    pub fn enable_service_account_key(&self) -> super::builder::iam::EnableServiceAccountKey {
         super::builder::iam::EnableServiceAccountKey::new(self.inner.clone())
     }
 
@@ -582,8 +580,7 @@ impl Iam {
     /// }
     /// ```
     #[deprecated]
-    pub fn sign_blob(&self) -> super::builder::iam::SignBlob
-    {
+    pub fn sign_blob(&self) -> super::builder::iam::SignBlob {
         super::builder::iam::SignBlob::new(self.inner.clone())
     }
 
@@ -615,8 +612,7 @@ impl Iam {
     /// }
     /// ```
     #[deprecated]
-    pub fn sign_jwt(&self) -> super::builder::iam::SignJwt
-    {
+    pub fn sign_jwt(&self) -> super::builder::iam::SignJwt {
         super::builder::iam::SignJwt::new(self.inner.clone())
     }
 
@@ -648,8 +644,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::iam::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::iam::GetIamPolicy {
         super::builder::iam::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -690,8 +685,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::iam::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::iam::SetIamPolicy {
         super::builder::iam::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -715,16 +709,14 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::iam::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::iam::TestIamPermissions {
         super::builder::iam::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Lists roles that can be granted on a Google Cloud resource. A role is
     /// grantable if the IAM policy for the resource can contain bindings to the
     /// role.
-    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles
-    {
+    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles {
         super::builder::iam::QueryGrantableRoles::new(self.inner.clone())
     }
 
@@ -732,8 +724,7 @@ impl Iam {
     /// that is defined for an organization or project.
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
-    pub fn list_roles(&self) -> super::builder::iam::ListRoles
-    {
+    pub fn list_roles(&self) -> super::builder::iam::ListRoles {
         super::builder::iam::ListRoles::new(self.inner.clone())
     }
 
@@ -756,8 +747,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_role(&self) -> super::builder::iam::GetRole
-    {
+    pub fn get_role(&self) -> super::builder::iam::GetRole {
         super::builder::iam::GetRole::new(self.inner.clone())
     }
 
@@ -780,8 +770,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_role(&self) -> super::builder::iam::CreateRole
-    {
+    pub fn create_role(&self) -> super::builder::iam::CreateRole {
         super::builder::iam::CreateRole::new(self.inner.clone())
     }
 
@@ -804,8 +793,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_role(&self) -> super::builder::iam::UpdateRole
-    {
+    pub fn update_role(&self) -> super::builder::iam::UpdateRole {
         super::builder::iam::UpdateRole::new(self.inner.clone())
     }
 
@@ -846,8 +834,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_role(&self) -> super::builder::iam::DeleteRole
-    {
+    pub fn delete_role(&self) -> super::builder::iam::DeleteRole {
         super::builder::iam::DeleteRole::new(self.inner.clone())
     }
 
@@ -870,16 +857,14 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn undelete_role(&self) -> super::builder::iam::UndeleteRole
-    {
+    pub fn undelete_role(&self) -> super::builder::iam::UndeleteRole {
         super::builder::iam::UndeleteRole::new(self.inner.clone())
     }
 
     /// Lists every permission that you can test on a resource. A permission is
     /// testable if you can check whether a principal has that permission on the
     /// resource.
-    pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions
-    {
+    pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions {
         super::builder::iam::QueryTestablePermissions::new(self.inner.clone())
     }
 
@@ -904,8 +889,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn query_auditable_services(&self) -> super::builder::iam::QueryAuditableServices
-    {
+    pub fn query_auditable_services(&self) -> super::builder::iam::QueryAuditableServices {
         super::builder::iam::QueryAuditableServices::new(self.inner.clone())
     }
 
@@ -933,8 +917,7 @@ impl Iam {
     ///     Ok(())
     /// }
     /// ```
-    pub fn lint_policy(&self) -> super::builder::iam::LintPolicy
-    {
+    pub fn lint_policy(&self) -> super::builder::iam::LintPolicy {
         super::builder::iam::LintPolicy::new(self.inner.clone())
     }
 }

@@ -203,7 +203,6 @@ impl std::fmt::Debug for super::create_cluster_metadata::TableProgress {
     }
 }
 
-
 impl std::fmt::Debug for super::UpdateClusterMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateClusterMetadata");
@@ -571,7 +570,10 @@ impl std::fmt::Debug for super::RestoreTableMetadata {
         let mut debug_struct = f.debug_struct("RestoreTableMetadata");
         debug_struct.field("name", &self.name);
         debug_struct.field("source_type", &self.source_type);
-        debug_struct.field("optimize_table_operation_name", &self.optimize_table_operation_name);
+        debug_struct.field(
+            "optimize_table_operation_name",
+            &self.optimize_table_operation_name,
+        );
         debug_struct.field("progress", &self.progress);
         debug_struct.field("source_info", &self.source_info);
         if !self._unknown_fields.is_empty() {
@@ -1271,13 +1273,14 @@ impl std::fmt::Debug for super::Instance {
     }
 }
 
-
-
 impl std::fmt::Debug for super::AutoscalingTargets {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoscalingTargets");
         debug_struct.field("cpu_utilization_percent", &self.cpu_utilization_percent);
-        debug_struct.field("storage_utilization_gib_per_node", &self.storage_utilization_gib_per_node);
+        debug_struct.field(
+            "storage_utilization_gib_per_node",
+            &self.storage_utilization_gib_per_node,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1330,7 +1333,10 @@ impl std::fmt::Debug for super::cluster::ClusterAutoscalingConfig {
 impl std::fmt::Debug for super::cluster::ClusterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterConfig");
-        debug_struct.field("cluster_autoscaling_config", &self.cluster_autoscaling_config);
+        debug_struct.field(
+            "cluster_autoscaling_config",
+            &self.cluster_autoscaling_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1390,7 +1396,10 @@ impl std::fmt::Debug for super::app_profile::SingleClusterRouting {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SingleClusterRouting");
         debug_struct.field("cluster_id", &self.cluster_id);
-        debug_struct.field("allow_transactional_writes", &self.allow_transactional_writes);
+        debug_struct.field(
+            "allow_transactional_writes",
+            &self.allow_transactional_writes,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1530,8 +1539,6 @@ impl std::fmt::Debug for super::table::AutomatedBackupPolicy {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::AuthorizedView {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -741,7 +741,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::CalculateIssueModelStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>>
+    {
         T::calculate_issue_model_stats(self, req, options).await
     }
 
@@ -1083,7 +1084,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
         &self,
         req: crate::model::ListQaScorecardRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>>
+    {
         T::list_qa_scorecard_revisions(self, req, options).await
     }
 

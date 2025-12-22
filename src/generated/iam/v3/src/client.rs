@@ -81,28 +81,42 @@ impl PolicyBindings {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::PolicyBindings + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::PolicyBindings + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
-        Self::build_transport(conf).await.map(super::tracing::PolicyBindings::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::PolicyBindings::new)
     }
 
     /// Creates a policy binding and returns a long-running operation.
@@ -118,8 +132,7 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy_binding(&self) -> super::builder::policy_bindings::CreatePolicyBinding
-    {
+    pub fn create_policy_binding(&self) -> super::builder::policy_bindings::CreatePolicyBinding {
         super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
     }
 
@@ -141,8 +154,7 @@ impl PolicyBindings {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding
-    {
+    pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding {
         super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
     }
 
@@ -161,8 +173,7 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy_binding(&self) -> super::builder::policy_bindings::UpdatePolicyBinding
-    {
+    pub fn update_policy_binding(&self) -> super::builder::policy_bindings::UpdatePolicyBinding {
         super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
     }
 
@@ -179,21 +190,20 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy_binding(&self) -> super::builder::policy_bindings::DeletePolicyBinding
-    {
+    pub fn delete_policy_binding(&self) -> super::builder::policy_bindings::DeletePolicyBinding {
         super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
     }
 
     /// Lists policy bindings.
-    pub fn list_policy_bindings(&self) -> super::builder::policy_bindings::ListPolicyBindings
-    {
+    pub fn list_policy_bindings(&self) -> super::builder::policy_bindings::ListPolicyBindings {
         super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
     }
 
     /// Search policy bindings by target. Returns all policy binding objects bound
     /// directly to target.
-    pub fn search_target_policy_bindings(&self) -> super::builder::policy_bindings::SearchTargetPolicyBindings
-    {
+    pub fn search_target_policy_bindings(
+        &self,
+    ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
         super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
     }
 
@@ -216,8 +226,7 @@ impl PolicyBindings {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
         super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
 }
@@ -279,7 +288,9 @@ impl PrincipalAccessBoundaryPolicies {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::principal_access_boundary_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::principal_access_boundary_policies::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::principal_access_boundary_policies::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -287,28 +298,44 @@ impl PrincipalAccessBoundaryPolicies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::PrincipalAccessBoundaryPolicies + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::PrincipalAccessBoundaryPolicies + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
-        Self::build_transport(conf).await.map(super::tracing::PrincipalAccessBoundaryPolicies::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::PrincipalAccessBoundaryPolicies::new)
     }
 
     /// Creates a principal access boundary policy, and returns a long running
@@ -323,9 +350,13 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_principal_access_boundary_policy(&self) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
+    pub fn create_principal_access_boundary_policy(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets a principal access boundary policy.
@@ -346,9 +377,12 @@ impl PrincipalAccessBoundaryPolicies {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_principal_access_boundary_policy(&self) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy
-    {
-        super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(self.inner.clone())
+    pub fn get_principal_access_boundary_policy(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
+        super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Updates a principal access boundary policy.
@@ -362,9 +396,13 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_principal_access_boundary_policy(&self) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
+    pub fn update_principal_access_boundary_policy(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Deletes a principal access boundary policy.
@@ -378,15 +416,23 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_principal_access_boundary_policy(&self) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
+    pub fn delete_principal_access_boundary_policy(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists principal access boundary policies.
-    pub fn list_principal_access_boundary_policies(&self) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
+    pub fn list_principal_access_boundary_policies(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
     {
-        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
+        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(
+            self.inner.clone(),
+        )
     }
 
     /// Returns all policy bindings that bind a specific policy if a user has
@@ -415,8 +461,9 @@ impl PrincipalAccessBoundaryPolicies {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::principal_access_boundary_policies::GetOperation
-    {
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::principal_access_boundary_policies::GetOperation {
         super::builder::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
     }
 }

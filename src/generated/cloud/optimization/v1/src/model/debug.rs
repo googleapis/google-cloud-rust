@@ -85,19 +85,40 @@ impl std::fmt::Debug for super::OptimizeToursRequest {
         debug_struct.field("model", &self.model);
         debug_struct.field("solving_mode", &self.solving_mode);
         debug_struct.field("search_mode", &self.search_mode);
-        debug_struct.field("injected_first_solution_routes", &self.injected_first_solution_routes);
-        debug_struct.field("injected_solution_constraint", &self.injected_solution_constraint);
+        debug_struct.field(
+            "injected_first_solution_routes",
+            &self.injected_first_solution_routes,
+        );
+        debug_struct.field(
+            "injected_solution_constraint",
+            &self.injected_solution_constraint,
+        );
         debug_struct.field("refresh_details_routes", &self.refresh_details_routes);
-        debug_struct.field("interpret_injected_solutions_using_labels", &self.interpret_injected_solutions_using_labels);
+        debug_struct.field(
+            "interpret_injected_solutions_using_labels",
+            &self.interpret_injected_solutions_using_labels,
+        );
         debug_struct.field("consider_road_traffic", &self.consider_road_traffic);
         debug_struct.field("populate_polylines", &self.populate_polylines);
-        debug_struct.field("populate_transition_polylines", &self.populate_transition_polylines);
-        debug_struct.field("allow_large_deadline_despite_interruption_risk", &self.allow_large_deadline_despite_interruption_risk);
+        debug_struct.field(
+            "populate_transition_polylines",
+            &self.populate_transition_polylines,
+        );
+        debug_struct.field(
+            "allow_large_deadline_despite_interruption_risk",
+            &self.allow_large_deadline_despite_interruption_risk,
+        );
         debug_struct.field("use_geodesic_distances", &self.use_geodesic_distances);
-        debug_struct.field("geodesic_meters_per_second", &self.geodesic_meters_per_second);
+        debug_struct.field(
+            "geodesic_meters_per_second",
+            &self.geodesic_meters_per_second,
+        );
         debug_struct.field("max_validation_errors", &self.max_validation_errors);
         debug_struct.field("label", &self.label);
-        debug_struct.field("populate_travel_step_polylines", &self.populate_travel_step_polylines);
+        debug_struct.field(
+            "populate_travel_step_polylines",
+            &self.populate_travel_step_polylines,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -125,9 +146,15 @@ impl std::fmt::Debug for super::optimize_tours_response::Metrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metrics");
         debug_struct.field("aggregated_route_metrics", &self.aggregated_route_metrics);
-        debug_struct.field("skipped_mandatory_shipment_count", &self.skipped_mandatory_shipment_count);
+        debug_struct.field(
+            "skipped_mandatory_shipment_count",
+            &self.skipped_mandatory_shipment_count,
+        );
         debug_struct.field("used_vehicle_count", &self.used_vehicle_count);
-        debug_struct.field("earliest_vehicle_start_time", &self.earliest_vehicle_start_time);
+        debug_struct.field(
+            "earliest_vehicle_start_time",
+            &self.earliest_vehicle_start_time,
+        );
         debug_struct.field("latest_vehicle_end_time", &self.latest_vehicle_end_time);
         debug_struct.field("costs", &self.costs);
         debug_struct.field("total_cost", &self.total_cost);
@@ -182,13 +209,31 @@ impl std::fmt::Debug for super::ShipmentModel {
         debug_struct.field("max_active_vehicles", &self.max_active_vehicles);
         debug_struct.field("global_start_time", &self.global_start_time);
         debug_struct.field("global_end_time", &self.global_end_time);
-        debug_struct.field("global_duration_cost_per_hour", &self.global_duration_cost_per_hour);
-        debug_struct.field("duration_distance_matrices", &self.duration_distance_matrices);
-        debug_struct.field("duration_distance_matrix_src_tags", &self.duration_distance_matrix_src_tags);
-        debug_struct.field("duration_distance_matrix_dst_tags", &self.duration_distance_matrix_dst_tags);
+        debug_struct.field(
+            "global_duration_cost_per_hour",
+            &self.global_duration_cost_per_hour,
+        );
+        debug_struct.field(
+            "duration_distance_matrices",
+            &self.duration_distance_matrices,
+        );
+        debug_struct.field(
+            "duration_distance_matrix_src_tags",
+            &self.duration_distance_matrix_src_tags,
+        );
+        debug_struct.field(
+            "duration_distance_matrix_dst_tags",
+            &self.duration_distance_matrix_dst_tags,
+        );
         debug_struct.field("transition_attributes", &self.transition_attributes);
-        debug_struct.field("shipment_type_incompatibilities", &self.shipment_type_incompatibilities);
-        debug_struct.field("shipment_type_requirements", &self.shipment_type_requirements);
+        debug_struct.field(
+            "shipment_type_incompatibilities",
+            &self.shipment_type_incompatibilities,
+        );
+        debug_struct.field(
+            "shipment_type_requirements",
+            &self.shipment_type_requirements,
+        );
         debug_struct.field("precedence_rules", &self.precedence_rules);
         debug_struct.field("break_rules", &self.break_rules);
         if !self._unknown_fields.is_empty() {
@@ -284,9 +329,18 @@ impl std::fmt::Debug for super::Shipment {
         debug_struct.field("allowed_vehicle_indices", &self.allowed_vehicle_indices);
         debug_struct.field("costs_per_vehicle", &self.costs_per_vehicle);
         debug_struct.field("costs_per_vehicle_indices", &self.costs_per_vehicle_indices);
-        debug_struct.field("pickup_to_delivery_relative_detour_limit", &self.pickup_to_delivery_relative_detour_limit);
-        debug_struct.field("pickup_to_delivery_absolute_detour_limit", &self.pickup_to_delivery_absolute_detour_limit);
-        debug_struct.field("pickup_to_delivery_time_limit", &self.pickup_to_delivery_time_limit);
+        debug_struct.field(
+            "pickup_to_delivery_relative_detour_limit",
+            &self.pickup_to_delivery_relative_detour_limit,
+        );
+        debug_struct.field(
+            "pickup_to_delivery_absolute_detour_limit",
+            &self.pickup_to_delivery_absolute_detour_limit,
+        );
+        debug_struct.field(
+            "pickup_to_delivery_time_limit",
+            &self.pickup_to_delivery_time_limit,
+        );
         debug_struct.field("shipment_type", &self.shipment_type);
         debug_struct.field("label", &self.label);
         debug_struct.field("ignore", &self.ignore);
@@ -331,7 +385,6 @@ impl std::fmt::Debug for super::shipment::Load {
     }
 }
 
-
 impl std::fmt::Debug for super::ShipmentTypeIncompatibility {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentTypeIncompatibility");
@@ -347,7 +400,10 @@ impl std::fmt::Debug for super::ShipmentTypeIncompatibility {
 impl std::fmt::Debug for super::ShipmentTypeRequirement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentTypeRequirement");
-        debug_struct.field("required_shipment_type_alternatives", &self.required_shipment_type_alternatives);
+        debug_struct.field(
+            "required_shipment_type_alternatives",
+            &self.required_shipment_type_alternatives,
+        );
         debug_struct.field("dependent_shipment_types", &self.dependent_shipment_types);
         debug_struct.field("requirement_mode", &self.requirement_mode);
         if !self._unknown_fields.is_empty() {
@@ -395,7 +451,10 @@ impl std::fmt::Debug for super::Vehicle {
         debug_struct.field("route_duration_limit", &self.route_duration_limit);
         debug_struct.field("travel_duration_limit", &self.travel_duration_limit);
         debug_struct.field("route_distance_limit", &self.route_distance_limit);
-        debug_struct.field("extra_visit_duration_for_visit_type", &self.extra_visit_duration_for_visit_type);
+        debug_struct.field(
+            "extra_visit_duration_for_visit_type",
+            &self.extra_visit_duration_for_visit_type,
+        );
         debug_struct.field("break_rule", &self.break_rule);
         debug_struct.field("label", &self.label);
         debug_struct.field("ignore", &self.ignore);
@@ -415,7 +474,10 @@ impl std::fmt::Debug for super::vehicle::LoadLimit {
         let mut debug_struct = f.debug_struct("LoadLimit");
         debug_struct.field("max_load", &self.max_load);
         debug_struct.field("soft_max_load", &self.soft_max_load);
-        debug_struct.field("cost_per_unit_above_soft_max", &self.cost_per_unit_above_soft_max);
+        debug_struct.field(
+            "cost_per_unit_above_soft_max",
+            &self.cost_per_unit_above_soft_max,
+        );
         debug_struct.field("start_load_interval", &self.start_load_interval);
         debug_struct.field("end_load_interval", &self.end_load_interval);
         if !self._unknown_fields.is_empty() {
@@ -442,17 +504,24 @@ impl std::fmt::Debug for super::vehicle::DurationLimit {
         let mut debug_struct = f.debug_struct("DurationLimit");
         debug_struct.field("max_duration", &self.max_duration);
         debug_struct.field("soft_max_duration", &self.soft_max_duration);
-        debug_struct.field("cost_per_hour_after_soft_max", &self.cost_per_hour_after_soft_max);
-        debug_struct.field("quadratic_soft_max_duration", &self.quadratic_soft_max_duration);
-        debug_struct.field("cost_per_square_hour_after_quadratic_soft_max", &self.cost_per_square_hour_after_quadratic_soft_max);
+        debug_struct.field(
+            "cost_per_hour_after_soft_max",
+            &self.cost_per_hour_after_soft_max,
+        );
+        debug_struct.field(
+            "quadratic_soft_max_duration",
+            &self.quadratic_soft_max_duration,
+        );
+        debug_struct.field(
+            "cost_per_square_hour_after_quadratic_soft_max",
+            &self.cost_per_square_hour_after_quadratic_soft_max,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::TimeWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -461,8 +530,14 @@ impl std::fmt::Debug for super::TimeWindow {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("soft_start_time", &self.soft_start_time);
         debug_struct.field("soft_end_time", &self.soft_end_time);
-        debug_struct.field("cost_per_hour_before_soft_start_time", &self.cost_per_hour_before_soft_start_time);
-        debug_struct.field("cost_per_hour_after_soft_end_time", &self.cost_per_hour_after_soft_end_time);
+        debug_struct.field(
+            "cost_per_hour_before_soft_start_time",
+            &self.cost_per_hour_before_soft_start_time,
+        );
+        debug_struct.field(
+            "cost_per_hour_after_soft_end_time",
+            &self.cost_per_hour_after_soft_end_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -500,8 +575,14 @@ impl std::fmt::Debug for super::DistanceLimit {
         let mut debug_struct = f.debug_struct("DistanceLimit");
         debug_struct.field("max_meters", &self.max_meters);
         debug_struct.field("soft_max_meters", &self.soft_max_meters);
-        debug_struct.field("cost_per_kilometer_below_soft_max", &self.cost_per_kilometer_below_soft_max);
-        debug_struct.field("cost_per_kilometer_above_soft_max", &self.cost_per_kilometer_above_soft_max);
+        debug_struct.field(
+            "cost_per_kilometer_below_soft_max",
+            &self.cost_per_kilometer_below_soft_max,
+        );
+        debug_struct.field(
+            "cost_per_kilometer_above_soft_max",
+            &self.cost_per_kilometer_above_soft_max,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -597,7 +678,10 @@ impl std::fmt::Debug for super::ShipmentRoute {
         debug_struct.field("vehicle_end_time", &self.vehicle_end_time);
         debug_struct.field("visits", &self.visits);
         debug_struct.field("transitions", &self.transitions);
-        debug_struct.field("has_traffic_infeasibilities", &self.has_traffic_infeasibilities);
+        debug_struct.field(
+            "has_traffic_infeasibilities",
+            &self.has_traffic_infeasibilities,
+        );
         debug_struct.field("route_polyline", &self.route_polyline);
         debug_struct.field("breaks", &self.breaks);
         debug_struct.field("metrics", &self.metrics);
@@ -716,7 +800,6 @@ impl std::fmt::Debug for super::shipment_route::TravelStep {
     }
 }
 
-
 impl std::fmt::Debug for super::SkippedShipment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SkippedShipment");
@@ -735,7 +818,10 @@ impl std::fmt::Debug for super::skipped_shipment::Reason {
         let mut debug_struct = f.debug_struct("Reason");
         debug_struct.field("code", &self.code);
         debug_struct.field("example_vehicle_index", &self.example_vehicle_index);
-        debug_struct.field("example_exceeded_capacity_type", &self.example_exceeded_capacity_type);
+        debug_struct.field(
+            "example_exceeded_capacity_type",
+            &self.example_exceeded_capacity_type,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

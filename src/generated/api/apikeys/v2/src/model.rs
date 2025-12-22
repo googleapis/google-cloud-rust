@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,7 +40,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRequest {
-
     /// Required. The project in which the API key is created.
     pub parent: std::string::String,
 
@@ -89,7 +88,8 @@ impl CreateKeyRequest {
     /// let x = CreateKeyRequest::new().set_key(Key::default()/* use setters */);
     /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Key>
+    where
+        T: std::convert::Into<crate::model::Key>,
     {
         self.key = std::option::Option::Some(v.into());
         self
@@ -105,7 +105,8 @@ impl CreateKeyRequest {
     /// let x = CreateKeyRequest::new().set_or_clear_key(None::<Key>);
     /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Key>
+    where
+        T: std::convert::Into<crate::model::Key>,
     {
         self.key = v.map(|x| x.into());
         self
@@ -134,7 +135,6 @@ impl wkt::message::Message for CreateKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysRequest {
-
     /// Required. Lists all API keys associated with this project.
     pub parent: std::string::String,
 
@@ -215,7 +215,6 @@ impl wkt::message::Message for ListKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysResponse {
-
     /// A list of API keys.
     pub keys: std::vec::Vec<crate::model::Key>,
 
@@ -245,7 +244,7 @@ impl ListKeysResponse {
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Key>
+        V: std::convert::Into<crate::model::Key>,
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
@@ -289,7 +288,6 @@ impl gax::paginator::internal::PageableResponse for ListKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRequest {
-
     /// Required. The resource name of the API key to get.
     pub name: std::string::String,
 
@@ -324,7 +322,6 @@ impl wkt::message::Message for GetKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyStringRequest {
-
     /// Required. The resource name of the API key to be retrieved.
     pub name: std::string::String,
 
@@ -359,7 +356,6 @@ impl wkt::message::Message for GetKeyStringRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyStringResponse {
-
     /// An encrypted and signed value of the key.
     pub key_string: std::string::String,
 
@@ -394,7 +390,6 @@ impl wkt::message::Message for GetKeyStringResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateKeyRequest {
-
     /// Required. Set the `name` field to the resource name of the API key to be
     /// updated. You can update only the `display_name`, `restrictions`, and
     /// `annotations` fields.
@@ -426,7 +421,8 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_key(Key::default()/* use setters */);
     /// ```
     pub fn set_key<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Key>
+    where
+        T: std::convert::Into<crate::model::Key>,
     {
         self.key = std::option::Option::Some(v.into());
         self
@@ -442,7 +438,8 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_or_clear_key(None::<Key>);
     /// ```
     pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Key>
+    where
+        T: std::convert::Into<crate::model::Key>,
     {
         self.key = v.map(|x| x.into());
         self
@@ -457,7 +454,8 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -473,7 +471,8 @@ impl UpdateKeyRequest {
     /// let x = UpdateKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -490,7 +489,6 @@ impl wkt::message::Message for UpdateKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteKeyRequest {
-
     /// Required. The resource name of the API key to be deleted.
     pub name: std::string::String,
 
@@ -541,7 +539,6 @@ impl wkt::message::Message for DeleteKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteKeyRequest {
-
     /// Required. The resource name of the API key to be undeleted.
     pub name: std::string::String,
 
@@ -576,7 +573,6 @@ impl wkt::message::Message for UndeleteKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupKeyRequest {
-
     /// Required. Finds the project that owns the key string value.
     pub key_string: std::string::String,
 
@@ -611,7 +607,6 @@ impl wkt::message::Message for LookupKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupKeyResponse {
-
     /// The project that owns the key with the value specified in the request.
     pub parent: std::string::String,
 
@@ -662,7 +657,6 @@ impl wkt::message::Message for LookupKeyResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Key {
-
     /// Output only. The resource name of the key.
     /// The `name` has the form:
     /// `projects/<PROJECT_NUMBER>/locations/global/keys/<KEY_ID>`.
@@ -699,7 +693,7 @@ pub struct Key {
     /// Annotations is an unstructured key-value map stored with a policy that
     /// may be set by external tools to store and retrieve arbitrary metadata.
     /// They are not queryable and should be preserved when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Key restrictions.
     pub restrictions: std::option::Option<crate::model::Restrictions>,
@@ -775,7 +769,8 @@ impl Key {
     /// let x = Key::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -791,7 +786,8 @@ impl Key {
     /// let x = Key::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -806,7 +802,8 @@ impl Key {
     /// let x = Key::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -822,7 +819,8 @@ impl Key {
     /// let x = Key::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -837,7 +835,8 @@ impl Key {
     /// let x = Key::new().set_delete_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -853,7 +852,8 @@ impl Key {
     /// let x = Key::new().set_or_clear_delete_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -889,7 +889,8 @@ impl Key {
     /// let x = Key::new().set_restrictions(Restrictions::default()/* use setters */);
     /// ```
     pub fn set_restrictions<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Restrictions>
+    where
+        T: std::convert::Into<crate::model::Restrictions>,
     {
         self.restrictions = std::option::Option::Some(v.into());
         self
@@ -905,7 +906,8 @@ impl Key {
     /// let x = Key::new().set_or_clear_restrictions(None::<Restrictions>);
     /// ```
     pub fn set_or_clear_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Restrictions>
+    where
+        T: std::convert::Into<crate::model::Restrictions>,
     {
         self.restrictions = v.map(|x| x.into());
         self
@@ -934,7 +936,6 @@ impl wkt::message::Message for Key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Restrictions {
-
     /// A restriction for a specific service and optionally one or
     /// more specific methods. Requests are allowed if they
     /// match any of these restrictions. If no restrictions are
@@ -969,7 +970,7 @@ impl Restrictions {
     pub fn set_api_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ApiTarget>
+        V: std::convert::Into<crate::model::ApiTarget>,
     {
         use std::iter::Iterator;
         self.api_targets = v.into_iter().map(|i| i.into()).collect();
@@ -988,8 +989,12 @@ impl Restrictions {
     /// let x = Restrictions::new().set_client_restrictions(Some(
     ///     google_cloud_apikeys_v2::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(BrowserKeyRestrictions::default().into())));
     /// ```
-    pub fn set_client_restrictions<T: std::convert::Into<std::option::Option<crate::model::restrictions::ClientRestrictions>>>(mut self, v: T) -> Self
-    {
+    pub fn set_client_restrictions<
+        T: std::convert::Into<std::option::Option<crate::model::restrictions::ClientRestrictions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_restrictions = v.into();
         self
     }
@@ -997,10 +1002,14 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `BrowserKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn browser_key_restrictions(&self) -> std::option::Option<&std::boxed::Box<crate::model::BrowserKeyRestrictions>> {
+    pub fn browser_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BrowserKeyRestrictions>> {
         #[allow(unreachable_patterns)]
         self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(v) => std::option::Option::Some(v),
+            crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1021,11 +1030,14 @@ impl Restrictions {
     /// assert!(x.android_key_restrictions().is_none());
     /// assert!(x.ios_key_restrictions().is_none());
     /// ```
-    pub fn set_browser_key_restrictions<T: std::convert::Into<std::boxed::Box<crate::model::BrowserKeyRestrictions>>>(mut self, v: T) -> Self {
+    pub fn set_browser_key_restrictions<
+        T: std::convert::Into<std::boxed::Box<crate::model::BrowserKeyRestrictions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(
-                v.into()
-            )
+            crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(v.into()),
         );
         self
     }
@@ -1033,10 +1045,14 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `ServerKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn server_key_restrictions(&self) -> std::option::Option<&std::boxed::Box<crate::model::ServerKeyRestrictions>> {
+    pub fn server_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServerKeyRestrictions>> {
         #[allow(unreachable_patterns)]
         self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v) => std::option::Option::Some(v),
+            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1057,11 +1073,14 @@ impl Restrictions {
     /// assert!(x.android_key_restrictions().is_none());
     /// assert!(x.ios_key_restrictions().is_none());
     /// ```
-    pub fn set_server_key_restrictions<T: std::convert::Into<std::boxed::Box<crate::model::ServerKeyRestrictions>>>(mut self, v: T) -> Self {
+    pub fn set_server_key_restrictions<
+        T: std::convert::Into<std::boxed::Box<crate::model::ServerKeyRestrictions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(
-                v.into()
-            )
+            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v.into()),
         );
         self
     }
@@ -1069,10 +1088,14 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `AndroidKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn android_key_restrictions(&self) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeyRestrictions>> {
+    pub fn android_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeyRestrictions>> {
         #[allow(unreachable_patterns)]
         self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v) => std::option::Option::Some(v),
+            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1093,11 +1116,14 @@ impl Restrictions {
     /// assert!(x.server_key_restrictions().is_none());
     /// assert!(x.ios_key_restrictions().is_none());
     /// ```
-    pub fn set_android_key_restrictions<T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeyRestrictions>>>(mut self, v: T) -> Self {
+    pub fn set_android_key_restrictions<
+        T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeyRestrictions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(
-                v.into()
-            )
+            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v.into()),
         );
         self
     }
@@ -1105,10 +1131,14 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `IosKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn ios_key_restrictions(&self) -> std::option::Option<&std::boxed::Box<crate::model::IosKeyRestrictions>> {
+    pub fn ios_key_restrictions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IosKeyRestrictions>> {
         #[allow(unreachable_patterns)]
         self.client_restrictions.as_ref().and_then(|v| match v {
-            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v) => std::option::Option::Some(v),
+            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1129,11 +1159,14 @@ impl Restrictions {
     /// assert!(x.server_key_restrictions().is_none());
     /// assert!(x.android_key_restrictions().is_none());
     /// ```
-    pub fn set_ios_key_restrictions<T: std::convert::Into<std::boxed::Box<crate::model::IosKeyRestrictions>>>(mut self, v: T) -> Self {
+    pub fn set_ios_key_restrictions<
+        T: std::convert::Into<std::boxed::Box<crate::model::IosKeyRestrictions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(
-                v.into()
-            )
+            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v.into()),
         );
         self
     }
@@ -1149,7 +1182,6 @@ impl wkt::message::Message for Restrictions {
 pub mod restrictions {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The websites, IP addresses, Android apps, or iOS apps (the clients) that
     /// are allowed to use the key. You can specify only one type of client
@@ -1172,7 +1204,6 @@ pub mod restrictions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BrowserKeyRestrictions {
-
     /// A list of regular expressions for the referrer URLs that are allowed
     /// to make API calls with this key.
     pub allowed_referrers: std::vec::Vec<std::string::String>,
@@ -1195,7 +1226,7 @@ impl BrowserKeyRestrictions {
     pub fn set_allowed_referrers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.allowed_referrers = v.into_iter().map(|i| i.into()).collect();
@@ -1213,7 +1244,6 @@ impl wkt::message::Message for BrowserKeyRestrictions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerKeyRestrictions {
-
     /// A list of the caller IP addresses that are allowed to make API calls
     /// with this key.
     pub allowed_ips: std::vec::Vec<std::string::String>,
@@ -1236,7 +1266,7 @@ impl ServerKeyRestrictions {
     pub fn set_allowed_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.allowed_ips = v.into_iter().map(|i| i.into()).collect();
@@ -1254,7 +1284,6 @@ impl wkt::message::Message for ServerKeyRestrictions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidKeyRestrictions {
-
     /// A list of Android applications that are allowed to make API calls with
     /// this key.
     pub allowed_applications: std::vec::Vec<crate::model::AndroidApplication>,
@@ -1282,7 +1311,7 @@ impl AndroidKeyRestrictions {
     pub fn set_allowed_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AndroidApplication>
+        V: std::convert::Into<crate::model::AndroidApplication>,
     {
         use std::iter::Iterator;
         self.allowed_applications = v.into_iter().map(|i| i.into()).collect();
@@ -1300,7 +1329,6 @@ impl wkt::message::Message for AndroidKeyRestrictions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidApplication {
-
     /// The SHA1 fingerprint of the application. For example, both sha1 formats are
     /// acceptable : DA:39:A3:EE:5E:6B:4B:0D:32:55:BF:EF:95:60:18:90:AF:D8:07:09 or
     /// DA39A3EE5E6B4B0D3255BFEF95601890AFD80709.
@@ -1325,7 +1353,10 @@ impl AndroidApplication {
     /// # use google_cloud_apikeys_v2::model::AndroidApplication;
     /// let x = AndroidApplication::new().set_sha1_fingerprint("example");
     /// ```
-    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.sha1_fingerprint = v.into();
         self
     }
@@ -1353,7 +1384,6 @@ impl wkt::message::Message for AndroidApplication {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IosKeyRestrictions {
-
     /// A list of bundle IDs that are allowed when making API calls with this key.
     pub allowed_bundle_ids: std::vec::Vec<std::string::String>,
 
@@ -1375,7 +1405,7 @@ impl IosKeyRestrictions {
     pub fn set_allowed_bundle_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.allowed_bundle_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1394,7 +1424,6 @@ impl wkt::message::Message for IosKeyRestrictions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiTarget {
-
     /// The service for this restriction. It should be the canonical
     /// service name, for example: `translate.googleapis.com`.
     /// You can use [`gcloud services list`](/sdk/gcloud/reference/services/list)
@@ -1441,7 +1470,7 @@ impl ApiTarget {
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.methods = v.into_iter().map(|i| i.into()).collect();

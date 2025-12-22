@@ -80,33 +80,46 @@ impl ModelArmor {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ModelArmor + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ModelArmor + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
         super::transport::ModelArmor::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
-        Self::build_transport(conf).await.map(super::tracing::ModelArmor::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ModelArmor::new)
     }
 
     /// Lists Templates in a given project and location.
-    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates
-    {
+    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates {
         super::builder::model_armor::ListTemplates::new(self.inner.clone())
     }
 
@@ -128,8 +141,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate
-    {
+    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate {
         super::builder::model_armor::GetTemplate::new(self.inner.clone())
     }
 
@@ -150,8 +162,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate
-    {
+    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
     }
 
@@ -172,8 +183,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate
-    {
+    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
     }
 
@@ -193,8 +203,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate
-    {
+    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate {
         super::builder::model_armor::DeleteTemplate::new(self.inner.clone())
     }
 
@@ -216,8 +225,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting
-    {
+    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting {
         super::builder::model_armor::GetFloorSetting::new(self.inner.clone())
     }
 
@@ -238,8 +246,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting
-    {
+    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting {
         super::builder::model_armor::UpdateFloorSetting::new(self.inner.clone())
     }
 
@@ -260,8 +267,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt
-    {
+    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
     }
 
@@ -282,14 +288,12 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse
-    {
+    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations {
         super::builder::model_armor::ListLocations::new(self.inner.clone())
     }
 
@@ -310,8 +314,7 @@ impl ModelArmor {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::model_armor::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::model_armor::GetLocation {
         super::builder::model_armor::GetLocation::new(self.inner.clone())
     }
 }

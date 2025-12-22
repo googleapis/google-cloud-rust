@@ -87,28 +87,42 @@ impl Firestore {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::Firestore + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::Firestore + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firestore>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firestore>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firestore> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Firestore> {
         super::transport::Firestore::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Firestore> {
-        Self::build_transport(conf).await.map(super::tracing::Firestore::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Firestore> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Firestore::new)
     }
 
     /// Gets a single document.
@@ -128,14 +142,12 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_document(&self) -> super::builder::firestore::GetDocument
-    {
+    pub fn get_document(&self) -> super::builder::firestore::GetDocument {
         super::builder::firestore::GetDocument::new(self.inner.clone())
     }
 
     /// Lists documents.
-    pub fn list_documents(&self) -> super::builder::firestore::ListDocuments
-    {
+    pub fn list_documents(&self) -> super::builder::firestore::ListDocuments {
         super::builder::firestore::ListDocuments::new(self.inner.clone())
     }
 
@@ -156,8 +168,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_document(&self) -> super::builder::firestore::UpdateDocument
-    {
+    pub fn update_document(&self) -> super::builder::firestore::UpdateDocument {
         super::builder::firestore::UpdateDocument::new(self.inner.clone())
     }
 
@@ -177,8 +188,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_document(&self) -> super::builder::firestore::DeleteDocument
-    {
+    pub fn delete_document(&self) -> super::builder::firestore::DeleteDocument {
         super::builder::firestore::DeleteDocument::new(self.inner.clone())
     }
 
@@ -199,8 +209,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn begin_transaction(&self) -> super::builder::firestore::BeginTransaction
-    {
+    pub fn begin_transaction(&self) -> super::builder::firestore::BeginTransaction {
         super::builder::firestore::BeginTransaction::new(self.inner.clone())
     }
 
@@ -221,8 +230,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn commit(&self) -> super::builder::firestore::Commit
-    {
+    pub fn commit(&self) -> super::builder::firestore::Commit {
         super::builder::firestore::Commit::new(self.inner.clone())
     }
 
@@ -242,16 +250,14 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn rollback(&self) -> super::builder::firestore::Rollback
-    {
+    pub fn rollback(&self) -> super::builder::firestore::Rollback {
         super::builder::firestore::Rollback::new(self.inner.clone())
     }
 
     /// Partitions a query by returning partition cursors that can be used to run
     /// the query in parallel. The returned partition cursors are split points that
     /// can be used by RunQuery as starting/end points for the query results.
-    pub fn partition_query(&self) -> super::builder::firestore::PartitionQuery
-    {
+    pub fn partition_query(&self) -> super::builder::firestore::PartitionQuery {
         super::builder::firestore::PartitionQuery::new(self.inner.clone())
     }
 
@@ -272,8 +278,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_collection_ids(&self) -> super::builder::firestore::ListCollectionIds
-    {
+    pub fn list_collection_ids(&self) -> super::builder::firestore::ListCollectionIds {
         super::builder::firestore::ListCollectionIds::new(self.inner.clone())
     }
 
@@ -306,8 +311,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn batch_write(&self) -> super::builder::firestore::BatchWrite
-    {
+    pub fn batch_write(&self) -> super::builder::firestore::BatchWrite {
         super::builder::firestore::BatchWrite::new(self.inner.clone())
     }
 
@@ -328,8 +332,7 @@ impl Firestore {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_document(&self) -> super::builder::firestore::CreateDocument
-    {
+    pub fn create_document(&self) -> super::builder::firestore::CreateDocument {
         super::builder::firestore::CreateDocument::new(self.inner.clone())
     }
 }

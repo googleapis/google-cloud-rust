@@ -31,7 +31,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestAllTypesProto3 {
-
     /// Singular
     pub optional_int32: i32,
 
@@ -63,9 +62,12 @@ pub struct TestAllTypesProto3 {
 
     pub optional_bytes: ::bytes::Bytes,
 
-    pub optional_nested_message: std::option::Option<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>,
+    pub optional_nested_message: std::option::Option<
+        std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
+    >,
 
-    pub optional_foreign_message: std::option::Option<crate::generated::test_protos::ForeignMessage>,
+    pub optional_foreign_message:
+        std::option::Option<crate::generated::test_protos::ForeignMessage>,
 
     pub optional_nested_enum: crate::generated::test_protos::test_all_types_proto_3::NestedEnum,
 
@@ -77,7 +79,8 @@ pub struct TestAllTypesProto3 {
 
     pub optional_cord: std::string::String,
 
-    pub recursive_message: std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
+    pub recursive_message:
+        std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
 
     /// Repeated
     pub repeated_int32: std::vec::Vec<i32>,
@@ -110,11 +113,13 @@ pub struct TestAllTypesProto3 {
 
     pub repeated_bytes: std::vec::Vec<::bytes::Bytes>,
 
-    pub repeated_nested_message: std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
+    pub repeated_nested_message:
+        std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
 
     pub repeated_foreign_message: std::vec::Vec<crate::generated::test_protos::ForeignMessage>,
 
-    pub repeated_nested_enum: std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    pub repeated_nested_enum:
+        std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
     pub repeated_foreign_enum: std::vec::Vec<crate::generated::test_protos::ForeignEnum>,
 
@@ -149,7 +154,8 @@ pub struct TestAllTypesProto3 {
 
     pub packed_bool: std::vec::Vec<bool>,
 
-    pub packed_nested_enum: std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    pub packed_nested_enum:
+        std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
     /// Unpacked
     pub unpacked_int32: std::vec::Vec<i32>,
@@ -178,46 +184,57 @@ pub struct TestAllTypesProto3 {
 
     pub unpacked_bool: std::vec::Vec<bool>,
 
-    pub unpacked_nested_enum: std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    pub unpacked_nested_enum:
+        std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
     /// Map
-    pub map_int32_int32: std::collections::HashMap<i32,i32>,
+    pub map_int32_int32: std::collections::HashMap<i32, i32>,
 
-    pub map_int64_int64: std::collections::HashMap<i64,i64>,
+    pub map_int64_int64: std::collections::HashMap<i64, i64>,
 
-    pub map_uint32_uint32: std::collections::HashMap<u32,u32>,
+    pub map_uint32_uint32: std::collections::HashMap<u32, u32>,
 
-    pub map_uint64_uint64: std::collections::HashMap<u64,u64>,
+    pub map_uint64_uint64: std::collections::HashMap<u64, u64>,
 
-    pub map_sint32_sint32: std::collections::HashMap<i32,i32>,
+    pub map_sint32_sint32: std::collections::HashMap<i32, i32>,
 
-    pub map_sint64_sint64: std::collections::HashMap<i64,i64>,
+    pub map_sint64_sint64: std::collections::HashMap<i64, i64>,
 
-    pub map_fixed32_fixed32: std::collections::HashMap<u32,u32>,
+    pub map_fixed32_fixed32: std::collections::HashMap<u32, u32>,
 
-    pub map_fixed64_fixed64: std::collections::HashMap<u64,u64>,
+    pub map_fixed64_fixed64: std::collections::HashMap<u64, u64>,
 
-    pub map_sfixed32_sfixed32: std::collections::HashMap<i32,i32>,
+    pub map_sfixed32_sfixed32: std::collections::HashMap<i32, i32>,
 
-    pub map_sfixed64_sfixed64: std::collections::HashMap<i64,i64>,
+    pub map_sfixed64_sfixed64: std::collections::HashMap<i64, i64>,
 
-    pub map_int32_float: std::collections::HashMap<i32,f32>,
+    pub map_int32_float: std::collections::HashMap<i32, f32>,
 
-    pub map_int32_double: std::collections::HashMap<i32,f64>,
+    pub map_int32_double: std::collections::HashMap<i32, f64>,
 
-    pub map_bool_bool: std::collections::HashMap<bool,bool>,
+    pub map_bool_bool: std::collections::HashMap<bool, bool>,
 
-    pub map_string_string: std::collections::HashMap<std::string::String,std::string::String>,
+    pub map_string_string: std::collections::HashMap<std::string::String, std::string::String>,
 
-    pub map_string_bytes: std::collections::HashMap<std::string::String,::bytes::Bytes>,
+    pub map_string_bytes: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 
-    pub map_string_nested_message: std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
+    pub map_string_nested_message: std::collections::HashMap<
+        std::string::String,
+        crate::generated::test_protos::test_all_types_proto_3::NestedMessage,
+    >,
 
-    pub map_string_foreign_message: std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignMessage>,
+    pub map_string_foreign_message: std::collections::HashMap<
+        std::string::String,
+        crate::generated::test_protos::ForeignMessage,
+    >,
 
-    pub map_string_nested_enum: std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    pub map_string_nested_enum: std::collections::HashMap<
+        std::string::String,
+        crate::generated::test_protos::test_all_types_proto_3::NestedEnum,
+    >,
 
-    pub map_string_foreign_enum: std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignEnum>,
+    pub map_string_foreign_enum:
+        std::collections::HashMap<std::string::String, crate::generated::test_protos::ForeignEnum>,
 
     /// Well-known types
     pub optional_bool_wrapper: std::option::Option<wkt::BoolValue>,
@@ -322,7 +339,8 @@ pub struct TestAllTypesProto3 {
 
     pub field_name_18__: i32,
 
-    pub oneof_field: std::option::Option<crate::generated::test_protos::test_all_types_proto_3::OneofField>,
+    pub oneof_field:
+        std::option::Option<crate::generated::test_protos::test_all_types_proto_3::OneofField>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -424,7 +442,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_nested_message][crate::generated::test_protos::TestAllTypesProto3::optional_nested_message].
     pub fn set_optional_nested_message<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>
+    where
+        T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
     {
         self.optional_nested_message = std::option::Option::Some(std::boxed::Box::new(v.into()));
         self
@@ -432,7 +451,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_nested_message][crate::generated::test_protos::TestAllTypesProto3::optional_nested_message].
     pub fn set_or_clear_optional_nested_message<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>
+    where
+        T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
     {
         self.optional_nested_message = v.map(|x| std::boxed::Box::new(x.into()));
         self
@@ -440,7 +460,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_foreign_message][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_message].
     pub fn set_optional_foreign_message<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::ForeignMessage>
+    where
+        T: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
     {
         self.optional_foreign_message = std::option::Option::Some(v.into());
         self
@@ -448,32 +469,51 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_foreign_message][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_message].
     pub fn set_or_clear_optional_foreign_message<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::ForeignMessage>
+    where
+        T: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
     {
         self.optional_foreign_message = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [optional_nested_enum][crate::generated::test_protos::TestAllTypesProto3::optional_nested_enum].
-    pub fn set_optional_nested_enum<T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>(mut self, v: T) -> Self {
+    pub fn set_optional_nested_enum<
+        T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.optional_nested_enum = v.into();
         self
     }
 
     /// Sets the value of [optional_foreign_enum][crate::generated::test_protos::TestAllTypesProto3::optional_foreign_enum].
-    pub fn set_optional_foreign_enum<T: std::convert::Into<crate::generated::test_protos::ForeignEnum>>(mut self, v: T) -> Self {
+    pub fn set_optional_foreign_enum<
+        T: std::convert::Into<crate::generated::test_protos::ForeignEnum>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.optional_foreign_enum = v.into();
         self
     }
 
     /// Sets the value of [optional_aliased_enum][crate::generated::test_protos::TestAllTypesProto3::optional_aliased_enum].
-    pub fn set_optional_aliased_enum<T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::AliasedEnum>>(mut self, v: T) -> Self {
+    pub fn set_optional_aliased_enum<
+        T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::AliasedEnum>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.optional_aliased_enum = v.into();
         self
     }
 
     /// Sets the value of [optional_string_piece][crate::generated::test_protos::TestAllTypesProto3::optional_string_piece].
-    pub fn set_optional_string_piece<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_optional_string_piece<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.optional_string_piece = v.into();
         self
     }
@@ -486,7 +526,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [recursive_message][crate::generated::test_protos::TestAllTypesProto3::recursive_message].
     pub fn set_recursive_message<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>
+    where
+        T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
     {
         self.recursive_message = std::option::Option::Some(std::boxed::Box::new(v.into()));
         self
@@ -494,7 +535,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [recursive_message][crate::generated::test_protos::TestAllTypesProto3::recursive_message].
     pub fn set_or_clear_recursive_message<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>
+    where
+        T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
     {
         self.recursive_message = v.map(|x| std::boxed::Box::new(x.into()));
         self
@@ -504,7 +546,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.repeated_int32 = v.into_iter().map(|i| i.into()).collect();
@@ -515,7 +557,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.repeated_int64 = v.into_iter().map(|i| i.into()).collect();
@@ -526,7 +568,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.repeated_uint32 = v.into_iter().map(|i| i.into()).collect();
@@ -537,7 +579,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.repeated_uint64 = v.into_iter().map(|i| i.into()).collect();
@@ -548,7 +590,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.repeated_sint32 = v.into_iter().map(|i| i.into()).collect();
@@ -559,7 +601,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.repeated_sint64 = v.into_iter().map(|i| i.into()).collect();
@@ -570,7 +612,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.repeated_fixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -581,7 +623,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.repeated_fixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -592,7 +634,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.repeated_sfixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -603,7 +645,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.repeated_sfixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -614,7 +656,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>
+        V: std::convert::Into<f32>,
     {
         use std::iter::Iterator;
         self.repeated_float = v.into_iter().map(|i| i.into()).collect();
@@ -625,7 +667,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>
+        V: std::convert::Into<f64>,
     {
         use std::iter::Iterator;
         self.repeated_double = v.into_iter().map(|i| i.into()).collect();
@@ -636,7 +678,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bool>
+        V: std::convert::Into<bool>,
     {
         use std::iter::Iterator;
         self.repeated_bool = v.into_iter().map(|i| i.into()).collect();
@@ -647,7 +689,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_string<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.repeated_string = v.into_iter().map(|i| i.into()).collect();
@@ -658,7 +700,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_bytes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.repeated_bytes = v.into_iter().map(|i| i.into()).collect();
@@ -669,7 +711,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_nested_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>
+        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
     {
         use std::iter::Iterator;
         self.repeated_nested_message = v.into_iter().map(|i| i.into()).collect();
@@ -680,7 +722,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_foreign_message<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::ForeignMessage>
+        V: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
     {
         use std::iter::Iterator;
         self.repeated_foreign_message = v.into_iter().map(|i| i.into()).collect();
@@ -691,7 +733,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>
+        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
     {
         use std::iter::Iterator;
         self.repeated_nested_enum = v.into_iter().map(|i| i.into()).collect();
@@ -702,7 +744,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_foreign_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::ForeignEnum>
+        V: std::convert::Into<crate::generated::test_protos::ForeignEnum>,
     {
         use std::iter::Iterator;
         self.repeated_foreign_enum = v.into_iter().map(|i| i.into()).collect();
@@ -713,7 +755,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_string_piece<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.repeated_string_piece = v.into_iter().map(|i| i.into()).collect();
@@ -724,7 +766,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_cord<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.repeated_cord = v.into_iter().map(|i| i.into()).collect();
@@ -735,7 +777,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.packed_int32 = v.into_iter().map(|i| i.into()).collect();
@@ -746,7 +788,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.packed_int64 = v.into_iter().map(|i| i.into()).collect();
@@ -757,7 +799,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.packed_uint32 = v.into_iter().map(|i| i.into()).collect();
@@ -768,7 +810,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.packed_uint64 = v.into_iter().map(|i| i.into()).collect();
@@ -779,7 +821,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.packed_sint32 = v.into_iter().map(|i| i.into()).collect();
@@ -790,7 +832,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.packed_sint64 = v.into_iter().map(|i| i.into()).collect();
@@ -801,7 +843,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.packed_fixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -812,7 +854,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.packed_fixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -823,7 +865,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.packed_sfixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -834,7 +876,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.packed_sfixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -845,7 +887,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>
+        V: std::convert::Into<f32>,
     {
         use std::iter::Iterator;
         self.packed_float = v.into_iter().map(|i| i.into()).collect();
@@ -856,7 +898,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>
+        V: std::convert::Into<f64>,
     {
         use std::iter::Iterator;
         self.packed_double = v.into_iter().map(|i| i.into()).collect();
@@ -867,7 +909,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bool>
+        V: std::convert::Into<bool>,
     {
         use std::iter::Iterator;
         self.packed_bool = v.into_iter().map(|i| i.into()).collect();
@@ -878,7 +920,7 @@ impl TestAllTypesProto3 {
     pub fn set_packed_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>
+        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
     {
         use std::iter::Iterator;
         self.packed_nested_enum = v.into_iter().map(|i| i.into()).collect();
@@ -889,7 +931,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_int32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.unpacked_int32 = v.into_iter().map(|i| i.into()).collect();
@@ -900,7 +942,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_int64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.unpacked_int64 = v.into_iter().map(|i| i.into()).collect();
@@ -911,7 +953,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_uint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.unpacked_uint32 = v.into_iter().map(|i| i.into()).collect();
@@ -922,7 +964,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_uint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.unpacked_uint64 = v.into_iter().map(|i| i.into()).collect();
@@ -933,7 +975,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_sint32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.unpacked_sint32 = v.into_iter().map(|i| i.into()).collect();
@@ -944,7 +986,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_sint64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.unpacked_sint64 = v.into_iter().map(|i| i.into()).collect();
@@ -955,7 +997,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_fixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u32>
+        V: std::convert::Into<u32>,
     {
         use std::iter::Iterator;
         self.unpacked_fixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -966,7 +1008,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_fixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<u64>
+        V: std::convert::Into<u64>,
     {
         use std::iter::Iterator;
         self.unpacked_fixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -977,7 +1019,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_sfixed32<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.unpacked_sfixed32 = v.into_iter().map(|i| i.into()).collect();
@@ -988,7 +1030,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_sfixed64<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>
+        V: std::convert::Into<i64>,
     {
         use std::iter::Iterator;
         self.unpacked_sfixed64 = v.into_iter().map(|i| i.into()).collect();
@@ -999,7 +1041,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_float<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>
+        V: std::convert::Into<f32>,
     {
         use std::iter::Iterator;
         self.unpacked_float = v.into_iter().map(|i| i.into()).collect();
@@ -1010,7 +1052,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_double<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>
+        V: std::convert::Into<f64>,
     {
         use std::iter::Iterator;
         self.unpacked_double = v.into_iter().map(|i| i.into()).collect();
@@ -1021,7 +1063,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_bool<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bool>
+        V: std::convert::Into<bool>,
     {
         use std::iter::Iterator;
         self.unpacked_bool = v.into_iter().map(|i| i.into()).collect();
@@ -1032,7 +1074,7 @@ impl TestAllTypesProto3 {
     pub fn set_unpacked_nested_enum<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>
+        V: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
     {
         use std::iter::Iterator;
         self.unpacked_nested_enum = v.into_iter().map(|i| i.into()).collect();
@@ -1239,7 +1281,8 @@ impl TestAllTypesProto3 {
         V: std::convert::Into<crate::generated::test_protos::ForeignMessage>,
     {
         use std::iter::Iterator;
-        self.map_string_foreign_message = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.map_string_foreign_message =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1269,7 +1312,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_bool_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bool_wrapper].
     pub fn set_optional_bool_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.optional_bool_wrapper = std::option::Option::Some(v.into());
         self
@@ -1277,7 +1321,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_bool_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bool_wrapper].
     pub fn set_or_clear_optional_bool_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.optional_bool_wrapper = v.map(|x| x.into());
         self
@@ -1285,7 +1330,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_int32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int32_wrapper].
     pub fn set_optional_int32_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Int32Value>
+    where
+        T: std::convert::Into<wkt::Int32Value>,
     {
         self.optional_int32_wrapper = std::option::Option::Some(v.into());
         self
@@ -1293,7 +1339,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_int32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int32_wrapper].
     pub fn set_or_clear_optional_int32_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Int32Value>
+    where
+        T: std::convert::Into<wkt::Int32Value>,
     {
         self.optional_int32_wrapper = v.map(|x| x.into());
         self
@@ -1301,7 +1348,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_int64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int64_wrapper].
     pub fn set_optional_int64_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.optional_int64_wrapper = std::option::Option::Some(v.into());
         self
@@ -1309,7 +1357,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_int64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_int64_wrapper].
     pub fn set_or_clear_optional_int64_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.optional_int64_wrapper = v.map(|x| x.into());
         self
@@ -1317,7 +1366,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_uint32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint32_wrapper].
     pub fn set_optional_uint32_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::UInt32Value>
+    where
+        T: std::convert::Into<wkt::UInt32Value>,
     {
         self.optional_uint32_wrapper = std::option::Option::Some(v.into());
         self
@@ -1325,7 +1375,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_uint32_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint32_wrapper].
     pub fn set_or_clear_optional_uint32_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::UInt32Value>
+    where
+        T: std::convert::Into<wkt::UInt32Value>,
     {
         self.optional_uint32_wrapper = v.map(|x| x.into());
         self
@@ -1333,7 +1384,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_uint64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint64_wrapper].
     pub fn set_optional_uint64_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::UInt64Value>
+    where
+        T: std::convert::Into<wkt::UInt64Value>,
     {
         self.optional_uint64_wrapper = std::option::Option::Some(v.into());
         self
@@ -1341,7 +1393,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_uint64_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_uint64_wrapper].
     pub fn set_or_clear_optional_uint64_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::UInt64Value>
+    where
+        T: std::convert::Into<wkt::UInt64Value>,
     {
         self.optional_uint64_wrapper = v.map(|x| x.into());
         self
@@ -1349,7 +1402,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_float_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_float_wrapper].
     pub fn set_optional_float_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FloatValue>
+    where
+        T: std::convert::Into<wkt::FloatValue>,
     {
         self.optional_float_wrapper = std::option::Option::Some(v.into());
         self
@@ -1357,7 +1411,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_float_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_float_wrapper].
     pub fn set_or_clear_optional_float_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FloatValue>
+    where
+        T: std::convert::Into<wkt::FloatValue>,
     {
         self.optional_float_wrapper = v.map(|x| x.into());
         self
@@ -1365,7 +1420,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_double_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_double_wrapper].
     pub fn set_optional_double_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::DoubleValue>
+    where
+        T: std::convert::Into<wkt::DoubleValue>,
     {
         self.optional_double_wrapper = std::option::Option::Some(v.into());
         self
@@ -1373,7 +1429,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_double_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_double_wrapper].
     pub fn set_or_clear_optional_double_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::DoubleValue>
+    where
+        T: std::convert::Into<wkt::DoubleValue>,
     {
         self.optional_double_wrapper = v.map(|x| x.into());
         self
@@ -1381,7 +1438,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_string_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_string_wrapper].
     pub fn set_optional_string_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::StringValue>
+    where
+        T: std::convert::Into<wkt::StringValue>,
     {
         self.optional_string_wrapper = std::option::Option::Some(v.into());
         self
@@ -1389,7 +1447,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_string_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_string_wrapper].
     pub fn set_or_clear_optional_string_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::StringValue>
+    where
+        T: std::convert::Into<wkt::StringValue>,
     {
         self.optional_string_wrapper = v.map(|x| x.into());
         self
@@ -1397,7 +1456,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_bytes_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bytes_wrapper].
     pub fn set_optional_bytes_wrapper<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BytesValue>
+    where
+        T: std::convert::Into<wkt::BytesValue>,
     {
         self.optional_bytes_wrapper = std::option::Option::Some(v.into());
         self
@@ -1405,7 +1465,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_bytes_wrapper][crate::generated::test_protos::TestAllTypesProto3::optional_bytes_wrapper].
     pub fn set_or_clear_optional_bytes_wrapper<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BytesValue>
+    where
+        T: std::convert::Into<wkt::BytesValue>,
     {
         self.optional_bytes_wrapper = v.map(|x| x.into());
         self
@@ -1415,7 +1476,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_bool_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::BoolValue>
+        V: std::convert::Into<wkt::BoolValue>,
     {
         use std::iter::Iterator;
         self.repeated_bool_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1426,7 +1487,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_int32_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Int32Value>
+        V: std::convert::Into<wkt::Int32Value>,
     {
         use std::iter::Iterator;
         self.repeated_int32_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1437,7 +1498,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_int64_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Int64Value>
+        V: std::convert::Into<wkt::Int64Value>,
     {
         use std::iter::Iterator;
         self.repeated_int64_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1448,7 +1509,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_uint32_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::UInt32Value>
+        V: std::convert::Into<wkt::UInt32Value>,
     {
         use std::iter::Iterator;
         self.repeated_uint32_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1459,7 +1520,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_uint64_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::UInt64Value>
+        V: std::convert::Into<wkt::UInt64Value>,
     {
         use std::iter::Iterator;
         self.repeated_uint64_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1470,7 +1531,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_float_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::FloatValue>
+        V: std::convert::Into<wkt::FloatValue>,
     {
         use std::iter::Iterator;
         self.repeated_float_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1481,7 +1542,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_double_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::DoubleValue>
+        V: std::convert::Into<wkt::DoubleValue>,
     {
         use std::iter::Iterator;
         self.repeated_double_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1492,7 +1553,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_string_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::StringValue>
+        V: std::convert::Into<wkt::StringValue>,
     {
         use std::iter::Iterator;
         self.repeated_string_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1503,7 +1564,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_bytes_wrapper<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::BytesValue>
+        V: std::convert::Into<wkt::BytesValue>,
     {
         use std::iter::Iterator;
         self.repeated_bytes_wrapper = v.into_iter().map(|i| i.into()).collect();
@@ -1512,7 +1573,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_duration][crate::generated::test_protos::TestAllTypesProto3::optional_duration].
     pub fn set_optional_duration<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.optional_duration = std::option::Option::Some(v.into());
         self
@@ -1520,7 +1582,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_duration][crate::generated::test_protos::TestAllTypesProto3::optional_duration].
     pub fn set_or_clear_optional_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.optional_duration = v.map(|x| x.into());
         self
@@ -1528,7 +1591,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_timestamp][crate::generated::test_protos::TestAllTypesProto3::optional_timestamp].
     pub fn set_optional_timestamp<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.optional_timestamp = std::option::Option::Some(v.into());
         self
@@ -1536,7 +1600,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_timestamp][crate::generated::test_protos::TestAllTypesProto3::optional_timestamp].
     pub fn set_or_clear_optional_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.optional_timestamp = v.map(|x| x.into());
         self
@@ -1544,7 +1609,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_field_mask][crate::generated::test_protos::TestAllTypesProto3::optional_field_mask].
     pub fn set_optional_field_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.optional_field_mask = std::option::Option::Some(v.into());
         self
@@ -1552,7 +1618,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_field_mask][crate::generated::test_protos::TestAllTypesProto3::optional_field_mask].
     pub fn set_or_clear_optional_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.optional_field_mask = v.map(|x| x.into());
         self
@@ -1560,7 +1627,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_struct][crate::generated::test_protos::TestAllTypesProto3::optional_struct].
     pub fn set_optional_struct<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.optional_struct = std::option::Option::Some(v.into());
         self
@@ -1568,7 +1636,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_struct][crate::generated::test_protos::TestAllTypesProto3::optional_struct].
     pub fn set_or_clear_optional_struct<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Struct>
+    where
+        T: std::convert::Into<wkt::Struct>,
     {
         self.optional_struct = v.map(|x| x.into());
         self
@@ -1576,7 +1645,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_any][crate::generated::test_protos::TestAllTypesProto3::optional_any].
     pub fn set_optional_any<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Any>
+    where
+        T: std::convert::Into<wkt::Any>,
     {
         self.optional_any = std::option::Option::Some(v.into());
         self
@@ -1584,7 +1654,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_any][crate::generated::test_protos::TestAllTypesProto3::optional_any].
     pub fn set_or_clear_optional_any<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Any>
+    where
+        T: std::convert::Into<wkt::Any>,
     {
         self.optional_any = v.map(|x| x.into());
         self
@@ -1592,7 +1663,8 @@ impl TestAllTypesProto3 {
 
     /// Sets the value of [optional_value][crate::generated::test_protos::TestAllTypesProto3::optional_value].
     pub fn set_optional_value<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Value>
+    where
+        T: std::convert::Into<wkt::Value>,
     {
         self.optional_value = std::option::Option::Some(v.into());
         self
@@ -1600,7 +1672,8 @@ impl TestAllTypesProto3 {
 
     /// Sets or clears the value of [optional_value][crate::generated::test_protos::TestAllTypesProto3::optional_value].
     pub fn set_or_clear_optional_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Value>
+    where
+        T: std::convert::Into<wkt::Value>,
     {
         self.optional_value = v.map(|x| x.into());
         self
@@ -1616,7 +1689,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_duration<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>
+        V: std::convert::Into<wkt::Duration>,
     {
         use std::iter::Iterator;
         self.repeated_duration = v.into_iter().map(|i| i.into()).collect();
@@ -1627,7 +1700,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_timestamp<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Timestamp>
+        V: std::convert::Into<wkt::Timestamp>,
     {
         use std::iter::Iterator;
         self.repeated_timestamp = v.into_iter().map(|i| i.into()).collect();
@@ -1638,7 +1711,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_fieldmask<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::FieldMask>
+        V: std::convert::Into<wkt::FieldMask>,
     {
         use std::iter::Iterator;
         self.repeated_fieldmask = v.into_iter().map(|i| i.into()).collect();
@@ -1649,7 +1722,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_struct<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Struct>
+        V: std::convert::Into<wkt::Struct>,
     {
         use std::iter::Iterator;
         self.repeated_struct = v.into_iter().map(|i| i.into()).collect();
@@ -1660,7 +1733,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_any<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>
+        V: std::convert::Into<wkt::Any>,
     {
         use std::iter::Iterator;
         self.repeated_any = v.into_iter().map(|i| i.into()).collect();
@@ -1671,7 +1744,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Value>
+        V: std::convert::Into<wkt::Value>,
     {
         use std::iter::Iterator;
         self.repeated_value = v.into_iter().map(|i| i.into()).collect();
@@ -1682,7 +1755,7 @@ impl TestAllTypesProto3 {
     pub fn set_repeated_list_value<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::ListValue>
+        V: std::convert::Into<wkt::ListValue>,
     {
         use std::iter::Iterator;
         self.repeated_list_value = v.into_iter().map(|i| i.into()).collect();
@@ -1801,8 +1874,16 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are mutually
     /// exclusive.
-    pub fn set_oneof_field<T: std::convert::Into<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::OneofField>>>(mut self, v: T) -> Self
-    {
+    pub fn set_oneof_field<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::generated::test_protos::test_all_types_proto_3::OneofField,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.oneof_field = v.into();
         self
     }
@@ -1813,7 +1894,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_uint32(&self) -> std::option::Option<&u32> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint32(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint32(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1826,8 +1909,8 @@ impl TestAllTypesProto3 {
     pub fn set_oneof_uint32<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint32(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -1835,7 +1918,11 @@ impl TestAllTypesProto3 {
     /// The value of [oneof_field][crate::generated::test_protos::TestAllTypesProto3::oneof_field]
     /// if it holds a `OneofNestedMessage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oneof_nested_message(&self) -> std::option::Option<&std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>> {
+    pub fn oneof_nested_message(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
+    > {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNestedMessage(v) => std::option::Option::Some(v),
@@ -1848,11 +1935,20 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
-    pub fn set_oneof_nested_message<T: std::convert::Into<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>(mut self, v: T) -> Self {
+    pub fn set_oneof_nested_message<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::generated::test_protos::test_all_types_proto_3::NestedMessage,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNestedMessage(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -1863,7 +1959,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_string(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofString(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofString(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1876,8 +1974,8 @@ impl TestAllTypesProto3 {
     pub fn set_oneof_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofString(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -1888,7 +1986,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBytes(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBytes(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1900,9 +2000,7 @@ impl TestAllTypesProto3 {
     /// mutually exclusive.
     pub fn set_oneof_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBytes(
-                v.into()
-            )
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBytes(v.into()),
         );
         self
     }
@@ -1913,7 +2011,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_bool(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBool(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBool(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1925,9 +2025,7 @@ impl TestAllTypesProto3 {
     /// mutually exclusive.
     pub fn set_oneof_bool<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBool(
-                v.into()
-            )
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofBool(v.into()),
         );
         self
     }
@@ -1938,7 +2036,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_uint64(&self) -> std::option::Option<&u64> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint64(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint64(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1951,8 +2051,8 @@ impl TestAllTypesProto3 {
     pub fn set_oneof_uint64<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofUint64(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -1963,7 +2063,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_float(&self) -> std::option::Option<&f32> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofFloat(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofFloat(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1975,9 +2077,7 @@ impl TestAllTypesProto3 {
     /// mutually exclusive.
     pub fn set_oneof_float<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofFloat(
-                v.into()
-            )
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofFloat(v.into()),
         );
         self
     }
@@ -1988,7 +2088,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_double(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofDouble(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofDouble(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2001,8 +2103,8 @@ impl TestAllTypesProto3 {
     pub fn set_oneof_double<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofDouble(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -2010,10 +2112,15 @@ impl TestAllTypesProto3 {
     /// The value of [oneof_field][crate::generated::test_protos::TestAllTypesProto3::oneof_field]
     /// if it holds a `OneofEnum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oneof_enum(&self) -> std::option::Option<&crate::generated::test_protos::test_all_types_proto_3::NestedEnum> {
+    pub fn oneof_enum(
+        &self,
+    ) -> std::option::Option<&crate::generated::test_protos::test_all_types_proto_3::NestedEnum>
+    {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofEnum(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofEnum(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2023,11 +2130,14 @@ impl TestAllTypesProto3 {
     ///
     /// Note that all the setters affecting `oneof_field` are
     /// mutually exclusive.
-    pub fn set_oneof_enum<T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>(mut self, v: T) -> Self {
+    pub fn set_oneof_enum<
+        T: std::convert::Into<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.oneof_field = std::option::Option::Some(
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofEnum(
-                v.into()
-            )
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofEnum(v.into()),
         );
         self
     }
@@ -2038,7 +2148,9 @@ impl TestAllTypesProto3 {
     pub fn oneof_null_value(&self) -> std::option::Option<&wkt::NullValue> {
         #[allow(unreachable_patterns)]
         self.oneof_field.as_ref().and_then(|v| match v {
-            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNullValue(v) => std::option::Option::Some(v),
+            crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNullValue(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2051,8 +2163,8 @@ impl TestAllTypesProto3 {
     pub fn set_oneof_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.oneof_field = std::option::Option::Some(
             crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNullValue(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -2069,14 +2181,13 @@ pub mod test_all_types_proto_3 {
     #[allow(unused_imports)]
     use super::*;
 
-
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NestedMessage {
-
         pub a: i32,
 
-        pub corecursive: std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
+        pub corecursive:
+            std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2094,7 +2205,8 @@ pub mod test_all_types_proto_3 {
 
         /// Sets the value of [corecursive][crate::generated::test_protos::test_all_types_proto_3::NestedMessage::corecursive].
         pub fn set_corecursive<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>
+        where
+            T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
         {
             self.corecursive = std::option::Option::Some(std::boxed::Box::new(v.into()));
             self
@@ -2102,7 +2214,8 @@ pub mod test_all_types_proto_3 {
 
         /// Sets or clears the value of [corecursive][crate::generated::test_protos::test_all_types_proto_3::NestedMessage::corecursive].
         pub fn set_or_clear_corecursive<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>
+        where
+            T: std::convert::Into<crate::generated::test_protos::TestAllTypesProto3>,
         {
             self.corecursive = v.map(|x| std::boxed::Box::new(x.into()));
             self
@@ -2201,7 +2314,9 @@ pub mod test_all_types_proto_3 {
                 0 => Self::Foo,
                 1 => Self::Bar,
                 2 => Self::Baz,
-                _ => Self::UnknownValue(nested_enum::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(nested_enum::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2214,7 +2329,9 @@ pub mod test_all_types_proto_3 {
                 "BAR" => Self::Bar,
                 "BAZ" => Self::Baz,
                 "NEG" => Self::Neg,
-                _ => Self::UnknownValue(nested_enum::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(nested_enum::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2240,7 +2357,8 @@ pub mod test_all_types_proto_3 {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NestedEnum>::new(
-                ".protobuf_test_messages.proto3.TestAllTypesProto3.NestedEnum"))
+                ".protobuf_test_messages.proto3.TestAllTypesProto3.NestedEnum",
+            ))
         }
     }
 
@@ -2332,7 +2450,9 @@ pub mod test_all_types_proto_3 {
                 0 => Self::AliasFoo,
                 1 => Self::AliasBar,
                 2 => Self::Moo,
-                _ => Self::UnknownValue(aliased_enum::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(aliased_enum::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2347,7 +2467,9 @@ pub mod test_all_types_proto_3 {
                 "MOO" => Self::Moo,
                 "moo" => Self::Moo,
                 "bAz" => Self::BAz,
-                _ => Self::UnknownValue(aliased_enum::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(aliased_enum::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2374,7 +2496,8 @@ pub mod test_all_types_proto_3 {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AliasedEnum>::new(
-                ".protobuf_test_messages.proto3.TestAllTypesProto3.AliasedEnum"))
+                ".protobuf_test_messages.proto3.TestAllTypesProto3.AliasedEnum",
+            ))
         }
     }
 
@@ -2382,7 +2505,9 @@ pub mod test_all_types_proto_3 {
     #[non_exhaustive]
     pub enum OneofField {
         OneofUint32(u32),
-        OneofNestedMessage(std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>),
+        OneofNestedMessage(
+            std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
+        ),
         OneofString(std::string::String),
         OneofBytes(::bytes::Bytes),
         OneofBool(bool),
@@ -2397,7 +2522,6 @@ pub mod test_all_types_proto_3 {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForeignMessage {
-
     pub c: i32,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2424,7 +2548,6 @@ impl wkt::message::Message for ForeignMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NullHypothesisProto3 {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2443,7 +2566,6 @@ impl wkt::message::Message for NullHypothesisProto3 {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOnlyProto3 {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2463,7 +2585,6 @@ impl wkt::message::Message for EnumOnlyProto3 {
 pub mod enum_only_proto_3 {
     #[allow(unused_imports)]
     use super::*;
-
 
     ///
     /// # Working with unknown values
@@ -2543,7 +2664,9 @@ pub mod enum_only_proto_3 {
             match value {
                 0 => Self::KFalse,
                 1 => Self::KTrue,
-                _ => Self::UnknownValue(bool::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(bool::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2554,7 +2677,9 @@ pub mod enum_only_proto_3 {
             match value {
                 "kFalse" => Self::KFalse,
                 "kTrue" => Self::KTrue,
-                _ => Self::UnknownValue(bool::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(bool::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2578,7 +2703,8 @@ pub mod enum_only_proto_3 {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Bool>::new(
-                ".protobuf_test_messages.proto3.EnumOnlyProto3.Bool"))
+                ".protobuf_test_messages.proto3.EnumOnlyProto3.Bool",
+            ))
         }
     }
 }
@@ -2665,7 +2791,9 @@ impl std::convert::From<i32> for ForeignEnum {
             0 => Self::ForeignFoo,
             1 => Self::ForeignBar,
             2 => Self::ForeignBaz,
-            _ => Self::UnknownValue(foreign_enum::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(foreign_enum::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -2677,7 +2805,9 @@ impl std::convert::From<&str> for ForeignEnum {
             "FOREIGN_FOO" => Self::ForeignFoo,
             "FOREIGN_BAR" => Self::ForeignBar,
             "FOREIGN_BAZ" => Self::ForeignBaz,
-            _ => Self::UnknownValue(foreign_enum::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(foreign_enum::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -2702,6 +2832,7 @@ impl<'de> serde::de::Deserialize<'de> for ForeignEnum {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ForeignEnum>::new(
-            ".protobuf_test_messages.proto3.ForeignEnum"))
+            ".protobuf_test_messages.proto3.ForeignEnum",
+        ))
     }
 }

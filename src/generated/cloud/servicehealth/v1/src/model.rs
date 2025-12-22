@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,6 +27,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
-
     /// Output only. Identifier. Name of the event. Unique name of the event in
     /// this scope including project and location using the form
     /// `projects/{project_id}/locations/{location}/events/{event_id}`.
@@ -144,7 +143,10 @@ impl Event {
     /// use google_cloud_servicehealth_v1::model::event::EventCategory;
     /// let x0 = Event::new().set_category(EventCategory::Incident);
     /// ```
-    pub fn set_category<T: std::convert::Into<crate::model::event::EventCategory>>(mut self, v: T) -> Self {
+    pub fn set_category<T: std::convert::Into<crate::model::event::EventCategory>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.category = v.into();
         self
     }
@@ -158,7 +160,10 @@ impl Event {
     /// let x0 = Event::new().set_detailed_category(DetailedCategory::ConfirmedIncident);
     /// let x1 = Event::new().set_detailed_category(DetailedCategory::EmergingIncident);
     /// ```
-    pub fn set_detailed_category<T: std::convert::Into<crate::model::event::DetailedCategory>>(mut self, v: T) -> Self {
+    pub fn set_detailed_category<T: std::convert::Into<crate::model::event::DetailedCategory>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.detailed_category = v.into();
         self
     }
@@ -187,7 +192,10 @@ impl Event {
     /// let x1 = Event::new().set_detailed_state(DetailedState::Confirmed);
     /// let x2 = Event::new().set_detailed_state(DetailedState::Resolved);
     /// ```
-    pub fn set_detailed_state<T: std::convert::Into<crate::model::event::DetailedState>>(mut self, v: T) -> Self {
+    pub fn set_detailed_state<T: std::convert::Into<crate::model::event::DetailedState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.detailed_state = v.into();
         self
     }
@@ -207,7 +215,7 @@ impl Event {
     pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>
+        V: std::convert::Into<crate::model::EventImpact>,
     {
         use std::iter::Iterator;
         self.event_impacts = v.into_iter().map(|i| i.into()).collect();
@@ -224,7 +232,10 @@ impl Event {
     /// let x1 = Event::new().set_relevance(Relevance::NotImpacted);
     /// let x2 = Event::new().set_relevance(Relevance::PartiallyRelated);
     /// ```
-    pub fn set_relevance<T: std::convert::Into<crate::model::event::Relevance>>(mut self, v: T) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::event::Relevance>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.relevance = v.into();
         self
     }
@@ -244,7 +255,7 @@ impl Event {
     pub fn set_updates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>
+        V: std::convert::Into<crate::model::EventUpdate>,
     {
         use std::iter::Iterator;
         self.updates = v.into_iter().map(|i| i.into()).collect();
@@ -272,7 +283,8 @@ impl Event {
     /// let x = Event::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -288,7 +300,8 @@ impl Event {
     /// let x = Event::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -303,7 +316,8 @@ impl Event {
     /// let x = Event::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -319,7 +333,8 @@ impl Event {
     /// let x = Event::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -334,7 +349,8 @@ impl Event {
     /// let x = Event::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -350,7 +366,8 @@ impl Event {
     /// let x = Event::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -365,7 +382,8 @@ impl Event {
     /// let x = Event::new().set_next_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_next_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_update_time = std::option::Option::Some(v.into());
         self
@@ -381,7 +399,8 @@ impl Event {
     /// let x = Event::new().set_or_clear_next_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_update_time = v.map(|x| x.into());
         self
@@ -398,7 +417,6 @@ impl wkt::message::Message for Event {
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
@@ -482,7 +500,9 @@ pub mod event {
             match value {
                 0 => Self::Unspecified,
                 2 => Self::Incident,
-                _ => Self::UnknownValue(event_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -493,7 +513,9 @@ pub mod event {
             match value {
                 "EVENT_CATEGORY_UNSPECIFIED" => Self::Unspecified,
                 "INCIDENT" => Self::Incident,
-                _ => Self::UnknownValue(event_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -517,7 +539,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventCategory>::new(
-                ".google.cloud.servicehealth.v1.Event.EventCategory"))
+                ".google.cloud.servicehealth.v1.Event.EventCategory",
+            ))
         }
     }
 
@@ -610,7 +633,9 @@ pub mod event {
                 0 => Self::Unspecified,
                 1 => Self::ConfirmedIncident,
                 2 => Self::EmergingIncident,
-                _ => Self::UnknownValue(detailed_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -622,7 +647,9 @@ pub mod event {
                 "DETAILED_CATEGORY_UNSPECIFIED" => Self::Unspecified,
                 "CONFIRMED_INCIDENT" => Self::ConfirmedIncident,
                 "EMERGING_INCIDENT" => Self::EmergingIncident,
-                _ => Self::UnknownValue(detailed_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -647,7 +674,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedCategory>::new(
-                ".google.cloud.servicehealth.v1.Event.DetailedCategory"))
+                ".google.cloud.servicehealth.v1.Event.DetailedCategory",
+            ))
         }
     }
 
@@ -739,7 +767,9 @@ pub mod event {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -751,7 +781,9 @@ pub mod event {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -776,7 +808,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.servicehealth.v1.Event.State"))
+                ".google.cloud.servicehealth.v1.Event.State",
+            ))
         }
     }
 
@@ -900,7 +933,9 @@ pub mod event {
                 4 => Self::Merged,
                 9 => Self::AutoClosed,
                 10 => Self::FalsePositive,
-                _ => Self::UnknownValue(detailed_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -916,7 +951,9 @@ pub mod event {
                 "MERGED" => Self::Merged,
                 "AUTO_CLOSED" => Self::AutoClosed,
                 "FALSE_POSITIVE" => Self::FalsePositive,
-                _ => Self::UnknownValue(detailed_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -945,7 +982,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedState>::new(
-                ".google.cloud.servicehealth.v1.Event.DetailedState"))
+                ".google.cloud.servicehealth.v1.Event.DetailedState",
+            ))
         }
     }
 
@@ -1055,7 +1093,9 @@ pub mod event {
                 7 => Self::PartiallyRelated,
                 8 => Self::Related,
                 9 => Self::Impacted,
-                _ => Self::UnknownValue(relevance::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(relevance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1070,7 +1110,9 @@ pub mod event {
                 "PARTIALLY_RELATED" => Self::PartiallyRelated,
                 "RELATED" => Self::Related,
                 "IMPACTED" => Self::Impacted,
-                _ => Self::UnknownValue(relevance::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(relevance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1098,7 +1140,8 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Relevance>::new(
-                ".google.cloud.servicehealth.v1.Event.Relevance"))
+                ".google.cloud.servicehealth.v1.Event.Relevance",
+            ))
         }
     }
 }
@@ -1109,7 +1152,6 @@ pub mod event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrganizationEvent {
-
     /// Output only. Identifier. Name of the event. Unique name of the event in
     /// this scope including organization ID and location using the form
     /// `organizations/{organization_id}/locations/{location}/organizationEvents/{event_id}`.
@@ -1216,7 +1258,10 @@ impl OrganizationEvent {
     /// use google_cloud_servicehealth_v1::model::organization_event::EventCategory;
     /// let x0 = OrganizationEvent::new().set_category(EventCategory::Incident);
     /// ```
-    pub fn set_category<T: std::convert::Into<crate::model::organization_event::EventCategory>>(mut self, v: T) -> Self {
+    pub fn set_category<T: std::convert::Into<crate::model::organization_event::EventCategory>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.category = v.into();
         self
     }
@@ -1230,7 +1275,12 @@ impl OrganizationEvent {
     /// let x0 = OrganizationEvent::new().set_detailed_category(DetailedCategory::ConfirmedIncident);
     /// let x1 = OrganizationEvent::new().set_detailed_category(DetailedCategory::EmergingIncident);
     /// ```
-    pub fn set_detailed_category<T: std::convert::Into<crate::model::organization_event::DetailedCategory>>(mut self, v: T) -> Self {
+    pub fn set_detailed_category<
+        T: std::convert::Into<crate::model::organization_event::DetailedCategory>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.detailed_category = v.into();
         self
     }
@@ -1244,7 +1294,10 @@ impl OrganizationEvent {
     /// let x0 = OrganizationEvent::new().set_state(State::Active);
     /// let x1 = OrganizationEvent::new().set_state(State::Closed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::organization_event::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::organization_event::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -1259,7 +1312,12 @@ impl OrganizationEvent {
     /// let x1 = OrganizationEvent::new().set_detailed_state(DetailedState::Confirmed);
     /// let x2 = OrganizationEvent::new().set_detailed_state(DetailedState::Resolved);
     /// ```
-    pub fn set_detailed_state<T: std::convert::Into<crate::model::organization_event::DetailedState>>(mut self, v: T) -> Self {
+    pub fn set_detailed_state<
+        T: std::convert::Into<crate::model::organization_event::DetailedState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.detailed_state = v.into();
         self
     }
@@ -1279,7 +1337,7 @@ impl OrganizationEvent {
     pub fn set_event_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventImpact>
+        V: std::convert::Into<crate::model::EventImpact>,
     {
         use std::iter::Iterator;
         self.event_impacts = v.into_iter().map(|i| i.into()).collect();
@@ -1301,7 +1359,7 @@ impl OrganizationEvent {
     pub fn set_updates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventUpdate>
+        V: std::convert::Into<crate::model::EventUpdate>,
     {
         use std::iter::Iterator;
         self.updates = v.into_iter().map(|i| i.into()).collect();
@@ -1329,7 +1387,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1345,7 +1404,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1360,7 +1420,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1376,7 +1437,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1391,7 +1453,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1407,7 +1470,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1422,7 +1486,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_next_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_next_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_update_time = std::option::Option::Some(v.into());
         self
@@ -1438,7 +1503,8 @@ impl OrganizationEvent {
     /// let x = OrganizationEvent::new().set_or_clear_next_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_next_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_update_time = v.map(|x| x.into());
         self
@@ -1455,7 +1521,6 @@ impl wkt::message::Message for OrganizationEvent {
 pub mod organization_event {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
@@ -1539,7 +1604,9 @@ pub mod organization_event {
             match value {
                 0 => Self::Unspecified,
                 2 => Self::Incident,
-                _ => Self::UnknownValue(event_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1550,7 +1617,9 @@ pub mod organization_event {
             match value {
                 "EVENT_CATEGORY_UNSPECIFIED" => Self::Unspecified,
                 "INCIDENT" => Self::Incident,
-                _ => Self::UnknownValue(event_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(event_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1574,7 +1643,8 @@ pub mod organization_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventCategory>::new(
-                ".google.cloud.servicehealth.v1.OrganizationEvent.EventCategory"))
+                ".google.cloud.servicehealth.v1.OrganizationEvent.EventCategory",
+            ))
         }
     }
 
@@ -1667,7 +1737,9 @@ pub mod organization_event {
                 0 => Self::Unspecified,
                 1 => Self::ConfirmedIncident,
                 2 => Self::EmergingIncident,
-                _ => Self::UnknownValue(detailed_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1679,7 +1751,9 @@ pub mod organization_event {
                 "DETAILED_CATEGORY_UNSPECIFIED" => Self::Unspecified,
                 "CONFIRMED_INCIDENT" => Self::ConfirmedIncident,
                 "EMERGING_INCIDENT" => Self::EmergingIncident,
-                _ => Self::UnknownValue(detailed_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(detailed_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1704,7 +1778,8 @@ pub mod organization_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedCategory>::new(
-                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedCategory"))
+                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedCategory",
+            ))
         }
     }
 
@@ -1797,7 +1872,9 @@ pub mod organization_event {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1809,7 +1886,9 @@ pub mod organization_event {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1834,7 +1913,8 @@ pub mod organization_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.servicehealth.v1.OrganizationEvent.State"))
+                ".google.cloud.servicehealth.v1.OrganizationEvent.State",
+            ))
         }
     }
 
@@ -1958,7 +2038,9 @@ pub mod organization_event {
                 4 => Self::Merged,
                 9 => Self::AutoClosed,
                 10 => Self::FalsePositive,
-                _ => Self::UnknownValue(detailed_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1974,7 +2056,9 @@ pub mod organization_event {
                 "MERGED" => Self::Merged,
                 "AUTO_CLOSED" => Self::AutoClosed,
                 "FALSE_POSITIVE" => Self::FalsePositive,
-                _ => Self::UnknownValue(detailed_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(detailed_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2003,7 +2087,8 @@ pub mod organization_event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetailedState>::new(
-                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedState"))
+                ".google.cloud.servicehealth.v1.OrganizationEvent.DetailedState",
+            ))
         }
     }
 }
@@ -2012,7 +2097,6 @@ pub mod organization_event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventUpdate {
-
     /// Output only. The time the update was posted.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -2045,7 +2129,8 @@ impl EventUpdate {
     /// let x = EventUpdate::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2061,7 +2146,8 @@ impl EventUpdate {
     /// let x = EventUpdate::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2126,7 +2212,6 @@ impl wkt::message::Message for EventUpdate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
-
     /// Location impacted by the event. Example: `"us-central1"`
     pub location_name: std::string::String,
 
@@ -2161,7 +2246,6 @@ impl wkt::message::Message for Location {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
-
     /// Google Cloud product impacted by the event. Example: `"Google Cloud SQL"`
     pub product_name: std::string::String,
 
@@ -2211,7 +2295,6 @@ impl wkt::message::Message for Product {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventImpact {
-
     /// Google Cloud product impacted by the event.
     pub product: std::option::Option<crate::model::Product>,
 
@@ -2235,7 +2318,8 @@ impl EventImpact {
     /// let x = EventImpact::new().set_product(Product::default()/* use setters */);
     /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Product>
+    where
+        T: std::convert::Into<crate::model::Product>,
     {
         self.product = std::option::Option::Some(v.into());
         self
@@ -2251,7 +2335,8 @@ impl EventImpact {
     /// let x = EventImpact::new().set_or_clear_product(None::<Product>);
     /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Product>
+    where
+        T: std::convert::Into<crate::model::Product>,
     {
         self.product = v.map(|x| x.into());
         self
@@ -2266,7 +2351,8 @@ impl EventImpact {
     /// let x = EventImpact::new().set_location(Location::default()/* use setters */);
     /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Location>
+    where
+        T: std::convert::Into<crate::model::Location>,
     {
         self.location = std::option::Option::Some(v.into());
         self
@@ -2282,7 +2368,8 @@ impl EventImpact {
     /// let x = EventImpact::new().set_or_clear_location(None::<Location>);
     /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Location>
+    where
+        T: std::convert::Into<crate::model::Location>,
     {
         self.location = v.map(|x| x.into());
         self
@@ -2300,7 +2387,6 @@ impl wkt::message::Message for EventImpact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrganizationImpact {
-
     /// Output only. Identifier. Unique name of the organization impact in this
     /// scope including organization and location using the form
     /// `organizations/{organization_id}/locations/{location}/organizationImpacts/{organization_impact_id}`.
@@ -2352,7 +2438,7 @@ impl OrganizationImpact {
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
@@ -2368,7 +2454,8 @@ impl OrganizationImpact {
     /// let x = OrganizationImpact::new().set_asset(Asset::default()/* use setters */);
     /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Asset>
+    where
+        T: std::convert::Into<crate::model::Asset>,
     {
         self.asset = std::option::Option::Some(v.into());
         self
@@ -2384,7 +2471,8 @@ impl OrganizationImpact {
     /// let x = OrganizationImpact::new().set_or_clear_asset(None::<Asset>);
     /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Asset>
+    where
+        T: std::convert::Into<crate::model::Asset>,
     {
         self.asset = v.map(|x| x.into());
         self
@@ -2399,7 +2487,8 @@ impl OrganizationImpact {
     /// let x = OrganizationImpact::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2415,7 +2504,8 @@ impl OrganizationImpact {
     /// let x = OrganizationImpact::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2432,7 +2522,6 @@ impl wkt::message::Message for OrganizationImpact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Asset {
-
     /// Output only. Full name of the resource as defined in
     /// [Resource
     /// Names](https://cloud.google.com/apis/design/resource_names#full_resource_name).
@@ -2485,7 +2574,6 @@ impl wkt::message::Message for Asset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsRequest {
-
     /// Required. Parent value using the form
     /// `projects/{project_id}/locations/{location}/events`.
     ///
@@ -2612,7 +2700,6 @@ impl wkt::message::Message for ListEventsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsResponse {
-
     /// Output only. List of events.
     pub events: std::vec::Vec<crate::model::Event>,
 
@@ -2649,7 +2736,7 @@ impl ListEventsResponse {
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Event>
+        V: std::convert::Into<crate::model::Event>,
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
@@ -2678,7 +2765,7 @@ impl ListEventsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2710,7 +2797,6 @@ impl gax::paginator::internal::PageableResponse for ListEventsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEventRequest {
-
     /// Required. Unique name of the event in this scope including project
     /// and location using the form
     /// `projects/{project_id}/locations/{location}/events/{event_id}`.
@@ -2751,7 +2837,6 @@ impl wkt::message::Message for GetEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationEventsRequest {
-
     /// Required. Parent value using the form
     /// `organizations/{organization_id}/locations/{location}/organizationEvents`.
     ///
@@ -2866,7 +2951,10 @@ impl ListOrganizationEventsRequest {
     /// let x0 = ListOrganizationEventsRequest::new().set_view(OrganizationEventView::Basic);
     /// let x1 = ListOrganizationEventsRequest::new().set_view(OrganizationEventView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::OrganizationEventView>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::OrganizationEventView>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -2882,7 +2970,6 @@ impl wkt::message::Message for ListOrganizationEventsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationEventsResponse {
-
     /// Output only. List of organization events affecting an organization.
     pub organization_events: std::vec::Vec<crate::model::OrganizationEvent>,
 
@@ -2919,7 +3006,7 @@ impl ListOrganizationEventsResponse {
     pub fn set_organization_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OrganizationEvent>
+        V: std::convert::Into<crate::model::OrganizationEvent>,
     {
         use std::iter::Iterator;
         self.organization_events = v.into_iter().map(|i| i.into()).collect();
@@ -2948,7 +3035,7 @@ impl ListOrganizationEventsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2980,7 +3067,6 @@ impl gax::paginator::internal::PageableResponse for ListOrganizationEventsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationEventRequest {
-
     /// Required. Unique name of the event in this scope including organization and
     /// event ID using the form
     /// `organizations/{organization_id}/locations/locations/global/organizationEvents/{event_id}`.
@@ -3023,7 +3109,6 @@ impl wkt::message::Message for GetOrganizationEventRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationImpactsRequest {
-
     /// Required. Parent value using the form
     /// `organizations/{organization_id}/locations/{location}/organizationImpacts`.
     ///
@@ -3138,7 +3223,6 @@ impl wkt::message::Message for ListOrganizationImpactsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationImpactsResponse {
-
     /// Output only. List of
     /// [impacts](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact)
     /// for an organization affected by service health events.
@@ -3177,7 +3261,7 @@ impl ListOrganizationImpactsResponse {
     pub fn set_organization_impacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OrganizationImpact>
+        V: std::convert::Into<crate::model::OrganizationImpact>,
     {
         use std::iter::Iterator;
         self.organization_impacts = v.into_iter().map(|i| i.into()).collect();
@@ -3206,7 +3290,7 @@ impl ListOrganizationImpactsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3238,7 +3322,6 @@ impl gax::paginator::internal::PageableResponse for ListOrganizationImpactsRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationImpactRequest {
-
     /// Required. Name of the resource using the form
     /// `organizations/{organization_id}/locations/global/organizationImpacts/{organization_impact_id}`.
     ///
@@ -3365,7 +3448,9 @@ impl std::convert::From<i32> for EventView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(event_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3377,7 +3462,9 @@ impl std::convert::From<&str> for EventView {
             "EVENT_VIEW_UNSPECIFIED" => Self::Unspecified,
             "EVENT_VIEW_BASIC" => Self::Basic,
             "EVENT_VIEW_FULL" => Self::Full,
-            _ => Self::UnknownValue(event_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3402,7 +3489,8 @@ impl<'de> serde::de::Deserialize<'de> for EventView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventView>::new(
-            ".google.cloud.servicehealth.v1.EventView"))
+            ".google.cloud.servicehealth.v1.EventView",
+        ))
     }
 }
 
@@ -3494,7 +3582,9 @@ impl std::convert::From<i32> for OrganizationEventView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(organization_event_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(organization_event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3506,7 +3596,9 @@ impl std::convert::From<&str> for OrganizationEventView {
             "ORGANIZATION_EVENT_VIEW_UNSPECIFIED" => Self::Unspecified,
             "ORGANIZATION_EVENT_VIEW_BASIC" => Self::Basic,
             "ORGANIZATION_EVENT_VIEW_FULL" => Self::Full,
-            _ => Self::UnknownValue(organization_event_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(organization_event_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3531,6 +3623,7 @@ impl<'de> serde::de::Deserialize<'de> for OrganizationEventView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OrganizationEventView>::new(
-            ".google.cloud.servicehealth.v1.OrganizationEventView"))
+            ".google.cloud.servicehealth.v1.OrganizationEventView",
+        ))
     }
 }

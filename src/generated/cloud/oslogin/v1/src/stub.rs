@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsLoginService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::OsLoginService::create_ssh_public_key].
     fn create_ssh_public_key(
         &self,
         _req: crate::model::CreateSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -71,7 +72,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLoginProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::LoginProfile>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LoginProfile>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +83,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +94,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,8 +105,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

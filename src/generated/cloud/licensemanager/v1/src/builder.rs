@@ -39,7 +39,10 @@ pub mod license_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LicenseManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod license_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,14 +96,17 @@ pub mod license_manager {
     pub struct ListConfigurations(RequestBuilder<crate::model::ListConfigurationsRequest>);
 
     impl ListConfigurations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListConfigurationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListConfigurationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -109,11 +119,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConfigurationsResponse> {
-            (*self.0.stub).list_configurations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_configurations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConfigurationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConfigurationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +141,12 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConfigurationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConfigurationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -191,14 +212,17 @@ pub mod license_manager {
     pub struct GetConfiguration(RequestBuilder<crate::model::GetConfigurationRequest>);
 
     impl GetConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -211,7 +235,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Configuration> {
-            (*self.0.stub).get_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigurationRequest::name].
@@ -252,14 +279,17 @@ pub mod license_manager {
     pub struct CreateConfiguration(RequestBuilder<crate::model::CreateConfigurationRequest>);
 
     impl CreateConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -277,16 +307,21 @@ pub mod license_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_configuration][crate::client::LicenseManager::create_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_configuration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -334,7 +369,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_configuration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Configuration>
+        where
+            T: std::convert::Into<crate::model::Configuration>,
         {
             self.0.request.configuration = std::option::Option::Some(v.into());
             self
@@ -344,7 +380,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Configuration>
+        where
+            T: std::convert::Into<crate::model::Configuration>,
         {
             self.0.request.configuration = v.map(|x| x.into());
             self
@@ -386,14 +423,17 @@ pub mod license_manager {
     pub struct UpdateConfiguration(RequestBuilder<crate::model::UpdateConfigurationRequest>);
 
     impl UpdateConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -411,16 +451,21 @@ pub mod license_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_configuration][crate::client::LicenseManager::update_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_configuration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -450,7 +495,8 @@ pub mod license_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -458,7 +504,8 @@ pub mod license_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -468,7 +515,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_configuration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Configuration>
+        where
+            T: std::convert::Into<crate::model::Configuration>,
         {
             self.0.request.configuration = std::option::Option::Some(v.into());
             self
@@ -478,7 +526,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Configuration>
+        where
+            T: std::convert::Into<crate::model::Configuration>,
         {
             self.0.request.configuration = v.map(|x| x.into());
             self
@@ -520,14 +569,17 @@ pub mod license_manager {
     pub struct DeleteConfiguration(RequestBuilder<crate::model::DeleteConfigurationRequest>);
 
     impl DeleteConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -545,15 +597,14 @@ pub mod license_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_configuration][crate::client::LicenseManager::delete_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_configuration`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -579,7 +630,12 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConfigurationRequest::name].
@@ -629,10 +685,10 @@ pub mod license_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -649,11 +705,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancesResponse> {
-            (*self.0.stub).list_instances(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -665,7 +727,10 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -731,10 +796,10 @@ pub mod license_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -751,7 +816,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            (*self.0.stub).get_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -789,17 +857,22 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeactivateConfiguration(RequestBuilder<crate::model::DeactivateConfigurationRequest>);
+    pub struct DeactivateConfiguration(
+        RequestBuilder<crate::model::DeactivateConfigurationRequest>,
+    );
 
     impl DeactivateConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeactivateConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeactivateConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -817,16 +890,21 @@ pub mod license_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [deactivate_configuration][crate::client::LicenseManager::deactivate_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).deactivate_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .deactivate_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deactivate_configuration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -895,17 +973,22 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReactivateConfiguration(RequestBuilder<crate::model::ReactivateConfigurationRequest>);
+    pub struct ReactivateConfiguration(
+        RequestBuilder<crate::model::ReactivateConfigurationRequest>,
+    );
 
     impl ReactivateConfiguration {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ReactivateConfigurationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ReactivateConfigurationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -923,16 +1006,21 @@ pub mod license_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reactivate_configuration][crate::client::LicenseManager::reactivate_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).reactivate_configuration(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reactivate_configuration(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reactivate_configuration`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1000,17 +1088,22 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryConfigurationLicenseUsage(RequestBuilder<crate::model::QueryConfigurationLicenseUsageRequest>);
+    pub struct QueryConfigurationLicenseUsage(
+        RequestBuilder<crate::model::QueryConfigurationLicenseUsageRequest>,
+    );
 
     impl QueryConfigurationLicenseUsage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryConfigurationLicenseUsageRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::QueryConfigurationLicenseUsageRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1023,7 +1116,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryConfigurationLicenseUsageResponse> {
-            (*self.0.stub).query_configuration_license_usage(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .query_configuration_license_usage(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::QueryConfigurationLicenseUsageRequest::name].
@@ -1038,7 +1134,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -1048,7 +1145,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -1058,7 +1156,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -1068,7 +1167,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -1107,10 +1207,10 @@ pub mod license_manager {
     pub struct AggregateUsage(RequestBuilder<crate::model::AggregateUsageRequest>);
 
     impl AggregateUsage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1127,11 +1227,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AggregateUsageResponse> {
-            (*self.0.stub).aggregate_usage(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .aggregate_usage(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::AggregateUsageResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::AggregateUsageResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1143,7 +1249,10 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::AggregateUsageResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::AggregateUsageResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1184,7 +1293,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -1194,7 +1304,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -1204,7 +1315,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -1214,7 +1326,8 @@ pub mod license_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -1253,10 +1366,10 @@ pub mod license_manager {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1273,11 +1386,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProductsResponse> {
-            (*self.0.stub).list_products(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_products(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1289,7 +1408,10 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProductsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProductsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1355,10 +1477,10 @@ pub mod license_manager {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1375,7 +1497,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Product> {
-            (*self.0.stub).get_product(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_product(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
@@ -1419,14 +1544,17 @@ pub mod license_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1439,11 +1567,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1455,7 +1589,10 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1513,10 +1650,10 @@ pub mod license_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1533,7 +1670,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1575,14 +1715,17 @@ pub mod license_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1595,11 +1738,17 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1611,7 +1760,12 @@ pub mod license_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1675,14 +1829,17 @@ pub mod license_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1695,7 +1852,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1733,14 +1893,17 @@ pub mod license_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1753,7 +1916,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1791,14 +1957,17 @@ pub mod license_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1811,7 +1980,10 @@ pub mod license_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1827,5 +1999,4 @@ pub mod license_manager {
             &mut self.0.options
         }
     }
-
 }

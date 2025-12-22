@@ -39,7 +39,10 @@ pub mod org_policy {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OrgPolicy;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod org_policy {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -89,10 +96,10 @@ pub mod org_policy {
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -109,11 +116,17 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListConstraintsResponse> {
-            (*self.0.stub).list_constraints(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_constraints(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -125,7 +138,10 @@ pub mod org_policy {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListConstraintsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConstraintsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -183,10 +199,10 @@ pub mod org_policy {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -203,11 +219,17 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPoliciesResponse> {
-            (*self.0.stub).list_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_policies(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -219,7 +241,10 @@ pub mod org_policy {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -273,10 +298,10 @@ pub mod org_policy {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -293,7 +318,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -333,14 +361,17 @@ pub mod org_policy {
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
     impl GetEffectivePolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetEffectivePolicyRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetEffectivePolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -353,7 +384,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_effective_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_effective_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
@@ -393,10 +427,10 @@ pub mod org_policy {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -413,7 +447,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).create_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -428,7 +465,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -438,7 +476,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -473,10 +512,10 @@ pub mod org_policy {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -493,14 +532,18 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).update_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -510,7 +553,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -518,7 +562,8 @@ pub mod org_policy {
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -526,7 +571,8 @@ pub mod org_policy {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -561,10 +607,10 @@ pub mod org_policy {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -581,7 +627,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
@@ -627,14 +676,17 @@ pub mod org_policy {
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
     impl CreateCustomConstraint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCustomConstraintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCustomConstraintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -647,7 +699,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CustomConstraint> {
-            (*self.0.stub).create_custom_constraint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_custom_constraint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
@@ -662,7 +717,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_custom_constraint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CustomConstraint>
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
         {
             self.0.request.custom_constraint = std::option::Option::Some(v.into());
             self
@@ -672,7 +728,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CustomConstraint>
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
         {
             self.0.request.custom_constraint = v.map(|x| x.into());
             self
@@ -707,14 +764,17 @@ pub mod org_policy {
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
     impl UpdateCustomConstraint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCustomConstraintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCustomConstraintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -727,14 +787,18 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CustomConstraint> {
-            (*self.0.stub).update_custom_constraint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_custom_constraint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
         pub fn set_custom_constraint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CustomConstraint>
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
         {
             self.0.request.custom_constraint = std::option::Option::Some(v.into());
             self
@@ -744,7 +808,8 @@ pub mod org_policy {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CustomConstraint>
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
         {
             self.0.request.custom_constraint = v.map(|x| x.into());
             self
@@ -779,14 +844,17 @@ pub mod org_policy {
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
     impl GetCustomConstraint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCustomConstraintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCustomConstraintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -799,7 +867,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CustomConstraint> {
-            (*self.0.stub).get_custom_constraint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_custom_constraint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
@@ -843,14 +914,17 @@ pub mod org_policy {
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
     impl ListCustomConstraints {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCustomConstraintsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCustomConstraintsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -863,11 +937,17 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCustomConstraintsResponse> {
-            (*self.0.stub).list_custom_constraints(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_custom_constraints(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -879,7 +959,12 @@ pub mod org_policy {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomConstraintsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCustomConstraintsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -933,14 +1018,17 @@ pub mod org_policy {
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 
     impl DeleteCustomConstraint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCustomConstraintRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCustomConstraintRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -953,7 +1041,10 @@ pub mod org_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_custom_constraint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_custom_constraint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
@@ -971,5 +1062,4 @@ pub mod org_policy {
             &mut self.0.options
         }
     }
-
 }

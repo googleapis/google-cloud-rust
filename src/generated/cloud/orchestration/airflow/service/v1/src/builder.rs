@@ -39,7 +39,10 @@ pub mod environments {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Environments;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod environments {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -86,14 +93,17 @@ pub mod environments {
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
     impl CreateEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateEnvironmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateEnvironmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -111,16 +121,20 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_environment][crate::client::Environments::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_environment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -156,7 +170,8 @@ pub mod environments {
 
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
         pub fn set_environment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Environment>
+        where
+            T: std::convert::Into<crate::model::Environment>,
         {
             self.0.request.environment = std::option::Option::Some(v.into());
             self
@@ -164,7 +179,8 @@ pub mod environments {
 
         /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
         pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Environment>
+        where
+            T: std::convert::Into<crate::model::Environment>,
         {
             self.0.request.environment = v.map(|x| x.into());
             self
@@ -199,10 +215,10 @@ pub mod environments {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -219,7 +235,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Environment> {
-            (*self.0.stub).get_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -261,14 +280,17 @@ pub mod environments {
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
     impl ListEnvironments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListEnvironmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListEnvironmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -281,11 +303,17 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEnvironmentsResponse> {
-            (*self.0.stub).list_environments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_environments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEnvironmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -297,7 +325,10 @@ pub mod environments {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEnvironmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -350,14 +381,17 @@ pub mod environments {
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
     impl UpdateEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateEnvironmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateEnvironmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -375,16 +409,20 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_environment][crate::client::Environments::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_environment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -420,7 +458,8 @@ pub mod environments {
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
         pub fn set_environment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Environment>
+        where
+            T: std::convert::Into<crate::model::Environment>,
         {
             self.0.request.environment = std::option::Option::Some(v.into());
             self
@@ -428,7 +467,8 @@ pub mod environments {
 
         /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
         pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Environment>
+        where
+            T: std::convert::Into<crate::model::Environment>,
         {
             self.0.request.environment = v.map(|x| x.into());
             self
@@ -436,7 +476,8 @@ pub mod environments {
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -444,7 +485,8 @@ pub mod environments {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -480,14 +522,17 @@ pub mod environments {
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
     impl DeleteEnvironment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteEnvironmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteEnvironmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -505,15 +550,14 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_environment][crate::client::Environments::delete_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_environment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_environment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_environment`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OperationMetadata>
-        {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -539,7 +583,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
@@ -577,14 +626,17 @@ pub mod environments {
     pub struct ExecuteAirflowCommand(RequestBuilder<crate::model::ExecuteAirflowCommandRequest>);
 
     impl ExecuteAirflowCommand {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ExecuteAirflowCommandRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ExecuteAirflowCommandRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -597,7 +649,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExecuteAirflowCommandResponse> {
-            (*self.0.stub).execute_airflow_command(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .execute_airflow_command(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::ExecuteAirflowCommandRequest::environment].
@@ -622,7 +677,7 @@ pub mod environments {
         pub fn set_parameters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -658,14 +713,17 @@ pub mod environments {
     pub struct StopAirflowCommand(RequestBuilder<crate::model::StopAirflowCommandRequest>);
 
     impl StopAirflowCommand {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StopAirflowCommandRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::StopAirflowCommandRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -678,7 +736,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StopAirflowCommandResponse> {
-            (*self.0.stub).stop_airflow_command(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .stop_airflow_command(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::StopAirflowCommandRequest::environment].
@@ -740,14 +801,17 @@ pub mod environments {
     pub struct PollAirflowCommand(RequestBuilder<crate::model::PollAirflowCommandRequest>);
 
     impl PollAirflowCommand {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::PollAirflowCommandRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::PollAirflowCommandRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -760,7 +824,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PollAirflowCommandResponse> {
-            (*self.0.stub).poll_airflow_command(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .poll_airflow_command(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::PollAirflowCommandRequest::environment].
@@ -826,10 +893,10 @@ pub mod environments {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -846,11 +913,17 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkloadsResponse> {
-            (*self.0.stub).list_workloads(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_workloads(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -862,7 +935,10 @@ pub mod environments {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -923,10 +999,10 @@ pub mod environments {
     pub struct CheckUpgrade(RequestBuilder<crate::model::CheckUpgradeRequest>);
 
     impl CheckUpgrade {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -948,16 +1024,21 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [check_upgrade][crate::client::Environments::check_upgrade].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).check_upgrade(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .check_upgrade(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `check_upgrade`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CheckUpgradeResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1025,17 +1106,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUserWorkloadsSecret(RequestBuilder<crate::model::CreateUserWorkloadsSecretRequest>);
+    pub struct CreateUserWorkloadsSecret(
+        RequestBuilder<crate::model::CreateUserWorkloadsSecretRequest>,
+    );
 
     impl CreateUserWorkloadsSecret {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateUserWorkloadsSecretRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateUserWorkloadsSecretRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1048,7 +1134,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsSecret> {
-            (*self.0.stub).create_user_workloads_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_user_workloads_secret(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsSecretRequest::parent].
@@ -1063,7 +1152,8 @@ pub mod environments {
         ///
         /// This is a **required** field for requests.
         pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsSecret>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
             self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
             self
@@ -1073,7 +1163,8 @@ pub mod environments {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsSecret>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
             self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
@@ -1108,14 +1199,17 @@ pub mod environments {
     pub struct GetUserWorkloadsSecret(RequestBuilder<crate::model::GetUserWorkloadsSecretRequest>);
 
     impl GetUserWorkloadsSecret {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetUserWorkloadsSecretRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetUserWorkloadsSecretRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1128,7 +1222,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsSecret> {
-            (*self.0.stub).get_user_workloads_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_user_workloads_secret(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsSecretRequest::name].
@@ -1169,17 +1266,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUserWorkloadsSecrets(RequestBuilder<crate::model::ListUserWorkloadsSecretsRequest>);
+    pub struct ListUserWorkloadsSecrets(
+        RequestBuilder<crate::model::ListUserWorkloadsSecretsRequest>,
+    );
 
     impl ListUserWorkloadsSecrets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListUserWorkloadsSecretsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListUserWorkloadsSecretsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1192,11 +1294,19 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUserWorkloadsSecretsResponse> {
-            (*self.0.stub).list_user_workloads_secrets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_user_workloads_secrets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListUserWorkloadsSecretsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListUserWorkloadsSecretsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1208,7 +1318,12 @@ pub mod environments {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListUserWorkloadsSecretsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUserWorkloadsSecretsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1259,17 +1374,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUserWorkloadsSecret(RequestBuilder<crate::model::UpdateUserWorkloadsSecretRequest>);
+    pub struct UpdateUserWorkloadsSecret(
+        RequestBuilder<crate::model::UpdateUserWorkloadsSecretRequest>,
+    );
 
     impl UpdateUserWorkloadsSecret {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateUserWorkloadsSecretRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateUserWorkloadsSecretRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1282,12 +1402,16 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsSecret> {
-            (*self.0.stub).update_user_workloads_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_user_workloads_secret(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
         pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsSecret>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
             self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
             self
@@ -1295,7 +1419,8 @@ pub mod environments {
 
         /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
         pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsSecret>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
         {
             self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
@@ -1327,17 +1452,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUserWorkloadsSecret(RequestBuilder<crate::model::DeleteUserWorkloadsSecretRequest>);
+    pub struct DeleteUserWorkloadsSecret(
+        RequestBuilder<crate::model::DeleteUserWorkloadsSecretRequest>,
+    );
 
     impl DeleteUserWorkloadsSecret {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteUserWorkloadsSecretRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteUserWorkloadsSecretRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1350,7 +1480,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_user_workloads_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_user_workloads_secret(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsSecretRequest::name].
@@ -1387,17 +1520,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUserWorkloadsConfigMap(RequestBuilder<crate::model::CreateUserWorkloadsConfigMapRequest>);
+    pub struct CreateUserWorkloadsConfigMap(
+        RequestBuilder<crate::model::CreateUserWorkloadsConfigMapRequest>,
+    );
 
     impl CreateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateUserWorkloadsConfigMapRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateUserWorkloadsConfigMapRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1410,7 +1548,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsConfigMap> {
-            (*self.0.stub).create_user_workloads_config_map(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_user_workloads_config_map(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsConfigMapRequest::parent].
@@ -1425,7 +1566,8 @@ pub mod environments {
         ///
         /// This is a **required** field for requests.
         pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {
             self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
             self
@@ -1434,8 +1576,12 @@ pub mod environments {
         /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
+        pub fn set_or_clear_user_workloads_config_map<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {
             self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
@@ -1467,17 +1613,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUserWorkloadsConfigMap(RequestBuilder<crate::model::GetUserWorkloadsConfigMapRequest>);
+    pub struct GetUserWorkloadsConfigMap(
+        RequestBuilder<crate::model::GetUserWorkloadsConfigMapRequest>,
+    );
 
     impl GetUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetUserWorkloadsConfigMapRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetUserWorkloadsConfigMapRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1490,7 +1641,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsConfigMap> {
-            (*self.0.stub).get_user_workloads_config_map(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_user_workloads_config_map(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsConfigMapRequest::name].
@@ -1531,17 +1685,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUserWorkloadsConfigMaps(RequestBuilder<crate::model::ListUserWorkloadsConfigMapsRequest>);
+    pub struct ListUserWorkloadsConfigMaps(
+        RequestBuilder<crate::model::ListUserWorkloadsConfigMapsRequest>,
+    );
 
     impl ListUserWorkloadsConfigMaps {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListUserWorkloadsConfigMapsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListUserWorkloadsConfigMapsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1554,11 +1713,19 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListUserWorkloadsConfigMapsResponse> {
-            (*self.0.stub).list_user_workloads_config_maps(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_user_workloads_config_maps(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListUserWorkloadsConfigMapsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListUserWorkloadsConfigMapsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1570,7 +1737,12 @@ pub mod environments {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListUserWorkloadsConfigMapsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUserWorkloadsConfigMapsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1621,17 +1793,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUserWorkloadsConfigMap(RequestBuilder<crate::model::UpdateUserWorkloadsConfigMapRequest>);
+    pub struct UpdateUserWorkloadsConfigMap(
+        RequestBuilder<crate::model::UpdateUserWorkloadsConfigMapRequest>,
+    );
 
     impl UpdateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateUserWorkloadsConfigMapRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateUserWorkloadsConfigMapRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1644,20 +1821,28 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UserWorkloadsConfigMap> {
-            (*self.0.stub).update_user_workloads_config_map(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_user_workloads_config_map(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {
             self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-        pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
+        pub fn set_or_clear_user_workloads_config_map<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
         {
             self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
@@ -1689,17 +1874,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUserWorkloadsConfigMap(RequestBuilder<crate::model::DeleteUserWorkloadsConfigMapRequest>);
+    pub struct DeleteUserWorkloadsConfigMap(
+        RequestBuilder<crate::model::DeleteUserWorkloadsConfigMapRequest>,
+    );
 
     impl DeleteUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteUserWorkloadsConfigMapRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteUserWorkloadsConfigMapRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1712,7 +1902,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_user_workloads_config_map(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_user_workloads_config_map(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsConfigMapRequest::name].
@@ -1753,10 +1946,10 @@ pub mod environments {
     pub struct SaveSnapshot(RequestBuilder<crate::model::SaveSnapshotRequest>);
 
     impl SaveSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1778,16 +1971,21 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [save_snapshot][crate::client::Environments::save_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).save_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .save_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `save_snapshot`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::SaveSnapshotResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1857,10 +2055,10 @@ pub mod environments {
     pub struct LoadSnapshot(RequestBuilder<crate::model::LoadSnapshotRequest>);
 
     impl LoadSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1882,16 +2080,21 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [load_snapshot][crate::client::Environments::load_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).load_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .load_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `load_snapshot`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoadSnapshotResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1985,14 +2188,17 @@ pub mod environments {
     pub struct DatabaseFailover(RequestBuilder<crate::model::DatabaseFailoverRequest>);
 
     impl DatabaseFailover {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DatabaseFailoverRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DatabaseFailoverRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2010,16 +2216,21 @@ pub mod environments {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [database_failover][crate::client::Environments::database_failover].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).database_failover(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .database_failover(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `database_failover`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::DatabaseFailoverResponse, crate::model::OperationMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::DatabaseFailoverResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::DatabaseFailoverResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DatabaseFailoverResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2079,17 +2290,22 @@ pub mod environments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchDatabaseProperties(RequestBuilder<crate::model::FetchDatabasePropertiesRequest>);
+    pub struct FetchDatabaseProperties(
+        RequestBuilder<crate::model::FetchDatabasePropertiesRequest>,
+    );
 
     impl FetchDatabaseProperties {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchDatabasePropertiesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchDatabasePropertiesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2102,7 +2318,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchDatabasePropertiesResponse> {
-            (*self.0.stub).fetch_database_properties(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .fetch_database_properties(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::FetchDatabasePropertiesRequest::environment].
@@ -2146,14 +2365,17 @@ pub mod environments {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2166,11 +2388,17 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2182,7 +2410,12 @@ pub mod environments {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2246,14 +2479,17 @@ pub mod environments {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2266,7 +2502,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2304,14 +2543,17 @@ pub mod environments {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2324,7 +2566,10 @@ pub mod environments {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2340,7 +2585,6 @@ pub mod environments {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod image_versions {
@@ -2368,7 +2612,10 @@ pub mod image_versions {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ImageVersions;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2383,8 +2630,12 @@ pub mod image_versions {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2418,14 +2669,17 @@ pub mod image_versions {
     pub struct ListImageVersions(RequestBuilder<crate::model::ListImageVersionsRequest>);
 
     impl ListImageVersions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListImageVersionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListImageVersionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2438,11 +2692,17 @@ pub mod image_versions {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListImageVersionsResponse> {
-            (*self.0.stub).list_image_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_image_versions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListImageVersionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListImageVersionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2454,7 +2714,10 @@ pub mod image_versions {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListImageVersionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImageVersionsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2516,14 +2779,17 @@ pub mod image_versions {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2536,11 +2802,17 @@ pub mod image_versions {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2552,7 +2824,12 @@ pub mod image_versions {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2616,14 +2893,17 @@ pub mod image_versions {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2636,7 +2916,10 @@ pub mod image_versions {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2674,14 +2957,17 @@ pub mod image_versions {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2694,7 +2980,10 @@ pub mod image_versions {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2710,5 +2999,4 @@ pub mod image_versions {
             &mut self.0.options
         }
     }
-
 }

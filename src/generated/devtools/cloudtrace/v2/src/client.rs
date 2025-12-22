@@ -86,28 +86,42 @@ impl TraceService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::TraceService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::TraceService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TraceService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
         super::transport::TraceService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TraceService> {
-        Self::build_transport(conf).await.map(super::tracing::TraceService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::TraceService::new)
     }
 
     /// Batch writes new spans to new or existing traces. You cannot update
@@ -127,8 +141,7 @@ impl TraceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn batch_write_spans(&self) -> super::builder::trace_service::BatchWriteSpans
-    {
+    pub fn batch_write_spans(&self) -> super::builder::trace_service::BatchWriteSpans {
         super::builder::trace_service::BatchWriteSpans::new(self.inner.clone())
     }
 
@@ -149,8 +162,7 @@ impl TraceService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_span(&self) -> super::builder::trace_service::CreateSpan
-    {
+    pub fn create_span(&self) -> super::builder::trace_service::CreateSpan {
         super::builder::trace_service::CreateSpan::new(self.inner.clone())
     }
 }

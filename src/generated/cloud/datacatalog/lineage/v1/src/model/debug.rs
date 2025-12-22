@@ -47,7 +47,6 @@ impl std::fmt::Debug for super::Run {
     }
 }
 
-
 impl std::fmt::Debug for super::LineageEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LineageEvent");

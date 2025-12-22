@@ -52,7 +52,10 @@ impl std::fmt::Debug for super::UrlMap {
         debug_struct.field("security_level", &self.security_level);
         debug_struct.field("login", &self.login);
         debug_struct.field("auth_fail_action", &self.auth_fail_action);
-        debug_struct.field("redirect_http_response_code", &self.redirect_http_response_code);
+        debug_struct.field(
+            "redirect_http_response_code",
+            &self.redirect_http_response_code,
+        );
         debug_struct.field("handler_type", &self.handler_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -702,7 +705,10 @@ impl std::fmt::Debug for super::application::IdentityAwareProxy {
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("oauth2_client_id", &self.oauth2_client_id);
         debug_struct.field("oauth2_client_secret", &self.oauth2_client_secret);
-        debug_struct.field("oauth2_client_secret_sha256", &self.oauth2_client_secret_sha256);
+        debug_struct.field(
+            "oauth2_client_secret_sha256",
+            &self.oauth2_client_secret_sha256,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -714,7 +720,10 @@ impl std::fmt::Debug for super::application::FeatureSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSettings");
         debug_struct.field("split_health_checks", &self.split_health_checks);
-        debug_struct.field("use_container_optimized_os", &self.use_container_optimized_os);
+        debug_struct.field(
+            "use_container_optimized_os",
+            &self.use_container_optimized_os,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -904,7 +913,10 @@ impl std::fmt::Debug for super::SslSettings {
         let mut debug_struct = f.debug_struct("SslSettings");
         debug_struct.field("certificate_id", &self.certificate_id);
         debug_struct.field("ssl_management_type", &self.ssl_management_type);
-        debug_struct.field("pending_managed_certificate_id", &self.pending_managed_certificate_id);
+        debug_struct.field(
+            "pending_managed_certificate_id",
+            &self.pending_managed_certificate_id,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -979,8 +991,14 @@ impl std::fmt::Debug for super::instance::Liveness {
 impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
-        debug_struct.field("standard_environment_available", &self.standard_environment_available);
-        debug_struct.field("flexible_environment_available", &self.flexible_environment_available);
+        debug_struct.field(
+            "standard_environment_available",
+            &self.standard_environment_available,
+        );
+        debug_struct.field(
+            "flexible_environment_available",
+            &self.flexible_environment_available,
+        );
         debug_struct.field("search_api_available", &self.search_api_available);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1056,7 +1074,6 @@ impl std::fmt::Debug for super::TrafficSplit {
     }
 }
 
-
 impl std::fmt::Debug for super::Version {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Version");
@@ -1079,7 +1096,10 @@ impl std::fmt::Debug for super::Version {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("disk_usage_bytes", &self.disk_usage_bytes);
         debug_struct.field("runtime_api_version", &self.runtime_api_version);
-        debug_struct.field("runtime_main_executable_path", &self.runtime_main_executable_path);
+        debug_struct.field(
+            "runtime_main_executable_path",
+            &self.runtime_main_executable_path,
+        );
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("handlers", &self.handlers);
         debug_struct.field("error_handlers", &self.error_handlers);
@@ -1104,9 +1124,6 @@ impl std::fmt::Debug for super::Version {
         debug_struct.finish()
     }
 }
-
-
-
 
 impl std::fmt::Debug for super::EndpointsApiService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1137,7 +1154,10 @@ impl std::fmt::Debug for super::AutomaticScaling {
         debug_struct.field("request_utilization", &self.request_utilization);
         debug_struct.field("disk_utilization", &self.disk_utilization);
         debug_struct.field("network_utilization", &self.network_utilization);
-        debug_struct.field("standard_scheduler_settings", &self.standard_scheduler_settings);
+        debug_struct.field(
+            "standard_scheduler_settings",
+            &self.standard_scheduler_settings,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1183,8 +1203,14 @@ impl std::fmt::Debug for super::CpuUtilization {
 impl std::fmt::Debug for super::RequestUtilization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RequestUtilization");
-        debug_struct.field("target_request_count_per_second", &self.target_request_count_per_second);
-        debug_struct.field("target_concurrent_requests", &self.target_concurrent_requests);
+        debug_struct.field(
+            "target_request_count_per_second",
+            &self.target_request_count_per_second,
+        );
+        debug_struct.field(
+            "target_concurrent_requests",
+            &self.target_concurrent_requests,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1195,10 +1221,22 @@ impl std::fmt::Debug for super::RequestUtilization {
 impl std::fmt::Debug for super::DiskUtilization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DiskUtilization");
-        debug_struct.field("target_write_bytes_per_second", &self.target_write_bytes_per_second);
-        debug_struct.field("target_write_ops_per_second", &self.target_write_ops_per_second);
-        debug_struct.field("target_read_bytes_per_second", &self.target_read_bytes_per_second);
-        debug_struct.field("target_read_ops_per_second", &self.target_read_ops_per_second);
+        debug_struct.field(
+            "target_write_bytes_per_second",
+            &self.target_write_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_write_ops_per_second",
+            &self.target_write_ops_per_second,
+        );
+        debug_struct.field(
+            "target_read_bytes_per_second",
+            &self.target_read_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_read_ops_per_second",
+            &self.target_read_ops_per_second,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1209,10 +1247,22 @@ impl std::fmt::Debug for super::DiskUtilization {
 impl std::fmt::Debug for super::NetworkUtilization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkUtilization");
-        debug_struct.field("target_sent_bytes_per_second", &self.target_sent_bytes_per_second);
-        debug_struct.field("target_sent_packets_per_second", &self.target_sent_packets_per_second);
-        debug_struct.field("target_received_bytes_per_second", &self.target_received_bytes_per_second);
-        debug_struct.field("target_received_packets_per_second", &self.target_received_packets_per_second);
+        debug_struct.field(
+            "target_sent_bytes_per_second",
+            &self.target_sent_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_sent_packets_per_second",
+            &self.target_sent_packets_per_second,
+        );
+        debug_struct.field(
+            "target_received_bytes_per_second",
+            &self.target_received_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_received_packets_per_second",
+            &self.target_received_packets_per_second,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1224,7 +1274,10 @@ impl std::fmt::Debug for super::StandardSchedulerSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StandardSchedulerSettings");
         debug_struct.field("target_cpu_utilization", &self.target_cpu_utilization);
-        debug_struct.field("target_throughput_utilization", &self.target_throughput_utilization);
+        debug_struct.field(
+            "target_throughput_utilization",
+            &self.target_throughput_utilization,
+        );
         debug_struct.field("min_instances", &self.min_instances);
         debug_struct.field("max_instances", &self.max_instances);
         if !self._unknown_fields.is_empty() {

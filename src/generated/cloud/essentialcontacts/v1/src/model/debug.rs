@@ -22,7 +22,10 @@ impl std::fmt::Debug for super::Contact {
         let mut debug_struct = f.debug_struct("Contact");
         debug_struct.field("name", &self.name);
         debug_struct.field("email", &self.email);
-        debug_struct.field("notification_category_subscriptions", &self.notification_category_subscriptions);
+        debug_struct.field(
+            "notification_category_subscriptions",
+            &self.notification_category_subscriptions,
+        );
         debug_struct.field("language_tag", &self.language_tag);
         debug_struct.field("validation_state", &self.validation_state);
         debug_struct.field("validate_time", &self.validate_time);

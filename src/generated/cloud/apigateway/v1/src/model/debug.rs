@@ -34,7 +34,6 @@ impl std::fmt::Debug for super::Api {
     }
 }
 
-
 impl std::fmt::Debug for super::ApiConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApiConfig");
@@ -91,7 +90,6 @@ impl std::fmt::Debug for super::api_config::GrpcServiceDefinition {
     }
 }
 
-
 impl std::fmt::Debug for super::Gateway {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Gateway");
@@ -109,7 +107,6 @@ impl std::fmt::Debug for super::Gateway {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListGatewaysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -108,7 +108,10 @@ impl std::fmt::Debug for super::TestAllTypesProto3 {
         debug_struct.field("map_string_string", &self.map_string_string);
         debug_struct.field("map_string_bytes", &self.map_string_bytes);
         debug_struct.field("map_string_nested_message", &self.map_string_nested_message);
-        debug_struct.field("map_string_foreign_message", &self.map_string_foreign_message);
+        debug_struct.field(
+            "map_string_foreign_message",
+            &self.map_string_foreign_message,
+        );
         debug_struct.field("map_string_nested_enum", &self.map_string_nested_enum);
         debug_struct.field("map_string_foreign_enum", &self.map_string_foreign_enum);
         debug_struct.field("optional_bool_wrapper", &self.optional_bool_wrapper);
@@ -180,25 +183,6 @@ impl std::fmt::Debug for super::test_all_types_proto_3::NestedMessage {
         debug_struct.finish()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 impl std::fmt::Debug for super::ForeignMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

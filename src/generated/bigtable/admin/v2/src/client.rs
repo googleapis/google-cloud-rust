@@ -74,7 +74,9 @@ impl BigtableInstanceAdmin {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::bigtable_instance_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::bigtable_instance_admin::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::bigtable_instance_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -82,28 +84,43 @@ impl BigtableInstanceAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::BigtableInstanceAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::BigtableInstanceAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
         super::transport::BigtableInstanceAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::BigtableInstanceAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BigtableInstanceAdmin::new)
     }
 
     /// Create an instance within a project.
@@ -123,8 +140,7 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::bigtable_instance_admin::CreateInstance
-    {
+    pub fn create_instance(&self) -> super::builder::bigtable_instance_admin::CreateInstance {
         super::builder::bigtable_instance_admin::CreateInstance::new(self.inner.clone())
     }
 
@@ -146,8 +162,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_instance(&self) -> super::builder::bigtable_instance_admin::GetInstance
-    {
+    pub fn get_instance(&self) -> super::builder::bigtable_instance_admin::GetInstance {
         super::builder::bigtable_instance_admin::GetInstance::new(self.inner.clone())
     }
 
@@ -168,8 +183,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_instances(&self) -> super::builder::bigtable_instance_admin::ListInstances
-    {
+    pub fn list_instances(&self) -> super::builder::bigtable_instance_admin::ListInstances {
         super::builder::bigtable_instance_admin::ListInstances::new(self.inner.clone())
     }
 
@@ -192,8 +206,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_instance(&self) -> super::builder::bigtable_instance_admin::UpdateInstance
-    {
+    pub fn update_instance(&self) -> super::builder::bigtable_instance_admin::UpdateInstance {
         super::builder::bigtable_instance_admin::UpdateInstance::new(self.inner.clone())
     }
 
@@ -209,8 +222,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn partial_update_instance(&self) -> super::builder::bigtable_instance_admin::PartialUpdateInstance
-    {
+    pub fn partial_update_instance(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::PartialUpdateInstance {
         super::builder::bigtable_instance_admin::PartialUpdateInstance::new(self.inner.clone())
     }
 
@@ -230,8 +244,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_instance(&self) -> super::builder::bigtable_instance_admin::DeleteInstance
-    {
+    pub fn delete_instance(&self) -> super::builder::bigtable_instance_admin::DeleteInstance {
         super::builder::bigtable_instance_admin::DeleteInstance::new(self.inner.clone())
     }
 
@@ -252,8 +265,7 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(&self) -> super::builder::bigtable_instance_admin::CreateCluster
-    {
+    pub fn create_cluster(&self) -> super::builder::bigtable_instance_admin::CreateCluster {
         super::builder::bigtable_instance_admin::CreateCluster::new(self.inner.clone())
     }
 
@@ -275,8 +287,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_cluster(&self) -> super::builder::bigtable_instance_admin::GetCluster
-    {
+    pub fn get_cluster(&self) -> super::builder::bigtable_instance_admin::GetCluster {
         super::builder::bigtable_instance_admin::GetCluster::new(self.inner.clone())
     }
 
@@ -297,8 +308,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_clusters(&self) -> super::builder::bigtable_instance_admin::ListClusters
-    {
+    pub fn list_clusters(&self) -> super::builder::bigtable_instance_admin::ListClusters {
         super::builder::bigtable_instance_admin::ListClusters::new(self.inner.clone())
     }
 
@@ -317,8 +327,7 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(&self) -> super::builder::bigtable_instance_admin::UpdateCluster
-    {
+    pub fn update_cluster(&self) -> super::builder::bigtable_instance_admin::UpdateCluster {
         super::builder::bigtable_instance_admin::UpdateCluster::new(self.inner.clone())
     }
 
@@ -344,8 +353,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn partial_update_cluster(&self) -> super::builder::bigtable_instance_admin::PartialUpdateCluster
-    {
+    pub fn partial_update_cluster(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::PartialUpdateCluster {
         super::builder::bigtable_instance_admin::PartialUpdateCluster::new(self.inner.clone())
     }
 
@@ -365,8 +375,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_cluster(&self) -> super::builder::bigtable_instance_admin::DeleteCluster
-    {
+    pub fn delete_cluster(&self) -> super::builder::bigtable_instance_admin::DeleteCluster {
         super::builder::bigtable_instance_admin::DeleteCluster::new(self.inner.clone())
     }
 
@@ -387,8 +396,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_app_profile(&self) -> super::builder::bigtable_instance_admin::CreateAppProfile
-    {
+    pub fn create_app_profile(&self) -> super::builder::bigtable_instance_admin::CreateAppProfile {
         super::builder::bigtable_instance_admin::CreateAppProfile::new(self.inner.clone())
     }
 
@@ -410,14 +418,12 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_app_profile(&self) -> super::builder::bigtable_instance_admin::GetAppProfile
-    {
+    pub fn get_app_profile(&self) -> super::builder::bigtable_instance_admin::GetAppProfile {
         super::builder::bigtable_instance_admin::GetAppProfile::new(self.inner.clone())
     }
 
     /// Lists information about app profiles in an instance.
-    pub fn list_app_profiles(&self) -> super::builder::bigtable_instance_admin::ListAppProfiles
-    {
+    pub fn list_app_profiles(&self) -> super::builder::bigtable_instance_admin::ListAppProfiles {
         super::builder::bigtable_instance_admin::ListAppProfiles::new(self.inner.clone())
     }
 
@@ -432,8 +438,7 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_app_profile(&self) -> super::builder::bigtable_instance_admin::UpdateAppProfile
-    {
+    pub fn update_app_profile(&self) -> super::builder::bigtable_instance_admin::UpdateAppProfile {
         super::builder::bigtable_instance_admin::UpdateAppProfile::new(self.inner.clone())
     }
 
@@ -453,8 +458,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_app_profile(&self) -> super::builder::bigtable_instance_admin::DeleteAppProfile
-    {
+    pub fn delete_app_profile(&self) -> super::builder::bigtable_instance_admin::DeleteAppProfile {
         super::builder::bigtable_instance_admin::DeleteAppProfile::new(self.inner.clone())
     }
 
@@ -476,8 +480,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::bigtable_instance_admin::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::bigtable_instance_admin::GetIamPolicy {
         super::builder::bigtable_instance_admin::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -499,8 +502,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::bigtable_instance_admin::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::bigtable_instance_admin::SetIamPolicy {
         super::builder::bigtable_instance_admin::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -521,15 +523,15 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::bigtable_instance_admin::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::TestIamPermissions {
         super::builder::bigtable_instance_admin::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Lists hot tablets in a cluster, within the time range provided. Hot
     /// tablets are ordered based on CPU usage.
-    pub fn list_hot_tablets(&self) -> super::builder::bigtable_instance_admin::ListHotTablets
-    {
+    pub fn list_hot_tablets(&self) -> super::builder::bigtable_instance_admin::ListHotTablets {
         super::builder::bigtable_instance_admin::ListHotTablets::new(self.inner.clone())
     }
 
@@ -544,8 +546,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_logical_view(&self) -> super::builder::bigtable_instance_admin::CreateLogicalView
-    {
+    pub fn create_logical_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::CreateLogicalView {
         super::builder::bigtable_instance_admin::CreateLogicalView::new(self.inner.clone())
     }
 
@@ -567,14 +570,12 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_logical_view(&self) -> super::builder::bigtable_instance_admin::GetLogicalView
-    {
+    pub fn get_logical_view(&self) -> super::builder::bigtable_instance_admin::GetLogicalView {
         super::builder::bigtable_instance_admin::GetLogicalView::new(self.inner.clone())
     }
 
     /// Lists information about logical views in an instance.
-    pub fn list_logical_views(&self) -> super::builder::bigtable_instance_admin::ListLogicalViews
-    {
+    pub fn list_logical_views(&self) -> super::builder::bigtable_instance_admin::ListLogicalViews {
         super::builder::bigtable_instance_admin::ListLogicalViews::new(self.inner.clone())
     }
 
@@ -589,8 +590,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_logical_view(&self) -> super::builder::bigtable_instance_admin::UpdateLogicalView
-    {
+    pub fn update_logical_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::UpdateLogicalView {
         super::builder::bigtable_instance_admin::UpdateLogicalView::new(self.inner.clone())
     }
 
@@ -610,8 +612,9 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_logical_view(&self) -> super::builder::bigtable_instance_admin::DeleteLogicalView
-    {
+    pub fn delete_logical_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::DeleteLogicalView {
         super::builder::bigtable_instance_admin::DeleteLogicalView::new(self.inner.clone())
     }
 
@@ -626,8 +629,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_materialized_view(&self) -> super::builder::bigtable_instance_admin::CreateMaterializedView
-    {
+    pub fn create_materialized_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::CreateMaterializedView {
         super::builder::bigtable_instance_admin::CreateMaterializedView::new(self.inner.clone())
     }
 
@@ -649,14 +653,16 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_materialized_view(&self) -> super::builder::bigtable_instance_admin::GetMaterializedView
-    {
+    pub fn get_materialized_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::GetMaterializedView {
         super::builder::bigtable_instance_admin::GetMaterializedView::new(self.inner.clone())
     }
 
     /// Lists information about materialized views in an instance.
-    pub fn list_materialized_views(&self) -> super::builder::bigtable_instance_admin::ListMaterializedViews
-    {
+    pub fn list_materialized_views(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::ListMaterializedViews {
         super::builder::bigtable_instance_admin::ListMaterializedViews::new(self.inner.clone())
     }
 
@@ -671,8 +677,9 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_materialized_view(&self) -> super::builder::bigtable_instance_admin::UpdateMaterializedView
-    {
+    pub fn update_materialized_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::UpdateMaterializedView {
         super::builder::bigtable_instance_admin::UpdateMaterializedView::new(self.inner.clone())
     }
 
@@ -692,16 +699,16 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_materialized_view(&self) -> super::builder::bigtable_instance_admin::DeleteMaterializedView
-    {
+    pub fn delete_materialized_view(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::DeleteMaterializedView {
         super::builder::bigtable_instance_admin::DeleteMaterializedView::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::bigtable_instance_admin::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::bigtable_instance_admin::ListOperations {
         super::builder::bigtable_instance_admin::ListOperations::new(self.inner.clone())
     }
 
@@ -724,8 +731,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::bigtable_instance_admin::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::bigtable_instance_admin::GetOperation {
         super::builder::bigtable_instance_admin::GetOperation::new(self.inner.clone())
     }
 
@@ -747,8 +753,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::bigtable_instance_admin::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::bigtable_instance_admin::DeleteOperation {
         super::builder::bigtable_instance_admin::DeleteOperation::new(self.inner.clone())
     }
 
@@ -770,8 +775,7 @@ impl BigtableInstanceAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::bigtable_instance_admin::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::bigtable_instance_admin::CancelOperation {
         super::builder::bigtable_instance_admin::CancelOperation::new(self.inner.clone())
     }
 }
@@ -835,7 +839,9 @@ impl BigtableTableAdmin {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::bigtable_table_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::bigtable_table_admin::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::bigtable_table_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -843,28 +849,43 @@ impl BigtableTableAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::BigtableTableAdmin + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::BigtableTableAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
         super::transport::BigtableTableAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
-        Self::build_transport(conf).await.map(super::tracing::BigtableTableAdmin::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BigtableTableAdmin::new)
     }
 
     /// Creates a new table in the specified instance.
@@ -886,8 +907,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_table(&self) -> super::builder::bigtable_table_admin::CreateTable
-    {
+    pub fn create_table(&self) -> super::builder::bigtable_table_admin::CreateTable {
         super::builder::bigtable_table_admin::CreateTable::new(self.inner.clone())
     }
 
@@ -909,14 +929,14 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_table_from_snapshot(&self) -> super::builder::bigtable_table_admin::CreateTableFromSnapshot
-    {
+    pub fn create_table_from_snapshot(
+        &self,
+    ) -> super::builder::bigtable_table_admin::CreateTableFromSnapshot {
         super::builder::bigtable_table_admin::CreateTableFromSnapshot::new(self.inner.clone())
     }
 
     /// Lists all tables served from a specified instance.
-    pub fn list_tables(&self) -> super::builder::bigtable_table_admin::ListTables
-    {
+    pub fn list_tables(&self) -> super::builder::bigtable_table_admin::ListTables {
         super::builder::bigtable_table_admin::ListTables::new(self.inner.clone())
     }
 
@@ -937,8 +957,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_table(&self) -> super::builder::bigtable_table_admin::GetTable
-    {
+    pub fn get_table(&self) -> super::builder::bigtable_table_admin::GetTable {
         super::builder::bigtable_table_admin::GetTable::new(self.inner.clone())
     }
 
@@ -953,8 +972,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_table(&self) -> super::builder::bigtable_table_admin::UpdateTable
-    {
+    pub fn update_table(&self) -> super::builder::bigtable_table_admin::UpdateTable {
         super::builder::bigtable_table_admin::UpdateTable::new(self.inner.clone())
     }
 
@@ -974,8 +992,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_table(&self) -> super::builder::bigtable_table_admin::DeleteTable
-    {
+    pub fn delete_table(&self) -> super::builder::bigtable_table_admin::DeleteTable {
         super::builder::bigtable_table_admin::DeleteTable::new(self.inner.clone())
     }
 
@@ -990,8 +1007,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_table(&self) -> super::builder::bigtable_table_admin::UndeleteTable
-    {
+    pub fn undelete_table(&self) -> super::builder::bigtable_table_admin::UndeleteTable {
         super::builder::bigtable_table_admin::UndeleteTable::new(self.inner.clone())
     }
 
@@ -1006,14 +1022,16 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_authorized_view(&self) -> super::builder::bigtable_table_admin::CreateAuthorizedView
-    {
+    pub fn create_authorized_view(
+        &self,
+    ) -> super::builder::bigtable_table_admin::CreateAuthorizedView {
         super::builder::bigtable_table_admin::CreateAuthorizedView::new(self.inner.clone())
     }
 
     /// Lists all AuthorizedViews from a specific table.
-    pub fn list_authorized_views(&self) -> super::builder::bigtable_table_admin::ListAuthorizedViews
-    {
+    pub fn list_authorized_views(
+        &self,
+    ) -> super::builder::bigtable_table_admin::ListAuthorizedViews {
         super::builder::bigtable_table_admin::ListAuthorizedViews::new(self.inner.clone())
     }
 
@@ -1035,8 +1053,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_authorized_view(&self) -> super::builder::bigtable_table_admin::GetAuthorizedView
-    {
+    pub fn get_authorized_view(&self) -> super::builder::bigtable_table_admin::GetAuthorizedView {
         super::builder::bigtable_table_admin::GetAuthorizedView::new(self.inner.clone())
     }
 
@@ -1051,8 +1068,9 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_authorized_view(&self) -> super::builder::bigtable_table_admin::UpdateAuthorizedView
-    {
+    pub fn update_authorized_view(
+        &self,
+    ) -> super::builder::bigtable_table_admin::UpdateAuthorizedView {
         super::builder::bigtable_table_admin::UpdateAuthorizedView::new(self.inner.clone())
     }
 
@@ -1072,8 +1090,9 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_authorized_view(&self) -> super::builder::bigtable_table_admin::DeleteAuthorizedView
-    {
+    pub fn delete_authorized_view(
+        &self,
+    ) -> super::builder::bigtable_table_admin::DeleteAuthorizedView {
         super::builder::bigtable_table_admin::DeleteAuthorizedView::new(self.inner.clone())
     }
 
@@ -1097,8 +1116,9 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn modify_column_families(&self) -> super::builder::bigtable_table_admin::ModifyColumnFamilies
-    {
+    pub fn modify_column_families(
+        &self,
+    ) -> super::builder::bigtable_table_admin::ModifyColumnFamilies {
         super::builder::bigtable_table_admin::ModifyColumnFamilies::new(self.inner.clone())
     }
 
@@ -1120,8 +1140,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn drop_row_range(&self) -> super::builder::bigtable_table_admin::DropRowRange
-    {
+    pub fn drop_row_range(&self) -> super::builder::bigtable_table_admin::DropRowRange {
         super::builder::bigtable_table_admin::DropRowRange::new(self.inner.clone())
     }
 
@@ -1145,8 +1164,9 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn generate_consistency_token(&self) -> super::builder::bigtable_table_admin::GenerateConsistencyToken
-    {
+    pub fn generate_consistency_token(
+        &self,
+    ) -> super::builder::bigtable_table_admin::GenerateConsistencyToken {
         super::builder::bigtable_table_admin::GenerateConsistencyToken::new(self.inner.clone())
     }
 
@@ -1169,8 +1189,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn check_consistency(&self) -> super::builder::bigtable_table_admin::CheckConsistency
-    {
+    pub fn check_consistency(&self) -> super::builder::bigtable_table_admin::CheckConsistency {
         super::builder::bigtable_table_admin::CheckConsistency::new(self.inner.clone())
     }
 
@@ -1192,8 +1211,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn snapshot_table(&self) -> super::builder::bigtable_table_admin::SnapshotTable
-    {
+    pub fn snapshot_table(&self) -> super::builder::bigtable_table_admin::SnapshotTable {
         super::builder::bigtable_table_admin::SnapshotTable::new(self.inner.clone())
     }
 
@@ -1220,8 +1238,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_snapshot(&self) -> super::builder::bigtable_table_admin::GetSnapshot
-    {
+    pub fn get_snapshot(&self) -> super::builder::bigtable_table_admin::GetSnapshot {
         super::builder::bigtable_table_admin::GetSnapshot::new(self.inner.clone())
     }
 
@@ -1232,8 +1249,7 @@ impl BigtableTableAdmin {
     /// feature might be changed in backward-incompatible ways and is not
     /// recommended for production use. It is not subject to any SLA or deprecation
     /// policy.
-    pub fn list_snapshots(&self) -> super::builder::bigtable_table_admin::ListSnapshots
-    {
+    pub fn list_snapshots(&self) -> super::builder::bigtable_table_admin::ListSnapshots {
         super::builder::bigtable_table_admin::ListSnapshots::new(self.inner.clone())
     }
 
@@ -1259,8 +1275,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_snapshot(&self) -> super::builder::bigtable_table_admin::DeleteSnapshot
-    {
+    pub fn delete_snapshot(&self) -> super::builder::bigtable_table_admin::DeleteSnapshot {
         super::builder::bigtable_table_admin::DeleteSnapshot::new(self.inner.clone())
     }
 
@@ -1288,8 +1303,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup(&self) -> super::builder::bigtable_table_admin::CreateBackup
-    {
+    pub fn create_backup(&self) -> super::builder::bigtable_table_admin::CreateBackup {
         super::builder::bigtable_table_admin::CreateBackup::new(self.inner.clone())
     }
 
@@ -1310,8 +1324,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_backup(&self) -> super::builder::bigtable_table_admin::GetBackup
-    {
+    pub fn get_backup(&self) -> super::builder::bigtable_table_admin::GetBackup {
         super::builder::bigtable_table_admin::GetBackup::new(self.inner.clone())
     }
 
@@ -1332,8 +1345,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_backup(&self) -> super::builder::bigtable_table_admin::UpdateBackup
-    {
+    pub fn update_backup(&self) -> super::builder::bigtable_table_admin::UpdateBackup {
         super::builder::bigtable_table_admin::UpdateBackup::new(self.inner.clone())
     }
 
@@ -1353,15 +1365,13 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_backup(&self) -> super::builder::bigtable_table_admin::DeleteBackup
-    {
+    pub fn delete_backup(&self) -> super::builder::bigtable_table_admin::DeleteBackup {
         super::builder::bigtable_table_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Lists Cloud Bigtable backups. Returns both completed and pending
     /// backups.
-    pub fn list_backups(&self) -> super::builder::bigtable_table_admin::ListBackups
-    {
+    pub fn list_backups(&self) -> super::builder::bigtable_table_admin::ListBackups {
         super::builder::bigtable_table_admin::ListBackups::new(self.inner.clone())
     }
 
@@ -1388,8 +1398,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_table(&self) -> super::builder::bigtable_table_admin::RestoreTable
-    {
+    pub fn restore_table(&self) -> super::builder::bigtable_table_admin::RestoreTable {
         super::builder::bigtable_table_admin::RestoreTable::new(self.inner.clone())
     }
 
@@ -1405,8 +1414,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn copy_backup(&self) -> super::builder::bigtable_table_admin::CopyBackup
-    {
+    pub fn copy_backup(&self) -> super::builder::bigtable_table_admin::CopyBackup {
         super::builder::bigtable_table_admin::CopyBackup::new(self.inner.clone())
     }
 
@@ -1429,8 +1437,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::bigtable_table_admin::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::bigtable_table_admin::GetIamPolicy {
         super::builder::bigtable_table_admin::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1452,8 +1459,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::bigtable_table_admin::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::bigtable_table_admin::SetIamPolicy {
         super::builder::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -1475,8 +1481,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::bigtable_table_admin::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::bigtable_table_admin::TestIamPermissions {
         super::builder::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -1491,8 +1496,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_schema_bundle(&self) -> super::builder::bigtable_table_admin::CreateSchemaBundle
-    {
+    pub fn create_schema_bundle(&self) -> super::builder::bigtable_table_admin::CreateSchemaBundle {
         super::builder::bigtable_table_admin::CreateSchemaBundle::new(self.inner.clone())
     }
 
@@ -1507,8 +1511,7 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_schema_bundle(&self) -> super::builder::bigtable_table_admin::UpdateSchemaBundle
-    {
+    pub fn update_schema_bundle(&self) -> super::builder::bigtable_table_admin::UpdateSchemaBundle {
         super::builder::bigtable_table_admin::UpdateSchemaBundle::new(self.inner.clone())
     }
 
@@ -1530,14 +1533,12 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_schema_bundle(&self) -> super::builder::bigtable_table_admin::GetSchemaBundle
-    {
+    pub fn get_schema_bundle(&self) -> super::builder::bigtable_table_admin::GetSchemaBundle {
         super::builder::bigtable_table_admin::GetSchemaBundle::new(self.inner.clone())
     }
 
     /// Lists all schema bundles associated with the specified table.
-    pub fn list_schema_bundles(&self) -> super::builder::bigtable_table_admin::ListSchemaBundles
-    {
+    pub fn list_schema_bundles(&self) -> super::builder::bigtable_table_admin::ListSchemaBundles {
         super::builder::bigtable_table_admin::ListSchemaBundles::new(self.inner.clone())
     }
 
@@ -1557,16 +1558,14 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_schema_bundle(&self) -> super::builder::bigtable_table_admin::DeleteSchemaBundle
-    {
+    pub fn delete_schema_bundle(&self) -> super::builder::bigtable_table_admin::DeleteSchemaBundle {
         super::builder::bigtable_table_admin::DeleteSchemaBundle::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::bigtable_table_admin::ListOperations
-    {
+    pub fn list_operations(&self) -> super::builder::bigtable_table_admin::ListOperations {
         super::builder::bigtable_table_admin::ListOperations::new(self.inner.clone())
     }
 
@@ -1589,8 +1588,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::bigtable_table_admin::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::bigtable_table_admin::GetOperation {
         super::builder::bigtable_table_admin::GetOperation::new(self.inner.clone())
     }
 
@@ -1612,8 +1610,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_operation(&self) -> super::builder::bigtable_table_admin::DeleteOperation
-    {
+    pub fn delete_operation(&self) -> super::builder::bigtable_table_admin::DeleteOperation {
         super::builder::bigtable_table_admin::DeleteOperation::new(self.inner.clone())
     }
 
@@ -1635,8 +1632,7 @@ impl BigtableTableAdmin {
     ///     Ok(())
     /// }
     /// ```
-    pub fn cancel_operation(&self) -> super::builder::bigtable_table_admin::CancelOperation
-    {
+    pub fn cancel_operation(&self) -> super::builder::bigtable_table_admin::CancelOperation {
         super::builder::bigtable_table_admin::CancelOperation::new(self.inner.clone())
     }
 }

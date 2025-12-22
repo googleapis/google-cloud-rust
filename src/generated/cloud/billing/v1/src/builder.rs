@@ -39,7 +39,10 @@ pub mod cloud_billing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudBilling;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod cloud_billing {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod cloud_billing {
     pub struct GetBillingAccount(RequestBuilder<crate::model::GetBillingAccountRequest>);
 
     impl GetBillingAccount {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetBillingAccountRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetBillingAccountRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BillingAccount> {
-            (*self.0.stub).get_billing_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_billing_account(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBillingAccountRequest::name].
@@ -149,14 +162,17 @@ pub mod cloud_billing {
     pub struct ListBillingAccounts(RequestBuilder<crate::model::ListBillingAccountsRequest>);
 
     impl ListBillingAccounts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListBillingAccountsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListBillingAccountsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -169,11 +185,17 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBillingAccountsResponse> {
-            (*self.0.stub).list_billing_accounts(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_billing_accounts(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -185,7 +207,12 @@ pub mod cloud_billing {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBillingAccountsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBillingAccountsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -243,14 +270,17 @@ pub mod cloud_billing {
     pub struct UpdateBillingAccount(RequestBuilder<crate::model::UpdateBillingAccountRequest>);
 
     impl UpdateBillingAccount {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBillingAccountRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBillingAccountRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -263,7 +293,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BillingAccount> {
-            (*self.0.stub).update_billing_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_billing_account(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateBillingAccountRequest::name].
@@ -278,7 +311,8 @@ pub mod cloud_billing {
         ///
         /// This is a **required** field for requests.
         pub fn set_account<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BillingAccount>
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
         {
             self.0.request.account = std::option::Option::Some(v.into());
             self
@@ -288,7 +322,8 @@ pub mod cloud_billing {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BillingAccount>
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
         {
             self.0.request.account = v.map(|x| x.into());
             self
@@ -296,7 +331,8 @@ pub mod cloud_billing {
 
         /// Sets the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -304,7 +340,8 @@ pub mod cloud_billing {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -339,14 +376,17 @@ pub mod cloud_billing {
     pub struct CreateBillingAccount(RequestBuilder<crate::model::CreateBillingAccountRequest>);
 
     impl CreateBillingAccount {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBillingAccountRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBillingAccountRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -359,14 +399,18 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BillingAccount> {
-            (*self.0.stub).create_billing_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_billing_account(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
         ///
         /// This is a **required** field for requests.
         pub fn set_billing_account<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BillingAccount>
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
         {
             self.0.request.billing_account = std::option::Option::Some(v.into());
             self
@@ -376,7 +420,8 @@ pub mod cloud_billing {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BillingAccount>
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
         {
             self.0.request.billing_account = v.map(|x| x.into());
             self
@@ -421,14 +466,17 @@ pub mod cloud_billing {
     pub struct ListProjectBillingInfo(RequestBuilder<crate::model::ListProjectBillingInfoRequest>);
 
     impl ListProjectBillingInfo {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProjectBillingInfoRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProjectBillingInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -441,11 +489,19 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProjectBillingInfoResponse> {
-            (*self.0.stub).list_project_billing_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_project_billing_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProjectBillingInfoResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListProjectBillingInfoResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -457,7 +513,12 @@ pub mod cloud_billing {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProjectBillingInfoResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProjectBillingInfoResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -511,14 +572,17 @@ pub mod cloud_billing {
     pub struct GetProjectBillingInfo(RequestBuilder<crate::model::GetProjectBillingInfoRequest>);
 
     impl GetProjectBillingInfo {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProjectBillingInfoRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProjectBillingInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -531,7 +595,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProjectBillingInfo> {
-            (*self.0.stub).get_project_billing_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_project_billing_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectBillingInfoRequest::name].
@@ -568,17 +635,22 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProjectBillingInfo(RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>);
+    pub struct UpdateProjectBillingInfo(
+        RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>,
+    );
 
     impl UpdateProjectBillingInfo {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateProjectBillingInfoRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateProjectBillingInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -591,7 +663,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProjectBillingInfo> {
-            (*self.0.stub).update_project_billing_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_project_billing_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateProjectBillingInfoRequest::name].
@@ -604,7 +679,8 @@ pub mod cloud_billing {
 
         /// Sets the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
         pub fn set_project_billing_info<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ProjectBillingInfo>
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
         {
             self.0.request.project_billing_info = std::option::Option::Some(v.into());
             self
@@ -612,7 +688,8 @@ pub mod cloud_billing {
 
         /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
         pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ProjectBillingInfo>
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
         {
             self.0.request.project_billing_info = v.map(|x| x.into());
             self
@@ -647,10 +724,10 @@ pub mod cloud_billing {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -667,7 +744,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -680,7 +760,8 @@ pub mod cloud_billing {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -688,7 +769,8 @@ pub mod cloud_billing {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -723,10 +805,10 @@ pub mod cloud_billing {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -743,7 +825,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -758,7 +843,8 @@ pub mod cloud_billing {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -768,7 +854,8 @@ pub mod cloud_billing {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -776,7 +863,8 @@ pub mod cloud_billing {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -784,7 +872,8 @@ pub mod cloud_billing {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -819,14 +908,17 @@ pub mod cloud_billing {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -839,7 +931,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -856,7 +951,7 @@ pub mod cloud_billing {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -892,14 +987,17 @@ pub mod cloud_billing {
     pub struct MoveBillingAccount(RequestBuilder<crate::model::MoveBillingAccountRequest>);
 
     impl MoveBillingAccount {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MoveBillingAccountRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::MoveBillingAccountRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -912,7 +1010,10 @@ pub mod cloud_billing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BillingAccount> {
-            (*self.0.stub).move_billing_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .move_billing_account(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MoveBillingAccountRequest::name].
@@ -938,7 +1039,6 @@ pub mod cloud_billing {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod cloud_catalog {
@@ -966,7 +1066,10 @@ pub mod cloud_catalog {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudCatalog;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -981,8 +1084,12 @@ pub mod cloud_catalog {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1016,10 +1123,10 @@ pub mod cloud_catalog {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1036,11 +1143,17 @@ pub mod cloud_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListServicesResponse> {
-            (*self.0.stub).list_services(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_services(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1052,7 +1165,10 @@ pub mod cloud_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1102,10 +1218,10 @@ pub mod cloud_catalog {
     pub struct ListSkus(RequestBuilder<crate::model::ListSkusRequest>);
 
     impl ListSkus {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1122,11 +1238,17 @@ pub mod cloud_catalog {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSkusResponse> {
-            (*self.0.stub).list_skus(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_skus(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1138,7 +1260,10 @@ pub mod cloud_catalog {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSkusResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSkusResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1153,7 +1278,8 @@ pub mod cloud_catalog {
 
         /// Sets the value of [start_time][crate::model::ListSkusRequest::start_time].
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -1161,7 +1287,8 @@ pub mod cloud_catalog {
 
         /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -1169,7 +1296,8 @@ pub mod cloud_catalog {
 
         /// Sets the value of [end_time][crate::model::ListSkusRequest::end_time].
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -1177,7 +1305,8 @@ pub mod cloud_catalog {
 
         /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -1208,5 +1337,4 @@ pub mod cloud_catalog {
             &mut self.0.options
         }
     }
-
 }

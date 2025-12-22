@@ -81,33 +81,46 @@ impl CloudScheduler {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudScheduler + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudScheduler + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
         super::transport::CloudScheduler::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
-        Self::build_transport(conf).await.map(super::tracing::CloudScheduler::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudScheduler::new)
     }
 
     /// Lists jobs.
-    pub fn list_jobs(&self) -> super::builder::cloud_scheduler::ListJobs
-    {
+    pub fn list_jobs(&self) -> super::builder::cloud_scheduler::ListJobs {
         super::builder::cloud_scheduler::ListJobs::new(self.inner.clone())
     }
 
@@ -129,8 +142,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_job(&self) -> super::builder::cloud_scheduler::GetJob
-    {
+    pub fn get_job(&self) -> super::builder::cloud_scheduler::GetJob {
         super::builder::cloud_scheduler::GetJob::new(self.inner.clone())
     }
 
@@ -151,8 +163,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_job(&self) -> super::builder::cloud_scheduler::CreateJob
-    {
+    pub fn create_job(&self) -> super::builder::cloud_scheduler::CreateJob {
         super::builder::cloud_scheduler::CreateJob::new(self.inner.clone())
     }
 
@@ -185,8 +196,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_job(&self) -> super::builder::cloud_scheduler::UpdateJob
-    {
+    pub fn update_job(&self) -> super::builder::cloud_scheduler::UpdateJob {
         super::builder::cloud_scheduler::UpdateJob::new(self.inner.clone())
     }
 
@@ -206,8 +216,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_job(&self) -> super::builder::cloud_scheduler::DeleteJob
-    {
+    pub fn delete_job(&self) -> super::builder::cloud_scheduler::DeleteJob {
         super::builder::cloud_scheduler::DeleteJob::new(self.inner.clone())
     }
 
@@ -242,8 +251,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn pause_job(&self) -> super::builder::cloud_scheduler::PauseJob
-    {
+    pub fn pause_job(&self) -> super::builder::cloud_scheduler::PauseJob {
         super::builder::cloud_scheduler::PauseJob::new(self.inner.clone())
     }
 
@@ -276,8 +284,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn resume_job(&self) -> super::builder::cloud_scheduler::ResumeJob
-    {
+    pub fn resume_job(&self) -> super::builder::cloud_scheduler::ResumeJob {
         super::builder::cloud_scheduler::ResumeJob::new(self.inner.clone())
     }
 
@@ -301,14 +308,12 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn run_job(&self) -> super::builder::cloud_scheduler::RunJob
-    {
+    pub fn run_job(&self) -> super::builder::cloud_scheduler::RunJob {
         super::builder::cloud_scheduler::RunJob::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_scheduler::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::cloud_scheduler::ListLocations {
         super::builder::cloud_scheduler::ListLocations::new(self.inner.clone())
     }
 
@@ -329,8 +334,7 @@ impl CloudScheduler {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::cloud_scheduler::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::cloud_scheduler::GetLocation {
         super::builder::cloud_scheduler::GetLocation::new(self.inner.clone())
     }
 }

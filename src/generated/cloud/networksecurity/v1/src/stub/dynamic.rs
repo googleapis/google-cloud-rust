@@ -216,7 +216,8 @@ impl<T: super::AddressGroupService> AddressGroupService for T {
         &self,
         req: crate::model::ListAddressGroupReferencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAddressGroupReferencesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAddressGroupReferencesResponse>>
+    {
         T::list_address_group_references(self, req, options).await
     }
 
@@ -518,7 +519,8 @@ impl<T: super::OrganizationAddressGroupService> OrganizationAddressGroupService 
         &self,
         req: crate::model::ListAddressGroupReferencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAddressGroupReferencesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAddressGroupReferencesResponse>>
+    {
         T::list_address_group_references(self, req, options).await
     }
 
@@ -784,7 +786,8 @@ impl<T: super::NetworkSecurity> NetworkSecurity for T {
         &self,
         req: crate::model::ListAuthorizationPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizationPoliciesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizationPoliciesResponse>>
+    {
         T::list_authorization_policies(self, req, options).await
     }
 

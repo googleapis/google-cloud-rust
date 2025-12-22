@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,6 +26,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,7 +38,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
-
     /// A list of locations that matches the specified filter in the request.
     pub locations: std::vec::Vec<crate::model::Location>,
 
@@ -68,7 +67,7 @@ impl ListLocationsResponse {
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Location>
+        V: std::convert::Into<crate::model::Location>,
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -83,7 +82,8 @@ impl ListLocationsResponse {
     /// let x = ListLocationsResponse::new().set_next_page_token("example");
     /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = std::option::Option::Some(v.into());
         self
@@ -98,7 +98,8 @@ impl ListLocationsResponse {
     /// let x = ListLocationsResponse::new().set_or_clear_next_page_token(None::<String>);
     /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = v.map(|x| x.into());
         self
@@ -129,7 +130,6 @@ impl gax::paginator::internal::PageableResponse for ListLocationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
-
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
     pub name: std::option::Option<std::string::String>,
@@ -146,7 +146,7 @@ pub struct Location {
     /// ```norust
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
@@ -168,7 +168,8 @@ impl Location {
     /// let x = Location::new().set_name("example");
     /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = std::option::Option::Some(v.into());
         self
@@ -183,7 +184,8 @@ impl Location {
     /// let x = Location::new().set_or_clear_name(None::<String>);
     /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = v.map(|x| x.into());
         self
@@ -197,7 +199,8 @@ impl Location {
     /// let x = Location::new().set_location_id("example");
     /// ```
     pub fn set_location_id<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location_id = std::option::Option::Some(v.into());
         self
@@ -212,7 +215,8 @@ impl Location {
     /// let x = Location::new().set_or_clear_location_id(None::<String>);
     /// ```
     pub fn set_or_clear_location_id<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location_id = v.map(|x| x.into());
         self
@@ -226,7 +230,8 @@ impl Location {
     /// let x = Location::new().set_display_name("example");
     /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.display_name = std::option::Option::Some(v.into());
         self
@@ -241,7 +246,8 @@ impl Location {
     /// let x = Location::new().set_or_clear_display_name(None::<String>);
     /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.display_name = v.map(|x| x.into());
         self
@@ -277,7 +283,8 @@ impl Location {
     /// let x = Location::new().set_metadata(Any::default()/* use setters */);
     /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Any>
+    where
+        T: std::convert::Into<wkt::Any>,
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -293,7 +300,8 @@ impl Location {
     /// let x = Location::new().set_or_clear_metadata(None::<Any>);
     /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Any>
+    where
+        T: std::convert::Into<wkt::Any>,
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -310,7 +318,6 @@ impl wkt::message::Message for Location {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
-
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
     pub secrets: std::vec::Vec<crate::model::Secret>,
@@ -346,7 +353,7 @@ impl ListSecretsResponse {
     pub fn set_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>
+        V: std::convert::Into<crate::model::Secret>,
     {
         use std::iter::Iterator;
         self.secrets = v.into_iter().map(|i| i.into()).collect();
@@ -361,7 +368,8 @@ impl ListSecretsResponse {
     /// let x = ListSecretsResponse::new().set_next_page_token("example");
     /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = std::option::Option::Some(v.into());
         self
@@ -376,7 +384,8 @@ impl ListSecretsResponse {
     /// let x = ListSecretsResponse::new().set_or_clear_next_page_token(None::<String>);
     /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = v.map(|x| x.into());
         self
@@ -390,7 +399,8 @@ impl ListSecretsResponse {
     /// let x = ListSecretsResponse::new().set_total_size(42);
     /// ```
     pub fn set_total_size<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.total_size = std::option::Option::Some(v.into());
         self
@@ -405,7 +415,8 @@ impl ListSecretsResponse {
     /// let x = ListSecretsResponse::new().set_or_clear_total_size(None::<i32>);
     /// ```
     pub fn set_or_clear_total_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.total_size = v.map(|x| x.into());
         self
@@ -440,7 +451,6 @@ impl gax::paginator::internal::PageableResponse for ListSecretsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
-
     /// Output only. The resource name of the Secret in the format `projects/_*_/secrets/*`.
     pub name: std::option::Option<std::string::String>,
 
@@ -463,7 +473,7 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     ///
     /// No more than 64 labels can be assigned to a given resource.
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
@@ -494,7 +504,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    pub version_aliases: std::collections::HashMap<std::string::String,i64>,
+    pub version_aliases: std::collections::HashMap<std::string::String, i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -508,7 +518,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
-    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -542,7 +552,8 @@ impl Secret {
     /// let x = Secret::new().set_name("example");
     /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = std::option::Option::Some(v.into());
         self
@@ -557,7 +568,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_name(None::<String>);
     /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = v.map(|x| x.into());
         self
@@ -572,7 +584,8 @@ impl Secret {
     /// let x = Secret::new().set_replication(Replication::default()/* use setters */);
     /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Replication>
+    where
+        T: std::convert::Into<crate::model::Replication>,
     {
         self.replication = std::option::Option::Some(v.into());
         self
@@ -588,7 +601,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_replication(None::<Replication>);
     /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Replication>
+    where
+        T: std::convert::Into<crate::model::Replication>,
     {
         self.replication = v.map(|x| x.into());
         self
@@ -603,7 +617,8 @@ impl Secret {
     /// let x = Secret::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -619,7 +634,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -661,7 +677,7 @@ impl Secret {
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Topic>
+        V: std::convert::Into<crate::model::Topic>,
     {
         use std::iter::Iterator;
         self.topics = v.into_iter().map(|i| i.into()).collect();
@@ -677,7 +693,8 @@ impl Secret {
     /// let x = Secret::new().set_expire_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -693,7 +710,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_expire_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -708,7 +726,8 @@ impl Secret {
     /// let x = Secret::new().set_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -724,7 +743,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -738,7 +758,8 @@ impl Secret {
     /// let x = Secret::new().set_etag("example");
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -753,7 +774,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_etag(None::<String>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -768,7 +790,8 @@ impl Secret {
     /// let x = Secret::new().set_rotation(Rotation::default()/* use setters */);
     /// ```
     pub fn set_rotation<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Rotation>
+    where
+        T: std::convert::Into<crate::model::Rotation>,
     {
         self.rotation = std::option::Option::Some(v.into());
         self
@@ -784,7 +807,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_rotation(None::<Rotation>);
     /// ```
     pub fn set_or_clear_rotation<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Rotation>
+    where
+        T: std::convert::Into<crate::model::Rotation>,
     {
         self.rotation = v.map(|x| x.into());
         self
@@ -841,7 +865,8 @@ impl Secret {
     /// let x = Secret::new().set_version_destroy_ttl(Duration::default()/* use setters */);
     /// ```
     pub fn set_version_destroy_ttl<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.version_destroy_ttl = std::option::Option::Some(v.into());
         self
@@ -857,7 +882,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_version_destroy_ttl(None::<Duration>);
     /// ```
     pub fn set_or_clear_version_destroy_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.version_destroy_ttl = v.map(|x| x.into());
         self
@@ -872,7 +898,8 @@ impl Secret {
     /// let x = Secret::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -888,7 +915,8 @@ impl Secret {
     /// let x = Secret::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -905,7 +933,6 @@ impl wkt::message::Message for Secret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replication {
-
     /// The Secret will automatically be replicated without any restrictions.
     pub automatic: std::option::Option<crate::model::Automatic>,
 
@@ -929,7 +956,8 @@ impl Replication {
     /// let x = Replication::new().set_automatic(Automatic::default()/* use setters */);
     /// ```
     pub fn set_automatic<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Automatic>
+    where
+        T: std::convert::Into<crate::model::Automatic>,
     {
         self.automatic = std::option::Option::Some(v.into());
         self
@@ -945,7 +973,8 @@ impl Replication {
     /// let x = Replication::new().set_or_clear_automatic(None::<Automatic>);
     /// ```
     pub fn set_or_clear_automatic<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Automatic>
+    where
+        T: std::convert::Into<crate::model::Automatic>,
     {
         self.automatic = v.map(|x| x.into());
         self
@@ -960,7 +989,8 @@ impl Replication {
     /// let x = Replication::new().set_user_managed(UserManaged::default()/* use setters */);
     /// ```
     pub fn set_user_managed<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::UserManaged>
+    where
+        T: std::convert::Into<crate::model::UserManaged>,
     {
         self.user_managed = std::option::Option::Some(v.into());
         self
@@ -976,7 +1006,8 @@ impl Replication {
     /// let x = Replication::new().set_or_clear_user_managed(None::<UserManaged>);
     /// ```
     pub fn set_or_clear_user_managed<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::UserManaged>
+    where
+        T: std::convert::Into<crate::model::UserManaged>,
     {
         self.user_managed = v.map(|x| x.into());
         self
@@ -994,7 +1025,6 @@ impl wkt::message::Message for Replication {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Automatic {
-
     /// Optional. The customer-managed encryption configuration of the Secret. If no
     /// configuration is provided, Google-managed default encryption is used.
     ///
@@ -1020,7 +1050,8 @@ impl Automatic {
     /// let x = Automatic::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -1036,7 +1067,8 @@ impl Automatic {
     /// let x = Automatic::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -1054,7 +1086,6 @@ impl wkt::message::Message for Automatic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
-
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt secret
     /// payloads.
     ///
@@ -1100,7 +1131,6 @@ impl wkt::message::Message for CustomerManagedEncryption {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserManaged {
-
     /// Required. The list of Replicas for this Secret.
     ///
     /// Cannot be empty.
@@ -1129,7 +1159,7 @@ impl UserManaged {
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Replica>
+        V: std::convert::Into<crate::model::Replica>,
     {
         use std::iter::Iterator;
         self.replicas = v.into_iter().map(|i| i.into()).collect();
@@ -1147,7 +1177,6 @@ impl wkt::message::Message for UserManaged {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replica {
-
     /// The canonical IDs of the location to replicate data.
     /// For example: `"us-east1"`.
     pub location: std::option::Option<std::string::String>,
@@ -1177,7 +1206,8 @@ impl Replica {
     /// let x = Replica::new().set_location("example");
     /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = std::option::Option::Some(v.into());
         self
@@ -1192,7 +1222,8 @@ impl Replica {
     /// let x = Replica::new().set_or_clear_location(None::<String>);
     /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = v.map(|x| x.into());
         self
@@ -1207,7 +1238,8 @@ impl Replica {
     /// let x = Replica::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -1223,7 +1255,8 @@ impl Replica {
     /// let x = Replica::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryption>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -1241,7 +1274,6 @@ impl wkt::message::Message for Replica {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
-
     /// Required. The resource name of the Pub/Sub topic that will be published to, in the
     /// following format: `projects/_*_/topics/*`. For publication to succeed, the
     /// Secret Manager service agent must have the `pubsub.topic.publish`
@@ -1282,7 +1314,6 @@ impl wkt::message::Message for Topic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rotation {
-
     /// Optional. Timestamp in UTC at which the Secret is scheduled to rotate. Cannot be
     /// set to less than 300s (5 min) in the future and at most 3153600000s (100
     /// years).
@@ -1315,7 +1346,8 @@ impl Rotation {
     /// let x = Rotation::new().set_next_rotation_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_rotation_time = std::option::Option::Some(v.into());
         self
@@ -1331,7 +1363,8 @@ impl Rotation {
     /// let x = Rotation::new().set_or_clear_next_rotation_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.next_rotation_time = v.map(|x| x.into());
         self
@@ -1346,7 +1379,8 @@ impl Rotation {
     /// let x = Rotation::new().set_rotation_period(Duration::default()/* use setters */);
     /// ```
     pub fn set_rotation_period<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.rotation_period = std::option::Option::Some(v.into());
         self
@@ -1362,7 +1396,8 @@ impl Rotation {
     /// let x = Rotation::new().set_or_clear_rotation_period(None::<Duration>);
     /// ```
     pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Duration>
+    where
+        T: std::convert::Into<wkt::Duration>,
     {
         self.rotation_period = v.map(|x| x.into());
         self
@@ -1379,7 +1414,6 @@ impl wkt::message::Message for Rotation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
-
     /// Required. The secret payload of the SecretVersion.
     pub payload: std::option::Option<crate::model::SecretPayload>,
 
@@ -1400,7 +1434,8 @@ impl AddSecretVersionRequest {
     /// let x = AddSecretVersionRequest::new().set_payload(SecretPayload::default()/* use setters */);
     /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SecretPayload>
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
     {
         self.payload = std::option::Option::Some(v.into());
         self
@@ -1416,7 +1451,8 @@ impl AddSecretVersionRequest {
     /// let x = AddSecretVersionRequest::new().set_or_clear_payload(None::<SecretPayload>);
     /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SecretPayload>
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
     {
         self.payload = v.map(|x| x.into());
         self
@@ -1434,7 +1470,6 @@ impl wkt::message::Message for AddSecretVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretPayload {
-
     /// The secret data. Must be no larger than 64KiB.
     pub data: std::option::Option<::bytes::Bytes>,
 
@@ -1466,7 +1501,8 @@ impl SecretPayload {
     /// let x = SecretPayload::new().set_data(bytes::Bytes::from_static(b"example"));
     /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<::bytes::Bytes>
+    where
+        T: std::convert::Into<::bytes::Bytes>,
     {
         self.data = std::option::Option::Some(v.into());
         self
@@ -1481,7 +1517,8 @@ impl SecretPayload {
     /// let x = SecretPayload::new().set_or_clear_data(None::<bytes::Bytes>);
     /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<::bytes::Bytes>
+    where
+        T: std::convert::Into<::bytes::Bytes>,
     {
         self.data = v.map(|x| x.into());
         self
@@ -1495,7 +1532,8 @@ impl SecretPayload {
     /// let x = SecretPayload::new().set_data_crc_32_c(42);
     /// ```
     pub fn set_data_crc_32_c<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.data_crc_32_c = std::option::Option::Some(v.into());
         self
@@ -1510,7 +1548,8 @@ impl SecretPayload {
     /// let x = SecretPayload::new().set_or_clear_data_crc_32_c(None::<i32>);
     /// ```
     pub fn set_or_clear_data_crc_32_c<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.data_crc_32_c = v.map(|x| x.into());
         self
@@ -1527,7 +1566,6 @@ impl wkt::message::Message for SecretPayload {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretVersion {
-
     /// Output only. The resource name of the SecretVersion in the
     /// format `projects/_*_/secrets/_*_/versions/*`.
     ///
@@ -1567,7 +1605,8 @@ pub struct SecretVersion {
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
     /// a Regionalised Secret.
-    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+    pub customer_managed_encryption:
+        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1585,7 +1624,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_name("example");
     /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = std::option::Option::Some(v.into());
         self
@@ -1600,7 +1640,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_name(None::<String>);
     /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = v.map(|x| x.into());
         self
@@ -1615,7 +1656,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1631,7 +1673,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1646,7 +1689,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.destroy_time = std::option::Option::Some(v.into());
         self
@@ -1662,7 +1706,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.destroy_time = v.map(|x| x.into());
         self
@@ -1676,7 +1721,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_state("example");
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.state = std::option::Option::Some(v.into());
         self
@@ -1691,7 +1737,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_state(None::<String>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.state = v.map(|x| x.into());
         self
@@ -1706,7 +1753,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_replication_status(ReplicationStatus::default()/* use setters */);
     /// ```
     pub fn set_replication_status<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ReplicationStatus>
+    where
+        T: std::convert::Into<crate::model::ReplicationStatus>,
     {
         self.replication_status = std::option::Option::Some(v.into());
         self
@@ -1722,7 +1770,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_replication_status(None::<ReplicationStatus>);
     /// ```
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ReplicationStatus>
+    where
+        T: std::convert::Into<crate::model::ReplicationStatus>,
     {
         self.replication_status = v.map(|x| x.into());
         self
@@ -1736,7 +1785,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_etag("example");
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -1751,7 +1801,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_etag(None::<String>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -1765,7 +1816,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_client_specified_payload_checksum(true);
     /// ```
     pub fn set_client_specified_payload_checksum<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.client_specified_payload_checksum = std::option::Option::Some(v.into());
         self
@@ -1779,8 +1831,12 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_client_specified_payload_checksum(Some(false));
     /// let x = SecretVersion::new().set_or_clear_client_specified_payload_checksum(None::<bool>);
     /// ```
-    pub fn set_or_clear_client_specified_payload_checksum<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    pub fn set_or_clear_client_specified_payload_checksum<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
     {
         self.client_specified_payload_checksum = v.map(|x| x.into());
         self
@@ -1795,7 +1851,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_scheduled_destroy_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_scheduled_destroy_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.scheduled_destroy_time = std::option::Option::Some(v.into());
         self
@@ -1811,7 +1868,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_scheduled_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.scheduled_destroy_time = v.map(|x| x.into());
         self
@@ -1826,7 +1884,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -1842,7 +1901,8 @@ impl SecretVersion {
     /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -1859,7 +1919,6 @@ impl wkt::message::Message for SecretVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationStatus {
-
     /// Describes the replication status of a SecretVersion with
     /// automatic replication.
     ///
@@ -1891,7 +1950,8 @@ impl ReplicationStatus {
     /// let x = ReplicationStatus::new().set_automatic(AutomaticStatus::default()/* use setters */);
     /// ```
     pub fn set_automatic<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AutomaticStatus>
+    where
+        T: std::convert::Into<crate::model::AutomaticStatus>,
     {
         self.automatic = std::option::Option::Some(v.into());
         self
@@ -1907,7 +1967,8 @@ impl ReplicationStatus {
     /// let x = ReplicationStatus::new().set_or_clear_automatic(None::<AutomaticStatus>);
     /// ```
     pub fn set_or_clear_automatic<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AutomaticStatus>
+    where
+        T: std::convert::Into<crate::model::AutomaticStatus>,
     {
         self.automatic = v.map(|x| x.into());
         self
@@ -1922,7 +1983,8 @@ impl ReplicationStatus {
     /// let x = ReplicationStatus::new().set_user_managed(UserManagedStatus::default()/* use setters */);
     /// ```
     pub fn set_user_managed<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::UserManagedStatus>
+    where
+        T: std::convert::Into<crate::model::UserManagedStatus>,
     {
         self.user_managed = std::option::Option::Some(v.into());
         self
@@ -1938,7 +2000,8 @@ impl ReplicationStatus {
     /// let x = ReplicationStatus::new().set_or_clear_user_managed(None::<UserManagedStatus>);
     /// ```
     pub fn set_or_clear_user_managed<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::UserManagedStatus>
+    where
+        T: std::convert::Into<crate::model::UserManagedStatus>,
     {
         self.user_managed = v.map(|x| x.into());
         self
@@ -1958,10 +2021,10 @@ impl wkt::message::Message for ReplicationStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomaticStatus {
-
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+    pub customer_managed_encryption:
+        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1980,7 +2043,8 @@ impl AutomaticStatus {
     /// let x = AutomaticStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -1996,7 +2060,8 @@ impl AutomaticStatus {
     /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -2013,7 +2078,6 @@ impl wkt::message::Message for AutomaticStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
-
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to encrypt the
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
@@ -2034,7 +2098,10 @@ impl CustomerManagedEncryptionStatus {
     /// # use secretmanager_openapi_v1::model::CustomerManagedEncryptionStatus;
     /// let x = CustomerManagedEncryptionStatus::new().set_kms_key_version_name("example");
     /// ```
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -2054,7 +2121,6 @@ impl wkt::message::Message for CustomerManagedEncryptionStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserManagedStatus {
-
     /// Output only. The list of replica statuses for the SecretVersion.
     pub replicas: std::vec::Vec<crate::model::ReplicaStatus>,
 
@@ -2081,7 +2147,7 @@ impl UserManagedStatus {
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaStatus>
+        V: std::convert::Into<crate::model::ReplicaStatus>,
     {
         use std::iter::Iterator;
         self.replicas = v.into_iter().map(|i| i.into()).collect();
@@ -2099,14 +2165,14 @@ impl wkt::message::Message for UserManagedStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaStatus {
-
     /// Output only. The canonical ID of the replica location.
     /// For example: `"us-east1"`.
     pub location: std::option::Option<std::string::String>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+    pub customer_managed_encryption:
+        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2124,7 +2190,8 @@ impl ReplicaStatus {
     /// let x = ReplicaStatus::new().set_location("example");
     /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = std::option::Option::Some(v.into());
         self
@@ -2139,7 +2206,8 @@ impl ReplicaStatus {
     /// let x = ReplicaStatus::new().set_or_clear_location(None::<String>);
     /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = v.map(|x| x.into());
         self
@@ -2154,7 +2222,8 @@ impl ReplicaStatus {
     /// let x = ReplicaStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
     /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = std::option::Option::Some(v.into());
         self
@@ -2170,7 +2239,8 @@ impl ReplicaStatus {
     /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
     /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>
+    where
+        T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
         self
@@ -2195,7 +2265,6 @@ impl wkt::message::Message for ReplicaStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Empty {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2215,7 +2284,6 @@ impl wkt::message::Message for Empty {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
-
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
     pub versions: std::vec::Vec<crate::model::SecretVersion>,
@@ -2251,7 +2319,7 @@ impl ListSecretVersionsResponse {
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretVersion>
+        V: std::convert::Into<crate::model::SecretVersion>,
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
@@ -2266,7 +2334,8 @@ impl ListSecretVersionsResponse {
     /// let x = ListSecretVersionsResponse::new().set_next_page_token("example");
     /// ```
     pub fn set_next_page_token<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = std::option::Option::Some(v.into());
         self
@@ -2281,7 +2350,8 @@ impl ListSecretVersionsResponse {
     /// let x = ListSecretVersionsResponse::new().set_or_clear_next_page_token(None::<String>);
     /// ```
     pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.next_page_token = v.map(|x| x.into());
         self
@@ -2295,7 +2365,8 @@ impl ListSecretVersionsResponse {
     /// let x = ListSecretVersionsResponse::new().set_total_size(42);
     /// ```
     pub fn set_total_size<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.total_size = std::option::Option::Some(v.into());
         self
@@ -2310,7 +2381,8 @@ impl ListSecretVersionsResponse {
     /// let x = ListSecretVersionsResponse::new().set_or_clear_total_size(None::<i32>);
     /// ```
     pub fn set_or_clear_total_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.total_size = v.map(|x| x.into());
         self
@@ -2341,7 +2413,6 @@ impl gax::paginator::internal::PageableResponse for ListSecretVersionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
-
     /// The resource name of the SecretVersion in the format
     /// `projects/_*_/secrets/_*_/versions/*` or
     /// `projects/_*_/locations/_*_/secrets/_*_/versions/*`.
@@ -2366,7 +2437,8 @@ impl AccessSecretVersionResponse {
     /// let x = AccessSecretVersionResponse::new().set_name("example");
     /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = std::option::Option::Some(v.into());
         self
@@ -2381,7 +2453,8 @@ impl AccessSecretVersionResponse {
     /// let x = AccessSecretVersionResponse::new().set_or_clear_name(None::<String>);
     /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.name = v.map(|x| x.into());
         self
@@ -2396,7 +2469,8 @@ impl AccessSecretVersionResponse {
     /// let x = AccessSecretVersionResponse::new().set_payload(SecretPayload::default()/* use setters */);
     /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SecretPayload>
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
     {
         self.payload = std::option::Option::Some(v.into());
         self
@@ -2412,7 +2486,8 @@ impl AccessSecretVersionResponse {
     /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(None::<SecretPayload>);
     /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SecretPayload>
+    where
+        T: std::convert::Into<crate::model::SecretPayload>,
     {
         self.payload = v.map(|x| x.into());
         self
@@ -2429,7 +2504,6 @@ impl wkt::message::Message for AccessSecretVersionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -2451,7 +2525,8 @@ impl DisableSecretVersionRequest {
     /// let x = DisableSecretVersionRequest::new().set_etag("example");
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -2466,7 +2541,8 @@ impl DisableSecretVersionRequest {
     /// let x = DisableSecretVersionRequest::new().set_or_clear_etag(None::<String>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -2483,7 +2559,6 @@ impl wkt::message::Message for DisableSecretVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -2505,7 +2580,8 @@ impl EnableSecretVersionRequest {
     /// let x = EnableSecretVersionRequest::new().set_etag("example");
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -2520,7 +2596,8 @@ impl EnableSecretVersionRequest {
     /// let x = EnableSecretVersionRequest::new().set_or_clear_etag(None::<String>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -2537,7 +2614,6 @@ impl wkt::message::Message for EnableSecretVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -2559,7 +2635,8 @@ impl DestroySecretVersionRequest {
     /// let x = DestroySecretVersionRequest::new().set_etag("example");
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -2574,7 +2651,8 @@ impl DestroySecretVersionRequest {
     /// let x = DestroySecretVersionRequest::new().set_or_clear_etag(None::<String>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -2591,7 +2669,6 @@ impl wkt::message::Message for DestroySecretVersionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
-
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Google Cloud services (such as Projects)
@@ -2622,7 +2699,8 @@ impl SetIamPolicyRequest {
     /// let x = SetIamPolicyRequest::new().set_policy(Policy::default()/* use setters */);
     /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -2638,7 +2716,8 @@ impl SetIamPolicyRequest {
     /// let x = SetIamPolicyRequest::new().set_or_clear_policy(None::<Policy>);
     /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Policy>
+    where
+        T: std::convert::Into<crate::model::Policy>,
     {
         self.policy = v.map(|x| x.into());
         self
@@ -2653,7 +2732,8 @@ impl SetIamPolicyRequest {
     /// let x = SetIamPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2669,7 +2749,8 @@ impl SetIamPolicyRequest {
     /// let x = SetIamPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2755,7 +2836,6 @@ impl wkt::message::Message for SetIamPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
-
     /// Specifies the format of the policy.
     ///
     /// Valid values are `0`, `1`, and `3`. Requests that specify an invalid value
@@ -2827,7 +2907,8 @@ impl Policy {
     /// let x = Policy::new().set_version(42);
     /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.version = std::option::Option::Some(v.into());
         self
@@ -2842,7 +2923,8 @@ impl Policy {
     /// let x = Policy::new().set_or_clear_version(None::<i32>);
     /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i32>
+    where
+        T: std::convert::Into<i32>,
     {
         self.version = v.map(|x| x.into());
         self
@@ -2863,7 +2945,7 @@ impl Policy {
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Binding>
+        V: std::convert::Into<crate::model::Binding>,
     {
         use std::iter::Iterator;
         self.bindings = v.into_iter().map(|i| i.into()).collect();
@@ -2885,7 +2967,7 @@ impl Policy {
     pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuditConfig>
+        V: std::convert::Into<crate::model::AuditConfig>,
     {
         use std::iter::Iterator;
         self.audit_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2900,7 +2982,8 @@ impl Policy {
     /// let x = Policy::new().set_etag(bytes::Bytes::from_static(b"example"));
     /// ```
     pub fn set_etag<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<::bytes::Bytes>
+    where
+        T: std::convert::Into<::bytes::Bytes>,
     {
         self.etag = std::option::Option::Some(v.into());
         self
@@ -2915,7 +2998,8 @@ impl Policy {
     /// let x = Policy::new().set_or_clear_etag(None::<bytes::Bytes>);
     /// ```
     pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<::bytes::Bytes>
+    where
+        T: std::convert::Into<::bytes::Bytes>,
     {
         self.etag = v.map(|x| x.into());
         self
@@ -2932,7 +3016,6 @@ impl wkt::message::Message for Policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Binding {
-
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     ///
@@ -3052,7 +3135,8 @@ impl Binding {
     /// let x = Binding::new().set_role("example");
     /// ```
     pub fn set_role<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.role = std::option::Option::Some(v.into());
         self
@@ -3067,7 +3151,8 @@ impl Binding {
     /// let x = Binding::new().set_or_clear_role(None::<String>);
     /// ```
     pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.role = v.map(|x| x.into());
         self
@@ -3083,7 +3168,7 @@ impl Binding {
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
@@ -3099,7 +3184,8 @@ impl Binding {
     /// let x = Binding::new().set_condition(Expr::default()/* use setters */);
     /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Expr>
+    where
+        T: std::convert::Into<crate::model::Expr>,
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -3115,7 +3201,8 @@ impl Binding {
     /// let x = Binding::new().set_or_clear_condition(None::<Expr>);
     /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Expr>
+    where
+        T: std::convert::Into<crate::model::Expr>,
     {
         self.condition = v.map(|x| x.into());
         self
@@ -3170,7 +3257,6 @@ impl wkt::message::Message for Binding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Expr {
-
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     pub expression: std::option::Option<std::string::String>,
@@ -3204,7 +3290,8 @@ impl Expr {
     /// let x = Expr::new().set_expression("example");
     /// ```
     pub fn set_expression<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.expression = std::option::Option::Some(v.into());
         self
@@ -3219,7 +3306,8 @@ impl Expr {
     /// let x = Expr::new().set_or_clear_expression(None::<String>);
     /// ```
     pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.expression = v.map(|x| x.into());
         self
@@ -3233,7 +3321,8 @@ impl Expr {
     /// let x = Expr::new().set_title("example");
     /// ```
     pub fn set_title<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.title = std::option::Option::Some(v.into());
         self
@@ -3248,7 +3337,8 @@ impl Expr {
     /// let x = Expr::new().set_or_clear_title(None::<String>);
     /// ```
     pub fn set_or_clear_title<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.title = v.map(|x| x.into());
         self
@@ -3262,7 +3352,8 @@ impl Expr {
     /// let x = Expr::new().set_description("example");
     /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.description = std::option::Option::Some(v.into());
         self
@@ -3277,7 +3368,8 @@ impl Expr {
     /// let x = Expr::new().set_or_clear_description(None::<String>);
     /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.description = v.map(|x| x.into());
         self
@@ -3291,7 +3383,8 @@ impl Expr {
     /// let x = Expr::new().set_location("example");
     /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = std::option::Option::Some(v.into());
         self
@@ -3306,7 +3399,8 @@ impl Expr {
     /// let x = Expr::new().set_or_clear_location(None::<String>);
     /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.location = v.map(|x| x.into());
         self
@@ -3375,7 +3469,6 @@ impl wkt::message::Message for Expr {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfig {
-
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
@@ -3400,7 +3493,8 @@ impl AuditConfig {
     /// let x = AuditConfig::new().set_service("example");
     /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -3415,7 +3509,8 @@ impl AuditConfig {
     /// let x = AuditConfig::new().set_or_clear_service(None::<String>);
     /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.service = v.map(|x| x.into());
         self
@@ -3436,7 +3531,7 @@ impl AuditConfig {
     pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuditLogConfig>
+        V: std::convert::Into<crate::model::AuditLogConfig>,
     {
         use std::iter::Iterator;
         self.audit_log_configs = v.into_iter().map(|i| i.into()).collect();
@@ -3474,7 +3569,6 @@ impl wkt::message::Message for AuditConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditLogConfig {
-
     /// The log type that this config enables.
     pub log_type: std::option::Option<std::string::String>,
 
@@ -3499,7 +3593,8 @@ impl AuditLogConfig {
     /// let x = AuditLogConfig::new().set_log_type("example");
     /// ```
     pub fn set_log_type<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.log_type = std::option::Option::Some(v.into());
         self
@@ -3514,7 +3609,8 @@ impl AuditLogConfig {
     /// let x = AuditLogConfig::new().set_or_clear_log_type(None::<String>);
     /// ```
     pub fn set_or_clear_log_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<std::string::String>
+    where
+        T: std::convert::Into<std::string::String>,
     {
         self.log_type = v.map(|x| x.into());
         self
@@ -3530,7 +3626,7 @@ impl AuditLogConfig {
     pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.exempted_members = v.into_iter().map(|i| i.into()).collect();
@@ -3548,7 +3644,6 @@ impl wkt::message::Message for AuditLogConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
-
     /// The set of permissions to check for the `resource`. Permissions with
     /// wildcards (such as `*` or `storage.*`) are not allowed. For more
     /// information see
@@ -3573,7 +3668,7 @@ impl TestIamPermissionsRequest {
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3591,7 +3686,6 @@ impl wkt::message::Message for TestIamPermissionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
-
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: std::vec::Vec<std::string::String>,
@@ -3614,7 +3708,7 @@ impl TestIamPermissionsResponse {
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3635,14 +3729,12 @@ pub mod secret_manager_service {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Synthetic request message for the [ListLocations()][google.cloud.secretmanager.v1.SecretManagerService.ListLocations] method.
     ///
     /// [google.cloud.secretmanager.v1.SecretManagerService.ListLocations]: crate::client::SecretManagerService::list_locations
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListLocationsRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations`.
@@ -3689,7 +3781,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_filter("example");
         /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = std::option::Option::Some(v.into());
             self
@@ -3704,7 +3797,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_or_clear_filter(None::<String>);
         /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = v.map(|x| x.into());
             self
@@ -3718,7 +3812,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_page_size(42);
         /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = std::option::Option::Some(v.into());
             self
@@ -3733,7 +3828,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_or_clear_page_size(None::<i32>);
         /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = v.map(|x| x.into());
             self
@@ -3747,7 +3843,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_page_token("example");
         /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = std::option::Option::Some(v.into());
             self
@@ -3762,7 +3859,8 @@ pub mod secret_manager_service {
         /// let x = ListLocationsRequest::new().set_or_clear_page_token(None::<String>);
         /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = v.map(|x| x.into());
             self
@@ -3775,7 +3873,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetLocationRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
@@ -3825,7 +3922,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListSecretsRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets`.
@@ -3875,7 +3971,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_page_size(42);
         /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = std::option::Option::Some(v.into());
             self
@@ -3890,7 +3987,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_or_clear_page_size(None::<i32>);
         /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = v.map(|x| x.into());
             self
@@ -3904,7 +4002,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_page_token("example");
         /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = std::option::Option::Some(v.into());
             self
@@ -3919,7 +4018,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_or_clear_page_token(None::<String>);
         /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = v.map(|x| x.into());
             self
@@ -3933,7 +4033,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_filter("example");
         /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = std::option::Option::Some(v.into());
             self
@@ -3948,7 +4049,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsRequest::new().set_or_clear_filter(None::<String>);
         /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = v.map(|x| x.into());
             self
@@ -3961,7 +4063,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CreateSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets`.
@@ -4018,7 +4119,8 @@ pub mod secret_manager_service {
         /// let x = CreateSecretRequest::new().set_body(Secret::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4034,7 +4136,8 @@ pub mod secret_manager_service {
         /// let x = CreateSecretRequest::new().set_or_clear_body(None::<Secret>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -4047,7 +4150,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListSecretsByProjectAndLocationRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
@@ -4114,7 +4216,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_page_size(42);
         /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = std::option::Option::Some(v.into());
             self
@@ -4129,7 +4232,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_size(None::<i32>);
         /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = v.map(|x| x.into());
             self
@@ -4143,7 +4247,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_page_token("example");
         /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = std::option::Option::Some(v.into());
             self
@@ -4158,7 +4263,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_page_token(None::<String>);
         /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = v.map(|x| x.into());
             self
@@ -4172,7 +4278,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_filter("example");
         /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = std::option::Option::Some(v.into());
             self
@@ -4187,7 +4294,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretsByProjectAndLocationRequest::new().set_or_clear_filter(None::<String>);
         /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = v.map(|x| x.into());
             self
@@ -4200,7 +4308,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CreateSecretByProjectAndLocationRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
@@ -4274,7 +4381,8 @@ pub mod secret_manager_service {
         /// let x = CreateSecretByProjectAndLocationRequest::new().set_body(Secret::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4290,7 +4398,8 @@ pub mod secret_manager_service {
         /// let x = CreateSecretByProjectAndLocationRequest::new().set_or_clear_body(None::<Secret>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -4303,7 +4412,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AddSecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
@@ -4358,7 +4466,8 @@ pub mod secret_manager_service {
         /// let x = AddSecretVersionRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AddSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4374,7 +4483,8 @@ pub mod secret_manager_service {
         /// let x = AddSecretVersionRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AddSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -4387,7 +4497,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AddSecretVersionByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
@@ -4459,7 +4568,8 @@ pub mod secret_manager_service {
         /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_body(AddSecretVersionRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::AddSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4475,7 +4585,8 @@ pub mod secret_manager_service {
         /// let x = AddSecretVersionByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<AddSecretVersionRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::AddSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -4488,7 +4599,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
@@ -4538,7 +4648,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeleteSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
@@ -4594,7 +4703,8 @@ pub mod secret_manager_service {
         /// let x = DeleteSecretRequest::new().set_etag("example");
         /// ```
         pub fn set_etag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.etag = std::option::Option::Some(v.into());
             self
@@ -4609,7 +4719,8 @@ pub mod secret_manager_service {
         /// let x = DeleteSecretRequest::new().set_or_clear_etag(None::<String>);
         /// ```
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.etag = v.map(|x| x.into());
             self
@@ -4622,7 +4733,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UpdateSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
@@ -4693,7 +4803,8 @@ pub mod secret_manager_service {
         /// let x = UpdateSecretRequest::new().set_body(Secret::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4709,7 +4820,8 @@ pub mod secret_manager_service {
         /// let x = UpdateSecretRequest::new().set_or_clear_body(None::<Secret>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -4722,7 +4834,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetSecretByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
@@ -4789,7 +4900,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
@@ -4862,7 +4972,8 @@ pub mod secret_manager_service {
         /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_etag("example");
         /// ```
         pub fn set_etag<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.etag = std::option::Option::Some(v.into());
             self
@@ -4877,7 +4988,8 @@ pub mod secret_manager_service {
         /// let x = DeleteSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_etag(None::<String>);
         /// ```
         pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.etag = v.map(|x| x.into());
             self
@@ -4890,7 +5002,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
@@ -4978,7 +5089,8 @@ pub mod secret_manager_service {
         /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_body(Secret::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -4994,7 +5106,8 @@ pub mod secret_manager_service {
         /// let x = UpdateSecretByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<Secret>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Secret>
+        where
+            T: std::convert::Into<crate::model::Secret>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -5007,7 +5120,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListSecretVersionsRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
@@ -5074,7 +5186,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_page_size(42);
         /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = std::option::Option::Some(v.into());
             self
@@ -5089,7 +5202,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_or_clear_page_size(None::<i32>);
         /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = v.map(|x| x.into());
             self
@@ -5103,7 +5217,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_page_token("example");
         /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = std::option::Option::Some(v.into());
             self
@@ -5118,7 +5233,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_or_clear_page_token(None::<String>);
         /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = v.map(|x| x.into());
             self
@@ -5132,7 +5248,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_filter("example");
         /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = std::option::Option::Some(v.into());
             self
@@ -5147,7 +5264,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsRequest::new().set_or_clear_filter(None::<String>);
         /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = v.map(|x| x.into());
             self
@@ -5160,7 +5278,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
@@ -5244,7 +5361,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_page_size(42);
         /// ```
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = std::option::Option::Some(v.into());
             self
@@ -5259,7 +5377,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_size(None::<i32>);
         /// ```
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.page_size = v.map(|x| x.into());
             self
@@ -5273,7 +5392,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_page_token("example");
         /// ```
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = std::option::Option::Some(v.into());
             self
@@ -5288,7 +5408,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_page_token(None::<String>);
         /// ```
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.page_token = v.map(|x| x.into());
             self
@@ -5302,7 +5423,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_filter("example");
         /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = std::option::Option::Some(v.into());
             self
@@ -5317,7 +5439,8 @@ pub mod secret_manager_service {
         /// let x = ListSecretVersionsByProjectAndLocationAndSecretRequest::new().set_or_clear_filter(None::<String>);
         /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<std::string::String>
+        where
+            T: std::convert::Into<std::string::String>,
         {
             self.filter = v.map(|x| x.into());
             self
@@ -5330,7 +5453,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetSecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
@@ -5397,7 +5519,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
@@ -5481,7 +5602,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessSecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
@@ -5548,7 +5668,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
@@ -5632,7 +5751,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DisableSecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
@@ -5704,7 +5822,8 @@ pub mod secret_manager_service {
         /// let x = DisableSecretVersionRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DisableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -5720,7 +5839,8 @@ pub mod secret_manager_service {
         /// let x = DisableSecretVersionRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DisableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -5733,7 +5853,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
@@ -5822,7 +5941,8 @@ pub mod secret_manager_service {
         /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(DisableSecretVersionRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DisableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -5838,7 +5958,8 @@ pub mod secret_manager_service {
         /// let x = DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<DisableSecretVersionRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DisableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -5851,7 +5972,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnableSecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
@@ -5923,7 +6043,8 @@ pub mod secret_manager_service {
         /// let x = EnableSecretVersionRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EnableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -5939,7 +6060,8 @@ pub mod secret_manager_service {
         /// let x = EnableSecretVersionRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EnableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -5952,7 +6074,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
@@ -6041,7 +6162,8 @@ pub mod secret_manager_service {
         /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(EnableSecretVersionRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::EnableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6057,7 +6179,8 @@ pub mod secret_manager_service {
         /// let x = EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<EnableSecretVersionRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::EnableSecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6070,7 +6193,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DestroySecretVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
@@ -6142,7 +6264,8 @@ pub mod secret_manager_service {
         /// let x = DestroySecretVersionRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DestroySecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6158,7 +6281,8 @@ pub mod secret_manager_service {
         /// let x = DestroySecretVersionRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DestroySecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6171,7 +6295,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
@@ -6260,7 +6383,8 @@ pub mod secret_manager_service {
         /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_body(DestroySecretVersionRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DestroySecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6276,7 +6400,8 @@ pub mod secret_manager_service {
         /// let x = DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::new().set_or_clear_body(None::<DestroySecretVersionRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DestroySecretVersionRequest>
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6289,7 +6414,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SetIamPolicyRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
@@ -6344,7 +6468,8 @@ pub mod secret_manager_service {
         /// let x = SetIamPolicyRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SetIamPolicyRequest>
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6360,7 +6485,8 @@ pub mod secret_manager_service {
         /// let x = SetIamPolicyRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SetIamPolicyRequest>
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6373,7 +6499,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SetIamPolicyByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
@@ -6445,7 +6570,8 @@ pub mod secret_manager_service {
         /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_body(SetIamPolicyRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SetIamPolicyRequest>
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6461,7 +6587,8 @@ pub mod secret_manager_service {
         /// let x = SetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<SetIamPolicyRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SetIamPolicyRequest>
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6474,7 +6601,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetIamPolicyRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
@@ -6545,7 +6671,8 @@ pub mod secret_manager_service {
         /// let x = GetIamPolicyRequest::new().set_options_requested_policy_version(42);
         /// ```
         pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.options_requested_policy_version = std::option::Option::Some(v.into());
             self
@@ -6559,8 +6686,12 @@ pub mod secret_manager_service {
         /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(Some(42));
         /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
         /// ```
-        pub fn set_or_clear_options_requested_policy_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
         {
             self.options_requested_policy_version = v.map(|x| x.into());
             self
@@ -6573,7 +6704,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
@@ -6661,7 +6791,8 @@ pub mod secret_manager_service {
         /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_options_requested_policy_version(42);
         /// ```
         pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.options_requested_policy_version = std::option::Option::Some(v.into());
             self
@@ -6675,8 +6806,12 @@ pub mod secret_manager_service {
         /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_options_requested_policy_version(Some(42));
         /// let x = GetIamPolicyByProjectAndLocationAndSecretRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
         /// ```
-        pub fn set_or_clear_options_requested_policy_version<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
         {
             self.options_requested_policy_version = v.map(|x| x.into());
             self
@@ -6689,7 +6824,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TestIamPermissionsRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
@@ -6744,7 +6878,8 @@ pub mod secret_manager_service {
         /// let x = TestIamPermissionsRequest::new().set_body(Body::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TestIamPermissionsRequest>
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6760,7 +6895,8 @@ pub mod secret_manager_service {
         /// let x = TestIamPermissionsRequest::new().set_or_clear_body(None::<Body>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TestIamPermissionsRequest>
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -6773,7 +6909,6 @@ pub mod secret_manager_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TestIamPermissionsByProjectAndLocationAndSecretRequest {
-
         /// The `{project}` component of the target path.
         ///
         /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
@@ -6845,7 +6980,8 @@ pub mod secret_manager_service {
         /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_body(TestIamPermissionsRequest::default()/* use setters */);
         /// ```
         pub fn set_body<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TestIamPermissionsRequest>
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
         {
             self.body = std::option::Option::Some(v.into());
             self
@@ -6861,7 +6997,8 @@ pub mod secret_manager_service {
         /// let x = TestIamPermissionsByProjectAndLocationAndSecretRequest::new().set_or_clear_body(None::<TestIamPermissionsRequest>);
         /// ```
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TestIamPermissionsRequest>
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
         {
             self.body = v.map(|x| x.into());
             self

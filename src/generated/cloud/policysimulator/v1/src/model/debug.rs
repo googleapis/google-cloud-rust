@@ -74,7 +74,6 @@ impl std::fmt::Debug for super::binding_explanation::AnnotatedMembership {
     }
 }
 
-
 impl std::fmt::Debug for super::OrgPolicyViolationsPreview {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrgPolicyViolationsPreview");
@@ -202,7 +201,10 @@ impl std::fmt::Debug for super::ListOrgPolicyViolationsPreviewsRequest {
 impl std::fmt::Debug for super::ListOrgPolicyViolationsPreviewsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsPreviewsResponse");
-        debug_struct.field("org_policy_violations_previews", &self.org_policy_violations_previews);
+        debug_struct.field(
+            "org_policy_violations_previews",
+            &self.org_policy_violations_previews,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -226,8 +228,14 @@ impl std::fmt::Debug for super::CreateOrgPolicyViolationsPreviewRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOrgPolicyViolationsPreviewRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("org_policy_violations_preview", &self.org_policy_violations_preview);
-        debug_struct.field("org_policy_violations_preview_id", &self.org_policy_violations_preview_id);
+        debug_struct.field(
+            "org_policy_violations_preview",
+            &self.org_policy_violations_preview,
+        );
+        debug_struct.field(
+            "org_policy_violations_preview_id",
+            &self.org_policy_violations_preview_id,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -375,7 +383,6 @@ impl std::fmt::Debug for super::ReplayConfig {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ReplayDiff {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

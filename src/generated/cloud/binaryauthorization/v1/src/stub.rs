@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::BinauthzManagementServiceV1::get_policy].
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +54,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +65,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Attestor>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -71,7 +76,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Attestor>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +87,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Attestor>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +98,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAttestorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -115,13 +126,14 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SystemPolicyV1::get_system_policy].
     fn get_system_policy(
         &self,
         _req: crate::model::GetSystemPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -138,14 +150,16 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::ValidationHelperV1::validate_attestation_occurrence].
     fn validate_attestation_occurrence(
         &self,
         _req: crate::model::ValidateAttestationOccurrenceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

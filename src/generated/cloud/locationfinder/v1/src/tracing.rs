@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CloudLocationFinder](super::stub::CloudLocationFinder) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudLocationFinder<T>
-where T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CloudLocationFinder<T>
-where T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudLocationFinder for CloudLocationFinder<T>
-where T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_cloud_locations(
         &self,
@@ -75,6 +81,4 @@ where T: super::stub::CloudLocationFinder + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
-

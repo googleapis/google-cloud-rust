@@ -279,7 +279,10 @@ impl std::fmt::Debug for super::FileOptions {
         debug_struct.field("java_package", &self.java_package);
         debug_struct.field("java_outer_classname", &self.java_outer_classname);
         debug_struct.field("java_multiple_files", &self.java_multiple_files);
-        debug_struct.field("java_generate_equals_and_hash", &self.java_generate_equals_and_hash);
+        debug_struct.field(
+            "java_generate_equals_and_hash",
+            &self.java_generate_equals_and_hash,
+        );
         debug_struct.field("java_string_check_utf8", &self.java_string_check_utf8);
         debug_struct.field("optimize_for", &self.optimize_for);
         debug_struct.field("go_package", &self.go_package);
@@ -308,10 +311,16 @@ impl std::fmt::Debug for super::MessageOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageOptions");
         debug_struct.field("message_set_wire_format", &self.message_set_wire_format);
-        debug_struct.field("no_standard_descriptor_accessor", &self.no_standard_descriptor_accessor);
+        debug_struct.field(
+            "no_standard_descriptor_accessor",
+            &self.no_standard_descriptor_accessor,
+        );
         debug_struct.field("deprecated", &self.deprecated);
         debug_struct.field("map_entry", &self.map_entry);
-        debug_struct.field("deprecated_legacy_json_field_conflicts", &self.deprecated_legacy_json_field_conflicts);
+        debug_struct.field(
+            "deprecated_legacy_json_field_conflicts",
+            &self.deprecated_legacy_json_field_conflicts,
+        );
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
         if !self._unknown_fields.is_empty() {
@@ -388,7 +397,10 @@ impl std::fmt::Debug for super::EnumOptions {
         let mut debug_struct = f.debug_struct("EnumOptions");
         debug_struct.field("allow_alias", &self.allow_alias);
         debug_struct.field("deprecated", &self.deprecated);
-        debug_struct.field("deprecated_legacy_json_field_conflicts", &self.deprecated_legacy_json_field_conflicts);
+        debug_struct.field(
+            "deprecated_legacy_json_field_conflicts",
+            &self.deprecated_legacy_json_field_conflicts,
+        );
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
         if !self._unknown_fields.is_empty() {

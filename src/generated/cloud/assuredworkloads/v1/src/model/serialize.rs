@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::CreateWorkloadRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::UpdateWorkloadRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.workload.is_some() {
             state.serialize_entry("workload", &self.workload)?;
@@ -76,9 +76,9 @@ impl serde::ser::Serialize for super::DeleteWorkloadRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -101,9 +101,9 @@ impl serde::ser::Serialize for super::GetWorkloadRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -123,9 +123,9 @@ impl serde::ser::Serialize for super::ListWorkloadsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -163,9 +163,9 @@ impl serde::ser::Serialize for super::ListWorkloadsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.workloads.is_empty() {
             state.serialize_entry("workloads", &self.workloads)?;
@@ -188,9 +188,9 @@ impl serde::ser::Serialize for super::Workload {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -217,7 +217,10 @@ impl serde::ser::Serialize for super::Workload {
             state.serialize_entry("labels", &self.labels)?;
         }
         if !self.provisioned_resources_parent.is_empty() {
-            state.serialize_entry("provisionedResourcesParent", &self.provisioned_resources_parent)?;
+            state.serialize_entry(
+                "provisionedResourcesParent",
+                &self.provisioned_resources_parent,
+            )?;
         }
         if self.kms_settings.is_some() {
             state.serialize_entry("kmsSettings", &self.kms_settings)?;
@@ -235,7 +238,10 @@ impl serde::ser::Serialize for super::Workload {
             state.serialize_entry("saaEnrollmentResponse", &self.saa_enrollment_response)?;
         }
         if !self.compliant_but_disallowed_services.is_empty() {
-            state.serialize_entry("compliantButDisallowedServices", &self.compliant_but_disallowed_services)?;
+            state.serialize_entry(
+                "compliantButDisallowedServices",
+                &self.compliant_but_disallowed_services,
+            )?;
         }
         if !wkt::internal::is_default(&self.partner) {
             state.serialize_entry("partner", &self.partner)?;
@@ -255,9 +261,9 @@ impl serde::ser::Serialize for super::workload::ResourceInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.resource_id) {
             struct __With<'a>(&'a i64);
@@ -289,9 +295,9 @@ impl serde::ser::Serialize for super::workload::KMSSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.next_rotation_time.is_some() {
             state.serialize_entry("nextRotationTime", &self.next_rotation_time)?;
@@ -314,9 +320,9 @@ impl serde::ser::Serialize for super::workload::ResourceSettings {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource_id.is_empty() {
             state.serialize_entry("resourceId", &self.resource_id)?;
@@ -342,9 +348,9 @@ impl serde::ser::Serialize for super::workload::SaaEnrollmentResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.setup_status.is_some() {
             state.serialize_entry("setupStatus", &self.setup_status)?;
@@ -361,16 +367,15 @@ impl serde::ser::Serialize for super::workload::SaaEnrollmentResponse {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CreateWorkloadOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -399,9 +404,9 @@ impl serde::ser::Serialize for super::RestrictAllowedResourcesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -424,9 +429,9 @@ impl serde::ser::Serialize for super::RestrictAllowedResourcesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -443,9 +448,9 @@ impl serde::ser::Serialize for super::AcknowledgeViolationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -471,9 +476,9 @@ impl serde::ser::Serialize for super::AcknowledgeViolationResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -490,9 +495,9 @@ impl serde::ser::Serialize for super::TimeWindow {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;
@@ -515,9 +520,9 @@ impl serde::ser::Serialize for super::ListViolationsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -558,9 +563,9 @@ impl serde::ser::Serialize for super::ListViolationsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.violations.is_empty() {
             state.serialize_entry("violations", &self.violations)?;
@@ -583,9 +588,9 @@ impl serde::ser::Serialize for super::GetViolationRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -605,9 +610,9 @@ impl serde::ser::Serialize for super::Violation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -666,9 +671,9 @@ impl serde::ser::Serialize for super::violation::Remediation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.instructions.is_some() {
             state.serialize_entry("instructions", &self.instructions)?;
@@ -694,9 +699,9 @@ impl serde::ser::Serialize for super::violation::remediation::Instructions {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.gcloud_instructions.is_some() {
             state.serialize_entry("gcloudInstructions", &self.gcloud_instructions)?;
@@ -719,9 +724,9 @@ impl serde::ser::Serialize for super::violation::remediation::instructions::Gclo
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.gcloud_commands.is_empty() {
             state.serialize_entry("gcloudCommands", &self.gcloud_commands)?;
@@ -747,9 +752,9 @@ impl serde::ser::Serialize for super::violation::remediation::instructions::Cons
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.console_uris.is_empty() {
             state.serialize_entry("consoleUris", &self.console_uris)?;

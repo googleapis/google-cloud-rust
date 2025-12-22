@@ -34,7 +34,6 @@ impl std::fmt::Debug for super::OrchestrationCluster {
     }
 }
 
-
 impl std::fmt::Debug for super::EdgeSlm {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EdgeSlm");
@@ -52,7 +51,6 @@ impl std::fmt::Debug for super::EdgeSlm {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::Blueprint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -77,7 +75,6 @@ impl std::fmt::Debug for super::Blueprint {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::PublicBlueprint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -119,7 +116,6 @@ impl std::fmt::Debug for super::Deployment {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::HydratedDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -770,7 +766,10 @@ impl std::fmt::Debug for super::StandardManagementConfig {
         debug_struct.field("services_cidr_block", &self.services_cidr_block);
         debug_struct.field("cluster_named_range", &self.cluster_named_range);
         debug_struct.field("services_named_range", &self.services_named_range);
-        debug_struct.field("master_authorized_networks_config", &self.master_authorized_networks_config);
+        debug_struct.field(
+            "master_authorized_networks_config",
+            &self.master_authorized_networks_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -788,7 +787,10 @@ impl std::fmt::Debug for super::FullManagementConfig {
         debug_struct.field("services_cidr_block", &self.services_cidr_block);
         debug_struct.field("cluster_named_range", &self.cluster_named_range);
         debug_struct.field("services_named_range", &self.services_named_range);
-        debug_struct.field("master_authorized_networks_config", &self.master_authorized_networks_config);
+        debug_struct.field(
+            "master_authorized_networks_config",
+            &self.master_authorized_networks_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CloudShellService](super::stub::CloudShellService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudShellService<T>
-where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CloudShellService<T>
-where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudShellService for CloudShellService<T>
-where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_environment(
         &self,
@@ -85,7 +91,6 @@ where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -100,4 +105,3 @@ where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

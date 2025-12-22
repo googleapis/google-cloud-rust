@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [TraceService](super::stub::TraceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TraceService for TraceService<T>
-where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn batch_write_spans(
         &self,
@@ -48,6 +54,4 @@ where T: super::stub::TraceService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Span>> {
         self.inner.create_span(req, options).await
     }
-
 }
-

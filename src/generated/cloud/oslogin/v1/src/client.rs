@@ -75,7 +75,9 @@ impl OsLoginService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_login_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::os_login_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::os_login_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -83,28 +85,42 @@ impl OsLoginService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::OsLoginService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::OsLoginService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
         super::transport::OsLoginService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
-        Self::build_transport(conf).await.map(super::tracing::OsLoginService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OsLoginService::new)
     }
 
     /// Create an SSH public key
@@ -124,8 +140,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey
-    {
+    pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey {
         super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
     }
 
@@ -145,8 +160,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount
-    {
+    pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount {
         super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
     }
 
@@ -166,8 +180,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey
-    {
+    pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey {
         super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
     }
 
@@ -189,8 +202,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile
-    {
+    pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile {
         super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
     }
 
@@ -211,8 +223,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey
-    {
+    pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey {
         super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
     }
 
@@ -235,8 +246,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey
-    {
+    pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey {
         super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
     }
 
@@ -258,8 +268,7 @@ impl OsLoginService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey
-    {
+    pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey {
         super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
     }
 }

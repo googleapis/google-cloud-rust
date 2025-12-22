@@ -171,7 +171,6 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::CatalogService] also implement [CatalogService].
@@ -293,7 +292,6 @@ impl<T: super::CatalogService> CatalogService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::CompletionService].
@@ -432,7 +430,6 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::ControlService] also implement [ControlService].
@@ -500,7 +497,6 @@ impl<T: super::ControlService> ControlService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ConversationalSearchService].
@@ -517,7 +513,6 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::ConversationalSearchService] also implement [ConversationalSearchService].
@@ -540,7 +535,6 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::GenerativeQuestionService].
@@ -574,7 +568,9 @@ pub trait GenerativeQuestionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::BatchUpdateGenerativeQuestionConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>,
+    >;
 
     async fn list_operations(
         &self,
@@ -587,7 +583,6 @@ pub trait GenerativeQuestionService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::GenerativeQuestionService] also implement [GenerativeQuestionService].
@@ -598,7 +593,8 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
         &self,
         req: crate::model::UpdateGenerativeQuestionsFeatureConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>>
+    {
         T::update_generative_questions_feature_config(self, req, options).await
     }
 
@@ -607,7 +603,8 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
         &self,
         req: crate::model::GetGenerativeQuestionsFeatureConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>>
+    {
         T::get_generative_questions_feature_config(self, req, options).await
     }
 
@@ -616,7 +613,8 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
         &self,
         req: crate::model::ListGenerativeQuestionConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListGenerativeQuestionConfigsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGenerativeQuestionConfigsResponse>>
+    {
         T::list_generative_question_configs(self, req, options).await
     }
 
@@ -634,7 +632,9 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
         &self,
         req: crate::model::BatchUpdateGenerativeQuestionConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>,
+    > {
         T::batch_update_generative_question_configs(self, req, options).await
     }
 
@@ -655,7 +655,6 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ModelService].
@@ -860,7 +859,6 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::PredictionService] also implement [PredictionService].
@@ -892,7 +890,6 @@ impl<T: super::PredictionService> PredictionService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ProductService].
@@ -1157,7 +1154,6 @@ pub trait SearchService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::SearchService] also implement [SearchService].
@@ -1189,7 +1185,6 @@ impl<T: super::SearchService> SearchService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ServingConfigService].
@@ -1248,7 +1243,6 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
-
 }
 
 /// All implementations of [super::ServingConfigService] also implement [ServingConfigService].
@@ -1334,7 +1328,6 @@ impl<T: super::ServingConfigService> ServingConfigService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::UserEventService].

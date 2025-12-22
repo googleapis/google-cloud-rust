@@ -124,7 +124,6 @@ impl std::fmt::Debug for super::ActiveDirectory {
     }
 }
 
-
 impl std::fmt::Debug for super::Backup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Backup");
@@ -142,14 +141,16 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("volume_region", &self.volume_region);
         debug_struct.field("backup_region", &self.backup_region);
-        debug_struct.field("enforced_retention_end_time", &self.enforced_retention_end_time);
+        debug_struct.field(
+            "enforced_retention_end_time",
+            &self.enforced_retention_end_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ListBackupsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -245,7 +246,6 @@ impl std::fmt::Debug for super::BackupPolicy {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CreateBackupPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -346,7 +346,10 @@ impl std::fmt::Debug for super::BackupVault {
 impl std::fmt::Debug for super::backup_vault::BackupRetentionPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupRetentionPolicy");
-        debug_struct.field("backup_minimum_enforced_retention_days", &self.backup_minimum_enforced_retention_days);
+        debug_struct.field(
+            "backup_minimum_enforced_retention_days",
+            &self.backup_minimum_enforced_retention_days,
+        );
         debug_struct.field("daily_backup_immutable", &self.daily_backup_immutable);
         debug_struct.field("weekly_backup_immutable", &self.weekly_backup_immutable);
         debug_struct.field("monthly_backup_immutable", &self.monthly_backup_immutable);
@@ -357,7 +360,6 @@ impl std::fmt::Debug for super::backup_vault::BackupRetentionPolicy {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::GetBackupVaultRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -455,7 +457,10 @@ impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
         debug_struct.field("supported_service_levels", &self.supported_service_levels);
-        debug_struct.field("supported_flex_performance", &self.supported_flex_performance);
+        debug_struct.field(
+            "supported_flex_performance",
+            &self.supported_flex_performance,
+        );
         debug_struct.field("has_vcp", &self.has_vcp);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -604,7 +609,6 @@ impl std::fmt::Debug for super::KmsConfig {
     }
 }
 
-
 impl std::fmt::Debug for super::ListQuotaRulesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaRulesRequest");
@@ -699,7 +703,6 @@ impl std::fmt::Debug for super::QuotaRule {
     }
 }
 
-
 impl std::fmt::Debug for super::TransferStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransferStats");
@@ -733,19 +736,24 @@ impl std::fmt::Debug for super::Replication {
         debug_struct.field("transfer_stats", &self.transfer_stats);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("description", &self.description);
-        debug_struct.field("destination_volume_parameters", &self.destination_volume_parameters);
+        debug_struct.field(
+            "destination_volume_parameters",
+            &self.destination_volume_parameters,
+        );
         debug_struct.field("source_volume", &self.source_volume);
         debug_struct.field("hybrid_peering_details", &self.hybrid_peering_details);
         debug_struct.field("cluster_location", &self.cluster_location);
         debug_struct.field("hybrid_replication_type", &self.hybrid_replication_type);
-        debug_struct.field("hybrid_replication_user_commands", &self.hybrid_replication_user_commands);
+        debug_struct.field(
+            "hybrid_replication_user_commands",
+            &self.hybrid_replication_user_commands,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::HybridPeeringDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1006,7 +1014,6 @@ impl std::fmt::Debug for super::Snapshot {
     }
 }
 
-
 impl std::fmt::Debug for super::GetStoragePoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetStoragePoolRequest");
@@ -1118,13 +1125,22 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.field("zone", &self.zone);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
-        debug_struct.field("custom_performance_enabled", &self.custom_performance_enabled);
+        debug_struct.field(
+            "custom_performance_enabled",
+            &self.custom_performance_enabled,
+        );
         debug_struct.field("total_throughput_mibps", &self.total_throughput_mibps);
         debug_struct.field("total_iops", &self.total_iops);
         debug_struct.field("hot_tier_size_gib", &self.hot_tier_size_gib);
-        debug_struct.field("enable_hot_tier_auto_resize", &self.enable_hot_tier_auto_resize);
+        debug_struct.field(
+            "enable_hot_tier_auto_resize",
+            &self.enable_hot_tier_auto_resize,
+        );
         debug_struct.field("qos_type", &self.qos_type);
-        debug_struct.field("available_throughput_mibps", &self.available_throughput_mibps);
+        debug_struct.field(
+            "available_throughput_mibps",
+            &self.available_throughput_mibps,
+        );
         debug_struct.field("cold_tier_size_used_gib", &self.cold_tier_size_used_gib);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         if !self._unknown_fields.is_empty() {
@@ -1133,7 +1149,6 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ValidateDirectoryServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1275,7 +1290,10 @@ impl std::fmt::Debug for super::Volume {
         debug_struct.field("replica_zone", &self.replica_zone);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("cold_tier_size_gib", &self.cold_tier_size_gib);
-        debug_struct.field("hybrid_replication_parameters", &self.hybrid_replication_parameters);
+        debug_struct.field(
+            "hybrid_replication_parameters",
+            &self.hybrid_replication_parameters,
+        );
         debug_struct.field("throughput_mibps", &self.throughput_mibps);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         if !self._unknown_fields.is_empty() {
@@ -1284,7 +1302,6 @@ impl std::fmt::Debug for super::Volume {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::ExportPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1433,7 +1450,10 @@ impl std::fmt::Debug for super::TieringPolicy {
         let mut debug_struct = f.debug_struct("TieringPolicy");
         debug_struct.field("tier_action", &self.tier_action);
         debug_struct.field("cooling_threshold_days", &self.cooling_threshold_days);
-        debug_struct.field("hot_tier_bypass_mode_enabled", &self.hot_tier_bypass_mode_enabled);
+        debug_struct.field(
+            "hot_tier_bypass_mode_enabled",
+            &self.hot_tier_bypass_mode_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1454,11 +1474,13 @@ impl std::fmt::Debug for super::HybridReplicationParameters {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("replication_schedule", &self.replication_schedule);
         debug_struct.field("hybrid_replication_type", &self.hybrid_replication_type);
-        debug_struct.field("large_volume_constituent_count", &self.large_volume_constituent_count);
+        debug_struct.field(
+            "large_volume_constituent_count",
+            &self.large_volume_constituent_count,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-

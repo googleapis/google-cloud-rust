@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CloudControlsPartnerCore](super::stub::CloudControlsPartnerCore) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudControlsPartnerCore<T>
-where T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CloudControlsPartnerCore<T>
-where T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore<T>
-where T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_workload(
         &self,
@@ -129,25 +135,30 @@ where T: super::stub::CloudControlsPartnerCore + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_customer(req, options).await
     }
-
 }
 
 /// Implements a [CloudControlsPartnerMonitoring](super::stub::CloudControlsPartnerMonitoring) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudControlsPartnerMonitoring<T>
-where T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CloudControlsPartnerMonitoring<T>
-where T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitoring<T>
-where T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_violations(
         &self,
@@ -165,6 +176,4 @@ where T: super::stub::CloudControlsPartnerMonitoring + std::fmt::Debug + Send + 
     ) -> Result<gax::response::Response<crate::model::Violation>> {
         self.inner.get_violation(req, options).await
     }
-
 }
-

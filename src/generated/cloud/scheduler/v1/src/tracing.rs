@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CloudScheduler](super::stub::CloudScheduler) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudScheduler<T>
-where T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CloudScheduler<T>
-where T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudScheduler for CloudScheduler<T>
-where T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_jobs(
         &self,
@@ -120,6 +126,4 @@ where T: super::stub::CloudScheduler + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
-
 }
-

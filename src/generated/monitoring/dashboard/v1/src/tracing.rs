@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [DashboardsService](super::stub::DashboardsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DashboardsService<T>
-where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DashboardsService<T>
-where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DashboardsService for DashboardsService<T>
-where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_dashboard(
         &self,
@@ -75,6 +81,4 @@ where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         self.inner.update_dashboard(req, options).await
     }
-
 }
-

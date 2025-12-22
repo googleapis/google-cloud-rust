@@ -69,8 +69,6 @@ impl std::fmt::Debug for super::DeliveryPipeline {
     }
 }
 
-
-
 impl std::fmt::Debug for super::SerialPipeline {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SerialPipeline");
@@ -252,7 +250,10 @@ impl std::fmt::Debug for super::kubernetes_config::ServiceNetworking {
         let mut debug_struct = f.debug_struct("ServiceNetworking");
         debug_struct.field("service", &self.service);
         debug_struct.field("deployment", &self.deployment);
-        debug_struct.field("disable_pod_overprovisioning", &self.disable_pod_overprovisioning);
+        debug_struct.field(
+            "disable_pod_overprovisioning",
+            &self.disable_pod_overprovisioning,
+        );
         debug_struct.field("pod_selector_label", &self.pod_selector_label);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -486,10 +487,6 @@ impl std::fmt::Debug for super::Target {
     }
 }
 
-
-
-
-
 impl std::fmt::Debug for super::ExecutionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutionConfig");
@@ -706,8 +703,6 @@ impl std::fmt::Debug for super::CustomTargetType {
     }
 }
 
-
-
 impl std::fmt::Debug for super::CustomTargetSkaffoldActions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomTargetSkaffoldActions");
@@ -876,8 +871,6 @@ impl std::fmt::Debug for super::DeployPolicy {
     }
 }
 
-
-
 impl std::fmt::Debug for super::DeployPolicyResourceSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeployPolicyResourceSelector");
@@ -1018,9 +1011,15 @@ impl std::fmt::Debug for super::Release {
         debug_struct.field("skaffold_config_uri", &self.skaffold_config_uri);
         debug_struct.field("skaffold_config_path", &self.skaffold_config_path);
         debug_struct.field("build_artifacts", &self.build_artifacts);
-        debug_struct.field("delivery_pipeline_snapshot", &self.delivery_pipeline_snapshot);
+        debug_struct.field(
+            "delivery_pipeline_snapshot",
+            &self.delivery_pipeline_snapshot,
+        );
         debug_struct.field("target_snapshots", &self.target_snapshots);
-        debug_struct.field("custom_target_type_snapshots", &self.custom_target_type_snapshots);
+        debug_struct.field(
+            "custom_target_type_snapshots",
+            &self.custom_target_type_snapshots,
+        );
         debug_struct.field("render_state", &self.render_state);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("skaffold_version", &self.skaffold_version);
@@ -1079,18 +1078,16 @@ impl std::fmt::Debug for super::release::ReleaseCondition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReleaseCondition");
         debug_struct.field("release_ready_condition", &self.release_ready_condition);
-        debug_struct.field("skaffold_supported_condition", &self.skaffold_supported_condition);
+        debug_struct.field(
+            "skaffold_supported_condition",
+            &self.skaffold_supported_condition,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
-
-
-
-
 
 impl std::fmt::Debug for super::CreateDeployPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1215,7 +1212,6 @@ impl std::fmt::Debug for super::target_artifact::PhaseArtifact {
     }
 }
 
-
 impl std::fmt::Debug for super::DeployArtifact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeployArtifact");
@@ -1331,15 +1327,16 @@ impl std::fmt::Debug for super::Rollout {
         debug_struct.field("controller_rollout", &self.controller_rollout);
         debug_struct.field("rollback_of_rollout", &self.rollback_of_rollout);
         debug_struct.field("rolled_back_by_rollouts", &self.rolled_back_by_rollouts);
-        debug_struct.field("active_repair_automation_run", &self.active_repair_automation_run);
+        debug_struct.field(
+            "active_repair_automation_run",
+            &self.active_repair_automation_run,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::Metadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2074,7 +2071,10 @@ impl std::fmt::Debug for super::Rollback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rollback");
         debug_struct.field("destination_phase", &self.destination_phase);
-        debug_struct.field("disable_rollback_if_rollout_pending", &self.disable_rollback_if_rollout_pending);
+        debug_struct.field(
+            "disable_rollback_if_rollout_pending",
+            &self.disable_rollback_if_rollout_pending,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2259,7 +2259,10 @@ impl std::fmt::Debug for super::RepairRolloutOperation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RepairRolloutOperation");
         debug_struct.field("rollout", &self.rollout);
-        debug_struct.field("current_repair_phase_index", &self.current_repair_phase_index);
+        debug_struct.field(
+            "current_repair_phase_index",
+            &self.current_repair_phase_index,
+        );
         debug_struct.field("repair_phases", &self.repair_phases);
         debug_struct.field("phase_id", &self.phase_id);
         debug_struct.field("job_id", &self.job_id);
@@ -2328,7 +2331,10 @@ impl std::fmt::Debug for super::RollbackAttempt {
         debug_struct.field("rollout_id", &self.rollout_id);
         debug_struct.field("state", &self.state);
         debug_struct.field("state_desc", &self.state_desc);
-        debug_struct.field("disable_rollback_if_rollout_pending", &self.disable_rollback_if_rollout_pending);
+        debug_struct.field(
+            "disable_rollback_if_rollout_pending",
+            &self.disable_rollback_if_rollout_pending,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::MessageWithEnum {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
@@ -48,16 +48,15 @@ impl serde::ser::Serialize for super::MessageWithEnum {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MessageWithOneOf {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.string_contents() {
             state.serialize_entry("stringContents", value)?;
@@ -95,9 +94,9 @@ impl serde::ser::Serialize for super::message_with_one_of::Message {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -117,9 +116,9 @@ impl serde::ser::Serialize for super::MessageWithComplexOneOf {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.null() {
             state.serialize_entry("null", value)?;
@@ -229,9 +228,9 @@ impl serde::ser::Serialize for super::message_with_complex_one_of::Inner {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.strings.is_empty() {
             state.serialize_entry("strings", &self.strings)?;
@@ -251,9 +250,9 @@ impl serde::ser::Serialize for super::MessageWithF32 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a f32);
@@ -274,7 +273,9 @@ impl serde::ser::Serialize for super::MessageWithF32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -286,13 +287,15 @@ impl serde::ser::Serialize for super::MessageWithF32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,f32>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -318,9 +321,9 @@ impl serde::ser::Serialize for super::MessageWithF64 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a f64);
@@ -341,7 +344,9 @@ impl serde::ser::Serialize for super::MessageWithF64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -353,13 +358,15 @@ impl serde::ser::Serialize for super::MessageWithF64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,f64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -385,9 +392,9 @@ impl serde::ser::Serialize for super::MessageWithI32 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a i32);
@@ -408,7 +415,9 @@ impl serde::ser::Serialize for super::MessageWithI32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -420,13 +429,15 @@ impl serde::ser::Serialize for super::MessageWithI32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -438,7 +449,7 @@ impl serde::ser::Serialize for super::MessageWithI32 {
             state.serialize_entry("mapValue", &__With(&self.map_value))?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -450,13 +461,15 @@ impl serde::ser::Serialize for super::MessageWithI32 {
             state.serialize_entry("mapKey", &__With(&self.map_key))?;
         }
         if !self.map_key_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKeyValue", &__With(&self.map_key_value))?;
@@ -476,9 +489,9 @@ impl serde::ser::Serialize for super::MessageWithU32 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a u32);
@@ -499,7 +512,9 @@ impl serde::ser::Serialize for super::MessageWithU32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -511,13 +526,15 @@ impl serde::ser::Serialize for super::MessageWithU32 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,u32>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, u32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -529,7 +546,7 @@ impl serde::ser::Serialize for super::MessageWithU32 {
             state.serialize_entry("mapValue", &__With(&self.map_value))?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u32,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<u32, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -541,13 +558,15 @@ impl serde::ser::Serialize for super::MessageWithU32 {
             state.serialize_entry("mapKey", &__With(&self.map_key))?;
         }
         if !self.map_key_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u32,u32>);
+            struct __With<'a>(&'a std::collections::HashMap<u32, u32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U32, wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKeyValue", &__With(&self.map_key_value))?;
@@ -567,9 +586,9 @@ impl serde::ser::Serialize for super::MessageWithI64 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a i64);
@@ -590,7 +609,9 @@ impl serde::ser::Serialize for super::MessageWithI64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -602,13 +623,15 @@ impl serde::ser::Serialize for super::MessageWithI64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -620,7 +643,7 @@ impl serde::ser::Serialize for super::MessageWithI64 {
             state.serialize_entry("mapValue", &__With(&self.map_value))?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -632,13 +655,15 @@ impl serde::ser::Serialize for super::MessageWithI64 {
             state.serialize_entry("mapKey", &__With(&self.map_key))?;
         }
         if !self.map_key_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,i64>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::I64, wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKeyValue", &__With(&self.map_key_value))?;
@@ -658,9 +683,9 @@ impl serde::ser::Serialize for super::MessageWithU64 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a u64);
@@ -681,7 +706,9 @@ impl serde::ser::Serialize for super::MessageWithU64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -693,13 +720,15 @@ impl serde::ser::Serialize for super::MessageWithU64 {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,u64>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -711,7 +740,7 @@ impl serde::ser::Serialize for super::MessageWithU64 {
             state.serialize_entry("mapValue", &__With(&self.map_value))?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u64,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<u64, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -723,13 +752,15 @@ impl serde::ser::Serialize for super::MessageWithU64 {
             state.serialize_entry("mapKey", &__With(&self.map_key))?;
         }
         if !self.map_key_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<u64,u64>);
+            struct __With<'a>(&'a std::collections::HashMap<u64, u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<wkt::internal::U64, wkt::internal::U64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKeyValue", &__With(&self.map_key_value))?;
@@ -749,9 +780,9 @@ impl serde::ser::Serialize for super::MessageWithBytes {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.singular.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -772,7 +803,9 @@ impl serde::ser::Serialize for super::MessageWithBytes {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("optional", &__With(&self.optional))?;
@@ -784,19 +817,23 @@ impl serde::ser::Serialize for super::MessageWithBytes {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,::bytes::Bytes>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, ::bytes::Bytes>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::Same, serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::Same, serde_with::base64::Base64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("map", &__With(&self.map))?;
@@ -816,9 +853,9 @@ impl serde::ser::Serialize for super::MessageWithBool {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
@@ -833,25 +870,29 @@ impl serde::ser::Serialize for super::MessageWithBool {
             state.serialize_entry("mapValue", &self.map_value)?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<bool,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<bool, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKey", &__With(&self.map_key))?;
         }
         if !self.map_key_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<bool,bool>);
+            struct __With<'a>(&'a std::collections::HashMap<bool, bool>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::DisplayFromStr, serde_with::Same>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("mapKeyValue", &__With(&self.map_key_value))?;
@@ -871,9 +912,9 @@ impl serde::ser::Serialize for super::MessageWithString {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.singular.is_empty() {
             state.serialize_entry("singular", &self.singular)?;
@@ -885,7 +926,7 @@ impl serde::ser::Serialize for super::MessageWithString {
             state.serialize_entry("repeated", &self.repeated)?;
         }
         if !self.map_value.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i32,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<i32, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -897,7 +938,7 @@ impl serde::ser::Serialize for super::MessageWithString {
             state.serialize_entry("mapValue", &__With(&self.map_value))?;
         }
         if !self.map_key.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,i32>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -926,9 +967,9 @@ impl serde::ser::Serialize for super::MessageWithRecursion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -957,9 +998,9 @@ impl serde::ser::Serialize for super::message_with_recursion::Level0 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.level_1.is_some() {
             state.serialize_entry("level1", &self.level_1)?;
@@ -982,9 +1023,9 @@ impl serde::ser::Serialize for super::message_with_recursion::Level1 {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.recurse.is_some() {
             state.serialize_entry("recurse", &self.recurse)?;
@@ -1004,9 +1045,9 @@ impl serde::ser::Serialize for super::message_with_recursion::NonRecursive {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
@@ -1020,16 +1061,15 @@ impl serde::ser::Serialize for super::message_with_recursion::NonRecursive {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MessageWithValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -1058,9 +1098,9 @@ impl serde::ser::Serialize for super::MessageWithStruct {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -1089,9 +1129,9 @@ impl serde::ser::Serialize for super::MessageWithListValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -1120,9 +1160,9 @@ impl serde::ser::Serialize for super::MessageWithNullValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
@@ -1151,9 +1191,9 @@ impl serde::ser::Serialize for super::MessageWithFieldMask {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -1182,9 +1222,9 @@ impl serde::ser::Serialize for super::MessageWithFloatValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::FloatValue>);
@@ -1193,7 +1233,9 @@ impl serde::ser::Serialize for super::MessageWithFloatValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1205,13 +1247,15 @@ impl serde::ser::Serialize for super::MessageWithFloatValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::FloatValue>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::FloatValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1237,9 +1281,9 @@ impl serde::ser::Serialize for super::MessageWithDoubleValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::DoubleValue>);
@@ -1248,7 +1292,9 @@ impl serde::ser::Serialize for super::MessageWithDoubleValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1260,13 +1306,15 @@ impl serde::ser::Serialize for super::MessageWithDoubleValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::DoubleValue>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::DoubleValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1292,9 +1340,9 @@ impl serde::ser::Serialize for super::MessageWithInt32Value {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int32Value>);
@@ -1303,7 +1351,9 @@ impl serde::ser::Serialize for super::MessageWithInt32Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1315,13 +1365,15 @@ impl serde::ser::Serialize for super::MessageWithInt32Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::Int32Value>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::Int32Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1347,9 +1399,9 @@ impl serde::ser::Serialize for super::MessageWithUInt32Value {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::UInt32Value>);
@@ -1358,7 +1410,9 @@ impl serde::ser::Serialize for super::MessageWithUInt32Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1370,13 +1424,15 @@ impl serde::ser::Serialize for super::MessageWithUInt32Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::U32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::UInt32Value>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::UInt32Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1402,9 +1458,9 @@ impl serde::ser::Serialize for super::MessageWithInt64Value {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -1413,7 +1469,9 @@ impl serde::ser::Serialize for super::MessageWithInt64Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1425,13 +1483,15 @@ impl serde::ser::Serialize for super::MessageWithInt64Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::Int64Value>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::Int64Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1457,9 +1517,9 @@ impl serde::ser::Serialize for super::MessageWithUInt64Value {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
@@ -1468,7 +1528,9 @@ impl serde::ser::Serialize for super::MessageWithUInt64Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1480,13 +1542,15 @@ impl serde::ser::Serialize for super::MessageWithUInt64Value {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::Int64Value>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::Int64Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1512,9 +1576,9 @@ impl serde::ser::Serialize for super::MessageWithBytesValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::BytesValue>);
@@ -1523,7 +1587,9 @@ impl serde::ser::Serialize for super::MessageWithBytesValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("singular", &__With(&self.singular))?;
@@ -1535,19 +1601,23 @@ impl serde::ser::Serialize for super::MessageWithBytesValue {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("repeated", &__With(&self.repeated))?;
         }
         if !self.map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String,wkt::BytesValue>);
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, wkt::BytesValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::collections::HashMap<serde_with::Same, serde_with::base64::Base64> >::serialize(self.0, serializer)
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::Same, serde_with::base64::Base64>,
+                    >::serialize(self.0, serializer)
                 }
             }
             state.serialize_entry("map", &__With(&self.map))?;
@@ -1567,9 +1637,9 @@ impl serde::ser::Serialize for super::MessageWithBoolValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
@@ -1595,9 +1665,9 @@ impl serde::ser::Serialize for super::MessageWithStringValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;

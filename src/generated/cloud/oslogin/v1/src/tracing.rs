@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [OsLoginService](super::stub::OsLoginService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OsLoginService<T>
-where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> OsLoginService<T>
-where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OsLoginService for OsLoginService<T>
-where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_ssh_public_key(
         &self,
@@ -93,6 +99,4 @@ where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         self.inner.update_ssh_public_key(req, options).await
     }
-
 }
-

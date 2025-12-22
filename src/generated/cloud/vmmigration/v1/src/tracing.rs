@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [VmMigration](super::stub::VmMigration) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct VmMigration<T>
-where T: super::stub::VmMigration + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VmMigration + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> VmMigration<T>
-where T: super::stub::VmMigration + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VmMigration + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::VmMigration for VmMigration<T>
-where T: super::stub::VmMigration + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VmMigration + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_sources(
         &self,
@@ -643,7 +649,6 @@ where T: super::stub::VmMigration + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -658,4 +663,3 @@ where T: super::stub::VmMigration + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

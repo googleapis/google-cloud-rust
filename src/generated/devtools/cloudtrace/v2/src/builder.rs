@@ -39,7 +39,10 @@ pub mod trace_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TraceService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod trace_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod trace_service {
     pub struct BatchWriteSpans(RequestBuilder<crate::model::BatchWriteSpansRequest>);
 
     impl BatchWriteSpans {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod trace_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).batch_write_spans(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_write_spans(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
@@ -122,7 +132,7 @@ pub mod trace_service {
         pub fn set_spans<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Span>
+            V: std::convert::Into<crate::model::Span>,
         {
             use std::iter::Iterator;
             self.0.request.spans = v.into_iter().map(|i| i.into()).collect();
@@ -158,10 +168,10 @@ pub mod trace_service {
     pub struct CreateSpan(RequestBuilder<crate::model::Span>);
 
     impl CreateSpan {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -178,7 +188,10 @@ pub mod trace_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Span> {
-            (*self.0.stub).create_span(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_span(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Span::name].
@@ -207,7 +220,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_display_name<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::TruncatableString>
+        where
+            T: std::convert::Into<crate::model::TruncatableString>,
         {
             self.0.request.display_name = std::option::Option::Some(v.into());
             self
@@ -217,7 +231,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::TruncatableString>
+        where
+            T: std::convert::Into<crate::model::TruncatableString>,
         {
             self.0.request.display_name = v.map(|x| x.into());
             self
@@ -227,7 +242,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = std::option::Option::Some(v.into());
             self
@@ -237,7 +253,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.start_time = v.map(|x| x.into());
             self
@@ -247,7 +264,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = std::option::Option::Some(v.into());
             self
@@ -257,7 +275,8 @@ pub mod trace_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Timestamp>
+        where
+            T: std::convert::Into<wkt::Timestamp>,
         {
             self.0.request.end_time = v.map(|x| x.into());
             self
@@ -265,7 +284,8 @@ pub mod trace_service {
 
         /// Sets the value of [attributes][crate::model::Span::attributes].
         pub fn set_attributes<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::span::Attributes>
+        where
+            T: std::convert::Into<crate::model::span::Attributes>,
         {
             self.0.request.attributes = std::option::Option::Some(v.into());
             self
@@ -273,7 +293,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [attributes][crate::model::Span::attributes].
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::span::Attributes>
+        where
+            T: std::convert::Into<crate::model::span::Attributes>,
         {
             self.0.request.attributes = v.map(|x| x.into());
             self
@@ -281,7 +302,8 @@ pub mod trace_service {
 
         /// Sets the value of [stack_trace][crate::model::Span::stack_trace].
         pub fn set_stack_trace<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::StackTrace>
+        where
+            T: std::convert::Into<crate::model::StackTrace>,
         {
             self.0.request.stack_trace = std::option::Option::Some(v.into());
             self
@@ -289,7 +311,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [stack_trace][crate::model::Span::stack_trace].
         pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::StackTrace>
+        where
+            T: std::convert::Into<crate::model::StackTrace>,
         {
             self.0.request.stack_trace = v.map(|x| x.into());
             self
@@ -297,7 +320,8 @@ pub mod trace_service {
 
         /// Sets the value of [time_events][crate::model::Span::time_events].
         pub fn set_time_events<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::span::TimeEvents>
+        where
+            T: std::convert::Into<crate::model::span::TimeEvents>,
         {
             self.0.request.time_events = std::option::Option::Some(v.into());
             self
@@ -305,7 +329,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [time_events][crate::model::Span::time_events].
         pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::span::TimeEvents>
+        where
+            T: std::convert::Into<crate::model::span::TimeEvents>,
         {
             self.0.request.time_events = v.map(|x| x.into());
             self
@@ -313,7 +338,8 @@ pub mod trace_service {
 
         /// Sets the value of [links][crate::model::Span::links].
         pub fn set_links<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::span::Links>
+        where
+            T: std::convert::Into<crate::model::span::Links>,
         {
             self.0.request.links = std::option::Option::Some(v.into());
             self
@@ -321,7 +347,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [links][crate::model::Span::links].
         pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::span::Links>
+        where
+            T: std::convert::Into<crate::model::span::Links>,
         {
             self.0.request.links = v.map(|x| x.into());
             self
@@ -329,7 +356,8 @@ pub mod trace_service {
 
         /// Sets the value of [status][crate::model::Span::status].
         pub fn set_status<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.0.request.status = std::option::Option::Some(v.into());
             self
@@ -337,7 +365,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [status][crate::model::Span::status].
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<rpc::model::Status>
+        where
+            T: std::convert::Into<rpc::model::Status>,
         {
             self.0.request.status = v.map(|x| x.into());
             self
@@ -345,15 +374,20 @@ pub mod trace_service {
 
         /// Sets the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
         pub fn set_same_process_as_parent_span<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::BoolValue>
+        where
+            T: std::convert::Into<wkt::BoolValue>,
         {
             self.0.request.same_process_as_parent_span = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
-        pub fn set_or_clear_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::BoolValue>
+        pub fn set_or_clear_same_process_as_parent_span<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::BoolValue>,
         {
             self.0.request.same_process_as_parent_span = v.map(|x| x.into());
             self
@@ -361,7 +395,8 @@ pub mod trace_service {
 
         /// Sets the value of [child_span_count][crate::model::Span::child_span_count].
         pub fn set_child_span_count<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Int32Value>
+        where
+            T: std::convert::Into<wkt::Int32Value>,
         {
             self.0.request.child_span_count = std::option::Option::Some(v.into());
             self
@@ -369,7 +404,8 @@ pub mod trace_service {
 
         /// Sets or clears the value of [child_span_count][crate::model::Span::child_span_count].
         pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Int32Value>
+        where
+            T: std::convert::Into<wkt::Int32Value>,
         {
             self.0.request.child_span_count = v.map(|x| x.into());
             self
@@ -388,5 +424,4 @@ pub mod trace_service {
             &mut self.0.options
         }
     }
-
 }

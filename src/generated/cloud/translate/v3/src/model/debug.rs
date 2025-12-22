@@ -135,7 +135,10 @@ impl std::fmt::Debug for super::adaptive_mt_translate_request::ReferenceSentence
 impl std::fmt::Debug for super::adaptive_mt_translate_request::ReferenceSentenceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReferenceSentenceConfig");
-        debug_struct.field("reference_sentence_pair_lists", &self.reference_sentence_pair_lists);
+        debug_struct.field(
+            "reference_sentence_pair_lists",
+            &self.reference_sentence_pair_lists,
+        );
         debug_struct.field("source_language_code", &self.source_language_code);
         debug_struct.field("target_language_code", &self.target_language_code);
         if !self._unknown_fields.is_empty() {
@@ -150,7 +153,10 @@ impl std::fmt::Debug for super::adaptive_mt_translate_request::GlossaryConfig {
         let mut debug_struct = f.debug_struct("GlossaryConfig");
         debug_struct.field("glossary", &self.glossary);
         debug_struct.field("ignore_case", &self.ignore_case);
-        debug_struct.field("contextual_translation_enabled", &self.contextual_translation_enabled);
+        debug_struct.field(
+            "contextual_translation_enabled",
+            &self.contextual_translation_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -862,7 +868,6 @@ impl std::fmt::Debug for super::DetectLanguageRequest {
     }
 }
 
-
 impl std::fmt::Debug for super::DetectedLanguage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectedLanguage");
@@ -1005,9 +1010,18 @@ impl std::fmt::Debug for super::TranslateDocumentRequest {
         debug_struct.field("glossary_config", &self.glossary_config);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("customized_attribution", &self.customized_attribution);
-        debug_struct.field("is_translate_native_pdf_only", &self.is_translate_native_pdf_only);
-        debug_struct.field("enable_shadow_removal_native_pdf", &self.enable_shadow_removal_native_pdf);
-        debug_struct.field("enable_rotation_correction", &self.enable_rotation_correction);
+        debug_struct.field(
+            "is_translate_native_pdf_only",
+            &self.is_translate_native_pdf_only,
+        );
+        debug_struct.field(
+            "enable_shadow_removal_native_pdf",
+            &self.enable_shadow_removal_native_pdf,
+        );
+        debug_struct.field(
+            "enable_rotation_correction",
+            &self.enable_rotation_correction,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1032,7 +1046,10 @@ impl std::fmt::Debug for super::TranslateDocumentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslateDocumentResponse");
         debug_struct.field("document_translation", &self.document_translation);
-        debug_struct.field("glossary_document_translation", &self.glossary_document_translation);
+        debug_struct.field(
+            "glossary_document_translation",
+            &self.glossary_document_translation,
+        );
         debug_struct.field("model", &self.model);
         debug_struct.field("glossary_config", &self.glossary_config);
         if !self._unknown_fields.is_empty() {
@@ -1347,8 +1364,14 @@ impl std::fmt::Debug for super::BatchTranslateDocumentRequest {
         debug_struct.field("glossaries", &self.glossaries);
         debug_struct.field("format_conversions", &self.format_conversions);
         debug_struct.field("customized_attribution", &self.customized_attribution);
-        debug_struct.field("enable_shadow_removal_native_pdf", &self.enable_shadow_removal_native_pdf);
-        debug_struct.field("enable_rotation_correction", &self.enable_rotation_correction);
+        debug_struct.field(
+            "enable_shadow_removal_native_pdf",
+            &self.enable_shadow_removal_native_pdf,
+        );
+        debug_struct.field(
+            "enable_rotation_correction",
+            &self.enable_rotation_correction,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1423,7 +1446,10 @@ impl std::fmt::Debug for super::TranslateTextGlossaryConfig {
         let mut debug_struct = f.debug_struct("TranslateTextGlossaryConfig");
         debug_struct.field("glossary", &self.glossary);
         debug_struct.field("ignore_case", &self.ignore_case);
-        debug_struct.field("contextual_translation_enabled", &self.contextual_translation_enabled);
+        debug_struct.field(
+            "contextual_translation_enabled",
+            &self.contextual_translation_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

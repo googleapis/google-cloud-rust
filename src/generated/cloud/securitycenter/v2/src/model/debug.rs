@@ -29,7 +29,10 @@ impl std::fmt::Debug for super::Access {
         debug_struct.field("method_name", &self.method_name);
         debug_struct.field("principal_subject", &self.principal_subject);
         debug_struct.field("service_account_key_name", &self.service_account_key_name);
-        debug_struct.field("service_account_delegation_info", &self.service_account_delegation_info);
+        debug_struct.field(
+            "service_account_delegation_info",
+            &self.service_account_delegation_info,
+        );
         debug_struct.field("user_name", &self.user_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -108,9 +111,18 @@ impl std::fmt::Debug for super::AttackExposure {
         debug_struct.field("latest_calculation_time", &self.latest_calculation_time);
         debug_struct.field("attack_exposure_result", &self.attack_exposure_result);
         debug_struct.field("state", &self.state);
-        debug_struct.field("exposed_high_value_resources_count", &self.exposed_high_value_resources_count);
-        debug_struct.field("exposed_medium_value_resources_count", &self.exposed_medium_value_resources_count);
-        debug_struct.field("exposed_low_value_resources_count", &self.exposed_low_value_resources_count);
+        debug_struct.field(
+            "exposed_high_value_resources_count",
+            &self.exposed_high_value_resources_count,
+        );
+        debug_struct.field(
+            "exposed_medium_value_resources_count",
+            &self.exposed_medium_value_resources_count,
+        );
+        debug_struct.field(
+            "exposed_low_value_resources_count",
+            &self.exposed_low_value_resources_count,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -498,7 +510,10 @@ impl std::fmt::Debug for super::ExternalSystem {
         debug_struct.field("assignees", &self.assignees);
         debug_struct.field("external_uid", &self.external_uid);
         debug_struct.field("status", &self.status);
-        debug_struct.field("external_system_update_time", &self.external_system_update_time);
+        debug_struct.field(
+            "external_system_update_time",
+            &self.external_system_update_time,
+        );
         debug_struct.field("case_uri", &self.case_uri);
         debug_struct.field("case_priority", &self.case_priority);
         debug_struct.field("case_sla", &self.case_sla);
@@ -628,7 +643,10 @@ impl std::fmt::Debug for super::Finding {
         debug_struct.field("data_access_events", &self.data_access_events);
         debug_struct.field("data_flow_events", &self.data_flow_events);
         debug_struct.field("networks", &self.networks);
-        debug_struct.field("data_retention_deletion_events", &self.data_retention_deletion_events);
+        debug_struct.field(
+            "data_retention_deletion_events",
+            &self.data_retention_deletion_events,
+        );
         debug_struct.field("affected_resources", &self.affected_resources);
         debug_struct.field("ai_model", &self.ai_model);
         debug_struct.field("chokepoint", &self.chokepoint);
@@ -676,14 +694,14 @@ impl std::fmt::Debug for super::finding::mute_info::DynamicMuteRecord {
     }
 }
 
-
-
-
 impl std::fmt::Debug for super::Folder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Folder");
         debug_struct.field("resource_folder", &self.resource_folder);
-        debug_struct.field("resource_folder_display_name", &self.resource_folder_display_name);
+        debug_struct.field(
+            "resource_folder_display_name",
+            &self.resource_folder_display_name,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -856,14 +874,32 @@ impl std::fmt::Debug for super::KernelRootkit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KernelRootkit");
         debug_struct.field("name", &self.name);
-        debug_struct.field("unexpected_code_modification", &self.unexpected_code_modification);
-        debug_struct.field("unexpected_read_only_data_modification", &self.unexpected_read_only_data_modification);
+        debug_struct.field(
+            "unexpected_code_modification",
+            &self.unexpected_code_modification,
+        );
+        debug_struct.field(
+            "unexpected_read_only_data_modification",
+            &self.unexpected_read_only_data_modification,
+        );
         debug_struct.field("unexpected_ftrace_handler", &self.unexpected_ftrace_handler);
         debug_struct.field("unexpected_kprobe_handler", &self.unexpected_kprobe_handler);
-        debug_struct.field("unexpected_kernel_code_pages", &self.unexpected_kernel_code_pages);
-        debug_struct.field("unexpected_system_call_handler", &self.unexpected_system_call_handler);
-        debug_struct.field("unexpected_interrupt_handler", &self.unexpected_interrupt_handler);
-        debug_struct.field("unexpected_processes_in_runqueue", &self.unexpected_processes_in_runqueue);
+        debug_struct.field(
+            "unexpected_kernel_code_pages",
+            &self.unexpected_kernel_code_pages,
+        );
+        debug_struct.field(
+            "unexpected_system_call_handler",
+            &self.unexpected_system_call_handler,
+        );
+        debug_struct.field(
+            "unexpected_interrupt_handler",
+            &self.unexpected_interrupt_handler,
+        );
+        debug_struct.field(
+            "unexpected_processes_in_runqueue",
+            &self.unexpected_processes_in_runqueue,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1369,7 +1405,10 @@ impl std::fmt::Debug for super::ResourceValueConfig {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("cloud_provider", &self.cloud_provider);
-        debug_struct.field("sensitive_data_protection_mapping", &self.sensitive_data_protection_mapping);
+        debug_struct.field(
+            "sensitive_data_protection_mapping",
+            &self.sensitive_data_protection_mapping,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1381,14 +1420,16 @@ impl std::fmt::Debug for super::resource_value_config::SensitiveDataProtectionMa
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SensitiveDataProtectionMapping");
         debug_struct.field("high_sensitivity_mapping", &self.high_sensitivity_mapping);
-        debug_struct.field("medium_sensitivity_mapping", &self.medium_sensitivity_mapping);
+        debug_struct.field(
+            "medium_sensitivity_mapping",
+            &self.medium_sensitivity_mapping,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::SecurityMarks {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1408,7 +1449,10 @@ impl std::fmt::Debug for super::SecurityPosture {
         let mut debug_struct = f.debug_struct("SecurityPosture");
         debug_struct.field("name", &self.name);
         debug_struct.field("revision_id", &self.revision_id);
-        debug_struct.field("posture_deployment_resource", &self.posture_deployment_resource);
+        debug_struct.field(
+            "posture_deployment_resource",
+            &self.posture_deployment_resource,
+        );
         debug_struct.field("posture_deployment", &self.posture_deployment);
         debug_struct.field("changed_policy", &self.changed_policy);
         debug_struct.field("policy_set", &self.policy_set);
@@ -2114,7 +2158,10 @@ impl std::fmt::Debug for super::Simulation {
         let mut debug_struct = f.debug_struct("Simulation");
         debug_struct.field("name", &self.name);
         debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("resource_value_configs_metadata", &self.resource_value_configs_metadata);
+        debug_struct.field(
+            "resource_value_configs_metadata",
+            &self.resource_value_configs_metadata,
+        );
         debug_struct.field("cloud_provider", &self.cloud_provider);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2158,7 +2205,10 @@ impl std::fmt::Debug for super::ValuedResource {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("resource_value", &self.resource_value);
         debug_struct.field("exposed_score", &self.exposed_score);
-        debug_struct.field("resource_value_configs_used", &self.resource_value_configs_used);
+        debug_struct.field(
+            "resource_value_configs_used",
+            &self.resource_value_configs_used,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

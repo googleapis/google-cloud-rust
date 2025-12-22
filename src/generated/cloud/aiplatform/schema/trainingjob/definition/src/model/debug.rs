@@ -149,12 +149,21 @@ impl std::fmt::Debug for super::AutoMlTablesInputs {
         debug_struct.field("target_column", &self.target_column);
         debug_struct.field("transformations", &self.transformations);
         debug_struct.field("optimization_objective", &self.optimization_objective);
-        debug_struct.field("train_budget_milli_node_hours", &self.train_budget_milli_node_hours);
+        debug_struct.field(
+            "train_budget_milli_node_hours",
+            &self.train_budget_milli_node_hours,
+        );
         debug_struct.field("disable_early_stopping", &self.disable_early_stopping);
         debug_struct.field("weight_column_name", &self.weight_column_name);
-        debug_struct.field("export_evaluated_data_items_config", &self.export_evaluated_data_items_config);
+        debug_struct.field(
+            "export_evaluated_data_items_config",
+            &self.export_evaluated_data_items_config,
+        );
         debug_struct.field("additional_experiments", &self.additional_experiments);
-        debug_struct.field("additional_optimization_objective_config", &self.additional_optimization_objective_config);
+        debug_struct.field(
+            "additional_optimization_objective_config",
+            &self.additional_optimization_objective_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -243,7 +252,9 @@ impl std::fmt::Debug for super::auto_ml_tables_inputs::transformation::NumericAr
     }
 }
 
-impl std::fmt::Debug for super::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation {
+impl std::fmt::Debug
+    for super::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CategoricalArrayTransformation");
         debug_struct.field("column_name", &self.column_name);
@@ -268,7 +279,10 @@ impl std::fmt::Debug for super::auto_ml_tables_inputs::transformation::TextArray
 impl std::fmt::Debug for super::AutoMlTablesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoMlTablesMetadata");
-        debug_struct.field("train_cost_milli_node_hours", &self.train_cost_milli_node_hours);
+        debug_struct.field(
+            "train_cost_milli_node_hours",
+            &self.train_cost_milli_node_hours,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -953,7 +953,8 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         &self,
         req: crate::model::GenerateConsistencyTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateConsistencyTokenResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateConsistencyTokenResponse>>
+    {
         T::generate_consistency_token(self, req, options).await
     }
 

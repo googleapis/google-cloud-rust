@@ -336,7 +336,8 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificateMapEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapEntriesResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapEntriesResponse>>
+    {
         T::list_certificate_map_entries(self, req, options).await
     }
 
@@ -426,7 +427,8 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificateIssuanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>>
+    {
         T::list_certificate_issuance_configs(self, req, options).await
     }
 

@@ -255,7 +255,8 @@ impl<T: super::EdgeContainer> EdgeContainer for T {
         &self,
         req: crate::model::GenerateOfflineCredentialRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateOfflineCredentialResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateOfflineCredentialResponse>>
+    {
         T::generate_offline_credential(self, req, options).await
     }
 

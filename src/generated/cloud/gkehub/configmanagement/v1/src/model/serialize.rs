@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::MembershipState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.cluster_name.is_empty() {
             state.serialize_entry("clusterName", &self.cluster_name)?;
@@ -60,9 +60,9 @@ impl serde::ser::Serialize for super::MembershipSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.config_sync.is_some() {
             state.serialize_entry("configSync", &self.config_sync)?;
@@ -97,9 +97,9 @@ impl serde::ser::Serialize for super::ConfigSync {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.git.is_some() {
             state.serialize_entry("git", &self.git)?;
@@ -117,7 +117,10 @@ impl serde::ser::Serialize for super::ConfigSync {
             state.serialize_entry("oci", &self.oci)?;
         }
         if !self.metrics_gcp_service_account_email.is_empty() {
-            state.serialize_entry("metricsGcpServiceAccountEmail", &self.metrics_gcp_service_account_email)?;
+            state.serialize_entry(
+                "metricsGcpServiceAccountEmail",
+                &self.metrics_gcp_service_account_email,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -134,9 +137,9 @@ impl serde::ser::Serialize for super::GitConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.sync_repo.is_empty() {
             state.serialize_entry("syncRepo", &self.sync_repo)?;
@@ -186,9 +189,9 @@ impl serde::ser::Serialize for super::OciConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.sync_repo.is_empty() {
             state.serialize_entry("syncRepo", &self.sync_repo)?;
@@ -229,9 +232,9 @@ impl serde::ser::Serialize for super::PolicyController {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -246,10 +249,15 @@ impl serde::ser::Serialize for super::PolicyController {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("auditIntervalSeconds", &__With(&self.audit_interval_seconds))?;
+            state.serialize_entry(
+                "auditIntervalSeconds",
+                &__With(&self.audit_interval_seconds),
+            )?;
         }
         if !self.exemptable_namespaces.is_empty() {
             state.serialize_entry("exemptableNamespaces", &self.exemptable_namespaces)?;
@@ -275,9 +283,9 @@ impl serde::ser::Serialize for super::HierarchyControllerConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;
@@ -286,7 +294,10 @@ impl serde::ser::Serialize for super::HierarchyControllerConfig {
             state.serialize_entry("enablePodTreeLabels", &self.enable_pod_tree_labels)?;
         }
         if !wkt::internal::is_default(&self.enable_hierarchical_resource_quota) {
-            state.serialize_entry("enableHierarchicalResourceQuota", &self.enable_hierarchical_resource_quota)?;
+            state.serialize_entry(
+                "enableHierarchicalResourceQuota",
+                &self.enable_hierarchical_resource_quota,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -303,9 +314,9 @@ impl serde::ser::Serialize for super::HierarchyControllerDeploymentState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.hnc) {
             state.serialize_entry("hnc", &self.hnc)?;
@@ -328,9 +339,9 @@ impl serde::ser::Serialize for super::HierarchyControllerVersion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.hnc.is_empty() {
             state.serialize_entry("hnc", &self.hnc)?;
@@ -353,9 +364,9 @@ impl serde::ser::Serialize for super::HierarchyControllerState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.version.is_some() {
             state.serialize_entry("version", &self.version)?;
@@ -378,9 +389,9 @@ impl serde::ser::Serialize for super::OperatorState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.version.is_empty() {
             state.serialize_entry("version", &self.version)?;
@@ -406,9 +417,9 @@ impl serde::ser::Serialize for super::InstallError {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_message.is_empty() {
             state.serialize_entry("errorMessage", &self.error_message)?;
@@ -428,9 +439,9 @@ impl serde::ser::Serialize for super::ConfigSyncState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.version.is_some() {
             state.serialize_entry("version", &self.version)?;
@@ -468,9 +479,9 @@ impl serde::ser::Serialize for super::ConfigSyncError {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_message.is_empty() {
             state.serialize_entry("errorMessage", &self.error_message)?;
@@ -490,9 +501,9 @@ impl serde::ser::Serialize for super::ConfigSyncVersion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.importer.is_empty() {
             state.serialize_entry("importer", &self.importer)?;
@@ -530,9 +541,9 @@ impl serde::ser::Serialize for super::ConfigSyncDeploymentState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.importer) {
             state.serialize_entry("importer", &self.importer)?;
@@ -570,9 +581,9 @@ impl serde::ser::Serialize for super::SyncState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.source_token.is_empty() {
             state.serialize_entry("sourceToken", &self.source_token)?;
@@ -610,9 +621,9 @@ impl serde::ser::Serialize for super::SyncError {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.code.is_empty() {
             state.serialize_entry("code", &self.code)?;
@@ -638,9 +649,9 @@ impl serde::ser::Serialize for super::ErrorResource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.source_path.is_empty() {
             state.serialize_entry("sourcePath", &self.source_path)?;
@@ -669,9 +680,9 @@ impl serde::ser::Serialize for super::GroupVersionKind {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.group.is_empty() {
             state.serialize_entry("group", &self.group)?;
@@ -697,9 +708,9 @@ impl serde::ser::Serialize for super::PolicyControllerState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.version.is_some() {
             state.serialize_entry("version", &self.version)?;
@@ -722,9 +733,9 @@ impl serde::ser::Serialize for super::PolicyControllerVersion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.version.is_empty() {
             state.serialize_entry("version", &self.version)?;
@@ -744,12 +755,15 @@ impl serde::ser::Serialize for super::GatekeeperDeploymentState {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.gatekeeper_controller_manager_state) {
-            state.serialize_entry("gatekeeperControllerManagerState", &self.gatekeeper_controller_manager_state)?;
+            state.serialize_entry(
+                "gatekeeperControllerManagerState",
+                &self.gatekeeper_controller_manager_state,
+            )?;
         }
         if !wkt::internal::is_default(&self.gatekeeper_audit) {
             state.serialize_entry("gatekeeperAudit", &self.gatekeeper_audit)?;

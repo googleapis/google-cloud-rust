@@ -214,7 +214,6 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::ManagedSchemaRegistry] also implement [ManagedSchemaRegistry].
@@ -516,5 +515,4 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
-
 }

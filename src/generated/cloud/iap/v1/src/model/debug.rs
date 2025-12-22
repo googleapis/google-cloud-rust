@@ -146,7 +146,10 @@ impl std::fmt::Debug for super::AccessSettings {
         debug_struct.field("oauth_settings", &self.oauth_settings);
         debug_struct.field("reauth_settings", &self.reauth_settings);
         debug_struct.field("allowed_domains_settings", &self.allowed_domains_settings);
-        debug_struct.field("workforce_identity_settings", &self.workforce_identity_settings);
+        debug_struct.field(
+            "workforce_identity_settings",
+            &self.workforce_identity_settings,
+        );
         debug_struct.field("identity_sources", &self.identity_sources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -244,9 +247,15 @@ impl std::fmt::Debug for super::ApplicationSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApplicationSettings");
         debug_struct.field("csm_settings", &self.csm_settings);
-        debug_struct.field("access_denied_page_settings", &self.access_denied_page_settings);
+        debug_struct.field(
+            "access_denied_page_settings",
+            &self.access_denied_page_settings,
+        );
         debug_struct.field("cookie_domain", &self.cookie_domain);
-        debug_struct.field("attribute_propagation_settings", &self.attribute_propagation_settings);
+        debug_struct.field(
+            "attribute_propagation_settings",
+            &self.attribute_propagation_settings,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -269,8 +278,14 @@ impl std::fmt::Debug for super::AccessDeniedPageSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessDeniedPageSettings");
         debug_struct.field("access_denied_page_uri", &self.access_denied_page_uri);
-        debug_struct.field("generate_troubleshooting_uri", &self.generate_troubleshooting_uri);
-        debug_struct.field("remediation_token_generation_enabled", &self.remediation_token_generation_enabled);
+        debug_struct.field(
+            "generate_troubleshooting_uri",
+            &self.generate_troubleshooting_uri,
+        );
+        debug_struct.field(
+            "remediation_token_generation_enabled",
+            &self.remediation_token_generation_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -374,7 +389,10 @@ impl std::fmt::Debug for super::ListIdentityAwareProxyClientsRequest {
 impl std::fmt::Debug for super::ListIdentityAwareProxyClientsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIdentityAwareProxyClientsResponse");
-        debug_struct.field("identity_aware_proxy_clients", &self.identity_aware_proxy_clients);
+        debug_struct.field(
+            "identity_aware_proxy_clients",
+            &self.identity_aware_proxy_clients,
+        );
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -387,7 +405,10 @@ impl std::fmt::Debug for super::CreateIdentityAwareProxyClientRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateIdentityAwareProxyClientRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("identity_aware_proxy_client", &self.identity_aware_proxy_client);
+        debug_struct.field(
+            "identity_aware_proxy_client",
+            &self.identity_aware_proxy_client,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

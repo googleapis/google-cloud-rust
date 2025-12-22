@@ -39,7 +39,10 @@ pub mod privileged_access_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PrivilegedAccessManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod privileged_access_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod privileged_access_manager {
     pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
 
     impl CheckOnboardingStatus {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CheckOnboardingStatusRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CheckOnboardingStatusRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckOnboardingStatusResponse> {
-            (*self.0.stub).check_onboarding_status(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .check_onboarding_status(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CheckOnboardingStatusRequest::parent].
@@ -149,14 +162,17 @@ pub mod privileged_access_manager {
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListEntitlementsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListEntitlementsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -169,11 +185,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEntitlementsResponse> {
-            (*self.0.stub).list_entitlements(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_entitlements(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -185,7 +207,10 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEntitlementsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntitlementsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -255,14 +280,17 @@ pub mod privileged_access_manager {
     pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
 
     impl SearchEntitlements {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchEntitlementsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchEntitlementsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -275,11 +303,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchEntitlementsResponse> {
-            (*self.0.stub).search_entitlements(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_entitlements(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -291,7 +325,12 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchEntitlementsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchEntitlementsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -307,7 +346,12 @@ pub mod privileged_access_manager {
         /// Sets the value of [caller_access_type][crate::model::SearchEntitlementsRequest::caller_access_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_caller_access_type<T: Into<crate::model::search_entitlements_request::CallerAccessType>>(mut self, v: T) -> Self {
+        pub fn set_caller_access_type<
+            T: Into<crate::model::search_entitlements_request::CallerAccessType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.caller_access_type = v.into();
             self
         }
@@ -359,10 +403,10 @@ pub mod privileged_access_manager {
     pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
 
     impl GetEntitlement {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -379,7 +423,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Entitlement> {
-            (*self.0.stub).get_entitlement(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_entitlement(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntitlementRequest::name].
@@ -420,14 +467,17 @@ pub mod privileged_access_manager {
     pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
 
     impl CreateEntitlement {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateEntitlementRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateEntitlementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -445,16 +495,20 @@ pub mod privileged_access_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_entitlement(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_entitlement(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_entitlement`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -502,7 +556,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_entitlement<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Entitlement>
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
         {
             self.0.request.entitlement = std::option::Option::Some(v.into());
             self
@@ -512,7 +567,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Entitlement>
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
         {
             self.0.request.entitlement = v.map(|x| x.into());
             self
@@ -554,14 +610,17 @@ pub mod privileged_access_manager {
     pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
     impl DeleteEntitlement {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteEntitlementRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteEntitlementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -579,16 +638,20 @@ pub mod privileged_access_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_entitlement(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_entitlement(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_entitlement`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -666,14 +729,17 @@ pub mod privileged_access_manager {
     pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
     impl UpdateEntitlement {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateEntitlementRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateEntitlementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -691,16 +757,20 @@ pub mod privileged_access_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_entitlement(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_entitlement(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_entitlement`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -732,7 +802,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_entitlement<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Entitlement>
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
         {
             self.0.request.entitlement = std::option::Option::Some(v.into());
             self
@@ -742,7 +813,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Entitlement>
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
         {
             self.0.request.entitlement = v.map(|x| x.into());
             self
@@ -752,7 +824,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -762,7 +835,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -801,10 +875,10 @@ pub mod privileged_access_manager {
     pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
 
     impl ListGrants {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -821,11 +895,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListGrantsResponse> {
-            (*self.0.stub).list_grants(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_grants(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -837,7 +917,10 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListGrantsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGrantsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -907,10 +990,10 @@ pub mod privileged_access_manager {
     pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
 
     impl SearchGrants {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -927,11 +1010,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchGrantsResponse> {
-            (*self.0.stub).search_grants(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_grants(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -943,7 +1032,10 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchGrantsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchGrantsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -959,7 +1051,12 @@ pub mod privileged_access_manager {
         /// Sets the value of [caller_relationship][crate::model::SearchGrantsRequest::caller_relationship].
         ///
         /// This is a **required** field for requests.
-        pub fn set_caller_relationship<T: Into<crate::model::search_grants_request::CallerRelationshipType>>(mut self, v: T) -> Self {
+        pub fn set_caller_relationship<
+            T: Into<crate::model::search_grants_request::CallerRelationshipType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.caller_relationship = v.into();
             self
         }
@@ -1011,10 +1108,10 @@ pub mod privileged_access_manager {
     pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
 
     impl GetGrant {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1031,7 +1128,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Grant> {
-            (*self.0.stub).get_grant(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_grant(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGrantRequest::name].
@@ -1071,10 +1171,10 @@ pub mod privileged_access_manager {
     pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
 
     impl CreateGrant {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1091,7 +1191,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Grant> {
-            (*self.0.stub).create_grant(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_grant(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateGrantRequest::parent].
@@ -1106,7 +1209,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_grant<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Grant>
+        where
+            T: std::convert::Into<crate::model::Grant>,
         {
             self.0.request.grant = std::option::Option::Some(v.into());
             self
@@ -1116,7 +1220,8 @@ pub mod privileged_access_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Grant>
+        where
+            T: std::convert::Into<crate::model::Grant>,
         {
             self.0.request.grant = v.map(|x| x.into());
             self
@@ -1157,10 +1262,10 @@ pub mod privileged_access_manager {
     pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
 
     impl ApproveGrant {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1177,7 +1282,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Grant> {
-            (*self.0.stub).approve_grant(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .approve_grant(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveGrantRequest::name].
@@ -1223,10 +1331,10 @@ pub mod privileged_access_manager {
     pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
 
     impl DenyGrant {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1243,7 +1351,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Grant> {
-            (*self.0.stub).deny_grant(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .deny_grant(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DenyGrantRequest::name].
@@ -1290,10 +1401,10 @@ pub mod privileged_access_manager {
     pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
 
     impl RevokeGrant {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1315,16 +1426,18 @@ pub mod privileged_access_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).revoke_grant(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .revoke_grant(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `revoke_grant`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Grant, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Grant, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1399,14 +1512,17 @@ pub mod privileged_access_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1419,11 +1535,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1435,7 +1557,10 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1493,10 +1618,10 @@ pub mod privileged_access_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1513,7 +1638,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1555,14 +1683,17 @@ pub mod privileged_access_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1575,11 +1706,17 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1591,7 +1728,12 @@ pub mod privileged_access_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1655,14 +1797,17 @@ pub mod privileged_access_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1675,7 +1820,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1713,14 +1861,17 @@ pub mod privileged_access_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1733,7 +1884,10 @@ pub mod privileged_access_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1749,5 +1903,4 @@ pub mod privileged_access_manager {
             &mut self.0.options
         }
     }
-
 }

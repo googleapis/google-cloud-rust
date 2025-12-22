@@ -86,7 +86,9 @@ impl ReservationService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reservation_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::reservation_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::reservation_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -94,28 +96,43 @@ impl ReservationService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ReservationService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ReservationService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReservationService> {
         super::transport::ReservationService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ReservationService> {
-        Self::build_transport(conf).await.map(super::tracing::ReservationService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReservationService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReservationService::new)
     }
 
     /// Creates a new reservation resource.
@@ -135,14 +152,12 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_reservation(&self) -> super::builder::reservation_service::CreateReservation
-    {
+    pub fn create_reservation(&self) -> super::builder::reservation_service::CreateReservation {
         super::builder::reservation_service::CreateReservation::new(self.inner.clone())
     }
 
     /// Lists all the reservations for the project in the specified location.
-    pub fn list_reservations(&self) -> super::builder::reservation_service::ListReservations
-    {
+    pub fn list_reservations(&self) -> super::builder::reservation_service::ListReservations {
         super::builder::reservation_service::ListReservations::new(self.inner.clone())
     }
 
@@ -163,8 +178,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_reservation(&self) -> super::builder::reservation_service::GetReservation
-    {
+    pub fn get_reservation(&self) -> super::builder::reservation_service::GetReservation {
         super::builder::reservation_service::GetReservation::new(self.inner.clone())
     }
 
@@ -186,8 +200,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_reservation(&self) -> super::builder::reservation_service::DeleteReservation
-    {
+    pub fn delete_reservation(&self) -> super::builder::reservation_service::DeleteReservation {
         super::builder::reservation_service::DeleteReservation::new(self.inner.clone())
     }
 
@@ -208,8 +221,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_reservation(&self) -> super::builder::reservation_service::UpdateReservation
-    {
+    pub fn update_reservation(&self) -> super::builder::reservation_service::UpdateReservation {
         super::builder::reservation_service::UpdateReservation::new(self.inner.clone())
     }
 
@@ -234,8 +246,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn failover_reservation(&self) -> super::builder::reservation_service::FailoverReservation
-    {
+    pub fn failover_reservation(&self) -> super::builder::reservation_service::FailoverReservation {
         super::builder::reservation_service::FailoverReservation::new(self.inner.clone())
     }
 
@@ -256,14 +267,16 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_capacity_commitment(&self) -> super::builder::reservation_service::CreateCapacityCommitment
-    {
+    pub fn create_capacity_commitment(
+        &self,
+    ) -> super::builder::reservation_service::CreateCapacityCommitment {
         super::builder::reservation_service::CreateCapacityCommitment::new(self.inner.clone())
     }
 
     /// Lists all the capacity commitments for the admin project.
-    pub fn list_capacity_commitments(&self) -> super::builder::reservation_service::ListCapacityCommitments
-    {
+    pub fn list_capacity_commitments(
+        &self,
+    ) -> super::builder::reservation_service::ListCapacityCommitments {
         super::builder::reservation_service::ListCapacityCommitments::new(self.inner.clone())
     }
 
@@ -284,8 +297,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_capacity_commitment(&self) -> super::builder::reservation_service::GetCapacityCommitment
-    {
+    pub fn get_capacity_commitment(
+        &self,
+    ) -> super::builder::reservation_service::GetCapacityCommitment {
         super::builder::reservation_service::GetCapacityCommitment::new(self.inner.clone())
     }
 
@@ -307,8 +321,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_capacity_commitment(&self) -> super::builder::reservation_service::DeleteCapacityCommitment
-    {
+    pub fn delete_capacity_commitment(
+        &self,
+    ) -> super::builder::reservation_service::DeleteCapacityCommitment {
         super::builder::reservation_service::DeleteCapacityCommitment::new(self.inner.clone())
     }
 
@@ -335,8 +350,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_capacity_commitment(&self) -> super::builder::reservation_service::UpdateCapacityCommitment
-    {
+    pub fn update_capacity_commitment(
+        &self,
+    ) -> super::builder::reservation_service::UpdateCapacityCommitment {
         super::builder::reservation_service::UpdateCapacityCommitment::new(self.inner.clone())
     }
 
@@ -364,8 +380,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn split_capacity_commitment(&self) -> super::builder::reservation_service::SplitCapacityCommitment
-    {
+    pub fn split_capacity_commitment(
+        &self,
+    ) -> super::builder::reservation_service::SplitCapacityCommitment {
         super::builder::reservation_service::SplitCapacityCommitment::new(self.inner.clone())
     }
 
@@ -392,8 +409,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn merge_capacity_commitments(&self) -> super::builder::reservation_service::MergeCapacityCommitments
-    {
+    pub fn merge_capacity_commitments(
+        &self,
+    ) -> super::builder::reservation_service::MergeCapacityCommitments {
         super::builder::reservation_service::MergeCapacityCommitments::new(self.inner.clone())
     }
 
@@ -448,8 +466,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_assignment(&self) -> super::builder::reservation_service::CreateAssignment
-    {
+    pub fn create_assignment(&self) -> super::builder::reservation_service::CreateAssignment {
         super::builder::reservation_service::CreateAssignment::new(self.inner.clone())
     }
 
@@ -474,8 +491,7 @@ impl ReservationService {
     /// specified project and location will be listed.
     ///
     /// **Note** "-" cannot be used for projects nor locations.
-    pub fn list_assignments(&self) -> super::builder::reservation_service::ListAssignments
-    {
+    pub fn list_assignments(&self) -> super::builder::reservation_service::ListAssignments {
         super::builder::reservation_service::ListAssignments::new(self.inner.clone())
     }
 
@@ -509,8 +525,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_assignment(&self) -> super::builder::reservation_service::DeleteAssignment
-    {
+    pub fn delete_assignment(&self) -> super::builder::reservation_service::DeleteAssignment {
         super::builder::reservation_service::DeleteAssignment::new(self.inner.clone())
     }
 
@@ -538,8 +553,7 @@ impl ReservationService {
     /// **Note** "-" cannot be used for projects
     /// nor locations.
     #[deprecated]
-    pub fn search_assignments(&self) -> super::builder::reservation_service::SearchAssignments
-    {
+    pub fn search_assignments(&self) -> super::builder::reservation_service::SearchAssignments {
         super::builder::reservation_service::SearchAssignments::new(self.inner.clone())
     }
 
@@ -563,8 +577,9 @@ impl ReservationService {
     /// 1. Hierarchy lookup (project->folder->organization) happens in this API.
     /// 1. Parent here is `projects/*/locations/*`, instead of
     ///    `projects/*/locations/*reservations/*`.
-    pub fn search_all_assignments(&self) -> super::builder::reservation_service::SearchAllAssignments
-    {
+    pub fn search_all_assignments(
+        &self,
+    ) -> super::builder::reservation_service::SearchAllAssignments {
         super::builder::reservation_service::SearchAllAssignments::new(self.inner.clone())
     }
 
@@ -589,8 +604,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn move_assignment(&self) -> super::builder::reservation_service::MoveAssignment
-    {
+    pub fn move_assignment(&self) -> super::builder::reservation_service::MoveAssignment {
         super::builder::reservation_service::MoveAssignment::new(self.inner.clone())
     }
 
@@ -613,8 +627,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_assignment(&self) -> super::builder::reservation_service::UpdateAssignment
-    {
+    pub fn update_assignment(&self) -> super::builder::reservation_service::UpdateAssignment {
         super::builder::reservation_service::UpdateAssignment::new(self.inner.clone())
     }
 
@@ -635,8 +648,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bi_reservation(&self) -> super::builder::reservation_service::GetBiReservation
-    {
+    pub fn get_bi_reservation(&self) -> super::builder::reservation_service::GetBiReservation {
         super::builder::reservation_service::GetBiReservation::new(self.inner.clone())
     }
 
@@ -664,8 +676,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_bi_reservation(&self) -> super::builder::reservation_service::UpdateBiReservation
-    {
+    pub fn update_bi_reservation(
+        &self,
+    ) -> super::builder::reservation_service::UpdateBiReservation {
         super::builder::reservation_service::UpdateBiReservation::new(self.inner.clone())
     }
 
@@ -701,8 +714,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::reservation_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::reservation_service::GetIamPolicy {
         super::builder::reservation_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -733,8 +745,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::reservation_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::reservation_service::SetIamPolicy {
         super::builder::reservation_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -762,8 +773,7 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::reservation_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::reservation_service::TestIamPermissions {
         super::builder::reservation_service::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -784,8 +794,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_reservation_group(&self) -> super::builder::reservation_service::CreateReservationGroup
-    {
+    pub fn create_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::CreateReservationGroup {
         super::builder::reservation_service::CreateReservationGroup::new(self.inner.clone())
     }
 
@@ -807,8 +818,9 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_reservation_group(&self) -> super::builder::reservation_service::GetReservationGroup
-    {
+    pub fn get_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::GetReservationGroup {
         super::builder::reservation_service::GetReservationGroup::new(self.inner.clone())
     }
 
@@ -830,14 +842,16 @@ impl ReservationService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_reservation_group(&self) -> super::builder::reservation_service::DeleteReservationGroup
-    {
+    pub fn delete_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::DeleteReservationGroup {
         super::builder::reservation_service::DeleteReservationGroup::new(self.inner.clone())
     }
 
     /// Lists all the reservation groups for the project in the specified location.
-    pub fn list_reservation_groups(&self) -> super::builder::reservation_service::ListReservationGroups
-    {
+    pub fn list_reservation_groups(
+        &self,
+    ) -> super::builder::reservation_service::ListReservationGroups {
         super::builder::reservation_service::ListReservationGroups::new(self.inner.clone())
     }
 }

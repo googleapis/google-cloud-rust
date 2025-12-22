@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,6 +29,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataAccessLabelRequest {
-
     /// Required. The parent resource where this Data Access Label will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -84,7 +83,8 @@ impl CreateDataAccessLabelRequest {
     /// let x = CreateDataAccessLabelRequest::new().set_data_access_label(DataAccessLabel::default()/* use setters */);
     /// ```
     pub fn set_data_access_label<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataAccessLabel>
+    where
+        T: std::convert::Into<crate::model::DataAccessLabel>,
     {
         self.data_access_label = std::option::Option::Some(v.into());
         self
@@ -100,7 +100,8 @@ impl CreateDataAccessLabelRequest {
     /// let x = CreateDataAccessLabelRequest::new().set_or_clear_data_access_label(None::<DataAccessLabel>);
     /// ```
     pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataAccessLabel>
+    where
+        T: std::convert::Into<crate::model::DataAccessLabel>,
     {
         self.data_access_label = v.map(|x| x.into());
         self
@@ -113,7 +114,10 @@ impl CreateDataAccessLabelRequest {
     /// # use google_cloud_chronicle_v1::model::CreateDataAccessLabelRequest;
     /// let x = CreateDataAccessLabelRequest::new().set_data_access_label_id("example");
     /// ```
-    pub fn set_data_access_label_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_data_access_label_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_access_label_id = v.into();
         self
     }
@@ -129,7 +133,6 @@ impl wkt::message::Message for CreateDataAccessLabelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataAccessLabelRequest {
-
     /// Required. The ID of the data access label to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessLabels/{data_access_label}`
@@ -166,7 +169,6 @@ impl wkt::message::Message for GetDataAccessLabelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataAccessLabelsRequest {
-
     /// Required. The parent resource where this data access label will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -255,7 +257,6 @@ impl wkt::message::Message for ListDataAccessLabelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataAccessLabelsResponse {
-
     /// List of data access labels.
     pub data_access_labels: std::vec::Vec<crate::model::DataAccessLabel>,
 
@@ -286,7 +287,7 @@ impl ListDataAccessLabelsResponse {
     pub fn set_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessLabel>
+        V: std::convert::Into<crate::model::DataAccessLabel>,
     {
         use std::iter::Iterator;
         self.data_access_labels = v.into_iter().map(|i| i.into()).collect();
@@ -330,7 +331,6 @@ impl gax::paginator::internal::PageableResponse for ListDataAccessLabelsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataAccessLabelRequest {
-
     /// Required. The data access label to update.
     ///
     /// The label's `name` field is used to identify the label to update.
@@ -361,7 +361,8 @@ impl UpdateDataAccessLabelRequest {
     /// let x = UpdateDataAccessLabelRequest::new().set_data_access_label(DataAccessLabel::default()/* use setters */);
     /// ```
     pub fn set_data_access_label<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataAccessLabel>
+    where
+        T: std::convert::Into<crate::model::DataAccessLabel>,
     {
         self.data_access_label = std::option::Option::Some(v.into());
         self
@@ -377,7 +378,8 @@ impl UpdateDataAccessLabelRequest {
     /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_data_access_label(None::<DataAccessLabel>);
     /// ```
     pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataAccessLabel>
+    where
+        T: std::convert::Into<crate::model::DataAccessLabel>,
     {
         self.data_access_label = v.map(|x| x.into());
         self
@@ -392,7 +394,8 @@ impl UpdateDataAccessLabelRequest {
     /// let x = UpdateDataAccessLabelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -408,7 +411,8 @@ impl UpdateDataAccessLabelRequest {
     /// let x = UpdateDataAccessLabelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -425,7 +429,6 @@ impl wkt::message::Message for UpdateDataAccessLabelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataAccessLabelRequest {
-
     /// Required. The ID of the data access label to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessLabels/{data_access_label}`
@@ -462,7 +465,6 @@ impl wkt::message::Message for DeleteDataAccessLabelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataAccessScopeRequest {
-
     /// Required. The parent resource where this Data Access Scope will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -504,7 +506,8 @@ impl CreateDataAccessScopeRequest {
     /// let x = CreateDataAccessScopeRequest::new().set_data_access_scope(DataAccessScope::default()/* use setters */);
     /// ```
     pub fn set_data_access_scope<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataAccessScope>
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
     {
         self.data_access_scope = std::option::Option::Some(v.into());
         self
@@ -520,7 +523,8 @@ impl CreateDataAccessScopeRequest {
     /// let x = CreateDataAccessScopeRequest::new().set_or_clear_data_access_scope(None::<DataAccessScope>);
     /// ```
     pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataAccessScope>
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
     {
         self.data_access_scope = v.map(|x| x.into());
         self
@@ -533,7 +537,10 @@ impl CreateDataAccessScopeRequest {
     /// # use google_cloud_chronicle_v1::model::CreateDataAccessScopeRequest;
     /// let x = CreateDataAccessScopeRequest::new().set_data_access_scope_id("example");
     /// ```
-    pub fn set_data_access_scope_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_data_access_scope_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_access_scope_id = v.into();
         self
     }
@@ -549,7 +556,6 @@ impl wkt::message::Message for CreateDataAccessScopeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataAccessScopeRequest {
-
     /// Required. The ID of the data access scope to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{data_access_scope}`
@@ -586,7 +592,6 @@ impl wkt::message::Message for GetDataAccessScopeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataAccessScopesRequest {
-
     /// Required. The parent resource where this data access scope will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -675,7 +680,6 @@ impl wkt::message::Message for ListDataAccessScopesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataAccessScopesResponse {
-
     /// List of data access scopes.
     pub data_access_scopes: std::vec::Vec<crate::model::DataAccessScope>,
 
@@ -709,7 +713,7 @@ impl ListDataAccessScopesResponse {
     pub fn set_data_access_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessScope>
+        V: std::convert::Into<crate::model::DataAccessScope>,
     {
         use std::iter::Iterator;
         self.data_access_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -724,7 +728,8 @@ impl ListDataAccessScopesResponse {
     /// let x = ListDataAccessScopesResponse::new().set_global_data_access_scope_granted(true);
     /// ```
     pub fn set_global_data_access_scope_granted<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.global_data_access_scope_granted = std::option::Option::Some(v.into());
         self
@@ -738,8 +743,12 @@ impl ListDataAccessScopesResponse {
     /// let x = ListDataAccessScopesResponse::new().set_or_clear_global_data_access_scope_granted(Some(false));
     /// let x = ListDataAccessScopesResponse::new().set_or_clear_global_data_access_scope_granted(None::<bool>);
     /// ```
-    pub fn set_or_clear_global_data_access_scope_granted<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    pub fn set_or_clear_global_data_access_scope_granted<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
     {
         self.global_data_access_scope_granted = v.map(|x| x.into());
         self
@@ -782,7 +791,6 @@ impl gax::paginator::internal::PageableResponse for ListDataAccessScopesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataAccessScopeRequest {
-
     /// Required. The data access scope to update.
     ///
     /// The scope's `name` field is used to identify the scope to update.
@@ -814,7 +822,8 @@ impl UpdateDataAccessScopeRequest {
     /// let x = UpdateDataAccessScopeRequest::new().set_data_access_scope(DataAccessScope::default()/* use setters */);
     /// ```
     pub fn set_data_access_scope<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataAccessScope>
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
     {
         self.data_access_scope = std::option::Option::Some(v.into());
         self
@@ -830,7 +839,8 @@ impl UpdateDataAccessScopeRequest {
     /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_data_access_scope(None::<DataAccessScope>);
     /// ```
     pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataAccessScope>
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
     {
         self.data_access_scope = v.map(|x| x.into());
         self
@@ -845,7 +855,8 @@ impl UpdateDataAccessScopeRequest {
     /// let x = UpdateDataAccessScopeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -861,7 +872,8 @@ impl UpdateDataAccessScopeRequest {
     /// let x = UpdateDataAccessScopeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -878,7 +890,6 @@ impl wkt::message::Message for UpdateDataAccessScopeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataAccessScopeRequest {
-
     /// Required. The ID of the data access scope to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{data_access_scope}`
@@ -915,7 +926,6 @@ impl wkt::message::Message for DeleteDataAccessScopeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataAccessLabel {
-
     /// The unique resource name of the data access label.
     pub name: std::string::String,
 
@@ -984,7 +994,8 @@ impl DataAccessLabel {
     /// let x = DataAccessLabel::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1000,7 +1011,8 @@ impl DataAccessLabel {
     /// let x = DataAccessLabel::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1015,7 +1027,8 @@ impl DataAccessLabel {
     /// let x = DataAccessLabel::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1031,7 +1044,8 @@ impl DataAccessLabel {
     /// let x = DataAccessLabel::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1084,8 +1098,12 @@ impl DataAccessLabel {
     /// use google_cloud_chronicle_v1::model::data_access_label::Definition;
     /// let x = DataAccessLabel::new().set_definition(Some(Definition::UdmQuery("example".to_string())));
     /// ```
-    pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::data_access_label::Definition>>>(mut self, v: T) -> Self
-    {
+    pub fn set_definition<
+        T: std::convert::Into<std::option::Option<crate::model::data_access_label::Definition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.definition = v.into();
         self
     }
@@ -1096,7 +1114,9 @@ impl DataAccessLabel {
     pub fn udm_query(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.definition.as_ref().and_then(|v| match v {
-            crate::model::data_access_label::Definition::UdmQuery(v) => std::option::Option::Some(v),
+            crate::model::data_access_label::Definition::UdmQuery(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1115,9 +1135,7 @@ impl DataAccessLabel {
     /// ```
     pub fn set_udm_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.definition = std::option::Option::Some(
-            crate::model::data_access_label::Definition::UdmQuery(
-                v.into()
-            )
+            crate::model::data_access_label::Definition::UdmQuery(v.into()),
         );
         self
     }
@@ -1133,7 +1151,6 @@ impl wkt::message::Message for DataAccessLabel {
 pub mod data_access_label {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Required.
     /// The definition of the data access label that determines which
@@ -1151,7 +1168,6 @@ pub mod data_access_label {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataAccessScope {
-
     /// Required. The unique full name of the data access scope.
     /// The name should comply with <https://google.aip.dev/122> standards.
     pub name: std::string::String,
@@ -1236,7 +1252,7 @@ impl DataAccessScope {
     pub fn set_allowed_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessLabelReference>
+        V: std::convert::Into<crate::model::DataAccessLabelReference>,
     {
         use std::iter::Iterator;
         self.allowed_data_access_labels = v.into_iter().map(|i| i.into()).collect();
@@ -1258,7 +1274,7 @@ impl DataAccessScope {
     pub fn set_denied_data_access_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataAccessLabelReference>
+        V: std::convert::Into<crate::model::DataAccessLabelReference>,
     {
         use std::iter::Iterator;
         self.denied_data_access_labels = v.into_iter().map(|i| i.into()).collect();
@@ -1286,7 +1302,8 @@ impl DataAccessScope {
     /// let x = DataAccessScope::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1302,7 +1319,8 @@ impl DataAccessScope {
     /// let x = DataAccessScope::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1317,7 +1335,8 @@ impl DataAccessScope {
     /// let x = DataAccessScope::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1333,7 +1352,8 @@ impl DataAccessScope {
     /// let x = DataAccessScope::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1398,7 +1418,6 @@ impl wkt::message::Message for DataAccessScope {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataAccessLabelReference {
-
     /// Output only. The display name of the label.
     /// Data access label and log types's name
     /// will match the display name of the resource.
@@ -1440,8 +1459,12 @@ impl DataAccessLabelReference {
     /// use google_cloud_chronicle_v1::model::data_access_label_reference::Label;
     /// let x = DataAccessLabelReference::new().set_label(Some(Label::DataAccessLabel("example".to_string())));
     /// ```
-    pub fn set_label<T: std::convert::Into<std::option::Option<crate::model::data_access_label_reference::Label>>>(mut self, v: T) -> Self
-    {
+    pub fn set_label<
+        T: std::convert::Into<std::option::Option<crate::model::data_access_label_reference::Label>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.label = v.into();
         self
     }
@@ -1452,7 +1475,9 @@ impl DataAccessLabelReference {
     pub fn data_access_label(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::DataAccessLabel(v) => std::option::Option::Some(v),
+            crate::model::data_access_label_reference::Label::DataAccessLabel(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1472,11 +1497,12 @@ impl DataAccessLabelReference {
     /// assert!(x.asset_namespace().is_none());
     /// assert!(x.ingestion_label().is_none());
     /// ```
-    pub fn set_data_access_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_data_access_label<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::DataAccessLabel(
-                v.into()
-            )
+            crate::model::data_access_label_reference::Label::DataAccessLabel(v.into()),
         );
         self
     }
@@ -1487,7 +1513,9 @@ impl DataAccessLabelReference {
     pub fn log_type(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::LogType(v) => std::option::Option::Some(v),
+            crate::model::data_access_label_reference::Label::LogType(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1509,9 +1537,7 @@ impl DataAccessLabelReference {
     /// ```
     pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::LogType(
-                v.into()
-            )
+            crate::model::data_access_label_reference::Label::LogType(v.into()),
         );
         self
     }
@@ -1522,7 +1548,9 @@ impl DataAccessLabelReference {
     pub fn asset_namespace(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::AssetNamespace(v) => std::option::Option::Some(v),
+            crate::model::data_access_label_reference::Label::AssetNamespace(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1544,9 +1572,7 @@ impl DataAccessLabelReference {
     /// ```
     pub fn set_asset_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::AssetNamespace(
-                v.into()
-            )
+            crate::model::data_access_label_reference::Label::AssetNamespace(v.into()),
         );
         self
     }
@@ -1554,10 +1580,14 @@ impl DataAccessLabelReference {
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `IngestionLabel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn ingestion_label(&self) -> std::option::Option<&std::boxed::Box<crate::model::IngestionLabel>> {
+    pub fn ingestion_label(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IngestionLabel>> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
-            crate::model::data_access_label_reference::Label::IngestionLabel(v) => std::option::Option::Some(v),
+            crate::model::data_access_label_reference::Label::IngestionLabel(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1578,11 +1608,14 @@ impl DataAccessLabelReference {
     /// assert!(x.log_type().is_none());
     /// assert!(x.asset_namespace().is_none());
     /// ```
-    pub fn set_ingestion_label<T: std::convert::Into<std::boxed::Box<crate::model::IngestionLabel>>>(mut self, v: T) -> Self {
+    pub fn set_ingestion_label<
+        T: std::convert::Into<std::boxed::Box<crate::model::IngestionLabel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::IngestionLabel(
-                v.into()
-            )
+            crate::model::data_access_label_reference::Label::IngestionLabel(v.into()),
         );
         self
     }
@@ -1598,7 +1631,6 @@ impl wkt::message::Message for DataAccessLabelReference {
 pub mod data_access_label_reference {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The unique identifier for the label.
     #[derive(Clone, Debug, PartialEq)]
@@ -1620,7 +1652,6 @@ pub mod data_access_label_reference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IngestionLabel {
-
     /// Required. The key of the ingestion label. Always required.
     pub ingestion_label_key: std::string::String,
 
@@ -1644,7 +1675,10 @@ impl IngestionLabel {
     /// # use google_cloud_chronicle_v1::model::IngestionLabel;
     /// let x = IngestionLabel::new().set_ingestion_label_key("example");
     /// ```
-    pub fn set_ingestion_label_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_ingestion_label_key<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.ingestion_label_key = v.into();
         self
     }
@@ -1656,7 +1690,10 @@ impl IngestionLabel {
     /// # use google_cloud_chronicle_v1::model::IngestionLabel;
     /// let x = IngestionLabel::new().set_ingestion_label_value("example");
     /// ```
-    pub fn set_ingestion_label_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_ingestion_label_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.ingestion_label_value = v.into();
         self
     }
@@ -1673,7 +1710,6 @@ impl wkt::message::Message for IngestionLabel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Watchlist {
-
     /// Identifier. Resource name of the watchlist.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/watchlists/{watchlist}`
@@ -1693,7 +1729,8 @@ pub struct Watchlist {
     pub multiplying_factor: f32,
 
     /// Required. Mechanism to populate entities in the watchlist.
-    pub entity_population_mechanism: std::option::Option<crate::model::watchlist::EntityPopulationMechanism>,
+    pub entity_population_mechanism:
+        std::option::Option<crate::model::watchlist::EntityPopulationMechanism>,
 
     /// Output only. Entity count in the watchlist.
     pub entity_count: std::option::Option<crate::model::watchlist::EntityCount>,
@@ -1772,7 +1809,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_entity_population_mechanism(EntityPopulationMechanism::default()/* use setters */);
     /// ```
     pub fn set_entity_population_mechanism<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>
+    where
+        T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>,
     {
         self.entity_population_mechanism = std::option::Option::Some(v.into());
         self
@@ -1788,7 +1826,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_or_clear_entity_population_mechanism(None::<EntityPopulationMechanism>);
     /// ```
     pub fn set_or_clear_entity_population_mechanism<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>
+    where
+        T: std::convert::Into<crate::model::watchlist::EntityPopulationMechanism>,
     {
         self.entity_population_mechanism = v.map(|x| x.into());
         self
@@ -1803,7 +1842,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_entity_count(EntityCount::default()/* use setters */);
     /// ```
     pub fn set_entity_count<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::watchlist::EntityCount>
+    where
+        T: std::convert::Into<crate::model::watchlist::EntityCount>,
     {
         self.entity_count = std::option::Option::Some(v.into());
         self
@@ -1819,7 +1859,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_or_clear_entity_count(None::<EntityCount>);
     /// ```
     pub fn set_or_clear_entity_count<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::watchlist::EntityCount>
+    where
+        T: std::convert::Into<crate::model::watchlist::EntityCount>,
     {
         self.entity_count = v.map(|x| x.into());
         self
@@ -1834,7 +1875,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1850,7 +1892,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1865,7 +1908,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1881,7 +1925,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1896,7 +1941,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_watchlist_user_preferences(WatchlistUserPreferences::default()/* use setters */);
     /// ```
     pub fn set_watchlist_user_preferences<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::WatchlistUserPreferences>
+    where
+        T: std::convert::Into<crate::model::WatchlistUserPreferences>,
     {
         self.watchlist_user_preferences = std::option::Option::Some(v.into());
         self
@@ -1912,7 +1958,8 @@ impl Watchlist {
     /// let x = Watchlist::new().set_or_clear_watchlist_user_preferences(None::<WatchlistUserPreferences>);
     /// ```
     pub fn set_or_clear_watchlist_user_preferences<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::WatchlistUserPreferences>
+    where
+        T: std::convert::Into<crate::model::WatchlistUserPreferences>,
     {
         self.watchlist_user_preferences = v.map(|x| x.into());
         self
@@ -1930,15 +1977,14 @@ pub mod watchlist {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Mechanism to populate entities in the watchlist.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityPopulationMechanism {
-
         /// Ways to populate entities in watchlist.
         /// Currently, only manual is supported.
-        pub mechanism: std::option::Option<crate::model::watchlist::entity_population_mechanism::Mechanism>,
+        pub mechanism:
+            std::option::Option<crate::model::watchlist::entity_population_mechanism::Mechanism>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1960,8 +2006,16 @@ pub mod watchlist {
         /// let x = EntityPopulationMechanism::new().set_mechanism(Some(
         ///     google_cloud_chronicle_v1::model::watchlist::entity_population_mechanism::Mechanism::Manual(Manual::default().into())));
         /// ```
-        pub fn set_mechanism<T: std::convert::Into<std::option::Option<crate::model::watchlist::entity_population_mechanism::Mechanism>>>(mut self, v: T) -> Self
-        {
+        pub fn set_mechanism<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::watchlist::entity_population_mechanism::Mechanism,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.mechanism = v.into();
             self
         }
@@ -1969,10 +2023,16 @@ pub mod watchlist {
         /// The value of [mechanism][crate::model::watchlist::EntityPopulationMechanism::mechanism]
         /// if it holds a `Manual`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn manual(&self) -> std::option::Option<&std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>> {
+        pub fn manual(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>,
+        > {
             #[allow(unreachable_patterns)]
             self.mechanism.as_ref().and_then(|v| match v {
-                crate::model::watchlist::entity_population_mechanism::Mechanism::Manual(v) => std::option::Option::Some(v),
+                crate::model::watchlist::entity_population_mechanism::Mechanism::Manual(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -1990,11 +2050,16 @@ pub mod watchlist {
         /// let x = EntityPopulationMechanism::new().set_manual(Manual::default()/* use setters */);
         /// assert!(x.manual().is_some());
         /// ```
-        pub fn set_manual<T: std::convert::Into<std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>>>(mut self, v: T) -> Self {
+        pub fn set_manual<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.mechanism = std::option::Option::Some(
-                crate::model::watchlist::entity_population_mechanism::Mechanism::Manual(
-                    v.into()
-                )
+                crate::model::watchlist::entity_population_mechanism::Mechanism::Manual(v.into()),
             );
             self
         }
@@ -2011,12 +2076,10 @@ pub mod watchlist {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Entities are added manually.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Manual {
-
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2046,7 +2109,6 @@ pub mod watchlist {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityCount {
-
         /// Output only. Count of user type entities in the watchlist.
         pub user: i32,
 
@@ -2097,7 +2159,6 @@ pub mod watchlist {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WatchlistUserPreferences {
-
     /// Optional. Whether the watchlist is pinned on the dashboard.
     pub pinned: bool,
 
@@ -2132,7 +2193,6 @@ impl wkt::message::Message for WatchlistUserPreferences {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWatchlistRequest {
-
     /// Required. The parent, which owns this collection of watchlists.
     /// The name of the watchlist to retrieve.
     /// Format:
@@ -2170,7 +2230,6 @@ impl wkt::message::Message for GetWatchlistRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWatchlistsRequest {
-
     /// Required. The parent, which owns this collection of watchlists.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -2264,7 +2323,6 @@ impl wkt::message::Message for ListWatchlistsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWatchlistsResponse {
-
     /// Optional. The watchlists from the specified instance.
     pub watchlists: std::vec::Vec<crate::model::Watchlist>,
 
@@ -2295,7 +2353,7 @@ impl ListWatchlistsResponse {
     pub fn set_watchlists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Watchlist>
+        V: std::convert::Into<crate::model::Watchlist>,
     {
         use std::iter::Iterator;
         self.watchlists = v.into_iter().map(|i| i.into()).collect();
@@ -2339,7 +2397,6 @@ impl gax::paginator::internal::PageableResponse for ListWatchlistsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWatchlistRequest {
-
     /// Required. The parent resource where this watchlist will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -2395,7 +2452,8 @@ impl CreateWatchlistRequest {
     /// let x = CreateWatchlistRequest::new().set_watchlist(Watchlist::default()/* use setters */);
     /// ```
     pub fn set_watchlist<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Watchlist>
+    where
+        T: std::convert::Into<crate::model::Watchlist>,
     {
         self.watchlist = std::option::Option::Some(v.into());
         self
@@ -2411,7 +2469,8 @@ impl CreateWatchlistRequest {
     /// let x = CreateWatchlistRequest::new().set_or_clear_watchlist(None::<Watchlist>);
     /// ```
     pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Watchlist>
+    where
+        T: std::convert::Into<crate::model::Watchlist>,
     {
         self.watchlist = v.map(|x| x.into());
         self
@@ -2428,7 +2487,6 @@ impl wkt::message::Message for CreateWatchlistRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWatchlistRequest {
-
     /// Required. The watchlist to update.
     ///
     /// The watchlist's `name` field is used to identify the watchlist to update.
@@ -2456,7 +2514,8 @@ impl UpdateWatchlistRequest {
     /// let x = UpdateWatchlistRequest::new().set_watchlist(Watchlist::default()/* use setters */);
     /// ```
     pub fn set_watchlist<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Watchlist>
+    where
+        T: std::convert::Into<crate::model::Watchlist>,
     {
         self.watchlist = std::option::Option::Some(v.into());
         self
@@ -2472,7 +2531,8 @@ impl UpdateWatchlistRequest {
     /// let x = UpdateWatchlistRequest::new().set_or_clear_watchlist(None::<Watchlist>);
     /// ```
     pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Watchlist>
+    where
+        T: std::convert::Into<crate::model::Watchlist>,
     {
         self.watchlist = v.map(|x| x.into());
         self
@@ -2487,7 +2547,8 @@ impl UpdateWatchlistRequest {
     /// let x = UpdateWatchlistRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2503,7 +2564,8 @@ impl UpdateWatchlistRequest {
     /// let x = UpdateWatchlistRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2520,7 +2582,6 @@ impl wkt::message::Message for UpdateWatchlistRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWatchlistRequest {
-
     /// Required. The name of the watchlist to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/watchlists/{watchlist}`
@@ -2574,7 +2635,6 @@ impl wkt::message::Message for DeleteWatchlistRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-
     /// Identifier. The resource name of this instance.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub name: std::string::String,
@@ -2610,7 +2670,6 @@ impl wkt::message::Message for Instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
-
     /// Required. The name of the instance to retrieve.
     /// Format:
     /// `projects/{project_id}/locations/{location}/instances/{instance}`
@@ -2647,7 +2706,6 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScopeInfo {
-
     /// Required. The list of scope names of the reference list, if the list is
     /// empty the reference list is treated as unscoped.
     pub reference_list_scope: std::option::Option<crate::model::ReferenceListScope>,
@@ -2669,7 +2727,8 @@ impl ScopeInfo {
     /// let x = ScopeInfo::new().set_reference_list_scope(ReferenceListScope::default()/* use setters */);
     /// ```
     pub fn set_reference_list_scope<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ReferenceListScope>
+    where
+        T: std::convert::Into<crate::model::ReferenceListScope>,
     {
         self.reference_list_scope = std::option::Option::Some(v.into());
         self
@@ -2685,7 +2744,8 @@ impl ScopeInfo {
     /// let x = ScopeInfo::new().set_or_clear_reference_list_scope(None::<ReferenceListScope>);
     /// ```
     pub fn set_or_clear_reference_list_scope<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ReferenceListScope>
+    where
+        T: std::convert::Into<crate::model::ReferenceListScope>,
     {
         self.reference_list_scope = v.map(|x| x.into());
         self
@@ -2702,7 +2762,6 @@ impl wkt::message::Message for ScopeInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReferenceListScope {
-
     /// Optional. The list of scope names of the reference list. The scope names
     /// should be full resource names and should be of the format:
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{scope_name}`.
@@ -2726,7 +2785,7 @@ impl ReferenceListScope {
     pub fn set_scope_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.scope_names = v.into_iter().map(|i| i.into()).collect();
@@ -2744,7 +2803,6 @@ impl wkt::message::Message for ReferenceListScope {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReferenceListRequest {
-
     /// Required. The resource name of the reference list to retrieve.
     /// Format:
     /// `projects/{project}/locations/{locations}/instances/{instance}/referenceLists/{reference_list}`
@@ -2783,7 +2841,10 @@ impl GetReferenceListRequest {
     /// let x0 = GetReferenceListRequest::new().set_view(ReferenceListView::Basic);
     /// let x1 = GetReferenceListRequest::new().set_view(ReferenceListView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -2799,7 +2860,6 @@ impl wkt::message::Message for GetReferenceListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferenceListsRequest {
-
     /// Required. The parent, which owns this collection of reference lists.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}`
@@ -2874,7 +2934,10 @@ impl ListReferenceListsRequest {
     /// let x0 = ListReferenceListsRequest::new().set_view(ReferenceListView::Basic);
     /// let x1 = ListReferenceListsRequest::new().set_view(ReferenceListView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::ReferenceListView>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -2890,7 +2953,6 @@ impl wkt::message::Message for ListReferenceListsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferenceListsResponse {
-
     /// The reference lists.
     /// Ordered in ascending alphabetical order by name.
     pub reference_lists: std::vec::Vec<crate::model::ReferenceList>,
@@ -2922,7 +2984,7 @@ impl ListReferenceListsResponse {
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReferenceList>
+        V: std::convert::Into<crate::model::ReferenceList>,
     {
         use std::iter::Iterator;
         self.reference_lists = v.into_iter().map(|i| i.into()).collect();
@@ -2966,7 +3028,6 @@ impl gax::paginator::internal::PageableResponse for ListReferenceListsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReferenceListRequest {
-
     /// Required. The parent resource where this reference list will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -3012,7 +3073,8 @@ impl CreateReferenceListRequest {
     /// let x = CreateReferenceListRequest::new().set_reference_list(ReferenceList::default()/* use setters */);
     /// ```
     pub fn set_reference_list<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ReferenceList>
+    where
+        T: std::convert::Into<crate::model::ReferenceList>,
     {
         self.reference_list = std::option::Option::Some(v.into());
         self
@@ -3028,7 +3090,8 @@ impl CreateReferenceListRequest {
     /// let x = CreateReferenceListRequest::new().set_or_clear_reference_list(None::<ReferenceList>);
     /// ```
     pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ReferenceList>
+    where
+        T: std::convert::Into<crate::model::ReferenceList>,
     {
         self.reference_list = v.map(|x| x.into());
         self
@@ -3041,7 +3104,10 @@ impl CreateReferenceListRequest {
     /// # use google_cloud_chronicle_v1::model::CreateReferenceListRequest;
     /// let x = CreateReferenceListRequest::new().set_reference_list_id("example");
     /// ```
-    pub fn set_reference_list_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_reference_list_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.reference_list_id = v.into();
         self
     }
@@ -3057,7 +3123,6 @@ impl wkt::message::Message for CreateReferenceListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReferenceListRequest {
-
     /// Required. The reference list to update.
     ///
     /// The reference list's `name` field is used to identify the reference list to
@@ -3088,7 +3153,8 @@ impl UpdateReferenceListRequest {
     /// let x = UpdateReferenceListRequest::new().set_reference_list(ReferenceList::default()/* use setters */);
     /// ```
     pub fn set_reference_list<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ReferenceList>
+    where
+        T: std::convert::Into<crate::model::ReferenceList>,
     {
         self.reference_list = std::option::Option::Some(v.into());
         self
@@ -3104,7 +3170,8 @@ impl UpdateReferenceListRequest {
     /// let x = UpdateReferenceListRequest::new().set_or_clear_reference_list(None::<ReferenceList>);
     /// ```
     pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ReferenceList>
+    where
+        T: std::convert::Into<crate::model::ReferenceList>,
     {
         self.reference_list = v.map(|x| x.into());
         self
@@ -3119,7 +3186,8 @@ impl UpdateReferenceListRequest {
     /// let x = UpdateReferenceListRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3135,7 +3203,8 @@ impl UpdateReferenceListRequest {
     /// let x = UpdateReferenceListRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3154,7 +3223,6 @@ impl wkt::message::Message for UpdateReferenceListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReferenceList {
-
     /// Identifier. The resource name of the reference list.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/referenceLists/{reference_list}`
@@ -3235,7 +3303,8 @@ impl ReferenceList {
     /// let x = ReferenceList::new().set_revision_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = std::option::Option::Some(v.into());
         self
@@ -3251,7 +3320,8 @@ impl ReferenceList {
     /// let x = ReferenceList::new().set_or_clear_revision_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = v.map(|x| x.into());
         self
@@ -3284,7 +3354,7 @@ impl ReferenceList {
     pub fn set_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReferenceListEntry>
+        V: std::convert::Into<crate::model::ReferenceListEntry>,
     {
         use std::iter::Iterator;
         self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -3301,7 +3371,7 @@ impl ReferenceList {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -3318,7 +3388,10 @@ impl ReferenceList {
     /// let x1 = ReferenceList::new().set_syntax_type(ReferenceListSyntaxType::Regex);
     /// let x2 = ReferenceList::new().set_syntax_type(ReferenceListSyntaxType::Cidr);
     /// ```
-    pub fn set_syntax_type<T: std::convert::Into<crate::model::ReferenceListSyntaxType>>(mut self, v: T) -> Self {
+    pub fn set_syntax_type<T: std::convert::Into<crate::model::ReferenceListSyntaxType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.syntax_type = v.into();
         self
     }
@@ -3344,7 +3417,8 @@ impl ReferenceList {
     /// let x = ReferenceList::new().set_scope_info(ScopeInfo::default()/* use setters */);
     /// ```
     pub fn set_scope_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ScopeInfo>
+    where
+        T: std::convert::Into<crate::model::ScopeInfo>,
     {
         self.scope_info = std::option::Option::Some(v.into());
         self
@@ -3360,7 +3434,8 @@ impl ReferenceList {
     /// let x = ReferenceList::new().set_or_clear_scope_info(None::<ScopeInfo>);
     /// ```
     pub fn set_or_clear_scope_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ScopeInfo>
+    where
+        T: std::convert::Into<crate::model::ScopeInfo>,
     {
         self.scope_info = v.map(|x| x.into());
         self
@@ -3377,7 +3452,6 @@ impl wkt::message::Message for ReferenceList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReferenceListEntry {
-
     /// Required. The value of the entry. Maximum length is 512 characters.
     pub value: std::string::String,
 
@@ -3413,7 +3487,6 @@ impl wkt::message::Message for ReferenceListEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
-
     /// Identifier. Full resource name for the rule.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
@@ -3443,7 +3516,7 @@ pub struct Rule {
 
     /// Output only. Additional metadata specified in the meta section of text.
     /// Populated in FULL view.
-    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The timestamp of when the rule was created.
     /// Populated in FULL view.
@@ -3576,7 +3649,8 @@ impl Rule {
     /// let x = Rule::new().set_severity(Severity::default()/* use setters */);
     /// ```
     pub fn set_severity<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Severity>
+    where
+        T: std::convert::Into<crate::model::Severity>,
     {
         self.severity = std::option::Option::Some(v.into());
         self
@@ -3592,7 +3666,8 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_severity(None::<Severity>);
     /// ```
     pub fn set_or_clear_severity<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Severity>
+    where
+        T: std::convert::Into<crate::model::Severity>,
     {
         self.severity = v.map(|x| x.into());
         self
@@ -3628,7 +3703,8 @@ impl Rule {
     /// let x = Rule::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3644,7 +3720,8 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3659,7 +3736,8 @@ impl Rule {
     /// let x = Rule::new().set_revision_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = std::option::Option::Some(v.into());
         self
@@ -3675,7 +3753,8 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_revision_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = v.map(|x| x.into());
         self
@@ -3690,7 +3769,10 @@ impl Rule {
     /// let x0 = Rule::new().set_compilation_state(CompilationState::Succeeded);
     /// let x1 = Rule::new().set_compilation_state(CompilationState::Failed);
     /// ```
-    pub fn set_compilation_state<T: std::convert::Into<crate::model::rule::CompilationState>>(mut self, v: T) -> Self {
+    pub fn set_compilation_state<T: std::convert::Into<crate::model::rule::CompilationState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.compilation_state = v.into();
         self
     }
@@ -3719,7 +3801,7 @@ impl Rule {
     pub fn set_reference_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.reference_lists = v.into_iter().map(|i| i.into()).collect();
@@ -3741,7 +3823,7 @@ impl Rule {
     pub fn set_allowed_run_frequencies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RunFrequency>
+        V: std::convert::Into<crate::model::RunFrequency>,
     {
         use std::iter::Iterator;
         self.allowed_run_frequencies = v.into_iter().map(|i| i.into()).collect();
@@ -3787,7 +3869,7 @@ impl Rule {
     pub fn set_compilation_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CompilationDiagnostic>
+        V: std::convert::Into<crate::model::CompilationDiagnostic>,
     {
         use std::iter::Iterator;
         self.compilation_diagnostics = v.into_iter().map(|i| i.into()).collect();
@@ -3801,7 +3883,10 @@ impl Rule {
     /// # use google_cloud_chronicle_v1::model::Rule;
     /// let x = Rule::new().set_near_real_time_live_rule_eligible(true);
     /// ```
-    pub fn set_near_real_time_live_rule_eligible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_near_real_time_live_rule_eligible<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.near_real_time_live_rule_eligible = v.into();
         self
     }
@@ -3815,7 +3900,8 @@ impl Rule {
     /// let x = Rule::new().set_inputs_used(InputsUsed::default()/* use setters */);
     /// ```
     pub fn set_inputs_used<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::InputsUsed>
+    where
+        T: std::convert::Into<crate::model::InputsUsed>,
     {
         self.inputs_used = std::option::Option::Some(v.into());
         self
@@ -3831,7 +3917,8 @@ impl Rule {
     /// let x = Rule::new().set_or_clear_inputs_used(None::<InputsUsed>);
     /// ```
     pub fn set_or_clear_inputs_used<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::InputsUsed>
+    where
+        T: std::convert::Into<crate::model::InputsUsed>,
     {
         self.inputs_used = v.map(|x| x.into());
         self
@@ -3848,7 +3935,6 @@ impl wkt::message::Message for Rule {
 pub mod rule {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The current compilation state of the rule.
     ///
@@ -3938,7 +4024,9 @@ pub mod rule {
                 0 => Self::Unspecified,
                 1 => Self::Succeeded,
                 2 => Self::Failed,
-                _ => Self::UnknownValue(compilation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(compilation_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -3950,7 +4038,9 @@ pub mod rule {
                 "COMPILATION_STATE_UNSPECIFIED" => Self::Unspecified,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(compilation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(compilation_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -3975,7 +4065,8 @@ pub mod rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompilationState>::new(
-                ".google.cloud.chronicle.v1.Rule.CompilationState"))
+                ".google.cloud.chronicle.v1.Rule.CompilationState",
+            ))
         }
     }
 }
@@ -3984,7 +4075,6 @@ pub mod rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuleDeployment {
-
     /// Required. The resource name of the rule deployment.
     /// Note that RuleDeployment is a child of the overall Rule, not any individual
     /// revision, so the resource ID segment for the Rule resource must not
@@ -4101,7 +4191,8 @@ impl RuleDeployment {
     /// let x = RuleDeployment::new().set_archive_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_archive_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.archive_time = std::option::Option::Some(v.into());
         self
@@ -4117,7 +4208,8 @@ impl RuleDeployment {
     /// let x = RuleDeployment::new().set_or_clear_archive_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_archive_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.archive_time = v.map(|x| x.into());
         self
@@ -4133,7 +4225,10 @@ impl RuleDeployment {
     /// let x1 = RuleDeployment::new().set_run_frequency(RunFrequency::Hourly);
     /// let x2 = RuleDeployment::new().set_run_frequency(RunFrequency::Daily);
     /// ```
-    pub fn set_run_frequency<T: std::convert::Into<crate::model::RunFrequency>>(mut self, v: T) -> Self {
+    pub fn set_run_frequency<T: std::convert::Into<crate::model::RunFrequency>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.run_frequency = v.into();
         self
     }
@@ -4148,7 +4243,12 @@ impl RuleDeployment {
     /// let x1 = RuleDeployment::new().set_execution_state(ExecutionState::Limited);
     /// let x2 = RuleDeployment::new().set_execution_state(ExecutionState::Paused);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::rule_deployment::ExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<
+        T: std::convert::Into<crate::model::rule_deployment::ExecutionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -4163,7 +4263,7 @@ impl RuleDeployment {
     pub fn set_producer_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.producer_rules = v.into_iter().map(|i| i.into()).collect();
@@ -4180,7 +4280,7 @@ impl RuleDeployment {
     pub fn set_consumer_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.consumer_rules = v.into_iter().map(|i| i.into()).collect();
@@ -4196,7 +4296,8 @@ impl RuleDeployment {
     /// let x = RuleDeployment::new().set_last_alert_status_change_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_last_alert_status_change_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_alert_status_change_time = std::option::Option::Some(v.into());
         self
@@ -4211,8 +4312,12 @@ impl RuleDeployment {
     /// let x = RuleDeployment::new().set_or_clear_last_alert_status_change_time(Some(Timestamp::default()/* use setters */));
     /// let x = RuleDeployment::new().set_or_clear_last_alert_status_change_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_last_alert_status_change_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    pub fn set_or_clear_last_alert_status_change_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.last_alert_status_change_time = v.map(|x| x.into());
         self
@@ -4229,7 +4334,6 @@ impl wkt::message::Message for RuleDeployment {
 pub mod rule_deployment {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible execution states the rule deployment can be in.
     ///
@@ -4322,7 +4426,9 @@ pub mod rule_deployment {
                 1 => Self::Default,
                 2 => Self::Limited,
                 3 => Self::Paused,
-                _ => Self::UnknownValue(execution_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4335,7 +4441,9 @@ pub mod rule_deployment {
                 "DEFAULT" => Self::Default,
                 "LIMITED" => Self::Limited,
                 "PAUSED" => Self::Paused,
-                _ => Self::UnknownValue(execution_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4361,7 +4469,8 @@ pub mod rule_deployment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionState>::new(
-                ".google.cloud.chronicle.v1.RuleDeployment.ExecutionState"))
+                ".google.cloud.chronicle.v1.RuleDeployment.ExecutionState",
+            ))
         }
     }
 }
@@ -4370,7 +4479,6 @@ pub mod rule_deployment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Retrohunt {
-
     /// The resource name of the retrohunt.
     /// Retrohunt is the child of a rule revision. {rule} in the format below is
     /// structured as {rule_id@revision_id}.
@@ -4423,7 +4531,8 @@ impl Retrohunt {
     /// let x = Retrohunt::new().set_process_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_process_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.process_interval = std::option::Option::Some(v.into());
         self
@@ -4439,7 +4548,8 @@ impl Retrohunt {
     /// let x = Retrohunt::new().set_or_clear_process_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_process_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.process_interval = v.map(|x| x.into());
         self
@@ -4454,7 +4564,8 @@ impl Retrohunt {
     /// let x = Retrohunt::new().set_execution_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.execution_interval = std::option::Option::Some(v.into());
         self
@@ -4470,7 +4581,8 @@ impl Retrohunt {
     /// let x = Retrohunt::new().set_or_clear_execution_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.execution_interval = v.map(|x| x.into());
         self
@@ -4486,7 +4598,10 @@ impl Retrohunt {
     /// let x1 = Retrohunt::new().set_state(State::Done);
     /// let x2 = Retrohunt::new().set_state(State::Cancelled);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::retrohunt::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::retrohunt::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -4514,7 +4629,6 @@ impl wkt::message::Message for Retrohunt {
 pub mod retrohunt {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The possible states a retrohunt can be in.
     ///
@@ -4612,7 +4726,9 @@ pub mod retrohunt {
                 2 => Self::Done,
                 3 => Self::Cancelled,
                 4 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4626,7 +4742,9 @@ pub mod retrohunt {
                 "DONE" => Self::Done,
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4653,7 +4771,8 @@ pub mod retrohunt {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.chronicle.v1.Retrohunt.State"))
+                ".google.cloud.chronicle.v1.Retrohunt.State",
+            ))
         }
     }
 }
@@ -4662,7 +4781,6 @@ pub mod retrohunt {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRuleRequest {
-
     /// Required. The parent resource where this rule will be created.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     pub parent: std::string::String,
@@ -4699,7 +4817,8 @@ impl CreateRuleRequest {
     /// let x = CreateRuleRequest::new().set_rule(Rule::default()/* use setters */);
     /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = std::option::Option::Some(v.into());
         self
@@ -4715,7 +4834,8 @@ impl CreateRuleRequest {
     /// let x = CreateRuleRequest::new().set_or_clear_rule(None::<Rule>);
     /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = v.map(|x| x.into());
         self
@@ -4732,7 +4852,6 @@ impl wkt::message::Message for CreateRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuleRequest {
-
     /// Required. The name of the rule to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
@@ -4788,7 +4907,6 @@ impl wkt::message::Message for GetRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRulesRequest {
-
     /// Required. The parent, which owns this collection of rules.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}`
@@ -4898,7 +5016,6 @@ impl wkt::message::Message for ListRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRulesResponse {
-
     /// The rules from the specified instance.
     pub rules: std::vec::Vec<crate::model::Rule>,
 
@@ -4929,7 +5046,7 @@ impl ListRulesResponse {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rule>
+        V: std::convert::Into<crate::model::Rule>,
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -4973,7 +5090,6 @@ impl gax::paginator::internal::PageableResponse for ListRulesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRuleRequest {
-
     /// Required. The rule to update.
     ///
     /// The rule's `name` field is used to identify the rule to update.
@@ -5002,7 +5118,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_rule(Rule::default()/* use setters */);
     /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = std::option::Option::Some(v.into());
         self
@@ -5018,7 +5135,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_or_clear_rule(None::<Rule>);
     /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Rule>
+    where
+        T: std::convert::Into<crate::model::Rule>,
     {
         self.rule = v.map(|x| x.into());
         self
@@ -5033,7 +5151,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5049,7 +5168,8 @@ impl UpdateRuleRequest {
     /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5066,7 +5186,6 @@ impl wkt::message::Message for UpdateRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRuleRequest {
-
     /// Required. The name of the rule to delete. A rule revision timestamp cannot
     /// be specified as part of the name, as deleting specific revisions is not
     /// supported.
@@ -5124,7 +5243,6 @@ impl wkt::message::Message for DeleteRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuleRevisionsRequest {
-
     /// Required. The name of the rule to list revisions for.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
@@ -5217,7 +5335,6 @@ impl wkt::message::Message for ListRuleRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuleRevisionsResponse {
-
     /// The revisions of the rule.
     pub rules: std::vec::Vec<crate::model::Rule>,
 
@@ -5248,7 +5365,7 @@ impl ListRuleRevisionsResponse {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rule>
+        V: std::convert::Into<crate::model::Rule>,
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -5292,7 +5409,6 @@ impl gax::paginator::internal::PageableResponse for ListRuleRevisionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRetrohuntRequest {
-
     /// Required. The parent of retrohunt, which is a rule.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
@@ -5330,7 +5446,8 @@ impl CreateRetrohuntRequest {
     /// let x = CreateRetrohuntRequest::new().set_retrohunt(Retrohunt::default()/* use setters */);
     /// ```
     pub fn set_retrohunt<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Retrohunt>
+    where
+        T: std::convert::Into<crate::model::Retrohunt>,
     {
         self.retrohunt = std::option::Option::Some(v.into());
         self
@@ -5346,7 +5463,8 @@ impl CreateRetrohuntRequest {
     /// let x = CreateRetrohuntRequest::new().set_or_clear_retrohunt(None::<Retrohunt>);
     /// ```
     pub fn set_or_clear_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Retrohunt>
+    where
+        T: std::convert::Into<crate::model::Retrohunt>,
     {
         self.retrohunt = v.map(|x| x.into());
         self
@@ -5363,7 +5481,6 @@ impl wkt::message::Message for CreateRetrohuntRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRetrohuntRequest {
-
     /// Required. The name of the retrohunt to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}/retrohunts/{retrohunt}`
@@ -5400,7 +5517,6 @@ impl wkt::message::Message for GetRetrohuntRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRetrohuntsRequest {
-
     /// Required. The rule that the retrohunts belong to.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
@@ -5491,7 +5607,6 @@ impl wkt::message::Message for ListRetrohuntsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRetrohuntsResponse {
-
     /// The retrohunts from the specified rule.
     pub retrohunts: std::vec::Vec<crate::model::Retrohunt>,
 
@@ -5522,7 +5637,7 @@ impl ListRetrohuntsResponse {
     pub fn set_retrohunts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Retrohunt>
+        V: std::convert::Into<crate::model::Retrohunt>,
     {
         use std::iter::Iterator;
         self.retrohunts = v.into_iter().map(|i| i.into()).collect();
@@ -5566,7 +5681,6 @@ impl gax::paginator::internal::PageableResponse for ListRetrohuntsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuleDeploymentRequest {
-
     /// Required. The name of the rule deployment to retrieve.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}/deployment`
@@ -5603,7 +5717,6 @@ impl wkt::message::Message for GetRuleDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuleDeploymentsRequest {
-
     /// Required. The collection of all parents which own all rule deployments. The
     /// "-" wildcard token must be used as the rule identifier in the resource
     /// path. Format:
@@ -5695,7 +5808,6 @@ impl wkt::message::Message for ListRuleDeploymentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuleDeploymentsResponse {
-
     /// The rule deployments from all rules.
     pub rule_deployments: std::vec::Vec<crate::model::RuleDeployment>,
 
@@ -5726,7 +5838,7 @@ impl ListRuleDeploymentsResponse {
     pub fn set_rule_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuleDeployment>
+        V: std::convert::Into<crate::model::RuleDeployment>,
     {
         use std::iter::Iterator;
         self.rule_deployments = v.into_iter().map(|i| i.into()).collect();
@@ -5770,7 +5882,6 @@ impl gax::paginator::internal::PageableResponse for ListRuleDeploymentsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRuleDeploymentRequest {
-
     /// Required. The rule deployment to update.
     ///
     /// The rule deployment's `name` field is used to identify the rule deployment
@@ -5798,7 +5909,8 @@ impl UpdateRuleDeploymentRequest {
     /// let x = UpdateRuleDeploymentRequest::new().set_rule_deployment(RuleDeployment::default()/* use setters */);
     /// ```
     pub fn set_rule_deployment<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::RuleDeployment>
+    where
+        T: std::convert::Into<crate::model::RuleDeployment>,
     {
         self.rule_deployment = std::option::Option::Some(v.into());
         self
@@ -5814,7 +5926,8 @@ impl UpdateRuleDeploymentRequest {
     /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_rule_deployment(None::<RuleDeployment>);
     /// ```
     pub fn set_or_clear_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::RuleDeployment>
+    where
+        T: std::convert::Into<crate::model::RuleDeployment>,
     {
         self.rule_deployment = v.map(|x| x.into());
         self
@@ -5829,7 +5942,8 @@ impl UpdateRuleDeploymentRequest {
     /// let x = UpdateRuleDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5845,7 +5959,8 @@ impl UpdateRuleDeploymentRequest {
     /// let x = UpdateRuleDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5863,7 +5978,6 @@ impl wkt::message::Message for UpdateRuleDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationPosition {
-
     /// Output only. Start line number, beginning at 1.
     pub start_line: i32,
 
@@ -5945,7 +6059,6 @@ impl wkt::message::Message for CompilationPosition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationDiagnostic {
-
     /// Output only. The diagnostic message.
     pub message: std::string::String,
 
@@ -5990,7 +6103,8 @@ impl CompilationDiagnostic {
     /// let x = CompilationDiagnostic::new().set_position(CompilationPosition::default()/* use setters */);
     /// ```
     pub fn set_position<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::CompilationPosition>
+    where
+        T: std::convert::Into<crate::model::CompilationPosition>,
     {
         self.position = std::option::Option::Some(v.into());
         self
@@ -6006,7 +6120,8 @@ impl CompilationDiagnostic {
     /// let x = CompilationDiagnostic::new().set_or_clear_position(None::<CompilationPosition>);
     /// ```
     pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::CompilationPosition>
+    where
+        T: std::convert::Into<crate::model::CompilationPosition>,
     {
         self.position = v.map(|x| x.into());
         self
@@ -6021,7 +6136,10 @@ impl CompilationDiagnostic {
     /// let x0 = CompilationDiagnostic::new().set_severity(Severity::Warning);
     /// let x1 = CompilationDiagnostic::new().set_severity(Severity::Error);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::compilation_diagnostic::Severity>>(mut self, v: T) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::compilation_diagnostic::Severity>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.severity = v.into();
         self
     }
@@ -6049,7 +6167,6 @@ impl wkt::message::Message for CompilationDiagnostic {
 pub mod compilation_diagnostic {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The severity level of the compilation diagnostic.
     ///
@@ -6137,7 +6254,9 @@ pub mod compilation_diagnostic {
                 0 => Self::Unspecified,
                 1 => Self::Warning,
                 2 => Self::Error,
-                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -6149,7 +6268,9 @@ pub mod compilation_diagnostic {
                 "SEVERITY_UNSPECIFIED" => Self::Unspecified,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -6174,7 +6295,8 @@ pub mod compilation_diagnostic {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.cloud.chronicle.v1.CompilationDiagnostic.Severity"))
+                ".google.cloud.chronicle.v1.CompilationDiagnostic.Severity",
+            ))
         }
     }
 }
@@ -6183,7 +6305,6 @@ pub mod compilation_diagnostic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Severity {
-
     /// The display name of the severity level. Extracted from the meta section of
     /// the rule text.
     pub display_name: std::string::String,
@@ -6219,7 +6340,6 @@ impl wkt::message::Message for Severity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrohuntMetadata {
-
     /// The name of the retrohunt.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}/retrohunts/{retrohunt}`
@@ -6261,7 +6381,8 @@ impl RetrohuntMetadata {
     /// let x = RetrohuntMetadata::new().set_execution_interval(Interval::default()/* use setters */);
     /// ```
     pub fn set_execution_interval<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.execution_interval = std::option::Option::Some(v.into());
         self
@@ -6277,7 +6398,8 @@ impl RetrohuntMetadata {
     /// let x = RetrohuntMetadata::new().set_or_clear_execution_interval(None::<Interval>);
     /// ```
     pub fn set_or_clear_execution_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<gtype::model::Interval>
+    where
+        T: std::convert::Into<gtype::model::Interval>,
     {
         self.execution_interval = v.map(|x| x.into());
         self
@@ -6308,7 +6430,6 @@ impl wkt::message::Message for RetrohuntMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputsUsed {
-
     /// Optional. Whether the rule queries UDM events.
     pub uses_udm: bool,
 
@@ -6431,8 +6552,12 @@ impl ReferenceListSyntaxType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_UNSPECIFIED"),
-            Self::PlainTextString => std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_PLAIN_TEXT_STRING"),
+            Self::Unspecified => {
+                std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_UNSPECIFIED")
+            }
+            Self::PlainTextString => {
+                std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_PLAIN_TEXT_STRING")
+            }
             Self::Regex => std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_REGEX"),
             Self::Cidr => std::option::Option::Some("REFERENCE_LIST_SYNTAX_TYPE_CIDR"),
             Self::UnknownValue(u) => u.0.name(),
@@ -6460,7 +6585,9 @@ impl std::convert::From<i32> for ReferenceListSyntaxType {
             1 => Self::PlainTextString,
             2 => Self::Regex,
             3 => Self::Cidr,
-            _ => Self::UnknownValue(reference_list_syntax_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(reference_list_syntax_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6473,7 +6600,9 @@ impl std::convert::From<&str> for ReferenceListSyntaxType {
             "REFERENCE_LIST_SYNTAX_TYPE_PLAIN_TEXT_STRING" => Self::PlainTextString,
             "REFERENCE_LIST_SYNTAX_TYPE_REGEX" => Self::Regex,
             "REFERENCE_LIST_SYNTAX_TYPE_CIDR" => Self::Cidr,
-            _ => Self::UnknownValue(reference_list_syntax_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(reference_list_syntax_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6499,7 +6628,8 @@ impl<'de> serde::de::Deserialize<'de> for ReferenceListSyntaxType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReferenceListSyntaxType>::new(
-            ".google.cloud.chronicle.v1.ReferenceListSyntaxType"))
+            ".google.cloud.chronicle.v1.ReferenceListSyntaxType",
+        ))
     }
 }
 
@@ -6595,7 +6725,9 @@ impl std::convert::From<i32> for ReferenceListView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(reference_list_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(reference_list_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6607,7 +6739,9 @@ impl std::convert::From<&str> for ReferenceListView {
             "REFERENCE_LIST_VIEW_UNSPECIFIED" => Self::Unspecified,
             "REFERENCE_LIST_VIEW_BASIC" => Self::Basic,
             "REFERENCE_LIST_VIEW_FULL" => Self::Full,
-            _ => Self::UnknownValue(reference_list_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(reference_list_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6632,7 +6766,8 @@ impl<'de> serde::de::Deserialize<'de> for ReferenceListView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReferenceListView>::new(
-            ".google.cloud.chronicle.v1.ReferenceListView"))
+            ".google.cloud.chronicle.v1.ReferenceListView",
+        ))
     }
 }
 
@@ -6728,7 +6863,9 @@ impl std::convert::From<i32> for RunFrequency {
             1 => Self::Live,
             2 => Self::Hourly,
             3 => Self::Daily,
-            _ => Self::UnknownValue(run_frequency::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(run_frequency::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6741,7 +6878,9 @@ impl std::convert::From<&str> for RunFrequency {
             "LIVE" => Self::Live,
             "HOURLY" => Self::Hourly,
             "DAILY" => Self::Daily,
-            _ => Self::UnknownValue(run_frequency::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(run_frequency::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6767,7 +6906,8 @@ impl<'de> serde::de::Deserialize<'de> for RunFrequency {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RunFrequency>::new(
-            ".google.cloud.chronicle.v1.RunFrequency"))
+            ".google.cloud.chronicle.v1.RunFrequency",
+        ))
     }
 }
 
@@ -6858,7 +6998,9 @@ impl std::convert::From<i32> for RuleType {
             0 => Self::Unspecified,
             1 => Self::SingleEvent,
             2 => Self::MultiEvent,
-            _ => Self::UnknownValue(rule_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(rule_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6870,7 +7012,9 @@ impl std::convert::From<&str> for RuleType {
             "RULE_TYPE_UNSPECIFIED" => Self::Unspecified,
             "SINGLE_EVENT" => Self::SingleEvent,
             "MULTI_EVENT" => Self::MultiEvent,
-            _ => Self::UnknownValue(rule_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(rule_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6895,7 +7039,8 @@ impl<'de> serde::de::Deserialize<'de> for RuleType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RuleType>::new(
-            ".google.cloud.chronicle.v1.RuleType"))
+            ".google.cloud.chronicle.v1.RuleType",
+        ))
     }
 }
 
@@ -6999,7 +7144,9 @@ impl std::convert::From<i32> for RuleView {
             1 => Self::Basic,
             2 => Self::Full,
             3 => Self::RevisionMetadataOnly,
-            _ => Self::UnknownValue(rule_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(rule_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -7012,7 +7159,9 @@ impl std::convert::From<&str> for RuleView {
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
             "REVISION_METADATA_ONLY" => Self::RevisionMetadataOnly,
-            _ => Self::UnknownValue(rule_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(rule_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -7038,6 +7187,7 @@ impl<'de> serde::de::Deserialize<'de> for RuleView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RuleView>::new(
-            ".google.cloud.chronicle.v1.RuleView"))
+            ".google.cloud.chronicle.v1.RuleView",
+        ))
     }
 }

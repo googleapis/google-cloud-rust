@@ -23,34 +23,47 @@ pub struct StorageControl {
 }
 
 impl StorageControl {
-
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::StorageControl + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::StorageControl + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         super::transport::StorageControl::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::StorageControl> {
-        Self::build_transport(conf).await.map(super::tracing::StorageControl::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::StorageControl::new)
     }
 
     /// Creates a new folder. This operation is only applicable to a hierarchical
@@ -71,8 +84,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder
-    {
+    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder {
         super::builder::storage_control::CreateFolder::new(self.inner.clone())
     }
 
@@ -93,8 +105,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder
-    {
+    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
         super::builder::storage_control::DeleteFolder::new(self.inner.clone())
     }
 
@@ -117,15 +128,13 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder
-    {
+    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
         super::builder::storage_control::GetFolder::new(self.inner.clone())
     }
 
     /// Retrieves a list of folders. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
-    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders
-    {
+    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders {
         super::builder::storage_control::ListFolders::new(self.inner.clone())
     }
 
@@ -143,8 +152,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder
-    {
+    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
         super::builder::storage_control::RenameFolder::new(self.inner.clone())
     }
 
@@ -166,8 +174,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout
-    {
+    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
         super::builder::storage_control::GetStorageLayout::new(self.inner.clone())
     }
 
@@ -188,8 +195,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder
-    {
+    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder {
         super::builder::storage_control::CreateManagedFolder::new(self.inner.clone())
     }
 
@@ -209,8 +215,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder
-    {
+    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder {
         super::builder::storage_control::DeleteManagedFolder::new(self.inner.clone())
     }
 
@@ -232,14 +237,12 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder
-    {
+    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder {
         super::builder::storage_control::GetManagedFolder::new(self.inner.clone())
     }
 
     /// Retrieves a list of managed folders for a given bucket.
-    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders
-    {
+    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
         super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
     }
 
@@ -254,8 +257,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache
-    {
+    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
         super::builder::storage_control::CreateAnywhereCache::new(self.inner.clone())
     }
 
@@ -271,8 +273,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache
-    {
+    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
         super::builder::storage_control::UpdateAnywhereCache::new(self.inner.clone())
     }
 
@@ -296,8 +297,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache
-    {
+    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
         super::builder::storage_control::DisableAnywhereCache::new(self.inner.clone())
     }
 
@@ -318,8 +318,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache
-    {
+    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
         super::builder::storage_control::PauseAnywhereCache::new(self.inner.clone())
     }
 
@@ -340,8 +339,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache
-    {
+    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
         super::builder::storage_control::ResumeAnywhereCache::new(self.inner.clone())
     }
 
@@ -363,14 +361,12 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache
-    {
+    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
         super::builder::storage_control::GetAnywhereCache::new(self.inner.clone())
     }
 
     /// Lists Anywhere Cache instances for a given bucket.
-    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches
-    {
+    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
         super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
     }
 
@@ -391,8 +387,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_project_intelligence_config(&self) -> super::builder::storage_control::GetProjectIntelligenceConfig
-    {
+    pub fn get_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetProjectIntelligenceConfig {
         super::builder::storage_control::GetProjectIntelligenceConfig::new(self.inner.clone())
     }
 
@@ -413,8 +410,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_project_intelligence_config(&self) -> super::builder::storage_control::UpdateProjectIntelligenceConfig
-    {
+    pub fn update_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateProjectIntelligenceConfig {
         super::builder::storage_control::UpdateProjectIntelligenceConfig::new(self.inner.clone())
     }
 
@@ -435,8 +433,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder_intelligence_config(&self) -> super::builder::storage_control::GetFolderIntelligenceConfig
-    {
+    pub fn get_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetFolderIntelligenceConfig {
         super::builder::storage_control::GetFolderIntelligenceConfig::new(self.inner.clone())
     }
 
@@ -457,8 +456,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_folder_intelligence_config(&self) -> super::builder::storage_control::UpdateFolderIntelligenceConfig
-    {
+    pub fn update_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateFolderIntelligenceConfig {
         super::builder::storage_control::UpdateFolderIntelligenceConfig::new(self.inner.clone())
     }
 
@@ -479,8 +479,9 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_organization_intelligence_config(&self) -> super::builder::storage_control::GetOrganizationIntelligenceConfig
-    {
+    pub fn get_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetOrganizationIntelligenceConfig {
         super::builder::storage_control::GetOrganizationIntelligenceConfig::new(self.inner.clone())
     }
 
@@ -501,9 +502,12 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_organization_intelligence_config(&self) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig
-    {
-        super::builder::storage_control::UpdateOrganizationIntelligenceConfig::new(self.inner.clone())
+    pub fn update_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig {
+        super::builder::storage_control::UpdateOrganizationIntelligenceConfig::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets the IAM policy for a specified bucket.
@@ -527,8 +531,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
         super::builder::storage_control::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -553,8 +556,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
         super::builder::storage_control::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -581,8 +583,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
         super::builder::storage_control::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -605,8 +606,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation
-    {
+    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
         super::builder::storage_control::GetOperation::new(self.inner.clone())
     }
 }

@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::RecaptchaEnterpriseService::create_assessment].
     fn create_assessment(
         &self,
         _req: crate::model::CreateAssessmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Assessment>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Assessment>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +54,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnnotateAssessmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +65,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -71,7 +75,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListKeysResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListKeysResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +86,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RetrieveLegacySecretKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +99,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,7 +109,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -116,7 +128,8 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MigrateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>> + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -125,7 +138,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AddIpOverrideRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -134,7 +149,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RemoveIpOverrideRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,7 +160,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIpOverridesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -152,7 +171,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMetricsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Metrics>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Metrics>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -161,7 +182,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -170,7 +193,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFirewallPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -179,7 +204,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -188,7 +215,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -206,7 +235,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReorderFirewallPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -215,7 +248,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRelatedAccountGroupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -224,7 +261,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -233,8 +274,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

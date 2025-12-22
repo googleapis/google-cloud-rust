@@ -36,11 +36,26 @@ impl std::fmt::Debug for super::Template {
 impl std::fmt::Debug for super::template::TemplateMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TemplateMetadata");
-        debug_struct.field("ignore_partial_invocation_failures", &self.ignore_partial_invocation_failures);
-        debug_struct.field("custom_prompt_safety_error_code", &self.custom_prompt_safety_error_code);
-        debug_struct.field("custom_prompt_safety_error_message", &self.custom_prompt_safety_error_message);
-        debug_struct.field("custom_llm_response_safety_error_code", &self.custom_llm_response_safety_error_code);
-        debug_struct.field("custom_llm_response_safety_error_message", &self.custom_llm_response_safety_error_message);
+        debug_struct.field(
+            "ignore_partial_invocation_failures",
+            &self.ignore_partial_invocation_failures,
+        );
+        debug_struct.field(
+            "custom_prompt_safety_error_code",
+            &self.custom_prompt_safety_error_code,
+        );
+        debug_struct.field(
+            "custom_prompt_safety_error_message",
+            &self.custom_prompt_safety_error_message,
+        );
+        debug_struct.field(
+            "custom_llm_response_safety_error_code",
+            &self.custom_llm_response_safety_error_code,
+        );
+        debug_struct.field(
+            "custom_llm_response_safety_error_message",
+            &self.custom_llm_response_safety_error_message,
+        );
         debug_struct.field("log_template_operations", &self.log_template_operations);
         debug_struct.field("log_sanitize_operations", &self.log_sanitize_operations);
         debug_struct.field("enforcement_type", &self.enforcement_type);
@@ -55,14 +70,16 @@ impl std::fmt::Debug for super::template::TemplateMetadata {
 impl std::fmt::Debug for super::template::template_metadata::MultiLanguageDetection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetection");
-        debug_struct.field("enable_multi_language_detection", &self.enable_multi_language_detection);
+        debug_struct.field(
+            "enable_multi_language_detection",
+            &self.enable_multi_language_detection,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::FloorSetting {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -71,7 +88,10 @@ impl std::fmt::Debug for super::FloorSetting {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("filter_config", &self.filter_config);
-        debug_struct.field("enable_floor_setting_enforcement", &self.enable_floor_setting_enforcement);
+        debug_struct.field(
+            "enable_floor_setting_enforcement",
+            &self.enable_floor_setting_enforcement,
+        );
         debug_struct.field("integrated_services", &self.integrated_services);
         debug_struct.field("ai_platform_floor_setting", &self.ai_platform_floor_setting);
         debug_struct.field("floor_setting_metadata", &self.floor_setting_metadata);
@@ -96,7 +116,10 @@ impl std::fmt::Debug for super::floor_setting::FloorSettingMetadata {
 impl std::fmt::Debug for super::floor_setting::floor_setting_metadata::MultiLanguageDetection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetection");
-        debug_struct.field("enable_multi_language_detection", &self.enable_multi_language_detection);
+        debug_struct.field(
+            "enable_multi_language_detection",
+            &self.enable_multi_language_detection,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -222,8 +245,14 @@ impl std::fmt::Debug for super::FilterConfig {
         let mut debug_struct = f.debug_struct("FilterConfig");
         debug_struct.field("rai_settings", &self.rai_settings);
         debug_struct.field("sdp_settings", &self.sdp_settings);
-        debug_struct.field("pi_and_jailbreak_filter_settings", &self.pi_and_jailbreak_filter_settings);
-        debug_struct.field("malicious_uri_filter_settings", &self.malicious_uri_filter_settings);
+        debug_struct.field(
+            "pi_and_jailbreak_filter_settings",
+            &self.pi_and_jailbreak_filter_settings,
+        );
+        debug_struct.field(
+            "malicious_uri_filter_settings",
+            &self.malicious_uri_filter_settings,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -316,7 +345,10 @@ impl std::fmt::Debug for super::SanitizeUserPromptRequest {
         let mut debug_struct = f.debug_struct("SanitizeUserPromptRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("user_prompt_data", &self.user_prompt_data);
-        debug_struct.field("multi_language_detection_metadata", &self.multi_language_detection_metadata);
+        debug_struct.field(
+            "multi_language_detection_metadata",
+            &self.multi_language_detection_metadata,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -330,7 +362,10 @@ impl std::fmt::Debug for super::SanitizeModelResponseRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("model_response_data", &self.model_response_data);
         debug_struct.field("user_prompt", &self.user_prompt);
-        debug_struct.field("multi_language_detection_metadata", &self.multi_language_detection_metadata);
+        debug_struct.field(
+            "multi_language_detection_metadata",
+            &self.multi_language_detection_metadata,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -379,7 +414,10 @@ impl std::fmt::Debug for super::sanitization_result::SanitizationMetadata {
         let mut debug_struct = f.debug_struct("SanitizationMetadata");
         debug_struct.field("error_code", &self.error_code);
         debug_struct.field("error_message", &self.error_message);
-        debug_struct.field("ignore_partial_invocation_failures", &self.ignore_partial_invocation_failures);
+        debug_struct.field(
+            "ignore_partial_invocation_failures",
+            &self.ignore_partial_invocation_failures,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -387,12 +425,14 @@ impl std::fmt::Debug for super::sanitization_result::SanitizationMetadata {
     }
 }
 
-
 impl std::fmt::Debug for super::MultiLanguageDetectionMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetectionMetadata");
         debug_struct.field("source_language", &self.source_language);
-        debug_struct.field("enable_multi_language_detection", &self.enable_multi_language_detection);
+        debug_struct.field(
+            "enable_multi_language_detection",
+            &self.enable_multi_language_detection,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -437,7 +477,6 @@ impl std::fmt::Debug for super::rai_filter_result::RaiFilterTypeResult {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::SdpFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -549,7 +588,10 @@ impl std::fmt::Debug for super::MaliciousUriFilterResult {
         debug_struct.field("execution_state", &self.execution_state);
         debug_struct.field("message_items", &self.message_items);
         debug_struct.field("match_state", &self.match_state);
-        debug_struct.field("malicious_uri_matched_items", &self.malicious_uri_matched_items);
+        debug_struct.field(
+            "malicious_uri_matched_items",
+            &self.malicious_uri_matched_items,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

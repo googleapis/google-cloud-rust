@@ -78,4 +78,3 @@ pub(crate) mod info {
         };
     }
 }
-

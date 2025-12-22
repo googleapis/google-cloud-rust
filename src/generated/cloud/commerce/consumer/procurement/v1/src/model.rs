@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,7 +40,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignmentProtocol {
-
     /// The type of assignment protocol.
     pub assignment_type: std::option::Option<crate::model::assignment_protocol::AssignmentType>,
 
@@ -64,8 +63,12 @@ impl AssignmentProtocol {
     /// let x = AssignmentProtocol::new().set_assignment_type(Some(
     ///     google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::AssignmentType::ManualAssignmentType(ManualAssignmentType::default().into())));
     /// ```
-    pub fn set_assignment_type<T: std::convert::Into<std::option::Option<crate::model::assignment_protocol::AssignmentType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_assignment_type<
+        T: std::convert::Into<std::option::Option<crate::model::assignment_protocol::AssignmentType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.assignment_type = v.into();
         self
     }
@@ -73,10 +76,16 @@ impl AssignmentProtocol {
     /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// if it holds a `ManualAssignmentType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn manual_assignment_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>> {
+    pub fn manual_assignment_type(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
+    > {
         #[allow(unreachable_patterns)]
         self.assignment_type.as_ref().and_then(|v| match v {
-            crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(v) => std::option::Option::Some(v),
+            crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -95,11 +104,16 @@ impl AssignmentProtocol {
     /// assert!(x.manual_assignment_type().is_some());
     /// assert!(x.auto_assignment_type().is_none());
     /// ```
-    pub fn set_manual_assignment_type<T: std::convert::Into<std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>>>(mut self, v: T) -> Self {
+    pub fn set_manual_assignment_type<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.assignment_type = std::option::Option::Some(
-            crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(
-                v.into()
-            )
+            crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(v.into()),
         );
         self
     }
@@ -107,10 +121,15 @@ impl AssignmentProtocol {
     /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// if it holds a `AutoAssignmentType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn auto_assignment_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>> {
+    pub fn auto_assignment_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>
+    {
         #[allow(unreachable_patterns)]
         self.assignment_type.as_ref().and_then(|v| match v {
-            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v) => std::option::Option::Some(v),
+            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -129,11 +148,14 @@ impl AssignmentProtocol {
     /// assert!(x.auto_assignment_type().is_some());
     /// assert!(x.manual_assignment_type().is_none());
     /// ```
-    pub fn set_auto_assignment_type<T: std::convert::Into<std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>>(mut self, v: T) -> Self {
+    pub fn set_auto_assignment_type<
+        T: std::convert::Into<std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.assignment_type = std::option::Option::Some(
-            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(
-                v.into()
-            )
+            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v.into()),
         );
         self
     }
@@ -150,12 +172,10 @@ pub mod assignment_protocol {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Allow manual assignments triggered by administrative operations only.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManualAssignmentType {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -175,7 +195,6 @@ pub mod assignment_protocol {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoAssignmentType {
-
         /// Optional. The time to live for an inactive license. After this time has
         /// passed, the license will be automatically unassigned from the user. Must
         /// be at least 7 days, if set. If unset, the license will never expire.
@@ -198,7 +217,8 @@ pub mod assignment_protocol {
         /// let x = AutoAssignmentType::new().set_inactive_license_ttl(Duration::default()/* use setters */);
         /// ```
         pub fn set_inactive_license_ttl<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.inactive_license_ttl = std::option::Option::Some(v.into());
             self
@@ -214,7 +234,8 @@ pub mod assignment_protocol {
         /// let x = AutoAssignmentType::new().set_or_clear_inactive_license_ttl(None::<Duration>);
         /// ```
         pub fn set_or_clear_inactive_license_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.inactive_license_ttl = v.map(|x| x.into());
             self
@@ -232,7 +253,9 @@ pub mod assignment_protocol {
     #[non_exhaustive]
     pub enum AssignmentType {
         /// Allow manual assignments triggered by administrative operations only.
-        ManualAssignmentType(std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>),
+        ManualAssignmentType(
+            std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
+        ),
         /// Allow automatic assignments triggered by data plane operations.
         AutoAssignmentType(std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>),
     }
@@ -242,7 +265,6 @@ pub mod assignment_protocol {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LicensePool {
-
     /// Identifier. Format:
     /// `billingAccounts/{billing_account}/orders/{order}/licensePool`
     pub name: std::string::String,
@@ -285,7 +307,8 @@ impl LicensePool {
     /// let x = LicensePool::new().set_license_assignment_protocol(AssignmentProtocol::default()/* use setters */);
     /// ```
     pub fn set_license_assignment_protocol<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AssignmentProtocol>
+    where
+        T: std::convert::Into<crate::model::AssignmentProtocol>,
     {
         self.license_assignment_protocol = std::option::Option::Some(v.into());
         self
@@ -301,7 +324,8 @@ impl LicensePool {
     /// let x = LicensePool::new().set_or_clear_license_assignment_protocol(None::<AssignmentProtocol>);
     /// ```
     pub fn set_or_clear_license_assignment_protocol<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AssignmentProtocol>
+    where
+        T: std::convert::Into<crate::model::AssignmentProtocol>,
     {
         self.license_assignment_protocol = v.map(|x| x.into());
         self
@@ -342,7 +366,6 @@ impl wkt::message::Message for LicensePool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLicensePoolRequest {
-
     /// Required. The name of the license pool to get.
     /// Format: `billingAccounts/{billing_account}/orders/{order}/licensePool`
     pub name: std::string::String,
@@ -378,7 +401,6 @@ impl wkt::message::Message for GetLicensePoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLicensePoolRequest {
-
     /// Required. The license pool to update.
     ///
     /// The license pool's name field is used to identify the license pool to
@@ -406,7 +428,8 @@ impl UpdateLicensePoolRequest {
     /// let x = UpdateLicensePoolRequest::new().set_license_pool(LicensePool::default()/* use setters */);
     /// ```
     pub fn set_license_pool<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LicensePool>
+    where
+        T: std::convert::Into<crate::model::LicensePool>,
     {
         self.license_pool = std::option::Option::Some(v.into());
         self
@@ -422,7 +445,8 @@ impl UpdateLicensePoolRequest {
     /// let x = UpdateLicensePoolRequest::new().set_or_clear_license_pool(None::<LicensePool>);
     /// ```
     pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LicensePool>
+    where
+        T: std::convert::Into<crate::model::LicensePool>,
     {
         self.license_pool = v.map(|x| x.into());
         self
@@ -437,7 +461,8 @@ impl UpdateLicensePoolRequest {
     /// let x = UpdateLicensePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -453,7 +478,8 @@ impl UpdateLicensePoolRequest {
     /// let x = UpdateLicensePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -473,7 +499,6 @@ impl wkt::message::Message for UpdateLicensePoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignRequest {
-
     /// Required. License pool name.
     pub parent: std::string::String,
 
@@ -511,7 +536,7 @@ impl AssignRequest {
     pub fn set_usernames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.usernames = v.into_iter().map(|i| i.into()).collect();
@@ -532,7 +557,6 @@ impl wkt::message::Message for AssignRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -555,7 +579,6 @@ impl wkt::message::Message for AssignResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnassignRequest {
-
     /// Required. License pool name.
     pub parent: std::string::String,
 
@@ -593,7 +616,7 @@ impl UnassignRequest {
     pub fn set_usernames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.usernames = v.into_iter().map(|i| i.into()).collect();
@@ -614,7 +637,6 @@ impl wkt::message::Message for UnassignRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnassignResponse {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -637,7 +659,6 @@ impl wkt::message::Message for UnassignResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumerateLicensedUsersRequest {
-
     /// Required. License pool name.
     pub parent: std::string::String,
 
@@ -704,7 +725,6 @@ impl wkt::message::Message for EnumerateLicensedUsersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LicensedUser {
-
     /// Username.
     /// Format: `name@domain.com`.
     pub username: std::string::String,
@@ -746,7 +766,8 @@ impl LicensedUser {
     /// let x = LicensedUser::new().set_assign_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_assign_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.assign_time = std::option::Option::Some(v.into());
         self
@@ -762,7 +783,8 @@ impl LicensedUser {
     /// let x = LicensedUser::new().set_or_clear_assign_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_assign_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.assign_time = v.map(|x| x.into());
         self
@@ -777,7 +799,8 @@ impl LicensedUser {
     /// let x = LicensedUser::new().set_recent_usage_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_recent_usage_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.recent_usage_time = std::option::Option::Some(v.into());
         self
@@ -793,7 +816,8 @@ impl LicensedUser {
     /// let x = LicensedUser::new().set_or_clear_recent_usage_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_recent_usage_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.recent_usage_time = v.map(|x| x.into());
         self
@@ -813,7 +837,6 @@ impl wkt::message::Message for LicensedUser {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumerateLicensedUsersResponse {
-
     /// The list of licensed users.
     pub licensed_users: std::vec::Vec<crate::model::LicensedUser>,
 
@@ -844,7 +867,7 @@ impl EnumerateLicensedUsersResponse {
     pub fn set_licensed_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LicensedUser>
+        V: std::convert::Into<crate::model::LicensedUser>,
     {
         use std::iter::Iterator;
         self.licensed_users = v.into_iter().map(|i| i.into()).collect();
@@ -897,7 +920,6 @@ impl gax::paginator::internal::PageableResponse for EnumerateLicensedUsersRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Order {
-
     /// Output only. The resource name of the order.
     /// Has the form
     /// `billingAccounts/{billing_account}/orders/{order}`.
@@ -968,7 +990,7 @@ impl Order {
     pub fn set_line_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItem>
+        V: std::convert::Into<crate::model::LineItem>,
     {
         use std::iter::Iterator;
         self.line_items = v.into_iter().map(|i| i.into()).collect();
@@ -990,7 +1012,7 @@ impl Order {
     pub fn set_cancelled_line_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItem>
+        V: std::convert::Into<crate::model::LineItem>,
     {
         use std::iter::Iterator;
         self.cancelled_line_items = v.into_iter().map(|i| i.into()).collect();
@@ -1006,7 +1028,8 @@ impl Order {
     /// let x = Order::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1022,7 +1045,8 @@ impl Order {
     /// let x = Order::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1037,7 +1061,8 @@ impl Order {
     /// let x = Order::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1053,7 +1078,8 @@ impl Order {
     /// let x = Order::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1082,7 +1108,6 @@ impl wkt::message::Message for Order {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItem {
-
     /// Output only. Line item ID.
     pub line_item_id: std::string::String,
 
@@ -1130,7 +1155,8 @@ impl LineItem {
     /// let x = LineItem::new().set_line_item_info(LineItemInfo::default()/* use setters */);
     /// ```
     pub fn set_line_item_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.line_item_info = std::option::Option::Some(v.into());
         self
@@ -1146,7 +1172,8 @@ impl LineItem {
     /// let x = LineItem::new().set_or_clear_line_item_info(None::<LineItemInfo>);
     /// ```
     pub fn set_or_clear_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.line_item_info = v.map(|x| x.into());
         self
@@ -1161,7 +1188,8 @@ impl LineItem {
     /// let x = LineItem::new().set_pending_change(LineItemChange::default()/* use setters */);
     /// ```
     pub fn set_pending_change<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LineItemChange>
+    where
+        T: std::convert::Into<crate::model::LineItemChange>,
     {
         self.pending_change = std::option::Option::Some(v.into());
         self
@@ -1177,7 +1205,8 @@ impl LineItem {
     /// let x = LineItem::new().set_or_clear_pending_change(None::<LineItemChange>);
     /// ```
     pub fn set_or_clear_pending_change<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LineItemChange>
+    where
+        T: std::convert::Into<crate::model::LineItemChange>,
     {
         self.pending_change = v.map(|x| x.into());
         self
@@ -1198,7 +1227,7 @@ impl LineItem {
     pub fn set_change_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItemChange>
+        V: std::convert::Into<crate::model::LineItemChange>,
     {
         use std::iter::Iterator;
         self.change_history = v.into_iter().map(|i| i.into()).collect();
@@ -1216,7 +1245,6 @@ impl wkt::message::Message for LineItem {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItemChange {
-
     /// Output only. Change ID.
     /// All changes made within one order update operation have the same change_id.
     pub change_id: std::string::String,
@@ -1287,7 +1315,10 @@ impl LineItemChange {
     /// let x1 = LineItemChange::new().set_change_type(LineItemChangeType::Update);
     /// let x2 = LineItemChange::new().set_change_type(LineItemChangeType::Cancel);
     /// ```
-    pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(mut self, v: T) -> Self {
+    pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.change_type = v.into();
         self
     }
@@ -1301,7 +1332,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_old_line_item_info(LineItemInfo::default()/* use setters */);
     /// ```
     pub fn set_old_line_item_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.old_line_item_info = std::option::Option::Some(v.into());
         self
@@ -1317,7 +1349,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_or_clear_old_line_item_info(None::<LineItemInfo>);
     /// ```
     pub fn set_or_clear_old_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.old_line_item_info = v.map(|x| x.into());
         self
@@ -1332,7 +1365,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_new_line_item_info(LineItemInfo::default()/* use setters */);
     /// ```
     pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.new_line_item_info = std::option::Option::Some(v.into());
         self
@@ -1348,7 +1382,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_or_clear_new_line_item_info(None::<LineItemInfo>);
     /// ```
     pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::LineItemInfo>
+    where
+        T: std::convert::Into<crate::model::LineItemInfo>,
     {
         self.new_line_item_info = v.map(|x| x.into());
         self
@@ -1364,7 +1399,10 @@ impl LineItemChange {
     /// let x1 = LineItemChange::new().set_change_state(LineItemChangeState::Approved);
     /// let x2 = LineItemChange::new().set_change_state(LineItemChangeState::Completed);
     /// ```
-    pub fn set_change_state<T: std::convert::Into<crate::model::LineItemChangeState>>(mut self, v: T) -> Self {
+    pub fn set_change_state<T: std::convert::Into<crate::model::LineItemChangeState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.change_state = v.into();
         self
     }
@@ -1391,7 +1429,12 @@ impl LineItemChange {
     /// let x1 = LineItemChange::new().set_change_state_reason_type(LineItemChangeStateReasonType::UserCancelled);
     /// let x2 = LineItemChange::new().set_change_state_reason_type(LineItemChangeStateReasonType::SystemCancelled);
     /// ```
-    pub fn set_change_state_reason_type<T: std::convert::Into<crate::model::LineItemChangeStateReasonType>>(mut self, v: T) -> Self {
+    pub fn set_change_state_reason_type<
+        T: std::convert::Into<crate::model::LineItemChangeStateReasonType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.change_state_reason_type = v.into();
         self
     }
@@ -1405,7 +1448,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_change_effective_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_change_effective_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.change_effective_time = std::option::Option::Some(v.into());
         self
@@ -1421,7 +1465,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_or_clear_change_effective_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_change_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.change_effective_time = v.map(|x| x.into());
         self
@@ -1436,7 +1481,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1452,7 +1498,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1467,7 +1514,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1483,7 +1531,8 @@ impl LineItemChange {
     /// let x = LineItemChange::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1500,7 +1549,6 @@ impl wkt::message::Message for LineItemChange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItemInfo {
-
     /// Optional. The name of the offer can have either of these formats:
     /// 'billingAccounts/{billing_account}/offers/{offer}',
     /// or 'services/{service}/standardOffers/{offer}'.
@@ -1547,7 +1595,7 @@ impl LineItemInfo {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Parameter>
+        V: std::convert::Into<crate::model::Parameter>,
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -1563,7 +1611,8 @@ impl LineItemInfo {
     /// let x = LineItemInfo::new().set_subscription(Subscription::default()/* use setters */);
     /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Subscription>
+    where
+        T: std::convert::Into<crate::model::Subscription>,
     {
         self.subscription = std::option::Option::Some(v.into());
         self
@@ -1579,7 +1628,8 @@ impl LineItemInfo {
     /// let x = LineItemInfo::new().set_or_clear_subscription(None::<Subscription>);
     /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Subscription>
+    where
+        T: std::convert::Into<crate::model::Subscription>,
     {
         self.subscription = v.map(|x| x.into());
         self
@@ -1596,7 +1646,6 @@ impl wkt::message::Message for LineItemInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
-
     /// Name of the parameter.
     pub name: std::string::String,
 
@@ -1632,7 +1681,8 @@ impl Parameter {
     /// let x = Parameter::new().set_value(Value::default()/* use setters */);
     /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::parameter::Value>
+    where
+        T: std::convert::Into<crate::model::parameter::Value>,
     {
         self.value = std::option::Option::Some(v.into());
         self
@@ -1648,7 +1698,8 @@ impl Parameter {
     /// let x = Parameter::new().set_or_clear_value(None::<Value>);
     /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::parameter::Value>
+    where
+        T: std::convert::Into<crate::model::parameter::Value>,
     {
         self.value = v.map(|x| x.into());
         self
@@ -1666,11 +1717,9 @@ pub mod parameter {
     #[allow(unused_imports)]
     use super::*;
 
-
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Value {
-
         /// The kind of value.
         pub kind: std::option::Option<crate::model::parameter::value::Kind>,
 
@@ -1693,8 +1742,12 @@ pub mod parameter {
         /// use google_cloud_commerce_consumer_procurement_v1::model::parameter::value::Kind;
         /// let x = Value::new().set_kind(Some(Kind::Int64Value(42)));
         /// ```
-        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::parameter::value::Kind>>>(mut self, v: T) -> Self
-        {
+        pub fn set_kind<
+            T: std::convert::Into<std::option::Option<crate::model::parameter::value::Kind>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.kind = v.into();
             self
         }
@@ -1726,9 +1779,7 @@ pub mod parameter {
         /// ```
         pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::Int64Value(
-                    v.into()
-                )
+                crate::model::parameter::value::Kind::Int64Value(v.into()),
             );
             self
         }
@@ -1739,7 +1790,9 @@ pub mod parameter {
         pub fn string_value(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::parameter::value::Kind::StringValue(v) => std::option::Option::Some(v),
+                crate::model::parameter::value::Kind::StringValue(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -1758,11 +1811,12 @@ pub mod parameter {
         /// assert!(x.int64_value().is_none());
         /// assert!(x.double_value().is_none());
         /// ```
-        pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_string_value<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::StringValue(
-                    v.into()
-                )
+                crate::model::parameter::value::Kind::StringValue(v.into()),
             );
             self
         }
@@ -1773,7 +1827,9 @@ pub mod parameter {
         pub fn double_value(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::parameter::value::Kind::DoubleValue(v) => std::option::Option::Some(v),
+                crate::model::parameter::value::Kind::DoubleValue(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -1794,9 +1850,7 @@ pub mod parameter {
         /// ```
         pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::DoubleValue(
-                    v.into()
-                )
+                crate::model::parameter::value::Kind::DoubleValue(v.into()),
             );
             self
         }
@@ -1812,7 +1866,6 @@ pub mod parameter {
     pub mod value {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The kind of value.
         #[derive(Clone, Debug, PartialEq)]
@@ -1832,7 +1885,6 @@ pub mod parameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
-
     /// The timestamp when the subscription begins, if applicable.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -1861,7 +1913,8 @@ impl Subscription {
     /// let x = Subscription::new().set_start_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1877,7 +1930,8 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_start_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1892,7 +1946,8 @@ impl Subscription {
     /// let x = Subscription::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1908,7 +1963,8 @@ impl Subscription {
     /// let x = Subscription::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1940,7 +1996,6 @@ impl wkt::message::Message for Subscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceOrderRequest {
-
     /// Required. The resource name of the parent resource.
     /// This field has the form  `billingAccounts/{billing-account-id}`.
     pub parent: std::string::String,
@@ -2007,7 +2062,7 @@ impl PlaceOrderRequest {
     pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LineItemInfo>
+        V: std::convert::Into<crate::model::LineItemInfo>,
     {
         use std::iter::Iterator;
         self.line_item_info = v.into_iter().map(|i| i.into()).collect();
@@ -2040,7 +2095,6 @@ impl wkt::message::Message for PlaceOrderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceOrderMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2063,7 +2117,6 @@ impl wkt::message::Message for PlaceOrderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrderRequest {
-
     /// Required. The name of the order to retrieve.
     pub name: std::string::String,
 
@@ -2101,7 +2154,6 @@ impl wkt::message::Message for GetOrderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrdersRequest {
-
     /// Required. The parent resource to query for orders.
     /// This field has the form `billingAccounts/{billing-account-id}`.
     pub parent: std::string::String,
@@ -2201,7 +2253,6 @@ impl wkt::message::Message for ListOrdersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrdersResponse {
-
     /// The list of orders in this response.
     pub orders: std::vec::Vec<crate::model::Order>,
 
@@ -2231,7 +2282,7 @@ impl ListOrdersResponse {
     pub fn set_orders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Order>
+        V: std::convert::Into<crate::model::Order>,
     {
         use std::iter::Iterator;
         self.orders = v.into_iter().map(|i| i.into()).collect();
@@ -2278,7 +2329,6 @@ impl gax::paginator::internal::PageableResponse for ListOrdersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyOrderRequest {
-
     /// Required. Name of the order to update.
     pub name: std::string::String,
 
@@ -2331,7 +2381,7 @@ impl ModifyOrderRequest {
     pub fn set_modifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::modify_order_request::Modification>
+        V: std::convert::Into<crate::model::modify_order_request::Modification>,
     {
         use std::iter::Iterator;
         self.modifications = v.into_iter().map(|i| i.into()).collect();
@@ -2374,12 +2424,10 @@ pub mod modify_order_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Modifications to make on the order.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Modification {
-
         /// Required. ID of the existing line item to make change to.
         /// Required when change type is
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_UPDATE] or
@@ -2416,7 +2464,10 @@ pub mod modify_order_request {
         /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
         /// let x = Modification::new().set_line_item_id("example");
         /// ```
-        pub fn set_line_item_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_line_item_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.line_item_id = v.into();
             self
         }
@@ -2431,7 +2482,10 @@ pub mod modify_order_request {
         /// let x1 = Modification::new().set_change_type(LineItemChangeType::Update);
         /// let x2 = Modification::new().set_change_type(LineItemChangeType::Cancel);
         /// ```
-        pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(mut self, v: T) -> Self {
+        pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.change_type = v.into();
             self
         }
@@ -2445,7 +2499,8 @@ pub mod modify_order_request {
         /// let x = Modification::new().set_new_line_item_info(LineItemInfo::default()/* use setters */);
         /// ```
         pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::LineItemInfo>
+        where
+            T: std::convert::Into<crate::model::LineItemInfo>,
         {
             self.new_line_item_info = std::option::Option::Some(v.into());
             self
@@ -2461,7 +2516,8 @@ pub mod modify_order_request {
         /// let x = Modification::new().set_or_clear_new_line_item_info(None::<LineItemInfo>);
         /// ```
         pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::LineItemInfo>
+        where
+            T: std::convert::Into<crate::model::LineItemInfo>,
         {
             self.new_line_item_info = v.map(|x| x.into());
             self
@@ -2476,7 +2532,12 @@ pub mod modify_order_request {
         /// let x0 = Modification::new().set_auto_renewal_behavior(AutoRenewalBehavior::Enable);
         /// let x1 = Modification::new().set_auto_renewal_behavior(AutoRenewalBehavior::Disable);
         /// ```
-        pub fn set_auto_renewal_behavior<T: std::convert::Into<crate::model::AutoRenewalBehavior>>(mut self, v: T) -> Self {
+        pub fn set_auto_renewal_behavior<
+            T: std::convert::Into<crate::model::AutoRenewalBehavior>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.auto_renewal_behavior = v.into();
             self
         }
@@ -2496,7 +2557,6 @@ pub mod modify_order_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyOrderMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2519,7 +2579,6 @@ impl wkt::message::Message for ModifyOrderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOrderRequest {
-
     /// Required. The resource name of the order.
     pub name: std::string::String,
 
@@ -2572,7 +2631,12 @@ impl CancelOrderRequest {
     /// let x0 = CancelOrderRequest::new().set_cancellation_policy(CancellationPolicy::CancelImmediately);
     /// let x1 = CancelOrderRequest::new().set_cancellation_policy(CancellationPolicy::CancelAtTermEnd);
     /// ```
-    pub fn set_cancellation_policy<T: std::convert::Into<crate::model::cancel_order_request::CancellationPolicy>>(mut self, v: T) -> Self {
+    pub fn set_cancellation_policy<
+        T: std::convert::Into<crate::model::cancel_order_request::CancellationPolicy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cancellation_policy = v.into();
         self
     }
@@ -2588,7 +2652,6 @@ impl wkt::message::Message for CancelOrderRequest {
 pub mod cancel_order_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Indicates the cancellation policy the customer uses to cancel the order.
     ///
@@ -2656,8 +2719,12 @@ pub mod cancel_order_request {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("CANCELLATION_POLICY_UNSPECIFIED"),
-                Self::CancelImmediately => std::option::Option::Some("CANCELLATION_POLICY_CANCEL_IMMEDIATELY"),
-                Self::CancelAtTermEnd => std::option::Option::Some("CANCELLATION_POLICY_CANCEL_AT_TERM_END"),
+                Self::CancelImmediately => {
+                    std::option::Option::Some("CANCELLATION_POLICY_CANCEL_IMMEDIATELY")
+                }
+                Self::CancelAtTermEnd => {
+                    std::option::Option::Some("CANCELLATION_POLICY_CANCEL_AT_TERM_END")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2682,7 +2749,9 @@ pub mod cancel_order_request {
                 0 => Self::Unspecified,
                 1 => Self::CancelImmediately,
                 2 => Self::CancelAtTermEnd,
-                _ => Self::UnknownValue(cancellation_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(cancellation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2694,7 +2763,9 @@ pub mod cancel_order_request {
                 "CANCELLATION_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "CANCELLATION_POLICY_CANCEL_IMMEDIATELY" => Self::CancelImmediately,
                 "CANCELLATION_POLICY_CANCEL_AT_TERM_END" => Self::CancelAtTermEnd,
-                _ => Self::UnknownValue(cancellation_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(cancellation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2731,7 +2802,6 @@ pub mod cancel_order_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOrderMetadata {
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2816,7 +2886,9 @@ impl LineItemChangeType {
             Self::Create => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_CREATE"),
             Self::Update => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_UPDATE"),
             Self::Cancel => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_CANCEL"),
-            Self::RevertCancellation => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION"),
+            Self::RevertCancellation => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2843,7 +2915,9 @@ impl std::convert::From<i32> for LineItemChangeType {
             2 => Self::Update,
             3 => Self::Cancel,
             4 => Self::RevertCancellation,
-            _ => Self::UnknownValue(line_item_change_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(line_item_change_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -2857,7 +2931,9 @@ impl std::convert::From<&str> for LineItemChangeType {
             "LINE_ITEM_CHANGE_TYPE_UPDATE" => Self::Update,
             "LINE_ITEM_CHANGE_TYPE_CANCEL" => Self::Cancel,
             "LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION" => Self::RevertCancellation,
-            _ => Self::UnknownValue(line_item_change_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(line_item_change_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -2884,7 +2960,8 @@ impl<'de> serde::de::Deserialize<'de> for LineItemChangeType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineItemChangeType>::new(
-            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeType"))
+            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeType",
+        ))
     }
 }
 
@@ -2970,7 +3047,9 @@ impl LineItemChangeState {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_UNSPECIFIED"),
-            Self::PendingApproval => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL"),
+            Self::PendingApproval => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL")
+            }
             Self::Approved => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_APPROVED"),
             Self::Completed => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_COMPLETED"),
             Self::Rejected => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REJECTED"),
@@ -3004,7 +3083,9 @@ impl std::convert::From<i32> for LineItemChangeState {
             4 => Self::Rejected,
             5 => Self::Abandoned,
             6 => Self::Activating,
-            _ => Self::UnknownValue(line_item_change_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(line_item_change_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3020,7 +3101,9 @@ impl std::convert::From<&str> for LineItemChangeState {
             "LINE_ITEM_CHANGE_STATE_REJECTED" => Self::Rejected,
             "LINE_ITEM_CHANGE_STATE_ABANDONED" => Self::Abandoned,
             "LINE_ITEM_CHANGE_STATE_ACTIVATING" => Self::Activating,
-            _ => Self::UnknownValue(line_item_change_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(line_item_change_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3049,7 +3132,8 @@ impl<'de> serde::de::Deserialize<'de> for LineItemChangeState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineItemChangeState>::new(
-            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeState"))
+            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeState",
+        ))
     }
 }
 
@@ -3116,10 +3200,18 @@ impl LineItemChangeStateReasonType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED"),
-            Self::Expired => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED"),
-            Self::UserCancelled => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED"),
-            Self::SystemCancelled => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED"),
+            Self::Unspecified => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED")
+            }
+            Self::Expired => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED")
+            }
+            Self::UserCancelled => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED")
+            }
+            Self::SystemCancelled => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -3145,7 +3237,9 @@ impl std::convert::From<i32> for LineItemChangeStateReasonType {
             1 => Self::Expired,
             2 => Self::UserCancelled,
             3 => Self::SystemCancelled,
-            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3158,7 +3252,9 @@ impl std::convert::From<&str> for LineItemChangeStateReasonType {
             "LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED" => Self::Expired,
             "LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED" => Self::UserCancelled,
             "LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED" => Self::SystemCancelled,
-            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3183,8 +3279,11 @@ impl<'de> serde::de::Deserialize<'de> for LineItemChangeStateReasonType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineItemChangeStateReasonType>::new(
-            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeStateReasonType"))
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<LineItemChangeStateReasonType>::new(
+                ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeStateReasonType",
+            ),
+        )
     }
 }
 
@@ -3274,7 +3373,9 @@ impl std::convert::From<i32> for AutoRenewalBehavior {
             0 => Self::Unspecified,
             1 => Self::Enable,
             2 => Self::Disable,
-            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -3286,7 +3387,9 @@ impl std::convert::From<&str> for AutoRenewalBehavior {
             "AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
             "AUTO_RENEWAL_BEHAVIOR_ENABLE" => Self::Enable,
             "AUTO_RENEWAL_BEHAVIOR_DISABLE" => Self::Disable,
-            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -3311,6 +3414,7 @@ impl<'de> serde::de::Deserialize<'de> for AutoRenewalBehavior {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoRenewalBehavior>::new(
-            ".google.cloud.commerce.consumer.procurement.v1.AutoRenewalBehavior"))
+            ".google.cloud.commerce.consumer.procurement.v1.AutoRenewalBehavior",
+        ))
     }
 }

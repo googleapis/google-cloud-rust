@@ -144,7 +144,10 @@ impl std::fmt::Debug for super::AuditContext {
         debug_struct.field("audit_log", &self.audit_log);
         debug_struct.field("scrubbed_request", &self.scrubbed_request);
         debug_struct.field("scrubbed_response", &self.scrubbed_response);
-        debug_struct.field("scrubbed_response_item_count", &self.scrubbed_response_item_count);
+        debug_struct.field(
+            "scrubbed_response_item_count",
+            &self.scrubbed_response_item_count,
+        );
         debug_struct.field("target_resource", &self.target_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

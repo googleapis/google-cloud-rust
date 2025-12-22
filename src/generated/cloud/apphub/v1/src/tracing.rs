@@ -18,26 +18,34 @@ use crate::Result;
 /// Implements a [AppHub](super::stub::AppHub) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AppHub<T>
-where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AppHub + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> AppHub<T>
-where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AppHub + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AppHub for AppHub<T>
-where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::AppHub + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn lookup_service_project_attachment(
         &self,
         req: crate::model::LookupServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupServiceProjectAttachmentResponse>> {
-        self.inner.lookup_service_project_attachment(req, options).await
+        self.inner
+            .lookup_service_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -46,7 +54,9 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         req: crate::model::ListServiceProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceProjectAttachmentsResponse>> {
-        self.inner.list_service_project_attachments(req, options).await
+        self.inner
+            .list_service_project_attachments(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -55,7 +65,9 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         req: crate::model::CreateServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_service_project_attachment(req, options).await
+        self.inner
+            .create_service_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -64,7 +76,9 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         req: crate::model::GetServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceProjectAttachment>> {
-        self.inner.get_service_project_attachment(req, options).await
+        self.inner
+            .get_service_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -73,7 +87,9 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.delete_service_project_attachment(req, options).await
+        self.inner
+            .delete_service_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -82,7 +98,9 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         req: crate::model::DetachServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>> {
-        self.inner.detach_service_project_attachment(req, options).await
+        self.inner
+            .detach_service_project_attachment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -355,7 +373,6 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -370,4 +387,3 @@ where T: super::stub::AppHub + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

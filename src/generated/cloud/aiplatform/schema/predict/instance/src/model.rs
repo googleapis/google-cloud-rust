@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,7 +32,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageClassificationPredictionInstance {
-
     /// The image bytes or Cloud Storage URI to make the prediction on.
     pub content: std::string::String,
 
@@ -91,7 +90,6 @@ impl wkt::message::Message for ImageClassificationPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageObjectDetectionPredictionInstance {
-
     /// The image bytes or Cloud Storage URI to make the prediction on.
     pub content: std::string::String,
 
@@ -150,7 +148,6 @@ impl wkt::message::Message for ImageObjectDetectionPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageSegmentationPredictionInstance {
-
     /// The image bytes to make the predictions on.
     pub content: std::string::String,
 
@@ -204,7 +201,6 @@ impl wkt::message::Message for ImageSegmentationPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextClassificationPredictionInstance {
-
     /// The text snippet to make the predictions on.
     pub content: std::string::String,
 
@@ -257,7 +253,6 @@ impl wkt::message::Message for TextClassificationPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextExtractionPredictionInstance {
-
     /// The text snippet to make the predictions on.
     pub content: std::string::String,
 
@@ -329,7 +324,6 @@ impl wkt::message::Message for TextExtractionPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSentimentPredictionInstance {
-
     /// The text snippet to make the predictions on.
     pub content: std::string::String,
 
@@ -382,7 +376,6 @@ impl wkt::message::Message for TextSentimentPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoActionRecognitionPredictionInstance {
-
     /// The Google Cloud Storage location of the video on which to perform the
     /// prediction.
     pub content: std::string::String,
@@ -443,7 +436,10 @@ impl VideoActionRecognitionPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
     /// let x = VideoActionRecognitionPredictionInstance::new().set_time_segment_start("example");
     /// ```
-    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_start = v.into();
         self
     }
@@ -455,7 +451,10 @@ impl VideoActionRecognitionPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
     /// let x = VideoActionRecognitionPredictionInstance::new().set_time_segment_end("example");
     /// ```
-    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_end = v.into();
         self
     }
@@ -471,7 +470,6 @@ impl wkt::message::Message for VideoActionRecognitionPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoClassificationPredictionInstance {
-
     /// The Google Cloud Storage location of the video on which to perform the
     /// prediction.
     pub content: std::string::String,
@@ -532,7 +530,10 @@ impl VideoClassificationPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
     /// let x = VideoClassificationPredictionInstance::new().set_time_segment_start("example");
     /// ```
-    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_start = v.into();
         self
     }
@@ -544,7 +545,10 @@ impl VideoClassificationPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
     /// let x = VideoClassificationPredictionInstance::new().set_time_segment_end("example");
     /// ```
-    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_end = v.into();
         self
     }
@@ -560,7 +564,6 @@ impl wkt::message::Message for VideoClassificationPredictionInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoObjectTrackingPredictionInstance {
-
     /// The Google Cloud Storage location of the video on which to perform the
     /// prediction.
     pub content: std::string::String,
@@ -621,7 +624,10 @@ impl VideoObjectTrackingPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
     /// let x = VideoObjectTrackingPredictionInstance::new().set_time_segment_start("example");
     /// ```
-    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_start = v.into();
         self
     }
@@ -633,7 +639,10 @@ impl VideoObjectTrackingPredictionInstance {
     /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
     /// let x = VideoObjectTrackingPredictionInstance::new().set_time_segment_end("example");
     /// ```
-    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.time_segment_end = v.into();
         self
     }

@@ -45,7 +45,10 @@ impl std::fmt::Debug for super::UpdateTransferJobRequest {
         debug_struct.field("job_name", &self.job_name);
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("transfer_job", &self.transfer_job);
-        debug_struct.field("update_transfer_job_field_mask", &self.update_transfer_job_field_mask);
+        debug_struct.field(
+            "update_transfer_job_field_mask",
+            &self.update_transfer_job_field_mask,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -247,8 +250,14 @@ impl std::fmt::Debug for super::AzureCredentials {
 impl std::fmt::Debug for super::ObjectConditions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectConditions");
-        debug_struct.field("min_time_elapsed_since_last_modification", &self.min_time_elapsed_since_last_modification);
-        debug_struct.field("max_time_elapsed_since_last_modification", &self.max_time_elapsed_since_last_modification);
+        debug_struct.field(
+            "min_time_elapsed_since_last_modification",
+            &self.min_time_elapsed_since_last_modification,
+        );
+        debug_struct.field(
+            "max_time_elapsed_since_last_modification",
+            &self.max_time_elapsed_since_last_modification,
+        );
         debug_struct.field("include_prefixes", &self.include_prefixes);
         debug_struct.field("exclude_prefixes", &self.exclude_prefixes);
         debug_struct.field("last_modified_since", &self.last_modified_since);
@@ -265,7 +274,10 @@ impl std::fmt::Debug for super::GcsData {
         let mut debug_struct = f.debug_struct("GcsData");
         debug_struct.field("bucket_name", &self.bucket_name);
         debug_struct.field("path", &self.path);
-        debug_struct.field("managed_folder_transfer_enabled", &self.managed_folder_transfer_enabled);
+        debug_struct.field(
+            "managed_folder_transfer_enabled",
+            &self.managed_folder_transfer_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -408,9 +420,18 @@ impl std::fmt::Debug for super::agent_pool::BandwidthLimit {
 impl std::fmt::Debug for super::TransferOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransferOptions");
-        debug_struct.field("overwrite_objects_already_existing_in_sink", &self.overwrite_objects_already_existing_in_sink);
-        debug_struct.field("delete_objects_unique_in_sink", &self.delete_objects_unique_in_sink);
-        debug_struct.field("delete_objects_from_source_after_transfer", &self.delete_objects_from_source_after_transfer);
+        debug_struct.field(
+            "overwrite_objects_already_existing_in_sink",
+            &self.overwrite_objects_already_existing_in_sink,
+        );
+        debug_struct.field(
+            "delete_objects_unique_in_sink",
+            &self.delete_objects_unique_in_sink,
+        );
+        debug_struct.field(
+            "delete_objects_from_source_after_transfer",
+            &self.delete_objects_from_source_after_transfer,
+        );
         debug_struct.field("overwrite_when", &self.overwrite_when);
         debug_struct.field("metadata_options", &self.metadata_options);
         if !self._unknown_fields.is_empty() {
@@ -430,7 +451,10 @@ impl std::fmt::Debug for super::TransferSpec {
         debug_struct.field("sink_agent_pool_name", &self.sink_agent_pool_name);
         debug_struct.field("data_sink", &self.data_sink);
         debug_struct.field("data_source", &self.data_source);
-        debug_struct.field("intermediate_data_location", &self.intermediate_data_location);
+        debug_struct.field(
+            "intermediate_data_location",
+            &self.intermediate_data_location,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -502,7 +526,10 @@ impl std::fmt::Debug for super::EventStream {
         let mut debug_struct = f.debug_struct("EventStream");
         debug_struct.field("name", &self.name);
         debug_struct.field("event_stream_start_time", &self.event_stream_start_time);
-        debug_struct.field("event_stream_expiration_time", &self.event_stream_expiration_time);
+        debug_struct.field(
+            "event_stream_expiration_time",
+            &self.event_stream_expiration_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -565,25 +592,64 @@ impl std::fmt::Debug for super::TransferCounters {
         let mut debug_struct = f.debug_struct("TransferCounters");
         debug_struct.field("objects_found_from_source", &self.objects_found_from_source);
         debug_struct.field("bytes_found_from_source", &self.bytes_found_from_source);
-        debug_struct.field("objects_found_only_from_sink", &self.objects_found_only_from_sink);
-        debug_struct.field("bytes_found_only_from_sink", &self.bytes_found_only_from_sink);
-        debug_struct.field("objects_from_source_skipped_by_sync", &self.objects_from_source_skipped_by_sync);
-        debug_struct.field("bytes_from_source_skipped_by_sync", &self.bytes_from_source_skipped_by_sync);
+        debug_struct.field(
+            "objects_found_only_from_sink",
+            &self.objects_found_only_from_sink,
+        );
+        debug_struct.field(
+            "bytes_found_only_from_sink",
+            &self.bytes_found_only_from_sink,
+        );
+        debug_struct.field(
+            "objects_from_source_skipped_by_sync",
+            &self.objects_from_source_skipped_by_sync,
+        );
+        debug_struct.field(
+            "bytes_from_source_skipped_by_sync",
+            &self.bytes_from_source_skipped_by_sync,
+        );
         debug_struct.field("objects_copied_to_sink", &self.objects_copied_to_sink);
         debug_struct.field("bytes_copied_to_sink", &self.bytes_copied_to_sink);
-        debug_struct.field("objects_deleted_from_source", &self.objects_deleted_from_source);
+        debug_struct.field(
+            "objects_deleted_from_source",
+            &self.objects_deleted_from_source,
+        );
         debug_struct.field("bytes_deleted_from_source", &self.bytes_deleted_from_source);
         debug_struct.field("objects_deleted_from_sink", &self.objects_deleted_from_sink);
         debug_struct.field("bytes_deleted_from_sink", &self.bytes_deleted_from_sink);
-        debug_struct.field("objects_from_source_failed", &self.objects_from_source_failed);
+        debug_struct.field(
+            "objects_from_source_failed",
+            &self.objects_from_source_failed,
+        );
         debug_struct.field("bytes_from_source_failed", &self.bytes_from_source_failed);
-        debug_struct.field("objects_failed_to_delete_from_sink", &self.objects_failed_to_delete_from_sink);
-        debug_struct.field("bytes_failed_to_delete_from_sink", &self.bytes_failed_to_delete_from_sink);
-        debug_struct.field("directories_found_from_source", &self.directories_found_from_source);
-        debug_struct.field("directories_failed_to_list_from_source", &self.directories_failed_to_list_from_source);
-        debug_struct.field("directories_successfully_listed_from_source", &self.directories_successfully_listed_from_source);
-        debug_struct.field("intermediate_objects_cleaned_up", &self.intermediate_objects_cleaned_up);
-        debug_struct.field("intermediate_objects_failed_cleaned_up", &self.intermediate_objects_failed_cleaned_up);
+        debug_struct.field(
+            "objects_failed_to_delete_from_sink",
+            &self.objects_failed_to_delete_from_sink,
+        );
+        debug_struct.field(
+            "bytes_failed_to_delete_from_sink",
+            &self.bytes_failed_to_delete_from_sink,
+        );
+        debug_struct.field(
+            "directories_found_from_source",
+            &self.directories_found_from_source,
+        );
+        debug_struct.field(
+            "directories_failed_to_list_from_source",
+            &self.directories_failed_to_list_from_source,
+        );
+        debug_struct.field(
+            "directories_successfully_listed_from_source",
+            &self.directories_successfully_listed_from_source,
+        );
+        debug_struct.field(
+            "intermediate_objects_cleaned_up",
+            &self.intermediate_objects_cleaned_up,
+        );
+        debug_struct.field(
+            "intermediate_objects_failed_cleaned_up",
+            &self.intermediate_objects_failed_cleaned_up,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -609,7 +675,10 @@ impl std::fmt::Debug for super::LoggingConfig {
         let mut debug_struct = f.debug_struct("LoggingConfig");
         debug_struct.field("log_actions", &self.log_actions);
         debug_struct.field("log_action_states", &self.log_action_states);
-        debug_struct.field("enable_onprem_gcs_transfer_logs", &self.enable_onprem_gcs_transfer_logs);
+        debug_struct.field(
+            "enable_onprem_gcs_transfer_logs",
+            &self.enable_onprem_gcs_transfer_logs,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

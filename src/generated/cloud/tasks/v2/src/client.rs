@@ -81,35 +81,48 @@ impl CloudTasks {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::CloudTasks + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::CloudTasks + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudTasks>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
         super::transport::CloudTasks::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
-        Self::build_transport(conf).await.map(super::tracing::CloudTasks::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CloudTasks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CloudTasks::new)
     }
 
     /// Lists queues.
     ///
     /// Queues are returned in lexicographical order.
-    pub fn list_queues(&self) -> super::builder::cloud_tasks::ListQueues
-    {
+    pub fn list_queues(&self) -> super::builder::cloud_tasks::ListQueues {
         super::builder::cloud_tasks::ListQueues::new(self.inner.clone())
     }
 
@@ -130,8 +143,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_queue(&self) -> super::builder::cloud_tasks::GetQueue
-    {
+    pub fn get_queue(&self) -> super::builder::cloud_tasks::GetQueue {
         super::builder::cloud_tasks::GetQueue::new(self.inner.clone())
     }
 
@@ -163,8 +175,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_queue(&self) -> super::builder::cloud_tasks::CreateQueue
-    {
+    pub fn create_queue(&self) -> super::builder::cloud_tasks::CreateQueue {
         super::builder::cloud_tasks::CreateQueue::new(self.inner.clone())
     }
 
@@ -199,8 +210,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_queue(&self) -> super::builder::cloud_tasks::UpdateQueue
-    {
+    pub fn update_queue(&self) -> super::builder::cloud_tasks::UpdateQueue {
         super::builder::cloud_tasks::UpdateQueue::new(self.inner.clone())
     }
 
@@ -232,8 +242,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_queue(&self) -> super::builder::cloud_tasks::DeleteQueue
-    {
+    pub fn delete_queue(&self) -> super::builder::cloud_tasks::DeleteQueue {
         super::builder::cloud_tasks::DeleteQueue::new(self.inner.clone())
     }
 
@@ -259,8 +268,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn purge_queue(&self) -> super::builder::cloud_tasks::PurgeQueue
-    {
+    pub fn purge_queue(&self) -> super::builder::cloud_tasks::PurgeQueue {
         super::builder::cloud_tasks::PurgeQueue::new(self.inner.clone())
     }
 
@@ -292,8 +300,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn pause_queue(&self) -> super::builder::cloud_tasks::PauseQueue
-    {
+    pub fn pause_queue(&self) -> super::builder::cloud_tasks::PauseQueue {
         super::builder::cloud_tasks::PauseQueue::new(self.inner.clone())
     }
 
@@ -332,8 +339,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn resume_queue(&self) -> super::builder::cloud_tasks::ResumeQueue
-    {
+    pub fn resume_queue(&self) -> super::builder::cloud_tasks::ResumeQueue {
         super::builder::cloud_tasks::ResumeQueue::new(self.inner.clone())
     }
 
@@ -364,8 +370,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::cloud_tasks::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_tasks::GetIamPolicy {
         super::builder::cloud_tasks::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -398,8 +403,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::cloud_tasks::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_tasks::SetIamPolicy {
         super::builder::cloud_tasks::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -429,8 +433,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::cloud_tasks::TestIamPermissions
-    {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_tasks::TestIamPermissions {
         super::builder::cloud_tasks::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -446,8 +449,7 @@ impl CloudTasks {
     ///
     /// [google.cloud.tasks.v2.ListTasksRequest.response_view]: crate::model::ListTasksRequest::response_view
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
-    pub fn list_tasks(&self) -> super::builder::cloud_tasks::ListTasks
-    {
+    pub fn list_tasks(&self) -> super::builder::cloud_tasks::ListTasks {
         super::builder::cloud_tasks::ListTasks::new(self.inner.clone())
     }
 
@@ -468,8 +470,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_task(&self) -> super::builder::cloud_tasks::GetTask
-    {
+    pub fn get_task(&self) -> super::builder::cloud_tasks::GetTask {
         super::builder::cloud_tasks::GetTask::new(self.inner.clone())
     }
 
@@ -494,8 +495,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_task(&self) -> super::builder::cloud_tasks::CreateTask
-    {
+    pub fn create_task(&self) -> super::builder::cloud_tasks::CreateTask {
         super::builder::cloud_tasks::CreateTask::new(self.inner.clone())
     }
 
@@ -519,8 +519,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_task(&self) -> super::builder::cloud_tasks::DeleteTask
-    {
+    pub fn delete_task(&self) -> super::builder::cloud_tasks::DeleteTask {
         super::builder::cloud_tasks::DeleteTask::new(self.inner.clone())
     }
 
@@ -572,14 +571,12 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn run_task(&self) -> super::builder::cloud_tasks::RunTask
-    {
+    pub fn run_task(&self) -> super::builder::cloud_tasks::RunTask {
         super::builder::cloud_tasks::RunTask::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_tasks::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::cloud_tasks::ListLocations {
         super::builder::cloud_tasks::ListLocations::new(self.inner.clone())
     }
 
@@ -600,8 +597,7 @@ impl CloudTasks {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation {
         super::builder::cloud_tasks::GetLocation::new(self.inner.clone())
     }
 }

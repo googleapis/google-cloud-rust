@@ -48,7 +48,10 @@ impl std::fmt::Debug for super::GetFolderRequest {
         let mut debug_struct = f.debug_struct("GetFolderRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -77,7 +80,10 @@ impl std::fmt::Debug for super::DeleteFolderRequest {
         let mut debug_struct = f.debug_struct("DeleteFolderRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -122,7 +128,10 @@ impl std::fmt::Debug for super::RenameFolderRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("destination_folder_id", &self.destination_folder_id);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -229,7 +238,10 @@ impl std::fmt::Debug for super::GetManagedFolderRequest {
         let mut debug_struct = f.debug_struct("GetManagedFolderRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -257,7 +269,10 @@ impl std::fmt::Debug for super::DeleteManagedFolderRequest {
         let mut debug_struct = f.debug_struct("DeleteManagedFolderRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
-        debug_struct.field("if_metageneration_not_match", &self.if_metageneration_not_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
         debug_struct.field("allow_non_empty", &self.allow_non_empty);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -449,7 +464,10 @@ impl std::fmt::Debug for super::IntelligenceConfig {
         debug_struct.field("edition_config", &self.edition_config);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("filter", &self.filter);
-        debug_struct.field("effective_intelligence_config", &self.effective_intelligence_config);
+        debug_struct.field(
+            "effective_intelligence_config",
+            &self.effective_intelligence_config,
+        );
         debug_struct.field("trial_config", &self.trial_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

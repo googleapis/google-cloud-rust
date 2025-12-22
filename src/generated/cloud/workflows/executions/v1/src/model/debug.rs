@@ -125,7 +125,6 @@ impl std::fmt::Debug for super::execution::StateError {
     }
 }
 
-
 impl std::fmt::Debug for super::ListExecutionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExecutionsRequest");

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [CrossNetworkAutomationService](super::stub::CrossNetworkAutomationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CrossNetworkAutomationService<T>
-where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CrossNetworkAutomationService<T>
-where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CrossNetworkAutomationService for CrossNetworkAutomationService<T>
-where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_service_connection_maps(
         &self,
@@ -82,7 +88,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::ListServiceConnectionPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceConnectionPoliciesResponse>> {
-        self.inner.list_service_connection_policies(req, options).await
+        self.inner
+            .list_service_connection_policies(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -100,7 +108,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::CreateServiceConnectionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_service_connection_policy(req, options).await
+        self.inner
+            .create_service_connection_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -109,7 +119,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::UpdateServiceConnectionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.update_service_connection_policy(req, options).await
+        self.inner
+            .update_service_connection_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -118,7 +130,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::DeleteServiceConnectionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.delete_service_connection_policy(req, options).await
+        self.inner
+            .delete_service_connection_policy(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -172,7 +186,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::ListServiceConnectionTokensRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceConnectionTokensResponse>> {
-        self.inner.list_service_connection_tokens(req, options).await
+        self.inner
+            .list_service_connection_tokens(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -181,7 +197,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::CreateServiceConnectionTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_service_connection_token(req, options).await
+        self.inner
+            .create_service_connection_token(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -190,7 +208,9 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         req: crate::model::DeleteServiceConnectionTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.delete_service_connection_token(req, options).await
+        self.inner
+            .delete_service_connection_token(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -274,7 +294,6 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -293,26 +312,35 @@ where T: super::stub::CrossNetworkAutomationService + std::fmt::Debug + Send + S
 /// Implements a [DataTransferService](super::stub::DataTransferService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataTransferService<T>
-where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataTransferService<T>
-where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataTransferService for DataTransferService<T>
-where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_multicloud_data_transfer_configs(
         &self,
         req: crate::model::ListMulticloudDataTransferConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>> {
-        self.inner.list_multicloud_data_transfer_configs(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListMulticloudDataTransferConfigsResponse>>
+    {
+        self.inner
+            .list_multicloud_data_transfer_configs(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -321,7 +349,9 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         req: crate::model::GetMulticloudDataTransferConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MulticloudDataTransferConfig>> {
-        self.inner.get_multicloud_data_transfer_config(req, options).await
+        self.inner
+            .get_multicloud_data_transfer_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -330,7 +360,9 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         req: crate::model::CreateMulticloudDataTransferConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.create_multicloud_data_transfer_config(req, options).await
+        self.inner
+            .create_multicloud_data_transfer_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -339,7 +371,9 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateMulticloudDataTransferConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.update_multicloud_data_transfer_config(req, options).await
+        self.inner
+            .update_multicloud_data_transfer_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -348,7 +382,9 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteMulticloudDataTransferConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner.delete_multicloud_data_transfer_config(req, options).await
+        self.inner
+            .delete_multicloud_data_transfer_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -402,7 +438,9 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         req: crate::model::GetMulticloudDataTransferSupportedServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MulticloudDataTransferSupportedService>> {
-        self.inner.get_multicloud_data_transfer_supported_service(req, options).await
+        self.inner
+            .get_multicloud_data_transfer_supported_service(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -410,8 +448,12 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMulticloudDataTransferSupportedServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>> {
-        self.inner.list_multicloud_data_transfer_supported_services(req, options).await
+    ) -> Result<
+        gax::response::Response<crate::model::ListMulticloudDataTransferSupportedServicesResponse>,
+    > {
+        self.inner
+            .list_multicloud_data_transfer_supported_services(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -495,7 +537,6 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -514,19 +555,25 @@ where T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync {
 /// Implements a [HubService](super::stub::HubService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct HubService<T>
-where T: super::stub::HubService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HubService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> HubService<T>
-where T: super::stub::HubService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HubService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::HubService for HubService<T>
-where T: super::stub::HubService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::HubService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_hubs(
         &self,
@@ -815,7 +862,6 @@ where T: super::stub::HubService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -834,19 +880,25 @@ where T: super::stub::HubService + std::fmt::Debug + Send + Sync {
 /// Implements a [InternalRangeService](super::stub::InternalRangeService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct InternalRangeService<T>
-where T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> InternalRangeService<T>
-where T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::InternalRangeService for InternalRangeService<T>
-where T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_internal_ranges(
         &self,
@@ -973,7 +1025,6 @@ where T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -992,19 +1043,25 @@ where T: super::stub::InternalRangeService + std::fmt::Debug + Send + Sync {
 /// Implements a [PolicyBasedRoutingService](super::stub::PolicyBasedRoutingService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyBasedRoutingService<T>
-where T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PolicyBasedRoutingService<T>
-where T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService<T>
-where T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_policy_based_routes(
         &self,
@@ -1122,7 +1179,6 @@ where T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync 
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -1137,4 +1193,3 @@ where T: super::stub::PolicyBasedRoutingService + std::fmt::Debug + Send + Sync 
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

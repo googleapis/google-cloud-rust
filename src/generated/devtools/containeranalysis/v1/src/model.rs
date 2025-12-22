@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,7 +41,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportSBOMRequest {
-
     /// Required. The name of the resource in the form of
     /// `projects/[PROJECT_ID]/resources/[RESOURCE_URL]`.
     pub name: std::string::String,
@@ -81,8 +80,12 @@ impl ExportSBOMRequest {
     /// let x = ExportSBOMRequest::new().set_target(Some(
     ///     google_cloud_containeranalysis_v1::model::export_sbom_request::Target::CloudStorageLocation(CloudStorageLocation::default().into())));
     /// ```
-    pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::export_sbom_request::Target>>>(mut self, v: T) -> Self
-    {
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::export_sbom_request::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = v.into();
         self
     }
@@ -90,10 +93,16 @@ impl ExportSBOMRequest {
     /// The value of [target][crate::model::ExportSBOMRequest::target]
     /// if it holds a `CloudStorageLocation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_storage_location(&self) -> std::option::Option<&std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>> {
+    pub fn cloud_storage_location(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+    > {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
-            crate::model::export_sbom_request::Target::CloudStorageLocation(v) => std::option::Option::Some(v),
+            crate::model::export_sbom_request::Target::CloudStorageLocation(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -111,11 +120,16 @@ impl ExportSBOMRequest {
     /// let x = ExportSBOMRequest::new().set_cloud_storage_location(CloudStorageLocation::default()/* use setters */);
     /// assert!(x.cloud_storage_location().is_some());
     /// ```
-    pub fn set_cloud_storage_location<T: std::convert::Into<std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>>>(mut self, v: T) -> Self {
+    pub fn set_cloud_storage_location<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target = std::option::Option::Some(
-            crate::model::export_sbom_request::Target::CloudStorageLocation(
-                v.into()
-            )
+            crate::model::export_sbom_request::Target::CloudStorageLocation(v.into()),
         );
         self
     }
@@ -132,13 +146,11 @@ pub mod export_sbom_request {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Empty placeholder to denote that this is a Google Cloud Storage
     /// export request.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageLocation {
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -160,7 +172,9 @@ pub mod export_sbom_request {
     pub enum Target {
         /// Optional. Empty placeholder to denote that this is a Google Cloud Storage
         /// export request.
-        CloudStorageLocation(std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>),
+        CloudStorageLocation(
+            std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
+        ),
     }
 }
 
@@ -168,7 +182,6 @@ pub mod export_sbom_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportSBOMResponse {
-
     /// The name of the discovery occurrence in the form
     /// "projects/{project_id}/occurrences/{OCCURRENCE_ID}
     /// It can be used to track the progress of the SBOM export.
@@ -189,7 +202,10 @@ impl ExportSBOMResponse {
     /// # use google_cloud_containeranalysis_v1::model::ExportSBOMResponse;
     /// let x = ExportSBOMResponse::new().set_discovery_occurrence("example");
     /// ```
-    pub fn set_discovery_occurrence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_discovery_occurrence<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.discovery_occurrence = v.into();
         self
     }
@@ -205,7 +221,6 @@ impl wkt::message::Message for ExportSBOMResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVulnerabilityOccurrencesSummaryRequest {
-
     /// Required. The name of the project to get a vulnerability summary for in the
     /// form of `projects/[PROJECT_ID]`.
     pub parent: std::string::String,
@@ -257,9 +272,9 @@ impl wkt::message::Message for GetVulnerabilityOccurrencesSummaryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VulnerabilityOccurrencesSummary {
-
     /// A listing by resource of the number of fixable and total vulnerabilities.
-    pub counts: std::vec::Vec<crate::model::vulnerability_occurrences_summary::FixableTotalByDigest>,
+    pub counts:
+        std::vec::Vec<crate::model::vulnerability_occurrences_summary::FixableTotalByDigest>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -284,7 +299,9 @@ impl VulnerabilityOccurrencesSummary {
     pub fn set_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vulnerability_occurrences_summary::FixableTotalByDigest>
+        V: std::convert::Into<
+                crate::model::vulnerability_occurrences_summary::FixableTotalByDigest,
+            >,
     {
         use std::iter::Iterator;
         self.counts = v.into_iter().map(|i| i.into()).collect();
@@ -303,12 +320,10 @@ pub mod vulnerability_occurrences_summary {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Per resource and severity counts of fixable and total vulnerabilities.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FixableTotalByDigest {
-
         /// The affected resource.
         pub resource_uri: std::string::String,
 
@@ -337,7 +352,10 @@ pub mod vulnerability_occurrences_summary {
         /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
         /// let x = FixableTotalByDigest::new().set_resource_uri("example");
         /// ```
-        pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.resource_uri = v.into();
             self
         }
@@ -352,7 +370,10 @@ pub mod vulnerability_occurrences_summary {
         /// let x1 = FixableTotalByDigest::new().set_severity(Severity::Low);
         /// let x2 = FixableTotalByDigest::new().set_severity(Severity::Medium);
         /// ```
-        pub fn set_severity<T: std::convert::Into<grafeas::model::Severity>>(mut self, v: T) -> Self {
+        pub fn set_severity<T: std::convert::Into<grafeas::model::Severity>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.severity = v.into();
             self
         }

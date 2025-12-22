@@ -475,7 +475,10 @@ impl std::fmt::Debug for super::Permission {
         debug_struct.field("description", &self.description);
         debug_struct.field("only_in_predefined_roles", &self.only_in_predefined_roles);
         debug_struct.field("stage", &self.stage);
-        debug_struct.field("custom_roles_support_level", &self.custom_roles_support_level);
+        debug_struct.field(
+            "custom_roles_support_level",
+            &self.custom_roles_support_level,
+        );
         debug_struct.field("api_disabled", &self.api_disabled);
         debug_struct.field("primary_permission", &self.primary_permission);
         if !self._unknown_fields.is_empty() {

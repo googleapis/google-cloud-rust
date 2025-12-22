@@ -81,7 +81,9 @@ impl SecretManagerService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::secret_manager_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::secret_manager_service::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::secret_manager_service::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -89,35 +91,49 @@ impl SecretManagerService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SecretManagerService + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SecretManagerService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
         super::transport::SecretManagerService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
-        Self::build_transport(conf).await.map(super::tracing::SecretManagerService::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SecretManagerService::new)
     }
 
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets
-    {
+    pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets {
         super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
     }
 
@@ -142,8 +158,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret
-    {
+    pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
     }
 
@@ -169,8 +184,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion
-    {
+    pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
     }
 
@@ -194,8 +208,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret
-    {
+    pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret {
         super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
     }
 
@@ -219,8 +232,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret
-    {
+    pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
     }
 
@@ -242,8 +254,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret
-    {
+    pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret {
         super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
     }
 
@@ -251,8 +262,9 @@ impl SecretManagerService {
     /// call does not return secret data.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn list_secret_versions(&self) -> super::builder::secret_manager_service::ListSecretVersions
-    {
+    pub fn list_secret_versions(
+        &self,
+    ) -> super::builder::secret_manager_service::ListSecretVersions {
         super::builder::secret_manager_service::ListSecretVersions::new(self.inner.clone())
     }
 
@@ -280,8 +292,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion
-    {
+    pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion {
         super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
     }
 
@@ -308,8 +319,9 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn access_secret_version(&self) -> super::builder::secret_manager_service::AccessSecretVersion
-    {
+    pub fn access_secret_version(
+        &self,
+    ) -> super::builder::secret_manager_service::AccessSecretVersion {
         super::builder::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
     }
 
@@ -338,8 +350,9 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn disable_secret_version(&self) -> super::builder::secret_manager_service::DisableSecretVersion
-    {
+    pub fn disable_secret_version(
+        &self,
+    ) -> super::builder::secret_manager_service::DisableSecretVersion {
         super::builder::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
     }
 
@@ -368,8 +381,9 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn enable_secret_version(&self) -> super::builder::secret_manager_service::EnableSecretVersion
-    {
+    pub fn enable_secret_version(
+        &self,
+    ) -> super::builder::secret_manager_service::EnableSecretVersion {
         super::builder::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
     }
 
@@ -399,8 +413,9 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn destroy_secret_version(&self) -> super::builder::secret_manager_service::DestroySecretVersion
-    {
+    pub fn destroy_secret_version(
+        &self,
+    ) -> super::builder::secret_manager_service::DestroySecretVersion {
         super::builder::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
     }
 
@@ -430,8 +445,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy
-    {
+    pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -453,8 +467,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy
-    {
+    pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy {
         super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -481,14 +494,14 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::secret_manager_service::TestIamPermissions
-    {
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::secret_manager_service::TestIamPermissions {
         super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations
-    {
+    pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations {
         super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
     }
 
@@ -509,8 +522,7 @@ impl SecretManagerService {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation
-    {
+    pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation {
         super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
     }
 }

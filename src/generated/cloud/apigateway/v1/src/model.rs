@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,6 +28,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,7 +40,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Api {
-
     /// Output only. Resource name of the API.
     /// Format: projects/{project}/locations/global/apis/{api}
     pub name: std::string::String,
@@ -54,7 +53,7 @@ pub struct Api {
     /// Optional. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     pub display_name: std::string::String,
@@ -97,7 +96,8 @@ impl Api {
     /// let x = Api::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -113,7 +113,8 @@ impl Api {
     /// let x = Api::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -128,7 +129,8 @@ impl Api {
     /// let x = Api::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -144,7 +146,8 @@ impl Api {
     /// let x = Api::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -221,7 +224,6 @@ impl wkt::message::Message for Api {
 pub mod api {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// All the possible API states.
     ///
@@ -324,7 +326,9 @@ pub mod api {
                 3 => Self::Failed,
                 4 => Self::Deleting,
                 5 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -339,7 +343,9 @@ pub mod api {
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -367,7 +373,8 @@ pub mod api {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.apigateway.v1.Api.State"))
+                ".google.cloud.apigateway.v1.Api.State",
+            ))
         }
     }
 }
@@ -377,7 +384,6 @@ pub mod api {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiConfig {
-
     /// Output only. Resource name of the API Config.
     /// Format: projects/{project}/locations/global/apis/{api}/configs/{api_config}
     pub name: std::string::String,
@@ -391,7 +397,7 @@ pub struct ApiConfig {
     /// Optional. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     pub display_name: std::string::String,
@@ -464,7 +470,8 @@ impl ApiConfig {
     /// let x = ApiConfig::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -480,7 +487,8 @@ impl ApiConfig {
     /// let x = ApiConfig::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -495,7 +503,8 @@ impl ApiConfig {
     /// let x = ApiConfig::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -511,7 +520,8 @@ impl ApiConfig {
     /// let x = ApiConfig::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -557,7 +567,10 @@ impl ApiConfig {
     /// # use google_cloud_apigateway_v1::model::ApiConfig;
     /// let x = ApiConfig::new().set_gateway_service_account("example");
     /// ```
-    pub fn set_gateway_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_gateway_service_account<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.gateway_service_account = v.into();
         self
     }
@@ -569,7 +582,10 @@ impl ApiConfig {
     /// # use google_cloud_apigateway_v1::model::ApiConfig;
     /// let x = ApiConfig::new().set_service_config_id("example");
     /// ```
-    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.service_config_id = v.into();
         self
     }
@@ -584,7 +600,10 @@ impl ApiConfig {
     /// let x1 = ApiConfig::new().set_state(State::Active);
     /// let x2 = ApiConfig::new().set_state(State::Failed);
     /// ```
-    pub fn set_state<T: std::convert::Into<crate::model::api_config::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::api_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -604,7 +623,7 @@ impl ApiConfig {
     pub fn set_openapi_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::api_config::OpenApiDocument>
+        V: std::convert::Into<crate::model::api_config::OpenApiDocument>,
     {
         use std::iter::Iterator;
         self.openapi_documents = v.into_iter().map(|i| i.into()).collect();
@@ -626,7 +645,7 @@ impl ApiConfig {
     pub fn set_grpc_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::api_config::GrpcServiceDefinition>
+        V: std::convert::Into<crate::model::api_config::GrpcServiceDefinition>,
     {
         use std::iter::Iterator;
         self.grpc_services = v.into_iter().map(|i| i.into()).collect();
@@ -648,7 +667,7 @@ impl ApiConfig {
     pub fn set_managed_service_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::api_config::File>
+        V: std::convert::Into<crate::model::api_config::File>,
     {
         use std::iter::Iterator;
         self.managed_service_configs = v.into_iter().map(|i| i.into()).collect();
@@ -667,12 +686,10 @@ pub mod api_config {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A lightweight description of a file.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct File {
-
         /// The file path (full or relative path). This is typically the path of the
         /// file when it is uploaded.
         pub path: std::string::String,
@@ -723,7 +740,6 @@ pub mod api_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OpenApiDocument {
-
         /// The OpenAPI Specification document file.
         pub document: std::option::Option<crate::model::api_config::File>,
 
@@ -744,7 +760,8 @@ pub mod api_config {
         /// let x = OpenApiDocument::new().set_document(File::default()/* use setters */);
         /// ```
         pub fn set_document<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::api_config::File>
+        where
+            T: std::convert::Into<crate::model::api_config::File>,
         {
             self.document = std::option::Option::Some(v.into());
             self
@@ -760,7 +777,8 @@ pub mod api_config {
         /// let x = OpenApiDocument::new().set_or_clear_document(None::<File>);
         /// ```
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::api_config::File>
+        where
+            T: std::convert::Into<crate::model::api_config::File>,
         {
             self.document = v.map(|x| x.into());
             self
@@ -777,7 +795,6 @@ pub mod api_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GrpcServiceDefinition {
-
         /// Input only. File descriptor set, generated by protoc.
         ///
         /// To generate, use protoc with imports and source info included.
@@ -810,7 +827,8 @@ pub mod api_config {
         /// let x = GrpcServiceDefinition::new().set_file_descriptor_set(File::default()/* use setters */);
         /// ```
         pub fn set_file_descriptor_set<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::api_config::File>
+        where
+            T: std::convert::Into<crate::model::api_config::File>,
         {
             self.file_descriptor_set = std::option::Option::Some(v.into());
             self
@@ -826,7 +844,8 @@ pub mod api_config {
         /// let x = GrpcServiceDefinition::new().set_or_clear_file_descriptor_set(None::<File>);
         /// ```
         pub fn set_or_clear_file_descriptor_set<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::api_config::File>
+        where
+            T: std::convert::Into<crate::model::api_config::File>,
         {
             self.file_descriptor_set = v.map(|x| x.into());
             self
@@ -847,7 +866,7 @@ pub mod api_config {
         pub fn set_source<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::api_config::File>
+            V: std::convert::Into<crate::model::api_config::File>,
         {
             use std::iter::Iterator;
             self.source = v.into_iter().map(|i| i.into()).collect();
@@ -968,7 +987,9 @@ pub mod api_config {
                 4 => Self::Deleting,
                 5 => Self::Updating,
                 6 => Self::Activating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -984,7 +1005,9 @@ pub mod api_config {
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
                 "ACTIVATING" => Self::Activating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1013,7 +1036,8 @@ pub mod api_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.apigateway.v1.ApiConfig.State"))
+                ".google.cloud.apigateway.v1.ApiConfig.State",
+            ))
         }
     }
 }
@@ -1024,7 +1048,6 @@ pub mod api_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Gateway {
-
     /// Output only. Resource name of the Gateway.
     /// Format: projects/{project}/locations/{location}/gateways/{gateway}
     pub name: std::string::String,
@@ -1038,7 +1061,7 @@ pub struct Gateway {
     /// Optional. Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     pub display_name: std::string::String,
@@ -1083,7 +1106,8 @@ impl Gateway {
     /// let x = Gateway::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1099,7 +1123,8 @@ impl Gateway {
     /// let x = Gateway::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1114,7 +1139,8 @@ impl Gateway {
     /// let x = Gateway::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1130,7 +1156,8 @@ impl Gateway {
     /// let x = Gateway::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1203,7 +1230,10 @@ impl Gateway {
     /// # use google_cloud_apigateway_v1::model::Gateway;
     /// let x = Gateway::new().set_default_hostname("example");
     /// ```
-    pub fn set_default_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_default_hostname<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.default_hostname = v.into();
         self
     }
@@ -1219,7 +1249,6 @@ impl wkt::message::Message for Gateway {
 pub mod gateway {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// All the possible Gateway states.
     ///
@@ -1322,7 +1351,9 @@ pub mod gateway {
                 3 => Self::Failed,
                 4 => Self::Deleting,
                 5 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1337,7 +1368,9 @@ pub mod gateway {
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1365,7 +1398,8 @@ pub mod gateway {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.apigateway.v1.Gateway.State"))
+                ".google.cloud.apigateway.v1.Gateway.State",
+            ))
         }
     }
 }
@@ -1374,7 +1408,6 @@ pub mod gateway {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewaysRequest {
-
     /// Required. Parent resource of the Gateway, of the form:
     /// `projects/*/locations/*`
     pub parent: std::string::String,
@@ -1470,7 +1503,6 @@ impl wkt::message::Message for ListGatewaysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewaysResponse {
-
     /// Gateways.
     pub gateways: std::vec::Vec<crate::model::Gateway>,
 
@@ -1503,7 +1535,7 @@ impl ListGatewaysResponse {
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Gateway>
+        V: std::convert::Into<crate::model::Gateway>,
     {
         use std::iter::Iterator;
         self.gateways = v.into_iter().map(|i| i.into()).collect();
@@ -1532,7 +1564,7 @@ impl ListGatewaysResponse {
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
@@ -1564,7 +1596,6 @@ impl gax::paginator::internal::PageableResponse for ListGatewaysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGatewayRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/gateways/*`
     pub name: std::string::String,
@@ -1600,7 +1631,6 @@ impl wkt::message::Message for GetGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGatewayRequest {
-
     /// Required. Parent resource of the Gateway, of the form:
     /// `projects/*/locations/*`
     pub parent: std::string::String,
@@ -1653,7 +1683,8 @@ impl CreateGatewayRequest {
     /// let x = CreateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
     /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Gateway>
+    where
+        T: std::convert::Into<crate::model::Gateway>,
     {
         self.gateway = std::option::Option::Some(v.into());
         self
@@ -1669,7 +1700,8 @@ impl CreateGatewayRequest {
     /// let x = CreateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
     /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Gateway>
+    where
+        T: std::convert::Into<crate::model::Gateway>,
     {
         self.gateway = v.map(|x| x.into());
         self
@@ -1686,7 +1718,6 @@ impl wkt::message::Message for CreateGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGatewayRequest {
-
     /// Field mask is used to specify the fields to be overwritten in the
     /// Gateway resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1714,7 +1745,8 @@ impl UpdateGatewayRequest {
     /// let x = UpdateGatewayRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1730,7 +1762,8 @@ impl UpdateGatewayRequest {
     /// let x = UpdateGatewayRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1745,7 +1778,8 @@ impl UpdateGatewayRequest {
     /// let x = UpdateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
     /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Gateway>
+    where
+        T: std::convert::Into<crate::model::Gateway>,
     {
         self.gateway = std::option::Option::Some(v.into());
         self
@@ -1761,7 +1795,8 @@ impl UpdateGatewayRequest {
     /// let x = UpdateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
     /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Gateway>
+    where
+        T: std::convert::Into<crate::model::Gateway>,
     {
         self.gateway = v.map(|x| x.into());
         self
@@ -1778,7 +1813,6 @@ impl wkt::message::Message for UpdateGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGatewayRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/gateways/*`
     pub name: std::string::String,
@@ -1814,7 +1848,6 @@ impl wkt::message::Message for DeleteGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApisRequest {
-
     /// Required. Parent resource of the API, of the form:
     /// `projects/*/locations/global`
     pub parent: std::string::String,
@@ -1910,7 +1943,6 @@ impl wkt::message::Message for ListApisRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApisResponse {
-
     /// APIs.
     pub apis: std::vec::Vec<crate::model::Api>,
 
@@ -1943,7 +1975,7 @@ impl ListApisResponse {
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Api>
+        V: std::convert::Into<crate::model::Api>,
     {
         use std::iter::Iterator;
         self.apis = v.into_iter().map(|i| i.into()).collect();
@@ -1972,7 +2004,7 @@ impl ListApisResponse {
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
@@ -2004,7 +2036,6 @@ impl gax::paginator::internal::PageableResponse for ListApisResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApiRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*`
     pub name: std::string::String,
@@ -2040,7 +2071,6 @@ impl wkt::message::Message for GetApiRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApiRequest {
-
     /// Required. Parent resource of the API, of the form:
     /// `projects/*/locations/global`
     pub parent: std::string::String,
@@ -2093,7 +2123,8 @@ impl CreateApiRequest {
     /// let x = CreateApiRequest::new().set_api(Api::default()/* use setters */);
     /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Api>
+    where
+        T: std::convert::Into<crate::model::Api>,
     {
         self.api = std::option::Option::Some(v.into());
         self
@@ -2109,7 +2140,8 @@ impl CreateApiRequest {
     /// let x = CreateApiRequest::new().set_or_clear_api(None::<Api>);
     /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Api>
+    where
+        T: std::convert::Into<crate::model::Api>,
     {
         self.api = v.map(|x| x.into());
         self
@@ -2126,7 +2158,6 @@ impl wkt::message::Message for CreateApiRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApiRequest {
-
     /// Field mask is used to specify the fields to be overwritten in the
     /// Api resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2154,7 +2185,8 @@ impl UpdateApiRequest {
     /// let x = UpdateApiRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2170,7 +2202,8 @@ impl UpdateApiRequest {
     /// let x = UpdateApiRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2185,7 +2218,8 @@ impl UpdateApiRequest {
     /// let x = UpdateApiRequest::new().set_api(Api::default()/* use setters */);
     /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Api>
+    where
+        T: std::convert::Into<crate::model::Api>,
     {
         self.api = std::option::Option::Some(v.into());
         self
@@ -2201,7 +2235,8 @@ impl UpdateApiRequest {
     /// let x = UpdateApiRequest::new().set_or_clear_api(None::<Api>);
     /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Api>
+    where
+        T: std::convert::Into<crate::model::Api>,
     {
         self.api = v.map(|x| x.into());
         self
@@ -2218,7 +2253,6 @@ impl wkt::message::Message for UpdateApiRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteApiRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*`
     pub name: std::string::String,
@@ -2254,7 +2288,6 @@ impl wkt::message::Message for DeleteApiRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApiConfigsRequest {
-
     /// Required. Parent resource of the API Config, of the form:
     /// `projects/*/locations/global/apis/*`
     pub parent: std::string::String,
@@ -2350,7 +2383,6 @@ impl wkt::message::Message for ListApiConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApiConfigsResponse {
-
     /// API Configs.
     pub api_configs: std::vec::Vec<crate::model::ApiConfig>,
 
@@ -2383,7 +2415,7 @@ impl ListApiConfigsResponse {
     pub fn set_api_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ApiConfig>
+        V: std::convert::Into<crate::model::ApiConfig>,
     {
         use std::iter::Iterator;
         self.api_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2412,7 +2444,7 @@ impl ListApiConfigsResponse {
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
@@ -2444,7 +2476,6 @@ impl gax::paginator::internal::PageableResponse for ListApiConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApiConfigRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*/configs/*`
     pub name: std::string::String,
@@ -2482,7 +2513,10 @@ impl GetApiConfigRequest {
     /// let x0 = GetApiConfigRequest::new().set_view(ConfigView::Basic);
     /// let x1 = GetApiConfigRequest::new().set_view(ConfigView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::get_api_config_request::ConfigView>>(mut self, v: T) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::get_api_config_request::ConfigView>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -2498,7 +2532,6 @@ impl wkt::message::Message for GetApiConfigRequest {
 pub mod get_api_config_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Enum to control which fields should be included in the response.
     ///
@@ -2585,7 +2618,9 @@ pub mod get_api_config_request {
                 0 => Self::Unspecified,
                 1 => Self::Basic,
                 2 => Self::Full,
-                _ => Self::UnknownValue(config_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(config_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2597,7 +2632,9 @@ pub mod get_api_config_request {
                 "CONFIG_VIEW_UNSPECIFIED" => Self::Unspecified,
                 "BASIC" => Self::Basic,
                 "FULL" => Self::Full,
-                _ => Self::UnknownValue(config_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(config_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2622,7 +2659,8 @@ pub mod get_api_config_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfigView>::new(
-                ".google.cloud.apigateway.v1.GetApiConfigRequest.ConfigView"))
+                ".google.cloud.apigateway.v1.GetApiConfigRequest.ConfigView",
+            ))
         }
     }
 }
@@ -2631,7 +2669,6 @@ pub mod get_api_config_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApiConfigRequest {
-
     /// Required. Parent resource of the API Config, of the form:
     /// `projects/*/locations/global/apis/*`
     pub parent: std::string::String,
@@ -2684,7 +2721,8 @@ impl CreateApiConfigRequest {
     /// let x = CreateApiConfigRequest::new().set_api_config(ApiConfig::default()/* use setters */);
     /// ```
     pub fn set_api_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ApiConfig>
+    where
+        T: std::convert::Into<crate::model::ApiConfig>,
     {
         self.api_config = std::option::Option::Some(v.into());
         self
@@ -2700,7 +2738,8 @@ impl CreateApiConfigRequest {
     /// let x = CreateApiConfigRequest::new().set_or_clear_api_config(None::<ApiConfig>);
     /// ```
     pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ApiConfig>
+    where
+        T: std::convert::Into<crate::model::ApiConfig>,
     {
         self.api_config = v.map(|x| x.into());
         self
@@ -2717,7 +2756,6 @@ impl wkt::message::Message for CreateApiConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApiConfigRequest {
-
     /// Field mask is used to specify the fields to be overwritten in the
     /// ApiConfig resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2745,7 +2783,8 @@ impl UpdateApiConfigRequest {
     /// let x = UpdateApiConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2761,7 +2800,8 @@ impl UpdateApiConfigRequest {
     /// let x = UpdateApiConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2776,7 +2816,8 @@ impl UpdateApiConfigRequest {
     /// let x = UpdateApiConfigRequest::new().set_api_config(ApiConfig::default()/* use setters */);
     /// ```
     pub fn set_api_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ApiConfig>
+    where
+        T: std::convert::Into<crate::model::ApiConfig>,
     {
         self.api_config = std::option::Option::Some(v.into());
         self
@@ -2792,7 +2833,8 @@ impl UpdateApiConfigRequest {
     /// let x = UpdateApiConfigRequest::new().set_or_clear_api_config(None::<ApiConfig>);
     /// ```
     pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ApiConfig>
+    where
+        T: std::convert::Into<crate::model::ApiConfig>,
     {
         self.api_config = v.map(|x| x.into());
         self
@@ -2809,7 +2851,6 @@ impl wkt::message::Message for UpdateApiConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteApiConfigRequest {
-
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*/configs/*`
     pub name: std::string::String,
@@ -2845,7 +2886,6 @@ impl wkt::message::Message for DeleteApiConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2892,7 +2932,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2908,7 +2949,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2923,7 +2965,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2939,7 +2982,8 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3020,7 +3064,7 @@ impl OperationMetadata {
     pub fn set_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::operation_metadata::Diagnostic>
+        V: std::convert::Into<crate::model::operation_metadata::Diagnostic>,
     {
         use std::iter::Iterator;
         self.diagnostics = v.into_iter().map(|i| i.into()).collect();
@@ -3039,12 +3083,10 @@ pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Diagnostic information from configuration processing.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Diagnostic {
-
         /// Location of the diagnostic.
         pub location: std::string::String,
 

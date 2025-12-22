@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [StorageControl](super::stub::StorageControl) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct StorageControl<T>
-where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> StorageControl<T>
-where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::StorageControl for StorageControl<T>
-where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_folder(
         &self,
@@ -190,7 +196,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::GetProjectIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.get_project_intelligence_config(req, options).await
+        self.inner
+            .get_project_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -199,7 +207,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateProjectIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.update_project_intelligence_config(req, options).await
+        self.inner
+            .update_project_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -208,7 +218,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::GetFolderIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.get_folder_intelligence_config(req, options).await
+        self.inner
+            .get_folder_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -217,7 +229,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateFolderIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.update_folder_intelligence_config(req, options).await
+        self.inner
+            .update_folder_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -226,7 +240,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::GetOrganizationIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.get_organization_intelligence_config(req, options).await
+        self.inner
+            .get_organization_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -235,7 +251,9 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
-        self.inner.update_organization_intelligence_config(req, options).await
+        self.inner
+            .update_organization_intelligence_config(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -274,7 +292,6 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -289,4 +306,3 @@ where T: super::stub::StorageControl + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

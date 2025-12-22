@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait QuotaController: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::QuotaController::allocate_quota].
     fn allocate_quota(
         &self,
         _req: crate::model::AllocateQuotaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -61,13 +62,14 @@ pub trait QuotaController: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ServiceController: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::ServiceController::check].
     fn check(
         &self,
         _req: crate::model::CheckRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::CheckResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CheckResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,8 +78,9 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ReportResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReportResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

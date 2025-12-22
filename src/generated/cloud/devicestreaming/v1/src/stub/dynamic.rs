@@ -46,7 +46,6 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateDeviceSessionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>>;
-
 }
 
 /// All implementations of [super::DirectAccessService] also implement [DirectAccessService].
@@ -96,5 +95,4 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>> {
         T::update_device_session(self, req, options).await
     }
-
 }

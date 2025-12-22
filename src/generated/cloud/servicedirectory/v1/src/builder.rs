@@ -39,7 +39,10 @@ pub mod lookup_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LookupService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod lookup_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod lookup_service {
     pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
 
     impl ResolveService {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod lookup_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ResolveServiceResponse> {
-            (*self.0.stub).resolve_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .resolve_service(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResolveServiceRequest::name].
@@ -161,14 +171,17 @@ pub mod lookup_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -181,11 +194,17 @@ pub mod lookup_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -197,7 +216,10 @@ pub mod lookup_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -255,10 +277,10 @@ pub mod lookup_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -275,7 +297,10 @@ pub mod lookup_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -291,7 +316,6 @@ pub mod lookup_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod registration_service {
@@ -319,7 +343,10 @@ pub mod registration_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RegistrationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -334,8 +361,12 @@ pub mod registration_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -365,10 +396,10 @@ pub mod registration_service {
     pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
 
     impl CreateNamespace {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -385,7 +416,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Namespace> {
-            (*self.0.stub).create_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_namespace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNamespaceRequest::parent].
@@ -408,7 +442,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_namespace<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Namespace>
+        where
+            T: std::convert::Into<crate::model::Namespace>,
         {
             self.0.request.namespace = std::option::Option::Some(v.into());
             self
@@ -418,7 +453,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Namespace>
+        where
+            T: std::convert::Into<crate::model::Namespace>,
         {
             self.0.request.namespace = v.map(|x| x.into());
             self
@@ -457,10 +493,10 @@ pub mod registration_service {
     pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
 
     impl ListNamespaces {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -477,11 +513,17 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNamespacesResponse> {
-            (*self.0.stub).list_namespaces(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_namespaces(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNamespacesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListNamespacesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -493,7 +535,10 @@ pub mod registration_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNamespacesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNamespacesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -559,10 +604,10 @@ pub mod registration_service {
     pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
 
     impl GetNamespace {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -579,7 +624,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Namespace> {
-            (*self.0.stub).get_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_namespace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNamespaceRequest::name].
@@ -619,10 +667,10 @@ pub mod registration_service {
     pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
     impl UpdateNamespace {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -639,14 +687,18 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Namespace> {
-            (*self.0.stub).update_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_namespace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
         pub fn set_namespace<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Namespace>
+        where
+            T: std::convert::Into<crate::model::Namespace>,
         {
             self.0.request.namespace = std::option::Option::Some(v.into());
             self
@@ -656,7 +708,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Namespace>
+        where
+            T: std::convert::Into<crate::model::Namespace>,
         {
             self.0.request.namespace = v.map(|x| x.into());
             self
@@ -666,7 +719,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -676,7 +730,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -711,10 +766,10 @@ pub mod registration_service {
     pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
     impl DeleteNamespace {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -731,7 +786,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_namespace(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_namespace(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNamespaceRequest::name].
@@ -771,10 +829,10 @@ pub mod registration_service {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -791,7 +849,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Service> {
-            (*self.0.stub).create_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_service(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -814,7 +875,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_service<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Service>
+        where
+            T: std::convert::Into<crate::model::Service>,
         {
             self.0.request.service = std::option::Option::Some(v.into());
             self
@@ -824,7 +886,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Service>
+        where
+            T: std::convert::Into<crate::model::Service>,
         {
             self.0.request.service = v.map(|x| x.into());
             self
@@ -863,10 +926,10 @@ pub mod registration_service {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -883,11 +946,17 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListServicesResponse> {
-            (*self.0.stub).list_services(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_services(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -899,7 +968,10 @@ pub mod registration_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -965,10 +1037,10 @@ pub mod registration_service {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -985,7 +1057,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Service> {
-            (*self.0.stub).get_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_service(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -1025,10 +1100,10 @@ pub mod registration_service {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1045,14 +1120,18 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Service> {
-            (*self.0.stub).update_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_service(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
         pub fn set_service<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Service>
+        where
+            T: std::convert::Into<crate::model::Service>,
         {
             self.0.request.service = std::option::Option::Some(v.into());
             self
@@ -1062,7 +1141,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Service>
+        where
+            T: std::convert::Into<crate::model::Service>,
         {
             self.0.request.service = v.map(|x| x.into());
             self
@@ -1072,7 +1152,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1082,7 +1163,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1117,10 +1199,10 @@ pub mod registration_service {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1137,7 +1219,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_service(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_service(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -1177,10 +1262,10 @@ pub mod registration_service {
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1197,7 +1282,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Endpoint> {
-            (*self.0.stub).create_endpoint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_endpoint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
@@ -1220,7 +1308,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_endpoint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Endpoint>
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
         {
             self.0.request.endpoint = std::option::Option::Some(v.into());
             self
@@ -1230,7 +1319,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Endpoint>
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
         {
             self.0.request.endpoint = v.map(|x| x.into());
             self
@@ -1269,10 +1359,10 @@ pub mod registration_service {
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1289,11 +1379,17 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEndpointsResponse> {
-            (*self.0.stub).list_endpoints(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_endpoints(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEndpointsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListEndpointsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1305,7 +1401,10 @@ pub mod registration_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEndpointsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEndpointsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1371,10 +1470,10 @@ pub mod registration_service {
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1391,7 +1490,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Endpoint> {
-            (*self.0.stub).get_endpoint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_endpoint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
@@ -1431,10 +1533,10 @@ pub mod registration_service {
     pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
 
     impl UpdateEndpoint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1451,14 +1553,18 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Endpoint> {
-            (*self.0.stub).update_endpoint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_endpoint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
         pub fn set_endpoint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Endpoint>
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
         {
             self.0.request.endpoint = std::option::Option::Some(v.into());
             self
@@ -1468,7 +1574,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Endpoint>
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
         {
             self.0.request.endpoint = v.map(|x| x.into());
             self
@@ -1478,7 +1585,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1488,7 +1596,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1523,10 +1632,10 @@ pub mod registration_service {
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1543,7 +1652,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_endpoint(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_endpoint(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
@@ -1583,10 +1695,10 @@ pub mod registration_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1603,7 +1715,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1616,7 +1731,8 @@ pub mod registration_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -1624,7 +1740,8 @@ pub mod registration_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1659,10 +1776,10 @@ pub mod registration_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1679,7 +1796,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1694,7 +1814,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -1704,7 +1825,8 @@ pub mod registration_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -1712,7 +1834,8 @@ pub mod registration_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1720,7 +1843,8 @@ pub mod registration_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1755,14 +1879,17 @@ pub mod registration_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1775,7 +1902,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1792,7 +1922,7 @@ pub mod registration_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -1832,14 +1962,17 @@ pub mod registration_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1852,11 +1985,17 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1868,7 +2007,10 @@ pub mod registration_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1926,10 +2068,10 @@ pub mod registration_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1946,7 +2088,10 @@ pub mod registration_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1962,5 +2107,4 @@ pub mod registration_service {
             &mut self.0.options
         }
     }
-
 }

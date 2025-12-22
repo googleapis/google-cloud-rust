@@ -81,7 +81,9 @@ impl BinauthzManagementServiceV1 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::binauthz_management_service_v_1::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::binauthz_management_service_v_1::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::binauthz_management_service_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -89,28 +91,44 @@ impl BinauthzManagementServiceV1 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::BinauthzManagementServiceV1 + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::BinauthzManagementServiceV1 + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
         super::transport::BinauthzManagementServiceV1::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
-        Self::build_transport(conf).await.map(super::tracing::BinauthzManagementServiceV1::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BinauthzManagementServiceV1::new)
     }
 
     /// A [policy][google.cloud.binaryauthorization.v1.Policy] specifies the [attestors][google.cloud.binaryauthorization.v1.Attestor] that must attest to
@@ -139,8 +157,7 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_policy(&self) -> super::builder::binauthz_management_service_v_1::GetPolicy
-    {
+    pub fn get_policy(&self) -> super::builder::binauthz_management_service_v_1::GetPolicy {
         super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
     }
 
@@ -167,8 +184,7 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_policy(&self) -> super::builder::binauthz_management_service_v_1::UpdatePolicy
-    {
+    pub fn update_policy(&self) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
         super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
     }
 
@@ -194,8 +210,9 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_attestor(&self) -> super::builder::binauthz_management_service_v_1::CreateAttestor
-    {
+    pub fn create_attestor(
+        &self,
+    ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
         super::builder::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
     }
 
@@ -219,8 +236,7 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_attestor(&self) -> super::builder::binauthz_management_service_v_1::GetAttestor
-    {
+    pub fn get_attestor(&self) -> super::builder::binauthz_management_service_v_1::GetAttestor {
         super::builder::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
     }
 
@@ -244,8 +260,9 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn update_attestor(&self) -> super::builder::binauthz_management_service_v_1::UpdateAttestor
-    {
+    pub fn update_attestor(
+        &self,
+    ) -> super::builder::binauthz_management_service_v_1::UpdateAttestor {
         super::builder::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
     }
 
@@ -253,8 +270,7 @@ impl BinauthzManagementServiceV1 {
     /// Returns INVALID_ARGUMENT if the project does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
-    pub fn list_attestors(&self) -> super::builder::binauthz_management_service_v_1::ListAttestors
-    {
+    pub fn list_attestors(&self) -> super::builder::binauthz_management_service_v_1::ListAttestors {
         super::builder::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
     }
 
@@ -277,8 +293,9 @@ impl BinauthzManagementServiceV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_attestor(&self) -> super::builder::binauthz_management_service_v_1::DeleteAttestor
-    {
+    pub fn delete_attestor(
+        &self,
+    ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
         super::builder::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
     }
 }
@@ -339,7 +356,9 @@ impl SystemPolicyV1 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::system_policy_v_1::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::system_policy_v_1::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::system_policy_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -347,28 +366,42 @@ impl SystemPolicyV1 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::SystemPolicyV1 + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::SystemPolicyV1 + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SystemPolicyV1>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SystemPolicyV1>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
         super::transport::SystemPolicyV1::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
-        Self::build_transport(conf).await.map(super::tracing::SystemPolicyV1::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SystemPolicyV1::new)
     }
 
     /// Gets the current system policy in the specified location.
@@ -388,8 +421,7 @@ impl SystemPolicyV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy
-    {
+    pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy {
         super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
     }
 }
@@ -450,7 +482,9 @@ impl ValidationHelperV1 {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::validation_helper_v_1::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::validation_helper_v_1::client::Factory)
+        gax::client_builder::internal::new_builder(
+            super::builder::validation_helper_v_1::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -458,28 +492,43 @@ impl ValidationHelperV1 {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: super::stub::ValidationHelperV1 + 'static {
-        Self { inner: std::sync::Arc::new(stub) }
+    where
+        T: super::stub::ValidationHelperV1 + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ValidationHelperV1>> {
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ValidationHelperV1>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
         super::transport::ValidationHelperV1::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
-        Self::build_transport(conf).await.map(super::tracing::ValidationHelperV1::new)
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ValidationHelperV1::new)
     }
 
     /// Returns whether the given Attestation for the given image URI
@@ -500,8 +549,11 @@ impl ValidationHelperV1 {
     ///     Ok(())
     /// }
     /// ```
-    pub fn validate_attestation_occurrence(&self) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence
-    {
-        super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(self.inner.clone())
+    pub fn validate_attestation_occurrence(
+        &self,
+    ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {
+        super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(
+            self.inner.clone(),
+        )
     }
 }

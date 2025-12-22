@@ -208,7 +208,6 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>;
-
 }
 
 /// All implementations of [super::SecretManagerService] also implement [SecretManagerService].
@@ -373,7 +372,8 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SecretVersion>> {
-        T::get_secret_version_by_project_and_location_and_secret_and_version(self, req, options).await
+        T::get_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -391,7 +391,8 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
-        T::access_secret_version_by_project_and_location_and_secret_and_version(self, req, options).await
+        T::access_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -409,7 +410,8 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SecretVersion>> {
-        T::disable_secret_version_by_project_and_location_and_secret_and_version(self, req, options).await
+        T::disable_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -427,7 +429,8 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SecretVersion>> {
-        T::enable_secret_version_by_project_and_location_and_secret_and_version(self, req, options).await
+        T::enable_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -445,7 +448,8 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
         req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SecretVersion>> {
-        T::destroy_secret_version_by_project_and_location_and_secret_and_version(self, req, options).await
+        T::destroy_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -501,5 +505,4 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
     ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions_by_project_and_location_and_secret(self, req, options).await
     }
-
 }

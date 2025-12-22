@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [DataCatalog](super::stub::DataCatalog) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DataCatalog<T>
-where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DataCatalog<T>
-where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DataCatalog for DataCatalog<T>
-where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn search_catalog(
         &self,
@@ -226,7 +232,9 @@ where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
         req: crate::model::RenameTagTemplateFieldEnumValueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TagTemplateField>> {
-        self.inner.rename_tag_template_field_enum_value(req, options).await
+        self.inner
+            .rename_tag_template_field_enum_value(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -400,7 +408,6 @@ where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -419,19 +426,25 @@ where T: super::stub::DataCatalog + std::fmt::Debug + Send + Sync {
 /// Implements a [PolicyTagManager](super::stub::PolicyTagManager) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager<T>
-where T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PolicyTagManager<T>
-where T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyTagManager for PolicyTagManager<T>
-where T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_taxonomy(
         &self,
@@ -584,25 +597,30 @@ where T: super::stub::PolicyTagManager + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [PolicyTagManagerSerialization](super::stub::PolicyTagManagerSerialization) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization<T>
-where T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> PolicyTagManagerSerialization<T>
-where T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerialization<T>
-where T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn replace_taxonomy(
         &self,
@@ -665,6 +683,4 @@ where T: super::stub::PolicyTagManagerSerialization + std::fmt::Debug + Send + S
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
-

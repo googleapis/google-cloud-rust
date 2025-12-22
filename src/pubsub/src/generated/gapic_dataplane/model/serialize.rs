@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::PubsubMessage {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.data.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
@@ -66,9 +66,9 @@ impl serde::ser::Serialize for super::PublishRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.topic.is_empty() {
             state.serialize_entry("topic", &self.topic)?;
@@ -91,9 +91,9 @@ impl serde::ser::Serialize for super::PublishResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.message_ids.is_empty() {
             state.serialize_entry("messageIds", &self.message_ids)?;
@@ -113,9 +113,9 @@ impl serde::ser::Serialize for super::ReceivedMessage {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ack_id.is_empty() {
             state.serialize_entry("ackId", &self.ack_id)?;
@@ -150,9 +150,9 @@ impl serde::ser::Serialize for super::ModifyAckDeadlineRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.subscription.is_empty() {
             state.serialize_entry("subscription", &self.subscription)?;
@@ -187,9 +187,9 @@ impl serde::ser::Serialize for super::AcknowledgeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.subscription.is_empty() {
             state.serialize_entry("subscription", &self.subscription)?;
@@ -212,9 +212,9 @@ impl serde::ser::Serialize for super::StreamingPullRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.subscription.is_empty() {
             state.serialize_entry("subscription", &self.subscription)?;
@@ -229,10 +229,15 @@ impl serde::ser::Serialize for super::StreamingPullRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
-            state.serialize_entry("modifyDeadlineSeconds", &__With(&self.modify_deadline_seconds))?;
+            state.serialize_entry(
+                "modifyDeadlineSeconds",
+                &__With(&self.modify_deadline_seconds),
+            )?;
         }
         if !self.modify_deadline_ack_ids.is_empty() {
             state.serialize_entry("modifyDeadlineAckIds", &self.modify_deadline_ack_ids)?;
@@ -247,7 +252,10 @@ impl serde::ser::Serialize for super::StreamingPullRequest {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("streamAckDeadlineSeconds", &__With(&self.stream_ack_deadline_seconds))?;
+            state.serialize_entry(
+                "streamAckDeadlineSeconds",
+                &__With(&self.stream_ack_deadline_seconds),
+            )?;
         }
         if !self.client_id.is_empty() {
             state.serialize_entry("clientId", &self.client_id)?;
@@ -262,7 +270,10 @@ impl serde::ser::Serialize for super::StreamingPullRequest {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("maxOutstandingMessages", &__With(&self.max_outstanding_messages))?;
+            state.serialize_entry(
+                "maxOutstandingMessages",
+                &__With(&self.max_outstanding_messages),
+            )?;
         }
         if !wkt::internal::is_default(&self.max_outstanding_bytes) {
             struct __With<'a>(&'a i64);
@@ -303,9 +314,9 @@ impl serde::ser::Serialize for super::StreamingPullResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.received_messages.is_empty() {
             state.serialize_entry("receivedMessages", &self.received_messages)?;
@@ -314,7 +325,10 @@ impl serde::ser::Serialize for super::StreamingPullResponse {
             state.serialize_entry("acknowledgeConfirmation", &self.acknowledge_confirmation)?;
         }
         if self.modify_ack_deadline_confirmation.is_some() {
-            state.serialize_entry("modifyAckDeadlineConfirmation", &self.modify_ack_deadline_confirmation)?;
+            state.serialize_entry(
+                "modifyAckDeadlineConfirmation",
+                &self.modify_ack_deadline_confirmation,
+            )?;
         }
         if self.subscription_properties.is_some() {
             state.serialize_entry("subscriptionProperties", &self.subscription_properties)?;
@@ -334,9 +348,9 @@ impl serde::ser::Serialize for super::streaming_pull_response::AcknowledgeConfir
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ack_ids.is_empty() {
             state.serialize_entry("ackIds", &self.ack_ids)?;
@@ -365,9 +379,9 @@ impl serde::ser::Serialize for super::streaming_pull_response::ModifyAckDeadline
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ack_ids.is_empty() {
             state.serialize_entry("ackIds", &self.ack_ids)?;
@@ -393,12 +407,15 @@ impl serde::ser::Serialize for super::streaming_pull_response::SubscriptionPrope
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.exactly_once_delivery_enabled) {
-            state.serialize_entry("exactlyOnceDeliveryEnabled", &self.exactly_once_delivery_enabled)?;
+            state.serialize_entry(
+                "exactlyOnceDeliveryEnabled",
+                &self.exactly_once_delivery_enabled,
+            )?;
         }
         if !wkt::internal::is_default(&self.message_ordering_enabled) {
             state.serialize_entry("messageOrderingEnabled", &self.message_ordering_enabled)?;

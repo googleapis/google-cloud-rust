@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [VpcAccessService](super::stub::VpcAccessService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct VpcAccessService<T>
-where T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> VpcAccessService<T>
-where T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::VpcAccessService for VpcAccessService<T>
-where T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_connector(
         &self,
@@ -94,7 +100,6 @@ where T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync {
         self.inner.get_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -109,4 +114,3 @@ where T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

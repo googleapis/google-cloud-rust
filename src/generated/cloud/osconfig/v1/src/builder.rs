@@ -39,7 +39,10 @@ pub mod os_config_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsConfigService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod os_config_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod os_config_service {
     pub struct ExecutePatchJob(RequestBuilder<crate::model::ExecutePatchJobRequest>);
 
     impl ExecutePatchJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchJob> {
-            (*self.0.stub).execute_patch_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .execute_patch_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExecutePatchJobRequest::parent].
@@ -126,7 +136,8 @@ pub mod os_config_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance_filter<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PatchInstanceFilter>
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
         {
             self.0.request.instance_filter = std::option::Option::Some(v.into());
             self
@@ -136,7 +147,8 @@ pub mod os_config_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PatchInstanceFilter>
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
         {
             self.0.request.instance_filter = v.map(|x| x.into());
             self
@@ -144,7 +156,8 @@ pub mod os_config_service {
 
         /// Sets the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
         pub fn set_patch_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PatchConfig>
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
         {
             self.0.request.patch_config = std::option::Option::Some(v.into());
             self
@@ -152,7 +165,8 @@ pub mod os_config_service {
 
         /// Sets or clears the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
         pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PatchConfig>
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
         {
             self.0.request.patch_config = v.map(|x| x.into());
             self
@@ -160,7 +174,8 @@ pub mod os_config_service {
 
         /// Sets the value of [duration][crate::model::ExecutePatchJobRequest::duration].
         pub fn set_duration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.duration = std::option::Option::Some(v.into());
             self
@@ -168,7 +183,8 @@ pub mod os_config_service {
 
         /// Sets or clears the value of [duration][crate::model::ExecutePatchJobRequest::duration].
         pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.duration = v.map(|x| x.into());
             self
@@ -188,7 +204,8 @@ pub mod os_config_service {
 
         /// Sets the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
         pub fn set_rollout<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PatchRollout>
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
         {
             self.0.request.rollout = std::option::Option::Some(v.into());
             self
@@ -196,7 +213,8 @@ pub mod os_config_service {
 
         /// Sets or clears the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
         pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PatchRollout>
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
         {
             self.0.request.rollout = v.map(|x| x.into());
             self
@@ -231,10 +249,10 @@ pub mod os_config_service {
     pub struct GetPatchJob(RequestBuilder<crate::model::GetPatchJobRequest>);
 
     impl GetPatchJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -251,7 +269,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchJob> {
-            (*self.0.stub).get_patch_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_patch_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchJobRequest::name].
@@ -291,10 +312,10 @@ pub mod os_config_service {
     pub struct CancelPatchJob(RequestBuilder<crate::model::CancelPatchJobRequest>);
 
     impl CancelPatchJob {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -311,7 +332,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchJob> {
-            (*self.0.stub).cancel_patch_job(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_patch_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelPatchJobRequest::name].
@@ -355,10 +379,10 @@ pub mod os_config_service {
     pub struct ListPatchJobs(RequestBuilder<crate::model::ListPatchJobsRequest>);
 
     impl ListPatchJobs {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -375,11 +399,17 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPatchJobsResponse> {
-            (*self.0.stub).list_patch_jobs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_patch_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -391,7 +421,10 @@ pub mod os_config_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchJobsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchJobsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -452,17 +485,22 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPatchJobInstanceDetails(RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>);
+    pub struct ListPatchJobInstanceDetails(
+        RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>,
+    );
 
     impl ListPatchJobInstanceDetails {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPatchJobInstanceDetailsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPatchJobInstanceDetailsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -475,11 +513,19 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPatchJobInstanceDetailsResponse> {
-            (*self.0.stub).list_patch_job_instance_details(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_patch_job_instance_details(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPatchJobInstanceDetailsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListPatchJobInstanceDetailsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -491,7 +537,12 @@ pub mod os_config_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchJobInstanceDetailsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPatchJobInstanceDetailsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -551,14 +602,17 @@ pub mod os_config_service {
     pub struct CreatePatchDeployment(RequestBuilder<crate::model::CreatePatchDeploymentRequest>);
 
     impl CreatePatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -571,7 +625,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchDeployment> {
-            (*self.0.stub).create_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePatchDeploymentRequest::parent].
@@ -594,7 +651,8 @@ pub mod os_config_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_patch_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PatchDeployment>
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
         {
             self.0.request.patch_deployment = std::option::Option::Some(v.into());
             self
@@ -604,7 +662,8 @@ pub mod os_config_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PatchDeployment>
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
         {
             self.0.request.patch_deployment = v.map(|x| x.into());
             self
@@ -639,14 +698,17 @@ pub mod os_config_service {
     pub struct GetPatchDeployment(RequestBuilder<crate::model::GetPatchDeploymentRequest>);
 
     impl GetPatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -659,7 +721,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchDeployment> {
-            (*self.0.stub).get_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchDeploymentRequest::name].
@@ -703,14 +768,17 @@ pub mod os_config_service {
     pub struct ListPatchDeployments(RequestBuilder<crate::model::ListPatchDeploymentsRequest>);
 
     impl ListPatchDeployments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPatchDeploymentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPatchDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -723,11 +791,17 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPatchDeploymentsResponse> {
-            (*self.0.stub).list_patch_deployments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_patch_deployments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -739,7 +813,12 @@ pub mod os_config_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPatchDeploymentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -793,14 +872,17 @@ pub mod os_config_service {
     pub struct DeletePatchDeployment(RequestBuilder<crate::model::DeletePatchDeploymentRequest>);
 
     impl DeletePatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -813,7 +895,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePatchDeploymentRequest::name].
@@ -853,14 +938,17 @@ pub mod os_config_service {
     pub struct UpdatePatchDeployment(RequestBuilder<crate::model::UpdatePatchDeploymentRequest>);
 
     impl UpdatePatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -873,14 +961,18 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchDeployment> {
-            (*self.0.stub).update_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
         pub fn set_patch_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PatchDeployment>
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
         {
             self.0.request.patch_deployment = std::option::Option::Some(v.into());
             self
@@ -890,7 +982,8 @@ pub mod os_config_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PatchDeployment>
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
         {
             self.0.request.patch_deployment = v.map(|x| x.into());
             self
@@ -898,7 +991,8 @@ pub mod os_config_service {
 
         /// Sets the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -906,7 +1000,8 @@ pub mod os_config_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -941,14 +1036,17 @@ pub mod os_config_service {
     pub struct PausePatchDeployment(RequestBuilder<crate::model::PausePatchDeploymentRequest>);
 
     impl PausePatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::PausePatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::PausePatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -961,7 +1059,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchDeployment> {
-            (*self.0.stub).pause_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .pause_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PausePatchDeploymentRequest::name].
@@ -1001,14 +1102,17 @@ pub mod os_config_service {
     pub struct ResumePatchDeployment(RequestBuilder<crate::model::ResumePatchDeploymentRequest>);
 
     impl ResumePatchDeployment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResumePatchDeploymentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ResumePatchDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1021,7 +1125,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PatchDeployment> {
-            (*self.0.stub).resume_patch_deployment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .resume_patch_deployment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumePatchDeploymentRequest::name].
@@ -1061,14 +1168,17 @@ pub mod os_config_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1081,7 +1191,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1119,14 +1232,17 @@ pub mod os_config_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1139,7 +1255,10 @@ pub mod os_config_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1155,7 +1274,6 @@ pub mod os_config_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod os_config_zonal_service {
@@ -1183,7 +1301,10 @@ pub mod os_config_zonal_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsConfigZonalService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1198,8 +1319,12 @@ pub mod os_config_zonal_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1227,17 +1352,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOSPolicyAssignment(RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>);
+    pub struct CreateOSPolicyAssignment(
+        RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>,
+    );
 
     impl CreateOSPolicyAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateOSPolicyAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateOSPolicyAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1255,16 +1385,23 @@ pub mod os_config_zonal_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_os_policy_assignment][crate::client::OsConfigZonalService::create_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).create_os_policy_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_os_policy_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_os_policy_assignment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::OSPolicyAssignment, crate::model::OSPolicyAssignmentOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::OSPolicyAssignment, crate::model::OSPolicyAssignmentOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::OSPolicyAssignment,
+            crate::model::OSPolicyAssignmentOperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::OSPolicyAssignment,
+                crate::model::OSPolicyAssignmentOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1304,7 +1441,8 @@ pub mod os_config_zonal_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::OSPolicyAssignment>
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
         {
             self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
             self
@@ -1314,7 +1452,8 @@ pub mod os_config_zonal_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::OSPolicyAssignment>
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
         {
             self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
@@ -1355,17 +1494,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateOSPolicyAssignment(RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>);
+    pub struct UpdateOSPolicyAssignment(
+        RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>,
+    );
 
     impl UpdateOSPolicyAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateOSPolicyAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateOSPolicyAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1383,16 +1527,23 @@ pub mod os_config_zonal_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_os_policy_assignment][crate::client::OsConfigZonalService::update_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).update_os_policy_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_os_policy_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_os_policy_assignment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::OSPolicyAssignment, crate::model::OSPolicyAssignmentOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::OSPolicyAssignment, crate::model::OSPolicyAssignmentOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::OSPolicyAssignment,
+            crate::model::OSPolicyAssignmentOperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::OSPolicyAssignment,
+                crate::model::OSPolicyAssignmentOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1424,7 +1575,8 @@ pub mod os_config_zonal_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::OSPolicyAssignment>
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
         {
             self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
             self
@@ -1434,7 +1586,8 @@ pub mod os_config_zonal_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::OSPolicyAssignment>
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
         {
             self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
@@ -1442,7 +1595,8 @@ pub mod os_config_zonal_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1450,7 +1604,8 @@ pub mod os_config_zonal_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1485,14 +1640,17 @@ pub mod os_config_zonal_service {
     pub struct GetOSPolicyAssignment(RequestBuilder<crate::model::GetOSPolicyAssignmentRequest>);
 
     impl GetOSPolicyAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOSPolicyAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOSPolicyAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1505,7 +1663,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OSPolicyAssignment> {
-            (*self.0.stub).get_os_policy_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_os_policy_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentRequest::name].
@@ -1546,17 +1707,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOSPolicyAssignments(RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>);
+    pub struct ListOSPolicyAssignments(
+        RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>,
+    );
 
     impl ListOSPolicyAssignments {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1569,11 +1735,19 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOSPolicyAssignmentsResponse> {
-            (*self.0.stub).list_os_policy_assignments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_os_policy_assignments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOSPolicyAssignmentsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOSPolicyAssignmentsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1585,7 +1759,12 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOSPolicyAssignmentsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1640,17 +1819,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOSPolicyAssignmentRevisions(RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>);
+    pub struct ListOSPolicyAssignmentRevisions(
+        RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>,
+    );
 
     impl ListOSPolicyAssignmentRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1663,11 +1847,19 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOSPolicyAssignmentRevisionsResponse> {
-            (*self.0.stub).list_os_policy_assignment_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_os_policy_assignment_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOSPolicyAssignmentRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOSPolicyAssignmentRevisionsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1679,7 +1871,12 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOSPolicyAssignmentRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1731,17 +1928,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOSPolicyAssignment(RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>);
+    pub struct DeleteOSPolicyAssignment(
+        RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>,
+    );
 
     impl DeleteOSPolicyAssignment {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteOSPolicyAssignmentRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteOSPolicyAssignmentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1759,16 +1961,20 @@ pub mod os_config_zonal_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_os_policy_assignment][crate::client::OsConfigZonalService::delete_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).delete_os_policy_assignment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_os_policy_assignment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_os_policy_assignment`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::OSPolicyAssignmentOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1793,7 +1999,12 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].
@@ -1830,17 +2041,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOSPolicyAssignmentReport(RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>);
+    pub struct GetOSPolicyAssignmentReport(
+        RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>,
+    );
 
     impl GetOSPolicyAssignmentReport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOSPolicyAssignmentReportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOSPolicyAssignmentReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1853,7 +2069,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OSPolicyAssignmentReport> {
-            (*self.0.stub).get_os_policy_assignment_report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_os_policy_assignment_report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentReportRequest::name].
@@ -1894,17 +2113,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOSPolicyAssignmentReports(RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>);
+    pub struct ListOSPolicyAssignmentReports(
+        RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>,
+    );
 
     impl ListOSPolicyAssignmentReports {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentReportsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListOSPolicyAssignmentReportsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1917,11 +2141,19 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOSPolicyAssignmentReportsResponse> {
-            (*self.0.stub).list_os_policy_assignment_reports(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_os_policy_assignment_reports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOSPolicyAssignmentReportsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListOSPolicyAssignmentReportsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1933,7 +2165,12 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOSPolicyAssignmentReportsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentReportsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1993,10 +2230,10 @@ pub mod os_config_zonal_service {
     pub struct GetInventory(RequestBuilder<crate::model::GetInventoryRequest>);
 
     impl GetInventory {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2013,7 +2250,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Inventory> {
-            (*self.0.stub).get_inventory(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_inventory(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInventoryRequest::name].
@@ -2063,10 +2303,10 @@ pub mod os_config_zonal_service {
     pub struct ListInventories(RequestBuilder<crate::model::ListInventoriesRequest>);
 
     impl ListInventories {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2083,11 +2323,17 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInventoriesResponse> {
-            (*self.0.stub).list_inventories(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_inventories(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2099,7 +2345,10 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInventoriesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInventoriesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2165,14 +2414,17 @@ pub mod os_config_zonal_service {
     pub struct GetVulnerabilityReport(RequestBuilder<crate::model::GetVulnerabilityReportRequest>);
 
     impl GetVulnerabilityReport {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetVulnerabilityReportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetVulnerabilityReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2185,7 +2437,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VulnerabilityReport> {
-            (*self.0.stub).get_vulnerability_report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_vulnerability_report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVulnerabilityReportRequest::name].
@@ -2226,17 +2481,22 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVulnerabilityReports(RequestBuilder<crate::model::ListVulnerabilityReportsRequest>);
+    pub struct ListVulnerabilityReports(
+        RequestBuilder<crate::model::ListVulnerabilityReportsRequest>,
+    );
 
     impl ListVulnerabilityReports {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListVulnerabilityReportsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListVulnerabilityReportsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2249,11 +2509,19 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVulnerabilityReportsResponse> {
-            (*self.0.stub).list_vulnerability_reports(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_vulnerability_reports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVulnerabilityReportsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListVulnerabilityReportsResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2265,7 +2533,12 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVulnerabilityReportsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVulnerabilityReportsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2325,14 +2598,17 @@ pub mod os_config_zonal_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2345,7 +2621,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2383,14 +2662,17 @@ pub mod os_config_zonal_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2403,7 +2685,10 @@ pub mod os_config_zonal_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2419,5 +2704,4 @@ pub mod os_config_zonal_service {
             &mut self.0.options
         }
     }
-
 }

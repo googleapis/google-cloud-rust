@@ -31,7 +31,6 @@
 //! * [SystemPolicyV1](client/struct.SystemPolicyV1.html)
 //! * [ValidationHelperV1](client/struct.ValidationHelperV1.html)
 
-
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
@@ -72,4 +71,3 @@ pub(crate) mod info {
         };
     }
 }
-

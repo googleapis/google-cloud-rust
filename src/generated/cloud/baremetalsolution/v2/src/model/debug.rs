@@ -58,7 +58,10 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("luns", &self.luns);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("networks", &self.networks);
-        debug_struct.field("interactive_serial_console_enabled", &self.interactive_serial_console_enabled);
+        debug_struct.field(
+            "interactive_serial_console_enabled",
+            &self.interactive_serial_console_enabled,
+        );
         debug_struct.field("os_image", &self.os_image);
         debug_struct.field("pod", &self.pod);
         debug_struct.field("network_template", &self.network_template);
@@ -72,7 +75,6 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::GetInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -366,7 +368,6 @@ impl std::fmt::Debug for super::Network {
     }
 }
 
-
 impl std::fmt::Debug for super::NetworkAddressReservation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkAddressReservation");
@@ -425,7 +426,10 @@ impl std::fmt::Debug for super::vrf::VlanAttachment {
 impl std::fmt::Debug for super::LogicalInterface {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LogicalInterface");
-        debug_struct.field("logical_network_interfaces", &self.logical_network_interfaces);
+        debug_struct.field(
+            "logical_network_interfaces",
+            &self.logical_network_interfaces,
+        );
         debug_struct.field("name", &self.name);
         debug_struct.field("interface_index", &self.interface_index);
         if !self._unknown_fields.is_empty() {
@@ -597,7 +601,6 @@ impl std::fmt::Debug for super::nfs_share::AllowedClient {
     }
 }
 
-
 impl std::fmt::Debug for super::GetNfsShareRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNfsShareRequest");
@@ -690,7 +693,10 @@ impl std::fmt::Debug for super::OSImage {
         debug_struct.field("code", &self.code);
         debug_struct.field("description", &self.description);
         debug_struct.field("applicable_instance_types", &self.applicable_instance_types);
-        debug_struct.field("supported_network_templates", &self.supported_network_templates);
+        debug_struct.field(
+            "supported_network_templates",
+            &self.supported_network_templates,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1053,14 +1059,23 @@ impl std::fmt::Debug for super::Volume {
         debug_struct.field("storage_type", &self.storage_type);
         debug_struct.field("state", &self.state);
         debug_struct.field("requested_size_gib", &self.requested_size_gib);
-        debug_struct.field("originally_requested_size_gib", &self.originally_requested_size_gib);
+        debug_struct.field(
+            "originally_requested_size_gib",
+            &self.originally_requested_size_gib,
+        );
         debug_struct.field("current_size_gib", &self.current_size_gib);
         debug_struct.field("emergency_size_gib", &self.emergency_size_gib);
         debug_struct.field("max_size_gib", &self.max_size_gib);
         debug_struct.field("auto_grown_size_gib", &self.auto_grown_size_gib);
         debug_struct.field("remaining_space_gib", &self.remaining_space_gib);
-        debug_struct.field("snapshot_reservation_detail", &self.snapshot_reservation_detail);
-        debug_struct.field("snapshot_auto_delete_behavior", &self.snapshot_auto_delete_behavior);
+        debug_struct.field(
+            "snapshot_reservation_detail",
+            &self.snapshot_reservation_detail,
+        );
+        debug_struct.field(
+            "snapshot_auto_delete_behavior",
+            &self.snapshot_auto_delete_behavior,
+        );
         debug_struct.field("labels", &self.labels);
         debug_struct.field("snapshot_enabled", &self.snapshot_enabled);
         debug_struct.field("pod", &self.pod);
@@ -1083,8 +1098,14 @@ impl std::fmt::Debug for super::volume::SnapshotReservationDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnapshotReservationDetail");
         debug_struct.field("reserved_space_gib", &self.reserved_space_gib);
-        debug_struct.field("reserved_space_used_percent", &self.reserved_space_used_percent);
-        debug_struct.field("reserved_space_remaining_gib", &self.reserved_space_remaining_gib);
+        debug_struct.field(
+            "reserved_space_used_percent",
+            &self.reserved_space_used_percent,
+        );
+        debug_struct.field(
+            "reserved_space_remaining_gib",
+            &self.reserved_space_remaining_gib,
+        );
         debug_struct.field("reserved_space_percent", &self.reserved_space_percent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1092,7 +1113,6 @@ impl std::fmt::Debug for super::volume::SnapshotReservationDetail {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::GetVolumeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

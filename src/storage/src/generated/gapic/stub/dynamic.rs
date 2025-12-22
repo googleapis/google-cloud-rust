@@ -100,7 +100,6 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         req: crate::model::MoveObjectRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Object>>;
-
 }
 
 /// All implementations of [super::StorageControl] also implement [StorageControl].
@@ -231,5 +230,4 @@ impl<T: super::StorageControl> StorageControl for T {
     ) -> crate::Result<gax::response::Response<crate::model::Object>> {
         T::move_object(self, req, options).await
     }
-
 }

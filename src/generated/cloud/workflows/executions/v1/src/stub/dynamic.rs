@@ -40,7 +40,6 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         req: crate::model::CancelExecutionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Execution>>;
-
 }
 
 /// All implementations of [super::Executions] also implement [Executions].
@@ -81,5 +80,4 @@ impl<T: super::Executions> Executions for T {
     ) -> crate::Result<gax::response::Response<crate::model::Execution>> {
         T::cancel_execution(self, req, options).await
     }
-
 }

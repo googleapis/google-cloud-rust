@@ -18,26 +18,35 @@ use crate::Result;
 /// Implements a [Audit](super::stub::Audit) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Audit<T>
-where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Audit<T>
-where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Audit for Audit<T>
-where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn generate_framework_audit_scope_report(
         &self,
         req: crate::model::GenerateFrameworkAuditScopeReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>> {
-        self.inner.generate_framework_audit_scope_report(req, options).await
+    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>>
+    {
+        self.inner
+            .generate_framework_audit_scope_report(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -121,7 +130,6 @@ where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -140,19 +148,25 @@ where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
 /// Implements a [CmEnrollmentService](super::stub::CmEnrollmentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CmEnrollmentService<T>
-where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> CmEnrollmentService<T>
-where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CmEnrollmentService for CmEnrollmentService<T>
-where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn update_cm_enrollment(
         &self,
@@ -168,7 +182,9 @@ where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
         req: crate::model::CalculateEffectiveCmEnrollmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CalculateEffectiveCmEnrollmentResponse>> {
-        self.inner.calculate_effective_cm_enrollment(req, options).await
+        self.inner
+            .calculate_effective_cm_enrollment(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -224,25 +240,30 @@ where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [Config](super::stub::Config) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Config for Config<T>
-where T: super::stub::Config + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Config + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_frameworks(
         &self,
@@ -386,25 +407,30 @@ where T: super::stub::Config + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
 
 /// Implements a [Deployment](super::stub::Deployment) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Deployment<T>
-where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Deployment<T>
-where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Deployment for Deployment<T>
-where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn create_framework_deployment(
         &self,
@@ -456,7 +482,9 @@ where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
         req: crate::model::ListCloudControlDeploymentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCloudControlDeploymentsResponse>> {
-        self.inner.list_cloud_control_deployments(req, options).await
+        self.inner
+            .list_cloud_control_deployments(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -512,7 +540,6 @@ where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 
     fn get_polling_error_policy(
         &self,
@@ -532,26 +559,35 @@ where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
 /// Implements a [Monitoring](super::stub::Monitoring) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Monitoring<T>
-where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Monitoring<T>
-where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Monitoring for Monitoring<T>
-where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_framework_compliance_summaries(
         &self,
         req: crate::model::ListFrameworkComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>> {
-        self.inner.list_framework_compliance_summaries(req, options).await
+    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>>
+    {
+        self.inner
+            .list_framework_compliance_summaries(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -569,7 +605,9 @@ where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
         req: crate::model::FetchFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FrameworkComplianceReport>> {
-        self.inner.fetch_framework_compliance_report(req, options).await
+        self.inner
+            .fetch_framework_compliance_report(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -578,7 +616,9 @@ where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
         req: crate::model::ListControlComplianceSummariesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListControlComplianceSummariesResponse>> {
-        self.inner.list_control_compliance_summaries(req, options).await
+        self.inner
+            .list_control_compliance_summaries(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -586,8 +626,11 @@ where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AggregateFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>> {
-        self.inner.aggregate_framework_compliance_report(req, options).await
+    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>>
+    {
+        self.inner
+            .aggregate_framework_compliance_report(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -643,6 +686,4 @@ where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
-
 }
-

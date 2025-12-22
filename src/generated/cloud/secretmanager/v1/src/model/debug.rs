@@ -30,7 +30,10 @@ impl std::fmt::Debug for super::Secret {
         debug_struct.field("version_aliases", &self.version_aliases);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("version_destroy_ttl", &self.version_destroy_ttl);
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         debug_struct.field("tags", &self.tags);
         debug_struct.field("expiration", &self.expiration);
         if !self._unknown_fields.is_empty() {
@@ -39,10 +42,6 @@ impl std::fmt::Debug for super::Secret {
         debug_struct.finish()
     }
 }
-
-
-
-
 
 impl std::fmt::Debug for super::SecretVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -53,9 +52,15 @@ impl std::fmt::Debug for super::SecretVersion {
         debug_struct.field("state", &self.state);
         debug_struct.field("replication_status", &self.replication_status);
         debug_struct.field("etag", &self.etag);
-        debug_struct.field("client_specified_payload_checksum", &self.client_specified_payload_checksum);
+        debug_struct.field(
+            "client_specified_payload_checksum",
+            &self.client_specified_payload_checksum,
+        );
         debug_struct.field("scheduled_destroy_time", &self.scheduled_destroy_time);
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -77,7 +82,10 @@ impl std::fmt::Debug for super::Replication {
 impl std::fmt::Debug for super::replication::Automatic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Automatic");
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -100,7 +108,10 @@ impl std::fmt::Debug for super::replication::user_managed::Replica {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replica");
         debug_struct.field("location", &self.location);
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -133,7 +144,10 @@ impl std::fmt::Debug for super::ReplicationStatus {
 impl std::fmt::Debug for super::replication_status::AutomaticStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomaticStatus");
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -156,7 +170,10 @@ impl std::fmt::Debug for super::replication_status::user_managed_status::Replica
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicaStatus");
         debug_struct.field("location", &self.location);
-        debug_struct.field("customer_managed_encryption", &self.customer_managed_encryption);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

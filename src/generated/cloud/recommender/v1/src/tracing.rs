@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Recommender](super::stub::Recommender) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Recommender<T>
-where T: super::stub::Recommender + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Recommender<T>
-where T: super::stub::Recommender + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Recommender for Recommender<T>
-where T: super::stub::Recommender + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_insights(
         &self,
@@ -147,6 +153,4 @@ where T: super::stub::Recommender + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         self.inner.update_insight_type_config(req, options).await
     }
-
 }
-

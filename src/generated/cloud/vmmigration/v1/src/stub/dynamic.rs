@@ -543,7 +543,8 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListDatacenterConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatacenterConnectorsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatacenterConnectorsResponse>>
+    {
         T::list_datacenter_connectors(self, req, options).await
     }
 

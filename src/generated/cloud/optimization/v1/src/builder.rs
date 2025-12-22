@@ -39,7 +39,10 @@ pub mod fleet_routing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = FleetRouting;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod fleet_routing {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod fleet_routing {
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod fleet_routing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OptimizeToursResponse> {
-            (*self.0.stub).optimize_tours(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .optimize_tours(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::OptimizeToursRequest::parent].
@@ -118,7 +128,8 @@ pub mod fleet_routing {
 
         /// Sets the value of [timeout][crate::model::OptimizeToursRequest::timeout].
         pub fn set_timeout<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.timeout = std::option::Option::Some(v.into());
             self
@@ -126,7 +137,8 @@ pub mod fleet_routing {
 
         /// Sets or clears the value of [timeout][crate::model::OptimizeToursRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.timeout = v.map(|x| x.into());
             self
@@ -134,7 +146,8 @@ pub mod fleet_routing {
 
         /// Sets the value of [model][crate::model::OptimizeToursRequest::model].
         pub fn set_model<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ShipmentModel>
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
         {
             self.0.request.model = std::option::Option::Some(v.into());
             self
@@ -142,20 +155,27 @@ pub mod fleet_routing {
 
         /// Sets or clears the value of [model][crate::model::OptimizeToursRequest::model].
         pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ShipmentModel>
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
         {
             self.0.request.model = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [solving_mode][crate::model::OptimizeToursRequest::solving_mode].
-        pub fn set_solving_mode<T: Into<crate::model::optimize_tours_request::SolvingMode>>(mut self, v: T) -> Self {
+        pub fn set_solving_mode<T: Into<crate::model::optimize_tours_request::SolvingMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.solving_mode = v.into();
             self
         }
 
         /// Sets the value of [search_mode][crate::model::OptimizeToursRequest::search_mode].
-        pub fn set_search_mode<T: Into<crate::model::optimize_tours_request::SearchMode>>(mut self, v: T) -> Self {
+        pub fn set_search_mode<T: Into<crate::model::optimize_tours_request::SearchMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.search_mode = v.into();
             self
         }
@@ -164,24 +184,30 @@ pub mod fleet_routing {
         pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>
+            V: std::convert::Into<crate::model::ShipmentRoute>,
         {
             use std::iter::Iterator;
-            self.0.request.injected_first_solution_routes = v.into_iter().map(|i| i.into()).collect();
+            self.0.request.injected_first_solution_routes =
+                v.into_iter().map(|i| i.into()).collect();
             self
         }
 
         /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
         pub fn set_injected_solution_constraint<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::InjectedSolutionConstraint>
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
         {
             self.0.request.injected_solution_constraint = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
-        pub fn set_or_clear_injected_solution_constraint<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::InjectedSolutionConstraint>
+        pub fn set_or_clear_injected_solution_constraint<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
         {
             self.0.request.injected_solution_constraint = v.map(|x| x.into());
             self
@@ -191,7 +217,7 @@ pub mod fleet_routing {
         pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>
+            V: std::convert::Into<crate::model::ShipmentRoute>,
         {
             use std::iter::Iterator;
             self.0.request.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
@@ -199,7 +225,10 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [interpret_injected_solutions_using_labels][crate::model::OptimizeToursRequest::interpret_injected_solutions_using_labels].
-        pub fn set_interpret_injected_solutions_using_labels<T: Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_interpret_injected_solutions_using_labels<T: Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.interpret_injected_solutions_using_labels = v.into();
             self
         }
@@ -223,8 +252,13 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [allow_large_deadline_despite_interruption_risk][crate::model::OptimizeToursRequest::allow_large_deadline_despite_interruption_risk].
-        pub fn set_allow_large_deadline_despite_interruption_risk<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_large_deadline_despite_interruption_risk = v.into();
+        pub fn set_allow_large_deadline_despite_interruption_risk<T: Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0
+                .request
+                .allow_large_deadline_despite_interruption_risk = v.into();
             self
         }
 
@@ -236,15 +270,20 @@ pub mod fleet_routing {
 
         /// Sets the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
         pub fn set_geodesic_meters_per_second<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<f64>
+        where
+            T: std::convert::Into<f64>,
         {
             self.0.request.geodesic_meters_per_second = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
-        pub fn set_or_clear_geodesic_meters_per_second<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<f64>
+        pub fn set_or_clear_geodesic_meters_per_second<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<f64>,
         {
             self.0.request.geodesic_meters_per_second = v.map(|x| x.into());
             self
@@ -252,7 +291,8 @@ pub mod fleet_routing {
 
         /// Sets the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
         pub fn set_max_validation_errors<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.max_validation_errors = std::option::Option::Some(v.into());
             self
@@ -260,7 +300,8 @@ pub mod fleet_routing {
 
         /// Sets or clears the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
         pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<i32>
+        where
+            T: std::convert::Into<i32>,
         {
             self.0.request.max_validation_errors = v.map(|x| x.into());
             self
@@ -309,14 +350,17 @@ pub mod fleet_routing {
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
     impl BatchOptimizeTours {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchOptimizeToursRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchOptimizeToursRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -334,16 +378,21 @@ pub mod fleet_routing {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).batch_optimize_tours(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_optimize_tours(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_optimize_tours`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>
+            self,
+        ) -> impl lro::Poller<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>
         {
-            type Operation = lro::internal::Operation<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BatchOptimizeToursResponse,
+                crate::model::AsyncModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -385,7 +434,7 @@ pub mod fleet_routing {
         pub fn set_model_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::batch_optimize_tours_request::AsyncModelConfig>
+            V: std::convert::Into<crate::model::batch_optimize_tours_request::AsyncModelConfig>,
         {
             use std::iter::Iterator;
             self.0.request.model_configs = v.into_iter().map(|i| i.into()).collect();
@@ -421,14 +470,17 @@ pub mod fleet_routing {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -441,7 +493,10 @@ pub mod fleet_routing {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -457,5 +512,4 @@ pub mod fleet_routing {
             &mut self.0.options
         }
     }
-
 }

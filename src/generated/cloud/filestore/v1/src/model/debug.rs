@@ -107,11 +107,20 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("replication", &self.replication);
         debug_struct.field("tags", &self.tags);
         debug_struct.field("protocol", &self.protocol);
-        debug_struct.field("custom_performance_supported", &self.custom_performance_supported);
+        debug_struct.field(
+            "custom_performance_supported",
+            &self.custom_performance_supported,
+        );
         debug_struct.field("performance_config", &self.performance_config);
         debug_struct.field("performance_limits", &self.performance_limits);
-        debug_struct.field("deletion_protection_enabled", &self.deletion_protection_enabled);
-        debug_struct.field("deletion_protection_reason", &self.deletion_protection_reason);
+        debug_struct.field(
+            "deletion_protection_enabled",
+            &self.deletion_protection_enabled,
+        );
+        debug_struct.field(
+            "deletion_protection_reason",
+            &self.deletion_protection_reason,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -166,8 +175,6 @@ impl std::fmt::Debug for super::instance::PerformanceLimits {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::CreateInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -287,8 +294,6 @@ impl std::fmt::Debug for super::Snapshot {
     }
 }
 
-
-
 impl std::fmt::Debug for super::CreateSnapshotRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSnapshotRequest");
@@ -390,8 +395,6 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.finish()
     }
 }
-
-
 
 impl std::fmt::Debug for super::CreateBackupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -28,6 +27,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,7 +39,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterIcebergTableRequest {
-
     /// Required. Table to register in the format:
     /// `projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}`.
     pub parent: std::string::String,
@@ -94,7 +93,10 @@ impl RegisterIcebergTableRequest {
     /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
     /// let x = RegisterIcebergTableRequest::new().set_metadata_location("example");
     /// ```
-    pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.metadata_location = v.into();
         self
     }
@@ -122,7 +124,6 @@ impl wkt::message::Message for RegisterIcebergTableRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IcebergCatalog {
-
     /// Identifier. The catalog name, `projects/my-project/catalogs/my-catalog`.
     /// This field is immutable.
     /// This field is ignored for CreateIcebergCatalog.
@@ -182,7 +183,12 @@ impl IcebergCatalog {
     /// let x0 = IcebergCatalog::new().set_credential_mode(CredentialMode::EndUser);
     /// let x1 = IcebergCatalog::new().set_credential_mode(CredentialMode::VendedCredentials);
     /// ```
-    pub fn set_credential_mode<T: std::convert::Into<crate::model::iceberg_catalog::CredentialMode>>(mut self, v: T) -> Self {
+    pub fn set_credential_mode<
+        T: std::convert::Into<crate::model::iceberg_catalog::CredentialMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.credential_mode = v.into();
         self
     }
@@ -194,7 +200,10 @@ impl IcebergCatalog {
     /// # use google_cloud_biglake_v1::model::IcebergCatalog;
     /// let x = IcebergCatalog::new().set_biglake_service_account("example");
     /// ```
-    pub fn set_biglake_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_biglake_service_account<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.biglake_service_account = v.into();
         self
     }
@@ -207,7 +216,10 @@ impl IcebergCatalog {
     /// use google_cloud_biglake_v1::model::iceberg_catalog::CatalogType;
     /// let x0 = IcebergCatalog::new().set_catalog_type(CatalogType::GcsBucket);
     /// ```
-    pub fn set_catalog_type<T: std::convert::Into<crate::model::iceberg_catalog::CatalogType>>(mut self, v: T) -> Self {
+    pub fn set_catalog_type<T: std::convert::Into<crate::model::iceberg_catalog::CatalogType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.catalog_type = v.into();
         self
     }
@@ -219,7 +231,10 @@ impl IcebergCatalog {
     /// # use google_cloud_biglake_v1::model::IcebergCatalog;
     /// let x = IcebergCatalog::new().set_default_location("example");
     /// ```
-    pub fn set_default_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_default_location<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.default_location = v.into();
         self
     }
@@ -234,7 +249,7 @@ impl IcebergCatalog {
     pub fn set_catalog_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.catalog_regions = v.into_iter().map(|i| i.into()).collect();
@@ -250,7 +265,8 @@ impl IcebergCatalog {
     /// let x = IcebergCatalog::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -266,7 +282,8 @@ impl IcebergCatalog {
     /// let x = IcebergCatalog::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -281,7 +298,8 @@ impl IcebergCatalog {
     /// let x = IcebergCatalog::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -297,7 +315,8 @@ impl IcebergCatalog {
     /// let x = IcebergCatalog::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -314,7 +333,6 @@ impl wkt::message::Message for IcebergCatalog {
 pub mod iceberg_catalog {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Determines the catalog type.
     ///
@@ -397,7 +415,9 @@ pub mod iceberg_catalog {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcsBucket,
-                _ => Self::UnknownValue(catalog_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(catalog_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -408,7 +428,9 @@ pub mod iceberg_catalog {
             match value {
                 "CATALOG_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CATALOG_TYPE_GCS_BUCKET" => Self::GcsBucket,
-                _ => Self::UnknownValue(catalog_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(catalog_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -432,7 +454,8 @@ pub mod iceberg_catalog {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CatalogType>::new(
-                ".google.cloud.biglake.v1.IcebergCatalog.CatalogType"))
+                ".google.cloud.biglake.v1.IcebergCatalog.CatalogType",
+            ))
         }
     }
 
@@ -509,7 +532,9 @@ pub mod iceberg_catalog {
             match self {
                 Self::Unspecified => std::option::Option::Some("CREDENTIAL_MODE_UNSPECIFIED"),
                 Self::EndUser => std::option::Option::Some("CREDENTIAL_MODE_END_USER"),
-                Self::VendedCredentials => std::option::Option::Some("CREDENTIAL_MODE_VENDED_CREDENTIALS"),
+                Self::VendedCredentials => {
+                    std::option::Option::Some("CREDENTIAL_MODE_VENDED_CREDENTIALS")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -534,7 +559,9 @@ pub mod iceberg_catalog {
                 0 => Self::Unspecified,
                 1 => Self::EndUser,
                 2 => Self::VendedCredentials,
-                _ => Self::UnknownValue(credential_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(credential_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -546,7 +573,9 @@ pub mod iceberg_catalog {
                 "CREDENTIAL_MODE_UNSPECIFIED" => Self::Unspecified,
                 "CREDENTIAL_MODE_END_USER" => Self::EndUser,
                 "CREDENTIAL_MODE_VENDED_CREDENTIALS" => Self::VendedCredentials,
-                _ => Self::UnknownValue(credential_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(credential_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -571,7 +600,8 @@ pub mod iceberg_catalog {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CredentialMode>::new(
-                ".google.cloud.biglake.v1.IcebergCatalog.CredentialMode"))
+                ".google.cloud.biglake.v1.IcebergCatalog.CredentialMode",
+            ))
         }
     }
 }
@@ -580,7 +610,6 @@ pub mod iceberg_catalog {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIcebergCatalogRequest {
-
     /// Required. The parent resource where this catalog will be created.
     /// Format: projects/{project_id}
     pub parent: std::string::String,
@@ -623,7 +652,10 @@ impl CreateIcebergCatalogRequest {
     /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
     /// let x = CreateIcebergCatalogRequest::new().set_iceberg_catalog_id("example");
     /// ```
-    pub fn set_iceberg_catalog_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_iceberg_catalog_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.iceberg_catalog_id = v.into();
         self
     }
@@ -637,7 +669,8 @@ impl CreateIcebergCatalogRequest {
     /// let x = CreateIcebergCatalogRequest::new().set_iceberg_catalog(IcebergCatalog::default()/* use setters */);
     /// ```
     pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IcebergCatalog>
+    where
+        T: std::convert::Into<crate::model::IcebergCatalog>,
     {
         self.iceberg_catalog = std::option::Option::Some(v.into());
         self
@@ -653,7 +686,8 @@ impl CreateIcebergCatalogRequest {
     /// let x = CreateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(None::<IcebergCatalog>);
     /// ```
     pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IcebergCatalog>
+    where
+        T: std::convert::Into<crate::model::IcebergCatalog>,
     {
         self.iceberg_catalog = v.map(|x| x.into());
         self
@@ -670,7 +704,6 @@ impl wkt::message::Message for CreateIcebergCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIcebergCatalogRequest {
-
     /// Required. The catalog to delete.
     pub name: std::string::String,
 
@@ -705,7 +738,6 @@ impl wkt::message::Message for DeleteIcebergCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIcebergCatalogRequest {
-
     /// Required. The catalog to update.
     pub iceberg_catalog: std::option::Option<crate::model::IcebergCatalog>,
 
@@ -729,7 +761,8 @@ impl UpdateIcebergCatalogRequest {
     /// let x = UpdateIcebergCatalogRequest::new().set_iceberg_catalog(IcebergCatalog::default()/* use setters */);
     /// ```
     pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IcebergCatalog>
+    where
+        T: std::convert::Into<crate::model::IcebergCatalog>,
     {
         self.iceberg_catalog = std::option::Option::Some(v.into());
         self
@@ -745,7 +778,8 @@ impl UpdateIcebergCatalogRequest {
     /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(None::<IcebergCatalog>);
     /// ```
     pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IcebergCatalog>
+    where
+        T: std::convert::Into<crate::model::IcebergCatalog>,
     {
         self.iceberg_catalog = v.map(|x| x.into());
         self
@@ -760,7 +794,8 @@ impl UpdateIcebergCatalogRequest {
     /// let x = UpdateIcebergCatalogRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -776,7 +811,8 @@ impl UpdateIcebergCatalogRequest {
     /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -793,7 +829,6 @@ impl wkt::message::Message for UpdateIcebergCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIcebergCatalogRequest {
-
     /// Required. The catalog to get.
     pub name: std::string::String,
 
@@ -828,7 +863,6 @@ impl wkt::message::Message for GetIcebergCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergCatalogsRequest {
-
     /// Required. The parent resource where this catalog will be created.
     /// Format: projects/{project_id}
     pub parent: std::string::String,
@@ -873,7 +907,12 @@ impl ListIcebergCatalogsRequest {
     /// let x0 = ListIcebergCatalogsRequest::new().set_view(CatalogView::Basic);
     /// let x1 = ListIcebergCatalogsRequest::new().set_view(CatalogView::Full);
     /// ```
-    pub fn set_view<T: std::convert::Into<crate::model::list_iceberg_catalogs_request::CatalogView>>(mut self, v: T) -> Self {
+    pub fn set_view<
+        T: std::convert::Into<crate::model::list_iceberg_catalogs_request::CatalogView>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -913,7 +952,6 @@ impl wkt::message::Message for ListIcebergCatalogsRequest {
 pub mod list_iceberg_catalogs_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The enumeration of the views that can be returned.
     ///
@@ -1001,7 +1039,9 @@ pub mod list_iceberg_catalogs_request {
                 0 => Self::Unspecified,
                 1 => Self::Basic,
                 2 => Self::Full,
-                _ => Self::UnknownValue(catalog_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(catalog_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1013,7 +1053,9 @@ pub mod list_iceberg_catalogs_request {
                 "CATALOG_VIEW_UNSPECIFIED" => Self::Unspecified,
                 "CATALOG_VIEW_BASIC" => Self::Basic,
                 "CATALOG_VIEW_FULL" => Self::Full,
-                _ => Self::UnknownValue(catalog_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(catalog_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1038,7 +1080,8 @@ pub mod list_iceberg_catalogs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CatalogView>::new(
-                ".google.cloud.biglake.v1.ListIcebergCatalogsRequest.CatalogView"))
+                ".google.cloud.biglake.v1.ListIcebergCatalogsRequest.CatalogView",
+            ))
         }
     }
 }
@@ -1047,7 +1090,6 @@ pub mod list_iceberg_catalogs_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergCatalogsResponse {
-
     /// Output only. The list of iceberg catalogs.
     pub iceberg_catalogs: std::vec::Vec<crate::model::IcebergCatalog>,
 
@@ -1080,7 +1122,7 @@ impl ListIcebergCatalogsResponse {
     pub fn set_iceberg_catalogs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IcebergCatalog>
+        V: std::convert::Into<crate::model::IcebergCatalog>,
     {
         use std::iter::Iterator;
         self.iceberg_catalogs = v.into_iter().map(|i| i.into()).collect();
@@ -1109,7 +1151,7 @@ impl ListIcebergCatalogsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1127,7 +1169,6 @@ impl wkt::message::Message for ListIcebergCatalogsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverIcebergCatalogRequest {
-
     /// Required. The name of the catalog in the form
     /// "projects/{project_id}/catalogs/{catalog_id}"
     pub name: std::string::String,
@@ -1204,7 +1245,8 @@ impl FailoverIcebergCatalogRequest {
     /// let x = FailoverIcebergCatalogRequest::new().set_conditional_failover_replication_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_conditional_failover_replication_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.conditional_failover_replication_time = std::option::Option::Some(v.into());
         self
@@ -1219,8 +1261,12 @@ impl FailoverIcebergCatalogRequest {
     /// let x = FailoverIcebergCatalogRequest::new().set_or_clear_conditional_failover_replication_time(Some(Timestamp::default()/* use setters */));
     /// let x = FailoverIcebergCatalogRequest::new().set_or_clear_conditional_failover_replication_time(None::<Timestamp>);
     /// ```
-    pub fn set_or_clear_conditional_failover_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    pub fn set_or_clear_conditional_failover_replication_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.conditional_failover_replication_time = v.map(|x| x.into());
         self
@@ -1237,7 +1283,6 @@ impl wkt::message::Message for FailoverIcebergCatalogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverIcebergCatalogResponse {
-
     /// Output only. The min timestamp for which all namespaces and table metadata
     /// have been replicated in the region specified as the new primary_replica.
     /// Some resources may have been replicated more recently than this timestamp.
@@ -1264,7 +1309,8 @@ impl FailoverIcebergCatalogResponse {
     /// let x = FailoverIcebergCatalogResponse::new().set_replication_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_replication_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.replication_time = std::option::Option::Some(v.into());
         self
@@ -1280,7 +1326,8 @@ impl FailoverIcebergCatalogResponse {
     /// let x = FailoverIcebergCatalogResponse::new().set_or_clear_replication_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.replication_time = v.map(|x| x.into());
         self
@@ -1297,7 +1344,6 @@ impl wkt::message::Message for FailoverIcebergCatalogResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIcebergTableRequest {
-
     /// Required. Table to commit in the format:
     /// `projects/{project_id}/namespaces/{namespace}/tables/{table}`.
     pub name: std::string::String,
@@ -1336,7 +1382,8 @@ impl UpdateIcebergTableRequest {
     /// let x = UpdateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::HttpBody>
+    where
+        T: std::convert::Into<api::model::HttpBody>,
     {
         self.http_body = std::option::Option::Some(v.into());
         self
@@ -1352,7 +1399,8 @@ impl UpdateIcebergTableRequest {
     /// let x = UpdateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::HttpBody>
+    where
+        T: std::convert::Into<api::model::HttpBody>,
     {
         self.http_body = v.map(|x| x.into());
         self
@@ -1369,7 +1417,6 @@ impl wkt::message::Message for UpdateIcebergTableRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIcebergTableRequest {
-
     /// Required. Table to get in the format:
     pub name: std::string::String,
 
@@ -1419,7 +1466,6 @@ impl wkt::message::Message for GetIcebergTableRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIcebergTableRequest {
-
     /// Required. Table to delete in the format:
     /// `projects/{project_id}/namespaces/{namespace}/tables/{table}`.
     pub name: std::string::String,
@@ -1471,7 +1517,6 @@ impl wkt::message::Message for DeleteIcebergTableRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIcebergTableRequest {
-
     /// Required. The parent resource where this table will be created.
     /// Format: projects/{project_id}/namespaces/{namespace}
     pub parent: std::string::String,
@@ -1510,7 +1555,8 @@ impl CreateIcebergTableRequest {
     /// let x = CreateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
     /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<api::model::HttpBody>
+    where
+        T: std::convert::Into<api::model::HttpBody>,
     {
         self.http_body = std::option::Option::Some(v.into());
         self
@@ -1526,7 +1572,8 @@ impl CreateIcebergTableRequest {
     /// let x = CreateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
     /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<api::model::HttpBody>
+    where
+        T: std::convert::Into<api::model::HttpBody>,
     {
         self.http_body = v.map(|x| x.into());
         self
@@ -1543,7 +1590,6 @@ impl wkt::message::Message for CreateIcebergTableRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergTableIdentifiersRequest {
-
     /// Optional. PageToken for pagination.
     pub page_token: std::string::String,
 
@@ -1608,7 +1654,6 @@ impl wkt::message::Message for ListIcebergTableIdentifiersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableIdentifier {
-
     /// The namespace of the table. This is always 1 element, since we don't
     /// support nested namespaces.
     pub namespace: std::vec::Vec<std::string::String>,
@@ -1634,7 +1679,7 @@ impl TableIdentifier {
     pub fn set_namespace<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.namespace = v.into_iter().map(|i| i.into()).collect();
@@ -1664,7 +1709,6 @@ impl wkt::message::Message for TableIdentifier {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergTableIdentifiersResponse {
-
     /// Output only. The list of table identifiers.
     pub identifiers: std::vec::Vec<crate::model::TableIdentifier>,
 
@@ -1694,7 +1738,7 @@ impl ListIcebergTableIdentifiersResponse {
     pub fn set_identifiers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TableIdentifier>
+        V: std::convert::Into<crate::model::TableIdentifier>,
     {
         use std::iter::Iterator;
         self.identifiers = v.into_iter().map(|i| i.into()).collect();
@@ -1724,12 +1768,11 @@ impl wkt::message::Message for ListIcebergTableIdentifiersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IcebergNamespaceUpdate {
-
     /// Optional. Keys of the properties to remove.
     pub removals: std::vec::Vec<std::string::String>,
 
     /// Optional. List of properties to update or add.
-    pub updates: std::collections::HashMap<std::string::String,std::string::String>,
+    pub updates: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1749,7 +1792,7 @@ impl IcebergNamespaceUpdate {
     pub fn set_removals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.removals = v.into_iter().map(|i| i.into()).collect();
@@ -1788,7 +1831,6 @@ impl wkt::message::Message for IcebergNamespaceUpdate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIcebergNamespaceRequest {
-
     /// Required. The namespace to update.
     ///
     /// The namespace's `name` field is used to identify the namespace to update.
@@ -1827,7 +1869,8 @@ impl UpdateIcebergNamespaceRequest {
     /// let x = UpdateIcebergNamespaceRequest::new().set_iceberg_namespace_update(IcebergNamespaceUpdate::default()/* use setters */);
     /// ```
     pub fn set_iceberg_namespace_update<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IcebergNamespaceUpdate>
+    where
+        T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
     {
         self.iceberg_namespace_update = std::option::Option::Some(v.into());
         self
@@ -1843,7 +1886,8 @@ impl UpdateIcebergNamespaceRequest {
     /// let x = UpdateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace_update(None::<IcebergNamespaceUpdate>);
     /// ```
     pub fn set_or_clear_iceberg_namespace_update<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IcebergNamespaceUpdate>
+    where
+        T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
     {
         self.iceberg_namespace_update = v.map(|x| x.into());
         self
@@ -1860,7 +1904,6 @@ impl wkt::message::Message for UpdateIcebergNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIcebergNamespaceResponse {
-
     /// Output only. List of properties that were removed.
     pub removed: std::vec::Vec<std::string::String>,
 
@@ -1889,7 +1932,7 @@ impl UpdateIcebergNamespaceResponse {
     pub fn set_removed<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.removed = v.into_iter().map(|i| i.into()).collect();
@@ -1906,7 +1949,7 @@ impl UpdateIcebergNamespaceResponse {
     pub fn set_updated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.updated = v.into_iter().map(|i| i.into()).collect();
@@ -1923,7 +1966,7 @@ impl UpdateIcebergNamespaceResponse {
     pub fn set_missing<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.missing = v.into_iter().map(|i| i.into()).collect();
@@ -1941,7 +1984,6 @@ impl wkt::message::Message for UpdateIcebergNamespaceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIcebergNamespaceRequest {
-
     /// Required. Iceberg namespace to delete in the format:
     /// `projects/{project_id}/namespaces/{namespace}`.
     pub name: std::string::String,
@@ -1977,12 +2019,11 @@ impl wkt::message::Message for DeleteIcebergNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IcebergNamespace {
-
     /// Required. The name of the namespace.
     pub namespace: std::vec::Vec<std::string::String>,
 
     /// Optional. The optional properties of the namespace.
-    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2002,7 +2043,7 @@ impl IcebergNamespace {
     pub fn set_namespace<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.namespace = v.into_iter().map(|i| i.into()).collect();
@@ -2041,7 +2082,6 @@ impl wkt::message::Message for IcebergNamespace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIcebergNamespaceRequest {
-
     /// Required. The parent resource where this namespace will be created.
     /// Format: projects/{project_id}/restcatalog/v1/catalogs/{catalog_id}
     pub parent: std::string::String,
@@ -2078,7 +2118,8 @@ impl CreateIcebergNamespaceRequest {
     /// let x = CreateIcebergNamespaceRequest::new().set_iceberg_namespace(IcebergNamespace::default()/* use setters */);
     /// ```
     pub fn set_iceberg_namespace<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::IcebergNamespace>
+    where
+        T: std::convert::Into<crate::model::IcebergNamespace>,
     {
         self.iceberg_namespace = std::option::Option::Some(v.into());
         self
@@ -2094,7 +2135,8 @@ impl CreateIcebergNamespaceRequest {
     /// let x = CreateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace(None::<IcebergNamespace>);
     /// ```
     pub fn set_or_clear_iceberg_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::IcebergNamespace>
+    where
+        T: std::convert::Into<crate::model::IcebergNamespace>,
     {
         self.iceberg_namespace = v.map(|x| x.into());
         self
@@ -2111,7 +2153,6 @@ impl wkt::message::Message for CreateIcebergNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIcebergCatalogConfigRequest {
-
     /// Required. Warehouse location or identifier to request from the service.
     pub warehouse: std::string::String,
 
@@ -2146,15 +2187,14 @@ impl wkt::message::Message for GetIcebergCatalogConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IcebergCatalogConfig {
-
     /// Output only. Properties that should be used to override client
     /// configuration; applied after defaults and client configuration. Required,
     /// even if empty.
-    pub overrides: std::collections::HashMap<std::string::String,std::string::String>,
+    pub overrides: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Properties that should be used as default configuration;
     /// applied before client configuration. Required, even if empty.
-    pub defaults: std::collections::HashMap<std::string::String,std::string::String>,
+    pub defaults: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Endpoints, required, must not be empty.
     pub endpoints: std::vec::Vec<std::string::String>,
@@ -2219,7 +2259,7 @@ impl IcebergCatalogConfig {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -2237,7 +2277,6 @@ impl wkt::message::Message for IcebergCatalogConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIcebergNamespaceRequest {
-
     /// Required. Iceberg namespace to fetch in the format:
     /// `projects/{project_id}/namespaces/{namespace}`.
     pub name: std::string::String,
@@ -2273,7 +2312,6 @@ impl wkt::message::Message for GetIcebergNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergNamespacesRequest {
-
     /// Optional. PageToken
     pub page_token: std::string::String,
 
@@ -2360,7 +2398,6 @@ impl wkt::message::Message for ListIcebergNamespacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergNamespacesResponse {
-
     /// The list of namespaces.
     pub namespaces: std::vec::Vec<wkt::ListValue>,
 
@@ -2390,7 +2427,7 @@ impl ListIcebergNamespacesResponse {
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::ListValue>
+        V: std::convert::Into<wkt::ListValue>,
     {
         use std::iter::Iterator;
         self.namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -2420,7 +2457,6 @@ impl wkt::message::Message for ListIcebergNamespacesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageCredential {
-
     /// Indicates a storage location prefix where the credential is relevant.
     pub prefix: std::string::String,
 
@@ -2429,7 +2465,7 @@ pub struct StorageCredential {
     /// - `gcs.oauth2.token`
     /// - `gcs.oauth2.token_expires_at`
     /// - `expiration-time` (to support federation from Polaris).
-    pub config: std::collections::HashMap<std::string::String,std::string::String>,
+    pub config: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2483,7 +2519,6 @@ impl wkt::message::Message for StorageCredential {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadIcebergTableCredentialsResponse {
-
     /// The credentials for the table assigned to the caller.
     pub storage_credentials: std::vec::Vec<crate::model::StorageCredential>,
 
@@ -2510,7 +2545,7 @@ impl LoadIcebergTableCredentialsResponse {
     pub fn set_storage_credentials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StorageCredential>
+        V: std::convert::Into<crate::model::StorageCredential>,
     {
         use std::iter::Iterator;
         self.storage_credentials = v.into_iter().map(|i| i.into()).collect();

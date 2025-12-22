@@ -39,7 +39,10 @@ pub mod binauthz_management_service_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BinauthzManagementServiceV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod binauthz_management_service_v_1 {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -145,10 +155,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -165,14 +175,18 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).update_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -182,7 +196,8 @@ pub mod binauthz_management_service_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Policy>
+        where
+            T: std::convert::Into<crate::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -217,10 +232,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct CreateAttestor(RequestBuilder<crate::model::CreateAttestorRequest>);
 
     impl CreateAttestor {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -237,7 +252,10 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Attestor> {
-            (*self.0.stub).create_attestor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_attestor(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAttestorRequest::parent].
@@ -260,7 +278,8 @@ pub mod binauthz_management_service_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_attestor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Attestor>
+        where
+            T: std::convert::Into<crate::model::Attestor>,
         {
             self.0.request.attestor = std::option::Option::Some(v.into());
             self
@@ -270,7 +289,8 @@ pub mod binauthz_management_service_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Attestor>
+        where
+            T: std::convert::Into<crate::model::Attestor>,
         {
             self.0.request.attestor = v.map(|x| x.into());
             self
@@ -305,10 +325,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct GetAttestor(RequestBuilder<crate::model::GetAttestorRequest>);
 
     impl GetAttestor {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -325,7 +345,10 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Attestor> {
-            (*self.0.stub).get_attestor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_attestor(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttestorRequest::name].
@@ -365,10 +388,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct UpdateAttestor(RequestBuilder<crate::model::UpdateAttestorRequest>);
 
     impl UpdateAttestor {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -385,14 +408,18 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Attestor> {
-            (*self.0.stub).update_attestor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_attestor(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
         pub fn set_attestor<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Attestor>
+        where
+            T: std::convert::Into<crate::model::Attestor>,
         {
             self.0.request.attestor = std::option::Option::Some(v.into());
             self
@@ -402,7 +429,8 @@ pub mod binauthz_management_service_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Attestor>
+        where
+            T: std::convert::Into<crate::model::Attestor>,
         {
             self.0.request.attestor = v.map(|x| x.into());
             self
@@ -441,10 +469,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct ListAttestors(RequestBuilder<crate::model::ListAttestorsRequest>);
 
     impl ListAttestors {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -461,11 +489,17 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAttestorsResponse> {
-            (*self.0.stub).list_attestors(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_attestors(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAttestorsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAttestorsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -477,7 +511,10 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAttestorsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttestorsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -531,10 +568,10 @@ pub mod binauthz_management_service_v_1 {
     pub struct DeleteAttestor(RequestBuilder<crate::model::DeleteAttestorRequest>);
 
     impl DeleteAttestor {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -551,7 +588,10 @@ pub mod binauthz_management_service_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_attestor(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_attestor(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAttestorRequest::name].
@@ -569,7 +609,6 @@ pub mod binauthz_management_service_v_1 {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod system_policy_v_1 {
@@ -597,7 +636,10 @@ pub mod system_policy_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SystemPolicyV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -612,8 +654,12 @@ pub mod system_policy_v_1 {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -643,10 +689,10 @@ pub mod system_policy_v_1 {
     pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
     impl GetSystemPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -663,7 +709,10 @@ pub mod system_policy_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_system_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_system_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSystemPolicyRequest::name].
@@ -681,7 +730,6 @@ pub mod system_policy_v_1 {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod validation_helper_v_1 {
@@ -709,7 +757,10 @@ pub mod validation_helper_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ValidationHelperV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -724,8 +775,12 @@ pub mod validation_helper_v_1 {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -752,17 +807,22 @@ pub mod validation_helper_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateAttestationOccurrence(RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>);
+    pub struct ValidateAttestationOccurrence(
+        RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>,
+    );
 
     impl ValidateAttestationOccurrence {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ValidateAttestationOccurrenceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ValidateAttestationOccurrenceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -775,7 +835,10 @@ pub mod validation_helper_v_1 {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ValidateAttestationOccurrenceResponse> {
-            (*self.0.stub).validate_attestation_occurrence(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .validate_attestation_occurrence(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attestor][crate::model::ValidateAttestationOccurrenceRequest::attestor].
@@ -790,7 +853,8 @@ pub mod validation_helper_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_attestation<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<grafeas::model::AttestationOccurrence>
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
         {
             self.0.request.attestation = std::option::Option::Some(v.into());
             self
@@ -800,7 +864,8 @@ pub mod validation_helper_v_1 {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<grafeas::model::AttestationOccurrence>
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
         {
             self.0.request.attestation = v.map(|x| x.into());
             self
@@ -829,5 +894,4 @@ pub mod validation_helper_v_1 {
             &mut self.0.options
         }
     }
-
 }

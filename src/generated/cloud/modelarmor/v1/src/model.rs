@@ -17,7 +17,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
-extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,6 +27,7 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
+extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,7 +39,6 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Template {
-
     /// Identifier. name of resource
     pub name: std::string::String,
 
@@ -50,7 +49,7 @@ pub struct Template {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. filter configuration for this template
     pub filter_config: std::option::Option<crate::model::FilterConfig>,
@@ -87,7 +86,8 @@ impl Template {
     /// let x = Template::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -103,7 +103,8 @@ impl Template {
     /// let x = Template::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -118,7 +119,8 @@ impl Template {
     /// let x = Template::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -134,7 +136,8 @@ impl Template {
     /// let x = Template::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -170,7 +173,8 @@ impl Template {
     /// let x = Template::new().set_filter_config(FilterConfig::default()/* use setters */);
     /// ```
     pub fn set_filter_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::FilterConfig>
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
     {
         self.filter_config = std::option::Option::Some(v.into());
         self
@@ -186,7 +190,8 @@ impl Template {
     /// let x = Template::new().set_or_clear_filter_config(None::<FilterConfig>);
     /// ```
     pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::FilterConfig>
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
     {
         self.filter_config = v.map(|x| x.into());
         self
@@ -201,7 +206,8 @@ impl Template {
     /// let x = Template::new().set_template_metadata(TemplateMetadata::default()/* use setters */);
     /// ```
     pub fn set_template_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::template::TemplateMetadata>
+    where
+        T: std::convert::Into<crate::model::template::TemplateMetadata>,
     {
         self.template_metadata = std::option::Option::Some(v.into());
         self
@@ -217,7 +223,8 @@ impl Template {
     /// let x = Template::new().set_or_clear_template_metadata(None::<TemplateMetadata>);
     /// ```
     pub fn set_or_clear_template_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::template::TemplateMetadata>
+    where
+        T: std::convert::Into<crate::model::template::TemplateMetadata>,
     {
         self.template_metadata = v.map(|x| x.into());
         self
@@ -235,12 +242,10 @@ pub mod template {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Message describing TemplateMetadata
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TemplateMetadata {
-
         /// Optional. If true, partial detector failures should be ignored.
         pub ignore_partial_invocation_failures: bool,
 
@@ -271,7 +276,8 @@ pub mod template {
         pub enforcement_type: crate::model::template::template_metadata::EnforcementType,
 
         /// Optional. Metadata for multi language detection.
-        pub multi_language_detection: std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
+        pub multi_language_detection:
+            std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -288,7 +294,10 @@ pub mod template {
         /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
         /// let x = TemplateMetadata::new().set_ignore_partial_invocation_failures(true);
         /// ```
-        pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ignore_partial_invocation_failures = v.into();
             self
         }
@@ -300,7 +309,10 @@ pub mod template {
         /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
         /// let x = TemplateMetadata::new().set_custom_prompt_safety_error_code(42);
         /// ```
-        pub fn set_custom_prompt_safety_error_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        pub fn set_custom_prompt_safety_error_code<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.custom_prompt_safety_error_code = v.into();
             self
         }
@@ -312,7 +324,12 @@ pub mod template {
         /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
         /// let x = TemplateMetadata::new().set_custom_prompt_safety_error_message("example");
         /// ```
-        pub fn set_custom_prompt_safety_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_custom_prompt_safety_error_message<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.custom_prompt_safety_error_message = v.into();
             self
         }
@@ -324,7 +341,10 @@ pub mod template {
         /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
         /// let x = TemplateMetadata::new().set_custom_llm_response_safety_error_code(42);
         /// ```
-        pub fn set_custom_llm_response_safety_error_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        pub fn set_custom_llm_response_safety_error_code<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.custom_llm_response_safety_error_code = v.into();
             self
         }
@@ -336,7 +356,12 @@ pub mod template {
         /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
         /// let x = TemplateMetadata::new().set_custom_llm_response_safety_error_message("example");
         /// ```
-        pub fn set_custom_llm_response_safety_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_custom_llm_response_safety_error_message<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.custom_llm_response_safety_error_message = v.into();
             self
         }
@@ -374,7 +399,12 @@ pub mod template {
         /// let x0 = TemplateMetadata::new().set_enforcement_type(EnforcementType::InspectOnly);
         /// let x1 = TemplateMetadata::new().set_enforcement_type(EnforcementType::InspectAndBlock);
         /// ```
-        pub fn set_enforcement_type<T: std::convert::Into<crate::model::template::template_metadata::EnforcementType>>(mut self, v: T) -> Self {
+        pub fn set_enforcement_type<
+            T: std::convert::Into<crate::model::template::template_metadata::EnforcementType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.enforcement_type = v.into();
             self
         }
@@ -388,7 +418,10 @@ pub mod template {
         /// let x = TemplateMetadata::new().set_multi_language_detection(MultiLanguageDetection::default()/* use setters */);
         /// ```
         pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::template::template_metadata::MultiLanguageDetection>
+        where
+            T: std::convert::Into<
+                    crate::model::template::template_metadata::MultiLanguageDetection,
+                >,
         {
             self.multi_language_detection = std::option::Option::Some(v.into());
             self
@@ -404,7 +437,10 @@ pub mod template {
         /// let x = TemplateMetadata::new().set_or_clear_multi_language_detection(None::<MultiLanguageDetection>);
         /// ```
         pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::template::template_metadata::MultiLanguageDetection>
+        where
+            T: std::convert::Into<
+                    crate::model::template::template_metadata::MultiLanguageDetection,
+                >,
         {
             self.multi_language_detection = v.map(|x| x.into());
             self
@@ -422,12 +458,10 @@ pub mod template {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Metadata to enable multi language detection via template.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MultiLanguageDetection {
-
             /// Required. If true, multi language detection will be enabled.
             pub enable_multi_language_detection: bool,
 
@@ -446,7 +480,10 @@ pub mod template {
             /// # use google_cloud_modelarmor_v1::model::template::template_metadata::MultiLanguageDetection;
             /// let x = MultiLanguageDetection::new().set_enable_multi_language_detection(true);
             /// ```
-            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.enable_multi_language_detection = v.into();
                 self
             }
@@ -535,7 +572,10 @@ pub mod template {
         }
 
         impl std::fmt::Display for EnforcementType {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -546,7 +586,9 @@ pub mod template {
                     0 => Self::Unspecified,
                     1 => Self::InspectOnly,
                     2 => Self::InspectAndBlock,
-                    _ => Self::UnknownValue(enforcement_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                    _ => Self::UnknownValue(enforcement_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
                 }
             }
         }
@@ -558,7 +600,9 @@ pub mod template {
                     "ENFORCEMENT_TYPE_UNSPECIFIED" => Self::Unspecified,
                     "INSPECT_ONLY" => Self::InspectOnly,
                     "INSPECT_AND_BLOCK" => Self::InspectAndBlock,
-                    _ => Self::UnknownValue(enforcement_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                    _ => Self::UnknownValue(enforcement_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
                 }
             }
         }
@@ -583,7 +627,8 @@ pub mod template {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnforcementType>::new(
-                    ".google.cloud.modelarmor.v1.Template.TemplateMetadata.EnforcementType"))
+                    ".google.cloud.modelarmor.v1.Template.TemplateMetadata.EnforcementType",
+                ))
             }
         }
     }
@@ -593,7 +638,6 @@ pub mod template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FloorSetting {
-
     /// Identifier. The resource name.
     pub name: std::string::String,
 
@@ -617,7 +661,8 @@ pub struct FloorSetting {
     pub ai_platform_floor_setting: std::option::Option<crate::model::AiPlatformFloorSetting>,
 
     /// Optional. Metadata for FloorSetting
-    pub floor_setting_metadata: std::option::Option<crate::model::floor_setting::FloorSettingMetadata>,
+    pub floor_setting_metadata:
+        std::option::Option<crate::model::floor_setting::FloorSettingMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -648,7 +693,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_create_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -664,7 +710,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_create_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -679,7 +726,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_update_time(Timestamp::default()/* use setters */);
     /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -695,7 +743,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_update_time(None::<Timestamp>);
     /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Timestamp>
+    where
+        T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -710,7 +759,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_filter_config(FilterConfig::default()/* use setters */);
     /// ```
     pub fn set_filter_config<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::FilterConfig>
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
     {
         self.filter_config = std::option::Option::Some(v.into());
         self
@@ -726,7 +776,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_filter_config(None::<FilterConfig>);
     /// ```
     pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::FilterConfig>
+    where
+        T: std::convert::Into<crate::model::FilterConfig>,
     {
         self.filter_config = v.map(|x| x.into());
         self
@@ -740,7 +791,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_enable_floor_setting_enforcement(true);
     /// ```
     pub fn set_enable_floor_setting_enforcement<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<bool>
+    where
+        T: std::convert::Into<bool>,
     {
         self.enable_floor_setting_enforcement = std::option::Option::Some(v.into());
         self
@@ -754,8 +806,12 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_enable_floor_setting_enforcement(Some(false));
     /// let x = FloorSetting::new().set_or_clear_enable_floor_setting_enforcement(None::<bool>);
     /// ```
-    pub fn set_or_clear_enable_floor_setting_enforcement<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<bool>
+    pub fn set_or_clear_enable_floor_setting_enforcement<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
     {
         self.enable_floor_setting_enforcement = v.map(|x| x.into());
         self
@@ -774,7 +830,7 @@ impl FloorSetting {
     pub fn set_integrated_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::floor_setting::IntegratedService>
+        V: std::convert::Into<crate::model::floor_setting::IntegratedService>,
     {
         use std::iter::Iterator;
         self.integrated_services = v.into_iter().map(|i| i.into()).collect();
@@ -790,7 +846,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_ai_platform_floor_setting(AiPlatformFloorSetting::default()/* use setters */);
     /// ```
     pub fn set_ai_platform_floor_setting<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::AiPlatformFloorSetting>
+    where
+        T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
     {
         self.ai_platform_floor_setting = std::option::Option::Some(v.into());
         self
@@ -806,7 +863,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_ai_platform_floor_setting(None::<AiPlatformFloorSetting>);
     /// ```
     pub fn set_or_clear_ai_platform_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::AiPlatformFloorSetting>
+    where
+        T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
     {
         self.ai_platform_floor_setting = v.map(|x| x.into());
         self
@@ -821,7 +879,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_floor_setting_metadata(FloorSettingMetadata::default()/* use setters */);
     /// ```
     pub fn set_floor_setting_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>
+    where
+        T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
     {
         self.floor_setting_metadata = std::option::Option::Some(v.into());
         self
@@ -837,7 +896,8 @@ impl FloorSetting {
     /// let x = FloorSetting::new().set_or_clear_floor_setting_metadata(None::<FloorSettingMetadata>);
     /// ```
     pub fn set_or_clear_floor_setting_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>
+    where
+        T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
     {
         self.floor_setting_metadata = v.map(|x| x.into());
         self
@@ -855,14 +915,14 @@ pub mod floor_setting {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// message describing FloorSetting Metadata
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FloorSettingMetadata {
-
         /// Optional. Metadata for multi language detection.
-        pub multi_language_detection: std::option::Option<crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection>,
+        pub multi_language_detection: std::option::Option<
+            crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+        >,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -881,7 +941,10 @@ pub mod floor_setting {
         /// let x = FloorSettingMetadata::new().set_multi_language_detection(MultiLanguageDetection::default()/* use setters */);
         /// ```
         pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection>
+        where
+            T: std::convert::Into<
+                    crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+                >,
         {
             self.multi_language_detection = std::option::Option::Some(v.into());
             self
@@ -897,7 +960,10 @@ pub mod floor_setting {
         /// let x = FloorSettingMetadata::new().set_or_clear_multi_language_detection(None::<MultiLanguageDetection>);
         /// ```
         pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection>
+        where
+            T: std::convert::Into<
+                    crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+                >,
         {
             self.multi_language_detection = v.map(|x| x.into());
             self
@@ -915,12 +981,10 @@ pub mod floor_setting {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Metadata to enable multi language detection via floor setting.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MultiLanguageDetection {
-
             /// Required. If true, multi language detection will be enabled.
             pub enable_multi_language_detection: bool,
 
@@ -939,7 +1003,10 @@ pub mod floor_setting {
             /// # use google_cloud_modelarmor_v1::model::floor_setting::floor_setting_metadata::MultiLanguageDetection;
             /// let x = MultiLanguageDetection::new().set_enable_multi_language_detection(true);
             /// ```
-            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.enable_multi_language_detection = v.into();
                 self
             }
@@ -1033,7 +1100,9 @@ pub mod floor_setting {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::AiPlatform,
-                _ => Self::UnknownValue(integrated_service::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(integrated_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -1044,7 +1113,9 @@ pub mod floor_setting {
             match value {
                 "INTEGRATED_SERVICE_UNSPECIFIED" => Self::Unspecified,
                 "AI_PLATFORM" => Self::AiPlatform,
-                _ => Self::UnknownValue(integrated_service::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(integrated_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -1068,7 +1139,8 @@ pub mod floor_setting {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IntegratedService>::new(
-                ".google.cloud.modelarmor.v1.FloorSetting.IntegratedService"))
+                ".google.cloud.modelarmor.v1.FloorSetting.IntegratedService",
+            ))
         }
     }
 }
@@ -1077,12 +1149,12 @@ pub mod floor_setting {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AiPlatformFloorSetting {
-
     /// Optional. If true, log Model Armor filter results to Cloud Logging.
     pub enable_cloud_logging: bool,
 
     /// enforcement type for Model Armor filters.
-    pub enforcement_type: std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
+    pub enforcement_type:
+        std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1115,8 +1187,14 @@ impl AiPlatformFloorSetting {
     /// use google_cloud_modelarmor_v1::model::ai_platform_floor_setting::EnforcementType;
     /// let x = AiPlatformFloorSetting::new().set_enforcement_type(Some(EnforcementType::InspectOnly(true)));
     /// ```
-    pub fn set_enforcement_type<T: std::convert::Into<std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_enforcement_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.enforcement_type = v.into();
         self
     }
@@ -1127,7 +1205,9 @@ impl AiPlatformFloorSetting {
     pub fn inspect_only(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.enforcement_type.as_ref().and_then(|v| match v {
-            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v) => std::option::Option::Some(v),
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1147,9 +1227,7 @@ impl AiPlatformFloorSetting {
     /// ```
     pub fn set_inspect_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforcement_type = std::option::Option::Some(
-            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(
-                v.into()
-            )
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v.into()),
         );
         self
     }
@@ -1160,7 +1238,9 @@ impl AiPlatformFloorSetting {
     pub fn inspect_and_block(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.enforcement_type.as_ref().and_then(|v| match v {
-            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v) => std::option::Option::Some(v),
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1180,9 +1260,7 @@ impl AiPlatformFloorSetting {
     /// ```
     pub fn set_inspect_and_block<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforcement_type = std::option::Option::Some(
-            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(
-                v.into()
-            )
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v.into()),
         );
         self
     }
@@ -1198,7 +1276,6 @@ impl wkt::message::Message for AiPlatformFloorSetting {
 pub mod ai_platform_floor_setting {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// enforcement type for Model Armor filters.
     #[derive(Clone, Debug, PartialEq)]
@@ -1217,7 +1294,6 @@ pub mod ai_platform_floor_setting {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTemplatesRequest {
-
     /// Required. Parent value for ListTemplatesRequest
     pub parent: std::string::String,
 
@@ -1313,7 +1389,6 @@ impl wkt::message::Message for ListTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTemplatesResponse {
-
     /// The list of Template
     pub templates: std::vec::Vec<crate::model::Template>,
 
@@ -1346,7 +1421,7 @@ impl ListTemplatesResponse {
     pub fn set_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Template>
+        V: std::convert::Into<crate::model::Template>,
     {
         use std::iter::Iterator;
         self.templates = v.into_iter().map(|i| i.into()).collect();
@@ -1375,7 +1450,7 @@ impl ListTemplatesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1407,7 +1482,6 @@ impl gax::paginator::internal::PageableResponse for ListTemplatesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTemplateRequest {
-
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1442,7 +1516,6 @@ impl wkt::message::Message for GetTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTemplateRequest {
-
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -1510,7 +1583,8 @@ impl CreateTemplateRequest {
     /// let x = CreateTemplateRequest::new().set_template(Template::default()/* use setters */);
     /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Template>
+    where
+        T: std::convert::Into<crate::model::Template>,
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -1526,7 +1600,8 @@ impl CreateTemplateRequest {
     /// let x = CreateTemplateRequest::new().set_or_clear_template(None::<Template>);
     /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Template>
+    where
+        T: std::convert::Into<crate::model::Template>,
     {
         self.template = v.map(|x| x.into());
         self
@@ -1555,7 +1630,6 @@ impl wkt::message::Message for CreateTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTemplateRequest {
-
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Template resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1598,7 +1672,8 @@ impl UpdateTemplateRequest {
     /// let x = UpdateTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1614,7 +1689,8 @@ impl UpdateTemplateRequest {
     /// let x = UpdateTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1629,7 +1705,8 @@ impl UpdateTemplateRequest {
     /// let x = UpdateTemplateRequest::new().set_template(Template::default()/* use setters */);
     /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Template>
+    where
+        T: std::convert::Into<crate::model::Template>,
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -1645,7 +1722,8 @@ impl UpdateTemplateRequest {
     /// let x = UpdateTemplateRequest::new().set_or_clear_template(None::<Template>);
     /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Template>
+    where
+        T: std::convert::Into<crate::model::Template>,
     {
         self.template = v.map(|x| x.into());
         self
@@ -1674,7 +1752,6 @@ impl wkt::message::Message for UpdateTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTemplateRequest {
-
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1736,7 +1813,6 @@ impl wkt::message::Message for DeleteTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFloorSettingRequest {
-
     /// Required. The name of the floor setting to get, example
     /// projects/123/floorsetting.
     pub name: std::string::String,
@@ -1772,7 +1848,6 @@ impl wkt::message::Message for GetFloorSettingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFloorSettingRequest {
-
     /// Required. The floor setting being updated.
     pub floor_setting: std::option::Option<crate::model::FloorSetting>,
 
@@ -1800,7 +1875,8 @@ impl UpdateFloorSettingRequest {
     /// let x = UpdateFloorSettingRequest::new().set_floor_setting(FloorSetting::default()/* use setters */);
     /// ```
     pub fn set_floor_setting<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::FloorSetting>
+    where
+        T: std::convert::Into<crate::model::FloorSetting>,
     {
         self.floor_setting = std::option::Option::Some(v.into());
         self
@@ -1816,7 +1892,8 @@ impl UpdateFloorSettingRequest {
     /// let x = UpdateFloorSettingRequest::new().set_or_clear_floor_setting(None::<FloorSetting>);
     /// ```
     pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::FloorSetting>
+    where
+        T: std::convert::Into<crate::model::FloorSetting>,
     {
         self.floor_setting = v.map(|x| x.into());
         self
@@ -1831,7 +1908,8 @@ impl UpdateFloorSettingRequest {
     /// let x = UpdateFloorSettingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
     /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1847,7 +1925,8 @@ impl UpdateFloorSettingRequest {
     /// let x = UpdateFloorSettingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
     /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::FieldMask>
+    where
+        T: std::convert::Into<wkt::FieldMask>,
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1864,7 +1943,6 @@ impl wkt::message::Message for UpdateFloorSettingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterConfig {
-
     /// Optional. Responsible AI settings.
     pub rai_settings: std::option::Option<crate::model::RaiFilterSettings>,
 
@@ -1872,10 +1950,12 @@ pub struct FilterConfig {
     pub sdp_settings: std::option::Option<crate::model::SdpFilterSettings>,
 
     /// Optional. Prompt injection and Jailbreak filter settings.
-    pub pi_and_jailbreak_filter_settings: std::option::Option<crate::model::PiAndJailbreakFilterSettings>,
+    pub pi_and_jailbreak_filter_settings:
+        std::option::Option<crate::model::PiAndJailbreakFilterSettings>,
 
     /// Optional. Malicious URI filter settings.
-    pub malicious_uri_filter_settings: std::option::Option<crate::model::MaliciousUriFilterSettings>,
+    pub malicious_uri_filter_settings:
+        std::option::Option<crate::model::MaliciousUriFilterSettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1894,7 +1974,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_rai_settings(RaiFilterSettings::default()/* use setters */);
     /// ```
     pub fn set_rai_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::RaiFilterSettings>
+    where
+        T: std::convert::Into<crate::model::RaiFilterSettings>,
     {
         self.rai_settings = std::option::Option::Some(v.into());
         self
@@ -1910,7 +1991,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_or_clear_rai_settings(None::<RaiFilterSettings>);
     /// ```
     pub fn set_or_clear_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::RaiFilterSettings>
+    where
+        T: std::convert::Into<crate::model::RaiFilterSettings>,
     {
         self.rai_settings = v.map(|x| x.into());
         self
@@ -1925,7 +2007,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_sdp_settings(SdpFilterSettings::default()/* use setters */);
     /// ```
     pub fn set_sdp_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SdpFilterSettings>
+    where
+        T: std::convert::Into<crate::model::SdpFilterSettings>,
     {
         self.sdp_settings = std::option::Option::Some(v.into());
         self
@@ -1941,7 +2024,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_or_clear_sdp_settings(None::<SdpFilterSettings>);
     /// ```
     pub fn set_or_clear_sdp_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SdpFilterSettings>
+    where
+        T: std::convert::Into<crate::model::SdpFilterSettings>,
     {
         self.sdp_settings = v.map(|x| x.into());
         self
@@ -1956,7 +2040,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_pi_and_jailbreak_filter_settings(PiAndJailbreakFilterSettings::default()/* use setters */);
     /// ```
     pub fn set_pi_and_jailbreak_filter_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>
+    where
+        T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>,
     {
         self.pi_and_jailbreak_filter_settings = std::option::Option::Some(v.into());
         self
@@ -1971,8 +2056,12 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_or_clear_pi_and_jailbreak_filter_settings(Some(PiAndJailbreakFilterSettings::default()/* use setters */));
     /// let x = FilterConfig::new().set_or_clear_pi_and_jailbreak_filter_settings(None::<PiAndJailbreakFilterSettings>);
     /// ```
-    pub fn set_or_clear_pi_and_jailbreak_filter_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>
+    pub fn set_or_clear_pi_and_jailbreak_filter_settings<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>,
     {
         self.pi_and_jailbreak_filter_settings = v.map(|x| x.into());
         self
@@ -1987,7 +2076,8 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_malicious_uri_filter_settings(MaliciousUriFilterSettings::default()/* use setters */);
     /// ```
     pub fn set_malicious_uri_filter_settings<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MaliciousUriFilterSettings>
+    where
+        T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
     {
         self.malicious_uri_filter_settings = std::option::Option::Some(v.into());
         self
@@ -2002,8 +2092,12 @@ impl FilterConfig {
     /// let x = FilterConfig::new().set_or_clear_malicious_uri_filter_settings(Some(MaliciousUriFilterSettings::default()/* use setters */));
     /// let x = FilterConfig::new().set_or_clear_malicious_uri_filter_settings(None::<MaliciousUriFilterSettings>);
     /// ```
-    pub fn set_or_clear_malicious_uri_filter_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MaliciousUriFilterSettings>
+    pub fn set_or_clear_malicious_uri_filter_settings<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
     {
         self.malicious_uri_filter_settings = v.map(|x| x.into());
         self
@@ -2020,10 +2114,10 @@ impl wkt::message::Message for FilterConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PiAndJailbreakFilterSettings {
-
     /// Optional. Tells whether Prompt injection and Jailbreak filter is enabled or
     /// disabled.
-    pub filter_enforcement: crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
+    pub filter_enforcement:
+        crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
 
     /// Optional. Confidence level for this filter.
     /// Confidence level is used to determine the threshold for the filter. If
@@ -2049,7 +2143,14 @@ impl PiAndJailbreakFilterSettings {
     /// let x0 = PiAndJailbreakFilterSettings::new().set_filter_enforcement(PiAndJailbreakFilterEnforcement::Enabled);
     /// let x1 = PiAndJailbreakFilterSettings::new().set_filter_enforcement(PiAndJailbreakFilterEnforcement::Disabled);
     /// ```
-    pub fn set_filter_enforcement<T: std::convert::Into<crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement>>(mut self, v: T) -> Self {
+    pub fn set_filter_enforcement<
+        T: std::convert::Into<
+                crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_enforcement = v.into();
         self
     }
@@ -2064,7 +2165,10 @@ impl PiAndJailbreakFilterSettings {
     /// let x1 = PiAndJailbreakFilterSettings::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
     /// let x2 = PiAndJailbreakFilterSettings::new().set_confidence_level(DetectionConfidenceLevel::High);
     /// ```
-    pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(mut self, v: T) -> Self {
+    pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.confidence_level = v.into();
         self
     }
@@ -2080,7 +2184,6 @@ impl wkt::message::Message for PiAndJailbreakFilterSettings {
 pub mod pi_and_jailbreak_filter_settings {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Option to specify the state of Prompt Injection and Jailbreak filter
     /// (ENABLED/DISABLED).
@@ -2142,7 +2245,9 @@ pub mod pi_and_jailbreak_filter_settings {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED")
+                }
                 Self::Enabled => std::option::Option::Some("ENABLED"),
                 Self::Disabled => std::option::Option::Some("DISABLED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -2169,7 +2274,9 @@ pub mod pi_and_jailbreak_filter_settings {
                 0 => Self::Unspecified,
                 1 => Self::Enabled,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(pi_and_jailbreak_filter_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(pi_and_jailbreak_filter_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2181,7 +2288,9 @@ pub mod pi_and_jailbreak_filter_settings {
                 "PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED" => Self::Unspecified,
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(pi_and_jailbreak_filter_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(pi_and_jailbreak_filter_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2215,9 +2324,9 @@ pub mod pi_and_jailbreak_filter_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaliciousUriFilterSettings {
-
     /// Optional. Tells whether the Malicious URI filter is enabled or disabled.
-    pub filter_enforcement: crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
+    pub filter_enforcement:
+        crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2236,7 +2345,14 @@ impl MaliciousUriFilterSettings {
     /// let x0 = MaliciousUriFilterSettings::new().set_filter_enforcement(MaliciousUriFilterEnforcement::Enabled);
     /// let x1 = MaliciousUriFilterSettings::new().set_filter_enforcement(MaliciousUriFilterEnforcement::Disabled);
     /// ```
-    pub fn set_filter_enforcement<T: std::convert::Into<crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement>>(mut self, v: T) -> Self {
+    pub fn set_filter_enforcement<
+        T: std::convert::Into<
+                crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_enforcement = v.into();
         self
     }
@@ -2252,7 +2368,6 @@ impl wkt::message::Message for MaliciousUriFilterSettings {
 pub mod malicious_uri_filter_settings {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Option to specify the state of Malicious URI filter (ENABLED/DISABLED).
     ///
@@ -2313,7 +2428,9 @@ pub mod malicious_uri_filter_settings {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED")
+                }
                 Self::Enabled => std::option::Option::Some("ENABLED"),
                 Self::Disabled => std::option::Option::Some("DISABLED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -2340,7 +2457,9 @@ pub mod malicious_uri_filter_settings {
                 0 => Self::Unspecified,
                 1 => Self::Enabled,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(malicious_uri_filter_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(malicious_uri_filter_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2352,7 +2471,9 @@ pub mod malicious_uri_filter_settings {
                 "MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED" => Self::Unspecified,
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(malicious_uri_filter_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(malicious_uri_filter_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2386,7 +2507,6 @@ pub mod malicious_uri_filter_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RaiFilterSettings {
-
     /// Required. List of Responsible AI filters enabled for template.
     pub rai_filters: std::vec::Vec<crate::model::rai_filter_settings::RaiFilter>,
 
@@ -2413,7 +2533,7 @@ impl RaiFilterSettings {
     pub fn set_rai_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::rai_filter_settings::RaiFilter>
+        V: std::convert::Into<crate::model::rai_filter_settings::RaiFilter>,
     {
         use std::iter::Iterator;
         self.rai_filters = v.into_iter().map(|i| i.into()).collect();
@@ -2432,12 +2552,10 @@ pub mod rai_filter_settings {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Responsible AI filter.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RaiFilter {
-
         /// Required. Type of responsible AI filter.
         pub filter_type: crate::model::RaiFilterType,
 
@@ -2466,7 +2584,10 @@ pub mod rai_filter_settings {
         /// let x1 = RaiFilter::new().set_filter_type(RaiFilterType::HateSpeech);
         /// let x2 = RaiFilter::new().set_filter_type(RaiFilterType::Harassment);
         /// ```
-        pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(mut self, v: T) -> Self {
+        pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = v.into();
             self
         }
@@ -2481,7 +2602,12 @@ pub mod rai_filter_settings {
         /// let x1 = RaiFilter::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
         /// let x2 = RaiFilter::new().set_confidence_level(DetectionConfidenceLevel::High);
         /// ```
-        pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(mut self, v: T) -> Self {
+        pub fn set_confidence_level<
+            T: std::convert::Into<crate::model::DetectionConfidenceLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.confidence_level = v.into();
             self
         }
@@ -2498,7 +2624,6 @@ pub mod rai_filter_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFilterSettings {
-
     /// Either of Sensitive Data Protection basic or advanced configuration.
     pub sdp_configuration: std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
 
@@ -2522,8 +2647,14 @@ impl SdpFilterSettings {
     /// let x = SdpFilterSettings::new().set_sdp_configuration(Some(
     ///     google_cloud_modelarmor_v1::model::sdp_filter_settings::SdpConfiguration::BasicConfig(SdpBasicConfig::default().into())));
     /// ```
-    pub fn set_sdp_configuration<T: std::convert::Into<std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>>>(mut self, v: T) -> Self
-    {
+    pub fn set_sdp_configuration<
+        T: std::convert::Into<
+                std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.sdp_configuration = v.into();
         self
     }
@@ -2531,10 +2662,14 @@ impl SdpFilterSettings {
     /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// if it holds a `BasicConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn basic_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::SdpBasicConfig>> {
+    pub fn basic_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpBasicConfig>> {
         #[allow(unreachable_patterns)]
         self.sdp_configuration.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(v) => std::option::Option::Some(v),
+            crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2553,11 +2688,14 @@ impl SdpFilterSettings {
     /// assert!(x.basic_config().is_some());
     /// assert!(x.advanced_config().is_none());
     /// ```
-    pub fn set_basic_config<T: std::convert::Into<std::boxed::Box<crate::model::SdpBasicConfig>>>(mut self, v: T) -> Self {
+    pub fn set_basic_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpBasicConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.sdp_configuration = std::option::Option::Some(
-            crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(
-                v.into()
-            )
+            crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(v.into()),
         );
         self
     }
@@ -2565,10 +2703,14 @@ impl SdpFilterSettings {
     /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// if it holds a `AdvancedConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn advanced_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::SdpAdvancedConfig>> {
+    pub fn advanced_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpAdvancedConfig>> {
         #[allow(unreachable_patterns)]
         self.sdp_configuration.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v) => std::option::Option::Some(v),
+            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2587,11 +2729,14 @@ impl SdpFilterSettings {
     /// assert!(x.advanced_config().is_some());
     /// assert!(x.basic_config().is_none());
     /// ```
-    pub fn set_advanced_config<T: std::convert::Into<std::boxed::Box<crate::model::SdpAdvancedConfig>>>(mut self, v: T) -> Self {
+    pub fn set_advanced_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpAdvancedConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.sdp_configuration = std::option::Option::Some(
-            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(
-                v.into()
-            )
+            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v.into()),
         );
         self
     }
@@ -2607,7 +2752,6 @@ impl wkt::message::Message for SdpFilterSettings {
 pub mod sdp_filter_settings {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Either of Sensitive Data Protection basic or advanced configuration.
     #[derive(Clone, Debug, PartialEq)]
@@ -2630,7 +2774,6 @@ pub mod sdp_filter_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpBasicConfig {
-
     /// Optional. Tells whether the Sensitive Data Protection basic config is
     /// enabled or disabled.
     pub filter_enforcement: crate::model::sdp_basic_config::SdpBasicConfigEnforcement,
@@ -2652,7 +2795,12 @@ impl SdpBasicConfig {
     /// let x0 = SdpBasicConfig::new().set_filter_enforcement(SdpBasicConfigEnforcement::Enabled);
     /// let x1 = SdpBasicConfig::new().set_filter_enforcement(SdpBasicConfigEnforcement::Disabled);
     /// ```
-    pub fn set_filter_enforcement<T: std::convert::Into<crate::model::sdp_basic_config::SdpBasicConfigEnforcement>>(mut self, v: T) -> Self {
+    pub fn set_filter_enforcement<
+        T: std::convert::Into<crate::model::sdp_basic_config::SdpBasicConfigEnforcement>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_enforcement = v.into();
         self
     }
@@ -2668,7 +2816,6 @@ impl wkt::message::Message for SdpBasicConfig {
 pub mod sdp_basic_config {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Option to specify the state of Sensitive Data Protection basic config
     /// (ENABLED/DISABLED).
@@ -2730,7 +2877,9 @@ pub mod sdp_basic_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => std::option::Option::Some("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED")
+                }
                 Self::Enabled => std::option::Option::Some("ENABLED"),
                 Self::Disabled => std::option::Option::Some("DISABLED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -2757,7 +2906,9 @@ pub mod sdp_basic_config {
                 0 => Self::Unspecified,
                 1 => Self::Enabled,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(sdp_basic_config_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(sdp_basic_config_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -2769,7 +2920,9 @@ pub mod sdp_basic_config {
                 "SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED" => Self::Unspecified,
                 "ENABLED" => Self::Enabled,
                 "DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(sdp_basic_config_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(sdp_basic_config_enforcement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -2793,8 +2946,11 @@ pub mod sdp_basic_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SdpBasicConfigEnforcement>::new(
-                ".google.cloud.modelarmor.v1.SdpBasicConfig.SdpBasicConfigEnforcement"))
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<SdpBasicConfigEnforcement>::new(
+                    ".google.cloud.modelarmor.v1.SdpBasicConfig.SdpBasicConfigEnforcement",
+                ),
+            )
         }
     }
 }
@@ -2803,7 +2959,6 @@ pub mod sdp_basic_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpAdvancedConfig {
-
     /// Optional. Sensitive Data Protection inspect template resource name
     ///
     /// If only inspect template is provided (de-identify template not provided),
@@ -2843,7 +2998,10 @@ impl SdpAdvancedConfig {
     /// # use google_cloud_modelarmor_v1::model::SdpAdvancedConfig;
     /// let x = SdpAdvancedConfig::new().set_inspect_template("example");
     /// ```
-    pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.inspect_template = v.into();
         self
     }
@@ -2855,7 +3013,10 @@ impl SdpAdvancedConfig {
     /// # use google_cloud_modelarmor_v1::model::SdpAdvancedConfig;
     /// let x = SdpAdvancedConfig::new().set_deidentify_template("example");
     /// ```
-    pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.deidentify_template = v.into();
         self
     }
@@ -2871,7 +3032,6 @@ impl wkt::message::Message for SdpAdvancedConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeUserPromptRequest {
-
     /// Required. Represents resource name of template
     /// e.g. name=projects/sample-project/locations/us-central1/templates/templ01
     pub name: std::string::String,
@@ -2880,7 +3040,8 @@ pub struct SanitizeUserPromptRequest {
     pub user_prompt_data: std::option::Option<crate::model::DataItem>,
 
     /// Optional. Metadata related to Multi Language Detection.
-    pub multi_language_detection_metadata: std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
+    pub multi_language_detection_metadata:
+        std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2911,7 +3072,8 @@ impl SanitizeUserPromptRequest {
     /// let x = SanitizeUserPromptRequest::new().set_user_prompt_data(DataItem::default()/* use setters */);
     /// ```
     pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.user_prompt_data = std::option::Option::Some(v.into());
         self
@@ -2927,7 +3089,8 @@ impl SanitizeUserPromptRequest {
     /// let x = SanitizeUserPromptRequest::new().set_or_clear_user_prompt_data(None::<DataItem>);
     /// ```
     pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.user_prompt_data = v.map(|x| x.into());
         self
@@ -2942,7 +3105,8 @@ impl SanitizeUserPromptRequest {
     /// let x = SanitizeUserPromptRequest::new().set_multi_language_detection_metadata(MultiLanguageDetectionMetadata::default()/* use setters */);
     /// ```
     pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
     {
         self.multi_language_detection_metadata = std::option::Option::Some(v.into());
         self
@@ -2957,8 +3121,12 @@ impl SanitizeUserPromptRequest {
     /// let x = SanitizeUserPromptRequest::new().set_or_clear_multi_language_detection_metadata(Some(MultiLanguageDetectionMetadata::default()/* use setters */));
     /// let x = SanitizeUserPromptRequest::new().set_or_clear_multi_language_detection_metadata(None::<MultiLanguageDetectionMetadata>);
     /// ```
-    pub fn set_or_clear_multi_language_detection_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
+    pub fn set_or_clear_multi_language_detection_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
     {
         self.multi_language_detection_metadata = v.map(|x| x.into());
         self
@@ -2975,7 +3143,6 @@ impl wkt::message::Message for SanitizeUserPromptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeModelResponseRequest {
-
     /// Required. Represents resource name of template
     /// e.g. name=projects/sample-project/locations/us-central1/templates/templ01
     pub name: std::string::String,
@@ -2987,7 +3154,8 @@ pub struct SanitizeModelResponseRequest {
     pub user_prompt: std::string::String,
 
     /// Optional. Metadata related for multi language detection.
-    pub multi_language_detection_metadata: std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
+    pub multi_language_detection_metadata:
+        std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3018,7 +3186,8 @@ impl SanitizeModelResponseRequest {
     /// let x = SanitizeModelResponseRequest::new().set_model_response_data(DataItem::default()/* use setters */);
     /// ```
     pub fn set_model_response_data<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.model_response_data = std::option::Option::Some(v.into());
         self
@@ -3034,7 +3203,8 @@ impl SanitizeModelResponseRequest {
     /// let x = SanitizeModelResponseRequest::new().set_or_clear_model_response_data(None::<DataItem>);
     /// ```
     pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.model_response_data = v.map(|x| x.into());
         self
@@ -3061,7 +3231,8 @@ impl SanitizeModelResponseRequest {
     /// let x = SanitizeModelResponseRequest::new().set_multi_language_detection_metadata(MultiLanguageDetectionMetadata::default()/* use setters */);
     /// ```
     pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
     {
         self.multi_language_detection_metadata = std::option::Option::Some(v.into());
         self
@@ -3076,8 +3247,12 @@ impl SanitizeModelResponseRequest {
     /// let x = SanitizeModelResponseRequest::new().set_or_clear_multi_language_detection_metadata(Some(MultiLanguageDetectionMetadata::default()/* use setters */));
     /// let x = SanitizeModelResponseRequest::new().set_or_clear_multi_language_detection_metadata(None::<MultiLanguageDetectionMetadata>);
     /// ```
-    pub fn set_or_clear_multi_language_detection_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
+    pub fn set_or_clear_multi_language_detection_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
     {
         self.multi_language_detection_metadata = v.map(|x| x.into());
         self
@@ -3094,7 +3269,6 @@ impl wkt::message::Message for SanitizeModelResponseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeUserPromptResponse {
-
     /// Output only. Sanitization Result.
     pub sanitization_result: std::option::Option<crate::model::SanitizationResult>,
 
@@ -3115,7 +3289,8 @@ impl SanitizeUserPromptResponse {
     /// let x = SanitizeUserPromptResponse::new().set_sanitization_result(SanitizationResult::default()/* use setters */);
     /// ```
     pub fn set_sanitization_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SanitizationResult>
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
     {
         self.sanitization_result = std::option::Option::Some(v.into());
         self
@@ -3131,7 +3306,8 @@ impl SanitizeUserPromptResponse {
     /// let x = SanitizeUserPromptResponse::new().set_or_clear_sanitization_result(None::<SanitizationResult>);
     /// ```
     pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SanitizationResult>
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
     {
         self.sanitization_result = v.map(|x| x.into());
         self
@@ -3148,7 +3324,6 @@ impl wkt::message::Message for SanitizeUserPromptResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeModelResponseResponse {
-
     /// Output only. Sanitization Result.
     pub sanitization_result: std::option::Option<crate::model::SanitizationResult>,
 
@@ -3169,7 +3344,8 @@ impl SanitizeModelResponseResponse {
     /// let x = SanitizeModelResponseResponse::new().set_sanitization_result(SanitizationResult::default()/* use setters */);
     /// ```
     pub fn set_sanitization_result<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SanitizationResult>
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
     {
         self.sanitization_result = std::option::Option::Some(v.into());
         self
@@ -3185,7 +3361,8 @@ impl SanitizeModelResponseResponse {
     /// let x = SanitizeModelResponseResponse::new().set_or_clear_sanitization_result(None::<SanitizationResult>);
     /// ```
     pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SanitizationResult>
+    where
+        T: std::convert::Into<crate::model::SanitizationResult>,
     {
         self.sanitization_result = v.map(|x| x.into());
         self
@@ -3202,7 +3379,6 @@ impl wkt::message::Message for SanitizeModelResponseResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizationResult {
-
     /// Output only. Overall filter match state for Sanitization.
     /// The state can have below two values.
     ///
@@ -3216,7 +3392,7 @@ pub struct SanitizationResult {
 
     /// Output only. Results for all filters where the key is the filter name -
     /// either of "csam", "malicious_uris", "rai", "pi_and_jailbreak" ,"sdp".
-    pub filter_results: std::collections::HashMap<std::string::String,crate::model::FilterResult>,
+    pub filter_results: std::collections::HashMap<std::string::String, crate::model::FilterResult>,
 
     /// Output only. A field indicating the outcome of the invocation, irrespective
     /// of match status. It can have the following three values: SUCCESS: All
@@ -3225,7 +3401,8 @@ pub struct SanitizationResult {
     pub invocation_result: crate::model::InvocationResult,
 
     /// Output only. Metadata related to Sanitization.
-    pub sanitization_metadata: std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
+    pub sanitization_metadata:
+        std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3244,7 +3421,10 @@ impl SanitizationResult {
     /// let x0 = SanitizationResult::new().set_filter_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = SanitizationResult::new().set_filter_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_filter_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_filter_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_match_state = v.into();
         self
     }
@@ -3281,7 +3461,10 @@ impl SanitizationResult {
     /// let x1 = SanitizationResult::new().set_invocation_result(InvocationResult::Partial);
     /// let x2 = SanitizationResult::new().set_invocation_result(InvocationResult::Failure);
     /// ```
-    pub fn set_invocation_result<T: std::convert::Into<crate::model::InvocationResult>>(mut self, v: T) -> Self {
+    pub fn set_invocation_result<T: std::convert::Into<crate::model::InvocationResult>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.invocation_result = v.into();
         self
     }
@@ -3295,7 +3478,8 @@ impl SanitizationResult {
     /// let x = SanitizationResult::new().set_sanitization_metadata(SanitizationMetadata::default()/* use setters */);
     /// ```
     pub fn set_sanitization_metadata<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>
+    where
+        T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
     {
         self.sanitization_metadata = std::option::Option::Some(v.into());
         self
@@ -3311,7 +3495,8 @@ impl SanitizationResult {
     /// let x = SanitizationResult::new().set_or_clear_sanitization_metadata(None::<SanitizationMetadata>);
     /// ```
     pub fn set_or_clear_sanitization_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>
+    where
+        T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
     {
         self.sanitization_metadata = v.map(|x| x.into());
         self
@@ -3329,12 +3514,10 @@ pub mod sanitization_result {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Message describing Sanitization metadata.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SanitizationMetadata {
-
         /// Error code if any.
         pub error_code: i64,
 
@@ -3372,7 +3555,10 @@ pub mod sanitization_result {
         /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
         /// let x = SanitizationMetadata::new().set_error_message("example");
         /// ```
-        pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_error_message<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.error_message = v.into();
             self
         }
@@ -3384,7 +3570,10 @@ pub mod sanitization_result {
         /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
         /// let x = SanitizationMetadata::new().set_ignore_partial_invocation_failures(true);
         /// ```
-        pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.ignore_partial_invocation_failures = v.into();
             self
         }
@@ -3401,7 +3590,6 @@ pub mod sanitization_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiLanguageDetectionMetadata {
-
     /// Optional. Optional Source language of the user prompt.
     ///
     /// If multi-language detection is enabled but language is not set in that case
@@ -3438,7 +3626,10 @@ impl MultiLanguageDetectionMetadata {
     /// # use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
     /// let x = MultiLanguageDetectionMetadata::new().set_enable_multi_language_detection(true);
     /// ```
-    pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.enable_multi_language_detection = v.into();
         self
     }
@@ -3454,7 +3645,6 @@ impl wkt::message::Message for MultiLanguageDetectionMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterResult {
-
     /// Encapsulates one of responsible AI, Sensitive Data Protection, Prompt
     /// Injection and Jailbreak, Malicious URI, CSAM, Virus Scan related filter
     /// results.
@@ -3480,8 +3670,12 @@ impl FilterResult {
     /// let x = FilterResult::new().set_filter_result(Some(
     ///     google_cloud_modelarmor_v1::model::filter_result::FilterResult::RaiFilterResult(RaiFilterResult::default().into())));
     /// ```
-    pub fn set_filter_result<T: std::convert::Into<std::option::Option<crate::model::filter_result::FilterResult>>>(mut self, v: T) -> Self
-    {
+    pub fn set_filter_result<
+        T: std::convert::Into<std::option::Option<crate::model::filter_result::FilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = v.into();
         self
     }
@@ -3489,10 +3683,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `RaiFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn rai_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::RaiFilterResult>> {
+    pub fn rai_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RaiFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::RaiFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::RaiFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3515,11 +3713,14 @@ impl FilterResult {
     /// assert!(x.csam_filter_filter_result().is_none());
     /// assert!(x.virus_scan_filter_result().is_none());
     /// ```
-    pub fn set_rai_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::RaiFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_rai_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::RaiFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::RaiFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::RaiFilterResult(v.into()),
         );
         self
     }
@@ -3527,10 +3728,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `SdpFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sdp_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::SdpFilterResult>> {
+    pub fn sdp_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::SdpFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::SdpFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3553,11 +3758,14 @@ impl FilterResult {
     /// assert!(x.csam_filter_filter_result().is_none());
     /// assert!(x.virus_scan_filter_result().is_none());
     /// ```
-    pub fn set_sdp_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::SdpFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_sdp_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::SdpFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::SdpFilterResult(v.into()),
         );
         self
     }
@@ -3565,10 +3773,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `PiAndJailbreakFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pi_and_jailbreak_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::PiAndJailbreakFilterResult>> {
+    pub fn pi_and_jailbreak_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PiAndJailbreakFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3591,11 +3803,14 @@ impl FilterResult {
     /// assert!(x.csam_filter_filter_result().is_none());
     /// assert!(x.virus_scan_filter_result().is_none());
     /// ```
-    pub fn set_pi_and_jailbreak_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::PiAndJailbreakFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_pi_and_jailbreak_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::PiAndJailbreakFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v.into()),
         );
         self
     }
@@ -3603,10 +3818,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `MaliciousUriFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn malicious_uri_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::MaliciousUriFilterResult>> {
+    pub fn malicious_uri_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MaliciousUriFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3629,11 +3848,14 @@ impl FilterResult {
     /// assert!(x.csam_filter_filter_result().is_none());
     /// assert!(x.virus_scan_filter_result().is_none());
     /// ```
-    pub fn set_malicious_uri_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::MaliciousUriFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_malicious_uri_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::MaliciousUriFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v.into()),
         );
         self
     }
@@ -3641,10 +3863,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn csam_filter_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
+    pub fn csam_filter_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3667,11 +3893,14 @@ impl FilterResult {
     /// assert!(x.malicious_uri_filter_result().is_none());
     /// assert!(x.virus_scan_filter_result().is_none());
     /// ```
-    pub fn set_csam_filter_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_csam_filter_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v.into()),
         );
         self
     }
@@ -3679,10 +3908,14 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `VirusScanFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn virus_scan_filter_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::VirusScanFilterResult>> {
+    pub fn virus_scan_filter_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VirusScanFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::VirusScanFilterResult(v) => std::option::Option::Some(v),
+            crate::model::filter_result::FilterResult::VirusScanFilterResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3705,11 +3938,14 @@ impl FilterResult {
     /// assert!(x.malicious_uri_filter_result().is_none());
     /// assert!(x.csam_filter_filter_result().is_none());
     /// ```
-    pub fn set_virus_scan_filter_result<T: std::convert::Into<std::boxed::Box<crate::model::VirusScanFilterResult>>>(mut self, v: T) -> Self {
+    pub fn set_virus_scan_filter_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::VirusScanFilterResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::VirusScanFilterResult(
-                v.into()
-            )
+            crate::model::filter_result::FilterResult::VirusScanFilterResult(v.into()),
         );
         self
     }
@@ -3725,7 +3961,6 @@ impl wkt::message::Message for FilterResult {
 pub mod filter_result {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Encapsulates one of responsible AI, Sensitive Data Protection, Prompt
     /// Injection and Jailbreak, Malicious URI, CSAM, Virus Scan related filter
@@ -3752,7 +3987,6 @@ pub mod filter_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RaiFilterResult {
-
     /// Output only. Reports whether the RAI filter was successfully executed or
     /// not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -3770,7 +4004,10 @@ pub struct RaiFilterResult {
 
     /// The map of RAI filter results where key is RAI filter type - either of
     /// "sexually_explicit", "hate_speech", "harassment", "dangerous".
-    pub rai_filter_type_results: std::collections::HashMap<std::string::String,crate::model::rai_filter_result::RaiFilterTypeResult>,
+    pub rai_filter_type_results: std::collections::HashMap<
+        std::string::String,
+        crate::model::rai_filter_result::RaiFilterTypeResult,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3789,7 +4026,10 @@ impl RaiFilterResult {
     /// let x0 = RaiFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = RaiFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -3809,7 +4049,7 @@ impl RaiFilterResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -3825,7 +4065,10 @@ impl RaiFilterResult {
     /// let x0 = RaiFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = RaiFilterResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -3864,12 +4107,10 @@ pub mod rai_filter_result {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Detailed Filter result for each of the responsible AI Filter Types.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RaiFilterTypeResult {
-
         /// Type of responsible AI filter.
         pub filter_type: crate::model::RaiFilterType,
 
@@ -3897,7 +4138,10 @@ pub mod rai_filter_result {
         /// let x1 = RaiFilterTypeResult::new().set_filter_type(RaiFilterType::HateSpeech);
         /// let x2 = RaiFilterTypeResult::new().set_filter_type(RaiFilterType::Harassment);
         /// ```
-        pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(mut self, v: T) -> Self {
+        pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = v.into();
             self
         }
@@ -3912,7 +4156,12 @@ pub mod rai_filter_result {
         /// let x1 = RaiFilterTypeResult::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
         /// let x2 = RaiFilterTypeResult::new().set_confidence_level(DetectionConfidenceLevel::High);
         /// ```
-        pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(mut self, v: T) -> Self {
+        pub fn set_confidence_level<
+            T: std::convert::Into<crate::model::DetectionConfidenceLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.confidence_level = v.into();
             self
         }
@@ -3926,7 +4175,10 @@ pub mod rai_filter_result {
         /// let x0 = RaiFilterTypeResult::new().set_match_state(FilterMatchState::NoMatchFound);
         /// let x1 = RaiFilterTypeResult::new().set_match_state(FilterMatchState::MatchFound);
         /// ```
-        pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+        pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.match_state = v.into();
             self
         }
@@ -3943,7 +4195,6 @@ pub mod rai_filter_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFilterResult {
-
     /// Either of Sensitive Data Protection Inspect result or Deidentify result.
     pub result: std::option::Option<crate::model::sdp_filter_result::Result>,
 
@@ -3967,8 +4218,12 @@ impl SdpFilterResult {
     /// let x = SdpFilterResult::new().set_result(Some(
     ///     google_cloud_modelarmor_v1::model::sdp_filter_result::Result::InspectResult(SdpInspectResult::default().into())));
     /// ```
-    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::sdp_filter_result::Result>>>(mut self, v: T) -> Self
-    {
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::sdp_filter_result::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = v.into();
         self
     }
@@ -3976,10 +4231,14 @@ impl SdpFilterResult {
     /// The value of [result][crate::model::SdpFilterResult::result]
     /// if it holds a `InspectResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn inspect_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::SdpInspectResult>> {
+    pub fn inspect_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpInspectResult>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_result::Result::InspectResult(v) => std::option::Option::Some(v),
+            crate::model::sdp_filter_result::Result::InspectResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3998,11 +4257,14 @@ impl SdpFilterResult {
     /// assert!(x.inspect_result().is_some());
     /// assert!(x.deidentify_result().is_none());
     /// ```
-    pub fn set_inspect_result<T: std::convert::Into<std::boxed::Box<crate::model::SdpInspectResult>>>(mut self, v: T) -> Self {
+    pub fn set_inspect_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpInspectResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::sdp_filter_result::Result::InspectResult(
-                v.into()
-            )
+            crate::model::sdp_filter_result::Result::InspectResult(v.into()),
         );
         self
     }
@@ -4010,10 +4272,14 @@ impl SdpFilterResult {
     /// The value of [result][crate::model::SdpFilterResult::result]
     /// if it holds a `DeidentifyResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn deidentify_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::SdpDeidentifyResult>> {
+    pub fn deidentify_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpDeidentifyResult>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::sdp_filter_result::Result::DeidentifyResult(v) => std::option::Option::Some(v),
+            crate::model::sdp_filter_result::Result::DeidentifyResult(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -4032,11 +4298,14 @@ impl SdpFilterResult {
     /// assert!(x.deidentify_result().is_some());
     /// assert!(x.inspect_result().is_none());
     /// ```
-    pub fn set_deidentify_result<T: std::convert::Into<std::boxed::Box<crate::model::SdpDeidentifyResult>>>(mut self, v: T) -> Self {
+    pub fn set_deidentify_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpDeidentifyResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::sdp_filter_result::Result::DeidentifyResult(
-                v.into()
-            )
+            crate::model::sdp_filter_result::Result::DeidentifyResult(v.into()),
         );
         self
     }
@@ -4052,7 +4321,6 @@ impl wkt::message::Message for SdpFilterResult {
 pub mod sdp_filter_result {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Either of Sensitive Data Protection Inspect result or Deidentify result.
     #[derive(Clone, Debug, PartialEq)]
@@ -4070,7 +4338,6 @@ pub mod sdp_filter_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpInspectResult {
-
     /// Output only. Reports whether Sensitive Data Protection inspection was
     /// successfully executed or not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -4113,7 +4380,10 @@ impl SdpInspectResult {
     /// let x0 = SdpInspectResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = SdpInspectResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -4133,7 +4403,7 @@ impl SdpInspectResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -4149,7 +4419,10 @@ impl SdpInspectResult {
     /// let x0 = SdpInspectResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = SdpInspectResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -4169,7 +4442,7 @@ impl SdpInspectResult {
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SdpFinding>
+        V: std::convert::Into<crate::model::SdpFinding>,
     {
         use std::iter::Iterator;
         self.findings = v.into_iter().map(|i| i.into()).collect();
@@ -4199,7 +4472,6 @@ impl wkt::message::Message for SdpInspectResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataItem {
-
     /// Either of text or bytes data.
     pub data_item: std::option::Option<crate::model::data_item::DataItem>,
 
@@ -4222,8 +4494,12 @@ impl DataItem {
     /// use google_cloud_modelarmor_v1::model::data_item::DataItem as DataItemOneOf;
     /// let x = DataItem::new().set_data_item(Some(DataItemOneOf::Text("example".to_string())));
     /// ```
-    pub fn set_data_item<T: std::convert::Into<std::option::Option<crate::model::data_item::DataItem>>>(mut self, v: T) -> Self
-    {
+    pub fn set_data_item<
+        T: std::convert::Into<std::option::Option<crate::model::data_item::DataItem>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_item = v.into();
         self
     }
@@ -4253,11 +4529,8 @@ impl DataItem {
     /// assert!(x.byte_item().is_none());
     /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.data_item = std::option::Option::Some(
-            crate::model::data_item::DataItem::Text(
-                v.into()
-            )
-        );
+        self.data_item =
+            std::option::Option::Some(crate::model::data_item::DataItem::Text(v.into()));
         self
     }
 
@@ -4286,12 +4559,12 @@ impl DataItem {
     /// assert!(x.byte_item().is_some());
     /// assert!(x.text().is_none());
     /// ```
-    pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteDataItem>>>(mut self, v: T) -> Self {
-        self.data_item = std::option::Option::Some(
-            crate::model::data_item::DataItem::ByteItem(
-                v.into()
-            )
-        );
+    pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteDataItem>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_item =
+            std::option::Option::Some(crate::model::data_item::DataItem::ByteItem(v.into()));
         self
     }
 }
@@ -4306,7 +4579,6 @@ impl wkt::message::Message for DataItem {
 pub mod data_item {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Either of text or bytes data.
     #[derive(Clone, Debug, PartialEq)]
@@ -4323,7 +4595,6 @@ pub mod data_item {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ByteDataItem {
-
     /// Required. The type of byte data
     pub byte_data_type: crate::model::byte_data_item::ByteItemType,
 
@@ -4348,7 +4619,10 @@ impl ByteDataItem {
     /// let x1 = ByteDataItem::new().set_byte_data_type(ByteItemType::Pdf);
     /// let x2 = ByteDataItem::new().set_byte_data_type(ByteItemType::WordDocument);
     /// ```
-    pub fn set_byte_data_type<T: std::convert::Into<crate::model::byte_data_item::ByteItemType>>(mut self, v: T) -> Self {
+    pub fn set_byte_data_type<T: std::convert::Into<crate::model::byte_data_item::ByteItemType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.byte_data_type = v.into();
         self
     }
@@ -4376,7 +4650,6 @@ impl wkt::message::Message for ByteDataItem {
 pub mod byte_data_item {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Option to specify the type of byte data.
     ///
@@ -4489,7 +4762,9 @@ pub mod byte_data_item {
                 5 => Self::PowerpointDocument,
                 6 => Self::Txt,
                 7 => Self::Csv,
-                _ => Self::UnknownValue(byte_item_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(byte_item_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -4506,7 +4781,9 @@ pub mod byte_data_item {
                 "POWERPOINT_DOCUMENT" => Self::PowerpointDocument,
                 "TXT" => Self::Txt,
                 "CSV" => Self::Csv,
-                _ => Self::UnknownValue(byte_item_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(byte_item_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -4536,7 +4813,8 @@ pub mod byte_data_item {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ByteItemType>::new(
-                ".google.cloud.modelarmor.v1.ByteDataItem.ByteItemType"))
+                ".google.cloud.modelarmor.v1.ByteDataItem.ByteItemType",
+            ))
         }
     }
 }
@@ -4545,7 +4823,6 @@ pub mod byte_data_item {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpDeidentifyResult {
-
     /// Output only. Reports whether Sensitive Data Protection deidentification was
     /// successfully executed or not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -4586,7 +4863,10 @@ impl SdpDeidentifyResult {
     /// let x0 = SdpDeidentifyResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = SdpDeidentifyResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -4606,7 +4886,7 @@ impl SdpDeidentifyResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -4622,7 +4902,10 @@ impl SdpDeidentifyResult {
     /// let x0 = SdpDeidentifyResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = SdpDeidentifyResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -4636,7 +4919,8 @@ impl SdpDeidentifyResult {
     /// let x = SdpDeidentifyResult::new().set_data(DataItem::default()/* use setters */);
     /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.data = std::option::Option::Some(v.into());
         self
@@ -4652,7 +4936,8 @@ impl SdpDeidentifyResult {
     /// let x = SdpDeidentifyResult::new().set_or_clear_data(None::<DataItem>);
     /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DataItem>
+    where
+        T: std::convert::Into<crate::model::DataItem>,
     {
         self.data = v.map(|x| x.into());
         self
@@ -4680,7 +4965,7 @@ impl SdpDeidentifyResult {
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.info_types = v.into_iter().map(|i| i.into()).collect();
@@ -4698,7 +4983,6 @@ impl wkt::message::Message for SdpDeidentifyResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFinding {
-
     /// Name of Sensitive Data Protection info type for this finding.
     pub info_type: std::string::String,
 
@@ -4738,7 +5022,10 @@ impl SdpFinding {
     /// let x1 = SdpFinding::new().set_likelihood(SdpFindingLikelihood::Unlikely);
     /// let x2 = SdpFinding::new().set_likelihood(SdpFindingLikelihood::Possible);
     /// ```
-    pub fn set_likelihood<T: std::convert::Into<crate::model::SdpFindingLikelihood>>(mut self, v: T) -> Self {
+    pub fn set_likelihood<T: std::convert::Into<crate::model::SdpFindingLikelihood>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.likelihood = v.into();
         self
     }
@@ -4752,7 +5039,8 @@ impl SdpFinding {
     /// let x = SdpFinding::new().set_location(SdpFindingLocation::default()/* use setters */);
     /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>
+    where
+        T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
     {
         self.location = std::option::Option::Some(v.into());
         self
@@ -4768,7 +5056,8 @@ impl SdpFinding {
     /// let x = SdpFinding::new().set_or_clear_location(None::<SdpFindingLocation>);
     /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>
+    where
+        T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
     {
         self.location = v.map(|x| x.into());
         self
@@ -4786,12 +5075,10 @@ pub mod sdp_finding {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Location of this Sensitive Data Protection Finding within input content.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SdpFindingLocation {
-
         /// Zero-based byte offsets delimiting the finding.
         /// These are relative to the finding's containing element.
         /// Note that when the content is not textual, this references
@@ -4820,7 +5107,8 @@ pub mod sdp_finding {
         /// let x = SdpFindingLocation::new().set_byte_range(RangeInfo::default()/* use setters */);
         /// ```
         pub fn set_byte_range<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RangeInfo>
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
         {
             self.byte_range = std::option::Option::Some(v.into());
             self
@@ -4836,7 +5124,8 @@ pub mod sdp_finding {
         /// let x = SdpFindingLocation::new().set_or_clear_byte_range(None::<RangeInfo>);
         /// ```
         pub fn set_or_clear_byte_range<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RangeInfo>
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
         {
             self.byte_range = v.map(|x| x.into());
             self
@@ -4851,7 +5140,8 @@ pub mod sdp_finding {
         /// let x = SdpFindingLocation::new().set_codepoint_range(RangeInfo::default()/* use setters */);
         /// ```
         pub fn set_codepoint_range<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RangeInfo>
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
         {
             self.codepoint_range = std::option::Option::Some(v.into());
             self
@@ -4867,7 +5157,8 @@ pub mod sdp_finding {
         /// let x = SdpFindingLocation::new().set_or_clear_codepoint_range(None::<RangeInfo>);
         /// ```
         pub fn set_or_clear_codepoint_range<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RangeInfo>
+        where
+            T: std::convert::Into<crate::model::RangeInfo>,
         {
             self.codepoint_range = v.map(|x| x.into());
             self
@@ -4885,7 +5176,6 @@ pub mod sdp_finding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PiAndJailbreakFilterResult {
-
     /// Output only. Reports whether Prompt injection and Jailbreak filter was
     /// successfully executed or not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -4919,7 +5209,10 @@ impl PiAndJailbreakFilterResult {
     /// let x0 = PiAndJailbreakFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = PiAndJailbreakFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -4939,7 +5232,7 @@ impl PiAndJailbreakFilterResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -4955,7 +5248,10 @@ impl PiAndJailbreakFilterResult {
     /// let x0 = PiAndJailbreakFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = PiAndJailbreakFilterResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -4970,7 +5266,10 @@ impl PiAndJailbreakFilterResult {
     /// let x1 = PiAndJailbreakFilterResult::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
     /// let x2 = PiAndJailbreakFilterResult::new().set_confidence_level(DetectionConfidenceLevel::High);
     /// ```
-    pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(mut self, v: T) -> Self {
+    pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.confidence_level = v.into();
         self
     }
@@ -4986,7 +5285,6 @@ impl wkt::message::Message for PiAndJailbreakFilterResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaliciousUriFilterResult {
-
     /// Output only. Reports whether Malicious URI filter was successfully executed
     /// or not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -5002,7 +5300,8 @@ pub struct MaliciousUriFilterResult {
     pub match_state: crate::model::FilterMatchState,
 
     /// List of Malicious URIs found in data.
-    pub malicious_uri_matched_items: std::vec::Vec<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>,
+    pub malicious_uri_matched_items:
+        std::vec::Vec<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5021,7 +5320,10 @@ impl MaliciousUriFilterResult {
     /// let x0 = MaliciousUriFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = MaliciousUriFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -5041,7 +5343,7 @@ impl MaliciousUriFilterResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -5057,7 +5359,10 @@ impl MaliciousUriFilterResult {
     /// let x0 = MaliciousUriFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = MaliciousUriFilterResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -5077,7 +5382,7 @@ impl MaliciousUriFilterResult {
     pub fn set_malicious_uri_matched_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>
+        V: std::convert::Into<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>,
     {
         use std::iter::Iterator;
         self.malicious_uri_matched_items = v.into_iter().map(|i| i.into()).collect();
@@ -5096,13 +5401,11 @@ pub mod malicious_uri_filter_result {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Information regarding malicious URI and its location within the input
     /// content.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MaliciousUriMatchedItem {
-
         /// Malicious URI.
         pub uri: std::string::String,
 
@@ -5146,7 +5449,7 @@ pub mod malicious_uri_filter_result {
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::RangeInfo>
+            V: std::convert::Into<crate::model::RangeInfo>,
         {
             use std::iter::Iterator;
             self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -5165,7 +5468,6 @@ pub mod malicious_uri_filter_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirusScanFilterResult {
-
     /// Output only. Reports whether Virus Scan was successfully executed or not.
     pub execution_state: crate::model::FilterExecutionState,
 
@@ -5206,7 +5508,10 @@ impl VirusScanFilterResult {
     /// let x0 = VirusScanFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = VirusScanFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -5226,7 +5531,7 @@ impl VirusScanFilterResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -5242,7 +5547,10 @@ impl VirusScanFilterResult {
     /// let x0 = VirusScanFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = VirusScanFilterResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -5257,7 +5565,12 @@ impl VirusScanFilterResult {
     /// let x1 = VirusScanFilterResult::new().set_scanned_content_type(ScannedContentType::Plaintext);
     /// let x2 = VirusScanFilterResult::new().set_scanned_content_type(ScannedContentType::Pdf);
     /// ```
-    pub fn set_scanned_content_type<T: std::convert::Into<crate::model::virus_scan_filter_result::ScannedContentType>>(mut self, v: T) -> Self {
+    pub fn set_scanned_content_type<
+        T: std::convert::Into<crate::model::virus_scan_filter_result::ScannedContentType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.scanned_content_type = v.into();
         self
     }
@@ -5270,7 +5583,8 @@ impl VirusScanFilterResult {
     /// let x = VirusScanFilterResult::new().set_scanned_size(42);
     /// ```
     pub fn set_scanned_size<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.scanned_size = std::option::Option::Some(v.into());
         self
@@ -5285,7 +5599,8 @@ impl VirusScanFilterResult {
     /// let x = VirusScanFilterResult::new().set_or_clear_scanned_size(None::<i32>);
     /// ```
     pub fn set_or_clear_scanned_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.scanned_size = v.map(|x| x.into());
         self
@@ -5306,7 +5621,7 @@ impl VirusScanFilterResult {
     pub fn set_virus_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VirusDetail>
+        V: std::convert::Into<crate::model::VirusDetail>,
     {
         use std::iter::Iterator;
         self.virus_details = v.into_iter().map(|i| i.into()).collect();
@@ -5324,7 +5639,6 @@ impl wkt::message::Message for VirusScanFilterResult {
 pub mod virus_scan_filter_result {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Type of content scanned.
     ///
@@ -5418,7 +5732,9 @@ pub mod virus_scan_filter_result {
                 1 => Self::Unknown,
                 2 => Self::Plaintext,
                 3 => Self::Pdf,
-                _ => Self::UnknownValue(scanned_content_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(scanned_content_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5431,7 +5747,9 @@ pub mod virus_scan_filter_result {
                 "UNKNOWN" => Self::Unknown,
                 "PLAINTEXT" => Self::Plaintext,
                 "PDF" => Self::Pdf,
-                _ => Self::UnknownValue(scanned_content_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(scanned_content_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5457,7 +5775,8 @@ pub mod virus_scan_filter_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScannedContentType>::new(
-                ".google.cloud.modelarmor.v1.VirusScanFilterResult.ScannedContentType"))
+                ".google.cloud.modelarmor.v1.VirusScanFilterResult.ScannedContentType",
+            ))
         }
     }
 }
@@ -5466,7 +5785,6 @@ pub mod virus_scan_filter_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirusDetail {
-
     /// Name of vendor that produced this virus identification.
     pub vendor: std::string::String,
 
@@ -5506,7 +5824,7 @@ impl VirusDetail {
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.names = v.into_iter().map(|i| i.into()).collect();
@@ -5523,7 +5841,10 @@ impl VirusDetail {
     /// let x1 = VirusDetail::new().set_threat_type(ThreatType::VirusOrWorm);
     /// let x2 = VirusDetail::new().set_threat_type(ThreatType::MaliciousProgram);
     /// ```
-    pub fn set_threat_type<T: std::convert::Into<crate::model::virus_detail::ThreatType>>(mut self, v: T) -> Self {
+    pub fn set_threat_type<T: std::convert::Into<crate::model::virus_detail::ThreatType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.threat_type = v.into();
         self
     }
@@ -5539,7 +5860,6 @@ impl wkt::message::Message for VirusDetail {
 pub mod virus_detail {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Defines all the threat types of a virus
     ///
@@ -5613,8 +5933,12 @@ pub mod virus_detail {
                 Self::Unknown => std::option::Option::Some("UNKNOWN"),
                 Self::VirusOrWorm => std::option::Option::Some("VIRUS_OR_WORM"),
                 Self::MaliciousProgram => std::option::Option::Some("MALICIOUS_PROGRAM"),
-                Self::PotentiallyHarmfulContent => std::option::Option::Some("POTENTIALLY_HARMFUL_CONTENT"),
-                Self::PotentiallyUnwantedContent => std::option::Option::Some("POTENTIALLY_UNWANTED_CONTENT"),
+                Self::PotentiallyHarmfulContent => {
+                    std::option::Option::Some("POTENTIALLY_HARMFUL_CONTENT")
+                }
+                Self::PotentiallyUnwantedContent => {
+                    std::option::Option::Some("POTENTIALLY_UNWANTED_CONTENT")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -5642,7 +5966,9 @@ pub mod virus_detail {
                 3 => Self::MaliciousProgram,
                 4 => Self::PotentiallyHarmfulContent,
                 5 => Self::PotentiallyUnwantedContent,
-                _ => Self::UnknownValue(threat_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(threat_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5657,7 +5983,9 @@ pub mod virus_detail {
                 "MALICIOUS_PROGRAM" => Self::MaliciousProgram,
                 "POTENTIALLY_HARMFUL_CONTENT" => Self::PotentiallyHarmfulContent,
                 "POTENTIALLY_UNWANTED_CONTENT" => Self::PotentiallyUnwantedContent,
-                _ => Self::UnknownValue(threat_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(threat_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5685,7 +6013,8 @@ pub mod virus_detail {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ThreatType>::new(
-                ".google.cloud.modelarmor.v1.VirusDetail.ThreatType"))
+                ".google.cloud.modelarmor.v1.VirusDetail.ThreatType",
+            ))
         }
     }
 }
@@ -5694,7 +6023,6 @@ pub mod virus_detail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CsamFilterResult {
-
     /// Output only. Reports whether the CSAM filter was successfully executed or
     /// not.
     pub execution_state: crate::model::FilterExecutionState,
@@ -5725,7 +6053,10 @@ impl CsamFilterResult {
     /// let x0 = CsamFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
     /// let x1 = CsamFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
     /// ```
-    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(mut self, v: T) -> Self {
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_state = v.into();
         self
     }
@@ -5745,7 +6076,7 @@ impl CsamFilterResult {
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageItem>
+        V: std::convert::Into<crate::model::MessageItem>,
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
@@ -5761,7 +6092,10 @@ impl CsamFilterResult {
     /// let x0 = CsamFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
     /// let x1 = CsamFilterResult::new().set_match_state(FilterMatchState::MatchFound);
     /// ```
-    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(mut self, v: T) -> Self {
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.match_state = v.into();
         self
     }
@@ -5777,7 +6111,6 @@ impl wkt::message::Message for CsamFilterResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageItem {
-
     /// Type of message.
     pub message_type: crate::model::message_item::MessageType,
 
@@ -5802,7 +6135,10 @@ impl MessageItem {
     /// let x1 = MessageItem::new().set_message_type(MessageType::Warning);
     /// let x2 = MessageItem::new().set_message_type(MessageType::Error);
     /// ```
-    pub fn set_message_type<T: std::convert::Into<crate::model::message_item::MessageType>>(mut self, v: T) -> Self {
+    pub fn set_message_type<T: std::convert::Into<crate::model::message_item::MessageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.message_type = v.into();
         self
     }
@@ -5830,7 +6166,6 @@ impl wkt::message::Message for MessageItem {
 pub mod message_item {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Option to specify the type of message.
     ///
@@ -5923,7 +6258,9 @@ pub mod message_item {
                 1 => Self::Info,
                 2 => Self::Warning,
                 3 => Self::Error,
-                _ => Self::UnknownValue(message_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                _ => Self::UnknownValue(message_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
             }
         }
     }
@@ -5936,7 +6273,9 @@ pub mod message_item {
                 "INFO" => Self::Info,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(message_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                _ => Self::UnknownValue(message_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
             }
         }
     }
@@ -5962,7 +6301,8 @@ pub mod message_item {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MessageType>::new(
-                ".google.cloud.modelarmor.v1.MessageItem.MessageType"))
+                ".google.cloud.modelarmor.v1.MessageItem.MessageType",
+            ))
         }
     }
 }
@@ -5971,7 +6311,6 @@ pub mod message_item {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RangeInfo {
-
     /// For proto3, value cannot be set to 0 unless the field is optional.
     /// Ref: <https://protobuf.dev/programming-guides/proto3/#default>
     /// Index of first character (inclusive).
@@ -5996,7 +6335,8 @@ impl RangeInfo {
     /// let x = RangeInfo::new().set_start(42);
     /// ```
     pub fn set_start<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.start = std::option::Option::Some(v.into());
         self
@@ -6011,7 +6351,8 @@ impl RangeInfo {
     /// let x = RangeInfo::new().set_or_clear_start(None::<i32>);
     /// ```
     pub fn set_or_clear_start<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.start = v.map(|x| x.into());
         self
@@ -6025,7 +6366,8 @@ impl RangeInfo {
     /// let x = RangeInfo::new().set_end(42);
     /// ```
     pub fn set_end<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.end = std::option::Option::Some(v.into());
         self
@@ -6040,7 +6382,8 @@ impl RangeInfo {
     /// let x = RangeInfo::new().set_or_clear_end(None::<i32>);
     /// ```
     pub fn set_or_clear_end<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.end = v.map(|x| x.into());
         self
@@ -6139,7 +6482,9 @@ impl std::convert::From<i32> for FilterMatchState {
             0 => Self::Unspecified,
             1 => Self::NoMatchFound,
             2 => Self::MatchFound,
-            _ => Self::UnknownValue(filter_match_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(filter_match_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6151,7 +6496,9 @@ impl std::convert::From<&str> for FilterMatchState {
             "FILTER_MATCH_STATE_UNSPECIFIED" => Self::Unspecified,
             "NO_MATCH_FOUND" => Self::NoMatchFound,
             "MATCH_FOUND" => Self::MatchFound,
-            _ => Self::UnknownValue(filter_match_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(filter_match_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6176,7 +6523,8 @@ impl<'de> serde::de::Deserialize<'de> for FilterMatchState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterMatchState>::new(
-            ".google.cloud.modelarmor.v1.FilterMatchState"))
+            ".google.cloud.modelarmor.v1.FilterMatchState",
+        ))
     }
 }
 
@@ -6267,7 +6615,9 @@ impl std::convert::From<i32> for FilterExecutionState {
             0 => Self::Unspecified,
             1 => Self::ExecutionSuccess,
             2 => Self::ExecutionSkipped,
-            _ => Self::UnknownValue(filter_execution_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(filter_execution_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6279,7 +6629,9 @@ impl std::convert::From<&str> for FilterExecutionState {
             "FILTER_EXECUTION_STATE_UNSPECIFIED" => Self::Unspecified,
             "EXECUTION_SUCCESS" => Self::ExecutionSuccess,
             "EXECUTION_SKIPPED" => Self::ExecutionSkipped,
-            _ => Self::UnknownValue(filter_execution_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(filter_execution_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6304,7 +6656,8 @@ impl<'de> serde::de::Deserialize<'de> for FilterExecutionState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterExecutionState>::new(
-            ".google.cloud.modelarmor.v1.FilterExecutionState"))
+            ".google.cloud.modelarmor.v1.FilterExecutionState",
+        ))
     }
 }
 
@@ -6404,7 +6757,9 @@ impl std::convert::From<i32> for RaiFilterType {
             3 => Self::HateSpeech,
             6 => Self::Harassment,
             17 => Self::Dangerous,
-            _ => Self::UnknownValue(rai_filter_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(rai_filter_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6418,7 +6773,9 @@ impl std::convert::From<&str> for RaiFilterType {
             "HATE_SPEECH" => Self::HateSpeech,
             "HARASSMENT" => Self::Harassment,
             "DANGEROUS" => Self::Dangerous,
-            _ => Self::UnknownValue(rai_filter_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(rai_filter_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6445,7 +6802,8 @@ impl<'de> serde::de::Deserialize<'de> for RaiFilterType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RaiFilterType>::new(
-            ".google.cloud.modelarmor.v1.RaiFilterType"))
+            ".google.cloud.modelarmor.v1.RaiFilterType",
+        ))
     }
 }
 
@@ -6513,7 +6871,9 @@ impl DetectionConfidenceLevel {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => std::option::Option::Some("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED"),
+            Self::Unspecified => {
+                std::option::Option::Some("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED")
+            }
             Self::LowAndAbove => std::option::Option::Some("LOW_AND_ABOVE"),
             Self::MediumAndAbove => std::option::Option::Some("MEDIUM_AND_ABOVE"),
             Self::High => std::option::Option::Some("HIGH"),
@@ -6542,7 +6902,9 @@ impl std::convert::From<i32> for DetectionConfidenceLevel {
             1 => Self::LowAndAbove,
             2 => Self::MediumAndAbove,
             3 => Self::High,
-            _ => Self::UnknownValue(detection_confidence_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(detection_confidence_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6555,7 +6917,9 @@ impl std::convert::From<&str> for DetectionConfidenceLevel {
             "LOW_AND_ABOVE" => Self::LowAndAbove,
             "MEDIUM_AND_ABOVE" => Self::MediumAndAbove,
             "HIGH" => Self::High,
-            _ => Self::UnknownValue(detection_confidence_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(detection_confidence_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6581,7 +6945,8 @@ impl<'de> serde::de::Deserialize<'de> for DetectionConfidenceLevel {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetectionConfidenceLevel>::new(
-            ".google.cloud.modelarmor.v1.DetectionConfidenceLevel"))
+            ".google.cloud.modelarmor.v1.DetectionConfidenceLevel",
+        ))
     }
 }
 
@@ -6687,7 +7052,9 @@ impl std::convert::From<i32> for SdpFindingLikelihood {
             3 => Self::Possible,
             4 => Self::Likely,
             5 => Self::VeryLikely,
-            _ => Self::UnknownValue(sdp_finding_likelihood::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(sdp_finding_likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6702,7 +7069,9 @@ impl std::convert::From<&str> for SdpFindingLikelihood {
             "POSSIBLE" => Self::Possible,
             "LIKELY" => Self::Likely,
             "VERY_LIKELY" => Self::VeryLikely,
-            _ => Self::UnknownValue(sdp_finding_likelihood::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(sdp_finding_likelihood::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6730,7 +7099,8 @@ impl<'de> serde::de::Deserialize<'de> for SdpFindingLikelihood {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SdpFindingLikelihood>::new(
-            ".google.cloud.modelarmor.v1.SdpFindingLikelihood"))
+            ".google.cloud.modelarmor.v1.SdpFindingLikelihood",
+        ))
     }
 }
 
@@ -6826,7 +7196,9 @@ impl std::convert::From<i32> for InvocationResult {
             1 => Self::Success,
             2 => Self::Partial,
             3 => Self::Failure,
-            _ => Self::UnknownValue(invocation_result::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            _ => Self::UnknownValue(invocation_result::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
         }
     }
 }
@@ -6839,7 +7211,9 @@ impl std::convert::From<&str> for InvocationResult {
             "SUCCESS" => Self::Success,
             "PARTIAL" => Self::Partial,
             "FAILURE" => Self::Failure,
-            _ => Self::UnknownValue(invocation_result::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            _ => Self::UnknownValue(invocation_result::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
         }
     }
 }
@@ -6865,6 +7239,7 @@ impl<'de> serde::de::Deserialize<'de> for InvocationResult {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<InvocationResult>::new(
-            ".google.cloud.modelarmor.v1.InvocationResult"))
+            ".google.cloud.modelarmor.v1.InvocationResult",
+        ))
     }
 }

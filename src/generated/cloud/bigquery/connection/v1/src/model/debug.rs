@@ -194,7 +194,10 @@ impl std::fmt::Debug for super::AzureProperties {
         debug_struct.field("object_id", &self.object_id);
         debug_struct.field("customer_tenant_id", &self.customer_tenant_id);
         debug_struct.field("redirect_uri", &self.redirect_uri);
-        debug_struct.field("federated_application_client_id", &self.federated_application_client_id);
+        debug_struct.field(
+            "federated_application_client_id",
+            &self.federated_application_client_id,
+        );
         debug_struct.field("identity", &self.identity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -241,7 +244,10 @@ impl std::fmt::Debug for super::SparkProperties {
         let mut debug_struct = f.debug_struct("SparkProperties");
         debug_struct.field("service_account_id", &self.service_account_id);
         debug_struct.field("metastore_service_config", &self.metastore_service_config);
-        debug_struct.field("spark_history_server_config", &self.spark_history_server_config);
+        debug_struct.field(
+            "spark_history_server_config",
+            &self.spark_history_server_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

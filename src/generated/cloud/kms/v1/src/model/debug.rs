@@ -243,7 +243,10 @@ impl std::fmt::Debug for super::Certificate {
         debug_struct.field("parsed", &self.parsed);
         debug_struct.field("issuer", &self.issuer);
         debug_struct.field("subject", &self.subject);
-        debug_struct.field("subject_alternative_dns_names", &self.subject_alternative_dns_names);
+        debug_struct.field(
+            "subject_alternative_dns_names",
+            &self.subject_alternative_dns_names,
+        );
         debug_struct.field("not_before_time", &self.not_before_time);
         debug_struct.field("not_after_time", &self.not_after_time);
         debug_struct.field("serial_number", &self.serial_number);
@@ -341,9 +344,15 @@ impl std::fmt::Debug for super::CryptoKey {
         debug_struct.field("version_template", &self.version_template);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("import_only", &self.import_only);
-        debug_struct.field("destroy_scheduled_duration", &self.destroy_scheduled_duration);
+        debug_struct.field(
+            "destroy_scheduled_duration",
+            &self.destroy_scheduled_duration,
+        );
         debug_struct.field("crypto_key_backend", &self.crypto_key_backend);
-        debug_struct.field("key_access_justifications_policy", &self.key_access_justifications_policy);
+        debug_struct.field(
+            "key_access_justifications_policy",
+            &self.key_access_justifications_policy,
+        );
         debug_struct.field("rotation_schedule", &self.rotation_schedule);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -351,7 +360,6 @@ impl std::fmt::Debug for super::CryptoKey {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::CryptoKeyVersionTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -407,8 +415,14 @@ impl std::fmt::Debug for super::CryptoKeyVersion {
         debug_struct.field("import_time", &self.import_time);
         debug_struct.field("import_failure_reason", &self.import_failure_reason);
         debug_struct.field("generation_failure_reason", &self.generation_failure_reason);
-        debug_struct.field("external_destruction_failure_reason", &self.external_destruction_failure_reason);
-        debug_struct.field("external_protection_level_options", &self.external_protection_level_options);
+        debug_struct.field(
+            "external_destruction_failure_reason",
+            &self.external_destruction_failure_reason,
+        );
+        debug_struct.field(
+            "external_protection_level_options",
+            &self.external_protection_level_options,
+        );
         debug_struct.field("reimport_eligible", &self.reimport_eligible);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -689,7 +703,10 @@ impl std::fmt::Debug for super::CreateCryptoKeyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("crypto_key_id", &self.crypto_key_id);
         debug_struct.field("crypto_key", &self.crypto_key);
-        debug_struct.field("skip_initial_version_creation", &self.skip_initial_version_creation);
+        debug_struct.field(
+            "skip_initial_version_creation",
+            &self.skip_initial_version_creation,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -801,9 +818,15 @@ impl std::fmt::Debug for super::EncryptRequest {
         let mut debug_struct = f.debug_struct("EncryptRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("plaintext", &self.plaintext);
-        debug_struct.field("additional_authenticated_data", &self.additional_authenticated_data);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
         debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
-        debug_struct.field("additional_authenticated_data_crc32c", &self.additional_authenticated_data_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -816,9 +839,15 @@ impl std::fmt::Debug for super::DecryptRequest {
         let mut debug_struct = f.debug_struct("DecryptRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("ciphertext", &self.ciphertext);
-        debug_struct.field("additional_authenticated_data", &self.additional_authenticated_data);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
         debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
-        debug_struct.field("additional_authenticated_data_crc32c", &self.additional_authenticated_data_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -831,11 +860,20 @@ impl std::fmt::Debug for super::RawEncryptRequest {
         let mut debug_struct = f.debug_struct("RawEncryptRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("plaintext", &self.plaintext);
-        debug_struct.field("additional_authenticated_data", &self.additional_authenticated_data);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
         debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
-        debug_struct.field("additional_authenticated_data_crc32c", &self.additional_authenticated_data_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
         debug_struct.field("initialization_vector", &self.initialization_vector);
-        debug_struct.field("initialization_vector_crc32c", &self.initialization_vector_crc32c);
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -848,12 +886,21 @@ impl std::fmt::Debug for super::RawDecryptRequest {
         let mut debug_struct = f.debug_struct("RawDecryptRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("ciphertext", &self.ciphertext);
-        debug_struct.field("additional_authenticated_data", &self.additional_authenticated_data);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
         debug_struct.field("initialization_vector", &self.initialization_vector);
         debug_struct.field("tag_length", &self.tag_length);
         debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
-        debug_struct.field("additional_authenticated_data_crc32c", &self.additional_authenticated_data_crc32c);
-        debug_struct.field("initialization_vector_crc32c", &self.initialization_vector_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -950,7 +997,10 @@ impl std::fmt::Debug for super::EncryptResponse {
         debug_struct.field("ciphertext", &self.ciphertext);
         debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
         debug_struct.field("verified_plaintext_crc32c", &self.verified_plaintext_crc32c);
-        debug_struct.field("verified_additional_authenticated_data_crc32c", &self.verified_additional_authenticated_data_crc32c);
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -980,10 +1030,19 @@ impl std::fmt::Debug for super::RawEncryptResponse {
         debug_struct.field("initialization_vector", &self.initialization_vector);
         debug_struct.field("tag_length", &self.tag_length);
         debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
-        debug_struct.field("initialization_vector_crc32c", &self.initialization_vector_crc32c);
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
         debug_struct.field("verified_plaintext_crc32c", &self.verified_plaintext_crc32c);
-        debug_struct.field("verified_additional_authenticated_data_crc32c", &self.verified_additional_authenticated_data_crc32c);
-        debug_struct.field("verified_initialization_vector_crc32c", &self.verified_initialization_vector_crc32c);
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "verified_initialization_vector_crc32c",
+            &self.verified_initialization_vector_crc32c,
+        );
         debug_struct.field("name", &self.name);
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {
@@ -999,9 +1058,18 @@ impl std::fmt::Debug for super::RawDecryptResponse {
         debug_struct.field("plaintext", &self.plaintext);
         debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
         debug_struct.field("protection_level", &self.protection_level);
-        debug_struct.field("verified_ciphertext_crc32c", &self.verified_ciphertext_crc32c);
-        debug_struct.field("verified_additional_authenticated_data_crc32c", &self.verified_additional_authenticated_data_crc32c);
-        debug_struct.field("verified_initialization_vector_crc32c", &self.verified_initialization_vector_crc32c);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
+        );
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "verified_initialization_vector_crc32c",
+            &self.verified_initialization_vector_crc32c,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1030,7 +1098,10 @@ impl std::fmt::Debug for super::AsymmetricDecryptResponse {
         let mut debug_struct = f.debug_struct("AsymmetricDecryptResponse");
         debug_struct.field("plaintext", &self.plaintext);
         debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
-        debug_struct.field("verified_ciphertext_crc32c", &self.verified_ciphertext_crc32c);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
+        );
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1061,7 +1132,10 @@ impl std::fmt::Debug for super::MacVerifyResponse {
         debug_struct.field("success", &self.success);
         debug_struct.field("verified_data_crc32c", &self.verified_data_crc32c);
         debug_struct.field("verified_mac_crc32c", &self.verified_mac_crc32c);
-        debug_struct.field("verified_success_integrity", &self.verified_success_integrity);
+        debug_struct.field(
+            "verified_success_integrity",
+            &self.verified_success_integrity,
+        );
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1076,7 +1150,10 @@ impl std::fmt::Debug for super::DecapsulateResponse {
         debug_struct.field("name", &self.name);
         debug_struct.field("shared_secret", &self.shared_secret);
         debug_struct.field("shared_secret_crc32c", &self.shared_secret_crc32c);
-        debug_struct.field("verified_ciphertext_crc32c", &self.verified_ciphertext_crc32c);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
+        );
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

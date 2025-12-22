@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [MigrationCenter](super::stub::MigrationCenter) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MigrationCenter<T>
-where T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> MigrationCenter<T>
-where T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MigrationCenter for MigrationCenter<T>
-where T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_assets(
         &self,
@@ -517,7 +523,6 @@ where T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -532,4 +537,3 @@ where T: super::stub::MigrationCenter + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [IamChecker](super::stub::IamChecker) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IamChecker<T>
-where T: super::stub::IamChecker + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IamChecker + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> IamChecker<T>
-where T: super::stub::IamChecker + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IamChecker + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IamChecker for IamChecker<T>
-where T: super::stub::IamChecker + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::IamChecker + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn troubleshoot_iam_policy(
         &self,
@@ -39,6 +45,4 @@ where T: super::stub::IamChecker + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         self.inner.troubleshoot_iam_policy(req, options).await
     }
-
 }
-

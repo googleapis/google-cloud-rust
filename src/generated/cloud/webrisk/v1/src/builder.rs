@@ -39,7 +39,10 @@ pub mod web_risk_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = WebRiskService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod web_risk_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod web_risk_service {
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
     impl ComputeThreatListDiff {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ComputeThreatListDiffRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ComputeThreatListDiffRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ComputeThreatListDiffResponse> {
-            (*self.0.stub).compute_threat_list_diff(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .compute_threat_list_diff(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
@@ -126,7 +139,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_constraints<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
         {
             self.0.request.constraints = std::option::Option::Some(v.into());
             self
@@ -136,7 +150,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
         {
             self.0.request.constraints = v.map(|x| x.into());
             self
@@ -171,10 +186,10 @@ pub mod web_risk_service {
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
     impl SearchUris {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -191,7 +206,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchUrisResponse> {
-            (*self.0.stub).search_uris(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_uris(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
@@ -208,7 +226,7 @@ pub mod web_risk_service {
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ThreatType>
+            V: std::convert::Into<crate::model::ThreatType>,
         {
             use std::iter::Iterator;
             self.0.request.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -244,10 +262,10 @@ pub mod web_risk_service {
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
     impl SearchHashes {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -264,7 +282,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchHashesResponse> {
-            (*self.0.stub).search_hashes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .search_hashes(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
@@ -279,7 +300,7 @@ pub mod web_risk_service {
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ThreatType>
+            V: std::convert::Into<crate::model::ThreatType>,
         {
             use std::iter::Iterator;
             self.0.request.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -315,14 +336,17 @@ pub mod web_risk_service {
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
     impl CreateSubmission {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSubmissionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSubmissionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -335,7 +359,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Submission> {
-            (*self.0.stub).create_submission(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_submission(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
@@ -350,7 +377,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_submission<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Submission>
+        where
+            T: std::convert::Into<crate::model::Submission>,
         {
             self.0.request.submission = std::option::Option::Some(v.into());
             self
@@ -360,7 +388,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Submission>
+        where
+            T: std::convert::Into<crate::model::Submission>,
         {
             self.0.request.submission = v.map(|x| x.into());
             self
@@ -396,10 +425,10 @@ pub mod web_risk_service {
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
     impl SubmitUri {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -421,16 +450,18 @@ pub mod web_risk_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [submit_uri][crate::client::WebRiskService::submit_uri].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).submit_uri(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .submit_uri(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `submit_uri`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::Submission, crate::model::SubmitUriMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::Submission, crate::model::SubmitUriMetadata>;
+            self,
+        ) -> impl lro::Poller<crate::model::Submission, crate::model::SubmitUriMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Submission, crate::model::SubmitUriMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -470,7 +501,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_submission<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Submission>
+        where
+            T: std::convert::Into<crate::model::Submission>,
         {
             self.0.request.submission = std::option::Option::Some(v.into());
             self
@@ -480,7 +512,8 @@ pub mod web_risk_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Submission>
+        where
+            T: std::convert::Into<crate::model::Submission>,
         {
             self.0.request.submission = v.map(|x| x.into());
             self
@@ -488,7 +521,8 @@ pub mod web_risk_service {
 
         /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
         pub fn set_threat_info<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ThreatInfo>
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
         {
             self.0.request.threat_info = std::option::Option::Some(v.into());
             self
@@ -496,7 +530,8 @@ pub mod web_risk_service {
 
         /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
         pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ThreatInfo>
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
         {
             self.0.request.threat_info = v.map(|x| x.into());
             self
@@ -504,7 +539,8 @@ pub mod web_risk_service {
 
         /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
         pub fn set_threat_discovery<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ThreatDiscovery>
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
         {
             self.0.request.threat_discovery = std::option::Option::Some(v.into());
             self
@@ -512,7 +548,8 @@ pub mod web_risk_service {
 
         /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
         pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ThreatDiscovery>
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
         {
             self.0.request.threat_discovery = v.map(|x| x.into());
             self
@@ -551,14 +588,17 @@ pub mod web_risk_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -571,11 +611,17 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -587,7 +633,12 @@ pub mod web_risk_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -651,14 +702,17 @@ pub mod web_risk_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -671,7 +725,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -709,14 +766,17 @@ pub mod web_risk_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -729,7 +789,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -767,14 +830,17 @@ pub mod web_risk_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -787,7 +853,10 @@ pub mod web_risk_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -803,5 +872,4 @@ pub mod web_risk_service {
             &mut self.0.options
         }
     }
-
 }

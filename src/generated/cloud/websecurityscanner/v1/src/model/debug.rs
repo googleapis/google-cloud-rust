@@ -179,7 +179,10 @@ impl std::fmt::Debug for super::ScanConfig {
         debug_struct.field("user_agent", &self.user_agent);
         debug_struct.field("blacklist_patterns", &self.blacklist_patterns);
         debug_struct.field("schedule", &self.schedule);
-        debug_struct.field("export_to_security_command_center", &self.export_to_security_command_center);
+        debug_struct.field(
+            "export_to_security_command_center",
+            &self.export_to_security_command_center,
+        );
         debug_struct.field("risk_level", &self.risk_level);
         debug_struct.field("managed_scan", &self.managed_scan);
         debug_struct.field("static_ip_scan", &self.static_ip_scan);
@@ -238,7 +241,9 @@ impl std::fmt::Debug for super::scan_config::authentication::IapCredential {
     }
 }
 
-impl std::fmt::Debug for super::scan_config::authentication::iap_credential::IapTestServiceAccountInfo {
+impl std::fmt::Debug
+    for super::scan_config::authentication::iap_credential::IapTestServiceAccountInfo
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IapTestServiceAccountInfo");
         debug_struct.field("target_audience_client_id", &self.target_audience_client_id);
@@ -299,7 +304,10 @@ impl std::fmt::Debug for super::ScanRunErrorTrace {
         let mut debug_struct = f.debug_struct("ScanRunErrorTrace");
         debug_struct.field("code", &self.code);
         debug_struct.field("scan_config_error", &self.scan_config_error);
-        debug_struct.field("most_common_http_error_code", &self.most_common_http_error_code);
+        debug_struct.field(
+            "most_common_http_error_code",
+            &self.most_common_http_error_code,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

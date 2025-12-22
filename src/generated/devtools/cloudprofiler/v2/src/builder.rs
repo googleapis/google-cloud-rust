@@ -39,7 +39,10 @@ pub mod profiler_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ProfilerService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod profiler_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,10 +92,10 @@ pub mod profiler_service {
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
     impl CreateProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod profiler_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Profile> {
-            (*self.0.stub).create_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProfileRequest::parent].
@@ -116,7 +126,8 @@ pub mod profiler_service {
 
         /// Sets the value of [deployment][crate::model::CreateProfileRequest::deployment].
         pub fn set_deployment<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = std::option::Option::Some(v.into());
             self
@@ -124,7 +135,8 @@ pub mod profiler_service {
 
         /// Sets or clears the value of [deployment][crate::model::CreateProfileRequest::deployment].
         pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Deployment>
+        where
+            T: std::convert::Into<crate::model::Deployment>,
         {
             self.0.request.deployment = v.map(|x| x.into());
             self
@@ -134,7 +146,7 @@ pub mod profiler_service {
         pub fn set_profile_type<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ProfileType>
+            V: std::convert::Into<crate::model::ProfileType>,
         {
             use std::iter::Iterator;
             self.0.request.profile_type = v.into_iter().map(|i| i.into()).collect();
@@ -170,14 +182,17 @@ pub mod profiler_service {
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
     impl CreateOfflineProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateOfflineProfileRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateOfflineProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -190,7 +205,10 @@ pub mod profiler_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Profile> {
-            (*self.0.stub).create_offline_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_offline_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateOfflineProfileRequest::parent].
@@ -201,7 +219,8 @@ pub mod profiler_service {
 
         /// Sets the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
         pub fn set_profile<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Profile>
+        where
+            T: std::convert::Into<crate::model::Profile>,
         {
             self.0.request.profile = std::option::Option::Some(v.into());
             self
@@ -209,7 +228,8 @@ pub mod profiler_service {
 
         /// Sets or clears the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
         pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Profile>
+        where
+            T: std::convert::Into<crate::model::Profile>,
         {
             self.0.request.profile = v.map(|x| x.into());
             self
@@ -244,10 +264,10 @@ pub mod profiler_service {
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
     impl UpdateProfile {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -264,12 +284,16 @@ pub mod profiler_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Profile> {
-            (*self.0.stub).update_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_profile(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
         pub fn set_profile<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Profile>
+        where
+            T: std::convert::Into<crate::model::Profile>,
         {
             self.0.request.profile = std::option::Option::Some(v.into());
             self
@@ -277,7 +301,8 @@ pub mod profiler_service {
 
         /// Sets or clears the value of [profile][crate::model::UpdateProfileRequest::profile].
         pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Profile>
+        where
+            T: std::convert::Into<crate::model::Profile>,
         {
             self.0.request.profile = v.map(|x| x.into());
             self
@@ -285,7 +310,8 @@ pub mod profiler_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -293,7 +319,8 @@ pub mod profiler_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -306,7 +333,6 @@ pub mod profiler_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod export_service {
@@ -334,7 +360,10 @@ pub mod export_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ExportService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -349,8 +378,12 @@ pub mod export_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -384,10 +417,10 @@ pub mod export_service {
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 
     impl ListProfiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -404,11 +437,17 @@ pub mod export_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProfilesResponse> {
-            (*self.0.stub).list_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_profiles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProfilesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListProfilesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -420,7 +459,10 @@ pub mod export_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProfilesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProfilesResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -452,5 +494,4 @@ pub mod export_service {
             &mut self.0.options
         }
     }
-
 }

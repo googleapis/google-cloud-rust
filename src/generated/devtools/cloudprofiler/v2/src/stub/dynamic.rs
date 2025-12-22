@@ -34,7 +34,6 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateProfileRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Profile>>;
-
 }
 
 /// All implementations of [super::ProfilerService] also implement [ProfilerService].
@@ -66,7 +65,6 @@ impl<T: super::ProfilerService> ProfilerService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Profile>> {
         T::update_profile(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::ExportService].
@@ -77,7 +75,6 @@ pub trait ExportService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListProfilesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>;
-
 }
 
 /// All implementations of [super::ExportService] also implement [ExportService].
@@ -91,5 +88,4 @@ impl<T: super::ExportService> ExportService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListProfilesResponse>> {
         T::list_profiles(self, req, options).await
     }
-
 }

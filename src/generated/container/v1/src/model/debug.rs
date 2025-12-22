@@ -23,9 +23,18 @@ impl std::fmt::Debug for super::LinuxNodeConfig {
         debug_struct.field("sysctls", &self.sysctls);
         debug_struct.field("cgroup_mode", &self.cgroup_mode);
         debug_struct.field("hugepages", &self.hugepages);
-        debug_struct.field("transparent_hugepage_enabled", &self.transparent_hugepage_enabled);
-        debug_struct.field("transparent_hugepage_defrag", &self.transparent_hugepage_defrag);
-        debug_struct.field("node_kernel_module_loading", &self.node_kernel_module_loading);
+        debug_struct.field(
+            "transparent_hugepage_enabled",
+            &self.transparent_hugepage_enabled,
+        );
+        debug_struct.field(
+            "transparent_hugepage_defrag",
+            &self.transparent_hugepage_defrag,
+        );
+        debug_struct.field(
+            "node_kernel_module_loading",
+            &self.node_kernel_module_loading,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -56,7 +65,6 @@ impl std::fmt::Debug for super::linux_node_config::NodeKernelModuleLoading {
     }
 }
 
-
 impl std::fmt::Debug for super::WindowsNodeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsNodeConfig");
@@ -77,18 +85,33 @@ impl std::fmt::Debug for super::NodeKubeletConfig {
         debug_struct.field("cpu_cfs_quota", &self.cpu_cfs_quota);
         debug_struct.field("cpu_cfs_quota_period", &self.cpu_cfs_quota_period);
         debug_struct.field("pod_pids_limit", &self.pod_pids_limit);
-        debug_struct.field("insecure_kubelet_readonly_port_enabled", &self.insecure_kubelet_readonly_port_enabled);
-        debug_struct.field("image_gc_low_threshold_percent", &self.image_gc_low_threshold_percent);
-        debug_struct.field("image_gc_high_threshold_percent", &self.image_gc_high_threshold_percent);
+        debug_struct.field(
+            "insecure_kubelet_readonly_port_enabled",
+            &self.insecure_kubelet_readonly_port_enabled,
+        );
+        debug_struct.field(
+            "image_gc_low_threshold_percent",
+            &self.image_gc_low_threshold_percent,
+        );
+        debug_struct.field(
+            "image_gc_high_threshold_percent",
+            &self.image_gc_high_threshold_percent,
+        );
         debug_struct.field("image_minimum_gc_age", &self.image_minimum_gc_age);
         debug_struct.field("image_maximum_gc_age", &self.image_maximum_gc_age);
         debug_struct.field("container_log_max_size", &self.container_log_max_size);
         debug_struct.field("container_log_max_files", &self.container_log_max_files);
         debug_struct.field("allowed_unsafe_sysctls", &self.allowed_unsafe_sysctls);
         debug_struct.field("eviction_soft", &self.eviction_soft);
-        debug_struct.field("eviction_soft_grace_period", &self.eviction_soft_grace_period);
+        debug_struct.field(
+            "eviction_soft_grace_period",
+            &self.eviction_soft_grace_period,
+        );
         debug_struct.field("eviction_minimum_reclaim", &self.eviction_minimum_reclaim);
-        debug_struct.field("eviction_max_pod_grace_period_seconds", &self.eviction_max_pod_grace_period_seconds);
+        debug_struct.field(
+            "eviction_max_pod_grace_period_seconds",
+            &self.eviction_max_pod_grace_period_seconds,
+        );
         debug_struct.field("max_parallel_image_pulls", &self.max_parallel_image_pulls);
         debug_struct.field("single_process_oom_kill", &self.single_process_oom_kill);
         if !self._unknown_fields.is_empty() {
@@ -203,15 +226,27 @@ impl std::fmt::Debug for super::NodeConfig {
         debug_struct.field("resource_labels", &self.resource_labels);
         debug_struct.field("logging_config", &self.logging_config);
         debug_struct.field("windows_node_config", &self.windows_node_config);
-        debug_struct.field("local_nvme_ssd_block_config", &self.local_nvme_ssd_block_config);
-        debug_struct.field("ephemeral_storage_local_ssd_config", &self.ephemeral_storage_local_ssd_config);
+        debug_struct.field(
+            "local_nvme_ssd_block_config",
+            &self.local_nvme_ssd_block_config,
+        );
+        debug_struct.field(
+            "ephemeral_storage_local_ssd_config",
+            &self.ephemeral_storage_local_ssd_config,
+        );
         debug_struct.field("sole_tenant_config", &self.sole_tenant_config);
         debug_struct.field("containerd_config", &self.containerd_config);
         debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
-        debug_struct.field("enable_confidential_storage", &self.enable_confidential_storage);
+        debug_struct.field(
+            "enable_confidential_storage",
+            &self.enable_confidential_storage,
+        );
         debug_struct.field("secondary_boot_disks", &self.secondary_boot_disks);
         debug_struct.field("storage_pools", &self.storage_pools);
-        debug_struct.field("secondary_boot_disk_update_strategy", &self.secondary_boot_disk_update_strategy);
+        debug_struct.field(
+            "secondary_boot_disk_update_strategy",
+            &self.secondary_boot_disk_update_strategy,
+        );
         debug_struct.field("max_run_duration", &self.max_run_duration);
         debug_struct.field("local_ssd_encryption_mode", &self.local_ssd_encryption_mode);
         debug_struct.field("effective_cgroup_mode", &self.effective_cgroup_mode);
@@ -224,15 +259,18 @@ impl std::fmt::Debug for super::NodeConfig {
     }
 }
 
-
-
-
 impl std::fmt::Debug for super::AdvancedMachineFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdvancedMachineFeatures");
         debug_struct.field("threads_per_core", &self.threads_per_core);
-        debug_struct.field("enable_nested_virtualization", &self.enable_nested_virtualization);
-        debug_struct.field("performance_monitoring_unit", &self.performance_monitoring_unit);
+        debug_struct.field(
+            "enable_nested_virtualization",
+            &self.enable_nested_virtualization,
+        );
+        debug_struct.field(
+            "performance_monitoring_unit",
+            &self.performance_monitoring_unit,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -247,11 +285,26 @@ impl std::fmt::Debug for super::NodeNetworkConfig {
         debug_struct.field("pod_range", &self.pod_range);
         debug_struct.field("pod_ipv4_cidr_block", &self.pod_ipv4_cidr_block);
         debug_struct.field("enable_private_nodes", &self.enable_private_nodes);
-        debug_struct.field("network_performance_config", &self.network_performance_config);
-        debug_struct.field("pod_cidr_overprovision_config", &self.pod_cidr_overprovision_config);
-        debug_struct.field("additional_node_network_configs", &self.additional_node_network_configs);
-        debug_struct.field("additional_pod_network_configs", &self.additional_pod_network_configs);
-        debug_struct.field("pod_ipv4_range_utilization", &self.pod_ipv4_range_utilization);
+        debug_struct.field(
+            "network_performance_config",
+            &self.network_performance_config,
+        );
+        debug_struct.field(
+            "pod_cidr_overprovision_config",
+            &self.pod_cidr_overprovision_config,
+        );
+        debug_struct.field(
+            "additional_node_network_configs",
+            &self.additional_node_network_configs,
+        );
+        debug_struct.field(
+            "additional_pod_network_configs",
+            &self.additional_pod_network_configs,
+        );
+        debug_struct.field(
+            "pod_ipv4_range_utilization",
+            &self.pod_ipv4_range_utilization,
+        );
         debug_struct.field("subnetwork", &self.subnetwork);
         debug_struct.field("network_tier_config", &self.network_tier_config);
         if !self._unknown_fields.is_empty() {
@@ -264,7 +317,10 @@ impl std::fmt::Debug for super::NodeNetworkConfig {
 impl std::fmt::Debug for super::node_network_config::NetworkPerformanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkPerformanceConfig");
-        debug_struct.field("total_egress_bandwidth_tier", &self.total_egress_bandwidth_tier);
+        debug_struct.field(
+            "total_egress_bandwidth_tier",
+            &self.total_egress_bandwidth_tier,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -301,7 +357,10 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
         debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
-        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -372,7 +431,10 @@ impl std::fmt::Debug for super::sole_tenant_config::NodeAffinity {
 impl std::fmt::Debug for super::ContainerdConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerdConfig");
-        debug_struct.field("private_registry_access_config", &self.private_registry_access_config);
+        debug_struct.field(
+            "private_registry_access_config",
+            &self.private_registry_access_config,
+        );
         debug_struct.field("writable_cgroups", &self.writable_cgroups);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -385,7 +447,10 @@ impl std::fmt::Debug for super::containerd_config::PrivateRegistryAccessConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateRegistryAccessConfig");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("certificate_authority_domain_config", &self.certificate_authority_domain_config);
+        debug_struct.field(
+            "certificate_authority_domain_config",
+            &self.certificate_authority_domain_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -393,7 +458,9 @@ impl std::fmt::Debug for super::containerd_config::PrivateRegistryAccessConfig {
     }
 }
 
-impl std::fmt::Debug for super::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig {
+impl std::fmt::Debug
+    for super::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateAuthorityDomainConfig");
         debug_struct.field("fqdns", &self.fqdns);
@@ -515,20 +582,38 @@ impl std::fmt::Debug for super::AddonsConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddonsConfig");
         debug_struct.field("http_load_balancing", &self.http_load_balancing);
-        debug_struct.field("horizontal_pod_autoscaling", &self.horizontal_pod_autoscaling);
+        debug_struct.field(
+            "horizontal_pod_autoscaling",
+            &self.horizontal_pod_autoscaling,
+        );
         debug_struct.field("kubernetes_dashboard", &self.kubernetes_dashboard);
         debug_struct.field("network_policy_config", &self.network_policy_config);
         debug_struct.field("cloud_run_config", &self.cloud_run_config);
         debug_struct.field("dns_cache_config", &self.dns_cache_config);
         debug_struct.field("config_connector_config", &self.config_connector_config);
-        debug_struct.field("gce_persistent_disk_csi_driver_config", &self.gce_persistent_disk_csi_driver_config);
-        debug_struct.field("gcp_filestore_csi_driver_config", &self.gcp_filestore_csi_driver_config);
+        debug_struct.field(
+            "gce_persistent_disk_csi_driver_config",
+            &self.gce_persistent_disk_csi_driver_config,
+        );
+        debug_struct.field(
+            "gcp_filestore_csi_driver_config",
+            &self.gcp_filestore_csi_driver_config,
+        );
         debug_struct.field("gke_backup_agent_config", &self.gke_backup_agent_config);
-        debug_struct.field("gcs_fuse_csi_driver_config", &self.gcs_fuse_csi_driver_config);
+        debug_struct.field(
+            "gcs_fuse_csi_driver_config",
+            &self.gcs_fuse_csi_driver_config,
+        );
         debug_struct.field("stateful_ha_config", &self.stateful_ha_config);
-        debug_struct.field("parallelstore_csi_driver_config", &self.parallelstore_csi_driver_config);
+        debug_struct.field(
+            "parallelstore_csi_driver_config",
+            &self.parallelstore_csi_driver_config,
+        );
         debug_struct.field("ray_operator_config", &self.ray_operator_config);
-        debug_struct.field("high_scale_checkpointing_config", &self.high_scale_checkpointing_config);
+        debug_struct.field(
+            "high_scale_checkpointing_config",
+            &self.high_scale_checkpointing_config,
+        );
         debug_struct.field("lustre_csi_driver_config", &self.lustre_csi_driver_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -612,8 +697,14 @@ impl std::fmt::Debug for super::PrivateClusterConfig {
         debug_struct.field("private_endpoint", &self.private_endpoint);
         debug_struct.field("public_endpoint", &self.public_endpoint);
         debug_struct.field("peering_name", &self.peering_name);
-        debug_struct.field("master_global_access_config", &self.master_global_access_config);
-        debug_struct.field("private_endpoint_subnetwork", &self.private_endpoint_subnetwork);
+        debug_struct.field(
+            "master_global_access_config",
+            &self.master_global_access_config,
+        );
+        debug_struct.field(
+            "private_endpoint_subnetwork",
+            &self.private_endpoint_subnetwork,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -727,8 +818,14 @@ impl std::fmt::Debug for super::RayOperatorConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RayOperatorConfig");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("ray_cluster_logging_config", &self.ray_cluster_logging_config);
-        debug_struct.field("ray_cluster_monitoring_config", &self.ray_cluster_monitoring_config);
+        debug_struct.field(
+            "ray_cluster_logging_config",
+            &self.ray_cluster_logging_config,
+        );
+        debug_struct.field(
+            "ray_cluster_monitoring_config",
+            &self.ray_cluster_monitoring_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -763,8 +860,14 @@ impl std::fmt::Debug for super::MasterAuthorizedNetworksConfig {
         let mut debug_struct = f.debug_struct("MasterAuthorizedNetworksConfig");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("cidr_blocks", &self.cidr_blocks);
-        debug_struct.field("gcp_public_cidrs_access_enabled", &self.gcp_public_cidrs_access_enabled);
-        debug_struct.field("private_endpoint_enforcement_enabled", &self.private_endpoint_enforcement_enabled);
+        debug_struct.field(
+            "gcp_public_cidrs_access_enabled",
+            &self.gcp_public_cidrs_access_enabled,
+        );
+        debug_struct.field(
+            "private_endpoint_enforcement_enabled",
+            &self.private_endpoint_enforcement_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -839,8 +942,14 @@ impl std::fmt::Debug for super::IPAllocationPolicy {
         debug_struct.field("cluster_ipv4_cidr", &self.cluster_ipv4_cidr);
         debug_struct.field("node_ipv4_cidr", &self.node_ipv4_cidr);
         debug_struct.field("services_ipv4_cidr", &self.services_ipv4_cidr);
-        debug_struct.field("cluster_secondary_range_name", &self.cluster_secondary_range_name);
-        debug_struct.field("services_secondary_range_name", &self.services_secondary_range_name);
+        debug_struct.field(
+            "cluster_secondary_range_name",
+            &self.cluster_secondary_range_name,
+        );
+        debug_struct.field(
+            "services_secondary_range_name",
+            &self.services_secondary_range_name,
+        );
         debug_struct.field("cluster_ipv4_cidr_block", &self.cluster_ipv4_cidr_block);
         debug_struct.field("node_ipv4_cidr_block", &self.node_ipv4_cidr_block);
         debug_struct.field("services_ipv4_cidr_block", &self.services_ipv4_cidr_block);
@@ -848,12 +957,24 @@ impl std::fmt::Debug for super::IPAllocationPolicy {
         debug_struct.field("use_routes", &self.use_routes);
         debug_struct.field("stack_type", &self.stack_type);
         debug_struct.field("ipv6_access_type", &self.ipv6_access_type);
-        debug_struct.field("pod_cidr_overprovision_config", &self.pod_cidr_overprovision_config);
+        debug_struct.field(
+            "pod_cidr_overprovision_config",
+            &self.pod_cidr_overprovision_config,
+        );
         debug_struct.field("subnet_ipv6_cidr_block", &self.subnet_ipv6_cidr_block);
         debug_struct.field("services_ipv6_cidr_block", &self.services_ipv6_cidr_block);
-        debug_struct.field("additional_pod_ranges_config", &self.additional_pod_ranges_config);
-        debug_struct.field("default_pod_ipv4_range_utilization", &self.default_pod_ipv4_range_utilization);
-        debug_struct.field("additional_ip_ranges_configs", &self.additional_ip_ranges_configs);
+        debug_struct.field(
+            "additional_pod_ranges_config",
+            &self.additional_pod_ranges_config,
+        );
+        debug_struct.field(
+            "default_pod_ipv4_range_utilization",
+            &self.default_pod_ipv4_range_utilization,
+        );
+        debug_struct.field(
+            "additional_ip_ranges_configs",
+            &self.additional_ip_ranges_configs,
+        );
         debug_struct.field("auto_ipam_config", &self.auto_ipam_config);
         debug_struct.field("network_tier_config", &self.network_tier_config);
         if !self._unknown_fields.is_empty() {
@@ -880,20 +1001,35 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("node_pools", &self.node_pools);
         debug_struct.field("locations", &self.locations);
         debug_struct.field("enable_kubernetes_alpha", &self.enable_kubernetes_alpha);
-        debug_struct.field("alpha_cluster_feature_gates", &self.alpha_cluster_feature_gates);
+        debug_struct.field(
+            "alpha_cluster_feature_gates",
+            &self.alpha_cluster_feature_gates,
+        );
         debug_struct.field("resource_labels", &self.resource_labels);
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("legacy_abac", &self.legacy_abac);
         debug_struct.field("network_policy", &self.network_policy);
         debug_struct.field("ip_allocation_policy", &self.ip_allocation_policy);
-        debug_struct.field("master_authorized_networks_config", &self.master_authorized_networks_config);
+        debug_struct.field(
+            "master_authorized_networks_config",
+            &self.master_authorized_networks_config,
+        );
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
         debug_struct.field("binary_authorization", &self.binary_authorization);
         debug_struct.field("autoscaling", &self.autoscaling);
         debug_struct.field("network_config", &self.network_config);
-        debug_struct.field("default_max_pods_constraint", &self.default_max_pods_constraint);
-        debug_struct.field("resource_usage_export_config", &self.resource_usage_export_config);
-        debug_struct.field("authenticator_groups_config", &self.authenticator_groups_config);
+        debug_struct.field(
+            "default_max_pods_constraint",
+            &self.default_max_pods_constraint,
+        );
+        debug_struct.field(
+            "resource_usage_export_config",
+            &self.resource_usage_export_config,
+        );
+        debug_struct.field(
+            "authenticator_groups_config",
+            &self.authenticator_groups_config,
+        );
         debug_struct.field("private_cluster_config", &self.private_cluster_config);
         debug_struct.field("database_encryption", &self.database_encryption);
         debug_struct.field("vertical_pod_autoscaling", &self.vertical_pod_autoscaling);
@@ -933,7 +1069,10 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("fleet", &self.fleet);
         debug_struct.field("security_posture_config", &self.security_posture_config);
-        debug_struct.field("control_plane_endpoints_config", &self.control_plane_endpoints_config);
+        debug_struct.field(
+            "control_plane_endpoints_config",
+            &self.control_plane_endpoints_config,
+        );
         debug_struct.field("enable_k8s_beta_apis", &self.enable_k8s_beta_apis);
         debug_struct.field("enterprise_config", &self.enterprise_config);
         debug_struct.field("secret_manager_config", &self.secret_manager_config);
@@ -943,7 +1082,10 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("user_managed_keys_config", &self.user_managed_keys_config);
         debug_struct.field("rbac_binding_config", &self.rbac_binding_config);
         debug_struct.field("gke_auto_upgrade_config", &self.gke_auto_upgrade_config);
-        debug_struct.field("anonymous_authentication_config", &self.anonymous_authentication_config);
+        debug_struct.field(
+            "anonymous_authentication_config",
+            &self.anonymous_authentication_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -951,12 +1093,17 @@ impl std::fmt::Debug for super::Cluster {
     }
 }
 
-
 impl std::fmt::Debug for super::RBACBindingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RBACBindingConfig");
-        debug_struct.field("enable_insecure_binding_system_unauthenticated", &self.enable_insecure_binding_system_unauthenticated);
-        debug_struct.field("enable_insecure_binding_system_authenticated", &self.enable_insecure_binding_system_authenticated);
+        debug_struct.field(
+            "enable_insecure_binding_system_unauthenticated",
+            &self.enable_insecure_binding_system_unauthenticated,
+        );
+        debug_struct.field(
+            "enable_insecure_binding_system_authenticated",
+            &self.enable_insecure_binding_system_authenticated,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -970,11 +1117,23 @@ impl std::fmt::Debug for super::UserManagedKeysConfig {
         debug_struct.field("cluster_ca", &self.cluster_ca);
         debug_struct.field("etcd_api_ca", &self.etcd_api_ca);
         debug_struct.field("etcd_peer_ca", &self.etcd_peer_ca);
-        debug_struct.field("service_account_signing_keys", &self.service_account_signing_keys);
-        debug_struct.field("service_account_verification_keys", &self.service_account_verification_keys);
+        debug_struct.field(
+            "service_account_signing_keys",
+            &self.service_account_signing_keys,
+        );
+        debug_struct.field(
+            "service_account_verification_keys",
+            &self.service_account_verification_keys,
+        );
         debug_struct.field("aggregation_ca", &self.aggregation_ca);
-        debug_struct.field("control_plane_disk_encryption_key", &self.control_plane_disk_encryption_key);
-        debug_struct.field("gkeops_etcd_backup_encryption_key", &self.gkeops_etcd_backup_encryption_key);
+        debug_struct.field(
+            "control_plane_disk_encryption_key",
+            &self.control_plane_disk_encryption_key,
+        );
+        debug_struct.field(
+            "gkeops_etcd_backup_encryption_key",
+            &self.gkeops_etcd_backup_encryption_key,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1082,77 +1241,215 @@ impl std::fmt::Debug for super::ClusterUpdate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterUpdate");
         debug_struct.field("desired_node_version", &self.desired_node_version);
-        debug_struct.field("desired_monitoring_service", &self.desired_monitoring_service);
+        debug_struct.field(
+            "desired_monitoring_service",
+            &self.desired_monitoring_service,
+        );
         debug_struct.field("desired_addons_config", &self.desired_addons_config);
         debug_struct.field("desired_node_pool_id", &self.desired_node_pool_id);
         debug_struct.field("desired_image_type", &self.desired_image_type);
-        debug_struct.field("desired_database_encryption", &self.desired_database_encryption);
-        debug_struct.field("desired_workload_identity_config", &self.desired_workload_identity_config);
+        debug_struct.field(
+            "desired_database_encryption",
+            &self.desired_database_encryption,
+        );
+        debug_struct.field(
+            "desired_workload_identity_config",
+            &self.desired_workload_identity_config,
+        );
         debug_struct.field("desired_mesh_certificates", &self.desired_mesh_certificates);
         debug_struct.field("desired_shielded_nodes", &self.desired_shielded_nodes);
-        debug_struct.field("desired_cost_management_config", &self.desired_cost_management_config);
+        debug_struct.field(
+            "desired_cost_management_config",
+            &self.desired_cost_management_config,
+        );
         debug_struct.field("desired_dns_config", &self.desired_dns_config);
-        debug_struct.field("desired_node_pool_autoscaling", &self.desired_node_pool_autoscaling);
+        debug_struct.field(
+            "desired_node_pool_autoscaling",
+            &self.desired_node_pool_autoscaling,
+        );
         debug_struct.field("desired_locations", &self.desired_locations);
-        debug_struct.field("desired_master_authorized_networks_config", &self.desired_master_authorized_networks_config);
-        debug_struct.field("desired_cluster_autoscaling", &self.desired_cluster_autoscaling);
-        debug_struct.field("desired_binary_authorization", &self.desired_binary_authorization);
+        debug_struct.field(
+            "desired_master_authorized_networks_config",
+            &self.desired_master_authorized_networks_config,
+        );
+        debug_struct.field(
+            "desired_cluster_autoscaling",
+            &self.desired_cluster_autoscaling,
+        );
+        debug_struct.field(
+            "desired_binary_authorization",
+            &self.desired_binary_authorization,
+        );
         debug_struct.field("desired_logging_service", &self.desired_logging_service);
-        debug_struct.field("desired_resource_usage_export_config", &self.desired_resource_usage_export_config);
-        debug_struct.field("desired_vertical_pod_autoscaling", &self.desired_vertical_pod_autoscaling);
-        debug_struct.field("desired_private_cluster_config", &self.desired_private_cluster_config);
-        debug_struct.field("desired_intra_node_visibility_config", &self.desired_intra_node_visibility_config);
-        debug_struct.field("desired_default_snat_status", &self.desired_default_snat_status);
+        debug_struct.field(
+            "desired_resource_usage_export_config",
+            &self.desired_resource_usage_export_config,
+        );
+        debug_struct.field(
+            "desired_vertical_pod_autoscaling",
+            &self.desired_vertical_pod_autoscaling,
+        );
+        debug_struct.field(
+            "desired_private_cluster_config",
+            &self.desired_private_cluster_config,
+        );
+        debug_struct.field(
+            "desired_intra_node_visibility_config",
+            &self.desired_intra_node_visibility_config,
+        );
+        debug_struct.field(
+            "desired_default_snat_status",
+            &self.desired_default_snat_status,
+        );
         debug_struct.field("desired_release_channel", &self.desired_release_channel);
-        debug_struct.field("desired_l4ilb_subsetting_config", &self.desired_l4ilb_subsetting_config);
+        debug_struct.field(
+            "desired_l4ilb_subsetting_config",
+            &self.desired_l4ilb_subsetting_config,
+        );
         debug_struct.field("desired_datapath_provider", &self.desired_datapath_provider);
-        debug_struct.field("desired_private_ipv6_google_access", &self.desired_private_ipv6_google_access);
-        debug_struct.field("desired_notification_config", &self.desired_notification_config);
-        debug_struct.field("desired_authenticator_groups_config", &self.desired_authenticator_groups_config);
+        debug_struct.field(
+            "desired_private_ipv6_google_access",
+            &self.desired_private_ipv6_google_access,
+        );
+        debug_struct.field(
+            "desired_notification_config",
+            &self.desired_notification_config,
+        );
+        debug_struct.field(
+            "desired_authenticator_groups_config",
+            &self.desired_authenticator_groups_config,
+        );
         debug_struct.field("desired_logging_config", &self.desired_logging_config);
         debug_struct.field("desired_monitoring_config", &self.desired_monitoring_config);
-        debug_struct.field("desired_identity_service_config", &self.desired_identity_service_config);
-        debug_struct.field("desired_service_external_ips_config", &self.desired_service_external_ips_config);
-        debug_struct.field("desired_enable_private_endpoint", &self.desired_enable_private_endpoint);
-        debug_struct.field("desired_default_enable_private_nodes", &self.desired_default_enable_private_nodes);
-        debug_struct.field("desired_control_plane_endpoints_config", &self.desired_control_plane_endpoints_config);
+        debug_struct.field(
+            "desired_identity_service_config",
+            &self.desired_identity_service_config,
+        );
+        debug_struct.field(
+            "desired_service_external_ips_config",
+            &self.desired_service_external_ips_config,
+        );
+        debug_struct.field(
+            "desired_enable_private_endpoint",
+            &self.desired_enable_private_endpoint,
+        );
+        debug_struct.field(
+            "desired_default_enable_private_nodes",
+            &self.desired_default_enable_private_nodes,
+        );
+        debug_struct.field(
+            "desired_control_plane_endpoints_config",
+            &self.desired_control_plane_endpoints_config,
+        );
         debug_struct.field("desired_master_version", &self.desired_master_version);
         debug_struct.field("desired_gcfs_config", &self.desired_gcfs_config);
-        debug_struct.field("desired_node_pool_auto_config_network_tags", &self.desired_node_pool_auto_config_network_tags);
+        debug_struct.field(
+            "desired_node_pool_auto_config_network_tags",
+            &self.desired_node_pool_auto_config_network_tags,
+        );
         debug_struct.field("desired_pod_autoscaling", &self.desired_pod_autoscaling);
-        debug_struct.field("desired_gateway_api_config", &self.desired_gateway_api_config);
+        debug_struct.field(
+            "desired_gateway_api_config",
+            &self.desired_gateway_api_config,
+        );
         debug_struct.field("etag", &self.etag);
-        debug_struct.field("desired_node_pool_logging_config", &self.desired_node_pool_logging_config);
+        debug_struct.field(
+            "desired_node_pool_logging_config",
+            &self.desired_node_pool_logging_config,
+        );
         debug_struct.field("desired_fleet", &self.desired_fleet);
         debug_struct.field("desired_stack_type", &self.desired_stack_type);
-        debug_struct.field("additional_pod_ranges_config", &self.additional_pod_ranges_config);
-        debug_struct.field("removed_additional_pod_ranges_config", &self.removed_additional_pod_ranges_config);
+        debug_struct.field(
+            "additional_pod_ranges_config",
+            &self.additional_pod_ranges_config,
+        );
+        debug_struct.field(
+            "removed_additional_pod_ranges_config",
+            &self.removed_additional_pod_ranges_config,
+        );
         debug_struct.field("enable_k8s_beta_apis", &self.enable_k8s_beta_apis);
-        debug_struct.field("desired_security_posture_config", &self.desired_security_posture_config);
-        debug_struct.field("desired_network_performance_config", &self.desired_network_performance_config);
-        debug_struct.field("desired_enable_fqdn_network_policy", &self.desired_enable_fqdn_network_policy);
-        debug_struct.field("desired_autopilot_workload_policy_config", &self.desired_autopilot_workload_policy_config);
+        debug_struct.field(
+            "desired_security_posture_config",
+            &self.desired_security_posture_config,
+        );
+        debug_struct.field(
+            "desired_network_performance_config",
+            &self.desired_network_performance_config,
+        );
+        debug_struct.field(
+            "desired_enable_fqdn_network_policy",
+            &self.desired_enable_fqdn_network_policy,
+        );
+        debug_struct.field(
+            "desired_autopilot_workload_policy_config",
+            &self.desired_autopilot_workload_policy_config,
+        );
         debug_struct.field("desired_k8s_beta_apis", &self.desired_k8s_beta_apis);
         debug_struct.field("desired_containerd_config", &self.desired_containerd_config);
-        debug_struct.field("desired_enable_multi_networking", &self.desired_enable_multi_networking);
-        debug_struct.field("desired_node_pool_auto_config_resource_manager_tags", &self.desired_node_pool_auto_config_resource_manager_tags);
-        debug_struct.field("desired_in_transit_encryption_config", &self.desired_in_transit_encryption_config);
-        debug_struct.field("desired_enable_cilium_clusterwide_network_policy", &self.desired_enable_cilium_clusterwide_network_policy);
-        debug_struct.field("desired_secret_manager_config", &self.desired_secret_manager_config);
-        debug_struct.field("desired_compliance_posture_config", &self.desired_compliance_posture_config);
-        debug_struct.field("desired_node_kubelet_config", &self.desired_node_kubelet_config);
-        debug_struct.field("desired_node_pool_auto_config_kubelet_config", &self.desired_node_pool_auto_config_kubelet_config);
+        debug_struct.field(
+            "desired_enable_multi_networking",
+            &self.desired_enable_multi_networking,
+        );
+        debug_struct.field(
+            "desired_node_pool_auto_config_resource_manager_tags",
+            &self.desired_node_pool_auto_config_resource_manager_tags,
+        );
+        debug_struct.field(
+            "desired_in_transit_encryption_config",
+            &self.desired_in_transit_encryption_config,
+        );
+        debug_struct.field(
+            "desired_enable_cilium_clusterwide_network_policy",
+            &self.desired_enable_cilium_clusterwide_network_policy,
+        );
+        debug_struct.field(
+            "desired_secret_manager_config",
+            &self.desired_secret_manager_config,
+        );
+        debug_struct.field(
+            "desired_compliance_posture_config",
+            &self.desired_compliance_posture_config,
+        );
+        debug_struct.field(
+            "desired_node_kubelet_config",
+            &self.desired_node_kubelet_config,
+        );
+        debug_struct.field(
+            "desired_node_pool_auto_config_kubelet_config",
+            &self.desired_node_pool_auto_config_kubelet_config,
+        );
         debug_struct.field("user_managed_keys_config", &self.user_managed_keys_config);
-        debug_struct.field("desired_rbac_binding_config", &self.desired_rbac_binding_config);
-        debug_struct.field("desired_additional_ip_ranges_config", &self.desired_additional_ip_ranges_config);
+        debug_struct.field(
+            "desired_rbac_binding_config",
+            &self.desired_rbac_binding_config,
+        );
+        debug_struct.field(
+            "desired_additional_ip_ranges_config",
+            &self.desired_additional_ip_ranges_config,
+        );
         debug_struct.field("desired_enterprise_config", &self.desired_enterprise_config);
         debug_struct.field("desired_auto_ipam_config", &self.desired_auto_ipam_config);
-        debug_struct.field("desired_disable_l4_lb_firewall_reconciliation", &self.desired_disable_l4_lb_firewall_reconciliation);
-        debug_struct.field("desired_node_pool_auto_config_linux_node_config", &self.desired_node_pool_auto_config_linux_node_config);
-        debug_struct.field("desired_user_managed_keys_config", &self.desired_user_managed_keys_config);
-        debug_struct.field("desired_anonymous_authentication_config", &self.desired_anonymous_authentication_config);
+        debug_struct.field(
+            "desired_disable_l4_lb_firewall_reconciliation",
+            &self.desired_disable_l4_lb_firewall_reconciliation,
+        );
+        debug_struct.field(
+            "desired_node_pool_auto_config_linux_node_config",
+            &self.desired_node_pool_auto_config_linux_node_config,
+        );
+        debug_struct.field(
+            "desired_user_managed_keys_config",
+            &self.desired_user_managed_keys_config,
+        );
+        debug_struct.field(
+            "desired_anonymous_authentication_config",
+            &self.desired_anonymous_authentication_config,
+        );
         debug_struct.field("gke_auto_upgrade_config", &self.gke_auto_upgrade_config);
-        debug_struct.field("desired_network_tier_config", &self.desired_network_tier_config);
+        debug_struct.field(
+            "desired_network_tier_config",
+            &self.desired_network_tier_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1187,7 +1484,10 @@ impl std::fmt::Debug for super::AdditionalIPRangesConfig {
 impl std::fmt::Debug for super::DesiredAdditionalIPRangesConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DesiredAdditionalIPRangesConfig");
-        debug_struct.field("additional_ip_ranges_configs", &self.additional_ip_ranges_configs);
+        debug_struct.field(
+            "additional_ip_ranges_configs",
+            &self.additional_ip_ranges_configs,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1766,7 +2066,10 @@ impl std::fmt::Debug for super::node_pool::update_info::BlueGreenInfo {
         debug_struct.field("phase", &self.phase);
         debug_struct.field("blue_instance_group_urls", &self.blue_instance_group_urls);
         debug_struct.field("green_instance_group_urls", &self.green_instance_group_urls);
-        debug_struct.field("blue_pool_deletion_start_time", &self.blue_pool_deletion_start_time);
+        debug_struct.field(
+            "blue_pool_deletion_start_time",
+            &self.blue_pool_deletion_start_time,
+        );
         debug_struct.field("green_pool_version", &self.green_pool_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1859,7 +2162,6 @@ impl std::fmt::Debug for super::MaintenanceWindow {
         debug_struct.finish()
     }
 }
-
 
 impl std::fmt::Debug for super::TimeWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1983,12 +2285,24 @@ impl std::fmt::Debug for super::ListNodePoolsResponse {
 impl std::fmt::Debug for super::ClusterAutoscaling {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterAutoscaling");
-        debug_struct.field("enable_node_autoprovisioning", &self.enable_node_autoprovisioning);
+        debug_struct.field(
+            "enable_node_autoprovisioning",
+            &self.enable_node_autoprovisioning,
+        );
         debug_struct.field("resource_limits", &self.resource_limits);
         debug_struct.field("autoscaling_profile", &self.autoscaling_profile);
-        debug_struct.field("autoprovisioning_node_pool_defaults", &self.autoprovisioning_node_pool_defaults);
-        debug_struct.field("autoprovisioning_locations", &self.autoprovisioning_locations);
-        debug_struct.field("default_compute_class_config", &self.default_compute_class_config);
+        debug_struct.field(
+            "autoprovisioning_node_pool_defaults",
+            &self.autoprovisioning_node_pool_defaults,
+        );
+        debug_struct.field(
+            "autoprovisioning_locations",
+            &self.autoprovisioning_locations,
+        );
+        debug_struct.field(
+            "default_compute_class_config",
+            &self.default_compute_class_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2009,7 +2323,10 @@ impl std::fmt::Debug for super::AutoprovisioningNodePoolDefaults {
         debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
         debug_struct.field("boot_disk_kms_key", &self.boot_disk_kms_key);
         debug_struct.field("image_type", &self.image_type);
-        debug_struct.field("insecure_kubelet_readonly_port_enabled", &self.insecure_kubelet_readonly_port_enabled);
+        debug_struct.field(
+            "insecure_kubelet_readonly_port_enabled",
+            &self.insecure_kubelet_readonly_port_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2125,7 +2442,10 @@ impl std::fmt::Debug for super::AcceleratorConfig {
         debug_struct.field("accelerator_type", &self.accelerator_type);
         debug_struct.field("gpu_partition_size", &self.gpu_partition_size);
         debug_struct.field("gpu_sharing_config", &self.gpu_sharing_config);
-        debug_struct.field("gpu_driver_installation_config", &self.gpu_driver_installation_config);
+        debug_struct.field(
+            "gpu_driver_installation_config",
+            &self.gpu_driver_installation_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2136,7 +2456,10 @@ impl std::fmt::Debug for super::AcceleratorConfig {
 impl std::fmt::Debug for super::GPUSharingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GPUSharingConfig");
-        debug_struct.field("max_shared_clients_per_gpu", &self.max_shared_clients_per_gpu);
+        debug_struct.field(
+            "max_shared_clients_per_gpu",
+            &self.max_shared_clients_per_gpu,
+        );
         debug_struct.field("gpu_sharing_strategy", &self.gpu_sharing_strategy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2215,21 +2538,48 @@ impl std::fmt::Debug for super::NetworkConfig {
         let mut debug_struct = f.debug_struct("NetworkConfig");
         debug_struct.field("network", &self.network);
         debug_struct.field("subnetwork", &self.subnetwork);
-        debug_struct.field("enable_intra_node_visibility", &self.enable_intra_node_visibility);
+        debug_struct.field(
+            "enable_intra_node_visibility",
+            &self.enable_intra_node_visibility,
+        );
         debug_struct.field("default_snat_status", &self.default_snat_status);
         debug_struct.field("enable_l4ilb_subsetting", &self.enable_l4ilb_subsetting);
         debug_struct.field("datapath_provider", &self.datapath_provider);
-        debug_struct.field("private_ipv6_google_access", &self.private_ipv6_google_access);
+        debug_struct.field(
+            "private_ipv6_google_access",
+            &self.private_ipv6_google_access,
+        );
         debug_struct.field("dns_config", &self.dns_config);
-        debug_struct.field("service_external_ips_config", &self.service_external_ips_config);
+        debug_struct.field(
+            "service_external_ips_config",
+            &self.service_external_ips_config,
+        );
         debug_struct.field("gateway_api_config", &self.gateway_api_config);
         debug_struct.field("enable_multi_networking", &self.enable_multi_networking);
-        debug_struct.field("network_performance_config", &self.network_performance_config);
-        debug_struct.field("enable_fqdn_network_policy", &self.enable_fqdn_network_policy);
-        debug_struct.field("in_transit_encryption_config", &self.in_transit_encryption_config);
-        debug_struct.field("enable_cilium_clusterwide_network_policy", &self.enable_cilium_clusterwide_network_policy);
-        debug_struct.field("default_enable_private_nodes", &self.default_enable_private_nodes);
-        debug_struct.field("disable_l4_lb_firewall_reconciliation", &self.disable_l4_lb_firewall_reconciliation);
+        debug_struct.field(
+            "network_performance_config",
+            &self.network_performance_config,
+        );
+        debug_struct.field(
+            "enable_fqdn_network_policy",
+            &self.enable_fqdn_network_policy,
+        );
+        debug_struct.field(
+            "in_transit_encryption_config",
+            &self.in_transit_encryption_config,
+        );
+        debug_struct.field(
+            "enable_cilium_clusterwide_network_policy",
+            &self.enable_cilium_clusterwide_network_policy,
+        );
+        debug_struct.field(
+            "default_enable_private_nodes",
+            &self.default_enable_private_nodes,
+        );
+        debug_struct.field(
+            "disable_l4_lb_firewall_reconciliation",
+            &self.disable_l4_lb_firewall_reconciliation,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2240,7 +2590,10 @@ impl std::fmt::Debug for super::NetworkConfig {
 impl std::fmt::Debug for super::network_config::ClusterNetworkPerformanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterNetworkPerformanceConfig");
-        debug_struct.field("total_egress_bandwidth_tier", &self.total_egress_bandwidth_tier);
+        debug_struct.field(
+            "total_egress_bandwidth_tier",
+            &self.total_egress_bandwidth_tier,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2288,7 +2641,10 @@ impl std::fmt::Debug for super::GetOpenIDConfigResponse {
         debug_struct.field("jwks_uri", &self.jwks_uri);
         debug_struct.field("response_types_supported", &self.response_types_supported);
         debug_struct.field("subject_types_supported", &self.subject_types_supported);
-        debug_struct.field("id_token_signing_alg_values_supported", &self.id_token_signing_alg_values_supported);
+        debug_struct.field(
+            "id_token_signing_alg_values_supported",
+            &self.id_token_signing_alg_values_supported,
+        );
         debug_struct.field("claims_supported", &self.claims_supported);
         debug_struct.field("grant_types", &self.grant_types);
         if !self._unknown_fields.is_empty() {
@@ -2428,7 +2784,10 @@ impl std::fmt::Debug for super::DNSConfig {
         debug_struct.field("cluster_dns", &self.cluster_dns);
         debug_struct.field("cluster_dns_scope", &self.cluster_dns_scope);
         debug_struct.field("cluster_dns_domain", &self.cluster_dns_domain);
-        debug_struct.field("additive_vpc_scope_dns_domain", &self.additive_vpc_scope_dns_domain);
+        debug_struct.field(
+            "additive_vpc_scope_dns_domain",
+            &self.additive_vpc_scope_dns_domain,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2566,8 +2925,14 @@ impl std::fmt::Debug for super::ResourceUsageExportConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceUsageExportConfig");
         debug_struct.field("bigquery_destination", &self.bigquery_destination);
-        debug_struct.field("enable_network_egress_metering", &self.enable_network_egress_metering);
-        debug_struct.field("consumption_metering_config", &self.consumption_metering_config);
+        debug_struct.field(
+            "enable_network_egress_metering",
+            &self.enable_network_egress_metering,
+        );
+        debug_struct.field(
+            "consumption_metering_config",
+            &self.consumption_metering_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2691,7 +3056,10 @@ impl std::fmt::Debug for super::ConfidentialNodes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialNodes");
         debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("confidential_instance_type", &self.confidential_instance_type);
+        debug_struct.field(
+            "confidential_instance_type",
+            &self.confidential_instance_type,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2777,7 +3145,10 @@ impl std::fmt::Debug for super::Autopilot {
         let mut debug_struct = f.debug_struct("Autopilot");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("workload_policy_config", &self.workload_policy_config);
-        debug_struct.field("privileged_admission_config", &self.privileged_admission_config);
+        debug_struct.field(
+            "privileged_admission_config",
+            &self.privileged_admission_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2800,7 +3171,10 @@ impl std::fmt::Debug for super::WorkloadPolicyConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkloadPolicyConfig");
         debug_struct.field("allow_net_admin", &self.allow_net_admin);
-        debug_struct.field("autopilot_compatibility_auditing_enabled", &self.autopilot_compatibility_auditing_enabled);
+        debug_struct.field(
+            "autopilot_compatibility_auditing_enabled",
+            &self.autopilot_compatibility_auditing_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2846,7 +3220,10 @@ impl std::fmt::Debug for super::MonitoringConfig {
         let mut debug_struct = f.debug_struct("MonitoringConfig");
         debug_struct.field("component_config", &self.component_config);
         debug_struct.field("managed_prometheus_config", &self.managed_prometheus_config);
-        debug_struct.field("advanced_datapath_observability_config", &self.advanced_datapath_observability_config);
+        debug_struct.field(
+            "advanced_datapath_observability_config",
+            &self.advanced_datapath_observability_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2991,10 +3368,16 @@ impl std::fmt::Debug for super::control_plane_endpoints_config::IPEndpointsConfi
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("enable_public_endpoint", &self.enable_public_endpoint);
         debug_struct.field("global_access", &self.global_access);
-        debug_struct.field("authorized_networks_config", &self.authorized_networks_config);
+        debug_struct.field(
+            "authorized_networks_config",
+            &self.authorized_networks_config,
+        );
         debug_struct.field("public_endpoint", &self.public_endpoint);
         debug_struct.field("private_endpoint", &self.private_endpoint);
-        debug_struct.field("private_endpoint_subnetwork", &self.private_endpoint_subnetwork);
+        debug_struct.field(
+            "private_endpoint_subnetwork",
+            &self.private_endpoint_subnetwork,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3128,8 +3511,14 @@ impl std::fmt::Debug for super::ClusterUpgradeInfo {
         debug_struct.field("auto_upgrade_status", &self.auto_upgrade_status);
         debug_struct.field("paused_reason", &self.paused_reason);
         debug_struct.field("upgrade_details", &self.upgrade_details);
-        debug_struct.field("end_of_standard_support_timestamp", &self.end_of_standard_support_timestamp);
-        debug_struct.field("end_of_extended_support_timestamp", &self.end_of_extended_support_timestamp);
+        debug_struct.field(
+            "end_of_standard_support_timestamp",
+            &self.end_of_standard_support_timestamp,
+        );
+        debug_struct.field(
+            "end_of_extended_support_timestamp",
+            &self.end_of_extended_support_timestamp,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3173,8 +3562,14 @@ impl std::fmt::Debug for super::NodePoolUpgradeInfo {
         debug_struct.field("auto_upgrade_status", &self.auto_upgrade_status);
         debug_struct.field("paused_reason", &self.paused_reason);
         debug_struct.field("upgrade_details", &self.upgrade_details);
-        debug_struct.field("end_of_standard_support_timestamp", &self.end_of_standard_support_timestamp);
-        debug_struct.field("end_of_extended_support_timestamp", &self.end_of_extended_support_timestamp);
+        debug_struct.field(
+            "end_of_standard_support_timestamp",
+            &self.end_of_standard_support_timestamp,
+        );
+        debug_struct.field(
+            "end_of_extended_support_timestamp",
+            &self.end_of_extended_support_timestamp,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

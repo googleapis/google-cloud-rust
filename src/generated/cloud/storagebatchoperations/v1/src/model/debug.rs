@@ -201,7 +201,10 @@ impl std::fmt::Debug for super::PutObjectHold {
 impl std::fmt::Debug for super::DeleteObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteObject");
-        debug_struct.field("permanent_object_deletion_enabled", &self.permanent_object_deletion_enabled);
+        debug_struct.field(
+            "permanent_object_deletion_enabled",
+            &self.permanent_object_deletion_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

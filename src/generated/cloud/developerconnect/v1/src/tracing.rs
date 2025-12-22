@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [DeveloperConnect](super::stub::DeveloperConnect) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DeveloperConnect<T>
-where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> DeveloperConnect<T>
-where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DeveloperConnect for DeveloperConnect<T>
-where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_connections(
         &self,
@@ -136,7 +142,9 @@ where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>> {
-        self.inner.fetch_linkable_git_repositories(req, options).await
+        self.inner
+            .fetch_linkable_git_repositories(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]
@@ -301,7 +309,6 @@ where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -320,19 +327,25 @@ where T: super::stub::DeveloperConnect + std::fmt::Debug + Send + Sync {
 /// Implements a [InsightsConfigService](super::stub::InsightsConfigService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct InsightsConfigService<T>
-where T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> InsightsConfigService<T>
-where T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::InsightsConfigService for InsightsConfigService<T>
-where T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list_insights_configs(
         &self,
@@ -432,7 +445,6 @@ where T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -447,4 +459,3 @@ where T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

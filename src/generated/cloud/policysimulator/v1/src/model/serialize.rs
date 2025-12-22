@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::AccessTuple {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
@@ -51,9 +51,9 @@ impl serde::ser::Serialize for super::ExplainedPolicy {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access) {
             state.serialize_entry("access", &self.access)?;
@@ -85,9 +85,9 @@ impl serde::ser::Serialize for super::BindingExplanation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access) {
             state.serialize_entry("access", &self.access)?;
@@ -125,9 +125,9 @@ impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.membership) {
             state.serialize_entry("membership", &self.membership)?;
@@ -144,16 +144,15 @@ impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::OrgPolicyViolationsPreview {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -200,9 +199,9 @@ impl serde::ser::Serialize for super::org_policy_violations_preview::ResourceCou
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.scanned) {
             struct __With<'a>(&'a i32);
@@ -279,9 +278,9 @@ impl serde::ser::Serialize for super::OrgPolicyViolation {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -310,9 +309,9 @@ impl serde::ser::Serialize for super::ResourceContext {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
@@ -338,9 +337,9 @@ impl serde::ser::Serialize for super::OrgPolicyOverlay {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policies.is_empty() {
             state.serialize_entry("policies", &self.policies)?;
@@ -363,9 +362,9 @@ impl serde::ser::Serialize for super::org_policy_overlay::PolicyOverlay {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policy_parent.is_empty() {
             state.serialize_entry("policyParent", &self.policy_parent)?;
@@ -388,9 +387,9 @@ impl serde::ser::Serialize for super::org_policy_overlay::CustomConstraintOverla
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.custom_constraint_parent.is_empty() {
             state.serialize_entry("customConstraintParent", &self.custom_constraint_parent)?;
@@ -413,9 +412,9 @@ impl serde::ser::Serialize for super::CreateOrgPolicyViolationsPreviewOperationM
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.request_time.is_some() {
             state.serialize_entry("requestTime", &self.request_time)?;
@@ -477,9 +476,9 @@ impl serde::ser::Serialize for super::ListOrgPolicyViolationsPreviewsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -514,12 +513,15 @@ impl serde::ser::Serialize for super::ListOrgPolicyViolationsPreviewsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.org_policy_violations_previews.is_empty() {
-            state.serialize_entry("orgPolicyViolationsPreviews", &self.org_policy_violations_previews)?;
+            state.serialize_entry(
+                "orgPolicyViolationsPreviews",
+                &self.org_policy_violations_previews,
+            )?;
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
@@ -539,9 +541,9 @@ impl serde::ser::Serialize for super::GetOrgPolicyViolationsPreviewRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -561,18 +563,24 @@ impl serde::ser::Serialize for super::CreateOrgPolicyViolationsPreviewRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
         }
         if self.org_policy_violations_preview.is_some() {
-            state.serialize_entry("orgPolicyViolationsPreview", &self.org_policy_violations_preview)?;
+            state.serialize_entry(
+                "orgPolicyViolationsPreview",
+                &self.org_policy_violations_preview,
+            )?;
         }
         if !self.org_policy_violations_preview_id.is_empty() {
-            state.serialize_entry("orgPolicyViolationsPreviewId", &self.org_policy_violations_preview_id)?;
+            state.serialize_entry(
+                "orgPolicyViolationsPreviewId",
+                &self.org_policy_violations_preview_id,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -589,9 +597,9 @@ impl serde::ser::Serialize for super::ListOrgPolicyViolationsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -626,9 +634,9 @@ impl serde::ser::Serialize for super::ListOrgPolicyViolationsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.org_policy_violations.is_empty() {
             state.serialize_entry("orgPolicyViolations", &self.org_policy_violations)?;
@@ -651,9 +659,9 @@ impl serde::ser::Serialize for super::Replay {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -682,9 +690,9 @@ impl serde::ser::Serialize for super::replay::ResultsSummary {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.log_count) {
             struct __With<'a>(&'a i32);
@@ -755,9 +763,9 @@ impl serde::ser::Serialize for super::ReplayResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.diff() {
             state.serialize_entry("diff", value)?;
@@ -792,9 +800,9 @@ impl serde::ser::Serialize for super::CreateReplayRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -817,9 +825,9 @@ impl serde::ser::Serialize for super::ReplayOperationMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;
@@ -839,9 +847,9 @@ impl serde::ser::Serialize for super::GetReplayRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -861,9 +869,9 @@ impl serde::ser::Serialize for super::ListReplayResultsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -898,9 +906,9 @@ impl serde::ser::Serialize for super::ListReplayResultsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.replay_results.is_empty() {
             state.serialize_entry("replayResults", &self.replay_results)?;
@@ -923,9 +931,9 @@ impl serde::ser::Serialize for super::ReplayConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.policy_overlay.is_empty() {
             state.serialize_entry("policyOverlay", &self.policy_overlay)?;
@@ -942,16 +950,15 @@ impl serde::ser::Serialize for super::ReplayConfig {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ReplayDiff {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.access_diff.is_some() {
             state.serialize_entry("accessDiff", &self.access_diff)?;
@@ -971,9 +978,9 @@ impl serde::ser::Serialize for super::AccessStateDiff {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.baseline.is_some() {
             state.serialize_entry("baseline", &self.baseline)?;
@@ -999,9 +1006,9 @@ impl serde::ser::Serialize for super::ExplainedAccess {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.access_state) {
             state.serialize_entry("accessState", &self.access_state)?;

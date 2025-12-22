@@ -52,7 +52,6 @@ impl std::fmt::Debug for super::StatusUpdate {
     }
 }
 
-
 impl std::fmt::Debug for super::StreamStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamStatus");

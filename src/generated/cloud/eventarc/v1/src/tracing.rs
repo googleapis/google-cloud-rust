@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [Eventarc](super::stub::Eventarc) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Eventarc<T>
-where T: super::stub::Eventarc + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Eventarc + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> Eventarc<T>
-where T: super::stub::Eventarc + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Eventarc + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Eventarc for Eventarc<T>
-where T: super::stub::Eventarc + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::Eventarc + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_trigger(
         &self,
@@ -463,7 +469,6 @@ where T: super::stub::Eventarc + std::fmt::Debug + Send + Sync {
         self.inner.cancel_operation(req, options).await
     }
 
-
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -478,4 +483,3 @@ where T: super::stub::Eventarc + std::fmt::Debug + Send + Sync {
         self.inner.get_polling_backoff_policy(options)
     }
 }
-

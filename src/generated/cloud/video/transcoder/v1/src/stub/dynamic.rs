@@ -64,7 +64,6 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::TranscoderService] also implement [TranscoderService].
@@ -141,5 +140,4 @@ impl<T: super::TranscoderService> TranscoderService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_job_template(self, req, options).await
     }
-
 }

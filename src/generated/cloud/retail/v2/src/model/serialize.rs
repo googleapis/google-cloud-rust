@@ -23,15 +23,18 @@ impl serde::ser::Serialize for super::ProductLevelConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ingestion_product_type.is_empty() {
             state.serialize_entry("ingestionProductType", &self.ingestion_product_type)?;
         }
         if !self.merchant_center_product_id_field.is_empty() {
-            state.serialize_entry("merchantCenterProductIdField", &self.merchant_center_product_id_field)?;
+            state.serialize_entry(
+                "merchantCenterProductIdField",
+                &self.merchant_center_product_id_field,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -48,9 +51,9 @@ impl serde::ser::Serialize for super::CatalogAttribute {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key.is_empty() {
             state.serialize_entry("key", &self.key)?;
@@ -94,9 +97,9 @@ impl serde::ser::Serialize for super::catalog_attribute::FacetConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.facet_intervals.is_empty() {
             state.serialize_entry("facetIntervals", &self.facet_intervals)?;
@@ -128,9 +131,9 @@ impl serde::ser::Serialize for super::catalog_attribute::facet_config::IgnoredFa
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.values.is_empty() {
             state.serialize_entry("values", &self.values)?;
@@ -156,9 +159,9 @@ impl serde::ser::Serialize for super::catalog_attribute::facet_config::MergedFac
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.values.is_empty() {
             state.serialize_entry("values", &self.values)?;
@@ -181,9 +184,9 @@ impl serde::ser::Serialize for super::catalog_attribute::facet_config::MergedFac
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.merged_facet_key.is_empty() {
             state.serialize_entry("mergedFacetKey", &self.merged_facet_key)?;
@@ -203,9 +206,9 @@ impl serde::ser::Serialize for super::catalog_attribute::facet_config::RerankCon
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.rerank_facet) {
             state.serialize_entry("rerankFacet", &self.rerank_facet)?;
@@ -228,9 +231,9 @@ impl serde::ser::Serialize for super::AttributesConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -256,9 +259,9 @@ impl serde::ser::Serialize for super::CompletionConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -297,19 +300,28 @@ impl serde::ser::Serialize for super::CompletionConfig {
             state.serialize_entry("suggestionsInputConfig", &self.suggestions_input_config)?;
         }
         if !self.last_suggestions_import_operation.is_empty() {
-            state.serialize_entry("lastSuggestionsImportOperation", &self.last_suggestions_import_operation)?;
+            state.serialize_entry(
+                "lastSuggestionsImportOperation",
+                &self.last_suggestions_import_operation,
+            )?;
         }
         if self.denylist_input_config.is_some() {
             state.serialize_entry("denylistInputConfig", &self.denylist_input_config)?;
         }
         if !self.last_denylist_import_operation.is_empty() {
-            state.serialize_entry("lastDenylistImportOperation", &self.last_denylist_import_operation)?;
+            state.serialize_entry(
+                "lastDenylistImportOperation",
+                &self.last_denylist_import_operation,
+            )?;
         }
         if self.allowlist_input_config.is_some() {
             state.serialize_entry("allowlistInputConfig", &self.allowlist_input_config)?;
         }
         if !self.last_allowlist_import_operation.is_empty() {
-            state.serialize_entry("lastAllowlistImportOperation", &self.last_allowlist_import_operation)?;
+            state.serialize_entry(
+                "lastAllowlistImportOperation",
+                &self.last_allowlist_import_operation,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -326,9 +338,9 @@ impl serde::ser::Serialize for super::Catalog {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -354,9 +366,9 @@ impl serde::ser::Serialize for super::ListCatalogsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -391,9 +403,9 @@ impl serde::ser::Serialize for super::ListCatalogsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalogs.is_empty() {
             state.serialize_entry("catalogs", &self.catalogs)?;
@@ -416,9 +428,9 @@ impl serde::ser::Serialize for super::UpdateCatalogRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.catalog.is_some() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -441,9 +453,9 @@ impl serde::ser::Serialize for super::SetDefaultBranchRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -472,9 +484,9 @@ impl serde::ser::Serialize for super::GetDefaultBranchRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -494,9 +506,9 @@ impl serde::ser::Serialize for super::GetDefaultBranchResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.branch.is_empty() {
             state.serialize_entry("branch", &self.branch)?;
@@ -522,9 +534,9 @@ impl serde::ser::Serialize for super::GetCompletionConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -544,9 +556,9 @@ impl serde::ser::Serialize for super::UpdateCompletionConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.completion_config.is_some() {
             state.serialize_entry("completionConfig", &self.completion_config)?;
@@ -569,9 +581,9 @@ impl serde::ser::Serialize for super::GetAttributesConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -591,9 +603,9 @@ impl serde::ser::Serialize for super::UpdateAttributesConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.attributes_config.is_some() {
             state.serialize_entry("attributesConfig", &self.attributes_config)?;
@@ -616,9 +628,9 @@ impl serde::ser::Serialize for super::AddCatalogAttributeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attributes_config.is_empty() {
             state.serialize_entry("attributesConfig", &self.attributes_config)?;
@@ -641,9 +653,9 @@ impl serde::ser::Serialize for super::RemoveCatalogAttributeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attributes_config.is_empty() {
             state.serialize_entry("attributesConfig", &self.attributes_config)?;
@@ -666,9 +678,9 @@ impl serde::ser::Serialize for super::ReplaceCatalogAttributeRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attributes_config.is_empty() {
             state.serialize_entry("attributesConfig", &self.attributes_config)?;
@@ -694,9 +706,9 @@ impl serde::ser::Serialize for super::Condition {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.query_terms.is_empty() {
             state.serialize_entry("queryTerms", &self.query_terms)?;
@@ -722,9 +734,9 @@ impl serde::ser::Serialize for super::condition::QueryTerm {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
@@ -747,9 +759,9 @@ impl serde::ser::Serialize for super::condition::TimeRange {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;
@@ -772,9 +784,9 @@ impl serde::ser::Serialize for super::Rule {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.boost_action() {
             state.serialize_entry("boostAction", value)?;
@@ -827,9 +839,9 @@ impl serde::ser::Serialize for super::rule::BoostAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.boost) {
             struct __With<'a>(&'a f32);
@@ -861,9 +873,9 @@ impl serde::ser::Serialize for super::rule::FilterAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.filter.is_empty() {
             state.serialize_entry("filter", &self.filter)?;
@@ -883,9 +895,9 @@ impl serde::ser::Serialize for super::rule::RedirectAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.redirect_uri.is_empty() {
             state.serialize_entry("redirectUri", &self.redirect_uri)?;
@@ -905,9 +917,9 @@ impl serde::ser::Serialize for super::rule::TwowaySynonymsAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.synonyms.is_empty() {
             state.serialize_entry("synonyms", &self.synonyms)?;
@@ -927,9 +939,9 @@ impl serde::ser::Serialize for super::rule::OnewaySynonymsAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.query_terms.is_empty() {
             state.serialize_entry("queryTerms", &self.query_terms)?;
@@ -955,9 +967,9 @@ impl serde::ser::Serialize for super::rule::DoNotAssociateAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.query_terms.is_empty() {
             state.serialize_entry("queryTerms", &self.query_terms)?;
@@ -983,9 +995,9 @@ impl serde::ser::Serialize for super::rule::ReplacementAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.query_terms.is_empty() {
             state.serialize_entry("queryTerms", &self.query_terms)?;
@@ -1011,9 +1023,9 @@ impl serde::ser::Serialize for super::rule::IgnoreAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ignore_terms.is_empty() {
             state.serialize_entry("ignoreTerms", &self.ignore_terms)?;
@@ -1033,9 +1045,9 @@ impl serde::ser::Serialize for super::rule::ForceReturnFacetAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.facet_position_adjustments.is_empty() {
             state.serialize_entry("facetPositionAdjustments", &self.facet_position_adjustments)?;
@@ -1055,9 +1067,9 @@ impl serde::ser::Serialize for super::rule::force_return_facet_action::FacetPosi
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attribute_name.is_empty() {
             state.serialize_entry("attributeName", &self.attribute_name)?;
@@ -1089,9 +1101,9 @@ impl serde::ser::Serialize for super::rule::RemoveFacetAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.attribute_names.is_empty() {
             state.serialize_entry("attributeNames", &self.attribute_names)?;
@@ -1111,12 +1123,12 @@ impl serde::ser::Serialize for super::rule::PinAction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pin_map.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,std::string::String>);
+            struct __With<'a>(&'a std::collections::HashMap<i64, std::string::String>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1142,9 +1154,9 @@ impl serde::ser::Serialize for super::Audience {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.genders.is_empty() {
             state.serialize_entry("genders", &self.genders)?;
@@ -1167,9 +1179,9 @@ impl serde::ser::Serialize for super::ColorInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.color_families.is_empty() {
             state.serialize_entry("colorFamilies", &self.color_families)?;
@@ -1192,9 +1204,9 @@ impl serde::ser::Serialize for super::CustomAttribute {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.text.is_empty() {
             state.serialize_entry("text", &self.text)?;
@@ -1206,7 +1218,9 @@ impl serde::ser::Serialize for super::CustomAttribute {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("numbers", &__With(&self.numbers))?;
@@ -1232,9 +1246,9 @@ impl serde::ser::Serialize for super::FulfillmentInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
@@ -1257,9 +1271,9 @@ impl serde::ser::Serialize for super::Image {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.uri.is_empty() {
             state.serialize_entry("uri", &self.uri)?;
@@ -1303,9 +1317,9 @@ impl serde::ser::Serialize for super::Interval {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.minimum() {
             struct __With<'a>(&'a f64);
@@ -1370,9 +1384,9 @@ impl serde::ser::Serialize for super::PriceInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.currency_code.is_empty() {
             state.serialize_entry("currencyCode", &self.currency_code)?;
@@ -1437,9 +1451,9 @@ impl serde::ser::Serialize for super::price_info::PriceRange {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.price.is_some() {
             state.serialize_entry("price", &self.price)?;
@@ -1462,9 +1476,9 @@ impl serde::ser::Serialize for super::Rating {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.rating_count) {
             struct __With<'a>(&'a i32);
@@ -1497,7 +1511,9 @@ impl serde::ser::Serialize for super::Rating {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("ratingHistogram", &__With(&self.rating_histogram))?;
@@ -1517,9 +1533,9 @@ impl serde::ser::Serialize for super::UserInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.user_id.is_empty() {
             state.serialize_entry("userId", &self.user_id)?;
@@ -1548,9 +1564,9 @@ impl serde::ser::Serialize for super::LocalInventory {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.place_id.is_empty() {
             state.serialize_entry("placeId", &self.place_id)?;
@@ -1579,12 +1595,14 @@ impl serde::ser::Serialize for super::PinControlMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.all_matched_pins.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,crate::model::pin_control_metadata::ProductPins>);
+            struct __With<'a>(
+                &'a std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+            );
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1596,7 +1614,9 @@ impl serde::ser::Serialize for super::PinControlMetadata {
             state.serialize_entry("allMatchedPins", &__With(&self.all_matched_pins))?;
         }
         if !self.dropped_pins.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<i64,crate::model::pin_control_metadata::ProductPins>);
+            struct __With<'a>(
+                &'a std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+            );
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -1622,9 +1642,9 @@ impl serde::ser::Serialize for super::pin_control_metadata::ProductPins {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product_id.is_empty() {
             state.serialize_entry("productId", &self.product_id)?;
@@ -1638,17 +1658,15 @@ impl serde::ser::Serialize for super::pin_control_metadata::ProductPins {
     }
 }
 
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::StringList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.values.is_empty() {
             state.serialize_entry("values", &self.values)?;
@@ -1668,9 +1686,9 @@ impl serde::ser::Serialize for super::DoubleList {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.values.is_empty() {
             struct __With<'a>(&'a std::vec::Vec<f64>);
@@ -1679,7 +1697,9 @@ impl serde::ser::Serialize for super::DoubleList {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::vec::Vec<wkt::internal::F64> >::serialize(self.0, serializer)
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("values", &__With(&self.values))?;
@@ -1699,9 +1719,9 @@ impl serde::ser::Serialize for super::CompleteQueryRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -1734,7 +1754,10 @@ impl serde::ser::Serialize for super::CompleteQueryRequest {
             state.serialize_entry("maxSuggestions", &__With(&self.max_suggestions))?;
         }
         if !wkt::internal::is_default(&self.enable_attribute_suggestions) {
-            state.serialize_entry("enableAttributeSuggestions", &self.enable_attribute_suggestions)?;
+            state.serialize_entry(
+                "enableAttributeSuggestions",
+                &self.enable_attribute_suggestions,
+            )?;
         }
         if !self.entity.is_empty() {
             state.serialize_entry("entity", &self.entity)?;
@@ -1754,9 +1777,9 @@ impl serde::ser::Serialize for super::CompleteQueryResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.completion_results.is_empty() {
             state.serialize_entry("completionResults", &self.completion_results)?;
@@ -1785,9 +1808,9 @@ impl serde::ser::Serialize for super::complete_query_response::CompletionResult 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.suggestion.is_empty() {
             state.serialize_entry("suggestion", &self.suggestion)?;
@@ -1810,9 +1833,9 @@ impl serde::ser::Serialize for super::complete_query_response::RecentSearchResul
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.recent_search.is_empty() {
             state.serialize_entry("recentSearch", &self.recent_search)?;
@@ -1832,9 +1855,9 @@ impl serde::ser::Serialize for super::complete_query_response::AttributeResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.suggestions.is_empty() {
             state.serialize_entry("suggestions", &self.suggestions)?;
@@ -1848,16 +1871,15 @@ impl serde::ser::Serialize for super::complete_query_response::AttributeResult {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Control {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.rule() {
             state.serialize_entry("rule", value)?;
@@ -1869,7 +1891,10 @@ impl serde::ser::Serialize for super::Control {
             state.serialize_entry("displayName", &self.display_name)?;
         }
         if !self.associated_serving_config_ids.is_empty() {
-            state.serialize_entry("associatedServingConfigIds", &self.associated_serving_config_ids)?;
+            state.serialize_entry(
+                "associatedServingConfigIds",
+                &self.associated_serving_config_ids,
+            )?;
         }
         if !self.solution_types.is_empty() {
             state.serialize_entry("solutionTypes", &self.solution_types)?;
@@ -1892,9 +1917,9 @@ impl serde::ser::Serialize for super::CreateControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -1920,9 +1945,9 @@ impl serde::ser::Serialize for super::UpdateControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.control.is_some() {
             state.serialize_entry("control", &self.control)?;
@@ -1945,9 +1970,9 @@ impl serde::ser::Serialize for super::DeleteControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1967,9 +1992,9 @@ impl serde::ser::Serialize for super::GetControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -1989,9 +2014,9 @@ impl serde::ser::Serialize for super::ListControlsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2029,9 +2054,9 @@ impl serde::ser::Serialize for super::ListControlsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.controls.is_empty() {
             state.serialize_entry("controls", &self.controls)?;
@@ -2054,9 +2079,9 @@ impl serde::ser::Serialize for super::ConversationalSearchRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.placement.is_empty() {
             state.serialize_entry("placement", &self.placement)?;
@@ -2083,7 +2108,10 @@ impl serde::ser::Serialize for super::ConversationalSearchRequest {
             state.serialize_entry("userInfo", &self.user_info)?;
         }
         if self.conversational_filtering_spec.is_some() {
-            state.serialize_entry("conversationalFilteringSpec", &self.conversational_filtering_spec)?;
+            state.serialize_entry(
+                "conversationalFilteringSpec",
+                &self.conversational_filtering_spec,
+            )?;
         }
         if !self.user_labels.is_empty() {
             state.serialize_entry("userLabels", &self.user_labels)?;
@@ -2106,9 +2134,9 @@ impl serde::ser::Serialize for super::conversational_search_request::SearchParam
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.filter.is_empty() {
             state.serialize_entry("filter", &self.filter)?;
@@ -2137,9 +2165,9 @@ impl serde::ser::Serialize for super::conversational_search_request::UserAnswer 
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.text_answer() {
             state.serialize_entry("textAnswer", value)?;
@@ -2162,9 +2190,9 @@ impl serde::ser::Serialize for super::conversational_search_request::user_answer
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product_attribute_value.is_some() {
             state.serialize_entry("productAttributeValue", &self.product_attribute_value)?;
@@ -2184,18 +2212,24 @@ impl serde::ser::Serialize for super::conversational_search_request::Conversatio
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.enable_conversational_filtering) {
-            state.serialize_entry("enableConversationalFiltering", &self.enable_conversational_filtering)?;
+            state.serialize_entry(
+                "enableConversationalFiltering",
+                &self.enable_conversational_filtering,
+            )?;
         }
         if self.user_answer.is_some() {
             state.serialize_entry("userAnswer", &self.user_answer)?;
         }
         if !wkt::internal::is_default(&self.conversational_filtering_mode) {
-            state.serialize_entry("conversationalFilteringMode", &self.conversational_filtering_mode)?;
+            state.serialize_entry(
+                "conversationalFilteringMode",
+                &self.conversational_filtering_mode,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2206,22 +2240,24 @@ impl serde::ser::Serialize for super::conversational_search_request::Conversatio
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ConversationalSearchResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.user_query_types.is_empty() {
             state.serialize_entry("userQueryTypes", &self.user_query_types)?;
         }
         if !self.conversational_text_response.is_empty() {
-            state.serialize_entry("conversationalTextResponse", &self.conversational_text_response)?;
+            state.serialize_entry(
+                "conversationalTextResponse",
+                &self.conversational_text_response,
+            )?;
         }
         if self.followup_question.is_some() {
             state.serialize_entry("followupQuestion", &self.followup_question)?;
@@ -2233,7 +2269,10 @@ impl serde::ser::Serialize for super::ConversationalSearchResponse {
             state.serialize_entry("refinedSearch", &self.refined_search)?;
         }
         if self.conversational_filtering_result.is_some() {
-            state.serialize_entry("conversationalFilteringResult", &self.conversational_filtering_result)?;
+            state.serialize_entry(
+                "conversationalFilteringResult",
+                &self.conversational_filtering_result,
+            )?;
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
@@ -2253,9 +2292,9 @@ impl serde::ser::Serialize for super::conversational_search_response::FollowupQu
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.followup_question.is_empty() {
             state.serialize_entry("followupQuestion", &self.followup_question)?;
@@ -2273,14 +2312,16 @@ impl serde::ser::Serialize for super::conversational_search_response::FollowupQu
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::conversational_search_response::followup_question::SuggestedAnswer {
+impl serde::ser::Serialize
+    for super::conversational_search_response::followup_question::SuggestedAnswer
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product_attribute_value.is_some() {
             state.serialize_entry("productAttributeValue", &self.product_attribute_value)?;
@@ -2300,9 +2341,9 @@ impl serde::ser::Serialize for super::conversational_search_response::RefinedSea
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.query.is_empty() {
             state.serialize_entry("query", &self.query)?;
@@ -2317,14 +2358,16 @@ impl serde::ser::Serialize for super::conversational_search_response::RefinedSea
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::conversational_search_response::ConversationalFilteringResult {
+impl serde::ser::Serialize
+    for super::conversational_search_response::ConversationalFilteringResult
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.followup_question.is_some() {
             state.serialize_entry("followupQuestion", &self.followup_question)?;
@@ -2342,14 +2385,16 @@ impl serde::ser::Serialize for super::conversational_search_response::Conversati
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::conversational_search_response::conversational_filtering_result::AdditionalFilter {
+impl serde::ser::Serialize
+    for super::conversational_search_response::conversational_filtering_result::AdditionalFilter
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product_attribute_value.is_some() {
             state.serialize_entry("productAttributeValue", &self.product_attribute_value)?;
@@ -2369,9 +2414,9 @@ impl serde::ser::Serialize for super::OutputConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.gcs_destination() {
             state.serialize_entry("gcsDestination", value)?;
@@ -2394,9 +2439,9 @@ impl serde::ser::Serialize for super::output_config::GcsDestination {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.output_uri_prefix.is_empty() {
             state.serialize_entry("outputUriPrefix", &self.output_uri_prefix)?;
@@ -2416,9 +2461,9 @@ impl serde::ser::Serialize for super::output_config::BigQueryDestination {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.dataset_id.is_empty() {
             state.serialize_entry("datasetId", &self.dataset_id)?;
@@ -2444,9 +2489,9 @@ impl serde::ser::Serialize for super::ExportErrorsConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.gcs_prefix() {
             state.serialize_entry("gcsPrefix", value)?;
@@ -2466,9 +2511,9 @@ impl serde::ser::Serialize for super::ExportAnalyticsMetricsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -2494,9 +2539,9 @@ impl serde::ser::Serialize for super::ExportMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -2519,9 +2564,9 @@ impl serde::ser::Serialize for super::ExportAnalyticsMetricsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_samples.is_empty() {
             state.serialize_entry("errorSamples", &self.error_samples)?;
@@ -2547,9 +2592,9 @@ impl serde::ser::Serialize for super::OutputResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.bigquery_result.is_empty() {
             state.serialize_entry("bigqueryResult", &self.bigquery_result)?;
@@ -2572,9 +2617,9 @@ impl serde::ser::Serialize for super::BigQueryOutputResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.dataset_id.is_empty() {
             state.serialize_entry("datasetId", &self.dataset_id)?;
@@ -2597,9 +2642,9 @@ impl serde::ser::Serialize for super::GcsOutputResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.output_uri.is_empty() {
             state.serialize_entry("outputUri", &self.output_uri)?;
@@ -2619,9 +2664,9 @@ impl serde::ser::Serialize for super::GenerativeQuestionsFeatureConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -2656,9 +2701,9 @@ impl serde::ser::Serialize for super::GenerativeQuestionConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -2705,12 +2750,15 @@ impl serde::ser::Serialize for super::UpdateGenerativeQuestionsFeatureConfigRequ
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.generative_questions_feature_config.is_some() {
-            state.serialize_entry("generativeQuestionsFeatureConfig", &self.generative_questions_feature_config)?;
+            state.serialize_entry(
+                "generativeQuestionsFeatureConfig",
+                &self.generative_questions_feature_config,
+            )?;
         }
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
@@ -2730,9 +2778,9 @@ impl serde::ser::Serialize for super::GetGenerativeQuestionsFeatureConfigRequest
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.catalog.is_empty() {
             state.serialize_entry("catalog", &self.catalog)?;
@@ -2752,9 +2800,9 @@ impl serde::ser::Serialize for super::ListGenerativeQuestionConfigsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2774,12 +2822,15 @@ impl serde::ser::Serialize for super::ListGenerativeQuestionConfigsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.generative_question_configs.is_empty() {
-            state.serialize_entry("generativeQuestionConfigs", &self.generative_question_configs)?;
+            state.serialize_entry(
+                "generativeQuestionConfigs",
+                &self.generative_question_configs,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2796,9 +2847,9 @@ impl serde::ser::Serialize for super::UpdateGenerativeQuestionConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.generative_question_config.is_some() {
             state.serialize_entry("generativeQuestionConfig", &self.generative_question_config)?;
@@ -2821,9 +2872,9 @@ impl serde::ser::Serialize for super::BatchUpdateGenerativeQuestionConfigsReques
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -2846,12 +2897,15 @@ impl serde::ser::Serialize for super::BatchUpdateGenerativeQuestionConfigsRespon
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.generative_question_configs.is_empty() {
-            state.serialize_entry("generativeQuestionConfigs", &self.generative_question_configs)?;
+            state.serialize_entry(
+                "generativeQuestionConfigs",
+                &self.generative_question_configs,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2868,9 +2922,9 @@ impl serde::ser::Serialize for super::GcsSource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.input_uris.is_empty() {
             state.serialize_entry("inputUris", &self.input_uris)?;
@@ -2893,9 +2947,9 @@ impl serde::ser::Serialize for super::BigQuerySource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.partition_date() {
             state.serialize_entry("partitionDate", value)?;
@@ -2930,9 +2984,9 @@ impl serde::ser::Serialize for super::ProductInlineSource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.products.is_empty() {
             state.serialize_entry("products", &self.products)?;
@@ -2952,9 +3006,9 @@ impl serde::ser::Serialize for super::UserEventInlineSource {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.user_events.is_empty() {
             state.serialize_entry("userEvents", &self.user_events)?;
@@ -2974,9 +3028,9 @@ impl serde::ser::Serialize for super::ImportErrorsConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.gcs_prefix() {
             state.serialize_entry("gcsPrefix", value)?;
@@ -2996,9 +3050,9 @@ impl serde::ser::Serialize for super::ImportProductsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -3036,9 +3090,9 @@ impl serde::ser::Serialize for super::ImportUserEventsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -3064,9 +3118,9 @@ impl serde::ser::Serialize for super::ImportCompletionDataRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -3092,9 +3146,9 @@ impl serde::ser::Serialize for super::ProductInputConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.product_inline_source() {
             state.serialize_entry("productInlineSource", value)?;
@@ -3120,9 +3174,9 @@ impl serde::ser::Serialize for super::UserEventInputConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.user_event_inline_source() {
             state.serialize_entry("userEventInlineSource", value)?;
@@ -3148,9 +3202,9 @@ impl serde::ser::Serialize for super::CompletionDataInputConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.big_query_source() {
             state.serialize_entry("bigQuerySource", value)?;
@@ -3170,9 +3224,9 @@ impl serde::ser::Serialize for super::ImportMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -3225,9 +3279,9 @@ impl serde::ser::Serialize for super::ImportProductsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_samples.is_empty() {
             state.serialize_entry("errorSamples", &self.error_samples)?;
@@ -3250,9 +3304,9 @@ impl serde::ser::Serialize for super::ImportUserEventsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_samples.is_empty() {
             state.serialize_entry("errorSamples", &self.error_samples)?;
@@ -3278,9 +3332,9 @@ impl serde::ser::Serialize for super::UserEventImportSummary {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.joined_events_count) {
             struct __With<'a>(&'a i64);
@@ -3321,9 +3375,9 @@ impl serde::ser::Serialize for super::ImportCompletionDataResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.error_samples.is_empty() {
             state.serialize_entry("errorSamples", &self.error_samples)?;
@@ -3343,9 +3397,9 @@ impl serde::ser::Serialize for super::Model {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3407,9 +3461,9 @@ impl serde::ser::Serialize for super::model::ServingConfigList {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.serving_config_ids.is_empty() {
             state.serialize_entry("servingConfigIds", &self.serving_config_ids)?;
@@ -3429,9 +3483,9 @@ impl serde::ser::Serialize for super::model::FrequentlyBoughtTogetherFeaturesCon
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.context_products_type) {
             state.serialize_entry("contextProductsType", &self.context_products_type)?;
@@ -3451,9 +3505,9 @@ impl serde::ser::Serialize for super::model::ModelFeaturesConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.frequently_bought_together_config() {
             state.serialize_entry("frequentlyBoughtTogetherConfig", value)?;
@@ -3473,9 +3527,9 @@ impl serde::ser::Serialize for super::CreateModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -3501,9 +3555,9 @@ impl serde::ser::Serialize for super::UpdateModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.model.is_some() {
             state.serialize_entry("model", &self.model)?;
@@ -3526,9 +3580,9 @@ impl serde::ser::Serialize for super::GetModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3548,9 +3602,9 @@ impl serde::ser::Serialize for super::PauseModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3570,9 +3624,9 @@ impl serde::ser::Serialize for super::ResumeModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3592,9 +3646,9 @@ impl serde::ser::Serialize for super::ListModelsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -3629,9 +3683,9 @@ impl serde::ser::Serialize for super::DeleteModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3651,9 +3705,9 @@ impl serde::ser::Serialize for super::ListModelsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.models.is_empty() {
             state.serialize_entry("models", &self.models)?;
@@ -3676,9 +3730,9 @@ impl serde::ser::Serialize for super::TuneModelRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -3698,9 +3752,9 @@ impl serde::ser::Serialize for super::CreateModelMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -3720,9 +3774,9 @@ impl serde::ser::Serialize for super::TuneModelMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.model.is_empty() {
             state.serialize_entry("model", &self.model)?;
@@ -3742,9 +3796,9 @@ impl serde::ser::Serialize for super::TuneModelResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3761,9 +3815,9 @@ impl serde::ser::Serialize for super::PredictRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.placement.is_empty() {
             state.serialize_entry("placement", &self.placement)?;
@@ -3813,9 +3867,9 @@ impl serde::ser::Serialize for super::PredictResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.results.is_empty() {
             state.serialize_entry("results", &self.results)?;
@@ -3844,9 +3898,9 @@ impl serde::ser::Serialize for super::predict_response::PredictionResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -3869,9 +3923,9 @@ impl serde::ser::Serialize for super::Product {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.expire_time() {
             state.serialize_entry("expireTime", value)?;
@@ -3937,7 +3991,9 @@ impl serde::ser::Serialize for super::Product {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("availableQuantity", &__With(&self.available_quantity))?;
@@ -3993,16 +4049,15 @@ impl serde::ser::Serialize for super::Product {
     }
 }
 
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CreateProductRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -4028,9 +4083,9 @@ impl serde::ser::Serialize for super::GetProductRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4050,9 +4105,9 @@ impl serde::ser::Serialize for super::UpdateProductRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product.is_some() {
             state.serialize_entry("product", &self.product)?;
@@ -4078,9 +4133,9 @@ impl serde::ser::Serialize for super::DeleteProductRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4100,9 +4155,9 @@ impl serde::ser::Serialize for super::ListProductsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -4143,9 +4198,9 @@ impl serde::ser::Serialize for super::ListProductsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.products.is_empty() {
             state.serialize_entry("products", &self.products)?;
@@ -4168,9 +4223,9 @@ impl serde::ser::Serialize for super::SetInventoryRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.inventory.is_some() {
             state.serialize_entry("inventory", &self.inventory)?;
@@ -4199,9 +4254,9 @@ impl serde::ser::Serialize for super::SetInventoryMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4218,9 +4273,9 @@ impl serde::ser::Serialize for super::SetInventoryResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4237,9 +4292,9 @@ impl serde::ser::Serialize for super::AddFulfillmentPlacesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product.is_empty() {
             state.serialize_entry("product", &self.product)?;
@@ -4271,9 +4326,9 @@ impl serde::ser::Serialize for super::AddFulfillmentPlacesMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4290,9 +4345,9 @@ impl serde::ser::Serialize for super::AddFulfillmentPlacesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4309,9 +4364,9 @@ impl serde::ser::Serialize for super::AddLocalInventoriesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product.is_empty() {
             state.serialize_entry("product", &self.product)?;
@@ -4343,9 +4398,9 @@ impl serde::ser::Serialize for super::AddLocalInventoriesMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4362,9 +4417,9 @@ impl serde::ser::Serialize for super::AddLocalInventoriesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4381,9 +4436,9 @@ impl serde::ser::Serialize for super::RemoveLocalInventoriesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product.is_empty() {
             state.serialize_entry("product", &self.product)?;
@@ -4412,9 +4467,9 @@ impl serde::ser::Serialize for super::RemoveLocalInventoriesMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4431,9 +4486,9 @@ impl serde::ser::Serialize for super::RemoveLocalInventoriesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4450,9 +4505,9 @@ impl serde::ser::Serialize for super::RemoveFulfillmentPlacesRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product.is_empty() {
             state.serialize_entry("product", &self.product)?;
@@ -4484,9 +4539,9 @@ impl serde::ser::Serialize for super::RemoveFulfillmentPlacesMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4503,9 +4558,9 @@ impl serde::ser::Serialize for super::RemoveFulfillmentPlacesResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4522,9 +4577,9 @@ impl serde::ser::Serialize for super::Promotion {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.promotion_id.is_empty() {
             state.serialize_entry("promotionId", &self.promotion_id)?;
@@ -4544,9 +4599,9 @@ impl serde::ser::Serialize for super::PurgeMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4563,9 +4618,9 @@ impl serde::ser::Serialize for super::PurgeProductsMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -4612,9 +4667,9 @@ impl serde::ser::Serialize for super::PurgeProductsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -4640,9 +4695,9 @@ impl serde::ser::Serialize for super::PurgeProductsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.purge_count) {
             struct __With<'a>(&'a i64);
@@ -4674,9 +4729,9 @@ impl serde::ser::Serialize for super::PurgeUserEventsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -4702,9 +4757,9 @@ impl serde::ser::Serialize for super::PurgeUserEventsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.purged_events_count) {
             struct __With<'a>(&'a i64);
@@ -4733,9 +4788,9 @@ impl serde::ser::Serialize for super::SafetySetting {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.category) {
             state.serialize_entry("category", &self.category)?;
@@ -4761,9 +4816,9 @@ impl serde::ser::Serialize for super::ProductAttributeValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4786,9 +4841,9 @@ impl serde::ser::Serialize for super::ProductAttributeInterval {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -4811,9 +4866,9 @@ impl serde::ser::Serialize for super::Tile {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.product_attribute_value() {
             state.serialize_entry("productAttributeValue", value)?;
@@ -4839,9 +4894,9 @@ impl serde::ser::Serialize for super::SearchRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.placement.is_empty() {
             state.serialize_entry("placement", &self.placement)?;
@@ -4960,9 +5015,9 @@ impl serde::ser::Serialize for super::search_request::FacetSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.facet_key.is_some() {
             state.serialize_entry("facetKey", &self.facet_key)?;
@@ -5000,9 +5055,9 @@ impl serde::ser::Serialize for super::search_request::facet_spec::FacetKey {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key.is_empty() {
             state.serialize_entry("key", &self.key)?;
@@ -5046,9 +5101,9 @@ impl serde::ser::Serialize for super::search_request::DynamicFacetSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
@@ -5068,9 +5123,9 @@ impl serde::ser::Serialize for super::search_request::BoostSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.condition_boost_specs.is_empty() {
             state.serialize_entry("conditionBoostSpecs", &self.condition_boost_specs)?;
@@ -5093,9 +5148,9 @@ impl serde::ser::Serialize for super::search_request::boost_spec::ConditionBoost
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.condition.is_empty() {
             state.serialize_entry("condition", &self.condition)?;
@@ -5127,9 +5182,9 @@ impl serde::ser::Serialize for super::search_request::QueryExpansionSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.condition) {
             state.serialize_entry("condition", &self.condition)?;
@@ -5152,9 +5207,9 @@ impl serde::ser::Serialize for super::search_request::PersonalizationSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
@@ -5174,9 +5229,9 @@ impl serde::ser::Serialize for super::search_request::SpellCorrectionSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
@@ -5196,12 +5251,15 @@ impl serde::ser::Serialize for super::search_request::ConversationalSearchSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.followup_conversation_requested) {
-            state.serialize_entry("followupConversationRequested", &self.followup_conversation_requested)?;
+            state.serialize_entry(
+                "followupConversationRequested",
+                &self.followup_conversation_requested,
+            )?;
         }
         if !self.conversation_id.is_empty() {
             state.serialize_entry("conversationId", &self.conversation_id)?;
@@ -5224,9 +5282,9 @@ impl serde::ser::Serialize for super::search_request::conversational_search_spec
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.text_answer() {
             state.serialize_entry("textAnswer", value)?;
@@ -5244,14 +5302,16 @@ impl serde::ser::Serialize for super::search_request::conversational_search_spec
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::search_request::conversational_search_spec::user_answer::SelectedAnswer {
+impl serde::ser::Serialize
+    for super::search_request::conversational_search_spec::user_answer::SelectedAnswer
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.product_attribute_values.is_empty() {
             state.serialize_entry("productAttributeValues", &self.product_attribute_values)?;
@@ -5274,9 +5334,9 @@ impl serde::ser::Serialize for super::search_request::TileNavigationSpec {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.tile_navigation_requested) {
             state.serialize_entry("tileNavigationRequested", &self.tile_navigation_requested)?;
@@ -5293,17 +5353,15 @@ impl serde::ser::Serialize for super::search_request::TileNavigationSpec {
     }
 }
 
-
-
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SearchResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.results.is_empty() {
             state.serialize_entry("results", &self.results)?;
@@ -5345,13 +5403,19 @@ impl serde::ser::Serialize for super::SearchResponse {
             state.serialize_entry("pinControlMetadata", &self.pin_control_metadata)?;
         }
         if !self.invalid_condition_boost_specs.is_empty() {
-            state.serialize_entry("invalidConditionBoostSpecs", &self.invalid_condition_boost_specs)?;
+            state.serialize_entry(
+                "invalidConditionBoostSpecs",
+                &self.invalid_condition_boost_specs,
+            )?;
         }
         if !self.experiment_info.is_empty() {
             state.serialize_entry("experimentInfo", &self.experiment_info)?;
         }
         if self.conversational_search_result.is_some() {
-            state.serialize_entry("conversationalSearchResult", &self.conversational_search_result)?;
+            state.serialize_entry(
+                "conversationalSearchResult",
+                &self.conversational_search_result,
+            )?;
         }
         if self.tile_navigation_result.is_some() {
             state.serialize_entry("tileNavigationResult", &self.tile_navigation_result)?;
@@ -5371,9 +5435,9 @@ impl serde::ser::Serialize for super::search_response::SearchResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -5391,7 +5455,10 @@ impl serde::ser::Serialize for super::search_response::SearchResult {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("matchingVariantCount", &__With(&self.matching_variant_count))?;
+            state.serialize_entry(
+                "matchingVariantCount",
+                &__With(&self.matching_variant_count),
+            )?;
         }
         if !self.matching_variant_fields.is_empty() {
             state.serialize_entry("matchingVariantFields", &self.matching_variant_fields)?;
@@ -5420,9 +5487,9 @@ impl serde::ser::Serialize for super::search_response::Facet {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.key.is_empty() {
             state.serialize_entry("key", &self.key)?;
@@ -5448,9 +5515,9 @@ impl serde::ser::Serialize for super::search_response::facet::FacetValue {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.value() {
             state.serialize_entry("value", value)?;
@@ -5509,9 +5576,9 @@ impl serde::ser::Serialize for super::search_response::QueryExpansionInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.expanded_query) {
             state.serialize_entry("expandedQuery", &self.expanded_query)?;
@@ -5543,9 +5610,9 @@ impl serde::ser::Serialize for super::search_response::ConversationalSearchResul
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.conversation_id.is_empty() {
             state.serialize_entry("conversationId", &self.conversation_id)?;
@@ -5575,14 +5642,16 @@ impl serde::ser::Serialize for super::search_response::ConversationalSearchResul
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::search_response::conversational_search_result::SuggestedAnswer {
+impl serde::ser::Serialize
+    for super::search_response::conversational_search_result::SuggestedAnswer
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product_attribute_value.is_some() {
             state.serialize_entry("productAttributeValue", &self.product_attribute_value)?;
@@ -5597,14 +5666,16 @@ impl serde::ser::Serialize for super::search_response::conversational_search_res
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::search_response::conversational_search_result::AdditionalFilter {
+impl serde::ser::Serialize
+    for super::search_response::conversational_search_result::AdditionalFilter
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product_attribute_value.is_some() {
             state.serialize_entry("productAttributeValue", &self.product_attribute_value)?;
@@ -5624,9 +5695,9 @@ impl serde::ser::Serialize for super::search_response::TileNavigationResult {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.tiles.is_empty() {
             state.serialize_entry("tiles", &self.tiles)?;
@@ -5646,9 +5717,9 @@ impl serde::ser::Serialize for super::ExperimentInfo {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.serving_config_experiment() {
             state.serialize_entry("servingConfigExperiment", value)?;
@@ -5671,9 +5742,9 @@ impl serde::ser::Serialize for super::experiment_info::ServingConfigExperiment {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.original_serving_config.is_empty() {
             state.serialize_entry("originalServingConfig", &self.original_serving_config)?;
@@ -5696,9 +5767,9 @@ impl serde::ser::Serialize for super::ServingConfig {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -5728,13 +5799,22 @@ impl serde::ser::Serialize for super::ServingConfig {
             state.serialize_entry("redirectControlIds", &self.redirect_control_ids)?;
         }
         if !self.twoway_synonyms_control_ids.is_empty() {
-            state.serialize_entry("twowaySynonymsControlIds", &self.twoway_synonyms_control_ids)?;
+            state.serialize_entry(
+                "twowaySynonymsControlIds",
+                &self.twoway_synonyms_control_ids,
+            )?;
         }
         if !self.oneway_synonyms_control_ids.is_empty() {
-            state.serialize_entry("onewaySynonymsControlIds", &self.oneway_synonyms_control_ids)?;
+            state.serialize_entry(
+                "onewaySynonymsControlIds",
+                &self.oneway_synonyms_control_ids,
+            )?;
         }
         if !self.do_not_associate_control_ids.is_empty() {
-            state.serialize_entry("doNotAssociateControlIds", &self.do_not_associate_control_ids)?;
+            state.serialize_entry(
+                "doNotAssociateControlIds",
+                &self.do_not_associate_control_ids,
+            )?;
         }
         if !self.replacement_control_ids.is_empty() {
             state.serialize_entry("replacementControlIds", &self.replacement_control_ids)?;
@@ -5749,7 +5829,10 @@ impl serde::ser::Serialize for super::ServingConfig {
             state.serialize_entry("diversityType", &self.diversity_type)?;
         }
         if !self.enable_category_filter_level.is_empty() {
-            state.serialize_entry("enableCategoryFilterLevel", &self.enable_category_filter_level)?;
+            state.serialize_entry(
+                "enableCategoryFilterLevel",
+                &self.enable_category_filter_level,
+            )?;
         }
         if !wkt::internal::is_default(&self.ignore_recs_denylist) {
             state.serialize_entry("ignoreRecsDenylist", &self.ignore_recs_denylist)?;
@@ -5775,9 +5858,9 @@ impl serde::ser::Serialize for super::CreateServingConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -5803,9 +5886,9 @@ impl serde::ser::Serialize for super::UpdateServingConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.serving_config.is_some() {
             state.serialize_entry("servingConfig", &self.serving_config)?;
@@ -5828,9 +5911,9 @@ impl serde::ser::Serialize for super::DeleteServingConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -5850,9 +5933,9 @@ impl serde::ser::Serialize for super::GetServingConfigRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
@@ -5872,9 +5955,9 @@ impl serde::ser::Serialize for super::ListServingConfigsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -5909,9 +5992,9 @@ impl serde::ser::Serialize for super::ListServingConfigsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.serving_configs.is_empty() {
             state.serialize_entry("servingConfigs", &self.serving_configs)?;
@@ -5934,9 +6017,9 @@ impl serde::ser::Serialize for super::AddControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.serving_config.is_empty() {
             state.serialize_entry("servingConfig", &self.serving_config)?;
@@ -5959,9 +6042,9 @@ impl serde::ser::Serialize for super::RemoveControlRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.serving_config.is_empty() {
             state.serialize_entry("servingConfig", &self.serving_config)?;
@@ -5984,9 +6067,9 @@ impl serde::ser::Serialize for super::UserEvent {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.event_type.is_empty() {
             state.serialize_entry("eventType", &self.event_type)?;
@@ -6075,9 +6158,9 @@ impl serde::ser::Serialize for super::ProductDetail {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.product.is_some() {
             state.serialize_entry("product", &self.product)?;
@@ -6089,7 +6172,9 @@ impl serde::ser::Serialize for super::ProductDetail {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::< std::option::Option<wkt::internal::I32> >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("quantity", &__With(&self.quantity))?;
@@ -6109,12 +6194,15 @@ impl serde::ser::Serialize for super::CompletionDetail {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.completion_attribution_token.is_empty() {
-            state.serialize_entry("completionAttributionToken", &self.completion_attribution_token)?;
+            state.serialize_entry(
+                "completionAttributionToken",
+                &self.completion_attribution_token,
+            )?;
         }
         if !self.selected_suggestion.is_empty() {
             state.serialize_entry("selectedSuggestion", &self.selected_suggestion)?;
@@ -6146,9 +6234,9 @@ impl serde::ser::Serialize for super::PurchaseTransaction {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
@@ -6207,9 +6295,9 @@ impl serde::ser::Serialize for super::WriteUserEventRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -6235,9 +6323,9 @@ impl serde::ser::Serialize for super::CollectUserEventRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.prebuilt_rule() {
             state.serialize_entry("prebuiltRule", value)?;
@@ -6281,9 +6369,9 @@ impl serde::ser::Serialize for super::RejoinUserEventsRequest {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
@@ -6306,9 +6394,9 @@ impl serde::ser::Serialize for super::RejoinUserEventsResponse {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.rejoined_user_events_count) {
             struct __With<'a>(&'a i64);
@@ -6320,7 +6408,10 @@ impl serde::ser::Serialize for super::RejoinUserEventsResponse {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("rejoinedUserEventsCount", &__With(&self.rejoined_user_events_count))?;
+            state.serialize_entry(
+                "rejoinedUserEventsCount",
+                &__With(&self.rejoined_user_events_count),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6337,9 +6428,9 @@ impl serde::ser::Serialize for super::RejoinUserEventsMetadata {
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

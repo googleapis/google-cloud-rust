@@ -39,7 +39,10 @@ pub mod image_annotator {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ImageAnnotator;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod image_annotator {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -85,14 +92,17 @@ pub mod image_annotator {
     pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
 
     impl BatchAnnotateImages {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchAnnotateImagesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchAnnotateImagesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -105,7 +115,10 @@ pub mod image_annotator {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchAnnotateImagesResponse> {
-            (*self.0.stub).batch_annotate_images(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_annotate_images(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
@@ -114,7 +127,7 @@ pub mod image_annotator {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateImageRequest>
+            V: std::convert::Into<crate::model::AnnotateImageRequest>,
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -167,14 +180,17 @@ pub mod image_annotator {
     pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
 
     impl BatchAnnotateFiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchAnnotateFilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchAnnotateFilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -187,7 +203,10 @@ pub mod image_annotator {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchAnnotateFilesResponse> {
-            (*self.0.stub).batch_annotate_files(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .batch_annotate_files(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
@@ -196,7 +215,7 @@ pub mod image_annotator {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateFileRequest>
+            V: std::convert::Into<crate::model::AnnotateFileRequest>,
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -247,17 +266,22 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AsyncBatchAnnotateImages(RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>);
+    pub struct AsyncBatchAnnotateImages(
+        RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>,
+    );
 
     impl AsyncBatchAnnotateImages {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AsyncBatchAnnotateImagesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AsyncBatchAnnotateImagesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -275,16 +299,23 @@ pub mod image_annotator {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [async_batch_annotate_images][crate::client::ImageAnnotator::async_batch_annotate_images].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).async_batch_annotate_images(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .async_batch_annotate_images(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_images`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::AsyncBatchAnnotateImagesResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::AsyncBatchAnnotateImagesResponse, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::AsyncBatchAnnotateImagesResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::AsyncBatchAnnotateImagesResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -318,7 +349,7 @@ pub mod image_annotator {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateImageRequest>
+            V: std::convert::Into<crate::model::AnnotateImageRequest>,
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -329,7 +360,8 @@ pub mod image_annotator {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::OutputConfig>
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -339,7 +371,8 @@ pub mod image_annotator {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::OutputConfig>
+        where
+            T: std::convert::Into<crate::model::OutputConfig>,
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -389,17 +422,22 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AsyncBatchAnnotateFiles(RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>);
+    pub struct AsyncBatchAnnotateFiles(
+        RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>,
+    );
 
     impl AsyncBatchAnnotateFiles {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AsyncBatchAnnotateFilesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AsyncBatchAnnotateFilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -417,16 +455,23 @@ pub mod image_annotator {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [async_batch_annotate_files][crate::client::ImageAnnotator::async_batch_annotate_files].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).async_batch_annotate_files(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .async_batch_annotate_files(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_files`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::AsyncBatchAnnotateFilesResponse, crate::model::OperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::AsyncBatchAnnotateFilesResponse, crate::model::OperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::AsyncBatchAnnotateFilesResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::AsyncBatchAnnotateFilesResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -460,7 +505,7 @@ pub mod image_annotator {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AsyncAnnotateFileRequest>
+            V: std::convert::Into<crate::model::AsyncAnnotateFileRequest>,
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -513,14 +558,17 @@ pub mod image_annotator {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -533,7 +581,10 @@ pub mod image_annotator {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -549,7 +600,6 @@ pub mod image_annotator {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod product_search {
@@ -577,7 +627,10 @@ pub mod product_search {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ProductSearch;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -592,8 +645,12 @@ pub mod product_search {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -623,14 +680,17 @@ pub mod product_search {
     pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
 
     impl CreateProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -643,7 +703,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProductSet> {
-            (*self.0.stub).create_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
@@ -658,7 +721,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_product_set<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ProductSet>
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
         {
             self.0.request.product_set = std::option::Option::Some(v.into());
             self
@@ -668,7 +732,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ProductSet>
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
         {
             self.0.request.product_set = v.map(|x| x.into());
             self
@@ -713,10 +778,10 @@ pub mod product_search {
     pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
 
     impl ListProductSets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -733,11 +798,17 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProductSetsResponse> {
-            (*self.0.stub).list_product_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_product_sets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProductSetsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListProductSetsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -749,7 +820,10 @@ pub mod product_search {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProductSetsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProductSetsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -803,10 +877,10 @@ pub mod product_search {
     pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
 
     impl GetProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -823,7 +897,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProductSet> {
-            (*self.0.stub).get_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductSetRequest::name].
@@ -863,14 +940,17 @@ pub mod product_search {
     pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
 
     impl UpdateProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -883,14 +963,18 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProductSet> {
-            (*self.0.stub).update_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
         ///
         /// This is a **required** field for requests.
         pub fn set_product_set<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ProductSet>
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
         {
             self.0.request.product_set = std::option::Option::Some(v.into());
             self
@@ -900,7 +984,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_product_set<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ProductSet>
+        where
+            T: std::convert::Into<crate::model::ProductSet>,
         {
             self.0.request.product_set = v.map(|x| x.into());
             self
@@ -908,7 +993,8 @@ pub mod product_search {
 
         /// Sets the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -916,7 +1002,8 @@ pub mod product_search {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateProductSetRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -951,14 +1038,17 @@ pub mod product_search {
     pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
 
     impl DeleteProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -971,7 +1061,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
@@ -1011,10 +1104,10 @@ pub mod product_search {
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
     impl CreateProduct {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1031,7 +1124,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Product> {
-            (*self.0.stub).create_product(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_product(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
@@ -1046,7 +1142,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_product<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Product>
+        where
+            T: std::convert::Into<crate::model::Product>,
         {
             self.0.request.product = std::option::Option::Some(v.into());
             self
@@ -1056,7 +1153,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Product>
+        where
+            T: std::convert::Into<crate::model::Product>,
         {
             self.0.request.product = v.map(|x| x.into());
             self
@@ -1101,10 +1199,10 @@ pub mod product_search {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1121,11 +1219,17 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProductsResponse> {
-            (*self.0.stub).list_products(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_products(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1137,7 +1241,10 @@ pub mod product_search {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProductsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProductsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1191,10 +1298,10 @@ pub mod product_search {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1211,7 +1318,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Product> {
-            (*self.0.stub).get_product(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_product(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
@@ -1251,10 +1361,10 @@ pub mod product_search {
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
     impl UpdateProduct {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1271,14 +1381,18 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Product> {
-            (*self.0.stub).update_product(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_product(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
         ///
         /// This is a **required** field for requests.
         pub fn set_product<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Product>
+        where
+            T: std::convert::Into<crate::model::Product>,
         {
             self.0.request.product = std::option::Option::Some(v.into());
             self
@@ -1288,7 +1402,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Product>
+        where
+            T: std::convert::Into<crate::model::Product>,
         {
             self.0.request.product = v.map(|x| x.into());
             self
@@ -1296,7 +1411,8 @@ pub mod product_search {
 
         /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1304,7 +1420,8 @@ pub mod product_search {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1339,10 +1456,10 @@ pub mod product_search {
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
     impl DeleteProduct {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1359,7 +1476,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_product(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_product(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteProductRequest::name].
@@ -1399,14 +1519,17 @@ pub mod product_search {
     pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
 
     impl CreateReferenceImage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateReferenceImageRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateReferenceImageRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1419,7 +1542,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReferenceImage> {
-            (*self.0.stub).create_reference_image(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_reference_image(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
@@ -1434,7 +1560,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_reference_image<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ReferenceImage>
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
         {
             self.0.request.reference_image = std::option::Option::Some(v.into());
             self
@@ -1444,7 +1571,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_reference_image<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ReferenceImage>
+        where
+            T: std::convert::Into<crate::model::ReferenceImage>,
         {
             self.0.request.reference_image = v.map(|x| x.into());
             self
@@ -1485,14 +1613,17 @@ pub mod product_search {
     pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
 
     impl DeleteReferenceImage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteReferenceImageRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteReferenceImageRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1505,7 +1636,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_reference_image(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_reference_image(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
@@ -1549,14 +1683,17 @@ pub mod product_search {
     pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
 
     impl ListReferenceImages {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListReferenceImagesRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListReferenceImagesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1569,11 +1706,17 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListReferenceImagesResponse> {
-            (*self.0.stub).list_reference_images(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_reference_images(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListReferenceImagesResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListReferenceImagesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1585,7 +1728,12 @@ pub mod product_search {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListReferenceImagesResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReferenceImagesResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1639,14 +1787,17 @@ pub mod product_search {
     pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
 
     impl GetReferenceImage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetReferenceImageRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetReferenceImageRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1659,7 +1810,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReferenceImage> {
-            (*self.0.stub).get_reference_image(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_reference_image(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
@@ -1699,14 +1853,17 @@ pub mod product_search {
     pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
 
     impl AddProductToProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AddProductToProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::AddProductToProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1719,7 +1876,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).add_product_to_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .add_product_to_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
@@ -1764,17 +1924,22 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveProductFromProductSet(RequestBuilder<crate::model::RemoveProductFromProductSetRequest>);
+    pub struct RemoveProductFromProductSet(
+        RequestBuilder<crate::model::RemoveProductFromProductSetRequest>,
+    );
 
     impl RemoveProductFromProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RemoveProductFromProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::RemoveProductFromProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1787,7 +1952,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).remove_product_from_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .remove_product_from_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
@@ -1836,17 +2004,22 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProductsInProductSet(RequestBuilder<crate::model::ListProductsInProductSetRequest>);
+    pub struct ListProductsInProductSet(
+        RequestBuilder<crate::model::ListProductsInProductSetRequest>,
+    );
 
     impl ListProductsInProductSet {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProductsInProductSetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProductsInProductSetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1859,11 +2032,19 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProductsInProductSetResponse> {
-            (*self.0.stub).list_products_in_product_set(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_products_in_product_set(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProductsInProductSetResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListProductsInProductSetResponse,
+            gax::error::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1875,7 +2056,12 @@ pub mod product_search {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProductsInProductSetResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProductsInProductSetResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1930,14 +2116,17 @@ pub mod product_search {
     pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
 
     impl ImportProductSets {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportProductSetsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportProductSetsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1955,16 +2144,23 @@ pub mod product_search {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [import_product_sets][crate::client::ProductSearch::import_product_sets].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).import_product_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import_product_sets(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_product_sets`.
         pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<crate::model::ImportProductSetsResponse, crate::model::BatchOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<crate::model::ImportProductSetsResponse, crate::model::BatchOperationMetadata>;
+            self,
+        ) -> impl lro::Poller<
+            crate::model::ImportProductSetsResponse,
+            crate::model::BatchOperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::ImportProductSetsResponse,
+                crate::model::BatchOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2004,7 +2200,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_input_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ImportProductSetsInputConfig>
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
         {
             self.0.request.input_config = std::option::Option::Some(v.into());
             self
@@ -2014,7 +2211,8 @@ pub mod product_search {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ImportProductSetsInputConfig>
+        where
+            T: std::convert::Into<crate::model::ImportProductSetsInputConfig>,
         {
             self.0.request.input_config = v.map(|x| x.into());
             self
@@ -2050,10 +2248,10 @@ pub mod product_search {
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
     impl PurgeProducts {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2075,16 +2273,16 @@ pub mod product_search {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [purge_products][crate::client::ProductSearch::purge_products].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).purge_products(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .purge_products(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
-        pub fn poller(
-            self
-        ) ->
-            impl lro::Poller<(), crate::model::BatchOperationMetadata>
-        {
-            type Operation = lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchOperationMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2109,7 +2307,12 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
@@ -2130,7 +2333,10 @@ pub mod product_search {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_target<T: Into<Option<crate::model::purge_products_request::Target>>>(mut self, v: T) ->Self {
+        pub fn set_target<T: Into<Option<crate::model::purge_products_request::Target>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.target = v.into();
             self
         }
@@ -2140,7 +2346,12 @@ pub mod product_search {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_product_set_purge_config<T: std::convert::Into<std::boxed::Box<crate::model::ProductSetPurgeConfig>>>(mut self, v: T) -> Self {
+        pub fn set_product_set_purge_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::ProductSetPurgeConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_product_set_purge_config(v);
             self
         }
@@ -2184,14 +2395,17 @@ pub mod product_search {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2204,7 +2418,10 @@ pub mod product_search {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2220,5 +2437,4 @@ pub mod product_search {
             &mut self.0.options
         }
     }
-
 }

@@ -434,7 +434,8 @@ impl<T: super::VpcFlowLogsService> VpcFlowLogsService for T {
         &self,
         req: crate::model::QueryOrgVpcFlowLogsConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>>
+    {
         T::query_org_vpc_flow_logs_configs(self, req, options).await
     }
 
@@ -443,7 +444,8 @@ impl<T: super::VpcFlowLogsService> VpcFlowLogsService for T {
         &self,
         req: crate::model::ShowEffectiveFlowLogsConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>>
+    {
         T::show_effective_flow_logs_configs(self, req, options).await
     }
 

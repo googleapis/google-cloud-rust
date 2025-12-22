@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [BinauthzManagementServiceV1](super::stub::BinauthzManagementServiceV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BinauthzManagementServiceV1<T>
-where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> BinauthzManagementServiceV1<T>
-where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1<T>
-where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_policy(
         &self,
@@ -93,25 +99,30 @@ where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Syn
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_attestor(req, options).await
     }
-
 }
 
 /// Implements a [SystemPolicyV1](super::stub::SystemPolicyV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SystemPolicyV1<T>
-where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SystemPolicyV1<T>
-where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SystemPolicyV1 for SystemPolicyV1<T>
-where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_system_policy(
         &self,
@@ -120,33 +131,38 @@ where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_system_policy(req, options).await
     }
-
 }
 
 /// Implements a [ValidationHelperV1](super::stub::ValidationHelperV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ValidationHelperV1<T>
-where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> ValidationHelperV1<T>
-where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ValidationHelperV1 for ValidationHelperV1<T>
-where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
-        self.inner.validate_attestation_occurrence(req, options).await
+        self.inner
+            .validate_attestation_occurrence(req, options)
+            .await
     }
-
 }
-
