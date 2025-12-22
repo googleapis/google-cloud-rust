@@ -161,11 +161,12 @@ impl Iam {
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// async fn sample(
-    ///    client: &Iam
+    ///    client: &Iam,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_service_account()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -274,11 +275,12 @@ impl Iam {
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// async fn sample(
-    ///    client: &Iam
+    ///    client: &Iam,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     client
     ///         .delete_service_account()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     Ok(())
@@ -418,11 +420,12 @@ impl Iam {
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// async fn sample(
-    ///    client: &Iam
+    ///    client: &Iam,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_service_account_key()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -493,11 +496,12 @@ impl Iam {
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// async fn sample(
-    ///    client: &Iam
+    ///    client: &Iam,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     client
     ///         .delete_service_account_key()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     Ok(())

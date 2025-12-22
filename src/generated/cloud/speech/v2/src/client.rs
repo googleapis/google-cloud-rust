@@ -151,11 +151,12 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_recognizer()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -264,11 +265,12 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_config()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -333,11 +335,12 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_custom_class()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -430,11 +433,12 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_phrase_set()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
