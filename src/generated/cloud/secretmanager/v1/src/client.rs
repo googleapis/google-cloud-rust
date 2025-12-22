@@ -244,11 +244,12 @@ impl SecretManagerService {
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// async fn sample(
-    ///    client: &SecretManagerService
+    ///    client: &SecretManagerService,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     client
     ///         .delete_secret()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     Ok(())
